@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Agent 101 — 軟工流程 × Agent</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<main class="deck">
+  <header class="topbar">
+    <div class="brand">AGENT 101</div>
+    <div class="rail">
+      <span data-rail="s1">01 人類流程</span>
+      <span data-rail="s2">02 工作拆解</span>
+      <span data-rail="s3">03 Git / PR / Release</span>
+      <span data-rail="s4">04 Agent 接手</span>
+    </div>
+    <div class="counter"><span id="current">1</span> / <span id="total">30</span></div>
+  </header>
+
+  <div class="slides">
+    <section class="slide title-slide" data-section="s1">
+      <div class="eyebrow">90 分鐘工作坊</div>
+      <h1>Agent 教學，<br><span class="accent">其實是軟工流程教學</span></h1>
+      <p class="lead">從需求、Issue、PR 到 Release 後 QA：先學流程，再把可驗收任務交給 Agent。</p>
+      <div class="quote">主軸只有一件事：<strong>一張工作卡，如何安全走完整條線。</strong></div>
+    </section>
+
+    <section class="slide" data-section="s1">
+      <div class="eyebrow">課程定位</div>
+      <h2>不要先問「Agent 怎麼變強」；<br><span class="accent">先問流程怎麼不失控</span></h2>
+      <div class="grid3">
+        <div class="card"><b>常見誤解</b><p>「你幫我把網站做好。」結果 scope creep、fake done、自己做自己審。</p></div>
+        <div class="card fragment"><b>課程做法</b><p>把工作拆成 issue：有 AC、有 scope、有 evidence、有人 review。</p></div>
+        <div class="card fragment"><b>核心句</b><p>Agent 不取代流程；Agent 需要流程。流程越清楚，越能委派。</p></div>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s1">
+      <div class="eyebrow">課程地圖</div>
+      <h2>4 個問題，串成一條完整工作流</h2>
+      <div class="section-map">
+        <div class="card"><span>01</span><b>一個需求，怎麼變成軟體？</b><small>先建立流程地圖與角色語言。</small></div>
+        <div class="card fragment"><span>02</span><b>怎麼把需求寫成可以開工的工作？</b><small>Issue-first；Project / Story 都是選用。</small></div>
+        <div class="card fragment"><span>03</span><b>一張 Issue，怎麼安全走到上線？</b><small>Git、PR、QA、Review、Release。</small></div>
+        <div class="card fragment"><span>04</span><b>哪些工作可以交給 Agent？</b><small>同一條流程，角色換成 Agent。</small></div>
+      </div>
+      <div class="bottom-callout">需求 → Issue + AC → WIP=1 → Branch → PR → Verify → Review → Merge → Release → Post-release QA → Done</div>
+    </section>
+
+    <section class="slide section-slide" data-section="s1">
+      <div class="section-no">01</div>
+      <div class="eyebrow">人類軟體開發流程</div>
+      <h1>一個需求，<br>怎麼變成軟體？</h1>
+      <p class="lead">先不要談 Agent。先看懂需求、工作卡、PR、QA 在整條線上的位置。</p>
+    </section>
+
+    <section class="slide" data-section="s1">
+      <div class="eyebrow">生活譬喻</div>
+      <h2>把軟體專案想成「辦一場讀書會」</h2>
+      <div class="grid4">
+        <div class="card"><b>1｜需求</b><p>想辦讀書會，但時間、人數、場地還不清楚。</p></div>
+        <div class="card fragment"><b>2｜工作卡</b><p>訂場地、做報名表、寄通知、確認名單。</p></div>
+        <div class="card fragment"><b>3｜證據</b><p>訂位截圖、報名名單、通知寄送紀錄。</p></div>
+        <div class="card fragment"><b>4｜交付後確認</b><p>活動當天確認場地可用、名單正確、通知沒漏。</p></div>
+      </div>
+      <div class="bottom-callout">工作卡 = Issue｜完成條件 = AC｜證據 = Evidence｜上線後確認 = Post-release QA</div>
+    </section>
+
+    <section class="slide" data-section="s1">
+      <div class="eyebrow">流程全貌</div>
+      <h2>一個需求到上線，會走同一條線</h2>
+      <div class="flow pipeline">
+        <div class="node"><b>需求</b><small>想解決什麼</small></div><div class="arrow">→</div>
+        <div class="node"><b>Issue</b><small>工作卡 + AC</small></div><div class="arrow">→</div>
+        <div class="node"><b>Branch</b><small>開分支</small></div><div class="arrow">→</div>
+        <div class="node"><b>PR</b><small>提出變更</small></div><div class="arrow">→</div>
+        <div class="node"><b>Verify</b><small>測試證據</small></div><div class="arrow">→</div>
+        <div class="node"><b>Review</b><small>獨立審查</small></div><div class="arrow">→</div>
+        <div class="node"><b>Merge</b><small>合併</small></div><div class="arrow">→</div>
+        <div class="node"><b>Release</b><small>上線</small></div><div class="arrow">→</div>
+        <div class="node"><b>Post-QA</b><small>真實環境</small></div><div class="arrow">→</div>
+        <div class="node"><b>Done</b><small>關卡</small></div>
+      </div>
+      <div class="bottom-callout">先問清楚 → 再做小步 → 最後看證據。</div>
+    </section>
+
+    <section class="slide" data-section="s1">
+      <div class="eyebrow">角色地圖</div>
+      <h2>同一個需求，會被不同角色用不同角度看</h2>
+      <div class="grid3">
+        <div class="card"><b>PO</b><p>定義為什麼做｜價值與驗收標準</p></div>
+        <div class="card"><b>PM / Scrum</b><p>控流程與節奏｜排優先、移阻礙</p></div>
+        <div class="card"><b>Dev</b><p>實作變更｜code / 文件 / migration</p></div>
+        <div class="card fragment"><b>QA</b><p>驗證行為｜測試、截圖、找 bug</p></div>
+        <div class="card fragment"><b>Reviewer</b><p>守品質｜審 diff、架構、風險</p></div>
+        <div class="card fragment"><b>Ops</b><p>管上線｜部署、監控、回滾</p></div>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s1">
+      <div class="eyebrow">小白詞彙表</div>
+      <h2>Ticket、Issue、PR、Release 到底是什麼？</h2>
+      <div class="grid5">
+        <div class="card"><b>Ticket</b><small>一張工作申請單。</small></div>
+        <div class="card"><b>Issue</b><small>一張可追蹤工作卡。</small></div>
+        <div class="card"><b>PR</b><small>「請大家看我的變更。」</small></div>
+        <div class="card"><b>Release</b><small>把核准變更交到使用者手上。</small></div>
+        <div class="card"><b>Post-release QA</b><small>上線後再確認一次。</small></div>
+      </div>
+      <div class="bottom-callout">很多公司會混用 Ticket / Issue；這堂課先統一：<strong>Issue = 要被推進的一張工作卡。</strong></div>
+    </section>
+
+    <section class="slide section-slide" data-section="s2">
+      <div class="section-no">02</div>
+      <div class="eyebrow">工作拆解</div>
+      <h1>怎麼把需求寫成<br>可以開工的工作？</h1>
+      <p class="lead">不要先背 Epic / Story / Task。先會把模糊需求變成一張有邊界、可驗收的 Issue。</p>
+    </section>
+
+    <section class="slide" data-section="s2">
+      <div class="eyebrow">Lead by example</div>
+      <h2>從一個模糊需求開始：活動報名頁</h2>
+      <div class="example-chip">RUNNING EXAMPLE · 活動報名頁</div>
+      <div class="quote">「我們下個月要辦讀書會，想要一個報名頁，大家可以填資料，也能收到確認訊息。」</div>
+      <div class="grid4" style="margin-top:20px">
+        <div class="card"><b>使用者</b><small>主辦人、參加者</small></div>
+        <div class="card"><b>價值</b><small>少用訊息來回確認</small></div>
+        <div class="card"><b>風險</b><small>漏填、重複報名、通知失敗</small></div>
+        <div class="card"><b>限制</b><small>先支援手機，不做付款</small></div>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s2">
+      <div class="eyebrow">拆解原則</div>
+      <h2>大到一張卡講不清楚，再往上分組</h2>
+      <div class="grid4">
+        <div class="card"><b>Project / Epic</b><p>大目標分組。用來追蹤一包工作；不是每次都需要。</p></div>
+        <div class="card"><b>Issue</b><p>真正開工單位。一張 issue 對一個 branch / PR / evidence。</p></div>
+        <div class="card"><b>Checklist</b><p>Issue 內的小步。太小不值得獨立驗收，就不要拆出去。</p></div>
+        <div class="card"><b>Story</b><p>選修寫法。需要講 user value 時再用。</p></div>
+      </div>
+      <div class="bottom-callout">大需求用 Project 分組；真正開工看 Issue；Issue 太小就變 Checklist；Story 可用但不是必經關卡。</div>
+    </section>
+
+    <section class="slide" data-section="s2">
+      <div class="eyebrow">同一案例</div>
+      <h2>活動報名頁要不要拆 Project / Issue？</h2>
+      <div class="example-chip">RUNNING EXAMPLE · Project / Epic：活動報名頁</div>
+      <div class="grid3">
+        <div class="card"><b>Issue #12</b><p>手機版報名表單</p><small>本堂課主角：可獨立 PR、可驗收</small></div>
+        <div class="card fragment"><b>Issue #13</b><p>主辦人名單頁</p><small>另一張工作卡，不跟 #12 混做</small></div>
+        <div class="card fragment"><b>Issue #14</b><p>確認信通知</p><small>另一張工作卡，可獨立測試</small></div>
+      </div>
+      <div class="bottom-callout">#12 裡的 390px layout、必填驗證、重複 email、成功提示，放在 Checklist。</div>
+    </section>
+
+    <section class="slide" data-section="s2">
+      <div class="eyebrow">Story optional</div>
+      <h2>Story 不是階級，是一種寫需求的方法</h2>
+      <div class="grid2">
+        <div class="card"><b>User Story 寫法</b><p>作為參加者，我想用手機完成讀書會報名，讓我不用私訊主辦人來回確認。</p></div>
+        <div class="card"><b>Plain Issue 寫法</b><p>修正手機版報名表單：390px 寬度下可填資料、送出，並顯示成功或重複 email 提醒。</p></div>
+      </div>
+      <div class="bottom-callout">需要說明「誰得到什麼價值」→ Story。Bug / UI / 文案 / infra / CI → 直接 Issue。</div>
+    </section>
+
+    <section class="slide" data-section="s2">
+      <div class="eyebrow">Issue template</div>
+      <h2>一張好 Issue，比一段聰明 prompt 更重要</h2>
+      <div class="grid4">
+        <div class="card"><b>Problem</b><small>哪裡不對？誰受影響？</small></div>
+        <div class="card"><b>Goal</b><small>完成後改善什麼？</small></div>
+        <div class="card"><b>Scope</b><small>這次做 / 不做哪些事？</small></div>
+        <div class="card"><b>Acceptance Criteria</b><small>怎樣算完成，最好可測。</small></div>
+        <div class="card fragment"><b>Context</b><small>相關檔案、設計、前置決策。</small></div>
+        <div class="card fragment"><b>Constraints</b><small>風格、效能、相容性、風險。</small></div>
+        <div class="card fragment"><b>Evidence</b><small>截圖、測試、log、PR diff。</small></div>
+        <div class="card fragment"><b>Stop rule</b><small>遇到什麼要停下來問人？</small></div>
+      </div>
+      <div class="bottom-callout"><strong>沒有 AC，不開工；沒有 Evidence，不算 Done。</strong></div>
+    </section>
+
+    <section class="slide" data-section="s2">
+      <div class="eyebrow">範例卡</div>
+      <h2>Issue #12：手機版報名表單送出與驗證</h2>
+      <div class="ticket">
+        <div class="ticket-head">#12 · 手機版報名表單送出與驗證</div>
+        <div class="ticket-body">
+          <div><b>問題 / 目標</b><p>手機報名不順；390px 可完成送出。</p></div>
+          <div><b>非目標</b><p>付款、會員登入。</p></div>
+          <div><b>Acceptance Criteria</b><p>1. 390px 不水平捲動<br>2. 姓名 / email 必填<br>3. 成功後有提示<br>4. 重複 email 會提醒</p></div>
+          <div><b>Evidence</b><p>mobile screenshot、表單驗證測試結果、變更檔案清單、reviewer 對照 AC 結論。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide section-slide" data-section="s3">
+      <div class="section-no">03</div>
+      <div class="eyebrow">Git / PR / Release</div>
+      <h1>一張 Issue，<br>怎麼安全走到上線？</h1>
+      <p class="lead">Git / PR / QA / Review 不是儀式，而是把修改隔離、檢查、驗證，再送到真實使用者手上。</p>
+    </section>
+
+    <section class="slide" data-section="s3">
+      <div class="eyebrow">Kanban / WIP</div>
+      <h2>一張 Issue 從左走到右；初學先 WIP = 1</h2>
+      <div class="kanban">
+        <div class="col"><h4>Backlog</h4><div class="work-card">Issue #13</div><div class="work-card">Issue #14</div></div>
+        <div class="col"><h4>Ready</h4><div class="work-card">AC 已清楚</div></div>
+        <div class="col"><h4>Build</h4><div class="work-card active-card">Issue #12<br><small>WIP = 1</small></div></div>
+        <div class="col"><h4>Verify</h4><div class="work-card muted">下一站</div></div>
+        <div class="col"><h4>Review</h4><div class="work-card muted">獨立審查</div></div>
+        <div class="col"><h4>Done</h4><div class="work-card muted">最後關卡</div></div>
+      </div>
+      <div class="bottom-callout">先把一張卡完整走完，再開下一張卡。卡在 Build，就不要再拿新的。</div>
+    </section>
+
+    <section class="slide" data-section="s3">
+      <div class="eyebrow">Git basics</div>
+      <h2>Git 只先懂 4 個字：Repo、Branch、Commit、Push</h2>
+      <div class="grid4">
+        <div class="card"><b>Repo</b><p>共同資料夾。專案主要倉庫。</p></div>
+        <div class="card"><b>Branch</b><p>草稿分身。為 #12 開分支。</p></div>
+        <div class="card"><b>Commit</b><p>存檔點。記錄一次有意義修改。</p></div>
+        <div class="card"><b>Push</b><p>上傳草稿。PR 才看得到更新。</p></div>
+      </div>
+      <div class="bottom-callout">最小 Git 流程：開 branch → 修改 → commit → push → 開 PR。</div>
+    </section>
+
+    <section class="slide" data-section="s3">
+      <div class="eyebrow">Issue → PR</div>
+      <h2>Issue #12 對一個 branch，最後變成一個 PR</h2>
+      <div class="example-chip">RUNNING EXAMPLE · #12 手機版報名表單</div>
+      <div class="flow">
+        <div class="node"><b>Issue #12</b><small>AC / Scope / Evidence</small></div><div class="arrow">→</div>
+        <div class="node"><b>Branch</b><small>feature/mobile-signup</small></div><div class="arrow">→</div>
+        <div class="node"><b>Commit</b><small>fix mobile signup validation</small></div><div class="arrow">→</div>
+        <div class="node"><b>Push</b><small>上傳分支</small></div><div class="arrow">→</div>
+        <div class="node"><b>PR #34</b><small>連回 issue #12</small></div>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s3">
+      <div class="eyebrow">PR 範例</div>
+      <h2>PR #34：完成手機版報名表單</h2>
+      <div class="pr">
+        <div class="pr-card">
+          <div class="pr-row"><b>Linked issue</b><span>#12 手機版報名表單</span></div>
+          <div class="pr-row"><b>Changed</b><span>手機 layout / required validation / duplicate email error</span></div>
+          <div class="pr-row"><b>Test / Evidence</b><span>390px Chrome / Safari、mobile screenshot、smoke test</span></div>
+          <div class="pr-row"><b>AC 1–3</b><span class="pass">通過 ✅</span></div>
+          <div class="pr-row"><b>AC 4</b><span class="fail">重複 email 沒提醒 ❌</span></div>
+        </div>
+        <div class="decision">
+          <h3>Reviewer 結論</h3>
+          <div class="result request">Request Changes</div>
+          <p class="muted">Dev 修正後繼續 push 到同一 branch，PR 自動更新，不用重開。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s3">
+      <div class="eyebrow">Code Review</div>
+      <h2>Comment、Approve、Request Changes：意思完全不同</h2>
+      <div class="grid3">
+        <div class="card"><b>Comment</b><p>留下意見或提問，不一定阻擋合併。</p></div>
+        <div class="card"><b>Approve</b><p>符合 AC、證據足夠，可以進入 merge / release。</p></div>
+        <div class="card"><b>Request Changes</b><p>有 bug、缺 evidence、scope creep 或風險，需修完再看。</p></div>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s3">
+      <div class="eyebrow">關卡分離</div>
+      <h2>QA、Review、Merge、Release 是不同關卡</h2>
+      <div class="grid4">
+        <div class="card"><b>Verify / QA</b><p>對照 AC 跑測試，產出截圖、log、測試結果。</p></div>
+        <div class="card"><b>Review</b><p>看 diff 與設計風險，找 scope creep、缺測試、缺證據。</p></div>
+        <div class="card"><b>Merge</b><p>把核准的分支併回主線。</p></div>
+        <div class="card"><b>Release</b><p>把主線變更交給使用者。</p></div>
+      </div>
+      <div class="bottom-callout">Done 不是自己說了算。缺一關，就只是「接近完成」。</div>
+    </section>
+
+    <section class="slide" data-section="s3">
+      <div class="eyebrow">Post-release QA</div>
+      <h2>Release 後不是結束：要確認真的在真實環境可用</h2>
+      <div class="grid4">
+        <div class="card"><b>Smoke test</b><p>手機打開、填表、送出、看到成功訊息。</p></div>
+        <div class="card"><b>Monitoring</b><p>看錯誤、速度、流量、通知是否異常。</p></div>
+        <div class="card"><b>Feedback</b><p>收第一批問題，決定熱修或排下一張 issue。</p></div>
+        <div class="card"><b>Rollback plan</b><p>嚴重失敗時知道如何回上一版。</p></div>
+      </div>
+      <div class="bottom-callout">Post-release QA 不是 retro。它是上線後確認功能真的能用。</div>
+    </section>
+
+    <section class="slide section-slide" data-section="s4">
+      <div class="section-no">04</div>
+      <div class="eyebrow">Agent 接手</div>
+      <h1>哪些工作，<br>可以交給 Agent？</h1>
+      <p class="lead">現在才談 Agent：不是換一套魔法，而是把剛才的人類工作流交給不同 Agent 產出工件與證據。</p>
+    </section>
+
+    <section class="slide" data-section="s4">
+      <div class="eyebrow">Agent 流派的本質</div>
+      <h2>BMAD / LongHorizon 這類方法，本質都在補「流程缺口」</h2>
+      <div class="grid4">
+        <div class="card"><b>Task state 外化</b><p>任務狀態、AC、證據不要只存在聊天裡。</p></div>
+        <div class="card"><b>Bounded execution</b><p>每次只做有邊界的一小段，避免 scope creep。</p></div>
+        <div class="card"><b>Independent audit</b><p>做事與檢查分開，避免 one-agent bias。</p></div>
+        <div class="card"><b>Goal re-anchoring</b><p>每輪回到原始目標與 AC，避免越做越偏。</p></div>
+      </div>
+      <div class="bottom-callout">不用先背框架名詞。先看它們到底在解哪一個軟工問題。</div>
+    </section>
+
+    <section class="slide" data-section="s4">
+      <div class="eyebrow">角色轉 Agent</div>
+      <h2>Agent 能取代的是「可驗收任務」，不是責任本身</h2>
+      <div class="role-table">
+        <div class="head"><b>Agent 角色</b><b>適合承接</b><b>仍需人類負責</b></div>
+        <div><span>PO Agent</span><span>整理 issue、AC、非目標、風險</span><span>價值判斷與優先順序</span></div>
+        <div><span>PM / Scrum Agent</span><span>整理看板、找卡住、提醒缺證據</span><span>排程承諾與取捨</span></div>
+        <div><span>Dev Agent</span><span>依 issue 實作、重構、補文件</span><span>高風險架構決策</span></div>
+        <div><span>QA Agent</span><span>產生測試、跑 smoke、收 evidence</span><span>接受風險</span></div>
+        <div><span>Review Agent</span><span>對照 AC 審 diff、找 scope creep</span><span>最終合併與發布授權</span></div>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s4">
+      <div class="eyebrow">Agent workflow</div>
+      <h2>同一張 Kanban，只是角色換成 Agent</h2>
+      <div class="flow">
+        <div class="node"><b>Ready</b><small>PO Agent 補 AC</small></div><div class="arrow">→</div>
+        <div class="node"><b>Build</b><small>Dev Agent 改小步</small></div><div class="arrow">→</div>
+        <div class="node"><b>Verify</b><small>QA Agent 跑測試</small></div><div class="arrow">→</div>
+        <div class="node"><b>Review</b><small>Review Agent 查缺口</small></div><div class="arrow">→</div>
+        <div class="node"><b>Release</b><small>Human / Ops 核准</small></div><div class="arrow">→</div>
+        <div class="node"><b>Post-QA</b><small>QA Agent 查 prod</small></div>
+      </div>
+      <div class="bottom-callout">每一段都要有輸入 / 輸出，也都要有 stop rule。</div>
+    </section>
+
+    <section class="slide" data-section="s4">
+      <div class="eyebrow">Workshop</div>
+      <h2>同一個需求，分三輪交給 Agent</h2>
+      <div class="workshop-steps">
+        <div class="card"><b>Round 1｜PO Agent</b><p>輸入：模糊需求</p><p>輸出：是否需要 Project / Issue / AC / 非目標</p></div>
+        <div class="card fragment"><b>Round 2｜Dev Agent</b><p>輸入：Ready issue</p><p>輸出：修改計畫 / diff / PR 摘要</p></div>
+        <div class="card fragment"><b>Round 3｜QA + Review Agent</b><p>輸入：PR / AC / evidence</p><p>輸出：測試結果 / review 結論 / release checklist</p></div>
+      </div>
+      <div class="bottom-callout">講師反覆問：這張卡在哪一欄？完成定義是什麼？證據在哪裡？誰有權核准下一步？</div>
+    </section>
+
+    <section class="slide" data-section="s4">
+      <div class="eyebrow">常見失控模式</div>
+      <h2>Agent 失控通常不是模型爛，是流程缺洞</h2>
+      <div class="grid4 loss-grid">
+        <div class="card"><b>Scope creep</b><p>越做越多 → 把非目標寫進 issue；每輪只改一種問題。</p></div>
+        <div class="card"><b>Context swamp</b><p>上下文太多 → 改用 issue state / notes 摘要。</p></div>
+        <div class="card"><b>Fake done</b><p>沒證據就說完成 → Done 需要測試、截圖、diff、review 結論。</p></div>
+        <div class="card"><b>One-agent bias</b><p>自己做自己審 → Dev 與 QA / Review 分開。</p></div>
+      </div>
+      <div class="bottom-callout">人類定義目的，Agent 承接流程，證據決定完成。</div>
+    </section>
+
+    <section class="slide" data-section="s4">
+      <div class="eyebrow">90 分鐘安排</div>
+      <h2>先建立共通語言，再帶大家跑一次</h2>
+      <div class="grid5">
+        <div class="card"><b>0–15</b><small>人類流程地圖</small></div>
+        <div class="card"><b>15–30</b><small>角色與名詞</small></div>
+        <div class="card"><b>30–50</b><small>Issue-first 拆解</small></div>
+        <div class="card"><b>50–70</b><small>Git / PR / QA</small></div>
+        <div class="card"><b>70–90</b><small>Agent 分工演練</small></div>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s4">
+      <div class="eyebrow">最後要傳達的核心</div>
+      <h1>人類定義目的<br>Agent 承接流程<br><span class="accent">證據決定完成</span></h1>
+      <div class="grid5" style="margin-top:26px">
+        <div class="card"><b>1</b><small>先拆流程，再談 Agent。</small></div>
+        <div class="card"><b>2</b><small>Issue 是任務邊界。</small></div>
+        <div class="card"><b>3</b><small>AC 是完成定義。</small></div>
+        <div class="card"><b>4</b><small>Evidence 是驗收依據。</small></div>
+        <div class="card"><b>5</b><small>Release 後還要 QA。</small></div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="controls">
+    <button id="prev" type="button">← Prev</button>
+    <div class="progress"><span id="progress"></span></div>
+    <button id="next" type="button">Next →</button>
+  </footer>
+</main>
+<script src="./app.js"></script>
+</body>
+</html>
