@@ -17,7 +17,7 @@
       <span data-rail="s3">03 Git / PR / Release</span>
       <span data-rail="s4">04 Agent 接手</span>
     </div>
-    <div class="counter"><span id="current">1</span> / <span id="total">30</span></div>
+    <div class="counter"><span id="current">1</span> / <span id="total">31</span></div>
   </header>
 
   <div class="slides">
@@ -47,7 +47,7 @@
         <div class="card fragment"><span>03</span><b>一張 Issue，怎麼安全走到上線？</b><small>Git、PR、QA、Review、Release。</small></div>
         <div class="card fragment"><span>04</span><b>哪些工作可以交給 Agent？</b><small>同一條流程，角色換成 Agent。</small></div>
       </div>
-      <div class="bottom-callout">需求 → Issue + AC → WIP=1 → Branch → PR → Verify → Review → Merge → Release → Post-release QA → Done</div>
+      <div class="bottom-callout">需求 → Issue + AC → Branch → PR → Verify → Review → Merge → Release → Post-release QA → Done<br><span class="muted">WIP=1 是執行政策，不是流程階段。</span></div>
     </section>
 
     <section class="slide section-slide" data-section="s1">
@@ -82,7 +82,7 @@
         <div class="node"><b>Merge</b><small>合併</small></div><div class="arrow">→</div>
         <div class="node"><b>Release</b><small>上線</small></div><div class="arrow">→</div>
         <div class="node"><b>Post-QA</b><small>真實環境</small></div><div class="arrow">→</div>
-        <div class="node"><b>Done</b><small>關卡</small></div>
+        <div class="node"><b>Done</b><small>完成</small></div>
       </div>
       <div class="bottom-callout">先問清楚 → 再做小步 → 最後看證據。</div>
     </section>
@@ -92,7 +92,7 @@
       <h2>同一個需求，會被不同角色用不同角度看</h2>
       <div class="grid3">
         <div class="card"><b>PO</b><p>定義為什麼做｜價值與驗收標準</p></div>
-        <div class="card"><b>PM / Scrum</b><p>控流程與節奏｜排優先、移阻礙</p></div>
+        <div class="card"><b>PM / Scrum Master</b><p>控流程與節奏｜排優先、移阻礙</p></div>
         <div class="card"><b>Dev</b><p>實作變更｜code / 文件 / migration</p></div>
         <div class="card fragment"><b>QA</b><p>驗證行為｜測試、截圖、找 bug</p></div>
         <div class="card fragment"><b>Reviewer</b><p>守品質｜審 diff、架構、風險</p></div>
@@ -138,7 +138,7 @@
       <h2>大到一張卡講不清楚，再往上分組</h2>
       <div class="grid4">
         <div class="card"><b>Project / Epic</b><p>大目標分組。用來追蹤一包工作；不是每次都需要。</p></div>
-        <div class="card"><b>Issue</b><p>真正開工單位。一張 issue 對一個 branch / PR / evidence。</p></div>
+        <div class="card"><b>Issue</b><p>真正開工單位。初學先練習一張 issue 對一個 branch / PR / evidence。</p></div>
         <div class="card"><b>Checklist</b><p>Issue 內的小步。太小不值得獨立驗收，就不要拆出去。</p></div>
         <div class="card"><b>Story</b><p>選修寫法。需要講 user value 時再用。</p></div>
       </div>
@@ -321,10 +321,11 @@
       <div class="role-table">
         <div class="head"><b>Agent 角色</b><b>適合承接</b><b>仍需人類負責</b></div>
         <div><span>PO Agent</span><span>整理 issue、AC、非目標、風險</span><span>價值判斷與優先順序</span></div>
-        <div><span>PM / Scrum Agent</span><span>整理看板、找卡住、提醒缺證據</span><span>排程承諾與取捨</span></div>
+        <div><span>PM / Scrum Master Agent</span><span>整理看板、找卡住、提醒缺證據</span><span>排程承諾與取捨</span></div>
         <div><span>Dev Agent</span><span>依 issue 實作、重構、補文件</span><span>高風險架構決策</span></div>
         <div><span>QA Agent</span><span>產生測試、跑 smoke、收 evidence</span><span>接受風險</span></div>
-        <div><span>Review Agent</span><span>對照 AC 審 diff、找 scope creep</span><span>最終合併與發布授權</span></div>
+        <div><span>Review Agent</span><span>對照 AC 審 diff、找 scope creep</span><span>最終合併授權</span></div>
+        <div><span>Ops Agent</span><span>部署檢查、監控摘要、回滾草案</span><span>正式上線 / 回滾決策</span></div>
       </div>
     </section>
 
@@ -334,9 +335,11 @@
       <div class="flow">
         <div class="node"><b>Ready</b><small>PO Agent 補 AC</small></div><div class="arrow">→</div>
         <div class="node"><b>Build</b><small>Dev Agent 改小步</small></div><div class="arrow">→</div>
+        <div class="node"><b>PR</b><small>Dev Agent 提交變更</small></div><div class="arrow">→</div>
         <div class="node"><b>Verify</b><small>QA Agent 跑測試</small></div><div class="arrow">→</div>
         <div class="node"><b>Review</b><small>Review Agent 查缺口</small></div><div class="arrow">→</div>
-        <div class="node"><b>Release</b><small>Human / Ops 核准</small></div><div class="arrow">→</div>
+        <div class="node"><b>Merge</b><small>Human 核准合併</small></div><div class="arrow">→</div>
+        <div class="node"><b>Release</b><small>Human / Ops 核准上線</small></div><div class="arrow">→</div>
         <div class="node"><b>Post-QA</b><small>QA Agent 查 prod</small></div>
       </div>
       <div class="bottom-callout">每一段都要有輸入 / 輸出，也都要有 stop rule。</div>
@@ -346,7 +349,7 @@
       <div class="eyebrow">Workshop</div>
       <h2>同一個需求，分三輪交給 Agent</h2>
       <div class="workshop-steps">
-        <div class="card"><b>Round 1｜PO Agent</b><p>輸入：模糊需求</p><p>輸出：是否需要 Project / Issue / AC / 非目標</p></div>
+        <div class="card"><b>Round 1｜PO Agent</b><p>輸入：模糊需求</p><p>輸出：Project / Epic（若需要）＋可驗收 Issue＋AC＋非目標</p></div>
         <div class="card fragment"><b>Round 2｜Dev Agent</b><p>輸入：Ready issue</p><p>輸出：修改計畫 / diff / PR 摘要</p></div>
         <div class="card fragment"><b>Round 3｜QA + Review Agent</b><p>輸入：PR / AC / evidence</p><p>輸出：測試結果 / review 結論 / release checklist</p></div>
       </div>
