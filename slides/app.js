@@ -12,6 +12,14 @@
 
   const fragments = slide => [...slide.querySelectorAll('.fragment')];
 
+  // Returns a 0-based slide index for "#N" (1 <= N <= slides.length), else null.
+  function indexFromHash(hash) {
+    const m = /^#([1-9]\d*)$/.exec(hash);
+    if (!m) return null;
+    const n = Number(m[1]);
+    return n <= slides.length ? n - 1 : null;
+  }
+
   function sync() {
     slides.forEach((s, i) => s.classList.toggle('active', i === index));
     current.textContent = index + 1;
@@ -36,17 +44,40 @@
     }
   }
 
+  function goTo(i) {
+    index = i;
+    sync();
+  }
+
   prev.addEventListener('click', goPrev);
   next.addEventListener('click', goNext);
+
   document.addEventListener('keydown', e => {
-    if (['INPUT','TEXTAREA','SELECT','BUTTON'].includes(document.activeElement?.tagName)) return;
-    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); goNext(); }
-    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goPrev(); }
-    if (e.key === 'Home') { index = 0; sync(); }
-    if (e.key === 'End') { index = slides.length - 1; fragments(slides[index]).forEach(x => x.classList.add('visible')); sync(); }
+    // Leave browser/OS shortcuts (Alt+Arrow = history, Cmd/Ctrl+Arrow, etc.) alone.
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    const el = document.activeElement;
+    if (el && (['INPUT', 'TEXTAREA', 'SELECT'].includes(el.tagName) || el.isContentEditable)) return;
+    // A focused button handles Space/Enter natively (fires click once); only skip those keys.
+    const onButton = el?.tagName === 'BUTTON';
+
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || (e.key === ' ' && !onButton)) { e.preventDefault(); goNext(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goPrev(); }
+    else if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+    else if (e.key === 'End') {
+      e.preventDefault();
+      fragments(slides[slides.length - 1]).forEach(x => x.classList.add('visible'));
+      goTo(slides.length - 1);
+    }
   });
 
-  const hash = Number(location.hash.slice(1));
-  if (Number.isFinite(hash) && hash >= 1 && hash <= slides.length) index = hash - 1;
+  // Manual hash edits / back-forward: valid "#N" jumps there; anything else keeps the
+  // current slide and rewrites the URL back to it.
+  window.addEventListener('hashchange', () => {
+    const i = indexFromHash(location.hash);
+    if (i === null) sync();
+    else goTo(i);
+  });
+
+  index = indexFromHash(location.hash) ?? 0;
   sync();
 })();
