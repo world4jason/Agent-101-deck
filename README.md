@@ -29,7 +29,9 @@ https://world4jason.github.io/Agent-101-deck/
 
 ## 教學主線
 
-需求 → Issue + AC → WIP=1 → Branch → PR → Verify → Review → Merge → Release → Post-release QA → Done
+需求 → Issue + AC → Branch → PR → Verify → Review → Merge → Release → Post-release QA → Done
+
+教學初期採用 **WIP=1** 作為執行政策：一次只推進一張工作卡。
 
 ## 四個 Section
 
