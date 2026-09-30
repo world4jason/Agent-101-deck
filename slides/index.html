@@ -82,7 +82,7 @@
           <div class="artifact-head"><span>GOAL</span><span>Matching</span></div>
           <h2>讓 A 與 B 只有在雙方互相喜歡時才配對。</h2>
           <div class="goal-details">
-            <div><b>成功訊號</b><p>A／B／C 情境可觀察、可驗證。</p></div>
+            <div><b>成功訊號</b><p>可量化：上線兩週內，雙方都同意的配對數（例：10 對）；一時量化不了，至少可觀察：沒有使用者回報「對方沒按 Like 卻配對」。</p></div>
             <div><b>這輪不做</b><p>聊天室、推薦。</p></div>
           </div>
         </article>
@@ -197,7 +197,7 @@
         </ol>
         <article class="accept-card">
           <div class="accept-mark">✓</div>
-          <div><span class="artifact-label">驗收環境｜PR #3 候選版</span><h2>雙向喜歡才配對</h2><p>A／B／C 驗證證據對照 AC</p></div>
+          <div><span class="artifact-label">驗收環境｜PR #3 候選版</span><h2>雙向喜歡才配對</h2><p>逐條 AC 驗證證據</p></div>
           <div class="accept-action">接受 #3</div>
         </article>
         <p class="short-note">能操作，不代表 AC 全過。</p>
@@ -302,7 +302,7 @@
           <h2>雙向喜歡才配對 <span class="open-pill">Open</span></h2>
           <p class="branch-line">feature/3-mutual-match <span>→</span> main</p>
           <div class="pr-sections">
-            <div><b>Review</b><span>差異與範圍</span></div><div><b>Discussion</b><span>問題與回覆</span></div><div><b>Evidence</b><span>A／B／C 驗證</span></div>
+            <div><b>Review</b><span>差異與範圍</span></div><div><b>Discussion</b><span>問題與回覆</span></div><div><b>Evidence</b><span>AC 驗證</span></div>
           </div>
         </article>
       </div>
@@ -403,11 +403,17 @@
           <h2><a href="https://github.com/world4jason/Agent-101-deck/pull/37">PR #37</a></h2><p>Developer Agent：Codex</p>
         </article>
         <article class="timeline-step">
-          <a class="timeline-image" href="https://github.com/world4jason/Agent-101-deck/pull/37"><img src="./assets/gh-pr-37-verdict.png" alt="PR #37 的三方審查結果"></a>
-          <h2><a href="https://github.com/world4jason/Agent-101-deck/pull/37">Review &amp; 三方 verdict</a></h2><p>審查提出修改與驗收意見</p>
+          <h2><a href="https://github.com/world4jason/Agent-101-deck/pull/37">Review Agent（Sonnet）</a></h2><p>要求修改（Request Changes）</p>
+        </article>
+        <article class="timeline-step">
+          <a class="timeline-image" href="https://github.com/world4jason/Agent-101-deck/pull/37"><img src="./assets/gh-pr-37-verdict.png" alt="PR #37 三方審查發現 fragments 未隱藏的 regression"></a>
+          <h2><a href="https://github.com/world4jason/Agent-101-deck/pull/37">三方審查</a></h2><p>發現 fragments 未隱藏（regression）</p>
+        </article>
+        <article class="timeline-step">
+          <h2>修正並合併</h2><p>修正 fragments 顯示問題，合併 PR #37</p>
         </article>
         <article class="timeline-human">
-          <span class="human-label">Human Gate</span><p>Owner reviewed and rejected</p><strong>「偏離主軸」</strong>
+          <span class="human-label">Human Gate</span><p>Owner 拒絕接受</p><strong>「偏離主軸」</strong>
         </article>
         <article class="timeline-step">
           <a class="timeline-image" href="https://github.com/world4jason/Agent-101-deck/issues/41"><img src="./assets/gh-issue-41.png" alt="v7 SSOT Issue #41"></a>
@@ -487,7 +493,7 @@
           <article class="moving-ticket"><span>#3</span><b>雙向喜歡才配對</b><small>WIP=1</small></article>
           <span class="fragment move-step move-2" aria-hidden="true"></span><span class="fragment move-step move-3" aria-hidden="true"></span><span class="fragment move-step move-4" aria-hidden="true"></span><span class="fragment move-step move-5" aria-hidden="true"></span><span class="fragment move-step move-6" aria-hidden="true"></span>
         </div>
-        <p class="short-note">工作單位是票，WIP=1。交接留在 PR、review 與 AC 證據；治理點等人，換 Session 讀票接手。</p>
+        <p class="short-note">工作單位是票，WIP=1。交接留在 PR、review 與 AC 證據；治理點等人，換 Session 讀票接手。每站都有進入與退出條件：Ready 說明何時可進站，AC 定義要做什麼，DoD 說明何時出站。</p>
       </div>
     </section>
 
