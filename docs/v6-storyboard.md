@@ -70,7 +70,7 @@
 | PR 證據能證明與不能證明什麼？ | S2-04 | 指出缺少的版本、操作或檢查證據。 |
 | 狀態只在 Slack／Chat 時下一位從哪裡知道？ | S3-01 | 找出看板及權威工件位置。 |
 | Stale handoff 與 repo／PR 不一致時怎麼辦？ | S6-03 | 看預備的 stale handoff 與當前 PR／版本並排（截圖或講師畫面），指出不一致與下一個安全動作；僅作畫面判斷，不要求學員開 fresh session 或重跑檢查。學員 fresh-session 接手及 stale-handoff／wrong-SHA hands-on 在 S7-04（Optional／Extended）；講師真實 fresh-session 示範在 S7-03（Core）。 |
-| Hands-on 實際退回一次；有 PR 才使用 Request Changes；阻擋時停止並填 handoff | S7-02、S7-03 | S7-02：以未通過的 AC 項目、對應行程項目及截圖或 URL 告知 Agent 並要求修正一次；退回不要求 PR，若修正以 PR 提交才在該 PR 按 Request Changes。S7-03：權限不足或必要工具不可用時停止並填 handoff。 |
+| Hands-on 實際退回一次；有 PR 才使用 Request Changes；阻擋時停止並填 handoff | S7-02、S7-03 | S7-02：以未通過的 AC 項目、對應行程項目及截圖或 URL 告知 Agent 並要求修正一次；若 Agent 的結果已通過所有 AC、學員沒有實際可退回的項目，則改由學員針對 I7 #35 demo pack 中講師設計的錯誤案例完成一次必要退回；退回不要求 PR，若修正以 PR 提交才在該 PR 按 Request Changes。S7-03：權限不足或必要工具不可用時停止並填 handoff。 |
 
 ### #4 closure Core
 
@@ -128,7 +128,7 @@
 | 17 | 一張 Issue 從左走到右；初學先 WIP = 1 | 合併 | S3-01、S3-02 | 改為共享協作面、全板 WIP=1；明示等待驗收仍占 WIP，且不保證技術上不會衝突。 |
 | 18 | Git 只先懂 4 個字：Repo、Branch、Commit、Push | 合併 | S2-05 | 以八個狀態核對問句取代背術語／指令。 |
 | 19 | Issue #12 對一個 branch，最後變成一個 PR | 刪 | S2-01、S2-05 | 不把一卡一卡 branch／PR 說成工具規則；一個小 PR 可作課程約定，狀態關係由問句表保存。 |
-| 20 | PR #34：完成手機版報名表單 | 合併 | S2-04、S7-02 | 移植「AC 有一項失敗就退回」教學效果；S7-02 由學員以失敗 AC 項目、行程項目及截圖或 URL 告知 Agent 並要求修正一次承接；修正以 PR 提交時才在該 PR 使用 Request Changes。改用可核對的 Travel Lite 證據。 |
+| 20 | PR #34：完成手機版報名表單 | 合併 | S2-04、S7-02 | 移植「AC 有一項失敗就退回」教學效果；S7-02 由學員以失敗 AC 項目、行程項目及截圖或 URL 告知 Agent 並要求修正一次承接；若 Agent 的結果已通過所有 AC、學員沒有實際可退回的項目，則改由學員針對 I7 #35 demo pack 中講師設計的錯誤案例完成一次必要退回；修正以 PR 提交時才在該 PR 使用 Request Changes。改用可核對的 Travel Lite 證據。 |
 | 21 | Comment、Approve、Request Changes：意思完全不同 | 合併 | S2-03、S2-04 | 保留意見、審查、退回的差別；修正為 Review 核准不自動授權 merge／發布。 |
 | 22 | QA、Review、Merge、Release 是不同關卡 | 合併 | S2-02、S2-03 | 由 AC／DoD 與修正版驗收階梯承接；QA 兼含行為及失敗路徑。 |
 | 23 | Release 後不是結束：要確認真的在真實環境可用 | 合併 | S2-02、S2-03、O1 | 上線後基本操作與既有功能檢查留 Core；監控、警報、恢復及情境庫移 Optional。 |
