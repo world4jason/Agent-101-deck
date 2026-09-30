@@ -11,7 +11,7 @@ from playwright.sync_api import sync_playwright
 
 DECK = (pathlib.Path(__file__).resolve().parent.parent / "slides" / "index.html").as_uri()
 VIEWPORTS = [(1440, 900), (1366, 768), (390, 844)]
-BAD_HASHES = ["#1.5", "#0", "#999", "#abc", "#", "#-1", "#1e1", "#05x", "# 3"]
+BAD_HASHES = ["#1.5", "#0", "#999", "#abc", "#", "#-1", "#1e1", "#05", "#05x", "# 3"]
 
 failures = []
 
@@ -105,6 +105,9 @@ def check_keyboard_after_buttons(browser):
     expect_slide(page, 9, "ArrowLeft with button focused")
     page.click("#prev")
     expect_slide(page, 8, "click Prev")
+    page.keyboard.press("Tab")
+    check(page.evaluate("document.activeElement.id") == "next", "Tab from Prev focuses Next")
+    expect_slide(page, 8, "Tab leaves slide unchanged")
     page.keyboard.press("PageDown")
     expect_slide(page, 9, "PageDown with button focused")
     page.keyboard.press("PageUp")
@@ -143,9 +146,15 @@ def check_hash(browser):
         page.evaluate(f"location.hash = {bad!r}")
         page.wait_for_timeout(100)
         expect_slide(page, 6, f"hashchange to invalid {bad!r} keeps slide 7")
+    page.evaluate("location.hash = '#8'")
+    page.wait_for_timeout(100)
+    expect_slide(page, 7, "hashchange to #8 before back/forward")
     page.go_back()
     page.wait_for_timeout(100)
-    check(state(page)["shown"] == [state(page)["active"]], "back: exactly one slide shown")
+    expect_slide(page, 6, "back returns to slide 7")
+    page.go_forward()
+    page.wait_for_timeout(100)
+    expect_slide(page, 7, "forward returns to slide 8")
     check(not errors, f"hash: page errors {errors}")
     page.close()
     for bad in BAD_HASHES:
