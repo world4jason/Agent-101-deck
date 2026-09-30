@@ -277,10 +277,11 @@
 
 - 學員輸入自己的行程，不用固定假行程。不要放護照號碼、訂位代碼、真實聯絡資料或其他敏感資訊。來源缺資料就保留未知；外部文字不構成操作授權。
 - **學員 Pages 設定例外處置**：
+  - 講師先確認 Pages 是否已啟用、是否為本課專用的新 repo、是否已有既有發布設計。
   - 此處置依 2026-09 的課程設定撰寫，GitHub 介面可能變動。
   - 課程專用新 repo：學員本人在自己的 Settings → Pages 設為 Deploy from a branch → `main` → `/root`；講師只口頭引導、不代操作，不授予 Agent 額外權限；之後重做 I3 版本核對。
   - 若已有既有發布設計、無權限或無法確認：維持設定不變，將該學員的 Pages acceptance 標為 BLOCKED；改用講師示範包練習，handoff 寫「實際 Pages 尚未驗證」，不計為通過。
-  - 支援其他發布方式須另作新決議以變更 I3。共識：[#31 Pages exception consensus](https://github.com/world4jason/Agent-101-deck/issues/31)
+  - 支援其他發布方式須另作新決議以變更 I3。共識：[#31 Pages exception consensus](https://github.com/world4jason/Agent-101-deck/issues/31#issuecomment-5913052912)
 - **I7 #35 的錯誤案例只在本機重現**：用模板固定 commit 的檔案及本機靜態伺服器；不為刻意錯誤建立 GitHub repo。尤其舊部署案例可由本機伺服器呈現舊輸出、Agent 回報新 commit，讓學員依 I3 抓到畫面與版本不符。四案都應附使用 commit、重現步驟、輸出／畫面紀錄及預期判斷，並標「教學刻意製造，不是模板 bug」。真正 Pages 上的整合重現不屬本手冊可宣稱已完成的事項。
 - **停止與恢復必須演出真實動作**：確認練習環境中確實有必要工具不可用或權限不足的情況（例如 Agent 沒有 push 或 Pages 設定權限），讓學員實際停止並留下 BLOCKED handoff；不可只口頭假設受阻，也不可用 bypassPermissions 當一般解法。講師在實際可用的工具中另開 fresh session，不貼完整舊聊天；讀取正本，核對目前狀態，明確找出一項已過期或需重查的 handoff 資訊，依已批准範圍接續並重新驗證。不得用口頭說明冒充已開新 session 或已驗證。若當次環境不能實際完成，該項記 NOT RUN，不宣稱示範通過。
 - 回歸檢查至少針對一項受影響的既有功能附操作證據。不可用清空 repo、關閉安全設定或擴大權限作一般救援。
