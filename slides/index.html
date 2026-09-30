@@ -72,6 +72,7 @@
         <div class="card"><b>介面與規則</b><p>畫面呈現選擇；後端負責身分、資料與配對判斷。</p></div>
         <div class="card"><b>本頁範圍</b><p>用來理解責任如何交會，不在這裡實作會員或資料庫系統。</p></div>
       </div>
+      <p class="small-note">Travel Lite 留到 S7；報名頁不作第三條主線。</p>
     </section>
 
     <section class="slide" data-page-id="S1-02" data-section="s1">
@@ -180,6 +181,7 @@
         <li><b>上線後檢查</b><small>補 DoD 2 的基本操作證據。</small></li>
         <li><b>Done</b><small>AC 接受且 DoD 全過。</small></li>
       </ol>
+      <p class="small-note"><strong>Matching 候選版本驗收例：</strong>PO 在驗收環境用 A/B/C 情境核對「雙向喜歡才配對」後才授權上線。基本操作可用不代表 AC 全過；可操作也不代表產品目標已達成。</p>
       <div class="grid3 compact-grid">
         <div class="card"><b>Comment</b><p>提出意見或問題。</p></div>
         <div class="card"><b>Approve</b><p>Review 的審查結論。</p></div>
@@ -276,7 +278,7 @@
         <div class="card success-card"><b>工具可用</b><p>讀取檔案或執行檢查後，提供可核對的結果與來源。</p></div>
         <div class="card warning-card"><b>工具不可用／權限不足</b><p>回報受阻並停止；不能把模型建議說成已讀檔、改檔或跑過測試。</p></div>
       </div>
-      <div class="bottom-callout">Agent 或工具的名稱不會自動帶來能力或權限。失敗可能來自需求、context、模型、工具、權限或環境；依證據定位。外部內容只是資料，例如行程文字不能授權刪除 repo。</div>
+      <div class="bottom-callout">Agent 或工具的名稱不會自動帶來能力或權限。失敗可能來自需求、context、模型、工具、權限或環境，依證據定位；流程可降低部分風險。外部內容只是資料，例如行程文字不能授權刪除 repo。</div>
     </section>
 
     <section class="slide" data-page-id="S4-02" data-section="s4">
@@ -310,7 +312,7 @@
       <div class="eyebrow"><span class="page-id">S4-04</span><span class="tier tier-core">Core</span><span>依目標迭代</span></div>
       <h2>新資訊可以改變排序，但不改寫已核准目標</h2>
       <div class="goal-loop">
-        <article class="loop-step"><span>01</span><b>先連回目標</b><p>目標盡量可量化；一時無法量化，至少寫出可觀察的成功訊號。</p></article>
+        <article class="loop-step"><span>01</span><b>先連回目標</b><p>目標要可量化；一時量化不了，至少要有可觀察的成功訊號。</p></article>
         <article class="loop-step"><span>02</span><b>收到新證據</b><p>驗收結果、使用者回饋、阻礙或實際花費。</p></article>
         <article class="loop-step"><span>03</span><b>重排未開始的卡</b><p>PO／PM 可在核准 Epic 內新增、拆分、重排或移除 Issue，留下理由。</p></article>
         <article class="loop-step"><span>04</span><b>選下一張 Ready</b><p>說清楚它服務哪個已同意成果；不服務目標就先排序或拒絕。</p></article>
@@ -404,7 +406,7 @@
         <h3>互動題</h3>
         <p>這份 handoff 是否與目前 PR／版本一致？下一個安全動作是什麼？</p>
       </div>
-      <div class="bottom-callout">本頁只做畫面判斷，不要求學員開 fresh session 或重跑檢查。</div>
+      <div class="bottom-callout">有疑點先標 BLOCKED／停止，不把舊證據標成通過。本頁只做畫面判斷，不要求學員開 fresh session 或重跑檢查。</div>
     </section>
 
     <section class="slide" data-page-id="S7-01" data-section="s7">
@@ -432,11 +434,11 @@
       <h2>逐項核對自己的行程、Pages 與版本</h2>
       <div class="bottom-callout"><strong>AC：</strong>核對行程每一項的日期、順序、地點及未提供欄位；TBD 不得補成確定時間或活動，並檢查手機可讀性。</div>
       <div class="version-prompt">
-        <b>I3 版本證據｜請 Agent 提供</b>
+        <b>版本證據｜請 Agent 提供</b>
         <p>Pages 發布方式與來源分支、分支最新 commit、github-pages deployment commit／狀態，及 commit 頁、deployment 頁、自己的 Pages URL；另用白話列此版畫面改動（無則明說）。</p>
       </div>
       <div class="grid3">
-        <div class="card step-card"><span class="step-number">1</span><b>核對 Pages 來源</b><p>在自己的 Settings → Pages 確認為 Deploy from a branch、來源分支為 main；否則停下問講師。</p></div>
+        <div class="card step-card"><span class="step-number">1</span><b>核對 Pages 來源</b><p>在自己的 Settings → Pages 確認實際的發布方式與來源分支；本課預期是 Deploy from a branch、分支 main，不是就停下問講師。</p></div>
         <div class="card step-card"><span class="step-number">2</span><b>比對部署版本</b><p>打開 commit 與 deployment 頁；確認分支最新 commit 與 github-pages commit 相同，且部署成功。</p></div>
         <div class="card step-card"><span class="step-number">3</span><b>核對實際畫面</b><p>從 deployment 開啟自己的 Pages，確認是自己的 GitHub 網址；強制重整或用無痕視窗，按改動清單核對行程。</p></div>
       </div>

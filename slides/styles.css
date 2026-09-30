@@ -210,6 +210,12 @@ blockquote { margin: 0; padding: 16px 18px; border-left: 3px solid var(--accent)
 .gate-grid .card p { margin: 0; font-size: 14px; }
 
 @media (min-width: 901px) {
+  .slide[data-page-id="S2-03"] { padding-top: 22px; padding-bottom: 22px; }
+  .slide[data-page-id="S2-03"] .eyebrow { margin-bottom: 8px; }
+  .slide[data-page-id="S2-03"] h2 { margin-bottom: 12px; }
+  .slide[data-page-id="S2-03"] .small-note { margin: 7px 0 0; font-size: 14px; line-height: 1.35; }
+  .slide[data-page-id="S2-03"] .compact-grid { gap: 8px; margin-top: 8px; }
+  .slide[data-page-id="S2-03"] .bottom-callout { margin-top: 10px; padding: 8px 12px; font-size: 14px; line-height: 1.35; }
   .slide[data-page-id="S2-02"], .slide[data-page-id="S2-04"] { padding-top: 22px; padding-bottom: 22px; }
   .slide[data-page-id="S2-05"] { padding-top: 22px; padding-bottom: 22px; }
   .slide[data-page-id="S2-02"] .eyebrow, .slide[data-page-id="S2-04"] .eyebrow { margin-bottom: 8px; }
