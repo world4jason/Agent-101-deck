@@ -67,7 +67,7 @@
           <div class="sticky">配對<small>雙方都 Like</small></div>
           <div class="sticky">聊天<small>這輪先不選</small></div>
           <div class="sticky">推薦<small>這輪先不選</small></div>
-          <div class="sticky">封鎖<small>待排入 Backlog</small></div>
+          <div class="sticky">封鎖<small>這輪先不選</small></div>
         </div>
       </div>
     </section>
@@ -114,7 +114,7 @@
           <li>Brainstorming</li><li>Goal</li><li class="current">Backlog／Ticket</li><li>Ready</li><li>Developer</li><li>PR Reviewer</li><li>QA</li><li>PO/PM Gate</li><li>Done</li>
         </ol>
         <article class="ticket">
-          <div class="ticket-title"><span>ISSUE #3</span><strong>雙向喜歡才配對</strong><span class="ticket-state">READY</span></div>
+          <div class="ticket-title"><span>ISSUE #3</span><strong>雙向喜歡才配對</strong><span class="ticket-state backlog-state">BACKLOG</span></div>
           <div class="ticket-content">
             <div><b>Goal</b><p>讓 A 與 B 只有在雙方互相喜歡時才配對。</p></div>
             <div><b>AC</b><ol><li>A 喜歡 B，B 尚未喜歡 A：不配對。</li><li>B 也喜歡 A：配對。</li><li>C 只喜歡 B：不配對。</li></ol></div>
@@ -251,24 +251,36 @@
 
     <section class="slide" data-section="s2">
       <h1>Issue</h1>
-      <div class="visual github-window issue-window">
-        <div class="window-bar"><span>GitHub</span><span>Issues / 3</span></div>
-        <div class="issue-number">Issue #3 <span class="open-pill">Open</span></div>
-        <h2>雙向喜歡才配對</h2>
-        <div class="issue-fields">
-          <div><b>Goal</b><p>讓 A 與 B 只有在雙方互相喜歡時才配對。</p></div>
-          <div><b>AC</b><p>A 單向喜歡不配對；雙方互相喜歡才配對。</p></div>
-        </div>
-        <div class="issue-discussion"><b>Discussion</b><span>Goal、AC 與討論都留在這張票。</span></div>
+      <div class="visual">
+        <article class="github-window issue-window">
+          <div class="window-bar"><span>GitHub</span><span>Issues / 3</span></div>
+          <div class="issue-number">Issue #3 <span class="open-pill">Open</span></div>
+          <h2>雙向喜歡才配對</h2>
+          <div class="issue-fields">
+            <div><b>Goal</b><p>讓 A 與 B 只有在雙方互相喜歡時才配對。</p></div>
+            <div><b>AC</b><ol><li>A 喜歡 B，B 尚未喜歡 A：不配對。</li><li>B 也喜歡 A：配對。</li><li>C 只喜歡 B：不配對。</li></ol></div>
+          </div>
+          <div class="issue-discussion"><b>Discussion</b><span>Goal、AC 與討論都留在這張票。</span></div>
+        </article>
       </div>
     </section>
 
     <section class="slide" data-section="s2">
       <h1>Feature branch</h1>
       <div class="visual branch-diagram">
-        <div class="branch-main"><b>main</b><span></span></div>
-        <div class="branch-feature"><b>feature/3-mutual-match</b><span></span></div>
-        <div class="branch-origin">從正本分出一份來修改</div>
+        <svg class="git-graph" viewBox="0 0 1000 360" role="img" aria-label="Feature branch 從 main 的 commit 分出，沿著獨立分支修改">
+          <text class="git-label main-label" x="72" y="112">main</text>
+          <path class="git-line main-line" d="M160 145 H920" />
+          <path class="git-line feature-line" d="M390 145 V270 H835" />
+          <circle class="git-commit" cx="190" cy="145" r="11" />
+          <circle class="git-commit git-origin" cx="390" cy="145" r="12" />
+          <circle class="git-commit" cx="625" cy="145" r="11" />
+          <circle class="git-commit" cx="865" cy="145" r="11" />
+          <circle class="git-commit feature-commit" cx="570" cy="270" r="11" />
+          <circle class="git-commit feature-commit" cx="785" cy="270" r="11" />
+          <text class="git-label feature-label" x="570" y="322">feature/3-mutual-match</text>
+          <text class="git-note" x="190" y="205">從 main 的 commit 分出一份</text>
+        </svg>
       </div>
     </section>
 
@@ -284,22 +296,35 @@
 
     <section class="slide" data-section="s2">
       <h1>Pull Request</h1>
-      <div class="visual github-window">
-        <div class="window-bar"><span>GitHub</span><span>Pull requests / 3</span></div>
-        <h2>雙向喜歡才配對 <span class="open-pill">Open</span></h2>
-        <p class="branch-line">feature/3-mutual-match <span>→</span> main</p>
-        <div class="pr-sections">
-          <div><b>Review</b><span>差異與範圍</span></div><div><b>Discussion</b><span>問題與回覆</span></div><div><b>Evidence</b><span>A／B／C 驗證</span></div>
-        </div>
+      <div class="visual">
+        <article class="github-window">
+          <div class="window-bar"><span>GitHub</span><span>Pull requests / 3</span></div>
+          <h2>雙向喜歡才配對 <span class="open-pill">Open</span></h2>
+          <p class="branch-line">feature/3-mutual-match <span>→</span> main</p>
+          <div class="pr-sections">
+            <div><b>Review</b><span>差異與範圍</span></div><div><b>Discussion</b><span>問題與回覆</span></div><div><b>Evidence</b><span>A／B／C 驗證</span></div>
+          </div>
+        </article>
       </div>
     </section>
 
     <section class="slide" data-section="s2">
       <h1>Merge</h1>
       <div class="visual merge-diagram">
-        <div class="merge-branch"><b>feature/3-mutual-match</b><span></span><span></span></div>
-        <div class="merge-join">⇣</div>
-        <div class="merge-main"><b>main</b><span></span><span></span><span class="merged-dot"></span></div>
+        <svg class="git-graph" viewBox="0 0 1000 360" role="img" aria-label="feature branch 從 main 分出，經過兩個 commit 後合回 main">
+          <text class="git-label main-label" x="72" y="112">main</text>
+          <path class="git-line main-line" d="M160 145 H920" />
+          <path class="git-line feature-line" d="M365 145 V270 H650 C735 270 790 220 790 145" />
+          <circle class="git-commit" cx="190" cy="145" r="11" />
+          <circle class="git-commit git-origin" cx="365" cy="145" r="12" />
+          <circle class="git-commit" cx="560" cy="145" r="11" />
+          <circle class="git-commit git-merge" cx="790" cy="145" r="13" />
+          <circle class="git-commit" cx="900" cy="145" r="11" />
+          <circle class="git-commit feature-commit" cx="500" cy="270" r="11" />
+          <circle class="git-commit feature-commit" cx="650" cy="270" r="11" />
+          <text class="git-label feature-label" x="500" y="322">feature/3-mutual-match</text>
+          <text class="git-note merge-note" x="790" y="205">合回 main</text>
+        </svg>
         <div class="restore-note">審過後合回正本；舊版仍可回復。</div>
       </div>
     </section>
@@ -326,13 +351,13 @@
           <button type="button" data-state="after" aria-pressed="false">Agent 版</button>
         </div>
         <div class="toggle-panel" data-view="before">
-          <div class="role-flow">
-            <div><b>規劃</b><span>PO／PM</span></div><i>→</i><div><b>開發</b><span>Developer</span></div><i>→</i><div><b>審查</b><span>PR Reviewer</span></div><i>→</i><div><b>驗證</b><span>QA</span></div><i>→</i><div><b>接受</b><span>PO／PM</span></div><i>→</i><div class="human-gate"><b>Human Gate</b><span>人</span></div>
+          <div class="role-flow human-flow">
+            <div><b>Brainstorming</b></div><div><b>Goal</b></div><div><b>Backlog／Ticket</b></div><div><b>Ready</b></div><div><b>Developer</b></div><div><b>PR Reviewer</b></div><div><b>QA／Verification</b></div><div><b>PO/PM Gate</b></div><div><b>Done</b></div>
           </div>
         </div>
         <div class="toggle-panel" data-view="after" hidden>
-          <div class="role-flow">
-            <div><b>規劃</b><span>PO／PM Agent</span></div><i>→</i><div><b>開發</b><span>Developer Agent</span></div><i>→</i><div><b>審查</b><span>PR Reviewer Agent</span></div><i>→</i><div><b>驗證</b><span>QA Agent</span></div><i>→</i><div><b>接受</b><span>PO／PM Agent</span></div><i>→</i><div class="human-gate"><b>Human Gate</b><span>人保留責任</span></div>
+          <div class="role-flow agent-flow">
+            <div><b>Brainstorming</b></div><div><b>Goal</b></div><div><b>Backlog／Ticket</b></div><div><b>Ready</b></div><div><b>Developer Agent</b></div><div><b>PR Reviewer Agent</b></div><div><b>QA／Verification Agent</b></div><div><b>PO/PM Gate Agent</b></div><div class="human-gate"><b>Human Gate</b><span>人保留責任</span></div><div><b>Done</b></div>
           </div>
         </div>
       </div>
@@ -369,13 +394,25 @@
     <section class="slide" data-section="s3">
       <h1>這份簡報就是這樣做出來的</h1>
       <div class="visual timeline">
-        <article><a href="https://github.com/world4jason/Agent-101-deck/issues/30">Issue #30</a><p>提出簡報工作</p></article>
-        <article><a href="https://github.com/world4jason/Agent-101-deck/pull/37">PR #37</a><p>Developer Agent：Codex 開 PR</p></article>
-        <article><a href="https://github.com/world4jason/Agent-101-deck/pull/37">Sonnet review</a><p>要求修改</p></article>
-        <article><a href="https://github.com/world4jason/Agent-101-deck/pull/37">三方審查</a><p>發現 fragment 沒有隱藏</p></article>
-        <article><a href="https://github.com/world4jason/Agent-101-deck/pull/37">合併</a><p>PR #37 merged</p></article>
-        <article><a href="https://github.com/world4jason/Agent-101-deck/pull/37">Human Gate</a><p>Owner：偏離主軸，退回</p></article>
-        <article><a href="https://github.com/world4jason/Agent-101-deck/issues/41">v7｜Issue #41</a><p>重寫成這一版</p></article>
+        <article class="timeline-step">
+          <a class="timeline-image" href="https://github.com/world4jason/Agent-101-deck/issues/30"><img src="./assets/gh-issue-30.png" alt="GitHub Issue #30 截圖"></a>
+          <h2><a href="https://github.com/world4jason/Agent-101-deck/issues/30">Issue #30</a></h2><p>提出簡報工作</p>
+        </article>
+        <article class="timeline-step">
+          <a class="timeline-image" href="https://github.com/world4jason/Agent-101-deck/pull/37"><img src="./assets/gh-pr-37.png" alt="Developer Agent Codex 開出的 PR #37"></a>
+          <h2><a href="https://github.com/world4jason/Agent-101-deck/pull/37">PR #37</a></h2><p>Developer Agent：Codex</p>
+        </article>
+        <article class="timeline-step">
+          <a class="timeline-image" href="https://github.com/world4jason/Agent-101-deck/pull/37"><img src="./assets/gh-pr-37-verdict.png" alt="PR #37 的三方審查結果"></a>
+          <h2><a href="https://github.com/world4jason/Agent-101-deck/pull/37">Review &amp; 三方 verdict</a></h2><p>審查提出修改與驗收意見</p>
+        </article>
+        <article class="timeline-human">
+          <span class="human-label">Human Gate</span><p>Owner reviewed and rejected</p><strong>「偏離主軸」</strong>
+        </article>
+        <article class="timeline-step">
+          <a class="timeline-image" href="https://github.com/world4jason/Agent-101-deck/issues/41"><img src="./assets/gh-issue-41.png" alt="v7 SSOT Issue #41"></a>
+          <h2><a href="https://github.com/world4jason/Agent-101-deck/issues/41">v7 SSOT #41</a></h2><p>重寫成這一版</p>
+        </article>
       </div>
     </section>
 
@@ -445,15 +482,12 @@
     <section class="slide" data-section="s4">
       <h1>Work-driven 怎麼運作</h1>
       <div class="visual">
-        <div class="work-board">
-          <div><h3>TODO</h3><article>Backlog</article></div>
-          <div class="board-ready"><h3>READY</h3><article class="board-ticket"><span>#3</span><b>雙向喜歡才配對</b><small>WIP=1｜Agent 拉票</small></article></div>
-          <div><h3>DEV</h3><article>Developer Agent<br>PR #3</article></div>
-          <div><h3>REVIEW</h3><article>Reviewer Agent<br>review 意見</article></div>
-          <div><h3>QA</h3><article>QA Agent<br>AC 證據</article></div>
-          <div><h3>GATE／DONE</h3><article>治理點等人<br>PO/PM 接受</article></div>
+        <div class="kanban-board work-board">
+          <div><h3>READY</h3></div><div><h3>DEV</h3></div><div><h3>PR</h3></div><div><h3>REVIEW</h3></div><div><h3>QA</h3></div><div><h3>HUMAN GATE</h3></div>
+          <article class="moving-ticket"><span>#3</span><b>雙向喜歡才配對</b><small>WIP=1</small></article>
+          <span class="fragment move-step move-2" aria-hidden="true"></span><span class="fragment move-step move-3" aria-hidden="true"></span><span class="fragment move-step move-4" aria-hidden="true"></span><span class="fragment move-step move-5" aria-hidden="true"></span><span class="fragment move-step move-6" aria-hidden="true"></span>
         </div>
-        <p class="short-note">工作單位是票；Agent 從看板拉 Ready 的 #3（WIP=1）。每站依 Ready／AC／DoD 交接 PR、review 與證據；治理點等人，換 Session 讀票接手。</p>
+        <p class="short-note">工作單位是票，WIP=1。交接留在 PR、review 與 AC 證據；治理點等人，換 Session 讀票接手。</p>
       </div>
     </section>
 
@@ -477,7 +511,7 @@
     <section class="slide" data-section="s5">
       <h1>External task state</h1>
       <div class="visual state-compare">
-        <article class="chat-state"><span class="state-icon">“ ”</span><b>聊天泡泡</b><p>狀態藏在對話裡</p></article>
+        <article class="chat-state"><span class="state-icon" aria-hidden="true">…</span><b>聊天泡泡</b><p>狀態藏在對話裡</p></article>
         <div class="demo-arrow">→</div>
         <article class="issue-state"><span class="state-icon">#3</span><b>Issue 卡片</b><p>GitHub Issue／看板留下工作狀態</p><strong>新 Session 讀票，不讀聊天</strong></article>
       </div>
@@ -519,8 +553,10 @@
         <article class="ticket-link"><span>Issue #3</span><b>雙向喜歡才配對</b></article>
         <div class="reanchor-arrow">↔</div>
         <article class="goal-link"><span>Goal</span><b>雙方互相喜歡才配對</b></article>
+        <div class="reanchor-connector from-goal" aria-hidden="true">↓</div>
         <div class="backlog-loop">新資訊 → 重新排序 Backlog</div>
-        <div class="human-loop">要改 Goal → 回到 Human Gate</div>
+        <div class="reanchor-connector from-backlog" aria-hidden="true">↓</div>
+        <div class="human-loop">改 Goal → 回到 Human Gate</div>
       </div>
     </section>
 
@@ -545,13 +581,10 @@
 
     <section class="slide" data-section="s6">
       <h1>Kanban-driven</h1>
-      <div class="visual kanban-flow">
-        <div><h3>TODO</h3><article><span>Issue #3</span><b>雙向喜歡才配對</b></article></div>
-        <div><h3>DEV</h3><article><span>feature/3-mutual-match</span><b>Developer Agent</b></article></div>
-        <div><h3>PR</h3><article><span>PR #3</span><b>變更與說明</b></article></div>
-        <div><h3>REVIEW</h3><article><span>Review #3</span><b>範圍與風險</b></article></div>
-        <div><h3>QA</h3><article><span>QA #3｜A／B／C</span><b>AC 證據</b></article></div>
-        <div><h3>DONE</h3><article><span>PO/PM accepted #3</span><b>雙向喜歡才配對</b></article></div>
+      <div class="visual kanban-board kanban-flow">
+        <div><h3>TODO</h3></div><div><h3>DEV</h3></div><div><h3>PR</h3></div><div><h3>REVIEW</h3></div><div><h3>QA</h3></div><div><h3>DONE</h3></div>
+        <article class="moving-ticket"><span>#3</span><b>雙向喜歡才配對</b><small>Issue → PR → AC 證據</small></article>
+        <span class="fragment move-step move-2" aria-hidden="true"></span><span class="fragment move-step move-3" aria-hidden="true"></span><span class="fragment move-step move-4" aria-hidden="true"></span><span class="fragment move-step move-5" aria-hidden="true"></span><span class="fragment move-step move-6" aria-hidden="true"></span>
       </div>
     </section>
   </div>
