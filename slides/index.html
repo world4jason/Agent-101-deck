@@ -512,7 +512,7 @@
         <div class="card"><b>安全與資料</b><p>假資料與正式資料分開；secret 不進聊天、repo、log 或截圖；開發權限採最小必要。</p></div>
         <div class="card"><b>情境庫</b><p>Schema、Auth／設定、壞部署、依賴、額度／成本與回饋回到 backlog；Advanced 可依需要挑選。</p></div>
       </div>
-      <div class="bottom-callout">真實營運主張需有版本、事件與使用者結果；加速演練不能冒充真實營運。程式 revert、部署 rollback、資料 restore／roll-forward 不能互相替代。PO／PM Agent 重排示範由 Advanced #19 承接。</div>
+      <div class="bottom-callout">半年維運只作 evidence claim：須有實際時間跨度、版本、事件與使用者結果；加速演練不能冒充。程式 revert、部署 rollback、資料 restore／roll-forward 不能互相替代。PO／PM Agent 重排示範由 Advanced #19 承接。</div>
     </section>
 
     <section class="slide" data-page-id="A1" data-section="appendix">
@@ -556,20 +556,29 @@
     </section>
 
     <section class="slide" data-page-id="A2" data-section="appendix">
-      <div class="eyebrow"><span class="page-id">A2</span><span class="tier tier-appendix">Appendix｜查閱用</span><span>框架對照</span></div>
-      <h2>BMAD 與 LongHorizon 是參照框架，不是 Core 前置</h2>
+      <div class="eyebrow"><span class="page-id">A2</span><span class="tier tier-appendix">Appendix｜非必讀</span><span>框架對照</span></div>
+      <h2>BMad Method 與 LongHorizon-Harness 是參照框架；Core 不要求採用</h2>
       <div class="compare-grid">
         <article class="card">
-          <span class="kicker">BMAD</span><h3>來源與版本：待核對</h3>
-          <p>TODO：查閱原始來源後，補上連結、版本，以及它要處理的問題。</p>
+          <span class="kicker">BMad Method</span><h3>來源／版本</h3>
+          <p><a href="https://github.com/bmad-code-org/BMAD-METHOD">GitHub 專案</a> · 最新 release v6.12.0（2026-09-04）· 查閱日期：2026-09-30</p>
+          <ul>
+            <li>自稱「Agile AI Driven Development」；將 idea 或 change request 變成可運作軟體。</li>
+            <li>決策保持明確、context 延續；流程依工作規模調整：小變更直接 build，複雜工作加深規劃；跨聊天保留 durable context。</li>
+            <li>提供產品、架構、UX、開發、測試等專門視角，以結構化 workflow 與多 Agent 討論，不交出判斷；可安裝為 skills 或 Claude Code／Codex plugin。</li>
+          </ul>
         </article>
         <article class="card">
-          <span class="kicker">LongHorizon</span><h3>來源與版本：待核對</h3>
-          <p>TODO：查閱原始來源後，補上連結、版本，以及它要處理的問題。</p>
+          <span class="kicker">LongHorizon-Harness</span><h3>來源／版本</h3>
+          <p><a href="https://github.com/AMAP-ML/LongHorizon-Harness">GitHub 專案</a> · 最新 release v0.1.7（2026-08-20）· 查閱日期：2026-09-30</p>
+          <ul>
+            <li>自稱「Loop Engineering for Computer-Use Agents」；包裝 Claude Code、Codex、OpenCode、DeepSeek Harness 等既有 agents，讓它們跨桌面 App 與 CLI 執行長任務。</li>
+            <li>迴圈：規劃下一個 bounded step → 以 fresh context 行動 → 在真實環境核對實際結果 → checkpoint 已驗證進度，或記錄失敗證據並恢復 → 重複。</li>
+            <li>不訓練模型，也不取代被包裝的 agent。</li>
+          </ul>
         </article>
       </div>
-      <div class="bottom-callout">若比較兩者，只能標示為作者分析，不得寫成共同標準。跨 session 協作不必先採用其中任一框架。</div>
-      <!-- TODO(A2): 依 BMAD 與 LongHorizon 原始來源核對連結、查閱版本及各自處理的問題；目前離線，未填比較結論。 -->
+      <div class="bottom-callout"><strong>作者分析（比較輔助，非共同標準）：</strong> BMad 著重產品交付流程中決策、規格與 context 的流動，可對照 Core S2 的 Issue／AC／決策作為持久工件；LongHorizon 著重長任務執行迴圈，可對照 Core S5／S6 的 bounded work、evidence、fresh session 與 handoff。Core 不要求採用任一框架。</div>
     </section>
   </div>
 
