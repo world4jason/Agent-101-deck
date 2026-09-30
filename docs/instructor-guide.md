@@ -268,7 +268,7 @@
 **內容單元層級與伸縮**
 
 - **Core｜Travel Lite baseline 與安全輸入（S7-01）**：壓縮時保留個人行程、baseline、不可編造與敏感資料提醒；展開時逐項確認 repo、branch、commit、來源、Pages 和權限。
-- **Core｜Pages 驗收、版本核對與退回（S7-02）**：壓縮時保留逐項行程 AC、I3 版本核對和一次真實退回；展開時讓學員完整打開連結、比對部署狀態、操作 Pages、檢查變更範圍及做一次既有功能回歸。
+- **Core｜Pages 驗收、版本核對與退回（S7-02）**：壓縮時保留逐項行程 AC、I3 版本核對和一次真實退回；若學員自己的結果通過所有 AC，則以 I7 #35 講師示範包中講師設計的錯誤案例完成退回。展開時讓學員完整打開連結、比對部署狀態、操作 Pages、檢查變更範圍及做一次既有功能回歸。
 - **Core｜學員停止與講師 fresh-session 恢復（S7-03）**：壓縮時不可省略「學員真的停止並寫 handoff」與「講師真的另開 fresh session 並驗證」；展開時帶學員逐項核對 handoff 欄位和恢復證據。
 - **Optional／Extended｜學員 fresh-session 與 Round 4（S7-04）**：可略過且不作任何 Core 前置。展開時提供學員自行 fresh-session 接手、stale handoff／wrong-SHA 練習及 Round 4 遷移任務；壓縮時整段略過，不擠掉 Core 的實際停止或講師示範。
 - **Optional｜Advanced Matching 預告（S7-05）**：可略過且不影響 Core。展開時只介紹 Auth、shared DB、後端規則及 A/B/C 權限，並使用「UI 成功但資料未保存」反例；不把它變成 Core 實作前置。
@@ -282,7 +282,7 @@
   - 課程專用新 repo：學員本人在自己的 Settings → Pages 設為 Deploy from a branch → `main` → `/root`；講師只口頭引導、不代操作，不授予 Agent 額外權限；之後重做 I3 版本核對。
   - 若已有既有發布設計、無權限或無法確認：維持設定不變，將該學員的 Pages acceptance 標為 BLOCKED；改用講師示範包練習，handoff 寫「實際 Pages 尚未驗證」，不計為通過。
   - 支援其他發布方式須另作新決議以變更 I3。共識：[#31 Pages exception consensus](https://github.com/world4jason/Agent-101-deck/issues/31#issuecomment-5913052912)
-- **I7 #35 的錯誤案例只在本機重現**：用模板固定 commit 的檔案及本機靜態伺服器；不為刻意錯誤建立 GitHub repo。尤其舊部署案例可由本機伺服器呈現舊輸出、Agent 回報新 commit，讓學員依 I3 抓到畫面與版本不符。四案都應附使用 commit、重現步驟、輸出／畫面紀錄及預期判斷，並標「教學刻意製造，不是模板 bug」。真正 Pages 上的整合重現不屬本手冊可宣稱已完成的事項。
+- **I7 #35 的錯誤案例只在本機重現**：用模板固定 commit 的檔案及本機靜態伺服器；不為刻意錯誤建立 GitHub repo。尤其舊部署案例可由本機伺服器呈現舊輸出、Agent 回報新 commit，讓學員依 I3 抓到畫面與版本不符。四案各以簡短文字說明錯誤、列出本機重現步驟及預期學員判斷即可；作者只需確認重現步驟可行，並標「教學刻意製造，不是模板 bug」。真正 Pages 上的整合重現不屬本手冊可宣稱已完成的事項。
 - **停止與恢復必須演出真實動作**：確認練習環境中確實有必要工具不可用或權限不足的情況（例如 Agent 沒有 push 或 Pages 設定權限），讓學員實際停止並留下 BLOCKED handoff；不可只口頭假設受阻，也不可用 bypassPermissions 當一般解法。講師在實際可用的工具中另開 fresh session，不貼完整舊聊天；讀取正本，核對目前狀態，明確找出一項已過期或需重查的 handoff 資訊，依已批准範圍接續並重新驗證。不得用口頭說明冒充已開新 session 或已驗證。若當次環境不能實際完成，該項記 NOT RUN，不宣稱示範通過。
 - 回歸檢查至少針對一項受影響的既有功能附操作證據。不可用清空 repo、關閉安全設定或擴大權限作一般救援。
 
