@@ -23,6 +23,18 @@
 - Branch: **main**
 - Folder: **/(root)**
 
+## 導覽操作與回歸檢查
+
+- `→` / `PageDown` / `Space`：下一步（先逐一顯示 fragment，再換頁）；`←` / `PageUp`：上一步；`Home` / `End`：第一頁 / 最後一頁。點過 Prev / Next 按鈕後方向鍵仍可用。
+- 網址 `#N` 可直接跳到第 N 頁。鍵盤與按鈕導覽會更新網址但不新增瀏覽紀錄；手動改 hash 會新增紀錄，可用上一頁／下一頁返回同步。初次載入遇到無效 hash 會回到第 1 頁；載入後改成無效 hash 則保留目前頁面。
+
+改動投影片或 `slides/app.js` 後，跑一次瀏覽器回歸檢查（逐頁 × 三種 viewport、fragment、鍵盤、hash、列印）：
+
+```bash
+pip install playwright && python3 -m playwright install chromium
+python3 tests/deck_check.py
+```
+
 發布後網址預期為：
 
 https://world4jason.github.io/Agent-101-deck/
