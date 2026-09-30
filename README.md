@@ -1,10 +1,15 @@
 # Agent 101 Deck
 
-給軟體開發小白的 90 分鐘工作坊。
+**v6 Core pilot — 未經 #12 學員驗證**
 
-主題不是「怎麼下更聰明的 Prompt」，而是：
+這份簡報先講軟體工程與人類角色如何一起交付，再說明如何把有邊界、可驗收的工作交給 Agent。教學段落依序為 S0–S7；節奏由講師依受眾與情境控制，簡報不標分鐘數。
 
-> **一個需求，如何透過 Issue / AC / Git / PR / QA / Review / Release 變成可驗收的軟體，接著再把其中可驗收的工作交給 Agent。**
+## 課程範圍
+
+- **Core：**S0–S7（不含 S7-04、S7-05），從產品工作流、角色、Issue／AC、QA／Review、Git 版本狀態、Kanban、Agent 授權與 session handoff，最後以 Travel Lite 實作串起流程。
+- **Optional：**S7-04、S7-05 與 O1。可依受眾選用，跳過不影響 Core 主線。
+- **Appendix：**A1 詞彙查表、A2 框架對照，供查閱，不是 Core 前置。
+- **Core／Advanced 邊界：**Core 用個人行程與靜態 GitHub Pages 站練習流程、修改、驗收和交接。Advanced Matching 路徑再處理 Frontend、Backend、Auth、共用資料庫與 A／B／C 權限情境；Advanced 不是 Core hands-on 的前置，也不表示已有公開服務。
 
 ## GitHub Pages
 
@@ -13,7 +18,7 @@
 - `index.html` 會導向 `/slides/`
 - `slides/index.html` 是主投影片
 - `slides/styles.css` 負責視覺與 RWD
-- `slides/app.js` 負責鍵盤導覽、fragment reveal、hash routing
+- `slides/app.js` 負責鍵盤導覽、fragment reveal 與 hash routing
 
 不需要 build step，可直接用 GitHub Pages 發布。
 
@@ -25,10 +30,9 @@
 
 ## 導覽操作與回歸檢查
 
-- `→` / `PageDown` / `Space`：下一步（先逐一顯示 fragment，再換頁）；`←` / `PageUp`：上一步；`Home` / `End`：第一頁 / 最後一頁。點過 Prev / Next 按鈕後方向鍵仍可用。
-- 網址 `#N` 可直接跳到第 N 頁。鍵盤與按鈕導覽會更新網址但不新增瀏覽紀錄；手動改 hash 會新增紀錄，可用上一頁／下一頁返回同步。初次載入遇到無效 hash 會回到第 1 頁；載入後改成無效 hash 則保留目前頁面。
-
-改動投影片或 `slides/app.js` 後，跑一次瀏覽器回歸檢查（逐頁 × 三種 viewport、fragment、鍵盤、hash、列印）：
+- `→` / `PageDown` / `Space`：下一步；`←` / `PageUp`：上一步；`Home` / `End`：第一頁 / 最後一頁。
+- 網址 `#N` 可直接跳到第 N 頁。
+- 改動投影片或導覽程式後，可用瀏覽器逐頁檢查桌機、手機、fragment、鍵盤、hash 與列印：
 
 ```bash
 pip install playwright && python3 -m playwright install chromium
@@ -38,16 +42,3 @@ python3 tests/deck_check.py
 發布後網址預期為：
 
 https://world4jason.github.io/Agent-101-deck/
-
-## 教學主線
-
-需求 → Issue + AC → Branch → PR → Verify → Review → Merge → Release → Post-release QA → Done
-
-教學初期採用 **WIP=1** 作為執行政策：一次只推進一張工作卡。
-
-## 四個 Section
-
-1. 一個需求，怎麼變成軟體？
-2. 怎麼把需求寫成可以開工的工作？
-3. 一張 Issue，怎麼安全走到上線？
-4. 哪些工作可以交給 Agent？

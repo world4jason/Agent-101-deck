@@ -97,6 +97,41 @@ def check_fragments_walk(browser):
     page.close()
 
 
+def check_fragment_opacity(browser):
+    page, errors = open_deck(browser)
+    fragment_slide = page.evaluate(
+        """() => [...document.querySelectorAll('.slide')]
+          .findIndex(slide => slide.querySelector('.fragment'))"""
+    )
+    if fragment_slide < 0:
+        check(False, "fragment opacity: no slide contains fragments")
+        page.close()
+        return
+
+    page.evaluate(f"location.hash = '#{fragment_slide + 1}'")
+    page.wait_for_timeout(50)
+    expect_slide(page, fragment_slide, "fragment opacity start")
+    selector = ".slide.active .fragment"
+    count = page.locator(selector).count()
+    opacity_before = page.locator(selector).evaluate_all("fragments => fragments.map(f => getComputedStyle(f).opacity)")
+    check(opacity_before == ["0"] * count, f"fragment opacity: before reveal {opacity_before} != all 0")
+
+    for _ in range(count):
+        page.keyboard.press("ArrowRight")
+    try:
+        page.wait_for_function(
+            """() => [...document.querySelectorAll('.slide.active .fragment')]
+              .every(f => getComputedStyle(f).opacity === '1')""",
+            timeout=5000,
+        )
+    except PlaywrightTimeoutError:
+        check(False, "fragment opacity: timed out waiting for revealed fragments to reach opacity 1")
+    opacity_after = page.locator(selector).evaluate_all("fragments => fragments.map(f => getComputedStyle(f).opacity)")
+    check(opacity_after == ["1"] * count, f"fragment opacity: after reveal {opacity_after} != all 1")
+    check(not errors, f"fragment opacity: page errors {errors}")
+    page.close()
+
+
 def check_keyboard_after_buttons(browser):
     page, errors = open_deck(browser)
     nav_start = page.evaluate(
@@ -222,7 +257,7 @@ def check_print(browser):
 def main():
     with sync_playwright() as p:
         browser = p.chromium.launch()
-        for fn in (check_every_slide, check_fragments_walk, check_keyboard_after_buttons, check_hash, check_print):
+        for fn in (check_every_slide, check_fragments_walk, check_fragment_opacity, check_keyboard_after_buttons, check_hash, check_print):
             before = len(failures)
             fn(browser)
             print(f"{'PASS' if len(failures) == before else 'FAIL'}  {fn.__name__}")
