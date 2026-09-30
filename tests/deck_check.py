@@ -7,7 +7,7 @@ Exits non-zero if any check fails.
 import pathlib
 import sys
 
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import TimeoutError as PlaywrightTimeoutError, sync_playwright
 
 DECK = (pathlib.Path(__file__).resolve().parent.parent / "slides" / "index.html").as_uri()
 VIEWPORTS = [(1440, 900), (1366, 768), (390, 844)]
@@ -91,36 +91,67 @@ def check_fragments_walk(browser):
     for _ in range(n + total_frags - 1):
         page.keyboard.press("ArrowLeft")
     expect_slide(page, 0, "fragment walk back")
+    visible = page.evaluate("[...document.querySelectorAll('.fragment')].filter(f => f.classList.contains('visible')).length")
+    check(visible == 0, f"fragment walk back: {visible} fragments still visible")
     check(not errors, f"fragment walk: page errors {errors}")
     page.close()
 
 
 def check_keyboard_after_buttons(browser):
-    page, errors = open_deck(browser, "#9")  # slides 9-11 have no fragments
+    page, errors = open_deck(browser)
+    nav_start = page.evaluate(
+        """() => {
+          const slides = [...document.querySelectorAll('.slide')];
+          for (let i = 0; i <= slides.length - 3; i++) {
+            if (slides.slice(i, i + 3).every(s => s.querySelectorAll('.fragment').length === 0)) return i;
+          }
+          return -1;
+        }"""
+    )
+    if nav_start < 0:
+        check(False, "keyboard: no run of 3 consecutive slides without fragments")
+        page.close()
+        return
+    body_slide = page.evaluate(
+        """() => {
+          const slides = [...document.querySelectorAll('.slide')];
+          return slides.findIndex((s, i) => i < slides.length - 1 && s.querySelectorAll('.fragment').length === 0);
+        }"""
+    )
+    page.evaluate(f"location.hash = '#{nav_start + 1}'")
+    page.wait_for_timeout(50)
     page.click("#next")
-    expect_slide(page, 9, "click Next")
+    expect_slide(page, nav_start + 1, "click Next")
     page.keyboard.press("ArrowRight")
-    expect_slide(page, 10, "ArrowRight after clicking Next")
+    expect_slide(page, nav_start + 2, "ArrowRight after clicking Next")
     page.keyboard.press("ArrowLeft")
-    expect_slide(page, 9, "ArrowLeft with button focused")
+    expect_slide(page, nav_start + 1, "ArrowLeft with button focused")
     page.click("#prev")
-    expect_slide(page, 8, "click Prev")
+    expect_slide(page, nav_start, "click Prev")
     page.keyboard.press("Tab")
     check(page.evaluate("document.activeElement.id") == "next", "Tab from Prev focuses Next")
-    expect_slide(page, 8, "Tab leaves slide unchanged")
+    expect_slide(page, nav_start, "Tab leaves slide unchanged")
     page.keyboard.press("PageDown")
-    expect_slide(page, 9, "PageDown with button focused")
+    expect_slide(page, nav_start + 1, "PageDown with button focused")
     page.keyboard.press("PageUp")
-    expect_slide(page, 8, "PageUp with button focused")
+    expect_slide(page, nav_start, "PageUp with button focused")
     # Native button activation must fire exactly once (no double step).
     page.focus("#next")
     page.keyboard.press("Space")
-    expect_slide(page, 9, "Space on focused Next")
+    expect_slide(page, nav_start + 1, "Space on focused Next")
     page.keyboard.press("Enter")
-    expect_slide(page, 10, "Enter on focused Next")
+    expect_slide(page, nav_start + 2, "Enter on focused Next")
     page.keyboard.press("End")
     s = state(page)
     expect_slide(page, s["n"] - 1, "End")
+    hidden_last = page.evaluate(
+        """() => {
+          const slides = [...document.querySelectorAll('.slide')];
+          return [...slides[slides.length - 1].querySelectorAll('.fragment')]
+            .filter(f => !f.classList.contains('visible')).length;
+        }"""
+    )
+    check(hidden_last == 0, f"End: {hidden_last} fragments of the last slide still hidden")
     page.keyboard.press("Home")
     expect_slide(page, 0, "Home")
     # Browser shortcuts with modifiers must not move slides.
@@ -128,10 +159,15 @@ def check_keyboard_after_buttons(browser):
     page.keyboard.press("Control+ArrowRight")
     page.keyboard.press("Meta+ArrowRight")
     expect_slide(page, 0, "modifier+ArrowRight ignored")
-    # Space on body still advances.
-    page.evaluate("document.activeElement.blur()")
-    page.keyboard.press("Space")
-    expect_slide(page, 1, "Space on body")
+    if body_slide < 0:
+        check(False, "keyboard: no fragment-free slide before the last slide for body Space")
+    else:
+        page.evaluate(f"location.hash = '#{body_slide + 1}'")
+        page.wait_for_timeout(50)
+        expect_slide(page, body_slide, "body Space starts on fragment-free slide")
+        page.evaluate("document.activeElement.blur()")
+        page.keyboard.press("Space")
+        expect_slide(page, body_slide + 1, "Space on body")
     check(not errors, f"keyboard: page errors {errors}")
     page.close()
 
@@ -167,12 +203,19 @@ def check_hash(browser):
 def check_print(browser):
     page, _ = open_deck(browser)
     page.emulate_media(media="print")
+    try:
+        page.wait_for_function(
+            """() => [...document.querySelectorAll('.fragment')]
+              .every(f => getComputedStyle(f).opacity === '1')""",
+            timeout=5000,
+        )
+    except PlaywrightTimeoutError:
+        hidden = page.evaluate(
+            "[...document.querySelectorAll('.fragment')].filter(f => getComputedStyle(f).opacity !== '1').length"
+        )
+        check(False, f"print: timed out with {hidden} fragments not fully visible")
     s = state(page)
     check(len(s["shown"]) == s["n"], f"print: {len(s['shown'])} of {s['n']} slides displayed")
-    hidden = page.evaluate(
-        "[...document.querySelectorAll('.fragment')].filter(f => getComputedStyle(f).opacity !== '1').length"
-    )
-    check(hidden == 0, f"print: {hidden} fragments not fully visible")
     page.close()
 
 
