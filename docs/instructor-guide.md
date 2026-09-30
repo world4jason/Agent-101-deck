@@ -380,7 +380,7 @@
 - **D6（#26）延伸實作**：S5-02 的 Core 概念與「不是敏捷必要角色」已定；流程 manager Agent 的 Optional／Advanced 實作示範放 #19 或另行規劃，尚未決定。
 - **O1 情境選用**：能力 gate 與候選情境已列出；除交由 #19 的 PO／PM Agent 重排與上報示範外，其他情境由 #18／#19 或後續教材實際採用哪些，尚未決定。
 - **來源重查**：#12 Gate A 負責發布前的來源再核對。本指南未連網，A2 release 資訊、GitHub Docs、GitHub Pages 畫面／設定及特定產品支援均標為未重新驗證；不能據此宣稱 Gate A 已通過。
-- **S7 實測狀態**：I3 記錄的學員自有 repo／Pages GUI 完整走查為 NOT RUN；本次沒有實際執行 Travel Lite、I7 四種錯誤重現或講師 fresh-session 恢復，故均不得記為已驗證。I7 四案應依 #35 在本機以固定 commit 重現並留證，不建立 GitHub repo。
+- **S7 實測狀態**：I3 記錄的學員自有 repo／Pages GUI 完整走查為 NOT RUN；本次沒有實際執行 Travel Lite、I7 四種錯誤重現或講師 fresh-session 恢復，故均不得記為已驗證。I7 四案由作者確認本機重現步驟可行，不建立 GitHub repo。
 - **另一位講師試讀**：NOT RUN。本指南未附試讀者回饋；#31 試讀 gate 尚不能標為通過。
 
 在所提供的本地決議中，早期「Travel Lite 使用 PR preview」與「學員必須親手 fresh-session 恢復」已被後來 owner／共識決議取代；本指南依後續決議列出，未將它們當作仍待選的方案。
