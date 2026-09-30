@@ -149,22 +149,22 @@
       <div class="eyebrow"><span class="page-id">S2-02</span><span class="tier tier-core">Core</span><span>AC 與 DoD</span></div>
       <h2>「做對了嗎？」看 AC；「收尾了嗎？」看 DoD</h2>
       <div class="grid2">
-        <div class="card definition-card"><span class="kicker">AC｜Acceptance Criteria</span><b>這張卡的行為是否符合約定？</b><p>由 PO 與團隊為單卡約定；每張卡的情境不同。</p></div>
-        <div class="card definition-card"><span class="kicker">DoD｜Definition of Done</span><b>共通收尾條件是否全部完成？</b><p>全課共用；每一條都要有可核對證據。</p></div>
+        <div class="card definition-card"><span class="kicker">AC｜Acceptance Criteria</span><b>這張卡的行為是否符合約定？</b><p>PO 與團隊為單卡約定；各卡情境不同。</p></div>
+        <div class="card definition-card"><span class="kicker">DoD｜Definition of Done</span><b>共通收尾條件是否全部完成？</b><p>全課共用；每條都須有可核對證據。</p></div>
       </div>
       <div class="dod-list">
-        <div><b>1</b><span>PR 審查通過，阻擋項目已處理。</span></div>
+        <div><b>1</b><span>PR 審查通過，阻擋項已處理。</span></div>
         <div><b>2</b><span>上線後基本操作檢查通過，附版本與操作證據。</span></div>
-        <div><b>3</b><span>變更沒有超出已核准範圍。</span></div>
+        <div><b>3</b><span>變更未超出已核准範圍。</span></div>
         <div><b>4</b><span>受影響的既有功能檢查通過，附證據。</span></div>
       </div>
-      <p class="small-note">PO 接受前確認 DoD 1、3、4；按授權上線後再補第 2 條。基本操作能跑，不代表 AC 全過。</p>
+      <p class="small-note">PO 接受前確認 DoD 1、3、4；授權上線後補第 2 條。基本操作通過不代表 AC 全過。</p>
       <div class="grid3 compact-grid">
-        <div class="card example-fail"><b>AC 過、DoD 未過</b><p>Agent 環境可配對，但 PR 未審、尚未上線。</p></div>
+        <div class="card example-fail"><b>AC 過、DoD 未過</b><p>Agent 環境可配對；PR 未審、未上線。</p></div>
         <div class="card example-fail"><b>DoD 過、AC 未過</b><p>已審查、上線；B 未 Like 就成立配對。</p></div>
-        <div class="card example-fail"><b>超出核准範圍</b><p>順手新增聊天室：Request Changes，多做部分交 PO 決定是否另開卡。</p></div>
+        <div class="card example-fail"><b>超出核准範圍</b><p>順手加聊天室：Request Changes；多做部分交 PO 決定是否另開卡。</p></div>
       </div>
-      <div class="bottom-callout"><strong>Done = AC 獲 PO 接受 ＋ DoD 四條全過。</strong> 是否符合需求、是否越界，不能只靠自動檢查。</div>
+      <div class="bottom-callout"><strong>Done = AC 獲 PO 接受 ＋ DoD 四條全過。</strong> Agent 易順手多做；需求是否符合、範圍是否越界須由 PO／團隊核對，不能只靠自動檢查。</div>
     </section>
 
     <section class="slide" data-page-id="S2-03" data-section="s2">
@@ -194,21 +194,21 @@
       <div class="pr">
         <div class="pr-card">
           <h3>逐條 AC 留下可核對紀錄</h3>
-          <div class="pr-row"><b>怎麼驗</b><span>實際操作或檢查的方法。</span></div>
-          <div class="pr-row"><b>預期／實際</b><span>結果要能逐項對照。</span></div>
+          <div class="pr-row"><b>怎麼驗</b><span>實際操作或檢查方法。</span></div>
+          <div class="pr-row"><b>預期／實際</b><span>逐項記錄並對照結果。</span></div>
           <div class="pr-row"><b>狀態</b><span class="status-list"><i class="status pass">PASS</i><i class="status fail">FAIL</i><i class="status">NOT RUN</i><i class="status blocked">BLOCKED</i></span></div>
-          <div class="pr-row"><b>版本／環境</b><span>標明驗的是哪一版、在哪裡驗；受阻要寫原因。</span></div>
-          <div class="pr-row"><b>來源</b><span>附連結、截圖或測試結果，讓別人能核對。</span></div>
+          <div class="pr-row"><b>版本／環境</b><span>標明版號與驗收環境；受阻須寫原因。</span></div>
+          <div class="pr-row"><b>來源</b><span>附連結、截圖或測試結果供核對。</span></div>
         </div>
         <div class="decision">
           <h3>一起判斷</h3>
           <p>這份證據證明什麼？不能證明什麼？還缺什麼？</p>
           <div class="result request"><b>測試沒跑卻報成功</b><small>應標 NOT RUN。</small></div>
-          <div class="result request"><b>驗收環境還是舊版</b><small>不能代表候選版本已通過。</small></div>
-          <div class="result request"><b>測試遭刪除或弱化</b><small>Review 要核對測試差異。</small></div>
+          <div class="result request"><b>驗收環境還是舊版</b><small>不能證明候選版通過。</small></div>
+          <div class="result request"><b>測試被刪除／跳過／弱化</b><small>Review 核對測試差異。</small></div>
         </div>
       </div>
-      <div class="bottom-callout">驗收網址本身不等於版本證據；Agent 提供版本資訊後，學員要核對它是否對應候選版本。高風險資料、授權、付費或不可逆變更，另需具能力者做技術審查；技術審查與風險接受是不同決定。</div>
+      <div class="bottom-callout">驗收網址不等於版本證據；學員核對 Agent 提供的版本／環境是否對應候選版。高風險資料、授權、付費或不可逆變更，須由具能力者技術審查；技術審查與風險接受分開決定。</div>
     </section>
 
     <section class="slide" data-page-id="S2-05" data-section="s2">
@@ -429,22 +429,22 @@
 
     <section class="slide" data-page-id="S7-02" data-section="s7">
       <div class="eyebrow"><span class="page-id">S7-02</span><span class="tier tier-core">Core</span><span>Travel Lite｜驗收</span></div>
-      <h2>打開自己的 Pages，逐項核對行程與部署版本</h2>
-      <div class="bottom-callout"><strong>AC：</strong>行程每一項正確呈現；日期、順序、地點與未提供欄位都逐項核對，TBD 不得補成確定時間或活動。也檢查手機可讀性。</div>
+      <h2>逐項核對自己的行程、Pages 與版本</h2>
+      <div class="bottom-callout"><strong>AC：</strong>核對行程每一項的日期、順序、地點及未提供欄位；TBD 不得補成確定時間或活動，並檢查手機可讀性。</div>
       <div class="version-prompt">
-        <b>請 Agent 提供</b>
-        <p>Pages 發布方式與來源分支；該分支最新 commit；github-pages deployment 的 commit 與狀態；commit 頁、deployment 頁、自己的 Pages URL；以及這版畫面可見改動的白話清單。沒有可見改動就明說。</p>
+        <b>I3 版本證據｜請 Agent 提供</b>
+        <p>Pages 發布方式與來源分支、分支最新 commit、github-pages deployment commit／狀態，及 commit 頁、deployment 頁、自己的 Pages URL；另用白話列此版畫面改動（無則明說）。</p>
       </div>
       <div class="grid3">
-        <div class="card step-card"><span class="step-number">1</span><b>先核對發布來源</b><p>在自己的 Settings → Pages 確認來源。若非 Deploy from a branch 或來源分支不是 main，先停下問講師。</p></div>
-        <div class="card step-card"><span class="step-number">2</span><b>核對部署紀錄</b><p>打開 commit 與 deployment 連結；確認來源分支最新 commit 與 github-pages commit 相同，狀態成功。</p></div>
-        <div class="card step-card"><span class="step-number">3</span><b>核對實際畫面</b><p>從 deployment 開啟自己的 Pages，確認網址屬於自己的 GitHub 帳號；強制重新整理或用無痕視窗，對照可見改動清單與自己的行程。</p></div>
+        <div class="card step-card"><span class="step-number">1</span><b>核對 Pages 來源</b><p>在自己的 Settings → Pages 確認為 Deploy from a branch、來源分支為 main；否則停下問講師。</p></div>
+        <div class="card step-card"><span class="step-number">2</span><b>比對部署版本</b><p>打開 commit 與 deployment 頁；確認分支最新 commit 與 github-pages commit 相同，且部署成功。</p></div>
+        <div class="card step-card"><span class="step-number">3</span><b>核對實際畫面</b><p>從 deployment 開啟自己的 Pages，確認是自己的 GitHub 網址；強制重整或用無痕視窗，按改動清單核對行程。</p></div>
       </div>
       <div class="grid2 compact-grid">
-        <div class="card"><b>至少退回一次</b><p>發現未通過的 AC 時，附行程項目與截圖或 URL，請 Agent 修正；若所有 AC 都已通過，改用講師示範包的刻意錯誤案例。只有修正以 PR 提交時，才在 PR 按 Request Changes。</p></div>
-        <div class="card"><b>檢查變更並回歸</b><p>看 diff 與檔案清單，確認沒有超出核准範圍，也沒有 token、憑證或敏感資料。修正後重查，並附至少一項受影響既有功能的操作證據。</p></div>
+        <div class="card"><b>附證據退回一次</b><p>未通過 AC 時，附行程項目與截圖或 URL 請 Agent 修正；若全數通過，改用講師示範包的錯誤案例退回。有 PR 才按 Request Changes。</p></div>
+        <div class="card"><b>查範圍、敏感資料與回歸</b><p>核對 diff／檔案清單，確認無超出核准範圍的檔案、token、憑證或敏感資料。修正後重查，附至少一項受影響既有功能的操作證據（DoD 4）。</p></div>
       </div>
-      <div class="bottom-callout">部署紀錄相符不保證瀏覽器已顯示新版。部署未完成先看 Actions；完成後重查。若失敗、畫面不符或行程有錯，修正後從版本核對重新開始。</div>
+      <div class="bottom-callout">部署紀錄相符不保證瀏覽器已載入新版：部署未完成先查 Actions，完成後重查。若失敗、畫面不符或行程有錯，修正後重做版本核對。</div>
     </section>
 
     <section class="slide" data-page-id="S7-03" data-section="s7">
@@ -497,20 +497,20 @@
     <section class="slide" data-page-id="O1" data-section="optional">
       <div class="eyebrow"><span class="page-id">O1</span><span class="tier tier-optional">Optional｜可跳過</span><span>產品維護能力路徑</span></div>
       <h2>能力用可觀察 gate 與實際證據呈現</h2>
-      <p class="subhead">POC 驗證可行性；MVP 以核心價值是否可驗證來界定；可持續產品還要能維護、恢復並依新證據調整。「用 Agent 開發」不等於「產品內含 Agent」。L1–L6 是可交錯達成的能力 gate，不是時程表。</p>
+      <p class="subhead">POC 驗證可行性；MVP 由核心價值能否驗證來界定；可持續產品還須可維護、可恢復並依新證據調整。「用 Agent 開發」不等於「產品內含 Agent」。L1–L6 是可交錯達成的能力 gate，不是時程表。</p>
       <div class="gate-grid">
-        <article class="card"><span class="kicker">L1</span><b>交付單卡</b><p>Issue、AC 與版本證據；從第一階段就維護現行文件。</p></article>
-        <article class="card"><span class="kicker">L2</span><b>帶既有資料改版</b><p>相容調整的紀錄與既有功能回歸結果。</p></article>
-        <article class="card"><span class="kicker">L3</span><b>分開驗證恢復</b><p>分別留下部署 rollback 與資料 restore／roll-forward 的檢查證據。</p></article>
+        <article class="card"><span class="kicker">L1</span><b>交付單卡</b><p>Issue、AC、版本證據；從 L1 起維護現行文件。</p></article>
+        <article class="card"><span class="kicker">L2</span><b>帶既有資料改版</b><p>相容改版紀錄與既有功能回歸結果。</p></article>
+        <article class="card"><span class="kicker">L3</span><b>分開驗證恢復</b><p>分別驗證部署 rollback、資料 restore／roll-forward 並留證。</p></article>
         <article class="card"><span class="kicker">L4</span><b>故障注入與恢復</b><p>故障紀錄、可操作警報、恢復與回歸結果。</p></article>
-        <article class="card"><span class="kicker">L5</span><b>依新資訊重排</b><p>用回饋、成本與風險更新排序，並在 Issue／看板記下理由。</p></article>
-        <article class="card"><span class="kicker">L6</span><b>陌生 session 接手</b><p>從現行文件找到正本，核對狀態後留下接手紀錄。</p></article>
+        <article class="card"><span class="kicker">L5</span><b>依新資訊重排</b><p>依使用者回饋、成本與風險重排；在 Issue／看板記錄理由。</p></article>
+        <article class="card"><span class="kicker">L6</span><b>陌生 session 接手</b><p>依現行文件找正本、核對狀態並留下接手紀錄。</p></article>
       </div>
       <div class="grid2 compact-grid">
-        <div class="card"><b>安全與資料</b><p>假資料與正式資料分開；secret 不進聊天、repo、log 或截圖；開發權限採最小必要。</p></div>
-        <div class="card"><b>情境庫</b><p>Schema、Auth／設定、壞部署、依賴、額度／成本與回饋回到 backlog；Advanced 可依需要挑選。</p></div>
+        <div class="card"><b>安全與資料</b><p>假資料與正式資料分開；secret 不進聊天、repo、log 或截圖；開發權限最小化。</p></div>
+        <div class="card"><b>情境庫</b><p>Schema、Auth／設定、壞部署、依賴、額度／成本、回饋回 backlog；Advanced 視需要選用。</p></div>
       </div>
-      <div class="bottom-callout">六個月不是 MVP 的定義。半年維運只作 evidence claim：須有實際時間跨度、版本、事件與使用者結果；加速演練不能冒充。程式 revert、部署 rollback、資料 restore／roll-forward 不能互相替代。PO／PM Agent 重排示範由 Advanced 教材承接。</div>
+      <div class="bottom-callout">六個月不是 MVP 定義。半年維運只作 evidence claim，須有真實六個月時間跨度、版本、事件與使用者結果；加速演練不算。程式 revert、部署 rollback、資料 restore／roll-forward 不能互相替代。PO／PM Agent 重排示範由 Advanced 教材承接。</div>
     </section>
 
     <section class="slide" data-page-id="A1" data-section="appendix">
