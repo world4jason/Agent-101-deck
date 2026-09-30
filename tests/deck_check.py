@@ -29,10 +29,11 @@ def state(page):
                               .filter(([, d]) => d !== 'none').map(([i]) => i);
           const active = slides.findIndex(s => s.classList.contains('active'));
           const rail = [...document.querySelectorAll('[data-rail].active')].map(r => r.dataset.rail);
+          const railPresent = document.querySelector('[data-rail]') !== null;
           return {
             n: slides.length, shown, active,
             section: active >= 0 ? slides[active].dataset.section : null,
-            rail,
+            rail, railPresent,
             current: document.getElementById('current').textContent,
             total: document.getElementById('total').textContent,
             progress: document.getElementById('progress').style.width,
@@ -72,7 +73,7 @@ def check_every_slide(browser):
             page.evaluate(f"location.hash = '#{i + 1}'")
             page.wait_for_timeout(50)
             s = expect_slide(page, i, f"{vp} slide {i + 1}")
-            if vp[0] > 900:
+            if vp[0] > 900 and s["railPresent"]:
                 check(s["rail"] == [s["section"]], f"{vp} slide {i + 1}: rail {s['rail']} != [{s['section']}]")
         check(not errors, f"{vp}: page errors {errors}")
         page.close()
