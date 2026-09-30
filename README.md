@@ -6,7 +6,7 @@
 
 ## 課程範圍
 
-- **Core：**S0–S7，從產品工作流、角色、Issue／AC、QA／Review、Git 版本狀態、Kanban、Agent 授權與 session handoff，最後以 Travel Lite 實作串起流程。
+- **Core：**S0–S7（不含 S7-04、S7-05），從產品工作流、角色、Issue／AC、QA／Review、Git 版本狀態、Kanban、Agent 授權與 session handoff，最後以 Travel Lite 實作串起流程。
 - **Optional：**S7-04、S7-05 與 O1。可依受眾選用，跳過不影響 Core 主線。
 - **Appendix：**A1 詞彙查表、A2 框架對照，供查閱，不是 Core 前置。
 - **Core／Advanced 邊界：**Core 用個人行程與靜態 GitHub Pages 站練習流程、修改、驗收和交接。Advanced Matching 路徑再處理 Frontend、Backend、Auth、共用資料庫與 A／B／C 權限情境；Advanced 不是 Core hands-on 的前置，也不表示已有公開服務。

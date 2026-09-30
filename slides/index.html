@@ -140,9 +140,8 @@
           <div><b>Stop rule</b><p>需要新資料、改變授權或遇到無法排除的阻礙時，先停下問 PO。</p></div>
         </div>
       </article>
-      <div class="grid2 compact-grid">
+      <div class="compact-grid">
         <div class="card"><b>可採用的教學約定</b><p>一張可驗收卡配一個小 PR，方便看差異與證據；這不是 GitHub 限制。</p></div>
-        <div class="card"><b>調查卡也能完成</b><p>依事先約定的問題、結論與依據判定，不必硬做產品 PR 或 Release。</p></div>
       </div>
     </section>
 
@@ -251,10 +250,11 @@
       <h2>全板 WIP=1：等待驗收也還在工作中</h2>
       <div class="kanban wip-board">
         <div class="col"><h4>Ready</h4><div class="work-card muted">下一張待拉</div></div>
-        <div class="col"><h4>Build／QA</h4><div class="work-card">Issue M-3</div></div>
-        <div class="col"><h4>Review</h4><div class="work-card active-card">同一張卡仍是 WIP</div></div>
-        <div class="col"><h4>PO 驗收／發布</h4><div class="work-card muted">未 Done 仍占 WIP</div></div>
+        <div class="col"><h4>Build／QA</h4></div>
+        <div class="col"><h4>Review</h4></div>
+        <div class="col"><h4>PO 驗收／發布</h4></div>
         <div class="col"><h4>Done</h4><div class="work-card muted">完成後才拉下一張</div></div>
+        <div class="work-card active-card wip-card">Issue M-3｜同一張卡仍是 WIP</div>
       </div>
       <div class="grid2 compact-grid">
         <div class="card"><b>本課政策</b><p>一次只推進一張卡。Build、Review、PO 驗收、待發布與上線檢查都算 WIP。</p></div>
@@ -336,7 +336,7 @@
       <div class="eyebrow"><span class="page-id">S5-02</span><span class="tier tier-core">Core</span><span>流程 manager Agent</span></div>
       <h2>流程 manager Agent 推動工作，不替人做產品決定</h2>
       <div class="grid2">
-        <div class="card"><span class="kicker">流程協調</span><b>過去由人與既有流程角色共同維持</b><p>角色分工、看板、會議、規範，以及 PM／Scrum Master 等流程促進職能。</p></div>
+        <div class="card"><span class="kicker">流程協調</span><b>以前由人與既有流程角色透過分工、看板、會議和規範協調</b></div>
         <div class="card compare-highlight"><span class="kicker">可委派的部分</span><b>由流程 manager Agent 依政策推進</b><p>用一張卡從 Ready 開始，守 WIP，依 workflow policy 交接，核對 DoD 證據。</p></div>
       </div>
       <ol class="step-grid compact-steps">
@@ -346,7 +346,7 @@
         <li><b>核對 DoD</b><small>遇 Stop rule 或越權就問人；條件齊全才標 Done。</small></li>
       </ol>
       <div class="grid3 compact-grid">
-        <div class="card"><b>依外部證據推進</b><p>看板、Issue、PR 與證據，不靠聊天記憶；需要時也能換 fresh session。</p></div>
+        <div class="card"><b>依外部證據推進</b><p>看板、Issue、PR 與證據，不靠聊天記憶。</p></div>
         <div class="card"><b>越權就問人</b><p>目標、排序、產品接受與上線核准由 PO／Human owner 決定；QA／Reviewer 可依 AC／DoD 退回。</p></div>
         <div class="card"><b>完成要有證據</b><p>流程 manager Agent 也不能只靠自述宣告完成。</p></div>
       </div>
@@ -387,7 +387,7 @@
 
     <section class="slide" data-page-id="S6-03" data-section="s6">
       <div class="eyebrow"><span class="page-id">S6-03</span><span class="tier tier-core">Core</span><span>交接狀態判斷</span></div>
-      <h2>handoff 與目前 PR／版本不一致時，先停下查證</h2>
+      <h2>handoff 與目前 PR／版本是否一致？</h2>
       <div class="pr stale-example">
         <div class="pr-card">
           <h3>預備的 handoff</h3>
@@ -398,15 +398,13 @@
         <div class="pr-card">
           <h3>目前 PR／版本</h3>
           <div class="pr-row"><b>目前 HEAD</b><span>示意 SHA：e4f5a6b</span></div>
-          <div class="pr-row"><b>差異</b><span>handoff 記錄的版本不是目前 PR 版本。</span></div>
-          <div class="pr-row"><b>狀態</b><span class="fail">舊證據不能標成目前版本 PASS。</span></div>
         </div>
       </div>
       <div class="decision">
-        <h3>學員判斷</h3>
-        <p>指出版本不一致；先標示疑點與 BLOCKED，再核對當前正本並決定下一個安全檢查。</p>
+        <h3>互動題</h3>
+        <p>這份 handoff 是否與目前 PR／版本一致？下一個安全動作是什麼？</p>
       </div>
-      <div class="bottom-callout">本頁只做畫面判斷，不要求學員開 fresh session 或重跑檢查。若有疑點，不把舊證據標綠。</div>
+      <div class="bottom-callout">本頁只做畫面判斷，不要求學員開 fresh session 或重跑檢查。</div>
     </section>
 
     <section class="slide" data-page-id="S7-01" data-section="s7">
@@ -414,8 +412,8 @@
       <h2>用自己的行程，把前面學過的流程串起來</h2>
       <div class="grid2">
         <div class="card">
-          <span class="kicker">原始短 prompt</span>
-          <blockquote>請參考我的旅遊行程：[貼上自己的行程來源]。請以 <a href="https://github.com/world4jason/Travel-lite-Template">Travel Lite 範本</a> 為基礎，建立旅遊行程 app 並放到我自己的 GitHub Pages。</blockquote>
+          <span class="kicker">原始 prompt（〈 〉內換成你自己的內容）</span>
+          <blockquote>請參考連結，內容是旅遊行程計劃: 〈你的行程（連結或文字）〉 並利用此專案作為template github.com/world4jason/travel-lite-template 在 github.com/〈你的帳號〉/〈repo 名稱〉 底下 弄出一個旅遊行程 app 放在 github pages</blockquote>
         </div>
         <div class="card">
           <span class="kicker">開始前 baseline</span>
@@ -432,6 +430,7 @@
     <section class="slide" data-page-id="S7-02" data-section="s7">
       <div class="eyebrow"><span class="page-id">S7-02</span><span class="tier tier-core">Core</span><span>Travel Lite｜驗收</span></div>
       <h2>打開自己的 Pages，逐項核對行程與部署版本</h2>
+      <div class="bottom-callout"><strong>AC：</strong>行程每一項正確呈現；日期、順序、地點與未提供欄位都逐項核對，TBD 不得補成確定時間或活動。也檢查手機可讀性。</div>
       <div class="version-prompt">
         <b>請 Agent 提供</b>
         <p>Pages 發布方式與來源分支；該分支最新 commit；github-pages deployment 的 commit 與狀態；commit 頁、deployment 頁、自己的 Pages URL；以及這版畫面可見改動的白話清單。沒有可見改動就明說。</p>
@@ -442,11 +441,10 @@
         <div class="card step-card"><span class="step-number">3</span><b>核對實際畫面</b><p>從 deployment 開啟自己的 Pages，確認網址屬於自己的 GitHub 帳號；強制重新整理或用無痕視窗，對照可見改動清單與自己的行程。</p></div>
       </div>
       <div class="grid2 compact-grid">
-        <div class="card"><b>至少退回一次</b><p>發現未通過的 AC 時，附行程項目與截圖或 URL，請 Agent 修正；若所有 AC 都已通過，改用 I7 #35 講師示範包的刻意錯誤案例。只有修正以 PR 提交時，才在 PR 按 Request Changes。</p></div>
+        <div class="card"><b>至少退回一次</b><p>發現未通過的 AC 時，附行程項目與截圖或 URL，請 Agent 修正；若所有 AC 都已通過，改用講師示範包的刻意錯誤案例。只有修正以 PR 提交時，才在 PR 按 Request Changes。</p></div>
         <div class="card"><b>檢查變更並回歸</b><p>看 diff 與檔案清單，確認沒有超出核准範圍，也沒有 token、憑證或敏感資料。修正後重查，並附至少一項受影響既有功能的操作證據。</p></div>
       </div>
       <div class="bottom-callout">部署紀錄相符不保證瀏覽器已顯示新版。部署未完成先看 Actions；完成後重查。若失敗、畫面不符或行程有錯，修正後從版本核對重新開始。</div>
-      <p class="small-note"><strong>AC：</strong>行程每一項正確呈現；日期、順序、地點與未提供欄位都逐項核對，TBD 不得補成確定時間或活動。也檢查手機可讀性。</p>
     </section>
 
     <section class="slide" data-page-id="S7-03" data-section="s7">
@@ -491,7 +489,7 @@
       </div>
       <div class="grid2 compact-grid">
         <div class="card"><b>進階驗收反例</b><p>介面顯示成功，但資料沒有保存；必須檢查後端資料與授權。</p></div>
-        <div class="card"><b>不同學習路徑</b><p>PR preview 以 Advanced #18 的 Vercel 內建功能示範；不是 Travel Lite 的前置，也不表示已有公開服務。</p></div>
+        <div class="card"><b>不同學習路徑</b><p>PR preview 以 Advanced 教材的 Vercel 內建功能示範；不是 Travel Lite 的前置，也不表示已有公開服務。</p></div>
       </div>
       <div class="bottom-callout">可略過，不影響 Core hands-on。</div>
     </section>
@@ -512,7 +510,7 @@
         <div class="card"><b>安全與資料</b><p>假資料與正式資料分開；secret 不進聊天、repo、log 或截圖；開發權限採最小必要。</p></div>
         <div class="card"><b>情境庫</b><p>Schema、Auth／設定、壞部署、依賴、額度／成本與回饋回到 backlog；Advanced 可依需要挑選。</p></div>
       </div>
-      <div class="bottom-callout">半年維運只作 evidence claim：須有實際時間跨度、版本、事件與使用者結果；加速演練不能冒充。程式 revert、部署 rollback、資料 restore／roll-forward 不能互相替代。PO／PM Agent 重排示範由 Advanced #19 承接。</div>
+      <div class="bottom-callout">六個月不是 MVP 的定義。半年維運只作 evidence claim：須有實際時間跨度、版本、事件與使用者結果；加速演練不能冒充。程式 revert、部署 rollback、資料 restore／roll-forward 不能互相替代。PO／PM Agent 重排示範由 Advanced 教材承接。</div>
     </section>
 
     <section class="slide" data-page-id="A1" data-section="appendix">
