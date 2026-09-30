@@ -4,581 +4,555 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <title>Agent 101 — v6 Core pilot</title>
+  <title>Agent 101 · v7</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
 <main class="deck">
   <header class="topbar">
-    <div class="brand">Agent 101 · v6 Core pilot</div>
-    <nav class="rail" aria-label="投影片段落">
-      <span data-rail="s0">S0 定位</span>
-      <span data-rail="s1">S1 軟工</span>
-      <span data-rail="s2">S2 交付</span>
-      <span data-rail="s3">S3 Kanban</span>
-      <span data-rail="s4">S4 Agent</span>
-      <span data-rail="s5">S5 協作</span>
-      <span data-rail="s6">S6 Context</span>
-      <span data-rail="s7">S7 實作</span>
-      <span data-rail="optional">補充</span>
-      <span data-rail="appendix">附錄</span>
-    </nav>
-    <div class="counter"><span id="current">1</span> / <span id="total">30</span></div>
+    <div class="brand">Agent 101 · v7</div>
+    <div class="counter"><span id="current">1</span> / <span id="total">42</span></div>
   </header>
-
   <div class="slides">
-    <section class="slide title-slide" data-page-id="S0-01" data-section="s0">
-      <div class="eyebrow"><span class="page-id">S0-01</span><span class="tier tier-core">Core</span><span>課程定位</span></div>
-      <h1>Agent 參與軟體工程，<br><span class="accent">不會取代流程與責任</span></h1>
-      <p class="lead">先看產品工作怎麼流動，再看哪些有邊界、可驗收的工作能交給 Agent。</p>
-      <div class="quote">不要求學員手寫程式；也不承諾一堂課就能讓人變成後端工程師，或保證產品成功。</div>
-      <div class="bottom-callout"><strong>主線：</strong>需求、角色、工作卡、驗收與證據先到位，Agent 才能安全承接工作。</div>
+    <section class="slide section-slide" data-section="s1">
+      <div class="cover-mark">01</div>
+      <h1>第一段｜軟體是怎麼被做出來的</h1>
+      <p class="cover-question">一個想法，怎麼經過敏捷／看板流程變成交付的軟體？</p>
     </section>
 
-    <section class="slide" data-page-id="S0-02" data-section="s0">
-      <div class="eyebrow"><span class="page-id">S0-02</span><span class="tier tier-core">Core</span><span>交付全貌</span></div>
-      <h2>Done 是有條件的交付狀態</h2>
-      <div class="flow pipeline">
-        <div class="node"><b>需求／目標</b><small>要解決什麼</small></div><div class="arrow">→</div>
-        <div class="node"><b>Issue／AC</b><small>約定範圍與情境</small></div><div class="arrow">→</div>
-        <div class="node"><b>實作</b><small>依核准內容修改</small></div><div class="arrow">→</div>
-        <div class="node"><b>QA</b><small>行為與失敗路徑</small></div><div class="arrow">→</div>
-        <div class="node"><b>Review</b><small>變更、範圍、風險</small></div><div class="arrow">→</div>
-        <div class="node"><b>PO 接受</b><small>候選版本依 AC</small></div><div class="arrow">→</div>
-        <div class="node"><b>授權發布</b><small>依核准方式交付</small></div><div class="arrow">→</div>
-        <div class="node"><b>上線後檢查</b><small>附操作證據</small></div><div class="arrow">→</div>
-        <div class="node"><b>Done</b><small>條件與證據齊全</small></div>
-      </div>
-      <div class="grid3 compact-grid">
-        <div class="card"><b>不通過 → 修正</b><p>QA 或 Review 依 AC／DoD 退回，補正後再檢查。</p></div>
-        <div class="card"><b>受阻 → 記錄</b><p>標示原因、目前證據與下一位處理者。</p></div>
-        <div class="card"><b>新需求 → PO 判斷</b><p>另立 Issue；不能把 merge、關閉 Issue、部署或 Agent 自述當成 Done。</p></div>
-      </div>
-      <div class="bottom-callout">基本操作可用，不代表 AC 全過；功能可操作，也不代表產品目標已達成。</div>
-    </section>
-
-    <section class="slide" data-page-id="S1-01" data-section="s1">
-      <div class="eyebrow"><span class="page-id">S1-01</span><span class="tier tier-core">Core</span><span>軟體如何一起交付</span></div>
-      <h2>用一個簡化 Matching App 看前後端如何合作</h2>
-      <div class="match-rule">
-        <div class="match-person"><b>A 喜歡 B</b><small>前端：按鈕與配對畫面</small></div>
-        <div class="match-sign">＋</div>
-        <div class="match-person"><b>B 也喜歡 A</b><small>後端：記錄選擇並判斷規則</small></div>
-        <div class="match-sign">＝</div>
-        <div class="match-result"><b>成立配對</b><small>資料：保存雙向選擇與結果</small></div>
-      </div>
-      <div class="grid3">
-        <div class="card"><b>產品行為</b><p>只有雙方互相喜歡才成立配對。</p></div>
-        <div class="card"><b>介面與規則</b><p>畫面呈現選擇；後端負責身分、資料與配對判斷。</p></div>
-        <div class="card"><b>本頁範圍</b><p>用來理解責任如何交會，不在這裡實作會員或資料庫系統。</p></div>
-      </div>
-      <p class="small-note">Travel Lite 留到 S7；報名頁不作第三條主線。</p>
-    </section>
-
-    <section class="slide" data-page-id="S1-02" data-section="s1">
-      <div class="eyebrow"><span class="page-id">S1-02</span><span class="tier tier-core">Core</span><span>人類責任視角</span></div>
-      <h2>角色是責任視角，不是固定職稱</h2>
-      <p class="subhead">同一需求：A 喜歡 B、B 也喜歡 A 才成立配對。先問「這是誰要回答的問題？」</p>
-      <table class="data-table role-table">
-        <thead><tr><th>責任視角</th><th>在 Matching 需求中負責什麼</th><th>要回答的問題</th></tr></thead>
-        <tbody>
-          <tr><td data-label="責任視角">PO</td><td data-label="負責什麼">判斷價值、目標與接受條件</td><td data-label="要回答的問題">要解決誰的問題？怎樣算符合需求？</td></tr>
-          <tr><td data-label="責任視角">Frontend</td><td data-label="負責什麼">操作流程與介面呈現</td><td data-label="要回答的問題">如何按喜歡，並看見配對結果？</td></tr>
-          <tr><td data-label="責任視角">Backend</td><td data-label="負責什麼">身分、資料、API 與配對規則</td><td data-label="要回答的問題">怎樣確認雙方選擇並保存結果？</td></tr>
-          <tr><td data-label="責任視角">QA</td><td data-label="負責什麼">核對行為與失敗路徑</td><td data-label="要回答的問題">單向喜歡、沒按喜歡時會怎樣？</td></tr>
-          <tr><td data-label="責任視角">Reviewer</td><td data-label="負責什麼">檢查變更、範圍與風險</td><td data-label="要回答的問題">差異是否符合約定？有沒有漏掉風險？</td></tr>
-          <tr><td data-label="責任視角">Ops</td><td data-label="負責什麼">發布、環境、運行與恢復</td><td data-label="要回答的問題">上線的是哪一版？出問題如何恢復？</td></tr>
-        </tbody>
-      </table>
-      <div class="bottom-callout">PO、PM 與 Scrum Master 的責任不同；一人可承擔多個視角，不必有同名職位。</div>
-    </section>
-
-    <section class="slide" data-page-id="S1-03" data-section="s1">
-      <div class="eyebrow"><span class="page-id">S1-03</span><span class="tier tier-core">Core</span><span>工作拆解與驗收</span></div>
-      <h2>工作分組用 Epic，能驗收的工作寫成 Issue</h2>
-      <div class="grid2">
-        <div class="card hierarchy-card">
-          <span class="kicker">本課兩層</span>
-          <b>Matching Epic</b><p>讓 A、B、C 使用者依雙向喜歡規則完成配對。</p>
-          <div class="child-issue"><b>Issue：雙向喜歡才建立配對</b><small>Goal：讓使用者找到互相選擇的對象。</small><small>AC 情境：A 喜歡 B、B 尚未回應時不配對；B 也喜歡 A 才配對；C 單向喜歡 B 時也不配對。</small></div>
-        </div>
-        <div class="card">
-          <b>GitHub Project ≠ Epic</b>
-          <p>Project 是整理與追蹤工件的地方；Epic 是本課用來分組的大工作。</p>
-          <p class="callout-inline">本課只用 Epic → Issue。Goal 用一句話交代為誰、為什麼；AC 寫可觀察情境。</p>
+    <section class="slide" data-section="s1">
+      <h1>範例產品：Matching</h1>
+      <div class="visual">
+        <div class="match-demo">
+          <div class="phone">
+            <span class="phone-label">A 的畫面</span>
+            <div class="avatar">B</div>
+            <strong>喜歡這個人嗎？</strong>
+            <span class="like-button">Like ♥</span>
+          </div>
+          <div class="demo-arrow">→</div>
+          <div class="phone">
+            <span class="phone-label">B 的畫面</span>
+            <div class="avatar avatar-alt">A</div>
+            <strong>喜歡這個人嗎？</strong>
+            <span class="like-button">Like ♥</span>
+          </div>
+          <div class="demo-arrow">→</div>
+          <div class="match-result fragment">
+            <span class="match-spark">✦</span>
+            <strong>雙方都看到 Match</strong>
+          </div>
         </div>
       </div>
-      <div class="bottom-callout"><strong>Kanban 本身不規定工作項目要長什麼樣子；User Story 起源於 XP，Scrum 與 Kanban 都不要求一定寫成 User Story。</strong></div>
-      <p class="muted small-note">User Story 詞條留在 Appendix A1；主線不再加入其他工作項目層級。</p>
     </section>
 
-    <section class="slide" data-page-id="S1-04" data-section="s1">
-      <div class="eyebrow"><span class="page-id">S1-04</span><span class="tier tier-core">Core</span><span>工作節奏</span></div>
-      <h2>Sprint 與 Kanban 是不同的工作節奏</h2>
-      <div class="compare-grid">
-        <article class="card compare-card">
-          <span class="kicker">Sprint</span><h3>固定週期</h3>
-          <ul><li>按週期規劃一批工作。</li><li>在週期節點檢視結果與回饋。</li><li>本課只作方法對照，不教 Scrum 儀式。</li></ul>
-        </article>
-        <article class="card compare-card compare-highlight">
-          <span class="kicker">本課採用</span><h3>Kanban 持續流動</h3>
-          <ul><li>依容量拉取下一張 Ready 卡。</li><li>工作持續流動，不等固定週期才交付。</li><li>新回饋可觸發排序調整。</li></ul>
+    <section class="slide" data-section="s1">
+      <h1>全流程</h1>
+      <div class="visual">
+        <ol class="main-flow">
+          <li>Brainstorming</li><li>Goal</li><li>Backlog／Ticket</li><li>Ready</li><li>Developer</li><li>PR Reviewer</li><li>QA／Verification</li><li>PO/PM Gate</li><li>Done</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide process-step" data-section="s1">
+      <h1>Brainstorming</h1>
+      <div class="visual">
+        <ol class="mini-flow" aria-label="流程位置">
+          <li class="current">Brainstorming</li><li>Goal</li><li>Backlog／Ticket</li><li>Ready</li><li>Developer</li><li>PR Reviewer</li><li>QA</li><li>PO/PM Gate</li><li>Done</li>
+        </ol>
+        <div class="sticky-wall">
+          <div class="sticky">為誰配對？<small>使用者</small></div>
+          <div class="sticky">解決什麼？<small>找到互相喜歡的人</small></div>
+          <div class="sticky">配對<small>雙方都 Like</small></div>
+          <div class="sticky">聊天<small>這輪先不選</small></div>
+          <div class="sticky">推薦<small>這輪先不選</small></div>
+          <div class="sticky">封鎖<small>待排入 Backlog</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide process-step" data-section="s1">
+      <h1>Goal</h1>
+      <div class="visual">
+        <ol class="mini-flow" aria-label="流程位置">
+          <li>Brainstorming</li><li class="current">Goal</li><li>Backlog／Ticket</li><li>Ready</li><li>Developer</li><li>PR Reviewer</li><li>QA</li><li>PO/PM Gate</li><li>Done</li>
+        </ol>
+        <article class="goal-card">
+          <div class="artifact-head"><span>GOAL</span><span>Matching</span></div>
+          <h2>讓 A 與 B 只有在雙方互相喜歡時才配對。</h2>
+          <div class="goal-details">
+            <div><b>成功訊號</b><p>A／B／C 情境可觀察、可驗證。</p></div>
+            <div><b>這輪不做</b><p>聊天室、推薦。</p></div>
+          </div>
         </article>
       </div>
-      <div class="bottom-callout">課程採 Kanban；Sprint 只用來看出節奏與回饋方式的差別。</div>
     </section>
 
-    <section class="slide" data-page-id="S2-01" data-section="s2">
-      <div class="eyebrow"><span class="page-id">S2-01</span><span class="tier tier-core">Core</span><span>委派邊界</span></div>
-      <h2>把模糊需求整理成有邊界的工作卡</h2>
-      <p class="subhead">先和 Agent 釐清需求，再由人決定範圍；沒有核准的額外功能，執行者不能自行加入。</p>
-      <article class="ticket">
-        <div class="ticket-head">Matching Issue｜雙向喜歡才建立配對</div>
-        <div class="ticket-body">
-          <div><b>Goal</b><p>讓使用者只看見雙方都選擇的配對。</p></div>
-          <div><b>AC｜可觀察情境</b><p>A 喜歡 B、B 尚未喜歡 A：不成立配對。B 也喜歡 A：建立配對。</p></div>
-          <div><b>Out-of-scope</b><p>本卡不做聊天室、推薦演算法或付款。</p></div>
-          <div><b>Stop rule</b><p>需要新資料、改變授權或遇到無法排除的阻礙時，先停下問 PO。</p></div>
-        </div>
-      </article>
-      <div class="compact-grid">
-        <div class="card"><b>可採用的教學約定</b><p>一張可驗收卡配一個小 PR，方便看差異與證據；這不是 GitHub 限制。</p></div>
-      </div>
-    </section>
-
-    <section class="slide" data-page-id="S2-02" data-section="s2">
-      <div class="eyebrow"><span class="page-id">S2-02</span><span class="tier tier-core">Core</span><span>AC 與 DoD</span></div>
-      <h2>「做對了嗎？」看 AC；「收尾了嗎？」看 DoD</h2>
-      <div class="grid2">
-        <div class="card definition-card"><span class="kicker">AC｜Acceptance Criteria</span><b>這張卡的行為是否符合約定？</b><p>PO 與團隊為單卡約定；各卡情境不同。</p></div>
-        <div class="card definition-card"><span class="kicker">DoD｜Definition of Done</span><b>共通收尾條件是否全部完成？</b><p>全課共用；每條都須有可核對證據。</p></div>
-      </div>
-      <div class="dod-list">
-        <div><b>1</b><span>PR 審查通過，阻擋項已處理。</span></div>
-        <div><b>2</b><span>上線後基本操作檢查通過，附版本與操作證據。</span></div>
-        <div><b>3</b><span>變更未超出已核准範圍。</span></div>
-        <div><b>4</b><span>受影響的既有功能檢查通過，附證據。</span></div>
-      </div>
-      <p class="small-note">PO 接受前確認 DoD 1、3、4；授權上線後補第 2 條。基本操作通過不代表 AC 全過。</p>
-      <div class="grid3 compact-grid">
-        <div class="card example-fail"><b>AC 過、DoD 未過</b><p>Agent 環境可配對；PR 未審、未上線。</p></div>
-        <div class="card example-fail"><b>DoD 過、AC 未過</b><p>已審查、上線；B 未 Like 就成立配對。</p></div>
-        <div class="card example-fail"><b>超出核准範圍</b><p>順手加聊天室：Request Changes；多做部分交 PO 決定是否另開卡。</p></div>
-      </div>
-      <div class="bottom-callout"><strong>Done = AC 獲 PO 接受 ＋ DoD 四條全過。</strong> Agent 易順手多做；需求是否符合、範圍是否越界須由 PO／團隊核對，不能只靠自動檢查。</div>
-    </section>
-
-    <section class="slide" data-page-id="S2-03" data-section="s2">
-      <div class="eyebrow"><span class="page-id">S2-03</span><span class="tier tier-core">Core</span><span>驗收與發布</span></div>
-      <h2>驗收、核准、發布與上線後檢查各有關卡</h2>
-      <ol class="step-grid">
-        <li><b>AC 約定</b><small>先說清楚行為與範圍。</small></li>
-        <li><b>實作</b><small>依核准內容修改。</small></li>
-        <li><b>QA</b><small>核對行為與失敗路徑；CI 只是其中一種證據。</small></li>
-        <li><b>Review</b><small>檢查 diff、scope 與風險。</small></li>
-        <li><b>PO 接受</b><small>在能對應候選版本的驗收環境依 AC 接受；確認 DoD 1、3、4。</small></li>
-        <li><b>授權發布</b><small>Review 核准本身不授權 merge 或上線。</small></li>
-        <li><b>上線後檢查</b><small>補 DoD 2 的基本操作證據。</small></li>
-        <li><b>Done</b><small>AC 接受且 DoD 全過。</small></li>
-      </ol>
-      <p class="small-note"><strong>Matching 候選版本驗收例：</strong>PO 在驗收環境用 A/B/C 情境核對「雙向喜歡才配對」後才授權上線。基本操作可用不代表 AC 全過；可操作也不代表產品目標已達成。</p>
-      <div class="grid3 compact-grid">
-        <div class="card"><b>Comment</b><p>提出意見或問題。</p></div>
-        <div class="card"><b>Approve</b><p>Review 的審查結論。</p></div>
-        <div class="card"><b>Request Changes</b><p>要求修正；QA／Review 可依 AC 或 DoD 退回。</p></div>
-      </div>
-      <div class="bottom-callout">Merge、Issue 關閉、部署、對使用者開放與 GitHub Release 不是同一件事，也不能單獨代表交付完成。</div>
-    </section>
-
-    <section class="slide" data-page-id="S2-04" data-section="s2">
-      <div class="eyebrow"><span class="page-id">S2-04</span><span class="tier tier-core">Core</span><span>證據與版本</span></div>
-      <h2>證據只證明它實際覆蓋的行為與版本</h2>
-      <div class="pr">
-        <div class="pr-card">
-          <h3>逐條 AC 留下可核對紀錄</h3>
-          <div class="pr-row"><b>怎麼驗</b><span>實際操作或檢查方法。</span></div>
-          <div class="pr-row"><b>預期／實際</b><span>逐項記錄並對照結果。</span></div>
-          <div class="pr-row"><b>狀態</b><span class="status-list"><i class="status pass">PASS</i><i class="status fail">FAIL</i><i class="status">NOT RUN</i><i class="status blocked">BLOCKED</i></span></div>
-          <div class="pr-row"><b>版本／環境</b><span>標明版號與驗收環境；受阻須寫原因。</span></div>
-          <div class="pr-row"><b>來源</b><span>附連結、截圖或測試結果供核對。</span></div>
-        </div>
-        <div class="decision">
-          <h3>一起判斷</h3>
-          <p>這份證據證明什麼？不能證明什麼？還缺什麼？</p>
-          <div class="result request"><b>測試沒跑卻報成功</b><small>應標 NOT RUN。</small></div>
-          <div class="result request"><b>驗收環境還是舊版</b><small>不能證明候選版通過。</small></div>
-          <div class="result request"><b>測試被刪除／跳過／弱化</b><small>Review 核對測試差異。</small></div>
+    <section class="slide process-step" data-section="s1">
+      <h1>Backlog</h1>
+      <div class="visual">
+        <ol class="mini-flow" aria-label="流程位置">
+          <li>Brainstorming</li><li>Goal</li><li class="current">Backlog／Ticket</li><li>Ready</li><li>Developer</li><li>PR Reviewer</li><li>QA</li><li>PO/PM Gate</li><li>Done</li>
+        </ol>
+        <div class="backlog">
+          <div class="backlog-title"><span>Epic</span><strong>配對</strong></div>
+          <ol class="backlog-list">
+            <li><span>1</span><strong>建立個人檔案</strong></li>
+            <li><span>2</span><strong>Like／Pass</strong></li>
+            <li class="selected"><span>3</span><strong>雙向喜歡才配對</strong><em>本次範例</em></li>
+            <li><span>4</span><strong>配對列表</strong></li>
+          </ol>
         </div>
       </div>
-      <div class="bottom-callout">驗收網址不等於版本證據；學員核對 Agent 提供的版本／環境是否對應候選版。高風險資料、授權、付費或不可逆變更，須由具能力者技術審查；技術審查與風險接受分開決定。</div>
     </section>
 
-    <section class="slide" data-page-id="S2-05" data-section="s2">
-      <div class="eyebrow"><span class="page-id">S2-05</span><span class="tier tier-core">Core</span><span>版本狀態</span></div>
-      <h2>用共享檔案的比喻核對版本，不必背 Git 指令</h2>
-      <table class="data-table state-table">
-        <thead><tr><th>共享檔案的狀態</th><th>對應概念</th><th>問 Agent</th></tr></thead>
-        <tbody>
-          <tr><td data-label="狀態">從共享資料夾複製一份來改</td><td data-label="概念">Branch</td><td data-label="問 Agent">你改的是不是最新的正本？</td></tr>
-          <tr><td data-label="狀態">看這次改了哪些地方</td><td data-label="概念">Diff</td><td data-label="問 Agent">這次改了哪些地方？給我看差異。</td></tr>
-          <tr><td data-label="狀態">按「存一版」</td><td data-label="概念">Commit</td><td data-label="問 Agent">存版了嗎？有沒有還沒存的修改？</td></tr>
-          <tr><td data-label="狀態">上傳回共享位置</td><td data-label="概念">Push</td><td data-label="問 Agent">上傳了嗎？</td></tr>
-          <tr><td data-label="狀態">交給別人審核</td><td data-label="概念">PR</td><td data-label="問 Agent">審核連結給我。</td></tr>
-          <tr><td data-label="狀態">審過後放回正本，保留舊版</td><td data-label="概念">Merge</td><td data-label="問 Agent">合併了嗎？</td></tr>
-          <tr><td data-label="狀態">把已存版本部署到環境</td><td data-label="概念">Deploy</td><td data-label="問 Agent">上線的是哪一版？</td></tr>
-          <tr><td data-label="狀態">自己實際打開操作</td><td data-label="概念">上線後證據</td><td data-label="問 Agent">你實際操作過了嗎？</td></tr>
-        </tbody>
-      </table>
-      <div class="bottom-callout">Git 記錄版本；GitHub 是本課共享與審查平台。Git 不會像 Google Docs 自動存檔；上傳只含已存版修改。<strong>Changed ≠ committed ≠ pushed ≠ merged ≠ deployed ≠ verified。</strong></div>
-    </section>
-
-    <section class="slide" data-page-id="S3-01" data-section="s3">
-      <div class="eyebrow"><span class="page-id">S3-01</span><span class="tier tier-core">Core</span><span>共享協作面</span></div>
-      <h2>看板共享狀態；工件承載需求、變更與證據</h2>
-      <div class="kanban artifact-board">
-        <div class="col"><h4>Board｜狀態</h4><div class="work-card">工作、負責人、阻礙、拉取政策</div></div>
-        <div class="col"><h4>Issue｜需求</h4><div class="work-card">Goal、AC、範圍與阻礙</div></div>
-        <div class="col"><h4>PR｜變更</h4><div class="work-card">Diff、理由、Review 與證據</div></div>
-        <div class="col"><h4>README／現行文件</h4><div class="work-card">持續有效的知識與決策理由</div></div>
-      </div>
-      <div class="grid2 compact-grid">
-        <div class="card"><b>互動題</b><p>狀態只在 Slack 或私訊裡，下一位要去哪裡找正本？</p></div>
-        <div class="card"><b>答案要落在共享工件</b><p>看板本身不會自動消除資訊 silo；要能連回 Issue、PR、證據與現行文件。</p></div>
-      </div>
-    </section>
-
-    <section class="slide" data-page-id="S3-02" data-section="s3">
-      <div class="eyebrow"><span class="page-id">S3-02</span><span class="tier tier-core">Core</span><span>本課看板政策</span></div>
-      <h2>全板 WIP=1：等待驗收也還在工作中</h2>
-      <div class="kanban wip-board">
-        <div class="col"><h4>Ready</h4><div class="work-card muted">下一張待拉</div></div>
-        <div class="col"><h4>Build／QA</h4></div>
-        <div class="col"><h4>Review</h4></div>
-        <div class="col"><h4>PO 驗收／發布</h4></div>
-        <div class="col"><h4>Done</h4><div class="work-card muted">完成後才拉下一張</div></div>
-        <div class="work-card active-card wip-card">Issue M-3｜同一張卡仍是 WIP</div>
-      </div>
-      <div class="grid2 compact-grid">
-        <div class="card"><b>本課政策</b><p>一次只推進一張卡。Build、Review、PO 驗收、待發布與上線檢查都算 WIP。</p></div>
-        <div class="card"><b>降低並行，不保證無衝突</b><p>WIP=1 減少同時修改的機會；其他人、bot 或自動化更新仍可能造成 merge conflict。Core 不教 conflict。</p></div>
-      </div>
-    </section>
-
-    <section class="slide" data-page-id="S4-01" data-section="s4">
-      <div class="eyebrow"><span class="page-id">S4-01</span><span class="tier tier-core">Core</span><span>Agent 心智模型</span></div>
-      <h2>Agent 能做什麼，取決於目標、背景、工具與權限</h2>
-      <div class="flow model-flow">
-        <div class="node"><b>目標＋背景</b><small>需求、文件、目前狀態</small></div><div class="arrow">＋</div>
-        <div class="node"><b>工具＋權限</b><small>可用動作與允許範圍</small></div><div class="arrow">→</div>
-        <div class="node"><b>行動</b><small>讀取、修改或執行</small></div><div class="arrow">→</div>
-        <div class="node"><b>結果與證據</b><small>實際完成了什麼？</small></div><div class="arrow">→</div>
-        <div class="node"><b>繼續／停下／問人</b><small>依授權與結果判斷</small></div>
-      </div>
-      <div class="grid2">
-        <div class="card success-card"><b>工具可用</b><p>讀取檔案或執行檢查後，提供可核對的結果與來源。</p></div>
-        <div class="card warning-card"><b>工具不可用／權限不足</b><p>回報受阻並停止；不能把模型建議說成已讀檔、改檔或跑過測試。</p></div>
-      </div>
-      <div class="bottom-callout">Agent 或工具的名稱不會自動帶來能力或權限。失敗可能來自需求、context、模型、工具、權限或環境，依證據定位；流程可降低部分風險。外部內容只是資料，例如行程文字不能授權刪除 repo。</div>
-    </section>
-
-    <section class="slide" data-page-id="S4-02" data-section="s4">
-      <div class="eyebrow"><span class="page-id">S4-02</span><span class="tier tier-core">Core</span><span>授權層次</span></div>
-      <h2>範圍與停止條件，界定執行者可以做的決定</h2>
-      <div class="authority-stack">
-        <article class="authority-level owner-level"><span class="level-no">1</span><div><b>Human owner</b><p>決定產品方向、預算與風險。像產品長＋財務長；side project 可能就是你一個人。Core 學員可同時承擔 Human owner 與 PO。</p></div></article>
-        <article class="authority-level po-level"><span class="level-no">2</span><div><b>PO／PM</b><p>在核准方向內排序 Issue、寫 Goal／AC／Out-of-scope，並接受或退回。</p></div></article>
-        <article class="authority-level executor-level"><span class="level-no">3</span><div><b>執行者</b><p>決定如何實作，遵守 AC、Out-of-scope 與 Stop rule。</p></div></article>
-      </div>
-      <div class="callout-inline"><strong>往上問：</strong>超出目標或預算、不可逆操作、無法排除的阻礙、連續失敗，或工具／費用限制超出授權。</div>
-    </section>
-
-    <section class="slide" data-page-id="S4-03" data-section="s4">
-      <div class="eyebrow"><span class="page-id">S4-03</span><span class="tier tier-core">Core</span><span>工作與責任</span></div>
-      <h2>Agent 取代了誰？<span class="accent">取代的是工作，不是責任。</span></h2>
-      <p class="subhead">哪些工作可以交給 Agent？<span class="muted">｜原本是哪個角色負責？</span></p>
-      <table class="data-table agent-work-table">
-        <thead><tr><th>工作</th><th>Agent 可協助</th><th>人仍需決定</th><th>原責任視角</th></tr></thead>
-        <tbody>
-          <tr><td data-label="工作">定義驗收</td><td data-label="Agent 可協助">草擬 Goal、AC 與驗收方法</td><td data-label="人仍需決定">核准 AC 與剩餘風險</td><td data-label="原責任視角">PO、QA</td></tr>
-          <tr><td data-label="工作">實作變更</td><td data-label="Agent 可協助">依 Issue 修改介面、後端或文件</td><td data-label="人仍需決定">核准範圍與高風險技術取捨</td><td data-label="原責任視角">Frontend、Backend、Reviewer</td></tr>
-          <tr><td data-label="工作">驗證與審查</td><td data-label="Agent 可協助">執行 QA、檢視 diff、整理證據</td><td data-label="人仍需決定">產品接受、merge／發布授權</td><td data-label="原責任視角">QA、Reviewer、PO</td></tr>
-          <tr><td data-label="工作">發布與檢查</td><td data-label="Agent 可協助">部署、上線後基本操作檢查</td><td data-label="人仍需決定">是否上線、是否退回上一版</td><td data-label="原責任視角">Ops、PO、Human owner</td></tr>
-        </tbody>
-      </table>
-      <div class="bottom-callout">可以更換工作的執行者；產品決定與責任仍依授權由人承擔。</div>
-    </section>
-
-    <section class="slide" data-page-id="S4-04" data-section="s4">
-      <div class="eyebrow"><span class="page-id">S4-04</span><span class="tier tier-core">Core</span><span>依目標迭代</span></div>
-      <h2>新資訊可以改變排序，但不改寫已核准目標</h2>
-      <div class="goal-loop">
-        <article class="loop-step"><span>01</span><b>先連回目標</b><p>目標要可量化；一時量化不了，至少要有可觀察的成功訊號。</p></article>
-        <article class="loop-step"><span>02</span><b>收到新證據</b><p>驗收結果、使用者回饋、阻礙或實際花費。</p></article>
-        <article class="loop-step"><span>03</span><b>重排未開始的卡</b><p>PO／PM 可在核准 Epic 內新增、拆分、重排或移除 Issue，留下理由。</p></article>
-        <article class="loop-step"><span>04</span><b>選下一張 Ready</b><p>說清楚它服務哪個已同意成果；不服務目標就先排序或拒絕。</p></article>
-      </div>
-      <div class="bottom-callout">新增／移除 Epic、改產品目標或超預算，要由 Human owner 重新批准並記錄理由。重排不能繞過全板 WIP 政策。</div>
-    </section>
-
-    <section class="slide" data-page-id="S5-01" data-section="s5">
-      <div class="eyebrow"><span class="page-id">S5-01</span><span class="tier tier-core">Core</span><span>協作接手</span></div>
-      <h2>人與 Agent 的交接，都從共享工件恢復</h2>
-      <div class="grid3">
-        <div class="card"><span class="kicker">Human ↔ Human</span><b>人接手人的工作</b><p>看板、Issue／AC、PR／diff、測試證據與現行文件。</p></div>
-        <div class="card"><span class="kicker">Human ↔ Agent</span><b>人委派、再核對</b><p>同一組共享工件界定範圍、狀態與證據。</p></div>
-        <div class="card"><span class="kicker">Agent ↔ Agent</span><b>Agent 依流程交接</b><p>下一站看目前的 workflow policy，不靠前一段私有聊天。</p></div>
-      </div>
-      <div class="grid2 compact-grid">
-        <div class="card"><b>共享基礎</b><p>Board 狀態、Issue 需求、PR 差異、測試證據、現行文件。</p></div>
-        <div class="card"><b>Fresh session 的界線</b><p>可減少依賴作者摘要，但不保證獨立、無偏或找出所有錯誤。</p></div>
-      </div>
-    </section>
-
-    <section class="slide" data-page-id="S5-02" data-section="s5">
-      <div class="eyebrow"><span class="page-id">S5-02</span><span class="tier tier-core">Core</span><span>流程 manager Agent</span></div>
-      <h2>流程 manager Agent 推動工作，不替人做產品決定</h2>
-      <div class="grid2">
-        <div class="card"><span class="kicker">流程協調</span><b>以前由人與既有流程角色透過分工、看板、會議和規範協調</b></div>
-        <div class="card compare-highlight"><span class="kicker">可委派的部分</span><b>由流程 manager Agent 依政策推進</b><p>用一張卡從 Ready 開始，守 WIP，依 workflow policy 交接，核對 DoD 證據。</p></div>
-      </div>
-      <ol class="step-grid compact-steps">
-        <li><b>拉 Ready 卡</b><small>核對 Issue 與目前狀態。</small></li>
-        <li><b>守 WIP=1</b><small>等待驗收也算進行中。</small></li>
-        <li><b>依政策交接</b><small>下一站由 workflow policy 決定。</small></li>
-        <li><b>核對 DoD</b><small>遇 Stop rule 或越權就問人；條件齊全才標 Done。</small></li>
-      </ol>
-      <div class="grid3 compact-grid">
-        <div class="card"><b>依外部證據推進</b><p>看板、Issue、PR 與證據，不靠聊天記憶。</p></div>
-        <div class="card"><b>越權就問人</b><p>目標、排序、產品接受與上線核准由 PO／Human owner 決定；QA／Reviewer 可依 AC／DoD 退回。</p></div>
-        <div class="card"><b>完成要有證據</b><p>流程 manager Agent 也不能只靠自述宣告完成。</p></div>
-      </div>
-    </section>
-
-    <section class="slide" data-page-id="S6-01" data-section="s6">
-      <div class="eyebrow"><span class="page-id">S6-01</span><span class="tier tier-core">Core</span><span>Context 與 session</span></div>
-      <h2>Context、session、compact、handoff 各自解決不同問題</h2>
-      <div class="grid2">
-        <div class="card"><span class="kicker">Context</span><b>本次可用的背景</b><p>檔案存在，不代表這次工作已讀取。</p></div>
-        <div class="card"><span class="kicker">Session</span><b>一次互動與工作狀態</b><p>同一張卡可在同一 session 修正，不必一張卡開一個 session。</p></div>
-        <div class="card"><span class="kicker">Compact</span><b>壓縮部分對話內容</b><p>可能遺失細節，不會擴大 context，也不代替持久紀錄。</p></div>
-        <div class="card"><span class="kicker">Handoff</span><b>可核對的狀態快照</b><p>摘要並連回正本，不是永久記憶或完整對話複製。</p></div>
-      </div>
-      <div class="bottom-callout">四者都不是永久記憶。新視窗不會自動知道全部；fresh session 也不天然獨立。需要框架參照時，可跳到 Appendix A2；跨 session 協作不必先採用任何框架。</div>
-    </section>
-
-    <section class="slide" data-page-id="S6-02" data-section="s6">
-      <div class="eyebrow"><span class="page-id">S6-02</span><span class="tier tier-core">Core</span><span>正本與 handoff</span></div>
-      <h2>每種狀態都有正本；handoff 摘要並連回正本</h2>
-      <table class="data-table source-table">
-        <thead><tr><th>共享工件</th><th>保存什麼</th><th>誰負責更新</th></tr></thead>
-        <tbody>
-          <tr><td data-label="工件">看板</td><td data-label="保存什麼">工作狀態、責任與阻礙</td><td data-label="更新責任">依 workflow policy 的工作負責人</td></tr>
-          <tr><td data-label="工件">Issue</td><td data-label="保存什麼">需求、AC、範圍與阻礙</td><td data-label="更新責任">PO／工作負責人</td></tr>
-          <tr><td data-label="工件">PR</td><td data-label="保存什麼">本次變更、理由、Review 與證據</td><td data-label="更新責任">提出變更者與 Review 者</td></tr>
-          <tr><td data-label="工件">README／現行文件</td><td data-label="保存什麼">持續有效知識與決策理由</td><td data-label="更新責任">維護該知識的負責人</td></tr>
-        </tbody>
-      </table>
-      <div class="handoff-card">
-        <div><b>目標／Issue</b><span>要做什麼、目前卡在哪裡</span></div>
-        <div><b>版本／未存修改</b><span>正本位置、目前版本、尚未存版的變更</span></div>
-        <div><b>已做／未做／失敗／未測／阻擋</b><span>標明狀態與原因</span></div>
-        <div><b>證據與下一步</b><span>連結正本、證據與下一個安全動作</span></div>
-      </div>
-      <div class="bottom-callout">handoff 不是新的權威文件，不要另外造出互相矛盾的正本。開工先核對並接續未完成卡；沒有進行中的卡才拉 Ready。保存進度不等於 Done，仍要走完適用驗收、授權上線與上線後檢查。</div>
-    </section>
-
-    <section class="slide" data-page-id="S6-03" data-section="s6">
-      <div class="eyebrow"><span class="page-id">S6-03</span><span class="tier tier-core">Core</span><span>交接狀態判斷</span></div>
-      <h2>handoff 與目前 PR／版本是否一致？</h2>
-      <div class="pr stale-example">
-        <div class="pr-card">
-          <h3>預備的 handoff</h3>
-          <div class="pr-row"><b>已驗版本</b><span>示意 SHA：a1b2c3d</span></div>
-          <div class="pr-row"><b>結論</b><span class="pass">AC-1 已通過</span></div>
-          <div class="pr-row"><b>下一步</b><span>等待 Review</span></div>
-        </div>
-        <div class="pr-card">
-          <h3>目前 PR／版本</h3>
-          <div class="pr-row"><b>目前 HEAD</b><span>示意 SHA：e4f5a6b</span></div>
-        </div>
-      </div>
-      <div class="decision">
-        <h3>互動題</h3>
-        <p>這份 handoff 是否與目前 PR／版本一致？下一個安全動作是什麼？</p>
-      </div>
-      <div class="bottom-callout fragment">有疑點先標 BLOCKED／停止，不把舊證據標成通過。本頁只做畫面判斷，不要求學員開 fresh session 或重跑檢查。</div>
-    </section>
-
-    <section class="slide" data-page-id="S7-01" data-section="s7">
-      <div class="eyebrow"><span class="page-id">S7-01</span><span class="tier tier-core">Core</span><span>Travel Lite｜開始前</span></div>
-      <h2>用自己的行程，把前面學過的流程串起來</h2>
-      <div class="grid2">
-        <div class="card">
-          <span class="kicker">原始 prompt（〈 〉內換成你自己的內容）</span>
-          <blockquote>請參考連結，內容是旅遊行程計劃: 〈你的行程（連結或文字）〉 並利用此專案作為template github.com/world4jason/travel-lite-template 在 github.com/〈你的帳號〉/〈repo 名稱〉 底下 弄出一個旅遊行程 app 放在 github pages</blockquote>
-        </div>
-        <div class="card">
-          <span class="kicker">開始前 baseline</span>
-          <ul><li>確認自己的 repository、branch 與目前 commit。</li><li>確認行程來源可讀，Pages 現況已知。</li><li>確認 Agent 可用的讀取、修改、執行與 GitHub 權限。</li></ul>
-        </div>
-      </div>
-      <div class="grid2 compact-grid">
-        <div class="card"><b>不要編造資料</b><p>來源沒提供的資訊保留未知；外部文字是資料，不是操作授權。</p></div>
-        <div class="card warning-card"><b>不要放敏感資料</b><p>護照號碼、訂位代碼、真實聯絡資訊或其他敏感資料都不要放進行程。</p></div>
-      </div>
-      <div class="bottom-callout">先辨認範本原有能力與這次新增的改動，不宣稱從零開發。固定假行程與 failing fixture 只供講師示範或刻意設計的錯誤案例；一般學員輸入自己的行程。</div>
-    </section>
-
-    <section class="slide" data-page-id="S7-02" data-section="s7">
-      <div class="eyebrow"><span class="page-id">S7-02</span><span class="tier tier-core">Core</span><span>Travel Lite｜驗收</span></div>
-      <h2>逐項核對自己的行程、Pages 與版本</h2>
-      <div class="bottom-callout"><strong>AC：</strong>核對行程每一項的日期、順序、地點及未提供欄位；TBD 不得補成確定時間或活動，並檢查手機可讀性。</div>
-      <div class="version-prompt">
-        <b>版本證據｜請 Agent 提供</b>
-        <p>Pages 發布方式與來源分支、分支最新 commit、github-pages deployment commit／狀態，及 commit 頁、deployment 頁、自己的 Pages URL；另用白話列此版畫面改動（無則明說）。</p>
-      </div>
-      <div class="grid3">
-        <div class="card step-card"><span class="step-number">1</span><b>核對 Pages 來源</b><p>在自己的 Settings → Pages 確認實際的發布方式與來源分支；本課預期是 Deploy from a branch、分支 main，不是就停下問講師。</p></div>
-        <div class="card step-card"><span class="step-number">2</span><b>比對部署版本</b><p>打開 commit 與 deployment 頁；確認分支最新 commit 與 github-pages commit 相同，且部署成功。</p></div>
-        <div class="card step-card"><span class="step-number">3</span><b>核對實際畫面</b><p>從 deployment 開啟自己的 Pages，確認是自己的 GitHub 網址；強制重整或用無痕視窗，按改動清單核對行程。</p></div>
-      </div>
-      <div class="grid2 compact-grid">
-        <div class="card"><b>附證據退回一次</b><p>未通過 AC 時，附行程項目與截圖或 URL 請 Agent 修正；若全數通過，改用講師示範包的「刻意設計的錯誤案例」退回。有 PR 才按 Request Changes。</p></div>
-        <div class="card"><b>查範圍、敏感資料與回歸</b><p>核對 diff／檔案清單，確認無超出核准範圍的檔案、token、憑證或敏感資料。修正後重查，附至少一項受影響既有功能的操作證據（DoD 4）。</p></div>
-      </div>
-      <div class="bottom-callout">部署紀錄相符不保證瀏覽器已載入新版：部署未完成先查 Actions，完成後重查。若失敗、畫面不符或行程有錯，修正後重做版本核對。</div>
-    </section>
-
-    <section class="slide" data-page-id="S7-03" data-section="s7">
-      <div class="eyebrow"><span class="page-id">S7-03</span><span class="tier tier-core">Core</span><span>Travel Lite｜阻擋與交接</span></div>
-      <h2>工具或權限不足，就真的停止並留下 handoff</h2>
-      <div class="grid2">
-        <article class="card warning-card">
-          <span class="kicker">學員實際操作</span><h3>BLOCKED，不放寬權限</h3>
-          <ul><li>不假稱已修改、測試或部署。</li><li>記錄未完成項與受阻原因。</li><li>附正本／版本、證據連結與下一個安全步驟。</li></ul>
-        </article>
-        <article class="card compare-highlight">
-          <span class="kicker">講師示範</span><h3>用全新 session 接手一次</h3>
-          <ul><li>核對當前 repo 與工作狀態。</li><li>指出一項已過期或需要重新確認的 handoff 內容。</li><li>依核准範圍接續，完成後再驗證。</li></ul>
+    <section class="slide process-step" data-section="s1">
+      <h1>Ticket 怎麼寫</h1>
+      <div class="visual">
+        <ol class="mini-flow" aria-label="流程位置">
+          <li>Brainstorming</li><li>Goal</li><li class="current">Backlog／Ticket</li><li>Ready</li><li>Developer</li><li>PR Reviewer</li><li>QA</li><li>PO/PM Gate</li><li>Done</li>
+        </ol>
+        <article class="ticket">
+          <div class="ticket-title"><span>ISSUE #3</span><strong>雙向喜歡才配對</strong><span class="ticket-state">READY</span></div>
+          <div class="ticket-content">
+            <div><b>Goal</b><p>讓 A 與 B 只有在雙方互相喜歡時才配對。</p></div>
+            <div><b>AC</b><ol><li>A 喜歡 B，B 尚未喜歡 A：不配對。</li><li>B 也喜歡 A：配對。</li><li>C 只喜歡 B：不配對。</li></ol></div>
+            <div><b>Out-of-scope</b><p>聊天室、推薦。</p></div>
+            <div><b>Stop rule</b><p>Goal 要改、依賴未解除或超出核准範圍時，先停下交 PO/PM。</p></div>
+          </div>
         </article>
       </div>
-      <div class="handoff-card">
-        <div><b>未完成項</b><span>哪條 AC 還沒完成</span></div>
-        <div><b>原因</b><span>工具不可用或權限不足</span></div>
-        <div><b>目前正本／版本</b><span>repo、branch、commit 與證據連結</span></div>
-        <div><b>下一步</b><span>解除阻擋後可安全執行的工作</span></div>
-      </div>
-      <div class="bottom-callout">如果工具或權限仍不可用，狀態維持 BLOCKED；不把擴大權限當成正常解法。</div>
     </section>
 
-    <section class="slide" data-page-id="S7-04" data-section="s7">
-      <div class="eyebrow"><span class="page-id">S7-04</span><span class="tier tier-optional">Optional｜可跳過</span><span>Travel Lite 延伸練習</span></div>
-      <h2>想多練時，再接手新 session 與狀態轉移</h2>
-      <div class="grid3">
-        <div class="card"><span class="kicker">Optional／Extended</span><b>自己用 fresh session 接手</b><p>先回到共享工件核對狀態，再接續未完成工作。</p></div>
-        <div class="card"><span class="kicker">Optional／Extended</span><b>辨認過期 handoff 或錯 SHA</b><p>對照正本、PR 與版本，指出舊證據不能代表目前狀態。</p></div>
-        <div class="card"><span class="kicker">Optional／Extended</span><b>Round 4 遷移任務</b><p>不給逐字 prompt，將相同驗收與交接方法用在另一個小需求。</p></div>
-      </div>
-      <div class="bottom-callout">可略過，不是任何 Core 頁的理解前置。</div>
-    </section>
-
-    <section class="slide" data-page-id="S7-05" data-section="s7">
-      <div class="eyebrow"><span class="page-id">S7-05</span><span class="tier tier-optional">Optional｜可跳過</span><span>Advanced 預告</span></div>
-      <h2>Matching 進階路徑，增加共用資料與後端授權</h2>
-      <div class="grid2">
-        <div class="card"><span class="kicker">Core｜Travel Lite</span><b>個人行程的靜態網站</b><p>練需求、受控修改、Pages 驗收、版本證據與交接。</p></div>
-        <div class="card compare-highlight"><span class="kicker">Advanced｜Matching</span><b>前後端共同維護的 App</b><p>加入 Auth、共用資料庫、後端規則，以及 A／B／C 身分與權限驗收。</p></div>
-      </div>
-      <div class="grid2 compact-grid">
-        <div class="card"><b>進階驗收反例</b><p>介面顯示成功，但資料沒有保存；必須檢查後端資料與授權。</p></div>
-        <div class="card"><b>不同學習路徑</b><p>PR preview 以 Advanced 教材的 Vercel 內建功能示範；不是 Travel Lite 的前置，也不表示已有公開服務。</p></div>
-      </div>
-      <div class="bottom-callout">可略過，不影響 Core hands-on。</div>
-    </section>
-
-    <section class="slide" data-page-id="O1" data-section="optional">
-      <div class="eyebrow"><span class="page-id">O1</span><span class="tier tier-optional">Optional｜可跳過</span><span>產品維護能力路徑</span></div>
-      <h2>能力用可觀察 gate 與實際證據呈現</h2>
-      <p class="subhead">POC 驗證可行性；MVP 由核心價值能否驗證來界定；可持續產品還須可維護、可恢復並依新證據調整。「用 Agent 開發」不等於「產品內含 Agent」。L1–L6 是可交錯達成的能力 gate，不是時程表。</p>
-      <div class="gate-grid">
-        <article class="card"><span class="kicker">L1</span><b>交付單卡</b><p>Issue、AC、版本證據；從 L1 起維護現行文件。</p></article>
-        <article class="card"><span class="kicker">L2</span><b>帶既有資料改版</b><p>相容改版紀錄與既有功能回歸結果。</p></article>
-        <article class="card"><span class="kicker">L3</span><b>分開驗證恢復</b><p>分別驗證部署 rollback、資料 restore／roll-forward 並留證。</p></article>
-        <article class="card"><span class="kicker">L4</span><b>故障注入與恢復</b><p>故障紀錄、可操作警報、恢復與回歸結果。</p></article>
-        <article class="card"><span class="kicker">L5</span><b>依新資訊重排</b><p>依使用者回饋、成本與風險重排；在 Issue／看板記錄理由。</p></article>
-        <article class="card"><span class="kicker">L6</span><b>陌生 session 接手</b><p>依現行文件找正本、核對狀態並留下接手紀錄。</p></article>
-      </div>
-      <div class="grid2 compact-grid">
-        <div class="card"><b>安全與資料</b><p>假資料與正式資料分開；secret 不進聊天、repo、log 或截圖；開發權限最小化。</p></div>
-        <div class="card"><b>情境庫</b><p>Schema、Auth／設定、壞部署、依賴、額度／成本、回饋回 backlog；Advanced 視需要選用。</p></div>
-      </div>
-      <div class="bottom-callout">六個月不是 MVP 定義。半年維運只作 evidence claim，須有真實六個月時間跨度、版本、事件與使用者結果；加速演練不算。程式 revert、部署 rollback、資料 restore／roll-forward 不能互相替代。PO／PM Agent 重排示範由 Advanced 教材承接。</div>
-    </section>
-
-    <section class="slide" data-page-id="A1" data-section="appendix">
-      <div class="eyebrow"><span class="page-id">A1</span><span class="tier tier-appendix">Appendix｜查閱用</span><span>詞彙查表</span></div>
-      <h2>名稱提示用途，不代表能力或必備元件</h2>
-      <div class="term-columns">
-        <div>
-          <h3>Agent 與工具</h3>
-          <table class="data-table term-table">
-            <tbody>
-              <tr><td data-label="詞彙">LLM</td><td data-label="意思">依輸入產生文字或其他輸出的模型。</td></tr>
-              <tr><td data-label="詞彙">Agent／workflow</td><td data-label="意思">Agent 以目標使用工具採取行動；workflow 用步驟與政策協調工作。</td></tr>
-              <tr><td data-label="詞彙">Tool／執行環境</td><td data-label="意思">Tool 是可呼叫的動作；執行環境提供動作發生的位置與能力。</td></tr>
-              <tr><td data-label="詞彙">Connector</td><td data-label="意思">連接產品或服務的整合方式。</td></tr>
-              <tr><td data-label="詞彙">MCP</td><td data-label="意思">讓工具與資料來源互通的協定。</td></tr>
-              <tr><td data-label="詞彙">Plugin</td><td data-label="意思">封裝產品擴充能力的方式。</td></tr>
-              <tr><td data-label="詞彙">Skill</td><td data-label="意思">提供程序或操作指引的資源。</td></tr>
-              <tr><td data-label="詞彙">RAG</td><td data-label="意思">先檢索相關資料再提供給模型的方式。</td></tr>
-              <tr><td data-label="詞彙">Context／session／專案指令</td><td data-label="意思">本次背景、互動狀態、專案規則；不能只因檔案存在就假設已載入。</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <h3>工作工件與角色</h3>
-          <table class="data-table term-table">
-            <tbody>
-              <tr><td data-label="詞彙">Ticket</td><td data-label="意思">泛稱工作項目。</td></tr>
-              <tr><td data-label="詞彙">Issue</td><td data-label="意思">承載需求或阻礙的工件。</td></tr>
-              <tr><td data-label="詞彙">PR</td><td data-label="意思">待審查的變更與證據。</td></tr>
-              <tr><td data-label="詞彙">Release</td><td data-label="意思">對使用者交付；與 deploy、對使用者開放及 GitHub Release 區分。</td></tr>
-              <tr><td data-label="詞彙">Comment／Approve／Request Changes</td><td data-label="意思">Review 意見／問題、審查結論、要求修正。</td></tr>
-              <tr><td data-label="詞彙">User Story</td><td data-label="意思">一種需求描述方式。</td></tr>
-              <tr><td data-label="詞彙">PO</td><td data-label="意思">判斷產品價值、目標與接受條件。</td></tr>
-              <tr><td data-label="詞彙">PM</td><td data-label="意思">依組織語境可能指不同職能；不與 PO 或 Scrum Master 當同義詞。</td></tr>
-              <tr><td data-label="詞彙">Scrum Master</td><td data-label="意思">促進 Scrum 團隊協作與流程；不是 PO 的另一個名稱。</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="bottom-callout">本表只供查閱，不是 Core 前置。產品支援、載入規則與權限依實際版本核對。</div>
-    </section>
-
-    <section class="slide" data-page-id="A2" data-section="appendix">
-      <div class="eyebrow"><span class="page-id">A2</span><span class="tier tier-appendix">Appendix｜非必讀</span><span>框架對照</span></div>
-      <h2>BMad Method 與 LongHorizon-Harness 是參照框架；Core 不要求採用</h2>
-      <div class="compare-grid">
-        <article class="card">
-          <span class="kicker">BMad Method</span><h3>來源／版本</h3>
-          <p><a href="https://github.com/bmad-code-org/BMAD-METHOD">GitHub 專案</a> · 最新 release v6.12.0（2026-09-04）· 查閱日期：2026-09-30</p>
-          <ul>
-            <li>自稱「Agile AI Driven Development」；將 idea 或 change request 變成可運作軟體。</li>
-            <li>決策保持明確、context 延續；流程依工作規模調整：小變更直接 build，複雜工作加深規劃；跨聊天保留 durable context。</li>
-            <li>提供產品、架構、UX、開發、測試等專門視角，以結構化 workflow 與多 Agent 討論，不交出判斷；可安裝為 skills 或 Claude Code／Codex plugin。</li>
+    <section class="slide process-step" data-section="s1">
+      <h1>Ready</h1>
+      <div class="visual">
+        <ol class="mini-flow" aria-label="流程位置">
+          <li>Brainstorming</li><li>Goal</li><li>Backlog／Ticket</li><li class="current">Ready</li><li>Developer</li><li>PR Reviewer</li><li>QA</li><li>PO/PM Gate</li><li>Done</li>
+        </ol>
+        <div class="ready-card">
+          <div class="ready-title"><span>ISSUE #3</span><strong>雙向喜歡才配對</strong><span class="ready-pill">Ready</span></div>
+          <ul class="checklist">
+            <li><span>✓</span>Goal 清楚</li><li><span>✓</span>AC 能驗</li><li><span>✓</span>已寫不做什麼</li><li><span>✓</span>依賴已解除</li><li><span>✓</span>工作夠小</li>
           </ul>
-        </article>
-        <article class="card">
-          <span class="kicker">LongHorizon-Harness</span><h3>來源／版本</h3>
-          <p><a href="https://github.com/AMAP-ML/LongHorizon-Harness">GitHub 專案</a> · 最新 release v0.1.7（2026-08-20）· 查閱日期：2026-09-30</p>
-          <ul>
-            <li>自稱「Loop Engineering for Computer-Use Agents」；包裝 Claude Code、Codex、OpenCode、DeepSeek Harness 等既有 agents，讓它們跨桌面 App 與 CLI 執行長任務。</li>
-            <li>迴圈：規劃下一個 bounded step → 以 fresh context 行動 → 在真實環境核對實際結果 → checkpoint 已驗證進度，或記錄失敗證據並恢復 → 重複。</li>
-            <li>不訓練模型，也不取代被包裝的 agent。</li>
-          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide process-step" data-section="s1">
+      <h1>Developer</h1>
+      <div class="visual">
+        <ol class="mini-flow" aria-label="流程位置">
+          <li>Brainstorming</li><li>Goal</li><li>Backlog／Ticket</li><li>Ready</li><li class="current">Developer</li><li>PR Reviewer</li><li>QA</li><li>PO/PM Gate</li><li>Done</li>
+        </ol>
+        <article class="github-window">
+          <div class="window-bar"><span>GitHub</span><span>Pull requests</span></div>
+          <div class="repo-path">Matching / pull / 3</div>
+          <h2>雙向喜歡才配對 <span class="open-pill">Open</span></h2>
+          <p class="branch-line">feature/3-mutual-match <span>→</span> main</p>
+          <div class="pr-description"><b>Summary</b><p>依 #3 實作雙向喜歡才配對，附上說明與自我檢查。</p></div>
+          <div class="pr-bottom"><span>Changes</span><span>Review requested</span><span>Checks recorded</span></div>
         </article>
       </div>
-      <div class="bottom-callout"><strong>作者分析（比較輔助，非共同標準）：</strong> BMad 著重產品交付流程中決策、規格與 context 的流動，可對照 Core S2 的 Issue／AC／決策作為持久工件；LongHorizon 著重長任務執行迴圈，可對照 Core S5／S6 的 bounded work、evidence、fresh session 與 handoff。Core 不要求採用任一框架。</div>
+    </section>
+
+    <section class="slide process-step" data-section="s1">
+      <h1>PR Reviewer</h1>
+      <div class="visual">
+        <ol class="mini-flow" aria-label="流程位置">
+          <li>Brainstorming</li><li>Goal</li><li>Backlog／Ticket</li><li>Ready</li><li>Developer</li><li class="current">PR Reviewer</li><li>QA</li><li>PO/PM Gate</li><li>Done</li>
+        </ol>
+        <article class="review-card">
+          <div class="review-context"><span>PR #3</span><strong>雙向喜歡才配對</strong><span class="request-pill">Request changes</span></div>
+          <div class="review-comment">
+            <span class="comment-avatar">R</span>
+            <div><b>PR Reviewer</b><p>AC 只涵蓋雙向喜歡配對。這個 PR 多做了聊天室，超出 #3 範圍；請移除後再送審。</p><span class="comment-action">Request changes</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="slide process-step" data-section="s1">
+      <h1>QA／Verification</h1>
+      <div class="visual">
+        <ol class="mini-flow" aria-label="流程位置">
+          <li>Brainstorming</li><li>Goal</li><li>Backlog／Ticket</li><li>Ready</li><li>Developer</li><li>PR Reviewer</li><li class="current">QA／Verification</li><li>PO/PM Gate</li><li>Done</li>
+        </ol>
+        <div class="evidence-table">
+          <div class="evidence-row evidence-head"><b>AC 情境</b><b>預期</b><b>實際／證據</b><b>狀態</b></div>
+          <div class="evidence-row"><b>A 喜歡 B；B 尚未回應</b><span>不配對</span><span>未顯示 Match</span><strong class="pass">PASS</strong></div>
+          <div class="evidence-row"><b>B 也喜歡 A</b><span>配對</span><span>雙方顯示 Match</span><strong class="pass">PASS</strong></div>
+          <div class="evidence-row"><b>C 只喜歡 B</b><span>不配對</span><span>未顯示 Match</span><strong class="pass">PASS</strong></div>
+        </div>
+        <div class="status-legend"><span class="pass">PASS</span><span class="fail">FAIL</span><span>NOT RUN</span></div>
+      </div>
+    </section>
+
+    <section class="slide process-step" data-section="s1">
+      <h1>PO/PM Gate</h1>
+      <div class="visual">
+        <ol class="mini-flow" aria-label="流程位置">
+          <li>Brainstorming</li><li>Goal</li><li>Backlog／Ticket</li><li>Ready</li><li>Developer</li><li>PR Reviewer</li><li>QA</li><li class="current">PO/PM Gate</li><li>Done</li>
+        </ol>
+        <article class="accept-card">
+          <div class="accept-mark">✓</div>
+          <div><span class="artifact-label">驗收環境｜PR #3 候選版</span><h2>雙向喜歡才配對</h2><p>A／B／C 驗證證據對照 AC</p></div>
+          <div class="accept-action">接受 #3</div>
+        </article>
+        <p class="short-note">能操作，不代表 AC 全過。</p>
+      </div>
+    </section>
+
+    <section class="slide process-step" data-section="s1">
+      <h1>Done</h1>
+      <div class="visual">
+        <ol class="mini-flow" aria-label="流程位置">
+          <li>Brainstorming</li><li>Goal</li><li>Backlog／Ticket</li><li>Ready</li><li>Developer</li><li>PR Reviewer</li><li>QA</li><li>PO/PM Gate</li><li class="current">Done</li>
+        </ol>
+        <div class="done-board">
+          <div class="done-column"><h3>Done</h3><article class="done-ticket"><span>#3</span><strong>雙向喜歡才配對</strong><ul><li>✓ PR 審過</li><li>✓ 上線後檢查</li><li>✓ 沒超出範圍</li><li>✓ 既有功能沒壞</li></ul></article></div>
+          <div class="done-definition"><b>Done</b><span>AC 獲 PO 接受</span><span>＋</span><span>DoD 四條完成</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s1">
+      <h1>敏捷的節奏：Sprint 與 Kanban</h1>
+      <div class="visual compare-cards">
+        <article class="compare-card">
+          <span class="compare-tag">Sprint</span>
+          <h2>固定時間盒</h2>
+          <p>在固定週期內規劃與檢視一批工作。</p>
+        </article>
+        <article class="compare-card highlighted">
+          <span class="compare-tag">本課：Kanban</span>
+          <h2>持續拉票</h2>
+          <p>工作持續流動，一次只做一張（WIP=1）。</p>
+        </article>
+        <p class="wide-note">Kanban 不規定工作項目格式；User Story 起源於 XP，Scrum 與 Kanban 都不要求一定使用 User Story。</p>
+      </div>
+    </section>
+
+    <section class="slide section-slide" data-section="s2">
+      <div class="cover-mark">02</div>
+      <h1>第二段｜工作記錄在哪裡：Git 與 GitHub</h1>
+      <p class="cover-question">第一段的每一步，實際上落在什麼工具上？</p>
+    </section>
+
+    <section class="slide" data-section="s2">
+      <h1>Git 與 GitHub</h1>
+      <div class="visual git-metaphor">
+        <article><span class="metaphor-icon">◷</span><h2>Git</h2><p>版本紀錄</p><strong>存檔點</strong></article>
+        <div class="demo-arrow">＋</div>
+        <article><span class="metaphor-icon">▤</span><h2>GitHub</h2><p>共享與審查的平台</p><strong>共享資料夾＋審查室</strong></article>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s2">
+      <h1>Issue</h1>
+      <div class="visual github-window issue-window">
+        <div class="window-bar"><span>GitHub</span><span>Issues / 3</span></div>
+        <div class="issue-number">Issue #3 <span class="open-pill">Open</span></div>
+        <h2>雙向喜歡才配對</h2>
+        <div class="issue-fields">
+          <div><b>Goal</b><p>讓 A 與 B 只有在雙方互相喜歡時才配對。</p></div>
+          <div><b>AC</b><p>A 單向喜歡不配對；雙方互相喜歡才配對。</p></div>
+        </div>
+        <div class="issue-discussion"><b>Discussion</b><span>Goal、AC 與討論都留在這張票。</span></div>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s2">
+      <h1>Feature branch</h1>
+      <div class="visual branch-diagram">
+        <div class="branch-main"><b>main</b><span></span></div>
+        <div class="branch-feature"><b>feature/3-mutual-match</b><span></span></div>
+        <div class="branch-origin">從正本分出一份來修改</div>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s2">
+      <h1>Commit</h1>
+      <div class="visual commit-diagram">
+        <div class="branch-context">feature/3-mutual-match · 按「存一版」留下節點</div>
+        <div class="commit-line"><span></span><span></span><span></span></div>
+        <div class="commit-labels"><span>版本 1</span><span>版本 2</span><span>版本 3</span></div>
+        <div class="unsaved"><b>未存的修改</b><span>不會自動存，也看不到、回不去。</span></div>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s2">
+      <h1>Pull Request</h1>
+      <div class="visual github-window">
+        <div class="window-bar"><span>GitHub</span><span>Pull requests / 3</span></div>
+        <h2>雙向喜歡才配對 <span class="open-pill">Open</span></h2>
+        <p class="branch-line">feature/3-mutual-match <span>→</span> main</p>
+        <div class="pr-sections">
+          <div><b>Review</b><span>差異與範圍</span></div><div><b>Discussion</b><span>問題與回覆</span></div><div><b>Evidence</b><span>A／B／C 驗證</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s2">
+      <h1>Merge</h1>
+      <div class="visual merge-diagram">
+        <div class="merge-branch"><b>feature/3-mutual-match</b><span></span><span></span></div>
+        <div class="merge-join">⇣</div>
+        <div class="merge-main"><b>main</b><span></span><span></span><span class="merged-dot"></span></div>
+        <div class="restore-note">審過後合回正本；舊版仍可回復。</div>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s2">
+      <h1>流程對照 GitHub</h1>
+      <div class="visual mapping">
+        <div><b>Backlog</b><span>Issues</span></div><div><b>Ready</b><span>看板欄位</span></div><div><b>Developer</b><span>branch＋commit</span></div><div><b>PR Reviewer</b><span>PR review</span></div><div><b>QA</b><span>PR 證據＋CI</span></div><div><b>PO/PM Gate</b><span>接受後 merge</span></div><div><b>Done</b><span>Issue 關閉＋看板 Done</span></div>
+        <p>changed ≠ committed ≠ pushed ≠ merged ≠ deployed ≠ verified</p>
+      </div>
+    </section>
+
+    <section class="slide section-slide" data-section="s3">
+      <div class="cover-mark">03</div>
+      <h1>第三段｜把同一條流程交給 Agent</h1>
+      <p class="cover-question">流程不變，角色換成 Agent 會長怎樣？</p>
+    </section>
+
+    <section class="slide" data-section="s3">
+      <h1>同一條流程，換成 Agent</h1>
+      <div class="visual toggle-wrap" data-toggle>
+        <div class="toggle-controls" role="group" aria-label="切換人類版與 Agent 版流程">
+          <button type="button" data-state="before" aria-pressed="true">人類版</button>
+          <button type="button" data-state="after" aria-pressed="false">Agent 版</button>
+        </div>
+        <div class="toggle-panel" data-view="before">
+          <div class="role-flow">
+            <div><b>規劃</b><span>PO／PM</span></div><i>→</i><div><b>開發</b><span>Developer</span></div><i>→</i><div><b>審查</b><span>PR Reviewer</span></div><i>→</i><div><b>驗證</b><span>QA</span></div><i>→</i><div><b>接受</b><span>PO／PM</span></div><i>→</i><div class="human-gate"><b>Human Gate</b><span>人</span></div>
+          </div>
+        </div>
+        <div class="toggle-panel" data-view="after" hidden>
+          <div class="role-flow">
+            <div><b>規劃</b><span>PO／PM Agent</span></div><i>→</i><div><b>開發</b><span>Developer Agent</span></div><i>→</i><div><b>審查</b><span>PR Reviewer Agent</span></div><i>→</i><div><b>驗證</b><span>QA Agent</span></div><i>→</i><div><b>接受</b><span>PO／PM Agent</span></div><i>→</i><div class="human-gate"><b>Human Gate</b><span>人保留責任</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s3">
+      <h1>誰做什麼、交出什麼、存在哪裡</h1>
+      <div class="visual">
+        <table class="data-table agent-table">
+          <thead><tr><th>階段</th><th>步驟</th><th>負責 Agent</th><th>傳下去的產物</th><th>存放位置</th></tr></thead>
+          <tbody>
+            <tr><td data-label="階段">規劃</td><td data-label="步驟">Brainstorming → Goal → Ticket</td><td data-label="負責 Agent">PO/PM Agent</td><td data-label="產物">想法 → Goal → 票</td><td data-label="存放位置">Issue／看板</td></tr>
+            <tr><td data-label="階段">開發</td><td data-label="步驟">依票實作</td><td data-label="負責 Agent">Developer Agent</td><td data-label="產物">PR</td><td data-label="存放位置">branch／PR</td></tr>
+            <tr><td data-label="階段">審查</td><td data-label="步驟">檢查 diff 與範圍</td><td data-label="負責 Agent">PR Reviewer Agent</td><td data-label="產物">review 意見</td><td data-label="存放位置">PR</td></tr>
+            <tr><td data-label="階段">驗證</td><td data-label="步驟">依 AC 驗證</td><td data-label="負責 Agent">QA Agent</td><td data-label="產物">證據</td><td data-label="存放位置">PR</td></tr>
+            <tr><td data-label="階段">接受</td><td data-label="步驟">對照 AC 接受</td><td data-label="負責 Agent">PO/PM Agent</td><td data-label="產物">接受</td><td data-label="存放位置">Issue／看板</td></tr>
+          </tbody>
+        </table>
+        <p class="short-note">產物落在 GitHub，不靠對話傳遞。</p>
+      </div>
+      <p class="credit">概念參考：ChatDev（OpenBMB, arXiv:2307.07924）</p>
+    </section>
+
+    <section class="slide" data-section="s3">
+      <h1>Human Gate</h1>
+      <div class="visual gate-visual">
+        <div class="agent-lane"><span>Agent 工作與回報</span><b>Issue → PR → Review → QA 證據</b></div>
+        <div class="gate-line"><span>Human Gate</span></div>
+        <div class="human-decisions"><div>目標與優先序</div><div>超出範圍</div><div>接受上線</div><div>不可逆操作</div></div>
+      </div>
+      <p class="short-note">Agent 取代工作；責任仍由人保留。</p>
+    </section>
+
+    <section class="slide" data-section="s3">
+      <h1>這份簡報就是這樣做出來的</h1>
+      <div class="visual timeline">
+        <article><a href="https://github.com/world4jason/Agent-101-deck/issues/30">Issue #30</a><p>提出簡報工作</p></article>
+        <article><a href="https://github.com/world4jason/Agent-101-deck/pull/37">PR #37</a><p>Developer Agent：Codex 開 PR</p></article>
+        <article><a href="https://github.com/world4jason/Agent-101-deck/pull/37">Sonnet review</a><p>要求修改</p></article>
+        <article><a href="https://github.com/world4jason/Agent-101-deck/pull/37">三方審查</a><p>發現 fragment 沒有隱藏</p></article>
+        <article><a href="https://github.com/world4jason/Agent-101-deck/pull/37">合併</a><p>PR #37 merged</p></article>
+        <article><a href="https://github.com/world4jason/Agent-101-deck/pull/37">Human Gate</a><p>Owner：偏離主軸，退回</p></article>
+        <article><a href="https://github.com/world4jason/Agent-101-deck/issues/41">v7｜Issue #41</a><p>重寫成這一版</p></article>
+      </div>
+    </section>
+
+    <section class="slide section-slide" data-section="s4">
+      <div class="cover-mark">04</div>
+      <h1>第四段｜為什麼一隻 Agent 不夠</h1>
+      <p class="cover-question">只用一個 Agent、用聊天推進，哪裡會壞？要改成什麼？</p>
+    </section>
+
+    <section class="slide" data-section="s4">
+      <h1>用 AI 的四種方式</h1>
+      <div class="visual">
+        <table class="data-table modes-table">
+          <thead><tr><th>方式</th><th>誰決定步驟</th><th>狀態存在哪</th><th>怎麼知道做完</th><th>換 Session 之後</th></tr></thead>
+          <tbody>
+            <tr><td data-label="方式">一問一答</td><td data-label="誰決定步驟">人逐步提問</td><td data-label="狀態">對話</td><td data-label="完成">人看回覆</td><td data-label="換 Session">新對話重說</td></tr>
+            <tr><td data-label="方式">Agentic Workflow</td><td data-label="誰決定步驟">固定 SOP</td><td data-label="狀態">流程執行記錄</td><td data-label="完成">流程走完</td><td data-label="換 Session">依流程記錄接續</td></tr>
+            <tr><td data-label="方式">AI Agent</td><td data-label="誰決定步驟">Agent 自行決定</td><td data-label="狀態">Agent context</td><td data-label="完成">Agent 回報</td><td data-label="換 Session">依 context 保存方式</td></tr>
+            <tr class="work-driven-row"><td data-label="方式">Work-driven 多 Agent</td><td data-label="誰決定步驟">工作流與角色分工</td><td data-label="狀態">GitHub 工件</td><td data-label="完成">Review／QA／接受</td><td data-label="換 Session">讀票接手</td></tr>
+          </tbody>
+        </table>
+        <p class="short-note">Work-driven 結合固定流程的可控與 Agent 的彈性。</p>
+      </div>
+      <p class="credit">概念參考（出處待補）</p>
+    </section>
+
+    <section class="slide" data-section="s4">
+      <h1>一個 Agent 做全部 vs 分給多個 Agent</h1>
+      <div class="visual toggle-wrap" data-toggle>
+        <div class="toggle-controls" role="group" aria-label="切換 Single 與 Multiple">
+          <button type="button" data-state="before" aria-pressed="true">Single</button>
+          <button type="button" data-state="after" aria-pressed="false">Multiple</button>
+        </div>
+        <div class="toggle-panel single-view" data-view="before">
+          <div class="single-agent"><span>一個 Agent｜同一個 context</span><div>Brainstorming → 寫票 → 前端 → 後端 → Review → 測試</div></div>
+          <div class="pressure">context 越塞越滿 → 忘了 Goal → 自己說做好了</div>
+        </div>
+        <div class="toggle-panel multiple-view" data-view="after" hidden>
+          <div class="lead-agent">Lead（PO/PM Agent）<span>拆票、派工、看板回報</span></div>
+          <div class="agent-cards">
+            <article><b>Developer Agent</b><span>context：自己的票</span></article><article><b>Reviewer Agent</b><span>context：自己的票</span></article><article><b>QA Agent</b><span>context：自己的票</span></article>
+          </div>
+          <div class="board-report">結果寫回看板，由另一個 Agent 驗證。</div>
+        </div>
+      </div>
+      <p class="credit">概念參考（出處待補）</p>
+    </section>
+
+    <section class="slide" data-section="s4">
+      <h1>Chat-driven vs Work-driven</h1>
+      <div class="visual toggle-wrap" data-toggle>
+        <div class="toggle-controls" role="group" aria-label="切換 Chat-driven 與 Work-driven">
+          <button type="button" data-state="before" aria-pressed="true">Chat-driven</button>
+          <button type="button" data-state="after" aria-pressed="false">Work-driven</button>
+        </div>
+        <div class="toggle-panel chat-view" data-view="before">
+          <div class="chat-sequence"><span>人</span><i>→</i><span>Agent session</span><i>→</i><span>「做到哪了？」</span><i>→</i><span>context 越來越長</span><i>→</i><strong>goal drift</strong></div>
+          <div class="chat-reset">開新 Session → 又失憶</div>
+        </div>
+        <div class="toggle-panel work-view" data-view="after" hidden>
+          <div class="work-sequence"><span>Goal</span><i>→</i><span>Tickets</span><i>→</i><span>Dev Agent</span><i>→</i><span>Review Agent</span><i>→</i><span>QA Agent</span><i>→</i><span>PM Agent</span></div>
+          <div class="durable-state">Durable State｜GitHub Issue／看板／PR</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s4">
+      <h1>Work-driven 怎麼運作</h1>
+      <div class="visual">
+        <div class="work-board">
+          <div><h3>TODO</h3><article>Backlog</article></div>
+          <div class="board-ready"><h3>READY</h3><article class="board-ticket"><span>#3</span><b>雙向喜歡才配對</b><small>WIP=1｜Agent 拉票</small></article></div>
+          <div><h3>DEV</h3><article>Developer Agent<br>PR #3</article></div>
+          <div><h3>REVIEW</h3><article>Reviewer Agent<br>review 意見</article></div>
+          <div><h3>QA</h3><article>QA Agent<br>AC 證據</article></div>
+          <div><h3>GATE／DONE</h3><article>治理點等人<br>PO/PM 接受</article></div>
+        </div>
+        <p class="short-note">工作單位是票；Agent 從看板拉 Ready 的 #3（WIP=1）。每站依 Ready／AC／DoD 交接 PR、review 與證據；治理點等人，換 Session 讀票接手。</p>
+      </div>
+    </section>
+
+    <section class="slide section-slide" data-section="s5">
+      <div class="cover-mark">05</div>
+      <h1>第五段｜讓多個 Agent 可靠協作的五個原則</h1>
+      <p class="cover-question">第四段的 work-driven 為什麼要這樣設計？每個原則具體怎麼做？</p>
+    </section>
+
+    <section class="slide" data-section="s5">
+      <h1>五個原則</h1>
+      <div class="visual principle-overview">
+        <div><b>External task state</b><span>GitHub Issue／看板；新 Session 讀票</span></div>
+        <div><b>Bounded execution</b><span>AC、Out-of-scope、Stop rule、WIP=1</span></div>
+        <div><b>Role separation</b><span>一個 Agent 一個角色、一個目標</span></div>
+        <div><b>Independent verification</b><span>Reviewer、QA 與 Developer 分開；只認證據</span></div>
+        <div><b>Goal re-anchoring</b><span>票連回 Goal；變更回 Human Gate</span></div>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s5">
+      <h1>External task state</h1>
+      <div class="visual state-compare">
+        <article class="chat-state"><span class="state-icon">“ ”</span><b>聊天泡泡</b><p>狀態藏在對話裡</p></article>
+        <div class="demo-arrow">→</div>
+        <article class="issue-state"><span class="state-icon">#3</span><b>Issue 卡片</b><p>GitHub Issue／看板留下工作狀態</p><strong>新 Session 讀票，不讀聊天</strong></article>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s5">
+      <h1>Bounded execution</h1>
+      <div class="visual boundary-visual">
+        <article class="ticket boundary-ticket">
+          <div class="ticket-title"><span>ISSUE #3</span><strong>雙向喜歡才配對</strong></div>
+          <div class="boundary-boxes"><div><b>AC</b><span>A/B/C 情境</span></div><div><b>Out-of-scope</b><span>聊天室、推薦</span></div><div><b>Stop rule</b><span>超出核准範圍，先停下</span></div><div class="wip-box"><b>WIP=1</b><span>一次只做一張</span></div></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s5">
+      <h1>Role separation</h1>
+      <div class="visual role-cards">
+        <article><span class="role-avatar">P</span><b>PO/PM Agent</b><span>規劃與接受</span></article>
+        <article><span class="role-avatar">D</span><b>Developer Agent</b><span>依票實作</span></article>
+        <article><span class="role-avatar">R</span><b>PR Reviewer Agent</b><span>獨立審查</span></article>
+        <article><span class="role-avatar">Q</span><b>QA Agent</b><span>依 AC 驗證</span></article>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s5">
+      <h1>Independent verification</h1>
+      <div class="visual verification-flow">
+        <article class="self-report"><b>Developer Agent</b><span>「做好了」</span></article>
+        <div class="demo-arrow">→</div>
+        <article class="qa-evidence"><b>QA Agent</b><span>核對 #3 的 AC 與證據</span><strong>PASS／FAIL／NOT RUN</strong></article>
+        <div class="dod-inline"><b>DoD</b><span>Reviewer、QA 與 Developer 分開；只認證據，不認自述。</span></div>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s5">
+      <h1>Goal re-anchoring</h1>
+      <div class="visual reanchor-flow">
+        <article class="ticket-link"><span>Issue #3</span><b>雙向喜歡才配對</b></article>
+        <div class="reanchor-arrow">↔</div>
+        <article class="goal-link"><span>Goal</span><b>雙方互相喜歡才配對</b></article>
+        <div class="backlog-loop">新資訊 → 重新排序 Backlog</div>
+        <div class="human-loop">要改 Goal → 回到 Human Gate</div>
+      </div>
+    </section>
+
+    <section class="slide section-slide" data-section="s6">
+      <div class="cover-mark">06</div>
+      <h1>第六段｜系統長什麼樣</h1>
+      <p class="cover-question">把前面全部組起來，是一套什麼系統？</p>
+    </section>
+
+    <section class="slide" data-section="s6">
+      <h1>架構六層</h1>
+      <div class="visual architecture">
+        <div class="architecture-flow"><span>交辦 ↓</span><span>↑ 回報</span></div>
+        <div class="layer"><b>1｜Goal／Governance（Why?）</b><span>人：目標、優先序、Human Gate</span><span>Agent：PO/PM Agent 整理 Goal 與票</span></div>
+        <div class="layer"><b>2｜Planning／Backlog（What?）</b><span>人：選擇與排序工作</span><span>Agent：拆解並維護 Backlog</span></div>
+        <div class="layer"><b>3｜Task Graph／Kanban（State）</b><span>人：共享看板</span><span>Agent：讀取票與狀態</span></div>
+        <div class="layer"><b>4｜Orchestrator（Who next?）</b><span>人：決定下一個負責者</span><span>Agent：依看板派給下一角色</span></div>
+        <div class="layer"><b>5｜Execution Runtime（Do work）</b><span>人：Developer</span><span>Agent：Developer Agent</span></div>
+        <div class="layer"><b>6｜Review／QA／Human（Verify）</b><span>人：Reviewer、QA、Human Gate</span><span>Agent：Review／QA Agent 回報證據</span></div>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s6">
+      <h1>Kanban-driven</h1>
+      <div class="visual kanban-flow">
+        <div><h3>TODO</h3><article><span>Issue #3</span><b>雙向喜歡才配對</b></article></div>
+        <div><h3>DEV</h3><article><span>feature/3-mutual-match</span><b>Developer Agent</b></article></div>
+        <div><h3>PR</h3><article><span>PR #3</span><b>變更與說明</b></article></div>
+        <div><h3>REVIEW</h3><article><span>Review #3</span><b>範圍與風險</b></article></div>
+        <div><h3>QA</h3><article><span>QA #3｜A／B／C</span><b>AC 證據</b></article></div>
+        <div><h3>DONE</h3><article><span>PO/PM accepted #3</span><b>雙向喜歡才配對</b></article></div>
+      </div>
     </section>
   </div>
 
@@ -588,6 +562,16 @@
     <button id="next" type="button" aria-label="下一頁">下一頁 →</button>
   </footer>
 </main>
+<script>
+  document.querySelectorAll('[data-toggle]').forEach(toggle => {
+    const buttons = toggle.querySelectorAll('[data-state]');
+    const panels = toggle.querySelectorAll('[data-view]');
+    buttons.forEach(button => button.addEventListener('click', () => {
+      buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+      panels.forEach(panel => { panel.hidden = panel.dataset.view !== button.dataset.state; });
+    }));
+  });
+</script>
 <script src="./app.js"></script>
 </body>
 </html>
