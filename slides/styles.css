@@ -520,7 +520,6 @@ p { line-height: 1.5; }
 .goal-example-card { width: min(100%, 1040px); margin: auto; padding: 20px 25px; border: 1px solid var(--line); border-top: 4px solid var(--green); border-radius: 14px; background: var(--panel); }
 .goal-example-card .artifact-head { gap: 12px; font-size: 14px; }
 .goal-example-card h2 { margin: 10px 0 13px; font-size: 24px; }
-.goal-status { margin: -6px 0 10px; color: var(--muted); font-size: 14px; }
 .goal-example-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 .goal-example-grid > div { padding: 9px 12px; border: 1px solid var(--line); border-radius: 9px; background: #0f1720; }
 .goal-example-grid b { color: var(--blue); }
@@ -554,6 +553,12 @@ p { line-height: 1.5; }
 .mini-ticket.ticket-current { border: 2px solid var(--blue); background: #1b3550; box-shadow: 0 0 0 1px #83bcff44; }
 .mini-ticket.return-ticket { border: 1px dashed #ad7377; background: #2a1e23; }
 .mini-ticket.return-ticket > small { color: #ffd0cb; }
+.mini-ticket.ticket-history { opacity: .52; }
+.mini-board-return.qa-cycle { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; min-height: 0; }
+.qa-cycle > div { display: grid; grid-column: 3 / 6; grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr); align-items: center; gap: 5px; padding: 4px 7px; border: 1px solid #67444a; border-radius: 7px; background: #25191d; color: #ffd0cb; font-size: 14px; }
+.qa-cycle .qa-route-arrow { color: var(--red); font-size: 22px; font-weight: 900; line-height: 1; text-align: center; }
+.qa-cycle .qa-pass-route { border-color: #49614d; background: #142119; color: #c8d9cc; }
+.qa-cycle .qa-pass-route .qa-route-arrow { color: var(--green); }
 .mini-board-return { min-height: 48px; }
 .mini-board-return svg { display: block; width: 100%; height: 48px; overflow: visible; }
 .mini-board-return svg path { fill: none; stroke: #ff9289; stroke-width: 3.5; stroke-linecap: round; }
@@ -712,6 +717,8 @@ p { line-height: 1.5; }
   .mini-board-return { min-height: 0; padding: 6px 8px; border: 1px solid #67444a; border-radius: 7px; background: #25191d; color: #ffd0cb; font-size: 14px; text-align: center; }
   .mini-board-return svg { display: none; }
   .mini-board-return > span { display: block; }
+  .mini-board-return.qa-cycle { grid-template-columns: 1fr; }
+  .qa-cycle > div { grid-column: 1; }
   .mini-board-note, .full-board-foot, .mini-goal-lane, .full-goal-lane { align-items: flex-start; flex-direction: column; }
   .refinement-grid { grid-template-columns: 1fr; }
   .refinement-grid > div:nth-child(odd) { border-right: 0; }
@@ -766,7 +773,7 @@ p { line-height: 1.5; }
   .mini-ticket.ticket-current, .full-column article.example-subissue { background: #eef4fb !important; color: #111 !important; }
 }
 @media (min-width: 951px) {
-  .mini-ticket > small { display: none; }
+  .mini-ticket.status-visible > small { display: block; }
   .brand, .backlog-title span, .backlog-list li > span, .backlog-list em, .done-ticket > span, .done-ticket ul, .mapping > p { font-size: 14px; }
   .phone-label, .artifact-head, .ticket-title > span:first-child, .ticket-state, .ready-pill, .open-pill, .request-pill, .checklist li, .window-bar, .repo-path, .issue-number, .branch-line, .pr-bottom span, .pr-sections > div, .comment-action, .evidence-head, .status-legend, .artifact-label, .compare-tag, .branch-context, .agent-lane span, .lead-agent span, .agent-cards span, .board-report, .boundary-boxes span, .role-cards article > span:last-child, .qa-evidence strong, .ticket-link span, .goal-link span { font-size: 14px; }
 }
