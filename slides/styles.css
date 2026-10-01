@@ -482,21 +482,30 @@ p { line-height: 1.5; }
 
 .theory-visual { width: 100%; max-width: 1360px; gap: 8px; margin: auto; }
 .theory-svg { display: block; width: 100%; max-height: min(62vh, 510px); margin: auto; overflow: visible; }
-.theory-svg path { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.theory-svg path { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.theory-svg .theory-arrowhead { stroke: none; stroke-width: 0; }
+.theory-svg .arrow-blue { fill: var(--blue); }
+.theory-svg .arrow-green { fill: var(--green); }
+.theory-svg .arrow-red { fill: var(--red); }
+.theory-svg .arrow-yellow { fill: var(--yellow); }
 .theory-svg .forward-link { stroke: var(--blue); }
 .theory-svg .goal-link-line { stroke: var(--green); }
-.theory-svg .return-link { stroke: var(--red); }
+.theory-svg .return-branch, .theory-svg .return-link { stroke: var(--red); }
 .theory-svg .reanchor-link { stroke: var(--yellow); stroke-dasharray: 9 7; }
 .theory-svg .theory-node { fill: var(--panel); stroke: var(--line); stroke-width: 2; }
 .theory-svg .theory-parent-node { fill: #14231b; stroke: #83dda7; }
 .theory-svg text { fill: #dce6f0; font-family: inherit; font-size: 16px; font-weight: 700; }
 .theory-svg .node-title { fill: var(--text); font-size: 20px; font-weight: 800; }
 .theory-svg .node-subtitle { fill: #c7d4ca; font-size: 16px; font-weight: 500; }
-.theory-svg .theory-labels text { fill: #ffd0cb; font-size: 15px; }
+.theory-svg .theory-labels text { fill: #ffd0cb; font-size: 16px; }
+.theory-svg .theory-labels .theory-label-bg { fill: var(--bg); stroke: var(--line); stroke-width: 1.5; }
+.theory-svg .theory-labels .relation-label { fill: var(--green); }
+.theory-svg .theory-labels .return-label { fill: #ffd0cb; }
 .theory-svg .theory-labels .goal-label { fill: var(--yellow); }
-.theory-svg .theory-labels .label-bg { fill: var(--bg); stroke: #67444a; stroke-width: 1.5; }
-.theory-svg .theory-labels .goal-label-bg, .theory-svg .theory-labels .reanchor-label-bg { stroke: #675834; }
-.theory-svg .refinement-title { font-size: 18px; }
+.theory-svg .theory-labels .relation-label-bg { stroke: #53775c; }
+.theory-svg .theory-labels .return-label-bg { stroke: #67444a; }
+.theory-svg .theory-labels .reanchor-label-bg { stroke: #675834; }
+.theory-svg .refinement-title { font-size: 17px; }
 .theory-mobile { display: none; }
 .diagram-arrow { position: relative; display: block; flex: 0 1 32px; width: 32px; min-width: 18px; height: 2px; background: currentColor; color: var(--blue); }
 .diagram-arrow::after { content: ""; position: absolute; top: 50%; right: -1px; width: 7px; height: 7px; border-top: 2px solid currentColor; border-right: 2px solid currentColor; transform: translateY(-50%) rotate(45deg); }
@@ -766,7 +775,9 @@ p { line-height: 1.5; }
   .theory-svg .theory-node { fill: #fff; stroke: #777; }
   .theory-svg .theory-parent-node { fill: #eee; stroke: #555; }
   .theory-svg text, .theory-svg .node-title, .theory-svg .node-subtitle, .theory-svg .theory-labels text { fill: #111; }
-  .theory-svg path { stroke: #444 !important; }
+  .theory-svg .theory-labels .theory-label-bg { fill: #fff; stroke: #666; }
+  .theory-svg path:not(.theory-arrowhead) { stroke: #444 !important; }
+  .theory-svg .theory-arrowhead { fill: #444 !important; stroke: none !important; }
   .role-return, .parent-issue, .subissue-list, .goal-example-card, .full-column, .mini-column, .mini-ticket, .mini-board-return, .pr-review-artifact, .goal-check-questions, .goal-check-returns, .closed-issue, .reanchor-path article { background: #fff !important; color: #111 !important; border-color: #999 !important; }
   .full-goal-lane span, .mini-goal-lane span, .mini-board-note, .mini-board-return span, .goal-example-grid p, .refinement-grid p, .done-summary p { color: #333 !important; }
   .full-goal-lane, .mini-goal-lane { background: #eee !important; border-color: #888 !important; }

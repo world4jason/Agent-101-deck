@@ -39,67 +39,64 @@
     <section class="slide" data-section="s1">
       <h1>理論流程：Goal 是 parent，ticket 沿看板前進</h1>
       <div class="visual theory-visual">
-        <svg class="theory-svg" viewBox="0 0 1360 500" role="img" aria-label="Brainstorming 形成 parent Goal；ticket 從 Ticket Refinement 經 Ready、Developer、PR Review、QA、Product Check 到 Done。PR Review 和 QA 可退回 Developer；Product Check 的 implementation issue 退回 Developer，goal 或 problem issue 退回 Ticket Refinement / Goal，並往上對照 Goal。">
+        <svg class="theory-svg" viewBox="0 0 1360 520" role="img" aria-label="Brainstorming 形成 parent Goal；Goal 往下連到 Ticket Refinement。Ticket 依序經 Ready、Developer、PR Review、QA / Verification、Product / Goal Check 到 Done。PR Review、QA 與 Product Check 的 implementation issue 退回 Developer；goal 或 problem issue 沿底部迴圈回到 Ticket Refinement / Goal。Product / Goal Check 往上對照 Goal。">
+          <title>Goal parent 與 ticket 工作流</title>
+          <desc>上方呈現 Brainstorming、Goal 與 Goal Check 的關係；中間是 ticket 看板流程；下方分開呈現退回 Developer 與回到 Goal 的兩種路徑。</desc>
           <defs>
-            <marker id="theory-blue-head" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9" fill="none" stroke="#83bcff" stroke-width="1.8" /></marker>
-            <marker id="theory-green-head" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9" fill="none" stroke="#83dda7" stroke-width="1.8" /></marker>
-            <marker id="theory-red-head" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9" fill="none" stroke="#ff9289" stroke-width="1.8" /></marker>
-            <marker id="theory-yellow-head" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9" fill="none" stroke="#f2cf76" stroke-width="1.8" /></marker>
+            <marker id="theory-blue-head" markerWidth="7" markerHeight="7" refX="6.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse"><path class="theory-arrowhead arrow-blue" d="M0 0 L7 3.5 L0 7 Z" /></marker>
+            <marker id="theory-green-head" markerWidth="7" markerHeight="7" refX="6.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse"><path class="theory-arrowhead arrow-green" d="M0 0 L7 3.5 L0 7 Z" /></marker>
+            <marker id="theory-red-head" markerWidth="7" markerHeight="7" refX="6.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse"><path class="theory-arrowhead arrow-red" d="M0 0 L7 3.5 L0 7 Z" /></marker>
+            <marker id="theory-yellow-head" markerWidth="7" markerHeight="7" refX="6.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse"><path class="theory-arrowhead arrow-yellow" d="M0 0 L7 3.5 L0 7 Z" /></marker>
           </defs>
+          <g class="theory-boxes">
+            <rect class="theory-node" x="70" y="34" width="200" height="72" rx="10" />
+            <text class="node-title" x="170" y="77" text-anchor="middle">Brainstorming</text>
+            <rect class="theory-node theory-parent-node" x="420" y="24" width="440" height="90" rx="10" />
+            <text class="node-title" x="640" y="59" text-anchor="middle">Goal / Epic｜互相喜歡才配對</text>
+            <text class="node-subtitle" x="640" y="86" text-anchor="middle">Parent issue · 不是 workflow state</text>
+            <rect class="theory-node" x="40" y="220" width="164" height="95" rx="10" />
+            <text class="node-title refinement-title" x="122" y="258" text-anchor="middle"><tspan x="122">Ticket Refinement</tspan><tspan x="122" dy="21">/ Backlog</tspan></text>
+            <rect class="theory-node" x="224" y="220" width="164" height="95" rx="10" />
+            <text class="node-title" x="306" y="274" text-anchor="middle">Ready</text>
+            <rect class="theory-node" x="408" y="220" width="164" height="95" rx="10" />
+            <text class="node-title" x="490" y="274" text-anchor="middle">Developer</text>
+            <rect class="theory-node" x="592" y="220" width="164" height="95" rx="10" />
+            <text class="node-title" x="674" y="274" text-anchor="middle">PR Review</text>
+            <rect class="theory-node" x="776" y="220" width="164" height="95" rx="10" />
+            <text class="node-title" x="858" y="258" text-anchor="middle"><tspan x="858">QA /</tspan><tspan x="858" dy="21">Verification</tspan></text>
+            <rect class="theory-node" x="960" y="220" width="164" height="95" rx="10" />
+            <text class="node-title" x="1042" y="258" text-anchor="middle"><tspan x="1042">Product /</tspan><tspan x="1042" dy="21">Goal Check</tspan></text>
+            <rect class="theory-node" x="1144" y="220" width="164" height="95" rx="10" />
+            <text class="node-title" x="1226" y="274" text-anchor="middle">Done</text>
+          </g>
           <g class="theory-connectors">
-            <path class="forward-link" d="M210 53 H254" marker-end="url(#theory-blue-head)" />
-            <path class="goal-link-line" d="M320 83 C320 125 104 108 104 151" marker-end="url(#theory-green-head)" />
-            <path class="goal-link-line" d="M1064 151 C1090 108 940 102 640 82" marker-end="url(#theory-green-head)" />
-            <path class="forward-link" d="M196 198 H209" marker-end="url(#theory-blue-head)" />
-            <path class="forward-link" d="M380 198 H401" marker-end="url(#theory-blue-head)" />
-            <path class="forward-link" d="M572 198 H593" marker-end="url(#theory-blue-head)" />
-            <path class="forward-link" d="M764 198 H785" marker-end="url(#theory-blue-head)" />
-            <path class="forward-link" d="M956 198 H977" marker-end="url(#theory-blue-head)" />
-            <path class="forward-link" d="M1148 198 H1169" marker-end="url(#theory-blue-head)" />
-            <path class="return-link" d="M680 244 C680 276 545 276 448 244" marker-end="url(#theory-red-head)" />
-            <path class="return-link" d="M872 244 C872 320 575 320 488 244" marker-end="url(#theory-red-head)" />
-            <path class="return-link" d="M1064 244 C1064 364 630 364 528 244" marker-end="url(#theory-red-head)" />
-            <path class="reanchor-link" d="M1064 244 C1064 455 104 455 104 244" marker-end="url(#theory-yellow-head)" />
+            <path class="forward-link" d="M270 70 H420" marker-end="url(#theory-blue-head)" />
+            <path class="goal-link-line" d="M640 114 V154 H122 V220" marker-end="url(#theory-green-head)" />
+            <path class="goal-link-line" d="M1042 220 V170 H1308 V70 H860" marker-end="url(#theory-green-head)" />
+            <path class="forward-link" d="M204 267 H224" marker-end="url(#theory-blue-head)" />
+            <path class="forward-link" d="M388 267 H408" marker-end="url(#theory-blue-head)" />
+            <path class="forward-link" d="M572 267 H592" marker-end="url(#theory-blue-head)" />
+            <path class="forward-link" d="M756 267 H776" marker-end="url(#theory-blue-head)" />
+            <path class="forward-link" d="M940 267 H960" marker-end="url(#theory-blue-head)" />
+            <path class="forward-link" d="M1124 267 H1144" marker-end="url(#theory-blue-head)" />
+            <path class="return-branch" d="M674 315 V378 M858 315 V378 M1042 315 V378" />
+            <path class="return-link" d="M1042 378 H490 V315" marker-end="url(#theory-red-head)" />
+            <path class="reanchor-link" d="M1124 315 V472 H122 V315" marker-end="url(#theory-yellow-head)" />
           </g>
           <g class="theory-labels">
-            <rect class="label-bg goal-label-bg" x="205" y="98" width="230" height="28" rx="7" />
-            <text class="goal-label" x="320" y="117" text-anchor="middle">Goal parent ↓ Ticket Refinement</text>
-            <rect class="label-bg goal-label-bg" x="960" y="98" width="208" height="28" rx="7" />
-            <text class="goal-label" x="1064" y="117" text-anchor="middle">↑ 對照 parent Goal</text>
-            <rect class="label-bg" x="535" y="251" width="170" height="26" rx="6" />
-            <text x="620" y="270" text-anchor="middle">PR Review fail</text>
-            <rect class="label-bg" x="657" y="293" width="214" height="26" rx="6" />
-            <text x="764" y="312" text-anchor="middle">QA / Verification fail</text>
-            <rect class="label-bg" x="755" y="337" width="195" height="26" rx="6" />
-            <text x="852" y="356" text-anchor="middle">implementation issue</text>
-            <rect class="label-bg reanchor-label-bg" x="395" y="422" width="580" height="30" rx="7" />
-            <text class="goal-label" x="685" y="443" text-anchor="middle">goal / problem issue · 回到 Ticket Refinement / Goal</text>
-          </g>
-          <g class="theory-boxes">
-            <rect class="theory-node" x="20" y="24" width="190" height="58" rx="10" />
-            <text class="node-title" x="115" y="60" text-anchor="middle">Brainstorming</text>
-            <rect class="theory-node theory-parent-node" x="260" y="24" width="400" height="58" rx="10" />
-            <text class="node-title" x="460" y="49" text-anchor="middle">Goal / Epic｜互相喜歡才配對</text>
-            <text class="node-subtitle" x="460" y="69" text-anchor="middle">Parent issue · 不是 workflow state</text>
-            <rect class="theory-node" x="12" y="151" width="184" height="93" rx="10" />
-            <text class="node-title refinement-title" x="104" y="189" text-anchor="middle"><tspan x="104">Ticket Refinement</tspan><tspan x="104" dy="21">/ Backlog</tspan></text>
-            <rect class="theory-node" x="212" y="151" width="168" height="93" rx="10" />
-            <text class="node-title" x="296" y="203" text-anchor="middle">Ready</text>
-            <rect class="theory-node" x="404" y="151" width="168" height="93" rx="10" />
-            <text class="node-title" x="488" y="203" text-anchor="middle">Developer</text>
-            <rect class="theory-node" x="596" y="151" width="168" height="93" rx="10" />
-            <text class="node-title" x="680" y="203" text-anchor="middle">PR Review</text>
-            <rect class="theory-node" x="788" y="151" width="168" height="93" rx="10" />
-            <text class="node-title" x="872" y="189" text-anchor="middle"><tspan x="872">QA /</tspan><tspan x="872" dy="21">Verification</tspan></text>
-            <rect class="theory-node" x="980" y="151" width="168" height="93" rx="10" />
-            <text class="node-title" x="1064" y="189" text-anchor="middle"><tspan x="1064">Product /</tspan><tspan x="1064" dy="21">Goal Check</tspan></text>
-            <rect class="theory-node" x="1172" y="151" width="168" height="93" rx="10" />
-            <text class="node-title" x="1256" y="203" text-anchor="middle">Done</text>
+            <rect class="theory-label-bg relation-label-bg" x="320" y="123" width="110" height="26" rx="7" />
+            <text class="relation-label" x="375" y="141" text-anchor="middle">parent</text>
+            <rect class="theory-label-bg relation-label-bg" x="1102" y="132" width="150" height="26" rx="7" />
+            <text class="relation-label" x="1177" y="150" text-anchor="middle">對照 Goal</text>
+            <rect class="theory-label-bg return-label-bg" x="310" y="391" width="720" height="27" rx="7" />
+            <text class="return-label" x="670" y="410" text-anchor="middle">PR Review fail · QA fail · Product / Goal Check implementation issue → Developer</text>
+            <rect class="theory-label-bg reanchor-label-bg" x="445" y="433" width="450" height="27" rx="7" />
+            <text class="goal-label" x="670" y="452" text-anchor="middle">goal / problem issue → Ticket Refinement / Goal</text>
           </g>
         </svg>
         <div class="theory-mobile">
           <div class="theory-mobile-origin"><span>Brainstorming</span><i>→</i><b>Goal / Epic<small>Parent issue</small></b></div>
-          <div class="theory-mobile-down">↓</div>
+          <div class="theory-mobile-down">parent ↓</div>
           <ol class="theory-mobile-flow">
             <li>Ticket Refinement / Backlog</li><li>Ready</li><li>Developer</li><li>PR Review</li><li>QA / Verification</li><li>Product / Goal Check</li><li>Done</li>
           </ol>
@@ -107,10 +104,40 @@
           <div class="theory-mobile-routes" aria-label="退件路徑">
             <div><b>Developer</b><i class="diagram-arrow back-arrow" aria-hidden="true"></i><span>PR Review · fail</span></div>
             <div><b>Developer</b><i class="diagram-arrow back-arrow" aria-hidden="true"></i><span>QA / Verification · fail</span></div>
-            <div><b>Developer</b><i class="diagram-arrow back-arrow" aria-hidden="true"></i><span>Product Check · implementation issue</span></div>
-            <div><b>Ticket Refinement / Goal</b><i class="diagram-arrow back-arrow" aria-hidden="true"></i><span>Product Check · goal / problem issue</span></div>
+            <div><b>Developer</b><i class="diagram-arrow back-arrow" aria-hidden="true"></i><span>Product / Goal Check · implementation issue</span></div>
+            <div><b>Ticket Refinement / Goal</b><i class="diagram-arrow back-arrow" aria-hidden="true"></i><span>Product / Goal Check · goal / problem issue</span></div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="slide" data-section="s1">
+      <h1>Brainstorming：從問題形成 Goal</h1>
+      <div class="visual brainstorming-visual">
+        <div class="sticky-wall">
+          <div class="sticky">為誰？<small>想找到互相喜歡對象的使用者</small></div>
+          <div class="sticky">問題？<small>單向喜歡不能算配對</small></div>
+          <div class="sticky">方案？<small>雙方 Like 才 Match</small></div>
+          <div class="sticky">這輪先不選<small>聊天、推薦</small></div>
+        </div>
+        <div class="goal-output"><span>形成 parent Goal / Epic</span><i class="diagram-arrow" aria-hidden="true"></i><strong>互相喜歡才配對</strong></div>
+      </div>
+    </section>
+
+    <section class="slide process-step" data-section="s1">
+      <h1>一個好的 Goal 長怎樣</h1>
+      <div class="visual step-visual">
+        <article class="goal-example-card">
+          <div class="artifact-head"><span>GOAL / EPIC ISSUE · PARENT</span><span>不是 workflow state</span></div>
+          <h2>讓互相喜歡的兩人，能確認配對成功。</h2>
+          <div class="goal-example-grid">
+            <div><b>成功訊號（上線後）</b><p>上線兩週，出現 10 對互相喜歡的配對（教學範例，門檻依現況設定）。</p></div>
+            <div><b>護欄訊號</b><p>錯誤配對率＝0（核對錯配紀錄）。</p></div>
+            <div><b>這輪不做</b><p>聊天、推薦、解除配對。</p></div>
+            <div><b>好 Goal 的條件</b><p>結果導向／可驗證／範圍清楚</p></div>
+          </div>
+          <p class="bad-goal"><b>壞 Goal：</b>做完喜歡、配對、聊天功能。</p>
+        </article>
       </div>
     </section>
 
@@ -144,40 +171,6 @@
       </div>
     </section>
 
-    <section class="slide" data-section="s1">
-      <h1>Brainstorming：從問題形成 Goal</h1>
-      <div class="visual brainstorming-visual">
-        <div class="sticky-wall">
-          <div class="sticky">為誰？<small>想找到互相喜歡對象的使用者</small></div>
-          <div class="sticky">問題？<small>單向喜歡不能算配對</small></div>
-          <div class="sticky">方案？<small>雙方 Like 才 Match</small></div>
-          <div class="sticky">這輪先不選<small>聊天、推薦</small></div>
-        </div>
-        <div class="goal-output"><span>形成 parent Goal / Epic</span><i class="diagram-arrow" aria-hidden="true"></i><strong>互相喜歡才配對</strong></div>
-      </div>
-    </section>
-
-    <section class="slide process-step" data-section="s1">
-      <h1>一個好的 Goal 長怎樣</h1>
-      <div class="visual step-visual">
-        <div class="mini-board" data-stage="backlog" aria-label="Goal 泳道看板，#3 位於 Backlog">
-          <div class="mini-goal-lane"><b>Goal / Epic｜互相喜歡才配對</b><span>parent issue · 泳道標題</span></div>
-          <div class="mini-board-columns"><div class="mini-column"><h3 class="mini-column-head current">Backlog</h3><article class="mini-ticket " data-ticket="1"><span>#1</span><b>Like／Pass</b><small>等待</small></article><article class="mini-ticket " data-ticket="2"><span>#2</span><b>配對列表</b><small>等待</small></article><article class="mini-ticket ticket-current" data-ticket="3"><span>#3</span><b>雙向喜歡才配對</b><small>Refinement</small></article></div><div class="mini-column"><h3 class="mini-column-head">Ready</h3></div><div class="mini-column"><h3 class="mini-column-head">Dev</h3></div><div class="mini-column"><h3 class="mini-column-head">Review</h3></div><div class="mini-column"><h3 class="mini-column-head">QA</h3></div><div class="mini-column"><h3 class="mini-column-head">Product Check</h3></div><div class="mini-column"><h3 class="mini-column-head">Done</h3></div></div>
-          <div class="mini-board-note"><b>WIP=1</b><span>#3 在 Backlog；#1、#2 在 Backlog 等待</span></div>
-        </div>
-        <article class="goal-example-card">
-          <div class="artifact-head"><span>GOAL / EPIC ISSUE · PARENT</span><span>不是 workflow state</span></div>
-          <h2>讓互相喜歡的兩人，能確認配對成功。</h2>
-          <div class="goal-example-grid">
-            <div><b>成功訊號（上線後）</b><p>上線兩週，出現 10 對互相喜歡的配對（教學範例，門檻依現況設定）。</p></div>
-            <div><b>護欄訊號</b><p>錯誤配對率＝0（核對錯配紀錄）。</p></div>
-            <div><b>這輪不做</b><p>聊天、推薦、解除配對。</p></div>
-            <div><b>好 Goal 的條件</b><p>結果導向／可驗證／範圍清楚</p></div>
-          </div>
-          <p class="bad-goal"><b>壞 Goal：</b>做完喜歡、配對、聊天功能。</p>
-        </article>
-      </div>
-    </section>
 
 
     <section class="slide process-step" data-section="s1">
