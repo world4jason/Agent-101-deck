@@ -39,7 +39,7 @@
     <section class="slide" data-section="s1">
       <h1>理論流程：Goal 是 parent，ticket 沿看板前進</h1>
       <div class="visual theory-visual">
-        <svg class="theory-svg" viewBox="0 0 1360 520" role="img" aria-label="Brainstorming 形成 parent Goal；Goal 往下連到 Ticket Refinement。Ticket 依序經 Ready、Developer、PR Review、QA / Verification、Product / Goal Check 到 Done。PR Review、QA 與 Product Check 的 implementation issue 退回 Developer；goal 或 problem issue 沿底部迴圈回到 Ticket Refinement / Goal。Product / Goal Check 往上對照 Goal。">
+        <svg class="theory-svg" viewBox="0 0 1360 520" role="img" aria-label="Brainstorming 形成 parent Goal，ticket 沿主流程前進並對照 Goal；按下一步依序顯示退回 Developer 與 Goal re-anchoring 路徑。">
           <title>Goal parent 與 ticket 工作流</title>
           <desc>上方呈現 Brainstorming、Goal 與 Goal Check 的關係；中間是 ticket 看板流程；下方分開呈現退回 Developer 與回到 Goal 的兩種路徑。</desc>
           <defs>
@@ -53,7 +53,7 @@
             <text class="node-title" x="170" y="77" text-anchor="middle">Brainstorming</text>
             <rect class="theory-node theory-parent-node" x="420" y="24" width="440" height="90" rx="10" />
             <text class="node-title" x="640" y="59" text-anchor="middle">Goal / Epic｜互相喜歡才配對</text>
-            <text class="node-subtitle" x="640" y="86" text-anchor="middle">Parent issue · 不是 workflow state</text>
+            <text class="node-subtitle" x="640" y="77" text-anchor="middle"><tspan x="640">Issue 是工作卡；Goal 是 parent issue（父票）</tspan><tspan x="640" dy="18">ticket 是 sub-issue（子票）；Goal 不是流程狀態</tspan></text>
             <rect class="theory-node" x="40" y="220" width="164" height="95" rx="10" />
             <text class="node-title refinement-title" x="122" y="258" text-anchor="middle"><tspan x="122">Ticket Refinement</tspan><tspan x="122" dy="21">/ Backlog</tspan></text>
             <rect class="theory-node" x="224" y="220" width="164" height="95" rx="10" />
@@ -61,11 +61,14 @@
             <rect class="theory-node" x="408" y="220" width="164" height="95" rx="10" />
             <text class="node-title" x="490" y="274" text-anchor="middle">Developer</text>
             <rect class="theory-node" x="592" y="220" width="164" height="95" rx="10" />
-            <text class="node-title" x="674" y="274" text-anchor="middle">PR Review</text>
+            <text class="node-title" x="674" y="264" text-anchor="middle">PR Review</text>
+            <text class="node-subtitle" x="674" y="290" text-anchor="middle">PR 送審；檢查改動</text>
             <rect class="theory-node" x="776" y="220" width="164" height="95" rx="10" />
-            <text class="node-title" x="858" y="258" text-anchor="middle"><tspan x="858">QA /</tspan><tspan x="858" dy="21">Verification</tspan></text>
+            <text class="node-title" x="858" y="250" text-anchor="middle"><tspan x="858">QA /</tspan><tspan x="858" dy="21">Verification</tspan></text>
+            <text class="node-subtitle" x="858" y="296" text-anchor="middle">驗證實際行為</text>
             <rect class="theory-node" x="960" y="220" width="164" height="95" rx="10" />
-            <text class="node-title" x="1042" y="258" text-anchor="middle"><tspan x="1042">Product /</tspan><tspan x="1042" dy="21">Goal Check</tspan></text>
+            <text class="node-title" x="1042" y="250" text-anchor="middle"><tspan x="1042">Product /</tspan><tspan x="1042" dy="21">Goal Check</tspan></text>
+            <text class="node-subtitle" x="1042" y="296" text-anchor="middle">對照 Goal</text>
             <rect class="theory-node" x="1144" y="220" width="164" height="95" rx="10" />
             <text class="node-title" x="1226" y="274" text-anchor="middle">Done</text>
           </g>
@@ -79,33 +82,53 @@
             <path class="forward-link" d="M756 267 H776" marker-end="url(#theory-blue-head)" />
             <path class="forward-link" d="M940 267 H960" marker-end="url(#theory-blue-head)" />
             <path class="forward-link" d="M1124 267 H1144" marker-end="url(#theory-blue-head)" />
+          </g>
+          <g class="theory-rejection fragment">
             <path class="return-branch" d="M674 315 V378 M858 315 V378 M1042 315 V378" />
             <path class="return-link" d="M1042 378 H490 V315" marker-end="url(#theory-red-head)" />
+            <g class="theory-labels">
+              <rect class="theory-label-bg return-label-bg" x="310" y="391" width="720" height="27" rx="7" />
+              <text class="return-label" x="670" y="410" text-anchor="middle">PR Review fail · QA fail · Product / Goal Check implementation issue → Developer</text>
+            </g>
+          </g>
+          <g class="theory-reanchor fragment">
             <path class="reanchor-link" d="M1124 315 V472 H122 V315" marker-end="url(#theory-yellow-head)" />
+            <g class="theory-labels">
+              <rect class="theory-label-bg reanchor-label-bg" x="445" y="433" width="450" height="27" rx="7" />
+              <text class="goal-label" x="670" y="452" text-anchor="middle">goal / problem issue → Ticket Refinement / Goal</text>
+            </g>
           </g>
           <g class="theory-labels">
             <rect class="theory-label-bg relation-label-bg" x="320" y="123" width="110" height="26" rx="7" />
             <text class="relation-label" x="375" y="141" text-anchor="middle">parent</text>
             <rect class="theory-label-bg relation-label-bg" x="1102" y="132" width="150" height="26" rx="7" />
             <text class="relation-label" x="1177" y="150" text-anchor="middle">對照 Goal</text>
-            <rect class="theory-label-bg return-label-bg" x="310" y="391" width="720" height="27" rx="7" />
-            <text class="return-label" x="670" y="410" text-anchor="middle">PR Review fail · QA fail · Product / Goal Check implementation issue → Developer</text>
-            <rect class="theory-label-bg reanchor-label-bg" x="445" y="433" width="450" height="27" rx="7" />
-            <text class="goal-label" x="670" y="452" text-anchor="middle">goal / problem issue → Ticket Refinement / Goal</text>
+          </g>
+          <g class="theory-legend" aria-label="箭頭圖例">
+            <path class="legend-forward" d="M42 495 H88" marker-end="url(#theory-blue-head)"/><text x="98" y="501">票前進</text>
+            <path class="legend-reject" d="M366 495 H412" marker-end="url(#theory-red-head)"/><text x="422" y="501">退回 Developer</text>
+            <path class="legend-goal" d="M696 495 H742" marker-end="url(#theory-green-head)"/><text x="752" y="501">對照 Goal</text>
+            <path class="legend-reanchor" d="M1022 495 H1068" marker-end="url(#theory-yellow-head)"/><text x="1078" y="501">Goal re-anchoring</text>
           </g>
         </svg>
+        <div class="theory-legend theory-mobile-legend" aria-label="箭頭圖例">
+          <span><i class="legend-swatch forward"></i>票前進</span><span><i class="legend-swatch reject"></i>退回 Developer</span>
+          <span><i class="legend-swatch goal"></i>對照 Goal</span><span><i class="legend-swatch reanchor"></i>Goal re-anchoring</span>
+        </div>
         <div class="theory-mobile">
           <div class="theory-mobile-origin"><span>Brainstorming</span><i>→</i><b>Goal / Epic<small>Parent issue</small></b></div>
           <div class="theory-mobile-down">parent ↓</div>
           <ol class="theory-mobile-flow">
-            <li>Ticket Refinement / Backlog</li><li>Ready</li><li>Developer</li><li>PR Review</li><li>QA / Verification</li><li>Product / Goal Check</li><li>Done</li>
+            <li>Ticket Refinement / Backlog</li><li>Ready</li><li>Developer</li><li>PR Review：送審改動</li><li>QA / Verification</li><li>Product / Goal Check</li><li>Done</li>
           </ol>
           <div class="theory-mobile-goal">Product / Goal Check <i>↑</i> 對照 parent Goal</div>
           <div class="theory-mobile-routes" aria-label="退件路徑">
-            <div><b>Developer</b><i class="diagram-arrow back-arrow" aria-hidden="true"></i><span>PR Review · fail</span></div>
-            <div><b>Developer</b><i class="diagram-arrow back-arrow" aria-hidden="true"></i><span>QA / Verification · fail</span></div>
-            <div><b>Developer</b><i class="diagram-arrow back-arrow" aria-hidden="true"></i><span>Product / Goal Check · implementation issue</span></div>
-            <div><b>Ticket Refinement / Goal</b><i class="diagram-arrow back-arrow" aria-hidden="true"></i><span>Product / Goal Check · goal / problem issue</span></div>
+            <div class="theory-mobile-rejections">
+              <div><b>Developer</b><i class="diagram-arrow back-arrow" aria-hidden="true"></i><span>PR Review · fail</span></div>
+              <div><b>Developer</b><i class="diagram-arrow back-arrow" aria-hidden="true"></i><span>QA / Verification · fail</span></div>
+              <div><b>Developer</b><i class="diagram-arrow back-arrow" aria-hidden="true"></i><span>Product / Goal Check · implementation issue</span></div>
+            </div>
+            <div class="theory-mobile-reanchor"><b>Ticket Refinement / Goal</b><i class="diagram-arrow back-arrow" aria-hidden="true"></i><span>Product / Goal Check · goal / problem issue</span></div>
           </div>
         </div>
       </div>
@@ -166,7 +189,7 @@
             <section class="full-column active-column"><h3>Backlog</h3><article>#1｜Like／Pass</article><article>#2｜配對列表</article><article class="example-subissue">#3｜雙向喜歡才配對</article></section>
             <section class="full-column"><h3>Ready</h3></section><section class="full-column"><h3>Dev</h3></section><section class="full-column"><h3>Review</h3></section><section class="full-column"><h3>QA</h3></section><section class="full-column"><h3>Product Check</h3></section><section class="full-column"><h3>Done</h3></section>
           </div>
-          <div class="full-board-foot"><b>WIP=1</b><span>下一步：Refinement 完成後，#3 才能進 Ready。</span></div>
+          <div class="full-board-foot"><b>WIP=1：同時只推進一張票</b><span>下一步：Refinement 完成後，#3 才能進 Ready。</span></div>
         </div>
       </div>
     </section>
@@ -188,12 +211,12 @@
             <div><b>Context / Why</b><p>單向喜歡不能算配對。</p></div>
             <div><b>Goal linkage</b><p>支援「互相喜歡才配對」。</p></div>
             <div><b>Scope</b><p>判斷雙向喜歡並建立配對。</p></div>
-            <div class="refinement-ac"><b>Acceptance Criteria</b><p>A｜A 喜歡 B → 不配對<br>B｜B 也喜歡 A → 成功配對<br>C｜重複喜歡 → 不重複配對</p></div>
+            <div class="refinement-ac"><b>Acceptance Criteria（AC）</b><p>AC 寫出每種情境應有的結果，QA 可逐條核對：<br>A｜A 喜歡 B → 不配對<br>B｜B 也喜歡 A → 成功配對<br>C｜重複喜歡 → 不重複配對</p></div>
             <div><b>Out of Scope</b><p>聊天、推薦、解除配對。</p></div>
             <div><b>Required Evidence</b><p>A／B／C 三情境測試結果。</p></div>
           </div>
         </article>
-        <p class="ticket-rule-note">依賴：無阻擋（Like 資料用測試資料）。DoD 屬於專案層級，所有 ticket 共用；ticket 不放 DoD。</p>
+        <p class="ticket-rule-note">AC 說明功能怎樣才算做對；DoD 是所有票共用的完工標準；Out-of-scope 是這次不做的事。</p>
       </div>
     </section>
 
@@ -238,13 +261,14 @@
         <div class="mini-board" data-stage="dev" aria-label="Goal 泳道看板，#3 位於 Dev">
           <div class="mini-goal-lane"><b>Goal / Epic｜互相喜歡才配對</b><span>parent issue · 泳道標題</span></div>
           <div class="mini-board-columns"><div class="mini-column"><h3 class="mini-column-head">Backlog</h3></div><div class="mini-column"><h3 class="mini-column-head">Ready</h3><article class="mini-ticket " data-ticket="1"><span>#1</span><b>Like／Pass</b><small>等待</small></article><article class="mini-ticket " data-ticket="2"><span>#2</span><b>配對列表</b><small>等待</small></article></div><div class="mini-column"><h3 class="mini-column-head current">Dev</h3><article class="mini-ticket ticket-current" data-ticket="3"><span>#3</span><b>雙向喜歡才配對</b><small>進行中</small></article></div><div class="mini-column"><h3 class="mini-column-head">Review</h3></div><div class="mini-column"><h3 class="mini-column-head">QA</h3></div><div class="mini-column"><h3 class="mini-column-head">Product Check</h3></div><div class="mini-column"><h3 class="mini-column-head">Done</h3></div></div>
-          <div class="mini-board-note"><b>WIP=1</b><span>#3 在 Dev；#1、#2 在 Ready 等待</span></div>
+          <div class="mini-board-note"><b>WIP=1</b><span>#1、#2 也經相同 Refinement 才進 Ready；目前只推進 #3。</span></div>
         </div>
         <article class="github-window developer-artifact">
           <div class="window-bar"><span>GitHub · Pull requests</span><span>Issue #3</span></div>
           <h2>雙向喜歡才配對 <span class="open-pill">Open PR</span></h2>
           <div class="dev-path"><span>Ready ticket</span><b>→</b><span>branch<br><code>feature/3-mutual-match</code></span><b>→</b><span>commit</span><b>→</b><span>PR</span></div>
           <p>只實作 #3 範圍，PR 附變更說明與自我檢查。</p>
+          <p class="developer-terms">branch 是隔離修改的副本；commit 是存下的一版；PR 是送交審查的改動。</p>
         </article>
       </div>
     </section>
@@ -254,12 +278,12 @@
       <div class="visual step-visual">
         <div class="mini-board" data-stage="review" aria-label="Goal 泳道看板，#3 位於 Review">
           <div class="mini-goal-lane"><b>Goal / Epic｜互相喜歡才配對</b><span>parent issue · 泳道標題</span></div>
-          <div class="mini-board-columns"><div class="mini-column"><h3 class="mini-column-head">Backlog</h3></div><div class="mini-column"><h3 class="mini-column-head">Ready</h3><article class="mini-ticket " data-ticket="1"><span>#1</span><b>Like／Pass</b><small>等待</small></article><article class="mini-ticket " data-ticket="2"><span>#2</span><b>配對列表</b><small>等待</small></article></div><div class="mini-column"><h3 class="mini-column-head">Dev</h3><article class="mini-ticket ticket-history return-ticket status-visible" data-ticket="3"><span>#3</span><b>雙向喜歡才配對</b><small>Earlier position · 退回修改</small></article></div><div class="mini-column"><h3 class="mini-column-head current">Review</h3><article class="mini-ticket ticket-current status-visible" data-ticket="3"><span>#3</span><b>雙向喜歡才配對</b><small>重新送審</small></article></div><div class="mini-column"><h3 class="mini-column-head">QA</h3></div><div class="mini-column"><h3 class="mini-column-head">Product Check</h3></div><div class="mini-column"><h3 class="mini-column-head">Done</h3></div></div>
+          <div class="mini-board-columns"><div class="mini-column"><h3 class="mini-column-head">Backlog</h3></div><div class="mini-column"><h3 class="mini-column-head">Ready</h3><article class="mini-ticket " data-ticket="1"><span>#1</span><b>Like／Pass</b><small>等待</small></article><article class="mini-ticket " data-ticket="2"><span>#2</span><b>配對列表</b><small>等待</small></article></div><div class="mini-column"><h3 class="mini-column-head">Dev</h3></div><div class="mini-column"><h3 class="mini-column-head current">Review</h3><article class="mini-ticket ticket-current" data-ticket="3"><span>#3</span><b>雙向喜歡才配對</b><small>目前位置：重新送審</small></article></div><div class="mini-column"><h3 class="mini-column-head">QA</h3></div><div class="mini-column"><h3 class="mini-column-head">Product Check</h3></div><div class="mini-column"><h3 class="mini-column-head">Done</h3></div></div>
           <div class="mini-board-return">
             <span>Request changes：Review 退回 Developer；修正後重新送審</span>
-            <svg viewBox="0 0 1360 48" preserveAspectRatio="none" role="img" aria-label="Request changes 從 Review 退回 Developer"><defs><marker id="board-review-head" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#ff9289" stroke-width="2.2" /></marker></defs><path d="M670 2 C670 40 480 40 480 2" marker-end="url(#board-review-head)" /><rect class="return-label-bg" x="24" y="5" width="400" height="23" rx="6" /><text x="224" y="22" text-anchor="middle">Request changes · Review 退回 Developer</text></svg>
+            <svg viewBox="0 0 1360 48" preserveAspectRatio="none" role="img" aria-label="Request changes 從 Review 退回 Developer"><defs><marker id="board-review-head" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#ff9289" stroke-width="2.2" /></marker></defs><path d="M680 -5 C680 40 488 40 488 -5" marker-end="url(#board-review-head)" /><rect class="return-label-bg" x="24" y="5" width="400" height="23" rx="6" /><text x="224" y="22" text-anchor="middle">Request changes · Review 退回 Developer</text></svg>
           </div>
-          <div class="mini-board-note"><b>WIP=1</b><span>#3 經 Review → Dev 修正 → 重新送審；#1、#2 等待</span></div>
+          <div class="mini-board-note"><b>WIP=1</b><span>#3 在 Review；修正後重新送審；#1、#2 等待</span></div>
         </div>
         <article class="github-window pr-review-artifact">
           <div class="window-bar"><span>GitHub · Pull Request #3</span><span>Review thread</span></div>
@@ -273,16 +297,13 @@
 
     <section class="slide process-step" data-section="s1">
       <h1>QA / Verification</h1>
-      <p class="step-question step-intro">AC 是否成立？檢查 observable behavior、AC 與 edge cases。</p>
+      <p class="step-question step-intro">CI 自動執行程式檢查；QA 依 AC 驗證實際行為與邊界。</p>
       <div class="visual step-visual">
         <div class="mini-board" data-stage="qa" aria-label="Goal 泳道看板；只有一張進行中的 #3 位於 QA，Dev 的淡化卡是較早位置">
           <div class="mini-goal-lane"><b>Goal / Epic｜互相喜歡才配對</b><span>parent issue · 泳道標題</span></div>
-          <div class="mini-board-columns"><div class="mini-column"><h3 class="mini-column-head">Backlog</h3></div><div class="mini-column"><h3 class="mini-column-head">Ready</h3><article class="mini-ticket " data-ticket="1"><span>#1</span><b>Like／Pass</b><small>等待</small></article><article class="mini-ticket " data-ticket="2"><span>#2</span><b>配對列表</b><small>等待</small></article></div><div class="mini-column"><h3 class="mini-column-head">Dev</h3><article class="mini-ticket ticket-history status-visible" data-ticket="3"><span>#3</span><b>雙向喜歡才配對</b><small>Earlier position · fixed</small></article></div><div class="mini-column"><h3 class="mini-column-head">Review</h3></div><div class="mini-column"><h3 class="mini-column-head current">QA</h3><article class="mini-ticket ticket-current status-visible" data-ticket="3"><span>#3</span><b>雙向喜歡才配對</b><small>Retest · PASS</small></article></div><div class="mini-column"><h3 class="mini-column-head">Product Check</h3></div><div class="mini-column"><h3 class="mini-column-head">Done</h3></div></div>
-          <div class="mini-board-return qa-cycle" aria-label="QA FAIL returns left to Dev; after the fix, the ticket moves right to QA retest and PASS">
-            <div class="qa-fail-route"><b>Dev</b><span class="qa-route-arrow" aria-hidden="true">←</span><strong>QA FAIL</strong></div>
-            <div class="qa-pass-route"><b>Dev fixed</b><span class="qa-route-arrow" aria-hidden="true">→</span><strong>QA retest / PASS</strong></div>
-          </div>
-          <div class="mini-board-note"><b>WIP=1</b><span>僅 #3 一張進行中（QA）；Dev 卡為較早位置；#1、#2 等待</span></div>
+          <div class="mini-board-columns"><div class="mini-column"><h3 class="mini-column-head">Backlog</h3></div><div class="mini-column"><h3 class="mini-column-head">Ready</h3><article class="mini-ticket " data-ticket="1"><span>#1</span><b>Like／Pass</b><small>等待</small></article><article class="mini-ticket " data-ticket="2"><span>#2</span><b>配對列表</b><small>等待</small></article></div><div class="mini-column"><h3 class="mini-column-head">Dev</h3></div><div class="mini-column"><h3 class="mini-column-head">Review</h3></div><div class="mini-column"><h3 class="mini-column-head current">QA</h3><article class="mini-ticket ticket-current" data-ticket="3"><span>#3</span><b>雙向喜歡才配對</b><small>目前位置：重測 PASS</small></article></div><div class="mini-column"><h3 class="mini-column-head">Product Check</h3></div><div class="mini-column"><h3 class="mini-column-head">Done</h3></div></div>
+          <div class="mini-board-return qa-cycle"><span>初測 A：FAIL → Dev 修正 → QA 重測：PASS</span></div>
+          <div class="mini-board-note"><b>WIP=1</b><span>#3 目前在 QA；#1、#2 等待</span></div>
         </div>
         <div class="qa-artifact">
           <table class="data-table qa-evidence-table">
@@ -293,6 +314,7 @@
             <tr><th>C</th><td>重複喜歡 → 不重複配對</td><td>只有一筆配對</td><td class="pass">PASS</td></tr>
           </tbody>
           </table>
+          <p class="qa-implementation-note">A／B／C 以測試資料驗證 #3；#1、#2 尚未完成，使用者還不能在產品中真實配對。</p>
           <p class="qa-status-legend">狀態：<b class="pass">PASS</b>／<b class="fail">FAIL</b>／<b class="not-run">NOT RUN</b></p>
         </div>
       </div>
@@ -304,15 +326,15 @@
       <div class="visual step-visual">
         <div class="mini-board" data-stage="product-check" aria-label="Goal 泳道看板，#3 位於 Product Check">
           <div class="mini-goal-lane"><b>Goal / Epic｜互相喜歡才配對</b><span>parent issue · 泳道標題</span></div>
-          <div class="mini-board-columns"><div class="mini-column"><h3 class="mini-column-head">Backlog</h3><article class="mini-ticket ticket-history return-ticket status-visible" data-ticket="3"><span>#3</span><b>雙向喜歡才配對</b><small>Earlier position · Ticket Refinement / Goal</small></article></div><div class="mini-column"><h3 class="mini-column-head">Ready</h3><article class="mini-ticket " data-ticket="1"><span>#1</span><b>Like／Pass</b><small>等待</small></article><article class="mini-ticket " data-ticket="2"><span>#2</span><b>配對列表</b><small>等待</small></article></div><div class="mini-column"><h3 class="mini-column-head">Dev</h3></div><div class="mini-column"><h3 class="mini-column-head">Review</h3></div><div class="mini-column"><h3 class="mini-column-head">QA</h3></div><div class="mini-column"><h3 class="mini-column-head current">Product Check</h3><article class="mini-ticket ticket-current status-visible" data-ticket="3"><span>#3</span><b>雙向喜歡才配對</b><small>檢查中</small></article></div><div class="mini-column"><h3 class="mini-column-head">Done</h3></div></div>
+          <div class="mini-board-columns"><div class="mini-column"><h3 class="mini-column-head">Backlog</h3></div><div class="mini-column"><h3 class="mini-column-head">Ready</h3><article class="mini-ticket " data-ticket="1"><span>#1</span><b>Like／Pass</b><small>等待</small></article><article class="mini-ticket " data-ticket="2"><span>#2</span><b>配對列表</b><small>等待</small></article></div><div class="mini-column"><h3 class="mini-column-head">Dev</h3></div><div class="mini-column"><h3 class="mini-column-head">Review</h3></div><div class="mini-column"><h3 class="mini-column-head">QA</h3></div><div class="mini-column"><h3 class="mini-column-head current">Product Check</h3><article class="mini-ticket ticket-current" data-ticket="3"><span>#3</span><b>雙向喜歡才配對</b><small>目前位置：檢查中</small></article></div><div class="mini-column"><h3 class="mini-column-head">Done</h3></div></div>
           <div class="mini-board-return">
             <span>goal / problem issue：Product Check 退回 Ticket Refinement / Goal</span>
-            <svg viewBox="0 0 1360 48" preserveAspectRatio="none" role="img" aria-label="Goal 或問題不成立時，從 Product Check 退回 Ticket Refinement / Goal"><defs><marker id="board-goal-head" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#f2cf76" stroke-width="2.2" /></marker></defs><path d="M1050 2 C1050 40 100 40 100 2" marker-end="url(#board-goal-head)" /><rect class="return-label-bg goal-return-label-bg" x="375" y="5" width="400" height="23" rx="6" /><text x="575" y="22" text-anchor="middle">goal / problem issue · Ticket Refinement / Goal</text></svg>
+            <svg viewBox="0 0 1360 48" preserveAspectRatio="none" role="img" aria-label="Goal 或問題不成立時，從 Product Check 退回 Ticket Refinement / Goal"><defs><marker id="board-goal-head" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#f2cf76" stroke-width="2.2" /></marker></defs><path d="M1075 -5 C1075 40 98 40 98 -5" marker-end="url(#board-goal-head)" /><rect class="return-label-bg goal-return-label-bg" x="375" y="5" width="400" height="23" rx="6" /><text x="575" y="22" text-anchor="middle">goal / problem issue · Ticket Refinement / Goal</text></svg>
           </div>
-          <div class="mini-board-note"><b>WIP=1</b><span>僅 #3 一張進行中（Product Check）；Backlog 卡為較早位置；goal／problem issue 可退回 Ticket Refinement / Goal</span></div>
+          <div class="mini-board-note"><b>WIP=1</b><span>#3 目前在 Product Check；goal／problem issue 可退回 Refinement；#1、#2 等待</span></div>
         </div>
         <div class="goal-check-layout">
-          <div class="goal-check-questions"><ol><li>這在解 Goal 的問題嗎？</li><li>做完會推進成功訊號嗎？</li><li>現在仍是最高優先嗎？</li></ol><strong>三題都「是」才放行。</strong></div>
+          <div class="goal-check-questions"><ol><li>這在解 Goal 的問題嗎？</li><li>做完會推進成功訊號嗎？</li><li>現在仍是最高優先嗎？</li></ol><strong>PO／PM 確認三題都「是」後接受。</strong><br><span>接受 → merge 回 main → 上線檢查 → Done。</span></div>
           <div class="goal-check-returns">
             <blockquote><b>若發現：</b>「功能完全符合 AC，但這根本不是我們現在需要的東西。」</blockquote>
             <div class="goal-check-routes">
@@ -327,7 +349,7 @@
 
     <section class="slide process-step" data-section="s1">
       <h1>Done</h1>
-      <p class="step-question step-intro">AC＋project-wide DoD 是否成立？</p>
+      <p class="step-question step-intro">Ticket #3 完成了；整個 Goal 還沒達成。</p>
       <div class="visual step-visual">
         <div class="mini-board" data-stage="done" aria-label="Goal 泳道看板，#3 位於 Done">
           <div class="mini-goal-lane"><b>Goal / Epic｜互相喜歡才配對</b><span>parent issue · 泳道標題</span></div>
@@ -336,8 +358,9 @@
         </div>
         <div class="done-summary">
           <article class="closed-issue"><span>SUB-ISSUE #3</span><strong>雙向喜歡才配對</strong><b>Closed ✓</b></article>
-          <div><p>A／B／C 的 AC 通過。</p><strong>Project-wide DoD（所有 ticket 共用）</strong><ul class="project-dod"><li>PR 已審查</li><li>上線後檢查</li><li>沒有超出範圍</li><li>既有功能沒壞</li></ul></div>
+          <div><p>A／B／C 通過；產品接受後，#3 已 merge 回 main、上線並完成上線檢查，再關閉子票。</p><strong>Project-wide DoD（所有 ticket 共用）</strong><ul class="project-dod"><li>PR 已審查</li><li>上線後檢查</li><li>沒有超出範圍</li><li>既有功能沒壞</li></ul></div>
         </div>
+        <p class="goal-not-done-note">Goal 尚未達成。等 #1、#2 完成並上線後，觀察兩週：互相喜歡的配對是否達 10 對、錯誤配對率是否為 0。</p>
       </div>
     </section>
     <section class="slide" data-section="s1">
@@ -345,14 +368,14 @@
       <div class="visual compare-cards">
         <article class="compare-card"><span class="compare-tag">Sprint</span><h2>固定時間盒</h2><p>在固定週期內規劃與檢視一批工作。</p></article>
         <article class="compare-card highlighted"><span class="compare-tag">本課：Kanban</span><h2>持續拉票</h2><p>工作持續流動；本例一次只做一張（WIP=1）。</p></article>
-        <p class="compare-note">Kanban 管工作流動，不限定票型；User Story 起源於 XP，Scrum／Kanban 都不要求固定格式。</p>
+        <p class="compare-note">Kanban 管工作流動，不限定票型；User Story 是用使用者角度寫需求，起源於 XP，Scrum／Kanban 不強制使用。</p>
       </div>
     </section>
 
     <section class="slide section-slide" data-section="s2">
       <div class="cover-mark">02</div>
       <h1>第二段｜工作記錄在哪裡：Git 與 GitHub</h1>
-      <p class="cover-question">第一段的每一步，實際上落在什麼工具上？</p>
+      <p class="cover-question">回頭看：第一段的工作記錄在哪裡？Git 與 GitHub 怎麼分工？</p>
     </section>
 
     <section class="slide" data-section="s2">
@@ -435,7 +458,7 @@
           <text class="git-label feature-label" x="500" y="322">feature/3-mutual-match</text>
           <text class="git-note merge-note" x="895" y="205">合回 main</text>
         </svg>
-        <div class="restore-note">審過後合回正本；舊版仍可回復。</div>
+        <div class="restore-note">Merge：把審過的分支合回 main；舊版仍可回復。</div>
       </div>
     </section>
 
@@ -452,10 +475,10 @@
             <tr><th>Ready</th><td>Ready 標記</td><td>Ready</td></tr>
             <tr><th>Developer</th><td>branch／commit</td><td>Dev</td></tr>
             <tr><th>PR Review</th><td>PR review</td><td>Review</td></tr>
-            <tr><th>QA / Verification</th><td>PR 上的證據／CI</td><td>QA</td></tr>
-            <tr><th>Product / Goal Check</th><td>對照 parent Goal；接受後 merge</td><td>Product Check</td></tr>
+            <tr><th>QA / Verification</th><td>PR 上的證據；CI 是自動執行的檢查</td><td>QA</td></tr>
+            <tr><th>Product / Goal Check</th><td>PO／PM 接受後 merge 回 main，再上線</td><td>Product Check</td></tr>
             <tr><th>退件</th><td>PR Request changes；QA fail；Goal issue → Ticket Refinement / Goal</td><td>Review／QA → Dev；Product Check → Ticket Refinement / Goal</td></tr>
-            <tr><th>Done</th><td>sub-issue 關閉</td><td>Done</td></tr>
+            <tr><th>Done</th><td>上線檢查後關閉 sub-issue</td><td>Done</td></tr>
           </tbody>
         </table>
         <p class="status-equation">changed ≠ committed ≠ pushed ≠ merged ≠ deployed ≠ verified</p>
@@ -474,6 +497,7 @@
         <div class="toggle-controls" role="group" aria-label="切換人類版與 Agent 版流程">
           <button type="button" data-state="before" aria-pressed="true">人類版</button><button type="button" data-state="after" aria-pressed="false">Agent 版</button>
         </div>
+        <p class="short-note">人類版由 PO／PM（人）做 Product / Goal Check；角色換成 Agent 後，人仍須作最後決定，所以 Agent 版多一道 Human Gate。</p>
         <div class="toggle-panel" data-view="before">
           <div class="agent-parent">Goal / Epic｜互相喜歡才配對 <span>parent issue，不是 workflow state</span></div>
           <div class="role-flow revised-role-flow"><div>Brainstorming</div><div>Ticket Refinement / Backlog</div><div>Ready</div><div>Developer</div><div>PR Review</div><div>QA / Verification</div><div>Product / Goal Check</div><div>Done</div></div>
@@ -486,7 +510,7 @@
         </div>
         <div class="toggle-panel" data-view="after" hidden>
           <div class="agent-parent">Goal / Epic｜互相喜歡才配對 <span>parent issue，不是 workflow state</span></div>
-          <div class="role-flow revised-role-flow"><div>Brainstorming Agent</div><div>Ticket Refinement / Backlog Agent</div><div>Ready</div><div>Developer Agent</div><div>PR Review Agent</div><div>QA / Verification Agent</div><div>Product / Goal Check Agent</div><div class="human-gate"><b>Human Gate</b><span>人保留責任</span></div><div>Done</div></div>
+          <div class="role-flow revised-role-flow"><div>Brainstorming Agent</div><div>Ticket Refinement / Backlog Agent</div><div>Ready</div><div>Developer Agent</div><div>PR Review Agent</div><div>QA / Verification Agent</div><div>Product / Goal Check Agent</div><div class="human-gate"><b>Human Gate</b><span>人核准後才能進 Done</span></div><div>Done</div></div>
           <div class="role-returns" aria-label="Agent 流程退件路徑">
             <div class="role-return"><span>PR Review Agent · Request changes</span><i class="diagram-arrow" aria-hidden="true"></i><b>Developer Agent</b></div>
             <div class="role-return"><span>QA / Verification Agent · fail</span><i class="diagram-arrow" aria-hidden="true"></i><b>Developer Agent</b></div>
@@ -527,32 +551,14 @@
 
     <section class="slide" data-section="s3">
       <h1>這份簡報就是這樣做出來的</h1>
+      <p class="step-question step-intro">真實案例：這份簡報本身的製作紀錄，與 Matching 教學例子不同。</p>
       <div class="visual timeline">
-        <article class="timeline-step">
-          <a class="timeline-image" href="https://github.com/world4jason/Agent-101-deck/issues/30"><img src="./assets/gh-issue-30.png" alt="GitHub Issue #30 截圖"></a>
-          <h2><a href="https://github.com/world4jason/Agent-101-deck/issues/30">Issue #30</a></h2><p>提出簡報工作</p>
-        </article>
-        <article class="timeline-step">
-          <a class="timeline-image" href="https://github.com/world4jason/Agent-101-deck/pull/37"><img src="./assets/gh-pr-37.png" alt="Developer Agent Codex 開出的 PR #37"></a>
-          <h2><a href="https://github.com/world4jason/Agent-101-deck/pull/37">PR #37</a></h2><p>Developer Agent：Codex</p>
-        </article>
-        <article class="timeline-step">
-          <h2><a href="https://github.com/world4jason/Agent-101-deck/pull/37">PR Review Agent（Sonnet）</a></h2><p>要求修改（Request Changes）</p>
-        </article>
-        <article class="timeline-step">
-          <a class="timeline-image" href="https://github.com/world4jason/Agent-101-deck/pull/37"><img src="./assets/gh-pr-37-verdict.png" alt="PR #37 三方審查發現 fragments 未隱藏的 regression"></a>
-          <h2><a href="https://github.com/world4jason/Agent-101-deck/pull/37">三方審查</a></h2><p>發現 fragments 未隱藏（regression）</p>
-        </article>
-        <article class="timeline-step">
-          <h2>修正並合併</h2><p>修正 fragments 顯示問題，合併 PR #37</p>
-        </article>
-        <article class="timeline-human">
-          <span class="human-label">Human Gate</span><p>Owner 拒絕接受</p><strong>「偏離主軸」</strong>
-        </article>
-        <article class="timeline-step">
-          <a class="timeline-image" href="https://github.com/world4jason/Agent-101-deck/issues/41"><img src="./assets/gh-issue-41.png" alt="v7 SSOT Issue #41"></a>
-          <h2><a href="https://github.com/world4jason/Agent-101-deck/issues/41">v7 SSOT #41</a></h2><p>重寫成這一版</p>
-        </article>
+        <article class="timeline-step"><a class="timeline-entry" href="https://github.com/world4jason/Agent-101-deck/issues/30"><span>GitHub Issue</span><strong>#30</strong><p>提出這份簡報的工作</p></a></article>
+        <article class="timeline-step"><a class="timeline-entry" href="https://github.com/world4jason/Agent-101-deck/pull/37"><span>Developer Agent · Codex</span><strong>PR #37</strong><p>提交簡報改動</p></a></article>
+        <article class="timeline-step"><a class="timeline-entry" href="https://github.com/world4jason/Agent-101-deck/pull/37"><span>PR Review Agent · Sonnet</span><strong>要求修改</strong><p>三方審查發現片段未隱藏，造成回歸問題</p></a></article>
+        <article class="timeline-step"><a class="timeline-entry" href="https://github.com/world4jason/Agent-101-deck/pull/37"><span>修正並合併</span><strong>PR #37</strong><p>修正片段顯示後合併</p></a></article>
+        <article class="timeline-human"><span class="human-label">Human Gate</span><p>Owner 拒絕接受</p><strong>「偏離主軸」</strong></article>
+        <article class="timeline-step"><a class="timeline-entry" href="https://github.com/world4jason/Agent-101-deck/issues/41"><span>大綱正本</span><strong>Issue #41</strong><p>依此重寫成目前這一版</p></a></article>
       </div>
     </section>
 
@@ -615,6 +621,7 @@
           <div class="work-sequence"><span>Goal</span><i>→</i><span>Tickets</span><i>→</i><span>Dev Agent</span><i>→</i><span>PR Review Agent</span><i>→</i><span>QA Agent</span><i>→</i><span>PM Agent</span></div>
           <div class="durable-state">Durable State｜GitHub Issue／看板／PR</div>
         </div>
+        <div class="session-handoff" aria-label="新 Session 讀取工作紀錄後接手"><b>新 Session</b><span>讀 Issue #3、PR 與 QA 證據</span><i>→</i><strong>從 Ready 接手</strong></div>
       </div>
     </section>
 
@@ -623,11 +630,11 @@
       <div class="visual">
         <div class="kanban-board work-board revised-agent-board">
           <div class="board-parent"><b>Goal / Epic｜互相喜歡才配對</b><span>泳道標題，不是欄位</span></div>
-          <div><h3>Backlog</h3></div><div><h3>Ready</h3></div><div><h3>Dev</h3></div><div><h3>Review</h3></div><div><h3>QA</h3></div><div><h3>Product Check</h3></div><div><h3>Done</h3></div>
-          <article class="moving-ticket"><span>#3</span><b>雙向喜歡才配對</b><small>自 Ready 拉取 · WIP=1</small></article>
-          <span class="fragment move-step move-2" aria-hidden="true"></span><span class="fragment move-step move-3" aria-hidden="true"></span><span class="fragment move-step move-4" aria-hidden="true"></span><span class="fragment move-step move-5" aria-hidden="true"></span><span class="fragment move-step move-6" aria-hidden="true"></span>
+          <div><h3>Backlog</h3></div><div><h3>Ready</h3></div><div><h3>Dev</h3></div><div><h3>Review</h3></div><div><h3>QA</h3></div><div><h3>Product Check</h3></div><div class="human-gate-column"><h3>Human Gate</h3><small class="human-gate-marker">人核准</small><small class="human-gate-approval">Owner 核准 ✓</small></div><div><h3>Done</h3></div>
+          <article class="moving-ticket"><span>#3</span><b>雙向喜歡才配對</b><small>Agent 依序交接 · WIP=1</small></article>
+          <span class="fragment move-step move-2" aria-hidden="true"></span><span class="fragment move-step move-3" aria-hidden="true"></span><span class="fragment move-step move-4" aria-hidden="true"></span><span class="fragment move-step move-5" aria-hidden="true"></span><span class="fragment move-step move-6" aria-hidden="true"></span><span class="fragment move-step move-7" aria-hidden="true"></span>
         </div>
-        <p class="short-note">工作單位是 ticket：Agent 從 Ready 拉取（WIP=1），各站依 AC／DoD 交接 PR、review 與證據。Product Check 等 Human Gate 放行；新 Session 讀票接手。</p>
+        <p class="short-note">#3 依序經 Dev → Review → QA → Product Check；Owner 在 Human Gate 核准後，才進 Done（WIP=1）。</p>
       </div>
     </section>
 
@@ -704,14 +711,16 @@
 
     <section class="slide" data-section="s6">
       <h1>架構六層</h1>
+      <p class="step-question step-intro">前面看見工作如何沿看板流動；接下來看系統如何保存狀態、派工與驗證。</p>
       <div class="visual architecture">
         <div class="architecture-flow"><span>交辦 ↓</span><span>↑ 回報</span></div>
         <div class="layer"><b>1｜Goal／Governance（Why?）</b><span>人：目標、優先序、Human Gate</span><span>Agent：PO/PM Agent 整理 Goal 與票</span></div>
-        <div class="layer"><b>2｜Planning／Backlog（What?）</b><span>人：選擇與排序工作</span><span>Agent：拆解並維護 Backlog</span></div>
-        <div class="layer"><b>3｜Task Graph／Kanban（State）</b><span>人：共享看板</span><span>Agent：讀取票與狀態</span></div>
-        <div class="layer"><b>4｜Orchestrator（Who next?）</b><span>人：決定下一個負責者</span><span>Agent：依看板派給下一角色</span></div>
-        <div class="layer"><b>5｜Execution Runtime（Do work）</b><span>人：Developer</span><span>Agent：Developer Agent</span></div>
-        <div class="layer"><b>6｜PR Review／QA／Human（Verify）</b><span>人：PR Review、QA、Human Gate</span><span>Agent：PR Review／QA Agent 回報證據</span></div>
+        <div class="layer"><b>2｜Planning／Backlog（What?）</b><span>人：選擇與排序工作</span><span>Agent：拆解並維護 Backlog；票準備好才進 Ready</span></div>
+        <div class="layer"><b>3｜Task Graph／Kanban（State）</b><span>人：共享看板</span><span>Agent：讀取目前欄位與票的狀態</span></div>
+        <div class="architecture-board"><b>前面那張看板＝第 3 層</b><span>Backlog → Ready → Dev → Review → QA → Product Check → Done</span></div>
+        <div class="layer"><b>4｜Orchestrator（Who next?）</b><span>人：決定下一個負責者</span><span>Agent：看目前欄位，派給下一角色</span></div>
+        <div class="layer"><b>5｜Execution Runtime（Do work）</b><span>人：Developer</span><span>Agent：在 Dev 欄依票實作</span></div>
+        <div class="layer"><b>6｜PR Review／QA／Human（Verify）</b><span>人：Review、QA、Human Gate</span><span>Agent：依序審查、驗證；人核准後進 Done</span></div>
       </div>
     </section>
 
@@ -719,12 +728,12 @@
       <h1>Kanban 回顧：Agent 依序拉取同一張票</h1>
       <div class="visual kanban-board kanban-flow revised-agent-board recap-board">
         <div class="board-parent"><b>Goal / Epic｜互相喜歡才配對</b><span>泳道標題</span></div>
-        <div><h3>Backlog</h3></div><div><h3>Ready</h3></div><div><h3>Dev</h3></div><div><h3>Review</h3></div><div><h3>QA</h3></div><div><h3>Product Check</h3></div><div><h3>Done</h3></div>
-        <article class="moving-ticket"><span>#3</span><b>雙向喜歡才配對</b><small>全程交接 · WIP=1</small></article>
+        <div><h3>Backlog</h3></div><div><h3>Ready</h3></div><div><h3>Dev</h3></div><div><h3>Review</h3></div><div><h3>QA</h3></div><div><h3>Product Check</h3></div><div class="human-gate-column"><h3>Human Gate</h3><small class="human-gate-marker">人核准</small><small class="human-gate-approval">Owner 核准 ✓</small></div><div><h3>Done</h3></div>
+        <article class="moving-ticket"><span>#3</span><b>雙向喜歡才配對</b><small>Agent 依序交接 · WIP=1</small></article>
         <article class="recap-waiting recap-one"><span>#1</span><b>Like／Pass</b></article><article class="recap-waiting recap-two"><span>#2</span><b>配對列表</b></article>
         <span class="fragment move-step move-2" aria-hidden="true"></span><span class="fragment move-step move-3" aria-hidden="true"></span><span class="fragment move-step move-4" aria-hidden="true"></span><span class="fragment move-step move-5" aria-hidden="true"></span><span class="fragment move-step move-6" aria-hidden="true"></span><span class="fragment move-step move-7" aria-hidden="true"></span>
       </div>
-      <p class="short-note">#1、#2 等待；#3 依序經 Developer、PR Review、QA、Product / Goal Check Agent，Human Gate 放行後完成（WIP=1）。</p>
+      <p class="short-note">#1、#2 等待；#3 依序經 Dev → Review → QA → Product Check。Owner 核准後，才進 Done（WIP=1）。</p>
     </section>
   </div>
 
