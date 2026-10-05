@@ -29,29 +29,20 @@
     <section class="slide section-slide rev10-cover" data-section="s0">
       <div class="cover-mark">00</div><div class="cover-copy"><p class="cover-kicker">第零段</p>
       <h1>本課的例子：打造一個<span class="cover-keep">配對</span>交友 App</h1></div>
-      <div class="cover-preview cover-preview-product" aria-hidden="true">
-        <span class="preview-label">#3 互相喜歡才配對</span>
-        <div class="preview-track"><span>Like／Pass</span><i>→</i><strong>互相 Like</strong><i>→</i><span>Match</span></div>
-        <span class="preview-note">再出現在配對列表</span>
-      </div>
     </section>
     <section class="slide rev10-slide example-intro" data-section="s0">
       <h1>要做一個類似 Tinder 的配對交友 App</h1>
       <div class="visual">
-        <div class="example-intro-copy">
-          <p class="example-product">案例票｜#3 互相喜歡才配對：讓有好感的人先互相表態，彼此都喜歡才配對。</p>
-          <div><small>給誰用</small><strong>想找到彼此都有好感對象的人</strong></div>
-          <div><small>要解決的問題</small><strong>避免單向喜歡的尷尬與時間浪費</strong></div>
-        </div>
         <div class="example-phone" aria-label="交友 App 個人卡片畫面示意">
           <div class="example-phone-top"><small>附近的人</small></div>
           <div class="example-profile"><div class="example-profile-content"><div class="example-profile-avatar">M</div><strong>小米，26</strong><span>喜歡旅行與咖啡</span></div></div>
           <div class="example-actions"><span aria-label="Pass">×</span><span aria-label="Like">♥</span></div>
         </div>
+        <p class="example-intro-note">避免單向喜歡的尷尬與時間浪費</p>
       </div>
     </section>
     <section class="slide rev10-slide matching-scope" data-section="s0">
-      <h1>這輪只做三件事：Like／Pass、互相喜歡才配對、配對列表</h1>
+      <h1>這輪只做三件事：Like／Pass、雙向喜歡才配對、配對列表</h1>
       <div class="visual">
         <div class="match-demo matching-demo">
           <div class="matching-inputs">
@@ -60,32 +51,27 @@
             <div class="phone phone-b"><span class="phone-label">B 的畫面</span><div class="avatar avatar-alt">A</div><strong>看見 A 的卡片</strong><div class="decision-actions"><span class="pass-button">Pass ×</span><span class="like-button">Like ♥</span></div></div>
           </div>
           <div class="demo-arrow arrow-first" aria-hidden="true">→</div>
-          <article class="match-result match-center"><small>#3 互相喜歡才配對</small><span class="match-spark">✦</span><strong>互相 Like<br>才 Match</strong><p>雙方都看到 Match</p></article>
+          <article class="match-result match-center"><small>#3 雙向喜歡才配對</small><span class="match-spark">✦</span><strong>互相 Like<br>才 Match</strong><p>雙方都看到 Match</p></article>
           <div class="demo-arrow arrow-second" aria-hidden="true">→</div>
           <article class="match-list-node"><small>#2</small><strong>配對列表</strong><span>查看已 Match 對象</span></article>
         </div>
         <p class="matching-out">這輪不做：聊天、推薦、解除配對</p>
-        <p class="matching-next">後面每一段都用這個例子；#1 → #3 互相喜歡才配對 → #2 配對列表</p>
+        <p class="matching-next">後面每一段都用這個例子；#1 → #3 雙向喜歡才配對 → #2 配對列表</p>
       </div>
     </section>
     <section class="slide section-slide rev10-cover" data-section="s1">
       <div class="cover-mark">01</div><div class="cover-copy"><p class="cover-kicker">第一段</p>
       <h1>一個產品是怎麼<span class="cover-keep">被做出來的</span>：角色、<span class="cover-keep">流程</span>、一張全貌圖</h1></div>
-      <div class="cover-preview cover-preview-roles" aria-hidden="true">
-        <span class="preview-label">#3 互相喜歡才配對｜四個責任站</span>
-        <div class="preview-track"><span>PM／PO</span><i>→</i><span>Dev</span><i>→</i><span>Review</span><i>→</i><span>QA</span></div>
-        <span class="preview-note">由同一個 Goal 分出工作</span>
-      </div>
     </section>
-      <section class="slide rev10-slide" data-section="s1">
+      <section class="slide rev10-slide matching-roles" data-section="s1">
       <h1>做出 Matching 需要哪些角色</h1>
       <div class="visual">
-        <div class="sample-ticket"><span>SUB-ISSUE</span><strong>#3 互相喜歡才配對</strong><em>同一張工作票，四個責任站</em></div>
+        <div class="sample-ticket"><strong>Epic｜配對交友 App：讓互相喜歡的兩人能確認配對成功</strong></div>
         <div class="role-grid">
-          <article class="role-card role-product"><span class="role-index">01</span><h2>PM／PO</h2><p>定義需求、Goal 與成功結果；把方向整理成可接手的票。</p></article>
-          <article class="role-card role-dev"><span class="role-index">02</span><h2>Dev</h2><p>Ready（可開工）前，PM／PO 與 Dev 先確認票面清楚；Dev 依票實作並留測試證據。</p></article>
-          <article class="role-card role-review"><span class="role-index">03</span><h2>Reviewer</h2><p>檢查 PR 的改動、範圍與風險。</p></article>
-          <article class="role-card role-qa"><span class="role-index">04</span><h2>QA</h2><p>依 AC（驗收條件）核對結果，記錄驗證證據。</p></article>
+          <article class="role-card role-product"><span class="role-index">01</span><h2>PM／PO</h2><p>決定要做什麼、為什麼做，以及怎樣算成功。</p></article>
+          <article class="role-card role-dev"><span class="role-index">02</span><h2>Dev</h2><p>把需求做出來，並附上自己測過的證據。</p></article>
+          <article class="role-card role-review"><span class="role-index">03</span><h2>Reviewer</h2><p>檢查改了什麼，有沒有超出範圍或帶來風險。</p></article>
+          <article class="role-card role-qa"><span class="role-index">04</span><h2>QA</h2><p>照事先講好的情境逐條試，確認真的可以用。</p></article>
         </div>
         <div class="role-sequence"><span>PM／PO</span><i>→</i><span>Dev</span><i>→</i><span>Reviewer</span><i>→</i><span>QA</span></div>
       </div>
@@ -93,13 +79,13 @@
     <section class="slide rev10-slide" data-section="s1">
       <h1>一個需求會經過哪些人和關卡</h1>
       <div class="visual flow-visual">
-        <svg class="rev10-flow-svg" viewBox="0 0 1440 640" role="img" aria-labelledby="flow-title flow-desc">
+        <svg class="rev10-flow-svg" viewBox="0 55 1340 625" role="img" aria-labelledby="flow-title flow-desc">
           <title id="flow-title">一個需求由 Brainstorming 形成 Goal，分成三張票通過七個關卡</title>
-          <desc id="flow-desc">Goal 是讓彼此有好感的人能建立並查看配對。三張票沿關卡前進；每張票到 Goal Check 都回查 Goal。Review 與 QA 各有一條退回 Dev 的路徑，並在 Dev 前合流。快照中 #1 和 #2 在 Ready，#3「互相喜歡才配對」在 QA。</desc>
+          <desc id="flow-desc">Goal 是讓互相喜歡的兩人能確認配對成功。#1 Like／Pass、#2 配對列表、#3 雙向喜歡才配對沿七個關卡前進；所有節點樣式一致，#3 以框線標示為後續例子。每張票到 Goal Check 都沿同一條脊柱回查 Goal。Review 與 QA 分別退回 Dev；Goal Check 可退回 Refinement。</desc>
           <defs>
-            <marker id="flow-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#83bcff"/></marker>
-            <marker id="flow-red-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#ff9289"/></marker>
-            <marker id="flow-yellow-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#f2cf76"/></marker>
+            <marker id="flow-arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#83bcff"/></marker>
+            <marker id="flow-red-arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#ff9289"/></marker>
+            <marker id="flow-yellow-arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#f2cf76"/></marker>
           </defs>
           <g class="flow-top-matter">
           <g class="flow-headings">
@@ -108,52 +94,49 @@
             <text class="flow-status" x="465" y="105">釐清中</text><text class="flow-status" x="585" y="105">可開工</text><text class="flow-status" x="705" y="105">開發中</text>
             <text class="flow-status" x="825" y="105">審查中</text><text class="flow-status" x="945" y="105">驗證中</text><text class="flow-status" x="1065" y="105">確認目標</text><text class="flow-status" x="1185" y="105">已上線</text>
           </g>
-          <g class="flow-legend">
-            <circle class="flow-past" cx="1005" cy="35" r="8"/><text x="1020" y="40">已完成</text>
-            <circle class="flow-current" cx="1100" cy="35" r="8"/><text x="1115" y="40">目前</text>
-            <circle class="flow-future" cx="1185" cy="35" r="8"/><text x="1200" y="40">未來</text>
-          </g>
           </g>
           <g class="fragment flow-step">
+            <path class="flow-focus" d="M420 472 H239 Q225 472 225 486 V534 Q225 548 239 548 H1216 Q1230 548 1230 534 V486 Q1230 472 1216 472 H440"/>
             <path class="flow-branch" d="M185 170 H220" marker-end="url(#flow-arrow)"/>
             <path class="flow-branch-trunk" d="M430 202 V510"/>
-            <path class="flow-branch" d="M430 300 H440 M430 405 H440 M430 510 H440" marker-end="url(#flow-arrow)"/>
+            <path class="flow-branch" d="M430 300 H440" marker-end="url(#flow-arrow)"/>
+            <path class="flow-branch" d="M430 405 H440" marker-end="url(#flow-arrow)"/>
+            <path class="flow-branch" d="M430 510 H440" marker-end="url(#flow-arrow)"/>
             <path class="flow-path" d="M490 300 H560" marker-end="url(#flow-arrow)"/><path class="flow-path" d="M610 300 H680" marker-end="url(#flow-arrow)"/><path class="flow-path" d="M730 300 H800" marker-end="url(#flow-arrow)"/><path class="flow-path" d="M850 300 H920" marker-end="url(#flow-arrow)"/><path class="flow-path" d="M970 300 H1040" marker-end="url(#flow-arrow)"/><path class="flow-path" d="M1090 300 H1160" marker-end="url(#flow-arrow)"/>
             <path class="flow-path" d="M490 405 H560" marker-end="url(#flow-arrow)"/><path class="flow-path" d="M610 405 H680" marker-end="url(#flow-arrow)"/><path class="flow-path" d="M730 405 H800" marker-end="url(#flow-arrow)"/><path class="flow-path" d="M850 405 H920" marker-end="url(#flow-arrow)"/><path class="flow-path" d="M970 405 H1040" marker-end="url(#flow-arrow)"/><path class="flow-path" d="M1090 405 H1160" marker-end="url(#flow-arrow)"/>
             <path class="flow-path" d="M490 510 H560" marker-end="url(#flow-arrow)"/><path class="flow-path" d="M610 510 H680" marker-end="url(#flow-arrow)"/><path class="flow-path" d="M730 510 H800" marker-end="url(#flow-arrow)"/><path class="flow-path" d="M850 510 H920" marker-end="url(#flow-arrow)"/><path class="flow-path" d="M970 510 H1040" marker-end="url(#flow-arrow)"/><path class="flow-path" d="M1090 510 H1160" marker-end="url(#flow-arrow)"/>
             <rect class="flow-origin" x="25" y="145" width="160" height="50" rx="12"/><text class="flow-origin-text" x="105" y="176">Brainstorming</text>
             <rect class="flow-goal" x="220" y="135" width="1095" height="70" rx="14"/>
-            <text class="flow-goal-text" x="767" y="176">Goal：互相喜歡才配對</text>
-            <path class="flow-reanchor" d="M1065 325 V345 H1280 M1065 430 V450 H1280 M1065 535 V555 H1280"/>
-            <path class="flow-reanchor" d="M1280 555 V230 H767.5 V205" marker-end="url(#flow-yellow-arrow)"/>
-            <g class="flow-lane"><circle class="flow-past" cx="465" cy="300" r="25"/><circle class="flow-current" cx="585" cy="300" r="25"/><circle class="flow-future" cx="705" cy="300" r="25"/><circle class="flow-future" cx="825" cy="300" r="25"/><circle class="flow-future" cx="945" cy="300" r="25"/><circle class="flow-future" cx="1065" cy="300" r="25"/><circle class="flow-future" cx="1185" cy="300" r="25"/><text x="465" y="306">#1</text><text x="585" y="306">#1</text><text class="flow-future-text" x="705" y="306">#1</text><text class="flow-future-text" x="825" y="306">#1</text><text class="flow-future-text" x="945" y="306">#1</text><text class="flow-future-text" x="1065" y="306">#1</text><text class="flow-future-text" x="1185" y="306">#1</text></g>
-            <g class="flow-lane"><circle class="flow-past" cx="465" cy="405" r="25"/><circle class="flow-current" cx="585" cy="405" r="25"/><circle class="flow-future" cx="705" cy="405" r="25"/><circle class="flow-future" cx="825" cy="405" r="25"/><circle class="flow-future" cx="945" cy="405" r="25"/><circle class="flow-future" cx="1065" cy="405" r="25"/><circle class="flow-future" cx="1185" cy="405" r="25"/><text x="465" y="411">#2</text><text x="585" y="411">#2</text><text class="flow-future-text" x="705" y="411">#2</text><text class="flow-future-text" x="825" y="411">#2</text><text class="flow-future-text" x="945" y="411">#2</text><text class="flow-future-text" x="1065" y="411">#2</text><text class="flow-future-text" x="1185" y="411">#2</text></g>
-            <g class="flow-lane"><text class="flow-lane-name" x="325" y="516">#3 互相喜歡才配對</text><circle class="flow-past" cx="465" cy="510" r="25"/><circle class="flow-past" cx="585" cy="510" r="25"/><circle class="flow-past" cx="705" cy="510" r="25"/><circle class="flow-past" cx="825" cy="510" r="25"/><circle class="flow-current" cx="945" cy="510" r="25"/><circle class="flow-future" cx="1065" cy="510" r="25"/><circle class="flow-future" cx="1185" cy="510" r="25"/><text x="465" y="516">#3</text><text x="585" y="516">#3</text><text x="705" y="516">#3</text><text x="825" y="516">#3</text><text x="945" y="516">#3</text><text class="flow-future-text" x="1065" y="516">#3</text><text class="flow-future-text" x="1185" y="516">#3</text></g>
+            <text class="flow-goal-text" x="767" y="176">Goal：互相喜歡才算配對成功</text>
+            <path class="flow-reanchor" d="M1083 318 V345 H1280" marker-end="url(#flow-yellow-arrow)"/>
+            <path class="flow-reanchor" d="M1083 423 V450 H1280" marker-end="url(#flow-yellow-arrow)"/>
+            <path class="flow-reanchor" d="M1083 528 V555 H1280" marker-end="url(#flow-yellow-arrow)"/>
+            <path class="flow-reanchor" d="M1280 555 V205" marker-end="url(#flow-yellow-arrow)"/>
+            <g class="flow-lane"><text class="flow-lane-name" x="325" y="306">#1 Like／Pass</text><circle class="flow-node" cx="465" cy="300" r="25"/><circle class="flow-node" cx="585" cy="300" r="25"/><circle class="flow-node" cx="705" cy="300" r="25"/><circle class="flow-node" cx="825" cy="300" r="25"/><circle class="flow-node" cx="945" cy="300" r="25"/><circle class="flow-node" cx="1065" cy="300" r="25"/><circle class="flow-node" cx="1185" cy="300" r="25"/><text x="465" y="306">#1</text><text x="585" y="306">#1</text><text x="705" y="306">#1</text><text x="825" y="306">#1</text><text x="945" y="306">#1</text><text x="1065" y="306">#1</text><text x="1185" y="306">#1</text></g>
+            <g class="flow-lane"><text class="flow-lane-name" x="325" y="411">#2 配對列表</text><circle class="flow-node" cx="465" cy="405" r="25"/><circle class="flow-node" cx="585" cy="405" r="25"/><circle class="flow-node" cx="705" cy="405" r="25"/><circle class="flow-node" cx="825" cy="405" r="25"/><circle class="flow-node" cx="945" cy="405" r="25"/><circle class="flow-node" cx="1065" cy="405" r="25"/><circle class="flow-node" cx="1185" cy="405" r="25"/><text x="465" y="411">#2</text><text x="585" y="411">#2</text><text x="705" y="411">#2</text><text x="825" y="411">#2</text><text x="945" y="411">#2</text><text x="1065" y="411">#2</text><text x="1185" y="411">#2</text></g>
+            <g class="flow-lane"><text class="flow-lane-name" x="325" y="516">#3 雙向喜歡才配對</text><circle class="flow-node" cx="465" cy="510" r="25"/><circle class="flow-node" cx="585" cy="510" r="25"/><circle class="flow-node" cx="705" cy="510" r="25"/><circle class="flow-node" cx="825" cy="510" r="25"/><circle class="flow-node" cx="945" cy="510" r="25"/><circle class="flow-node" cx="1065" cy="510" r="25"/><circle class="flow-node" cx="1185" cy="510" r="25"/><text x="465" y="516">#3</text><text x="585" y="516">#3</text><text x="705" y="516">#3</text><text x="825" y="516">#3</text><text x="945" y="516">#3</text><text x="1065" y="516">#3</text><text x="1185" y="516">#3</text></g>
           </g>
           <g class="fragment flow-step">
-            <path class="flow-reject" d="M825 535 V552 H885"/>
-            <path class="flow-reject" d="M945 535 V552 H885"/>
-            <circle class="flow-reject-merge" cx="885" cy="552" r="5"/>
-            <path class="flow-reject" d="M885 552 H711 Q705 552 705 546 V535" marker-end="url(#flow-red-arrow)"/>
-            <text class="flow-reject-label" x="765" y="579">Review 與 QA 分別退回，在 Dev 前合流</text>
-            <path class="flow-reject" d="M1065 535 V584 Q1065 590 1059 590 H471 Q465 590 465 596 V535" marker-end="url(#flow-red-arrow)"/>
-            <text class="flow-reject-label" x="765" y="625">Goal Check 退回 Refinement</text>
-            <text class="flow-reanchor-label" x="765" y="254">三張票到 Goal Check 都回查同一個 Goal（re-anchor）</text>
+            <path class="flow-reject" d="M825 535 V574 M945 535 V574"/>
+            <path class="flow-reject" d="M945 574 H711 Q705 574 705 568 V535" marker-end="url(#flow-red-arrow)"/>
+            <text class="flow-reject-label" x="825" y="603">Review／QA 退回 Dev</text>
+            <path class="flow-reject" d="M1065 535 V636 Q1065 642 1059 642 H471 Q465 642 465 636 V535" marker-end="url(#flow-red-arrow)"/>
+            <text class="flow-reject-label" x="765" y="672">Goal Check 退回 Refinement</text>
+            <text class="flow-reanchor-label" x="765" y="254">三張票回查 Goal（re-anchor）</text>
           </g>
         </svg>
         <div class="flow-mobile">
-          <div class="flow-mobile-goal"><strong>Brainstorming → Goal</strong><span>互相喜歡才配對</span></div>
-          <div class="flow-mobile-key"><span class="past-key">已完成</span><span class="current-key">目前</span><span class="future-key">未來</span></div>
-          <article class="flow-mobile-lane"><strong>#1 Like／Pass</strong><div><span class="past-key">Refinement</span><i>→</i><span class="current-key">Ready</span><i>→</i><span class="future-key">Dev → Review → QA → Goal Check → Done</span></div></article>
-          <article class="flow-mobile-lane"><strong>#2 配對列表</strong><div><span class="past-key">Refinement</span><i>→</i><span class="current-key">Ready</span><i>→</i><span class="future-key">Dev → Review → QA → Goal Check → Done</span></div></article>
-          <article class="flow-mobile-lane"><strong>#3 互相喜歡才配對</strong><div><span class="past-key">Refinement → Ready → Dev → Review</span><i>→</i><span class="current-key">QA</span><i>→</i><span class="future-key">Goal Check → Done</span></div></article>
+          <div class="flow-mobile-goal"><strong>Brainstorming → Goal</strong><span>讓互相喜歡的兩人能確認配對成功</span></div>
+          <article class="flow-mobile-lane"><strong>#1 Like／Pass</strong><div><span>Refinement<small>釐清中</small></span><i>→</i><span>Ready<small>可開工</small></span><i>→</i><span>Dev<small>開發中</small></span><i>→</i><span>Review<small>審查中</small></span><i>→</i><span>QA<small>驗證中</small></span><i>→</i><span>Goal Check<small>確認目標</small></span><i>→</i><span>Done<small>已上線</small></span></div></article>
+          <article class="flow-mobile-lane"><strong>#2 配對列表</strong><div><span>Refinement<small>釐清中</small></span><i>→</i><span>Ready<small>可開工</small></span><i>→</i><span>Dev<small>開發中</small></span><i>→</i><span>Review<small>審查中</small></span><i>→</i><span>QA<small>驗證中</small></span><i>→</i><span>Goal Check<small>確認目標</small></span><i>→</i><span>Done<small>已上線</small></span></div></article>
+          <article class="flow-mobile-lane flow-mobile-focus"><strong>#3 雙向喜歡才配對</strong><div><span>Refinement<small>釐清中</small></span><i>→</i><span>Ready<small>可開工</small></span><i>→</i><span>Dev<small>開發中</small></span><i>→</i><span>Review<small>審查中</small></span><i>→</i><span>QA<small>驗證中</small></span><i>→</i><span>Goal Check<small>確認目標</small></span><i>→</i><span>Done<small>已上線</small></span></div></article>
           <div class="flow-mobile-returns" aria-label="退件路徑">
             <svg class="flow-mobile-dev-return" viewBox="0 0 360 126" role="img" aria-labelledby="flow-return-title flow-return-desc">
               <title id="flow-return-title">Review 與 QA 退回 Dev</title>
               <desc id="flow-return-desc">Review 和 QA 的兩條退回路徑先合流，再以向上的箭頭進入 Dev。</desc>
               <defs><marker id="flow-mobile-dev-arrow" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="10" markerHeight="10" orient="auto"><path d="M0 0 L12 6 L0 12 z" fill="#ff9289"/></marker></defs>
               <rect class="mobile-return-target" x="140" y="4" width="80" height="34" rx="8"/><text class="mobile-return-target-label" x="180" y="26">Dev</text>
-              <path class="mobile-return-red-path" d="M80 92 V82 C80 70 96 64 112 64 H180 M280 92 V82 C280 70 264 64 248 64 H180"/>
+              <path class="mobile-return-red-path" d="M80 92 V82 C80 70 96 64 112 64 H180" marker-end="url(#flow-mobile-dev-arrow)"/><path class="mobile-return-red-path" d="M280 92 V82 C280 70 264 64 248 64 H180" marker-end="url(#flow-mobile-dev-arrow)"/>
               <circle class="mobile-return-merge" cx="180" cy="64" r="4"/>
               <path class="mobile-return-red-path" d="M180 64 V38" marker-end="url(#flow-mobile-dev-arrow)"/>
               <rect class="mobile-return-source" x="15" y="92" width="130" height="28" rx="7"/><text class="mobile-return-source-label" x="80" y="111">Review</text>
@@ -167,7 +150,7 @@
               <path class="mobile-return-yellow-path" d="M266 33 H178" marker-end="url(#flow-mobile-goal-arrow)"/>
               <rect class="mobile-return-source" x="266" y="14" width="126" height="38" rx="8"/><text class="mobile-return-source-label" x="329" y="38">Goal Check</text>
             </svg>
-            <p>每張票在 Goal Check 對回 Goal</p>
+            <p>每張票在 Goal Check 對回 Goal；退件則回 Refinement</p>
           </div>
         </div>
       </div>
@@ -175,33 +158,23 @@
 
     <section class="slide section-slide rev10-cover" data-section="s2">
       <div class="cover-mark">02</div><div class="cover-copy"><p class="cover-kicker">第二段</p><h1>版本控制：存檔點、<span class="cover-keep">分支</span>、送審、合併</h1></div>
-      <div class="cover-preview cover-preview-git" aria-hidden="true">
-        <span class="preview-label">#3 互相喜歡才配對｜程式變更的路徑</span>
-        <div class="preview-track"><span>Commit</span><i>→</i><strong>Branch</strong><i>→</i><span>Pull Request</span><i>→</i><span>Merge</span></div>
-        <span class="preview-note">留下存檔點，再送審合併</span>
-      </div>
     </section>
     <section class="slide section-slide rev10-cover" data-section="s3">
       <div class="cover-mark">03</div><div class="cover-copy"><p class="cover-kicker">第三段</p><h1>從一個想法到上線：需求如何變成票與關卡</h1></div>
-      <div class="cover-preview cover-preview-ticket" aria-hidden="true">
-        <span class="preview-label">同一個需求逐站前進</span>
-        <div class="preview-track"><span>想法</span><i>→</i><strong>Goal</strong><i>→</i><span>#3 互相喜歡才配對</span><i>→</i><span>上線</span></div>
-        <span class="preview-note">每一關留下可回查的結果</span>
-      </div>
     </section>
     <section class="slide rev10-slide" data-section="s3">
-      <h1>Product Goal 拆成三張實作子票：#3 互相喜歡才配對先於 #2</h1>
+      <h1>Goal 拆成三張實作子票：#3 雙向喜歡才配對先於 #2</h1>
       <div class="visual">
         <div class="tree-layout">
-          <article class="tree-goal"><small>PRODUCT GOAL</small><strong>讓彼此有好感的人能建立並查看配對</strong></article>
+          <article class="tree-goal"><small>Goal（parent issue）</small><strong>讓互相喜歡的兩人能確認配對成功</strong></article>
           <div class="tree-lines" aria-hidden="true"><span></span><span></span><span></span></div>
           <div class="tree-tickets">
             <article><small>#1</small><strong>Like／Pass</strong></article>
-            <article class="tree-priority"><small>IMPLEMENTATION SUB-ISSUE</small><strong>#3 互相喜歡才配對</strong></article>
+            <article class="tree-priority"><small>IMPLEMENTATION SUB-ISSUE</small><strong>#3 雙向喜歡才配對</strong></article>
             <article><small>#2</small><strong>配對列表</strong></article>
           </div>
-          <div class="tree-sequence"><strong>資料流</strong><span>#1 Like／Pass</span><i>→</i><span class="sequence-core">#3 互相喜歡才配對</span><i>→</i><span>#2 配對列表</span></div>
-          <p class="tree-why"><strong>為什麼 #3 互相喜歡才配對排在 #2 前：</strong>#3 建立 Match，#2 才能列出已配對對象。</p>
+          <div class="tree-sequence"><strong>資料流</strong><span>#1 Like／Pass</span><i>→</i><span class="sequence-core">#3 雙向喜歡才配對</span><i>→</i><span>#2 配對列表</span></div>
+          <p class="tree-why"><strong>為什麼 #3 雙向喜歡才配對排在 #2 前：</strong>#3 建立 Match，#2 才能列出已配對對象。</p>
         </div>
       </div>
     </section>
@@ -211,11 +184,11 @@
       <div class="visual">
         <div class="ticket-compare">
           <div class="good-ticket">
-            <div class="ticket-titlebar"><span>好票｜#3 互相喜歡才配對</span><span>SUB-ISSUE</span></div>
+            <div class="ticket-titlebar"><span>好票｜#3 雙向喜歡才配對</span><span>SUB-ISSUE</span></div>
             <div class="ticket-fields">
               <div><b>Title</b><span>互相 Like 後建立 Match</span></div>
               <div><b>Context／Why</b><span>單向 Like 不算配對；雙方都 Like 才建立 Match。</span></div>
-              <div><b>Goal linkage</b><span>支援「互相喜歡才配對」</span></div>
+              <div><b>Goal linkage</b><span>支援「讓互相喜歡的兩人能確認配對成功」</span></div>
               <div><b>Scope</b><span>建立雙方共用的 Match 結果。</span></div>
               <div><b>AC</b><span>A｜A 喜歡 B：不配對；B｜B 也喜歡 A：成功配對；C｜重複喜歡：不重複配對。</span></div>
               <div><b>Out of Scope</b><span>聊天、推薦、解除配對。</span></div>
@@ -231,7 +204,7 @@
     <section class="slide rev10-slide" data-section="s3">
       <h1>總回顧：票沿看板前進，動作留下在 GitHub</h1>
       <div class="visual recap-visual">
-          <div class="parent-action"><span>Brainstorming</span><i>→</i><strong>開 parent issue</strong><small>Product Goal｜讓彼此有好感的人能建立並查看配對｜示例票：#3 互相喜歡才配對</small></div>
+          <div class="parent-action"><span>Brainstorming</span><i>→</i><strong>開 parent issue</strong><small>Goal｜讓互相喜歡的兩人能確認配對成功｜示例票：#3 雙向喜歡才配對</small></div>
         <div class="recap-columns">
           <article><h2>Backlog</h2><strong>建立 Issue</strong></article>
           <article><h2>Ready</h2><strong>指派負責人</strong></article>
@@ -239,7 +212,7 @@
           <article><h2>Review</h2><strong>開 Pull Request</strong></article>
           <article><h2>QA</h2><strong>執行 checks</strong></article>
           <article><h2>Goal Check</h2><strong>記錄驗收結果</strong></article>
-          <article class="recap-human-gate"><h2>Human Gate</h2><strong>人決定放行／暫停</strong></article>
+          <article class="recap-human-gate"><h2>Human Gate</h2><strong><span>人決定放行</span><wbr><span>／暫停</span></strong></article>
           <article><h2>Done</h2><strong>Merge／關閉 Issue</strong></article>
           <svg class="return-mobile-board-routes" viewBox="0 0 400 360" preserveAspectRatio="none" role="img" aria-labelledby="recap-mobile-routes-title recap-mobile-routes-desc">
             <title id="recap-mobile-routes-title">總回顧看板的手機退回路徑</title>
@@ -269,8 +242,8 @@
         <div class="return-routes">
           <svg class="return-desktop" viewBox="0 0 1000 255" preserveAspectRatio="none" aria-hidden="true">
             <defs>
-              <marker id="return-dev-up" markerUnits="userSpaceOnUse" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="16" markerHeight="16" orient="auto"><path d="M0 0 L12 6 L0 12 z" fill="#ff9289"/></marker>
-              <marker id="return-goal-up" markerUnits="userSpaceOnUse" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="16" markerHeight="16" orient="auto"><path d="M0 0 L12 6 L0 12 z" fill="#f2cf76"/></marker>
+              <marker id="return-dev-up" markerUnits="userSpaceOnUse" viewBox="0 0 12 12" refX="12" refY="6" markerWidth="16" markerHeight="16" orient="auto"><path d="M0 0 L12 6 L0 12 z" fill="#ff9289"/></marker>
+              <marker id="return-goal-up" markerUnits="userSpaceOnUse" viewBox="0 0 12 12" refX="12" refY="6" markerWidth="16" markerHeight="16" orient="auto"><path d="M0 0 L12 6 L0 12 z" fill="#f2cf76"/></marker>
             </defs>
             <path class="return-dev-branch" d="M437.5 0 V42 Q437.5 54 449.5 54 H500 M562.5 0 V42 Q562.5 54 550.5 54 H500"/>
             <path class="return-dev-path" d="M500 54 H323.5 Q312.5 54 312.5 43 V0" marker-end="url(#return-dev-up)"/>
@@ -305,16 +278,11 @@
 
     <section class="slide section-slide rev10-cover" data-section="s4">
       <div class="cover-mark">04</div><div class="cover-copy"><p class="cover-kicker">第四段</p><h1>從一問一答到長任務：<span class="cover-keep">角色</span>、資訊與交接開始<span class="cover-keep">混在一起</span></h1></div>
-      <div class="cover-preview cover-preview-agent" aria-hidden="true">
-        <span class="preview-label">工作從回答走向持續行動</span>
-        <div class="preview-track"><span>提問</span><i>→</i><strong>目標</strong><i>→</i><span>行動</span><i>→</i><span>交接</span></div>
-        <span class="preview-note">案例：#3 互相喜歡才配對</span>
-      </div>
     </section>
     <section class="slide rev10-slide" data-section="s4">
       <h1>Chat 一問一答；Agent 朝目標持續行動</h1>
       <div class="visual">
-        <div class="case-reference">案例票｜#3 互相喜歡才配對</div>
+        <div class="case-reference">案例票｜#3 雙向喜歡才配對</div>
         <div class="chat-agent-compare">
           <article class="compare-panel chat-panel">
             <small>CHAT｜一問一答</small><h2>人一步一步叫 AI 做事</h2>
@@ -328,7 +296,7 @@
           </article>
         </div>
       </div>
-      <p class="draft-source">李宏毅 2024 第 9 講，00:08–02:47；Stanford CS329A，40:54–42:45｜案例：#3 互相喜歡才配對</p>
+      <p class="draft-source">李宏毅 2024 第 9 講，00:08–02:47；Stanford CS329A，40:54–42:45｜案例：#3 雙向喜歡才配對</p>
     </section>
 
     <section class="slide rev10-slide" data-section="s4">
@@ -336,9 +304,9 @@
       <div class="visual">
         <div class="one-chat-layout">
           <article class="chat-window">
-            <div class="chat-window-head"><span>#3 互相喜歡才配對</span><span>規劃 → 實作 → 自評</span></div>
-            <div class="chat-role-row"><b>PM</b><span>定義需求</span><i>→</i><b>Dev</b><span>寫出成果</span></div>
-            <div class="chat-role-row"><b>Reviewer</b><span>檢查自己的改動</span><i>→</i><b>QA</b><span>判斷自己是否完成</span></div>
+            <div class="chat-window-head"><span>#3 雙向喜歡才配對</span><span>規劃 → 實作 → 自評</span></div>
+            <div class="chat-role-row"><div class="chat-role-card"><b>PM</b><span>定義需求</span></div><i aria-hidden="true">→</i><div class="chat-role-card"><b>Dev</b><span>寫出成果</span></div></div>
+            <div class="chat-role-row"><div class="chat-role-card"><b>Reviewer</b><span>檢查自己的改動</span></div><i aria-hidden="true">→</i><div class="chat-role-card"><b>QA</b><span>判斷自己是否完成</span></div></div>
           </article>
           <div class="boundary-question"><span>同一個工作者</span><b>產出與評估<br>擠在一起</b><strong>誰按什麼標準判定？</strong></div>
         </div>
@@ -347,10 +315,10 @@
     </section>
 
     <section class="slide rev10-slide compact-dialog-slide" data-section="s4">
-      <h1>4-3a｜同一段對話太長，compact 之後資訊會遺失</h1>
+      <h1>同一段對話太長，compact 之後資訊會遺失</h1>
       <div class="visual">
         <div class="compact-story">
-          <div class="compact-ticket">#3 互相喜歡才配對</div>
+          <div class="compact-ticket">#3 雙向喜歡才配對</div>
           <div class="compact-timeline" aria-label="同一段對話從 AC 決定、雜訊累積到摘要遺失的時間軸">
             <article class="compact-step compact-step-decision">
               <header><span>01</span><strong>先在對話中定下 AC C</strong></header>
@@ -366,7 +334,7 @@
             <i class="compact-time-arrow" aria-hidden="true">→</i>
             <article class="compact-step compact-step-summary">
               <header><span>03</span><strong>compact 摘要漏掉 AC C</strong></header>
-              <div class="compact-chat compact-chat-summary"><small>Agent｜摘要</small><p>「Goal：雙向喜歡才配對。」</p></div>
+              <div class="compact-chat compact-chat-summary"><small>Agent｜摘要</small><p>「Goal：互相喜歡才算配對成功。」</p></div>
               <strong class="compact-missing">摘要裡沒有 AC C「重複喜歡不重複配對」</strong>
             </article>
             <i class="compact-time-arrow" aria-hidden="true">→</i>
@@ -383,12 +351,12 @@
     </section>
 
     <section class="slide rev10-slide" data-section="s4">
-      <h1>4-3b｜換一個新 session，就看不到前面講過的內容</h1>
+      <h1>換一個新 session，就看不到前面講過的內容</h1>
       <div class="visual">
         <div class="session-story">
           <article class="session-handoff">
             <small>新 session 只收到一段交代</small>
-            <div class="session-bubble">「接手 #3 互相喜歡才配對，繼續完成配對。」</div>
+            <div class="session-bubble">「接手 #3 雙向喜歡才配對，繼續完成配對。」</div>
           </article>
           <div class="session-arrow" aria-hidden="true">→</div>
           <article class="session-unknowns">
@@ -403,11 +371,11 @@
     </section>
 
     <section class="slide rev10-slide" data-section="s4">
-      <h1>問題｜#3 互相喜歡才配對的三種工作，共用同一個 chat 與設定</h1>
+      <h1>問題｜#3 雙向喜歡才配對的三種工作，共用同一個 chat 與設定</h1>
       <div class="visual">
         <div class="model-problem">
           <article class="model-problem-tasks">
-            <small>#3 互相喜歡才配對｜難度不同</small>
+            <small>#3 雙向喜歡才配對｜難度不同</small>
             <div><span>簡單</span><strong>改按鈕文字</strong></div>
             <div><span>中等</span><strong>產生測試資料</strong></div>
             <div><span>困難</span><strong>判斷雙向配對規則</strong></div>
@@ -431,16 +399,11 @@
 
     <section class="slide section-slide rev10-cover" data-section="s5">
       <div class="cover-mark">05</div><div class="cover-copy"><p class="cover-kicker">第五段</p><h1>多Agent開發：優勢與<span class="cover-keep">新問題</span></h1></div>
-      <div class="cover-preview cover-preview-multi" aria-hidden="true">
-        <span class="preview-label">案例：#3 互相喜歡才配對</span>
-        <div class="preview-branches"><span>同一個 Goal</span><i>↙</i><i>↘</i><strong>Agent A　↔　Agent B</strong></div>
-        <span class="preview-note">每次交接都要帶上必要資訊</span>
-      </div>
     </section>
     <section class="slide rev10-slide two-axis-slide" data-section="s5">
       <h1>Workflow 問誰決定下一步；Single／Multi 問誰承擔責任</h1>
       <div class="visual">
-        <div class="case-reference">案例票｜#3 互相喜歡才配對</div>
+        <div class="case-reference">案例票｜#3 雙向喜歡才配對</div>
         <div class="two-questions">
           <article class="question-card">
             <small>問題一｜工作路線與決策權</small><h2>誰決定下一步？</h2>
@@ -451,7 +414,7 @@
             <div class="pair-options"><div><b>Single-agent</b><span>一位執行者</span></div><i>↔</i><div><b>Multi-agent</b><span>多位專責執行者</span></div></div>
           </article>
         </div>
-        <p class="two-axis-note">這是兩個並列的問題；路徑怎麼決定，不等於有幾位 Agent。案例：#3 互相喜歡才配對。</p>
+        <p class="two-axis-note">這是兩個並列的問題；路徑怎麼決定，不等於有幾位 Agent。案例：#3 雙向喜歡才配對。</p>
       </div>
       <p class="draft-source">Stanford CS224G，PDF 第 5、10、12–13、61 頁</p>
     </section>
@@ -460,7 +423,7 @@
       <h1>把工作拆開，也把各站只需要的資訊拆開</h1>
       <div class="visual">
         <div class="split-work">
-          <article class="shared-goal"><small>共同 Goal</small><strong>雙方都同意才配對，並能查看配對名單</strong><span>拆分不同工作；兩位 Agent 回到同一個產品目標</span></article>
+          <article class="shared-goal"><small>共同 Goal</small><strong>讓互相喜歡的兩人能確認配對成功</strong><span>拆分不同工作；兩位 Agent 回到同一個產品目標</span></article>
           <svg class="split-branches" viewBox="0 0 1000 100" preserveAspectRatio="none" role="img" aria-labelledby="split-title split-desc">
             <title id="split-title">同一個 Goal 分別交給 Agent A 與 Agent B</title>
             <desc id="split-desc">兩條獨立箭頭從 Goal 中心連到兩張 Agent 卡片的中心上緣。</desc>
@@ -469,7 +432,7 @@
             <path d="M500 0 C500 40 750 45 750 100" marker-end="url(#split-arrow)"/>
           </svg>
           <div class="specialist-cards">
-            <article><b>Agent A｜配對規則</b><span>只帶本工作必要的 context：#3 互相喜歡才配對的 AC</span><small>交付一個明確結果：配對規則</small></article>
+            <article><b>Agent A｜配對規則</b><span>只帶本工作必要的 context：#3 雙向喜歡才配對的 AC</span><small>交付一個明確結果：配對規則</small></article>
             <article><b>Agent B｜配對列表 UI</b><span>只帶本工作必要的 context：#2 配對列表的畫面需求</span><small>交付一個明確結果：配對列表畫面</small></article>
           </div>
           <p class="single-first">先從單一 Agent 開始；只有工作需求真的不同時才拆分。模型依任務選用：規則判斷用推理較強的模型；畫面樣板用較輕的模型。</p>
@@ -482,54 +445,49 @@
       <h1>多 Agent 會遇到交接失真與衝突</h1>
       <div class="visual">
         <div class="coordination-problems">
-          <div class="coordination-ticket">案例票｜#3 互相喜歡才配對</div>
-          <article><small>問題一｜交接失真</small><h2>AC C 沒交給下一站</h2><div class="handoff-card"><span><b>Goal</b>雙方 Like 才配對</span><i aria-hidden="true">→</i><span><b>交接摘要</b>只寫雙向喜歡</span><i aria-hidden="true">→</i><strong>漏掉 AC C<br>重複喜歡不重複配對</strong></div><p>Dev 看不到重複 Like 的限制，可能再建立一筆 Match。</p></article>
+          <div class="coordination-ticket">案例票｜#3 雙向喜歡才配對</div>
+          <article><small>問題一｜交接失真</small><h2>AC C 沒交給下一站</h2><div class="handoff-card"><span><b>Goal</b>讓互相喜歡的兩人能確認配對成功</span><i aria-hidden="true">→</i><span><b>交接摘要</b>只寫雙向喜歡</span><i aria-hidden="true">→</i><strong>漏掉 AC C<br>重複喜歡不重複配對</strong></div><p>Dev 看不到重複 Like 的限制，可能再建立一筆 Match。</p></article>
           <article><small>問題二｜互相衝突</small><h2>同一規則，兩種實作</h2><div class="conflict-card"><span>Agent A<br>再次 Like 就再建 Match</span><b>↔</b><span>Agent B<br>依 AC C 不重複配對</span></div><p>兩邊對重複 Like 的處理不同，整合時出現重複 Match。</p></article>
         </div>
       </div>
-      <p class="draft-source">LangChain〈Benchmarking Multi-Agent Architectures〉，Results &amp; Analysis／Improvements to supervisor；Stanford HAI〈AI Coding Agents Fail at Teamwork〉，Critical Skills／Talk Is Cheap；Cognition（多 Agent 協調失敗案例）｜案例：#3 互相喜歡才配對</p>
+      <p class="draft-source">LangChain〈Benchmarking Multi-Agent Architectures〉，Results &amp; Analysis／Improvements to supervisor；Stanford HAI〈AI Coding Agents Fail at Teamwork〉，Critical Skills／Talk Is Cheap；Cognition（多 Agent 協調失敗案例）｜案例：#3 雙向喜歡才配對</p>
     </section>
 
     <section class="slide rev10-slide" data-section="s5">
       <h1>重工與資訊孤島，讓協作成本上升</h1>
       <div class="visual">
         <div class="rework-silo">
-          <div class="coordination-ticket">案例票｜#3 互相喜歡才配對</div>
-          <article class="rework-panel"><small>可查證的協作問題</small><h2>同一份配對規則做兩次</h2><div class="duplicate-work"><span>Agent A：實作雙向 Like → Match</span><span>Agent B：又寫一次互相 Like 判斷</span><i>重做「互相喜歡才配對」規則</i></div></article>
+          <div class="coordination-ticket">案例票｜#3 雙向喜歡才配對</div>
+          <article class="rework-panel"><small>可查證的協作問題</small><h2>同一份配對規則做兩次</h2><div class="duplicate-work"><span>Agent A：實作雙向 Like → Match</span><span>Agent B：又寫一次互相 Like 判斷</span><i>重做「雙向喜歡才配對」規則</i></div></article>
           <article class="silo-panel"><small>社群經驗</small><h2>看不到 AC C 的進度</h2><div class="silo-cards"><span>Agent A<br>AC A／B 已測<br>AC C 尚未交接</span><b>×</b><span>Agent B<br>看板沒記錄 AC C<br>不確定是否要重測</span></div></article>
         </div>
       </div>
-      <p class="draft-source">Stanford HAI〈AI Coding Agents Fail at Teamwork〉，Talk Is Cheap（重複工作）；社群經驗（資訊孤島）｜案例：#3 互相喜歡才配對</p>
+      <p class="draft-source">Stanford HAI〈AI Coding Agents Fail at Teamwork〉，Talk Is Cheap（重複工作）；社群經驗（資訊孤島）｜案例：#3 雙向喜歡才配對</p>
     </section>
 
     <section class="slide rev10-slide shift-slide citation-readability" data-section="s5">
       <h1>SHIFT：小偏誤會隨迭代一路放大</h1>
       <div class="visual">
-        <div class="case-reference">案例票｜#3 互相喜歡才配對</div>
+        <div class="case-reference">案例票｜#3 雙向喜歡才配對</div>
         <div class="shift-callout"><span class="social-label">社群經驗</span><strong>沒有 re-anchor，工作可能逐步偏離初始目標。</strong></div>
         <div class="shift-sequence">
-          <article><small>原始目標</small><strong>互相喜歡才配對</strong></article><i>→</i>
+          <article><small>原始目標</small><strong>讓互相喜歡的兩人能確認配對成功</strong></article><i>→</i>
           <article><small>一次交接</small><strong>一點小偏誤</strong></article><i>→</i>
           <article><small>再一輪迭代</small><strong>偏誤繼續累積</strong></article><i>→</i>
           <article class="shift-drift"><small>沒有拉回目標</small><strong>逐步偏離</strong></article>
         </div>
         <p class="shift-note">這是風險示意，不是量化結果。</p>
       </div>
-      <p class="draft-source">社群經驗｜Anthropic〈How we built our multi-agent research system〉，Production reliability and engineering challenges；LangChain〈Benchmarking Multi-Agent Architectures〉，Results &amp; Analysis；Stanford HAI〈AI Coding Agents Fail at Teamwork〉，Talk Is Cheap｜案例：#3 互相喜歡才配對</p>
+      <p class="draft-source">社群經驗｜Anthropic〈How we built our multi-agent research system〉，Production reliability and engineering challenges；LangChain〈Benchmarking Multi-Agent Architectures〉，Results &amp; Analysis；Stanford HAI〈AI Coding Agents Fail at Teamwork〉，Talk Is Cheap｜案例：#3 雙向喜歡才配對</p>
     </section>
 
     <section class="slide section-slide rev10-cover" data-section="s6">
       <div class="cover-mark">06</div><div class="cover-copy"><p class="cover-kicker">第六段</p><h1>為什麼多 Agent 要配合<span class="cover-keep">軟體</span>工程：五個原則</h1></div>
-      <div class="cover-preview cover-preview-principles" aria-hidden="true">
-        <span class="preview-label">五個檢查方向</span>
-        <div class="preview-principle-grid"><span>留在票上</span><span>切小任務</span><span>分清角色</span><span>獨立核對</span><span>回到 Goal</span></div>
-        <span class="preview-note">案例：#3 互相喜歡才配對</span>
-      </div>
     </section>
-    <section class="slide rev10-slide citation-readability" data-section="s6">
+    <section class="slide rev10-slide principles-slide citation-readability" data-section="s6">
       <h1>五個原則，逐一回應 Chat 與多 Agent 的問題</h1>
       <div class="visual">
-        <div class="case-reference">案例票｜#3 互相喜歡才配對</div>
+        <div class="case-reference">案例票｜#3 雙向喜歡才配對</div>
         <div class="principle-overview">
           <div class="principle-row"><article class="problem-side"><small>4–5｜資訊留在對話、換站難交接、資訊孤島</small><strong>現況容易遺漏</strong></article><span class="principle-link"></span><article class="principle-side"><small>原則 1</small><div class="principle-name"><strong>External task state</strong><span>狀態留在票上</span></div></article></div>
           <div class="principle-row"><article class="problem-side"><small>4｜長任務反覆追問、工作沒有停點</small><strong>範圍與停止點不清</strong></article><span class="principle-link"></span><article class="principle-side"><small>原則 2</small><div class="principle-name"><strong>Bounded execution</strong><span>切小並設停點</span></div></article></div>
@@ -538,55 +496,37 @@
           <div class="principle-row"><article class="problem-side"><small>5-5｜小偏誤隨迭代放大</small><strong>目標可能逐步偏離</strong></article><span class="principle-link"></span><article class="principle-side"><small>原則 5</small><div class="principle-name"><strong>Goal re-anchoring</strong><span>回查原始目標</span></div></article></div>
         </div>
       </div>
-      <p class="draft-source">李宏毅 2026 講義，PDF 第 47–52 頁；Stanford CS329A，42:21–42:45、47:03–47:24；李宏毅 2024 Agent 講義，PDF 第 10 頁｜案例：#3 互相喜歡才配對</p>
+      <p class="draft-source">李宏毅 2026 講義，PDF 第 47–52 頁；Stanford CS329A，42:21–42:45、47:03–47:24；李宏毅 2024 Agent 講義，PDF 第 10 頁｜案例：#3 雙向喜歡才配對</p>
     </section>
 
     <section class="slide section-slide rev10-cover" data-section="s7">
       <div class="cover-mark">07</div><div class="cover-copy"><p class="cover-kicker">第七段</p><h1>回顧從 Brainstorming <span class="cover-keep">到上線</span>：Agent與Human的新合作方式</h1></div>
-      <div class="cover-preview cover-preview-human" aria-hidden="true">
-        <span class="preview-label">#3 互相喜歡才配對｜換接手者</span>
-        <div class="preview-track"><span>Agent</span><i>→</i><strong>Goal Check</strong><i>→</i><b>Human Gate</b><i>→</i><span>上線</span></div>
-        <span class="preview-note">人在最後決定是否放行</span>
-      </div>
     </section>
     <section class="slide rev10-slide stage-comparison-slide citation-readability" data-section="s7">
-      <h1>同一張「#3 互相喜歡才配對」：關卡不變，接手者改變</h1>
+      <h1>同一張「#3 雙向喜歡才配對」：關卡不變，接手者改變</h1>
       <div class="visual stage-visual">
         <div class="stage-board-head">
-          <strong>#3 互相喜歡才配對</strong>
+          <strong>#3 雙向喜歡才配對</strong>
           <div class="stage-board-legend">
             <span class="stage-fixed-key">固定｜9 個關卡、交付物與存放位置</span>
             <span class="stage-handoff-key">改變｜各站接手者</span>
             <span class="stage-read-guide">每站：負責者 → 產物／位置 → 人的動作</span>
           </div>
         </div>
-        <div class="stage-table-desktop" aria-label="傳統流程與 Agent 加人類流程，共用九個關卡">
-          <div class="stage-table-head"><span>接手方式</span><b>想法</b><b>Goal</b><b>配對票</b><b>PR</b><b>Review 意見</b><b>驗證證據</b><b>Goal Check／接受</b><b class="human-gate-stage">Human Gate</b><b>Merge／上線</b></div>
-          <div class="stage-table-lane human-lane">
-            <strong>傳統流程<br>（人）</strong>
-            <span><b>PM／PO</b><em>問題／使用者結果 → Issue</em><i>定方向</i></span>
-            <span><b>PM／PO</b><em>Goal／成功訊號 → Issue</em><i>確認 Goal</i></span>
-            <span><b>PM／PO</b><em>配對票／AC → Issue、看板</em><i>定範圍與 AC</i></span>
-            <span><b>Dev</b><em>程式變更／PR → branch、PR</em><i>實作、送審</i></span>
-            <span><b>Reviewer（人）</b><em>審查意見 → PR</em><i>核對改動</i></span>
-            <span><b>QA（人）</b><em>AC 驗證證據 → PR、Issue</em><i>記錄結果</i></span>
-            <span><b>PO／Product</b><em>接受／退回 → Issue、看板</em><i>對回原 Goal</i></span>
-            <span class="human-gate-cell"><b>人</b><em>最終放行／暫停 → Issue、PR</em><i>決定是否允許合併／上線</i></span>
-            <span><b>上線執行者</b><em>Merge／上線結果 → PR、看板</em><i>確認上線</i></span>
-          </div>
-          <div class="stage-table-lane agent-lane">
-            <strong>Agent＋Human<br>流程</strong>
-            <span><b>PM Agent＋PO Agent</b><em>Brainstorm 決議 → Issue</em><i>提供背景、目標</i></span>
-            <span><b>PO Agent</b><em>Goal／成功訊號 → Issue</em><i>確認 Goal</i></span>
-            <span><b>PO Agent</b><em>票面／既有 AC → Issue、看板</em><i>補未決條件</i></span>
-            <span><b>Dev Agent</b><em>程式變更／PR → branch、PR</em><i>依節奏查看 PR</i></span>
-            <span><b>Reviewer Agent</b><em>Review 意見 → PR</em><i>依節奏看 PR</i></span>
-            <span><b>QA Agent</b><em>AC 驗證證據 → PR、Issue</em><i>抽查證據</i></span>
-            <span><b>Product／PO Agent</b><em>提出接受／退回建議 → Issue、看板</em><i>人：Goal Check 確認 Goal／AC</i></span>
-            <span class="human-gate-cell"><b>人</b><em>最終放行／暫停 → Issue、PR</em><i>決定是否允許合併／上線</i></span>
-            <span><b>既有上線執行者</b><em>Merge／上線結果 → PR、看板</em><i>按 Gate 結果確認</i></span>
-          </div>
-        </div>
+        <table class="stage-table-readable" aria-label="九個關卡的傳統與 Agent 加人類流程對照">
+          <thead><tr><th scope="col">關卡</th><th scope="col">傳統流程（人）</th><th scope="col">Agent＋Human 流程</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">想法</th><td><b>PM／PO</b><em>問題／使用者結果 → Issue</em><i>定方向</i></td><td><b>PM Agent＋PO Agent</b><em>Brainstorm 決議 → Issue</em><i>提供背景、目標</i></td></tr>
+            <tr><th scope="row">Goal</th><td><b>PM／PO</b><em>Goal／成功訊號 → Issue</em><i>確認 Goal</i></td><td><b>PO Agent</b><em>Goal／成功訊號 → Issue</em><i>確認 Goal</i></td></tr>
+            <tr><th scope="row">配對票</th><td><b>PM／PO</b><em>配對票／AC → Issue、看板</em><i>定範圍與 AC</i></td><td><b>PO Agent</b><em>票面／既有 AC → Issue、看板</em><i>補未決條件</i></td></tr>
+            <tr><th scope="row">PR</th><td><b>Dev</b><em>程式變更／PR → branch、PR</em><i>實作、送審</i></td><td><b>Dev Agent</b><em>程式變更／PR → branch、PR</em><i>依節奏查看 PR</i></td></tr>
+            <tr><th scope="row">Review 意見</th><td><b>Reviewer（人）</b><em>審查意見 → PR</em><i>核對改動</i></td><td><b>Reviewer Agent</b><em>Review 意見 → PR</em><i>依節奏看 PR</i></td></tr>
+            <tr><th scope="row">驗證證據</th><td><b>QA（人）</b><em>AC 驗證證據 → PR、Issue</em><i>記錄結果</i></td><td><b>QA Agent</b><em>AC 驗證證據 → PR、Issue</em><i>抽查證據</i></td></tr>
+            <tr><th scope="row">Goal Check／接受</th><td><b>PO／Product</b><em>接受／退回 → Issue、看板</em><i>對回原 Goal</i></td><td><b>Product／PO Agent</b><em>提出接受／退回建議 → Issue、看板</em><i>人：Goal Check 確認 Goal／AC</i></td></tr>
+            <tr class="stage-human-gate"><th scope="row">Human Gate</th><td><b>人</b><em>最終放行／暫停 → Issue、PR</em><i>決定是否允許合併／上線</i></td><td><b>人</b><em>最終放行／暫停 → Issue、PR</em><i>決定是否允許合併／上線</i></td></tr>
+            <tr><th scope="row">Merge／上線</th><td><b>上線執行者</b><em>Merge／上線結果 → PR、看板</em><i>確認上線</i></td><td><b>既有上線執行者</b><em>Merge／上線結果 → PR、看板</em><i>按 Gate 結果確認</i></td></tr>
+          </tbody>
+        </table>
         <div class="stage-comparison-mobile">
         <div class="stage-comparison-grid">
           <article class="stage-compare-card">
@@ -656,7 +596,7 @@
         </div>
         <p class="comparison-note">關卡與交付物位置固定；Agent 接手工作。人於 Goal Check 確認 Goal／AC，並在 Human Gate 作最終上線決定。</p>
       </div>
-      <p class="draft-source">李宏毅 2024 第 5 講，20:31–21:41；Stanford CS329T 第 4 講，PDF 第 11–12 頁。角色對照為本簡報整理；指定來源未提供 #3 互相喜歡才配對的實際站點安排。</p>
+      <p class="draft-source">李宏毅 2024 第 5 講，20:31–21:41；Stanford CS329T 第 4 講，PDF 第 11–12 頁。角色對照為本簡報整理；指定來源未提供 #3 雙向喜歡才配對的實際站點安排。</p>
     </section>
 
     <section class="slide rev10-slide" data-section="s7">
@@ -665,7 +605,7 @@
         <div class="brainstorm-compare">
           <article class="brainstorm-side"><small>傳統：PM／PO 討論</small><h2>人一起釐清</h2><div class="brainstorm-questions"><span>為誰解決？</span><span>現在的問題是什麼？</span><span>成功結果是什麼？</span></div><p>決議由 PM／PO 整理成 Goal 與工作票。</p></article>
           <div class="compare-transfer">→</div>
-          <article class="brainstorm-side brainstorm-agent"><small>現在：PM Agent＋PO Agent｜#3 互相喜歡才配對</small><h2>人提供方向，Agent 整理內容</h2><div class="agent-responsibilities"><span><b>PM Agent</b>整理問題、使用者結果</span><span><b>PO Agent</b>整理範圍、Goal 與票面</span></div><p><b>人做什麼：</b>提供背景、目標與優先序。</p><div class="brainstorm-output"><span>Brainstorming 決議</span><i>→</i><strong>Product Goal：建立並查看配對</strong><i>→</i><strong>#3 互相喜歡才配對</strong></div></article>
+          <article class="brainstorm-side brainstorm-agent"><small>現在：PM Agent＋PO Agent｜#3 雙向喜歡才配對</small><h2>人提供方向，Agent 整理內容</h2><div class="agent-responsibilities"><span><b>PM Agent</b>整理問題、使用者結果</span><span><b>PO Agent</b>整理範圍、Goal 與票面</span></div><p><b>人做什麼：</b>提供背景、目標與優先序。</p><div class="brainstorm-output"><span>Brainstorming 決議</span><i aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M3 12 H21 M15 6 L21 12 L15 18"/></svg></i><strong>Goal：互相喜歡才算配對成功</strong><i aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M3 12 H21 M15 6 L21 12 L15 18"/></svg></i><strong>#3 雙向喜歡才配對</strong></div></article>
         </div>
       </div>
       <p class="draft-source">李宏毅 2024 第 5 講，20:31–21:41；Stanford CS329T 第 4 講，PDF 第 11–12 頁</p>
@@ -675,7 +615,7 @@
       <h1>Human Gate 固定在 Goal Check 後；PR 人工審查依節奏選擇</h1>
       <div class="visual">
         <div class="gate-routing">
-          <div class="gate-pr"><small>共同起點</small><strong>Pull Request</strong><span>#3 互相喜歡才配對進入 Review／QA</span></div>
+          <div class="gate-pr"><small>共同起點</small><strong>Pull Request</strong><span>#3 雙向喜歡才配對進入 Review／QA</span></div>
           <svg class="gate-branch-desktop" viewBox="0 0 1000 90" preserveAspectRatio="none" aria-hidden="true">
             <defs><marker id="gate-branch-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#83bcff"/></marker></defs>
             <path d="M500 0 C500 42 250 42 250 90" marker-end="url(#gate-branch-arrow)"/>
@@ -706,7 +646,7 @@
       <h1>反例｜Human Gate 被跳過，問題在合併後才被看見</h1>
       <div class="visual">
         <div class="gate-bypass-story">
-          <div class="gate-bypass-rule"><span>教學示例｜#3 互相喜歡才配對的預期關卡</span><strong>Goal Check</strong><i>→</i><b>Human Gate</b><i>→</i><strong>Merge／上線</strong><small>人在 Goal Check 後決定放行或暫停</small></div>
+          <div class="gate-bypass-rule"><span>教學示例｜#3 雙向喜歡才配對的預期關卡</span><strong>Goal Check</strong><i>→</i><b>Human Gate</b><i>→</i><strong>Merge／上線</strong><small>人在 Goal Check 後決定放行或暫停</small></div>
           <div class="gate-bypass-actual">
             <div class="gate-bypass-heading"><span>另一個實際案例｜v7 簡報首版發布 PR #43</span><strong>Human Gate 未守住</strong></div>
             <div class="gate-bypass-timeline">
