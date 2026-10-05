@@ -317,6 +317,7 @@
     <section class="slide rev10-slide compact-dialog-slide" data-section="s4">
       <h1>同一段對話太長，compact 之後資訊會遺失</h1>
       <div class="visual">
+        <p class="term-note">compact：對話太長時，系統把前面的內容自動壓縮成摘要。</p>
         <div class="compact-story">
           <div class="compact-ticket">#3 雙向喜歡才配對</div>
           <div class="compact-timeline" aria-label="同一段對話從 AC 決定、雜訊累積到摘要遺失的時間軸">
@@ -353,6 +354,7 @@
     <section class="slide rev10-slide" data-section="s4">
       <h1>換一個新 session，就看不到前面講過的內容</h1>
       <div class="visual">
+        <p class="term-note">session：一段獨立的對話；開新的對話就是新的 session，看不到前一段的內容。</p>
         <div class="session-story">
           <article class="session-handoff">
             <small>新 session 只收到一段交代</small>
@@ -373,6 +375,7 @@
     <section class="slide rev10-slide" data-section="s4">
       <h1>問題｜#3 雙向喜歡才配對的三種工作，共用同一個 chat 與設定</h1>
       <div class="visual">
+        <p class="term-note">model：用哪一個 AI 模型。<br>effort：讓 AI 想多久、想多深的設定。開越高越慢、越貴。</p>
         <div class="model-problem">
           <article class="model-problem-tasks">
             <small>#3 雙向喜歡才配對｜難度不同</small>
@@ -428,12 +431,20 @@
             <title id="split-title">同一個 Goal 分別交給 Agent A 與 Agent B</title>
             <desc id="split-desc">兩條獨立箭頭從 Goal 中心連到兩張 Agent 卡片的中心上緣。</desc>
             <defs><marker id="split-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#83bcff"/></marker></defs>
-            <path d="M500 0 C500 40 250 45 250 100" marker-end="url(#split-arrow)"/>
-            <path d="M500 0 C500 40 750 45 750 100" marker-end="url(#split-arrow)"/>
+            <path d="M500 0 C500 40 140 45 140 100" marker-end="url(#split-arrow)"/>
+            <path d="M500 0 C500 40 860 45 860 100" marker-end="url(#split-arrow)"/>
           </svg>
-          <div class="specialist-cards">
-            <article><b>Agent A｜配對規則</b><span>只帶本工作必要的 context：#3 雙向喜歡才配對的 AC</span><small>交付一個明確結果：配對規則</small></article>
-            <article><b>Agent B｜配對列表 UI</b><span>只帶本工作必要的 context：#2 配對列表的畫面需求</span><small>交付一個明確結果：配對列表畫面</small></article>
+          <div class="specialist-cards specialist-handoff" aria-label="Agent A 交出交接卡，Agent B 讀取後製作畫面">
+            <article><b>Agent A｜配對規則</b><span>#3 雙向喜歡才配對<br>依這張票的 AC 實作</span><small>把配對結果的格式與一個範例<br>寫在 #3 的 issue／PR 上</small></article>
+            <i class="specialist-transfer" aria-hidden="true">→</i>
+            <article class="specialist-delivery"><b>交接卡｜A 交出，B 讀取</b><dl>
+              <div><dt>目標</dt><dd>讓 #2 能呈現配對結果</dd></div>
+              <div><dt>產物連結</dt><dd>#3 的 issue／PR<br>格式：配對編號、雙方使用者</dd></div>
+              <div><dt>範例</dt><dd>配對編號 M01<br>雙方：小安、小晴（示意）</dd></div>
+              <div><dt>未決事項</dt><dd>列出待確認項目；沒有就寫「無」</dd></div>
+            </dl></article>
+            <i class="specialist-transfer" aria-hidden="true">→</i>
+            <article><b>Agent B｜配對列表 UI</b><span>#2 配對列表<br>讀取交接卡連到的格式與範例</span><small>搭配 #2 的畫面需求<br>做出配對列表畫面</small></article>
           </div>
           <p class="single-first">先從單一 Agent 開始；只有工作需求真的不同時才拆分。模型依任務選用：規則判斷用推理較強的模型；畫面樣板用較輕的模型。</p>
         </div>
@@ -611,7 +622,7 @@
       <p class="draft-source">李宏毅 2024 第 5 講，20:31–21:41；Stanford CS329T 第 4 講，PDF 第 11–12 頁</p>
     </section>
 
-    <section class="slide rev10-slide" data-section="s7">
+    <section class="slide rev10-slide launch-timing-slide" data-section="s7">
       <h1>Human Gate 固定在 Goal Check 後；PR 人工審查依節奏選擇</h1>
       <div class="visual">
         <div class="gate-routing">
@@ -623,8 +634,8 @@
           </svg>
           <div class="gate-mobile-arrow" aria-hidden="true">↓ <span>選一種 PR 審查節奏</span></div>
           <div class="cadence-options">
-            <article class="cadence-card slow-cadence"><small>慢速節奏／重要 release 前</small><h2>人看 PR</h2><p>Reviewer（人）與 QA（人）各自完成檢查；人看 PR 改動。</p><div class="cadence-stages"><span>PR</span><i>→</i><b>Reviewer（人）</b><i>→</i><strong>QA（人）</strong></div><div class="cadence-exit-mobile" aria-hidden="true">↓ <span>Goal Check</span></div></article>
-            <article class="cadence-card fast-cadence"><small>快速節奏</small><h2>Reviewer Agent＋QA Agent</h2><p>PR 由 Agent 檢查；人把注意力放在 Epic／milestone。</p><div class="cadence-stages"><span>PR</span><i>→</i><b>Reviewer Agent</b><i>→</i><strong>QA Agent</strong></div><div class="cadence-exit-mobile" aria-hidden="true">↓ <span>Goal Check</span></div></article>
+            <article class="cadence-card slow-cadence"><small>慢速節奏／重要 release 前</small><h2>人看 PR</h2><p>Reviewer 與 QA 各自檢查，人看 PR 改動。</p><div class="cadence-stages"><span>PR</span><i>→</i><b>Reviewer（人）</b><i>→</i><strong>QA（人）</strong></div><div class="cadence-exit-mobile" aria-hidden="true">↓ <span>Goal Check</span></div></article>
+            <article class="cadence-card fast-cadence"><small>快速節奏</small><h2>Reviewer Agent＋QA Agent</h2><p>Agent 檢查 PR；人關注 Epic／milestone。</p><div class="cadence-stages"><span>PR</span><i>→</i><b>Reviewer Agent</b><i>→</i><strong>QA Agent</strong></div><div class="cadence-exit-mobile" aria-hidden="true">↓ <span>Goal Check</span></div></article>
           </div>
           <div class="gate-mobile-arrow gate-mobile-converge" aria-hidden="true">↘　↙ <span>兩條審查路徑合流至同一 Goal Check</span></div>
           <svg class="gate-converge-desktop" viewBox="0 0 1000 74" preserveAspectRatio="none" aria-hidden="true">
@@ -638,7 +649,11 @@
             <strong>Human Gate</strong><i>→</i><span>Merge／上線</span>
           </div>
         </div>
-        <div class="gate-rule">固定一道 Gate｜人在 Goal Check 後確認 Goal／milestone 是否達成、是否繼續，再進入 Merge／上線。</div>
+        <div class="launch-timeline" aria-label="上線前驗收，上線，上線後量成效">
+          <article><b>上線前｜依 AC 與證據驗收</b><p>Goal Check：這張票有沒有推進 Goal？<br>Human Gate：可不可以上線？</p></article>
+          <i aria-hidden="true">→</i><strong class="launch-point">上線</strong><i aria-hidden="true">→</i>
+          <article><b>上線後｜量成功訊號，判斷 Goal 是否達成</b><p>兩週內 10 對互相喜歡的配對、錯誤配對率維持 0。<br>沒達成：回到 Goal，重新排序或調整（re-anchor）。</p></article>
+        </div>
       </div>
       <p class="draft-source">Stanford CS329T 第 4 講，PDF 第 11–12 頁；Notion 看板指南，步驟 3–5（Human Gate 位置依本簡報定案）</p>
     </section>
@@ -652,11 +667,11 @@
             <div class="gate-bypass-timeline">
               <article class="bypass-step bypass-merge"><small>先發生</small><strong>PR #43 合併，v7 簡報上線</strong><span>未經 Human Gate，首版先對外發布</span></article>
               <i class="bypass-arrow" aria-hidden="true">→</i>
-              <article class="bypass-step bypass-review"><small>上線後</small><strong>Owner 看過首版後指出問題</strong><span>成功訊號把 AC 測試結果當成 Goal 成效</span></article>
+              <article class="bypass-step bypass-review"><small>上線後</small><strong>Owner 看過首版後指出問題</strong><span>把上線前的 AC 測試結果，當成上線後的 Goal 成效</span></article>
               <i class="bypass-arrow" aria-hidden="true">→</i>
-              <article class="bypass-step bypass-correction"><small>修正方向</small><strong>Goal 與 AC 分開</strong><span>成功訊號改為「上線兩週，出現 10 對互相喜歡的配對」</span></article>
+              <article class="bypass-step bypass-correction"><small>修正方向</small><strong>上線前驗收、上線後量成效</strong><span>上線後才量成功訊號：兩週內 10 對互相喜歡的配對、錯誤配對率維持 0。</span></article>
             </div>
-            <div class="gate-bypass-lesson"><strong>少了 Merge 前的 Human Gate</strong><span>錯誤的 Goal 判定沒有在上線前攔下；Owner 看過 v7 上線版後才指出問題。</span></div>
+            <div class="gate-bypass-lesson"><strong>少了 Merge 前的 Human Gate</strong><span>上線前未攔下「把 AC 當成成效」的錯誤說明；Owner 看過 v7 上線版後才指出問題。</span></div>
           </div>
         </div>
       </div>

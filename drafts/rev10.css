@@ -3616,3 +3616,96 @@
   .rev10-draft .slides .chat-role-row { grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr); gap: 8px; padding: 12px; }
   .rev10-draft .slides .chat-role-card { padding: 14px; gap: 8px; }
 }
+
+/* First-use definitions, limited to the three pages that introduce these terms. */
+.rev10-draft .slides .visual > .term-note {
+  flex: 0 0 auto;
+  margin: 0;
+  color: var(--draft-muted);
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+/* A hands an explicit result to B; each arrow has its own empty grid track. */
+.rev10-draft .slides .split-work-slide .specialist-handoff {
+  grid-template-columns: minmax(0, 1fr) 32px minmax(0, 1.25fr) 32px minmax(0, 1fr);
+  gap: 12px;
+}
+.rev10-draft .slides .specialist-handoff > article { min-width: 0; padding: 18px; }
+.rev10-draft .slides .specialist-handoff > .specialist-transfer {
+  display: grid;
+  place-items: center;
+  color: var(--draft-blue);
+  font-size: 30px;
+  font-style: normal;
+}
+.rev10-draft .slides .specialist-handoff > .specialist-delivery {
+  border-color: #53775c;
+  background: #14231b;
+}
+.rev10-draft .slides .specialist-delivery > b { color: var(--draft-green); }
+.rev10-draft .slides .specialist-delivery dl { display: grid; gap: 10px; margin: 0; }
+.rev10-draft .slides .specialist-delivery dl > div {
+  display: grid;
+  grid-template-columns: 4em minmax(0, 1fr);
+  gap: 12px;
+  font-size: 20px;
+  line-height: 1.4;
+}
+.rev10-draft .slides .specialist-delivery dt { color: var(--draft-green); font-weight: 700; }
+.rev10-draft .slides .specialist-delivery dd { margin: 0; overflow-wrap: anywhere; }
+.rev10-draft .slides > .split-work-slide > .visual { min-height: min-content; }
+.rev10-draft .slides .split-work-slide .split-work { grid-template-rows: auto 70px minmax(min-content, 1fr) auto; }
+
+/* Separate release acceptance from outcomes measured after launch. */
+.rev10-draft .slides > .launch-timing-slide > .visual { min-height: min-content; }
+.rev10-draft .slides .launch-timing-slide .gate-routing { flex-shrink: 0; }
+.rev10-draft .slides .launch-timing-slide .launch-timeline {
+  display: grid;
+  flex: 0 0 auto;
+  grid-template-columns: minmax(0, 1fr) 28px auto 28px minmax(0, 1.3fr);
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid #53775c;
+  border-radius: 9px;
+  background: #14231b;
+}
+.rev10-draft .slides .launch-timeline article { min-width: 0; font-size: 20px; }
+.rev10-draft .slides .launch-timeline b { color: var(--draft-green); }
+.rev10-draft .slides .launch-timeline p { margin: 6px 0 0; font-size: 20px; line-height: 1.4; }
+.rev10-draft .slides .launch-timeline > i { color: var(--draft-green); font-size: 28px; font-style: normal; text-align: center; }
+.rev10-draft .slides .launch-timeline .launch-point { white-space: nowrap; color: var(--draft-yellow); }
+
+@media (min-width: 1101px) {
+  .rev10-draft .slides > .launch-timing-slide > .visual { gap: 12px; }
+  .rev10-draft .slides .launch-timing-slide .gate-routing {
+    grid-template-rows: auto 24px minmax(min-content, 1fr) 24px auto 20px auto;
+    gap: 3px;
+  }
+  .rev10-draft .slides .launch-timing-slide :is(.gate-branch-desktop, .gate-converge-desktop) { height: 24px; }
+  .rev10-draft .slides .launch-timing-slide .cadence-card { padding: 12px 18px; }
+}
+
+@media (max-width: 1100px) {
+  .rev10-draft .slides .split-work-slide .specialist-handoff { gap: 8px; grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1.25fr) 24px minmax(0, 1fr); }
+  .rev10-draft .slides .specialist-handoff > article { padding: 12px; }
+  .rev10-draft .slides .specialist-delivery dl > div { grid-template-columns: minmax(0, 1fr); gap: 2px; font-size: 15px; }
+  .rev10-draft .slides .launch-timing-slide .launch-timeline { gap: 8px; padding: 12px; }
+  .rev10-draft .slides .launch-timeline :is(article, p) { font-size: 15px; }
+}
+
+@media (max-width: 700px) {
+  .rev10-draft .slides .visual > .term-note { font-size: 15px; }
+  .rev10-draft .slides .split-work-slide .split-work { grid-template-rows: auto auto auto; gap: 12px; }
+  .rev10-draft .slides .split-work-slide .split-branches { display: none; }
+  .rev10-draft .slides .split-work-slide .specialist-handoff { grid-row: 2; grid-template-columns: minmax(0, 1fr); }
+  .rev10-draft .slides .split-work-slide .single-first { grid-row: 3; }
+  .rev10-draft .slides .specialist-handoff > article { min-height: 0; }
+  .rev10-draft .slides .specialist-handoff > .specialist-transfer { transform: rotate(90deg); }
+  .rev10-draft .slides .specialist-delivery dl > div { grid-template-columns: 4em minmax(0, 1fr); gap: 10px; }
+  .rev10-draft .slides .launch-timing-slide .launch-timeline { grid-template-columns: minmax(0, 1fr); }
+  .rev10-draft .slides .launch-timeline > :is(i, .launch-point) { justify-self: center; }
+  .rev10-draft .slides .launch-timeline > i { transform: rotate(90deg); }
+}
