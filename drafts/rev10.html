@@ -11,18 +11,19 @@
 <body class="rev10-draft">
 <main class="deck">
   <header class="topbar">
-    <div class="brand"><span>Agent 101 · rev10</span><span class="draft-badge">選頁草稿</span></div>
+    <div class="brand"><span>Agent 101 · rev10</span><span class="draft-badge">完整草稿</span></div>
     <nav class="section-rail" aria-label="簡報段落">
       <a href="#1" data-rail="s0" aria-label="第零段：本課的例子：打造一個配對交友 App"><span class="rail-number">0</span><span class="rail-title">本課的例子：打造一個配對交友 App</span></a>
       <a href="#4" data-rail="s1" aria-label="第一段：一個產品是怎麼被做出來的：角色、流程、一張全貌圖"><span class="rail-number">1</span><span class="rail-title">一個產品是怎麼被做出來的：角色、流程、一張全貌圖</span></a>
       <a href="#7" data-rail="s2" aria-label="第二段：版本控制：存檔點、分支、送審、合併"><span class="rail-number">2</span><span class="rail-title">版本控制：存檔點、分支、送審、合併</span></a>
-      <a href="#8" data-rail="s3" aria-label="第三段：從一個想法到上線：需求如何變成票與關卡"><span class="rail-number">3</span><span class="rail-title">從一個想法到上線：需求如何變成票與關卡</span></a>
-      <a href="#12" data-rail="s4" aria-label="第四段：從一問一答到長任務：角色、資訊與交接開始混在一起"><span class="rail-number">4</span><span class="rail-title">從一問一答到長任務：角色、資訊與交接開始混在一起</span></a>
-      <a href="#18" data-rail="s5" aria-label="第五段：多Agent開發：優勢與新問題"><span class="rail-number">5</span><span class="rail-title">多Agent開發：優勢與新問題</span></a>
-      <a href="#24" data-rail="s6" aria-label="第六段：為什麼多 Agent 要配合軟體工程：五個原則"><span class="rail-number">6</span><span class="rail-title">為什麼多 Agent 要配合軟體工程：五個原則</span></a>
-      <a href="#26" data-rail="s7" aria-label="第七段：回顧從 Brainstorming 到上線：Agent與Human的新合作方式"><span class="rail-number">7</span><span class="rail-title">回顧從 Brainstorming 到上線：Agent與Human的新合作方式</span></a>
+      <a href="#14" data-rail="s3" aria-label="第三段：從一個想法到上線：需求如何變成票與關卡"><span class="rail-number">3</span><span class="rail-title">從一個想法到上線：需求如何變成票與關卡</span></a>
+      <a href="#29" data-rail="s4" aria-label="第四段：從一問一答到長任務：角色、資訊與交接開始混在一起"><span class="rail-number">4</span><span class="rail-title">從一問一答到長任務：角色、資訊與交接開始混在一起</span></a>
+      <a href="#35" data-rail="s5" aria-label="第五段：多Agent開發：優勢與新問題"><span class="rail-number">5</span><span class="rail-title">多Agent開發：優勢與新問題</span></a>
+      <a href="#41" data-rail="s6" aria-label="第六段：為什麼多 Agent 要配合軟體工程：五個原則"><span class="rail-number">6</span><span class="rail-title">為什麼多 Agent 要配合軟體工程：五個原則</span></a>
+      <a href="#48" data-rail="s7" aria-label="第七段：回顧從 Brainstorming 到上線：Agent與Human的新合作方式"><span class="rail-number">7</span><span class="rail-title">回顧從 Brainstorming 到上線：Agent與Human的新合作方式</span></a>
+      <a href="#53" data-rail="appendix" aria-label="Appendix：架構六層與 Kanban 回顧"><span class="rail-number">Appendix</span><span class="rail-title">Appendix：架構六層與 Kanban 回顧</span></a>
     </nav>
-    <div class="counter"><span id="current">1</span> / <span id="total">30</span></div>
+    <div class="counter"><span id="current">1</span> / <span id="total">55</span></div>
   </header>
 
   <div class="slides">
@@ -47,9 +48,13 @@
         <div class="match-demo matching-demo">
           <div class="matching-inputs">
             <span class="matching-input-label">#1 Like／Pass</span>
+            <div class="matching-phones">
             <div class="phone phone-a"><span class="phone-label">A 的畫面</span><div class="avatar">B</div><strong>看見 B 的卡片</strong><div class="decision-actions"><span class="pass-button">Pass ×</span><span class="like-button">Like ♥</span></div></div>
             <div class="phone phone-b"><span class="phone-label">B 的畫面</span><div class="avatar avatar-alt">A</div><strong>看見 A 的卡片</strong><div class="decision-actions"><span class="pass-button">Pass ×</span><span class="like-button">Like ♥</span></div></div>
+            </div>
           </div>
+          <span class="matching-group-label matching-result-label">#3 雙向喜歡才配對</span>
+          <span class="matching-group-label matching-list-label">#2 配對列表</span>
           <div class="demo-arrow arrow-first" aria-hidden="true">→</div>
           <article class="match-result match-center"><small>#3 雙向喜歡才配對</small><span class="match-spark">✦</span><strong>互相 Like<br>才 Match</strong><p>雙方都看到 Match</p></article>
           <div class="demo-arrow arrow-second" aria-hidden="true">→</div>
@@ -159,8 +164,115 @@
     <section class="slide section-slide rev10-cover" data-section="s2">
       <div class="cover-mark">02</div><div class="cover-copy"><p class="cover-kicker">第二段</p><h1>版本控制：存檔點、<span class="cover-keep">分支</span>、送審、合併</h1></div>
     </section>
+    <section class="slide rev10-slide carried-slide carried-git" data-section="s2">
+      <h1>Git 與 GitHub</h1>
+      <div class="visual git-metaphor">
+        <article><span class="metaphor-icon">◷</span><h2>Git</h2><p>版本紀錄</p><strong>存檔點</strong></article>
+        <div class="demo-arrow">＋</div>
+        <article><span class="metaphor-icon">▤</span><h2>GitHub</h2><p>共享與審查的平台</p><strong>共享資料夾＋審查室</strong></article>
+      </div>
+    </section>
+    <section class="slide rev10-slide carried-slide carried-git" data-section="s2">
+      <h1>Issue：大需求是 parent，子工作是 sub-issue</h1>
+      <div class="visual">
+        <article class="github-window issue-hierarchy">
+          <div class="window-bar"><span>GitHub · Issues</span><span>大需求與子工作</span></div>
+          <div class="issue-parent-card"><span>Parent issue</span><h2>互相喜歡才算配對成功</h2><p>Parent issue 記錄大需求；sub-issue 拆成能分別處理的子工作。</p></div>
+          <div class="issue-subissue-card"><b>Sub-issues</b><div><span>#1</span><strong>Like／Pass</strong></div><div><span>#2</span><strong>配對列表</strong></div><div class="example-subissue"><span>#3</span><strong>雙向喜歡才配對</strong><em>本課範例</em></div></div>
+        </article>
+      </div>
+    </section>
+    <section class="slide rev10-slide carried-slide carried-git" data-section="s2">
+      <h1>Feature branch</h1>
+      <p class="carried-note">main 是整合大家修改的主分支；commit 是記錄某一版修改的存檔點。</p>
+      <div class="visual branch-diagram">
+        <svg class="git-graph" viewBox="0 0 1000 360" role="img" aria-label="Feature branch 從主分支 main 的存檔點 commit 分出，沿著獨立分支修改">
+          <text class="git-label main-label" x="72" y="112">main</text>
+          <path class="git-line main-line" d="M160 145 H920" />
+          <path class="git-line feature-line" d="M390 145 V270 H835" />
+          <circle class="git-commit" cx="190" cy="145" r="11" />
+          <circle class="git-commit git-origin" cx="390" cy="145" r="12" />
+          <circle class="git-commit" cx="625" cy="145" r="11" />
+          <circle class="git-commit" cx="865" cy="145" r="11" />
+          <circle class="git-commit feature-commit" cx="570" cy="270" r="11" />
+          <circle class="git-commit feature-commit" cx="785" cy="270" r="11" />
+          <text class="git-label feature-label" x="570" y="322">feature/3-mutual-match</text>
+          <text class="git-note" x="120" y="205"><tspan x="120">從 main 的 commit</tspan><tspan x="120" dy="1.2em">分出一份</tspan></text>
+        </svg>
+      </div>
+    </section>
+    <section class="slide rev10-slide carried-slide carried-git" data-section="s2">
+      <h1>Commit：替修改留下一個存檔點</h1>
+      <div class="visual commit-diagram">
+        <div class="branch-context">feature/3-mutual-match · 按「存一版」留下節點</div>
+        <div class="commit-line"><span></span><span></span><span></span></div>
+        <div class="commit-labels"><span>版本 1</span><span>版本 2</span><span>版本 3</span></div>
+        <div class="unsaved"><b>未存的修改</b><span>不會自動存，也看不到、回不去。</span></div>
+      </div>
+    </section>
+    <section class="slide rev10-slide carried-slide carried-git" data-section="s2">
+      <h1>Pull Request</h1>
+      <div class="visual">
+        <article class="github-window">
+          <div class="window-bar"><span>GitHub</span><span>Pull requests / 3</span></div>
+          <h2>雙向喜歡才配對 <span class="open-pill">Open</span></h2>
+          <p class="branch-line">feature/3-mutual-match <span>→</span> main</p>
+          <div class="pr-sections">
+            <div><b>Review</b><span>差異與範圍</span></div><div><b>Discussion</b><span>問題與回覆</span></div><div><b>Evidence</b><span>測試結果</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="slide rev10-slide carried-slide carried-git" data-section="s2">
+      <h1>Merge</h1>
+      <div class="visual merge-diagram">
+        <svg class="git-graph" viewBox="0 0 1000 360" role="img" aria-label="feature branch 從 main 分出，經過兩個 commit 後合回 main">
+          <text class="git-label main-label" x="72" y="112">main</text>
+          <path class="git-line main-line" d="M160 145 H920" />
+          <path class="git-line feature-line" d="M365 145 V270 H650 C735 270 790 220 790 145" />
+          <circle class="git-commit" cx="190" cy="145" r="11" />
+          <circle class="git-commit git-origin" cx="365" cy="145" r="12" />
+          <circle class="git-commit" cx="560" cy="145" r="11" />
+          <circle class="git-commit git-merge" cx="790" cy="145" r="13" />
+          <circle class="git-commit" cx="900" cy="145" r="11" />
+          <circle class="git-commit feature-commit" cx="500" cy="270" r="11" />
+          <circle class="git-commit feature-commit" cx="650" cy="270" r="11" />
+          <text class="git-label feature-label" x="500" y="322">feature/3-mutual-match</text>
+          <text class="git-note merge-note" x="895" y="205">合回 main</text>
+        </svg>
+        <div class="restore-note">Merge：把審過的分支合回 main；舊版仍可回復。</div>
+      </div>
+    </section>
     <section class="slide section-slide rev10-cover" data-section="s3">
       <div class="cover-mark">03</div><div class="cover-copy"><p class="cover-kicker">第三段</p><h1>從一個想法到上線：需求如何變成票與關卡</h1></div>
+    </section>
+    <section class="slide rev10-slide carried-slide" data-section="s3">
+      <h1>Brainstorming：從問題形成 Goal</h1>
+      <div class="visual brainstorming-visual">
+        <div class="sticky-wall">
+          <div class="sticky">為誰？<small>想找到互相喜歡對象的使用者</small></div>
+          <div class="sticky">問題？<small>單向喜歡不能算配對</small></div>
+          <div class="sticky">方案？<small>雙方 Like 才 Match</small></div>
+          <div class="sticky">這輪先不選<small>聊天、推薦</small></div>
+        </div>
+        <div class="goal-output"><span>形成 parent Goal / Epic</span><i class="diagram-arrow" aria-hidden="true"></i><strong>互相喜歡才算配對成功</strong></div>
+      </div>
+    </section>
+    <section class="slide rev10-slide carried-slide process-step" data-section="s3">
+      <h1>一個好的 Goal 長怎樣</h1>
+      <div class="visual step-visual">
+        <article class="goal-example-card">
+          <div class="artifact-head"><span>GOAL / EPIC ISSUE · PARENT</span><span>不是 workflow state</span></div>
+          <h2>讓互相喜歡的兩人能確認配對成功</h2>
+          <div class="goal-example-grid">
+            <div><b>成功訊號（上線後）</b><p>上線兩週，出現 10 對互相喜歡的配對（教學範例，門檻依現況設定）。</p></div>
+            <div><b>護欄訊號</b><p>錯誤配對率＝0（核對錯配紀錄）。</p></div>
+            <div><b>這輪不做</b><p>聊天、推薦、解除配對。</p></div>
+            <div><b>好 Goal 的條件</b><p>結果導向／可驗證／範圍清楚</p></div>
+          </div>
+          <p class="bad-goal"><b>壞 Goal：</b>做完喜歡、配對、聊天功能。</p>
+        </article>
+      </div>
     </section>
     <section class="slide rev10-slide" data-section="s3">
       <h1>Goal 拆成三張實作子票：#3 雙向喜歡才配對先於 #2</h1>
@@ -190,9 +302,9 @@
               <div><b>Context／Why</b><span>單向 Like 不算配對；雙方都 Like 才建立 Match。</span></div>
               <div><b>Goal linkage</b><span>支援「讓互相喜歡的兩人能確認配對成功」</span></div>
               <div><b>Scope</b><span>建立雙方共用的 Match 結果。</span></div>
-              <div><b>AC</b><span>A｜A 喜歡 B：不配對；B｜B 也喜歡 A：成功配對；C｜重複喜歡：不重複配對。</span></div>
+              <div><b>AC</b><span>A 喜歡 B：不配對；B 也喜歡 A：成功配對；重複喜歡：不重複配對。</span></div>
               <div><b>Out of Scope</b><span>聊天、推薦、解除配對。</span></div>
-              <div><b>Required Evidence</b><span>A／B／C 三情境測試結果；確認雙方看到 Match，且只建立一次。</span></div>
+              <div><b>Required Evidence</b><span>三種情境的測試結果；確認雙方看到 Match，且只建立一次。</span></div>
             </div>
           </div>
           <aside class="bad-ticket"><small>壞票</small><strong>做配對功能</strong><span>沒有脈絡、範圍或可核對的結果</span></aside>
@@ -201,6 +313,165 @@
       </div>
     </section>
 
+    <section class="slide rev10-slide carried-slide" data-section="s3">
+      <h1>看板先登場：Goal 是泳道，三張子票在 Backlog</h1>
+      <div class="visual">
+        <div class="full-board">
+          <div class="full-goal-lane"><b>Goal / Epic｜互相喜歡才算配對成功</b><span>Parent issue · 泳道標題，不佔欄位</span></div>
+          <div class="full-board-columns">
+            <section class="full-column active-column"><h3>Backlog</h3><article>#1｜Like／Pass</article><article>#2｜配對列表</article><article class="example-subissue">#3｜雙向喜歡才配對</article></section>
+            <section class="full-column"><h3>Ready</h3></section><section class="full-column"><h3>Dev</h3></section><section class="full-column"><h3>Review</h3></section><section class="full-column"><h3>QA</h3></section><section class="full-column"><h3>Product Check</h3></section><section class="full-column"><h3>Done</h3></section>
+          </div>
+          <div class="full-board-foot"><b>WIP=1：同時只推進一張票</b><span>先做 #3：它是核心配對規則；#1／#2 是較簡單 UI，#3 可用測試資料獨立驗證。</span></div>
+        </div>
+      </div>
+    </section>
+    <section class="slide rev10-slide carried-slide carried-station process-step" data-section="s3">
+      <h1>Ticket Refinement / Backlog</h1>
+      <div class="visual step-visual">
+        <div class="mini-board" data-stage="backlog" aria-label="Goal 泳道看板，#3 位於 Backlog">
+          <div class="mini-goal-lane"><b>Goal / Epic｜互相喜歡才算配對成功</b><span>parent issue · 泳道標題</span></div>
+          <div class="mini-board-columns"><div class="mini-column"><h3 class="mini-column-head current">Backlog</h3><article class="mini-ticket " data-ticket="1"><span>#1</span><b>Like／Pass</b><small>等待 Refinement</small></article><article class="mini-ticket " data-ticket="2"><span>#2</span><b>配對列表</b><small>等待 Refinement</small></article><article class="mini-ticket ticket-current" data-ticket="3"><span>#3</span><b>雙向喜歡才配對</b><small>Refinement</small></article></div><div class="mini-column"><h3 class="mini-column-head">Ready</h3></div><div class="mini-column"><h3 class="mini-column-head">Dev</h3></div><div class="mini-column"><h3 class="mini-column-head">Review</h3></div><div class="mini-column"><h3 class="mini-column-head">QA</h3></div><div class="mini-column"><h3 class="mini-column-head">Product Check</h3></div><div class="mini-column"><h3 class="mini-column-head">Done</h3></div></div>
+          <div class="mini-board-note"><b>WIP=1</b><span>#3 在 Backlog；#1、#2 在 Backlog 等待</span></div>
+        </div>
+        <article class="ticket refinement-ticket">
+          <div class="ticket-title"><span>SUB-ISSUE #3</span><strong>雙向喜歡才配對</strong><span class="ticket-state backlog-state">BACKLOG</span></div>
+          <div class="refinement-grid">
+            <div><b>Title</b><p>雙向喜歡才配對</p></div>
+            <div><b>Context / Why</b><p>單向喜歡不能算配對。</p></div>
+            <div><b>Goal linkage</b><p>支援「互相喜歡才算配對成功」。</p></div>
+            <div><b>Scope</b><p>判斷雙向喜歡並建立配對。</p></div>
+            <div class="refinement-ac"><b>Acceptance Criteria（AC）</b><p>AC 寫出每種情境應有的結果，QA 可逐條核對：<br>單向喜歡｜A 喜歡 B → 不配對<br>雙向喜歡｜B 也喜歡 A → 成功配對<br>重複喜歡 → 不重複配對</p></div>
+            <div><b>Out of Scope</b><p>聊天、推薦、解除配對。</p></div>
+            <div><b>Required Evidence</b><p>單向喜歡、雙向喜歡、重複喜歡的測試結果。</p></div>
+          </div>
+        </article>
+        <p class="ticket-rule-note">AC 說明功能怎樣才算做對；DoD 是所有票共用的完工標準；Out-of-scope 是這次不做的事。</p>
+      </div>
+    </section>
+    <section class="slide rev10-slide carried-slide carried-station process-step" data-section="s3">
+      <h1>Ready</h1>
+      <p class="step-question step-intro">Ticket 是否寫得足以開始？</p>
+      <div class="visual step-visual">
+        <div class="mini-board" data-stage="ready" aria-label="Goal 泳道看板；#3 先進 Ready，#1 和 #2 完成相同 Refinement 後移入 Ready">
+          <div class="mini-goal-lane"><b>Goal / Epic｜互相喜歡才算配對成功</b><span>parent issue · 泳道標題</span></div>
+          <div class="mini-board-columns"><div class="mini-column"><h3 class="mini-column-head">Backlog</h3><article class="mini-ticket ticket-backlog-origin" data-ticket="1"><span>#1</span><b>Like／Pass</b><small>等待 Refinement</small></article><article class="mini-ticket ticket-backlog-origin" data-ticket="2"><span>#2</span><b>配對列表</b><small>等待 Refinement</small></article></div><div class="mini-column"><h3 class="mini-column-head current">Ready</h3><article class="mini-ticket ticket-current" data-ticket="3"><span>#3</span><b>雙向喜歡才配對</b><small>準備開工</small></article><article class="mini-ticket refined-ticket fragment ready-move-one" data-ticket="1"><span>#1</span><b>Like／Pass</b><small>Ready</small></article><article class="mini-ticket refined-ticket fragment ready-move-two" data-ticket="2"><span>#2</span><b>配對列表</b><small>Ready</small></article></div><div class="mini-column"><h3 class="mini-column-head">Dev</h3></div><div class="mini-column"><h3 class="mini-column-head">Review</h3></div><div class="mini-column"><h3 class="mini-column-head">QA</h3></div><div class="mini-column"><h3 class="mini-column-head">Product Check</h3></div><div class="mini-column"><h3 class="mini-column-head">Done</h3></div></div>
+          <div class="mini-board-note"><b>WIP=1</b><span>先推進 #3</span></div>
+        </div>
+        <p class="refinement-move-note fragment ready-move-note">#1、#2 完成相同 Refinement 後移入 Ready。</p>
+        <article class="ready-card refined-ready">
+          <div class="ready-title"><span>SUB-ISSUE #3</span><strong>雙向喜歡才配對</strong><span class="ready-pill">Ready</span></div>
+          <ul class="checklist"><li><span>✓</span>PM／PO 與 Dev 都認定清楚</li><li><span>✓</span>Why、Goal linkage、Scope、AC 完整且可驗</li><li><span>✓</span>Out of Scope 明確</li><li><span>✓</span>依賴無阻擋（用測試資料）；Required Evidence 已確認</li><li><span>✓</span>範圍夠小，可作為一張 ticket</li></ul>
+        </article>
+      </div>
+    </section>
+    <section class="slide rev10-slide carried-slide carried-station process-step" data-section="s3">
+      <h1>Developer</h1>
+      <p class="carried-note git-callback">Developer＝第 2 段的 branch＋commit：在分支實作，逐版留下修改。</p>
+      <div class="visual step-visual">
+        <div class="mini-board" data-stage="dev" aria-label="Goal 泳道看板，#3 位於 Dev">
+          <div class="mini-goal-lane"><b>Goal / Epic｜互相喜歡才算配對成功</b><span>parent issue · 泳道標題</span></div>
+          <div class="mini-board-columns"><div class="mini-column"><h3 class="mini-column-head">Backlog</h3></div><div class="mini-column"><h3 class="mini-column-head">Ready</h3><article class="mini-ticket " data-ticket="1"><span>#1</span><b>Like／Pass</b><small>Ready｜等 #3</small></article><article class="mini-ticket " data-ticket="2"><span>#2</span><b>配對列表</b><small>Ready｜等 #3</small></article></div><div class="mini-column"><h3 class="mini-column-head current">Dev</h3><article class="mini-ticket ticket-current" data-ticket="3"><span>#3</span><b>雙向喜歡才配對</b><small>進行中</small></article></div><div class="mini-column"><h3 class="mini-column-head">Review</h3></div><div class="mini-column"><h3 class="mini-column-head">QA</h3></div><div class="mini-column"><h3 class="mini-column-head">Product Check</h3></div><div class="mini-column"><h3 class="mini-column-head">Done</h3></div></div>
+          <div class="mini-board-note"><b>WIP=1</b><span>#1、#2 已完成相同 Refinement，在 Ready 等待；目前只推進 #3。</span></div>
+        </div>
+        <article class="github-window developer-artifact">
+          <div class="window-bar"><span>GitHub · Pull requests</span><span>Issue #3</span></div>
+          <h2>雙向喜歡才配對 <span class="open-pill">Open PR</span></h2>
+          <div class="dev-path"><span>Ready ticket</span><b>→</b><span>branch<br><code>feature/3-mutual-match</code></span><b>→</b><span>commit</span><b>→</b><span>PR</span></div>
+          <p>只實作 #3 範圍，PR 附變更說明與自我檢查。</p>
+          <p class="developer-terms">branch 是隔離修改的副本；commit 是存下的一版；PR 是送交審查的改動。</p>
+        </article>
+      </div>
+    </section>
+    <section class="slide rev10-slide carried-slide carried-station process-step" data-section="s3">
+      <h1>PR Review</h1>
+      <p class="carried-note git-callback">PR Review＝審查第 2 段的 Pull Request：檢查改動，必要時退回修正。</p>
+      <div class="visual step-visual">
+        <div class="mini-board" data-stage="review" aria-label="Goal 泳道看板，#3 位於 Review">
+          <div class="mini-goal-lane"><b>Goal / Epic｜互相喜歡才算配對成功</b><span>parent issue · 泳道標題</span></div>
+          <div class="mini-board-columns"><div class="mini-column"><h3 class="mini-column-head">Backlog</h3></div><div class="mini-column"><h3 class="mini-column-head">Ready</h3><article class="mini-ticket " data-ticket="1"><span>#1</span><b>Like／Pass</b><small>Ready｜等 #3</small></article><article class="mini-ticket " data-ticket="2"><span>#2</span><b>配對列表</b><small>Ready｜等 #3</small></article></div><div class="mini-column"><h3 class="mini-column-head">Dev</h3></div><div class="mini-column"><h3 class="mini-column-head current">Review</h3><article class="mini-ticket ticket-current" data-ticket="3"><span>#3</span><b>雙向喜歡才配對</b><small>目前位置：重新送審</small></article></div><div class="mini-column"><h3 class="mini-column-head">QA</h3></div><div class="mini-column"><h3 class="mini-column-head">Product Check</h3></div><div class="mini-column"><h3 class="mini-column-head">Done</h3></div></div>
+          <div class="mini-board-return">
+            <span>Request changes：Review 退回 Developer；修正後重新送審</span>
+            <svg viewBox="0 0 1360 48" preserveAspectRatio="none" role="img" aria-label="Request changes 從 Review 退回 Developer"><defs><marker id="board-review-head" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#ff9289" stroke-width="2.2" /></marker></defs><path d="M680 -5 C680 40 488 40 488 -5" marker-end="url(#board-review-head)" /><rect class="return-label-bg" x="24" y="5" width="400" height="23" rx="6" /><text x="224" y="22" text-anchor="middle">Request changes · Review 退回 Developer</text></svg>
+          </div>
+          <div class="mini-board-note"><b>WIP=1</b><span>#3 在 Review；修正後重新送審；#1、#2 等待</span></div>
+        </div>
+        <article class="github-window pr-review-artifact">
+          <div class="window-bar"><span>GitHub · Pull Request #3</span><span>Review thread</span></div>
+          <div class="review-context"><strong>Reviewer · 第一次審查</strong><span class="request-pill">Request changes</span></div>
+          <div class="review-comment"><span class="comment-avatar">R</span><div><p>多做了聊天室，超出 #3 範圍。</p><span class="comment-action">請移除聊天室；退回 Developer。</span></div></div>
+          <div class="review-retry"><span>Developer 修正：移除聊天室</span><i class="diagram-arrow" aria-hidden="true"></i><b>重新送審 · Review pass → QA</b></div>
+          <p class="review-criteria">檢查 code、architecture、regression、maintainability。</p>
+        </article>
+      </div>
+    </section>
+    <section class="slide rev10-slide carried-slide carried-station process-step" data-section="s3">
+      <h1>QA / Verification</h1>
+      <p class="step-question step-intro">CI 是每個 PR 都會自動執行的檢查；QA 依 AC 驗證實際行為與邊界。</p>
+      <div class="visual step-visual">
+        <div class="mini-board" data-stage="qa" aria-label="Goal 泳道看板；只有一張進行中的 #3 位於 QA，Dev 的淡化卡是較早位置">
+          <div class="mini-goal-lane"><b>Goal / Epic｜互相喜歡才算配對成功</b><span>parent issue · 泳道標題</span></div>
+          <div class="mini-board-columns"><div class="mini-column"><h3 class="mini-column-head">Backlog</h3></div><div class="mini-column"><h3 class="mini-column-head">Ready</h3><article class="mini-ticket " data-ticket="1"><span>#1</span><b>Like／Pass</b><small>Ready｜等 #3</small></article><article class="mini-ticket " data-ticket="2"><span>#2</span><b>配對列表</b><small>Ready｜等 #3</small></article></div><div class="mini-column"><h3 class="mini-column-head">Dev</h3></div><div class="mini-column"><h3 class="mini-column-head">Review</h3></div><div class="mini-column"><h3 class="mini-column-head current">QA</h3><article class="mini-ticket ticket-current" data-ticket="3"><span>#3</span><b>雙向喜歡才配對</b><small>目前位置：重測 PASS</small></article></div><div class="mini-column"><h3 class="mini-column-head">Product Check</h3></div><div class="mini-column"><h3 class="mini-column-head">Done</h3></div></div>
+          <div class="mini-board-return qa-cycle"><span>單向喜歡初測：FAIL → Dev 修正 → QA 重測：PASS</span></div>
+          <div class="mini-board-note"><b>WIP=1</b><span>#3 目前在 QA；#1、#2 等待</span></div>
+        </div>
+        <div class="qa-artifact">
+          <table class="data-table qa-evidence-table">
+            <thead><tr><th>驗收情境</th><th>預期行為</th><th>證據</th><th>狀態</th></tr></thead>
+            <tbody>
+              <tr><th>單向喜歡</th><td>A 喜歡 B，B 未喜歡 A → 不配對</td><td>初測：顯示 Match；修正後重測：未顯示 Match</td><td><span class="fail">初測 FAIL</span><br><span class="pass">重測 PASS</span></td></tr>
+              <tr><th>雙向喜歡</th><td>B 也喜歡 A → 成功配對</td><td>雙方顯示 Match</td><td class="pass">PASS</td></tr>
+            <tr><th>重複喜歡</th><td>重複喜歡 → 不重複配對</td><td>只有一筆配對</td><td class="pass">PASS</td></tr>
+          </tbody>
+          </table>
+          <p class="qa-implementation-note">三種情境以測試資料驗證 #3；#1、#2 尚未完成，使用者還不能在產品中真實配對。</p>
+          <p class="qa-status-legend">狀態：<b class="pass">PASS</b>／<b class="fail">FAIL</b>／<b class="not-run">NOT RUN</b></p>
+        </div>
+      </div>
+    </section>
+    <section class="slide rev10-slide carried-slide carried-station process-step" data-section="s3">
+      <h1>Product / Goal Check</h1>
+      <p class="step-question step-intro">上線前判斷：這張票會推進 Goal 嗎？</p>
+      <div class="visual step-visual">
+        <div class="mini-board" data-stage="product-check" aria-label="Goal 泳道看板，#3 位於 Product Check">
+          <div class="mini-goal-lane"><b>Goal / Epic｜互相喜歡才算配對成功</b><span>parent issue · 泳道標題</span></div>
+          <div class="mini-board-columns"><div class="mini-column"><h3 class="mini-column-head">Backlog</h3></div><div class="mini-column"><h3 class="mini-column-head">Ready</h3><article class="mini-ticket " data-ticket="1"><span>#1</span><b>Like／Pass</b><small>Ready｜等 #3</small></article><article class="mini-ticket " data-ticket="2"><span>#2</span><b>配對列表</b><small>Ready｜等 #3</small></article></div><div class="mini-column"><h3 class="mini-column-head">Dev</h3></div><div class="mini-column"><h3 class="mini-column-head">Review</h3></div><div class="mini-column"><h3 class="mini-column-head">QA</h3></div><div class="mini-column"><h3 class="mini-column-head current">Product Check</h3><article class="mini-ticket ticket-current" data-ticket="3"><span>#3</span><b>雙向喜歡才配對</b><small>目前位置：檢查中</small></article></div><div class="mini-column"><h3 class="mini-column-head">Done</h3></div></div>
+          <div class="mini-board-return">
+            <span>goal / problem issue：Product Check 退回 Ticket Refinement / Goal</span>
+            <svg viewBox="0 0 1360 48" preserveAspectRatio="none" role="img" aria-label="Goal 或問題不成立時，從 Product Check 退回 Ticket Refinement / Goal"><defs><marker id="board-goal-head" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#f2cf76" stroke-width="2.2" /></marker></defs><path d="M1075 -5 C1075 40 98 40 98 -5" marker-end="url(#board-goal-head)" /><rect class="return-label-bg goal-return-label-bg" x="375" y="5" width="400" height="23" rx="6" /><text x="575" y="22" text-anchor="middle">goal / problem issue · Ticket Refinement / Goal</text></svg>
+          </div>
+          <div class="mini-board-note"><b>WIP=1</b><span>#3 目前在 Product Check；goal／problem issue 可退回 Refinement；#1、#2 等待</span></div>
+        </div>
+        <div class="goal-check-layout">
+          <div class="goal-check-questions"><ol><li>這在解 Goal 的問題嗎？</li><li>做完會推進成功訊號嗎？</li><li>現在仍是最高優先嗎？</li></ol><strong>PO／PM 確認三題都「是」後接受。</strong><br><span>接受後 → merge 回 main → 上線檢查 → 關閉子票。</span></div>
+          <div class="goal-check-returns">
+            <blockquote><b>若發現：</b>「功能完全符合 AC，但這根本不是我們現在需要的東西。」</blockquote>
+            <div class="goal-check-routes">
+              <article><span>implementation issue</span><i class="diagram-arrow" aria-hidden="true"></i><b>Developer</b></article>
+              <article><span>goal / problem issue</span><i class="diagram-arrow" aria-hidden="true"></i><b>Ticket Refinement / Goal</b></article>
+            </div>
+          </div>
+          <p class="goal-check-note">上線前只判斷這張票是否推進 Goal；Goal 是否達成，要看上線後訊號：兩週 10 對互相喜歡，錯誤配對率＝0。</p>
+        </div>
+      </div>
+    </section>
+    <section class="slide rev10-slide carried-slide carried-station process-step" data-section="s3">
+      <h1>Done</h1>
+      <p class="carried-note git-callback">Done 接回第 2 段的 Merge：通過關卡後合回 main，上線檢查後關閉子票。</p>
+      <p class="step-question step-intro">Ticket #3 完成了；整個 Goal 還沒達成。</p>
+      <div class="visual step-visual">
+        <div class="mini-board" data-stage="done" aria-label="Goal 泳道看板，#3 位於 Done">
+          <div class="mini-goal-lane"><b>Goal / Epic｜互相喜歡才算配對成功</b><span>parent issue · 泳道標題</span></div>
+          <div class="mini-board-columns"><div class="mini-column"><h3 class="mini-column-head">Backlog</h3></div><div class="mini-column"><h3 class="mini-column-head">Ready</h3><article class="mini-ticket " data-ticket="1"><span>#1</span><b>Like／Pass</b><small>Ready｜等 #3</small></article><article class="mini-ticket " data-ticket="2"><span>#2</span><b>配對列表</b><small>Ready｜等 #3</small></article></div><div class="mini-column"><h3 class="mini-column-head">Dev</h3></div><div class="mini-column"><h3 class="mini-column-head">Review</h3></div><div class="mini-column"><h3 class="mini-column-head">QA</h3></div><div class="mini-column"><h3 class="mini-column-head">Product Check</h3></div><div class="mini-column"><h3 class="mini-column-head current">Done</h3><article class="mini-ticket ticket-current" data-ticket="3"><span>#3</span><b>雙向喜歡才配對</b><small>Closed</small></article></div></div>
+          <div class="mini-board-note"><b>WIP=1</b><span>#3 在 Done；#1、#2 在 Ready 等待</span></div>
+        </div>
+        <div class="done-summary">
+          <article class="closed-issue"><span>SUB-ISSUE #3</span><strong>雙向喜歡才配對</strong><b>Closed ✓</b></article>
+          <div><p>三種情境測試通過；產品接受後，#3 已 merge 回 main、上線並完成上線檢查，再關閉子票。</p><strong>Project-wide DoD（所有 ticket 共用）</strong><ul class="project-dod"><li>PR 已審查</li><li>上線後檢查</li><li>沒有超出範圍</li><li>既有功能沒壞</li></ul></div>
+        </div>
+        <p class="goal-not-done-note">Goal 達成要看上線後訊號：兩週內 10 對互相喜歡、錯誤配對率為 0；目前 #1／#2 尚未完成，Goal 還沒達成。</p>
+      </div>
+    </section>
     <section class="slide rev10-slide" data-section="s3">
       <h1>總回顧：票沿看板前進，動作留下在 GitHub</h1>
       <div class="visual recap-visual">
@@ -276,6 +547,14 @@
       </div>
     </section>
 
+    <section class="slide rev10-slide carried-slide" data-section="s3">
+      <h1>Sprint 與 Kanban：固定節奏與持續拉票</h1>
+      <div class="visual compare-cards">
+        <article class="compare-card"><span class="compare-tag">Sprint</span><h2>固定時間盒</h2><p>在固定週期內規劃與檢視一批工作。</p></article>
+        <article class="compare-card highlighted"><span class="compare-tag">本課：Kanban</span><h2>持續拉票</h2><p>工作持續流動；本例一次只做一張（WIP=1）。</p></article>
+        <p class="compare-note">Kanban 管工作流動，不限定票型；User Story 是用使用者角度寫需求，起源於 XP，Scrum／Kanban 不強制使用。</p>
+      </div>
+    </section>
     <section class="slide section-slide rev10-cover" data-section="s4">
       <div class="cover-mark">04</div><div class="cover-copy"><p class="cover-kicker">第四段</p><h1>從一問一答到長任務：<span class="cover-keep">角色</span>、資訊與交接開始<span class="cover-keep">混在一起</span></h1></div>
     </section>
@@ -320,11 +599,11 @@
         <p class="term-note">compact：對話太長時，系統把前面的內容自動壓縮成摘要。</p>
         <div class="compact-story">
           <div class="compact-ticket">#3 雙向喜歡才配對</div>
-          <div class="compact-timeline" aria-label="同一段對話從 AC 決定、雜訊累積到摘要遺失的時間軸">
+          <div class="compact-timeline" aria-label="同一段對話從規則決定、雜訊累積到摘要遺失的時間軸">
             <article class="compact-step compact-step-decision">
-              <header><span>01</span><strong>先在對話中定下 AC C</strong></header>
-              <div class="compact-chat compact-chat-po"><small>PO｜票面決定</small><p>「AC C：重複喜歡不重複配對。」</p></div>
-              <div class="compact-chat compact-chat-agent"><small>Agent｜確認</small><p>「收到：重複喜歡不重複配對。」</p></div>
+              <header><span>01</span><strong>先在對話中定下規則</strong></header>
+              <div class="compact-chat compact-chat-po"><small>PO｜票面決定</small><p>「規則：同一對重複按 Like，不會再配對一次。」</p></div>
+              <div class="compact-chat compact-chat-agent"><small>Agent｜確認</small><p>「收到：同一對只配對一次。」</p></div>
             </article>
             <i class="compact-time-arrow" aria-hidden="true">→</i>
             <article class="compact-step compact-step-noise">
@@ -334,9 +613,9 @@
             </article>
             <i class="compact-time-arrow" aria-hidden="true">→</i>
             <article class="compact-step compact-step-summary">
-              <header><span>03</span><strong>compact 摘要漏掉 AC C</strong></header>
+              <header><span>03</span><strong>compact 摘要漏掉規則</strong></header>
               <div class="compact-chat compact-chat-summary"><small>Agent｜摘要</small><p>「Goal：互相喜歡才算配對成功。」</p></div>
-              <strong class="compact-missing">摘要裡沒有 AC C「重複喜歡不重複配對」</strong>
+              <strong class="compact-missing">摘要漏掉「不重複配對」這條規則</strong>
             </article>
             <i class="compact-time-arrow" aria-hidden="true">→</i>
             <article class="compact-outcome">
@@ -346,7 +625,7 @@
             </article>
           </div>
         </div>
-        <p class="context-note">同一段對話的時間順序：AC C 被說定 → 工具與其他討論進來 → compact 摘要漏掉 AC C → 重複配對。</p>
+        <p class="context-note">先定下「不重複配對」規則 → 工具與其他討論進來 → compact 摘要漏掉規則 → 重複配對。</p>
       </div>
       <p class="draft-source">李宏毅 2025 秋 Agent 講義，PDF 第 67–68 頁；李宏毅 2026 AI Agent 1/3，約 17:38（Context Collapse）</p>
     </section>
@@ -457,8 +736,8 @@
       <div class="visual">
         <div class="coordination-problems">
           <div class="coordination-ticket">案例票｜#3 雙向喜歡才配對</div>
-          <article><small>問題一｜交接失真</small><h2>AC C 沒交給下一站</h2><div class="handoff-card"><span><b>Goal</b>讓互相喜歡的兩人能確認配對成功</span><i aria-hidden="true">→</i><span><b>交接摘要</b>只寫雙向喜歡</span><i aria-hidden="true">→</i><strong>漏掉 AC C<br>重複喜歡不重複配對</strong></div><p>Dev 看不到重複 Like 的限制，可能再建立一筆 Match。</p></article>
-          <article><small>問題二｜互相衝突</small><h2>同一規則，兩種實作</h2><div class="conflict-card"><span>Agent A<br>再次 Like 就再建 Match</span><b>↔</b><span>Agent B<br>依 AC C 不重複配對</span></div><p>兩邊對重複 Like 的處理不同，整合時出現重複 Match。</p></article>
+          <article><small>問題一｜交接失真</small><h2>「不重複配對」規則沒交接</h2><div class="handoff-card"><span><b>Goal</b>讓互相喜歡的兩人能確認配對成功</span><i aria-hidden="true">→</i><span><b>交接摘要</b>只寫雙向喜歡</span><i aria-hidden="true">→</i><strong>漏掉規則<br>同一對不重複配對</strong></div><p>Dev 看不到重複 Like 的限制，可能再建立一筆 Match。</p></article>
+          <article><small>問題二｜互相衝突</small><h2>同一規則，兩種實作</h2><div class="conflict-card"><span>Agent A<br>再次 Like 就再建 Match</span><b>↔</b><span>Agent B<br>依規則不重複配對</span></div><p>兩邊對重複 Like 的處理不同，整合時出現重複 Match。</p></article>
         </div>
       </div>
       <p class="draft-source">LangChain〈Benchmarking Multi-Agent Architectures〉，Results &amp; Analysis／Improvements to supervisor；Stanford HAI〈AI Coding Agents Fail at Teamwork〉，Critical Skills／Talk Is Cheap；Cognition（多 Agent 協調失敗案例）｜案例：#3 雙向喜歡才配對</p>
@@ -470,7 +749,7 @@
         <div class="rework-silo">
           <div class="coordination-ticket">案例票｜#3 雙向喜歡才配對</div>
           <article class="rework-panel"><small>可查證的協作問題</small><h2>同一份配對規則做兩次</h2><div class="duplicate-work"><span>Agent A：實作雙向 Like → Match</span><span>Agent B：又寫一次互相 Like 判斷</span><i>重做「雙向喜歡才配對」規則</i></div></article>
-          <article class="silo-panel"><small>社群經驗</small><h2>看不到 AC C 的進度</h2><div class="silo-cards"><span>Agent A<br>AC A／B 已測<br>AC C 尚未交接</span><b>×</b><span>Agent B<br>看板沒記錄 AC C<br>不確定是否要重測</span></div></article>
+          <article class="silo-panel"><small>社群經驗</small><h2>看不到「不重複配對」的進度</h2><div class="silo-cards"><span>Agent A<br>其他規則已測<br>「不重複配對」尚未交接</span><b>×</b><span>Agent B<br>看板沒記錄<br>「不重複配對」<br>不確定是否要重測</span></div></article>
         </div>
       </div>
       <p class="draft-source">Stanford HAI〈AI Coding Agents Fail at Teamwork〉，Talk Is Cheap（重複工作）；社群經驗（資訊孤島）｜案例：#3 雙向喜歡才配對</p>
@@ -510,6 +789,49 @@
       <p class="draft-source">李宏毅 2026 講義，PDF 第 47–52 頁；Stanford CS329A，42:21–42:45、47:03–47:24；李宏毅 2024 Agent 講義，PDF 第 10 頁｜案例：#3 雙向喜歡才配對</p>
     </section>
 
+    <section class="slide rev10-slide carried-slide carried-principle" data-section="s6">
+      <h1>External task state</h1>
+      <div class="visual state-compare">
+        <article class="chat-state"><span class="state-icon" aria-hidden="true">…</span><b>Chat-driven｜靠對話推進</b><p>狀態藏在對話裡</p></article>
+        <div class="demo-arrow">→</div>
+        <article class="issue-state"><span class="state-icon">#3</span><b>Work-driven｜依票上狀態推進</b><p>GitHub Issue／看板留下工作狀態</p><strong>新 Session 讀票，不讀聊天</strong></article>
+      </div>
+    </section>
+    <section class="slide rev10-slide carried-slide carried-principle" data-section="s6">
+      <h1>Bounded execution</h1>
+      <div class="visual boundary-visual">
+        <article class="ticket boundary-ticket">
+          <div class="ticket-title"><span>ISSUE #3</span><strong>雙向喜歡才配對</strong></div>
+          <div class="boundary-boxes"><div><b>AC</b><span>單向不配對、雙向才配對、重複不增筆</span></div><div><b>Out-of-scope</b><span>聊天、推薦、解除配對</span></div><div><b>Stop rule</b><span>超出核准範圍，先停下</span></div><div class="wip-box"><b>WIP=1</b><span>一次只做一張</span></div></div>
+        </article>
+      </div>
+    </section>
+    <section class="slide rev10-slide carried-slide carried-principle" data-section="s6">
+      <h1>Role separation</h1>
+      <div class="visual role-cards">
+        <article><span class="role-avatar">P</span><b>PO/PM Agent</b><span>規劃與接受</span></article>
+        <article><span class="role-avatar">D</span><b>Developer Agent</b><span>依票實作</span></article>
+        <article><span class="role-avatar">R</span><b>PR Review Agent</b><span>獨立審查</span></article>
+        <article><span class="role-avatar">Q</span><b>QA Agent</b><span>依 AC 驗證</span></article>
+      </div>
+    </section>
+    <section class="slide rev10-slide carried-slide carried-principle" data-section="s6">
+      <h1>Independent verification</h1>
+      <div class="visual verification-flow">
+        <article class="self-report"><b>Developer Agent</b><span>「做好了」</span></article>
+        <div class="demo-arrow">→</div>
+        <article class="qa-evidence"><b>QA Agent</b><span>核對 #3 的 AC 與證據</span><strong>PASS／FAIL／NOT RUN</strong></article>
+        <div class="dod-inline"><b>DoD</b><span>PR Review、QA 與 Developer 分開；只認證據，不認自述。</span></div>
+      </div>
+    </section>
+    <section class="slide rev10-slide carried-slide carried-principle" data-section="s6">
+      <h1>Goal re-anchoring：回到 parent Goal</h1>
+      <div class="visual reanchor-example">
+        <blockquote>「功能完全符合 AC，但這根本不是我們現在需要的東西。」</blockquote>
+        <div class="reanchor-path"><article><b>Product / Goal Check</b><span>不要繼續 patch</span></article><i class="diagram-arrow back-arrow" aria-label="退回 Ticket Refinement"></i><article><b>Ticket Refinement / Goal</b><span>回到 parent：互相喜歡才算配對成功</span></article></div>
+        <p>回應 SHIFT：每輪都把 #3 對回 parent Goal，避免小偏誤累積成方向偏離；釐清後重排 Backlog，需要改 Goal 時交 Human Gate 決定。</p>
+      </div>
+    </section>
     <section class="slide section-slide rev10-cover" data-section="s7">
       <div class="cover-mark">07</div><div class="cover-copy"><p class="cover-kicker">第七段</p><h1>回顧從 Brainstorming <span class="cover-keep">到上線</span>：Agent與Human的新合作方式</h1></div>
     </section>
@@ -677,6 +999,31 @@
       </div>
       <p class="draft-source">案例紀錄：v7 首版 PR #43（merge b709242）；SSOT #41，Owner 修訂 9 與 Goal／Ticket 修正紀錄</p>
     </section>
+    <section class="slide section-slide rev10-cover" data-section="appendix">
+      <div class="cover-mark">A</div><div class="cover-copy"><p class="cover-kicker">Appendix</p><h1>架構六層與 Kanban 回顧</h1></div>
+    </section>
+    <section class="slide rev10-slide carried-slide" data-section="appendix">
+      <h1>架構六層：一張 #3 如何被交接</h1>
+      <p class="step-question step-intro">同一張票由目標拆解，經看板派工與執行，再由證據和人核准。</p>
+      <div class="visual architecture">
+        <div class="layer fragment"><b>1｜Goal / Governance</b><span>人定 parent Goal；PO/PM Agent 記錄目標。</span></div>
+        <div class="layer fragment"><b>2｜Planning / Backlog</b><span>PO/PM Agent 把 Goal 拆成 #3 子票。</span></div>
+        <div class="layer fragment"><b>3｜Task Graph / Kanban</b><span>看板記錄 #3 的狀態；從 Ready 欄取票。</span></div>
+        <div class="layer fragment"><b>4｜Orchestrator</b><span>依目前狀態，把 #3 交給 Developer Agent。</span></div>
+        <div class="layer fragment"><b>5｜Execution Runtime</b><span>Developer Agent 實作 #3，提交 commit 並開 PR。</span></div>
+        <div class="layer fragment"><b>6｜Review / QA / Human</b><span>Review 與 QA 留下證據；Human Gate 核准後才 merge、進 Done。</span></div>
+      </div>
+    </section>
+    <section class="slide rev10-slide carried-slide carried-kanban" data-section="appendix">
+      <h1>Kanban 回顧：Agent 依序拉取同一張票</h1>
+      <div class="visual kanban-board kanban-flow revised-agent-board recap-board">
+        <div class="board-parent"><b>Goal / Epic｜互相喜歡才算配對成功</b><span>泳道標題</span></div>
+        <div><h3>Backlog</h3></div><div class="ready-board-column"><h3>Ready</h3><article class="recap-waiting recap-one"><span>#1</span><b>Like／Pass</b><small>Ready｜等 #3</small></article><article class="recap-waiting recap-two"><span>#2</span><b>配對列表</b><small>Ready｜等 #3</small></article></div><div><h3>Dev</h3></div><div><h3>Review</h3></div><div><h3>QA</h3></div><div><h3>Product Check</h3></div><div class="human-gate-column"><h3>Human Gate</h3><small class="human-gate-marker">產品負責人</small><small class="human-gate-approval">產品負責人核准 ✓</small></div><div><h3>Done</h3></div>
+        <article class="moving-ticket"><span>#3</span><b>雙向喜歡才配對</b><small>Agent 依序交接 · WIP=1</small></article>
+        <span class="fragment move-step move-2" aria-hidden="true"></span><span class="fragment move-step move-3" aria-hidden="true"></span><span class="fragment move-step move-4" aria-hidden="true"></span><span class="fragment move-step move-5" aria-hidden="true"></span><span class="fragment move-step move-6" aria-hidden="true"></span><span class="fragment move-step move-7" aria-hidden="true"></span>
+      </div>
+      <p class="short-note fragment move-8"><strong class="goal-status-label">#3 Done ≠ Goal 達成</strong>；#1、#2 在 Ready。Human Gate 由產品負責人（人類流程中的 PO／PM 本人）決定，核准後 #3 才進 Done（WIP=1）。</p>
+    </section>
   </div>
 
   <footer class="controls">
@@ -688,10 +1035,18 @@
 <script src="../slides/app.js"></script>
 <script>
   (() => {
+    // Desktop geometry is fixed; only this outer transform follows the viewport.
+    const deck = document.querySelector('.deck');
+    const fitCanvas = () => {
+      const scale = Math.min(window.innerWidth / 1440, window.innerHeight / 900);
+      deck.style.setProperty('--deck-scale', String(scale));
+    };
+    window.addEventListener('resize', fitCanvas);
+    fitCanvas();
     const rail = document.querySelector('.section-rail');
     const links = [...rail.querySelectorAll('[data-rail]')];
     const fitRail = () => {
-      if (window.matchMedia('(max-width: 700px)').matches) {
+      if (window.matchMedia('(max-width: 767px)').matches) {
         rail.classList.remove('rail-expanded');
         return;
       }
