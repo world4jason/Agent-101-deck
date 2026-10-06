@@ -1,0 +1,88 @@
+/* New 82-page review draft. Existing diagrams retain rev10's design system. */
+.rev11-draft .topbar { padding:0 22px;gap:14px;grid-template-columns:auto 1fr auto; }
+.rev11-draft .brand {font-size:16px;gap:8px}
+.rev11-draft .section-rail {gap:3px}
+.rev11-draft .section-rail a {font-size:14px;padding:7px 9px;min-width:0;white-space:nowrap}
+.rev11-draft .controls {grid-template-columns:125px 1fr 125px;gap:20px;padding:0 22px}
+.rev11-draft .controls button {font-size:15px;min-height:34px}
+.r-toolbar {display:flex;align-items:center;gap:12px;min-width:0}
+.r-toolbar button {padding:4px 12px}
+.r-toolbar .progress-track {flex:1}
+.r-toolbar a {color:#b8d8ff;font-size:14px;text-decoration:none;cursor:pointer}
+.rev11-draft button:focus-visible,.rev11-draft a:focus-visible {outline:3px solid #f2cf76;outline-offset:3px}
+.rev11-draft button:disabled {opacity:.35;cursor:default}
+.rev11-draft .r-new {padding:38px 58px 26px;gap:20px;overflow:hidden}
+.rev11-draft .r-new h1 {font-size:38px;line-height:1.25;margin:0;max-width:none;letter-spacing:-.025em}
+.r-content {flex:1;display:flex;flex-direction:column;justify-content:center;gap:26px;min-height:0;width:100%}
+.r-kicker {color:#83bcff;font-size:24px;line-height:1.45;margin:0}
+.r-cols {display:grid;gap:24px;align-items:stretch}
+.r-cols-2 {grid-template-columns:repeat(2,minmax(0,1fr))}
+.r-cols-3 {grid-template-columns:repeat(3,minmax(0,1fr))}
+.r-cols-4 {grid-template-columns:repeat(4,minmax(0,1fr))}
+.r-grid4 {display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.r-flow {display:flex;align-items:stretch;gap:14px}
+.r-flow > .r-card {flex:1;min-width:0}
+.r-arrow {color:#aab7c6;font-size:35px;align-self:center;flex:0 0 30px;text-align:center}
+.r-card {padding:26px 28px;border:1px solid #34475b;border-top:3px solid #83bcff;border-radius:12px;background:#121c28;min-width:0}
+.r-card h2 {font-size:29px;line-height:1.35;color:#c8e2ff;margin:0 0 22px;letter-spacing:0}
+.r-body {font-size:25px;line-height:1.6;color:#f3f6fa}
+.r-body p {font-size:inherit;line-height:inherit;margin:0 0 10px}
+.r-body p:last-child {margin-bottom:0}
+.r-body b {font-weight:700}
+.r-body blockquote {margin:0;font-size:30px;line-height:1.8;color:#f3f6fa}
+.r-body code {display:block;font-family:ui-monospace,monospace;font-size:23px;color:#f2cf76;margin:0 0 28px;overflow-wrap:anywhere}
+.r-body pre {background:#0b1119;border:1px solid #34475b;border-radius:8px;padding:22px 18px;font:22px/1.65 ui-monospace,monospace;white-space:pre-wrap;margin:0 0 20px}
+.r-card.human {border-color:#806a36;border-top-color:#f2cf76}
+.r-card.human h2 {color:#f2cf76}
+.r-card.good {border-top-color:#83dda7}
+.r-card.good h2 {color:#aee7c2}
+.r-card.problem {border-top-color:#ff9289}
+.r-card.problem h2 {color:#ffaaa3}
+.r-card.rule {border-top-color:#83bcff}
+.r-ribbon {margin:0;padding:18px 22px;border-left:4px solid #83dda7;background:#15251e;color:#c5e7d2;font-size:25px;line-height:1.5;border-radius:0 8px 8px 0}
+.r-ribbon.question,.r-ribbon.human {border-color:#f2cf76;background:#282316;color:#f2dfaa}
+.r-meta {font-size:18px;line-height:1.5;color:#aab7c6;margin:0}
+.r-example {border-top:1px solid #34475b;padding-top:20px;margin-top:24px!important;color:#aab7c6;font-size:23px!important}
+.r-map-story {background:#2c2718;border:1px solid #806a36;border-radius:10px;padding:18px 24px;color:#f2cf76;font-size:29px;font-weight:700}
+.r-table {border-collapse:collapse;width:100%;font-size:26px;line-height:1.5;background:#121c28;table-layout:fixed}
+.r-table th {text-align:left;font-size:24px;background:#1b2a3b;color:#c8e2ff;padding:18px 22px}
+.r-table td {padding:19px 22px;border-bottom:1px solid #34475b;vertical-align:middle}
+.r-body .r-table {font-size:22px;margin:0 0 18px}
+.r-body .r-table th {font-size:20px;padding:12px}
+.r-body .r-table td {padding:14px 12px}
+.r-red {color:#ff9289}.r-green {color:#83dda7}
+.rev11-draft .r-revision {flex:0 0 auto;margin:0;padding:12px 18px;border-left:3px solid #83bcff;background:#152334;color:#d6e8fc;font-size:23px;line-height:1.45;border-radius:0 8px 8px 0}
+.rev11-draft .slide:has(.r-revision) .visual.git-metaphor article {min-height:240px}
+.rev11-draft .slide:has(.r-revision) .git-graph {height:370px}
+.rev11-draft .slide[data-page="28"] h1 {font-size:34px}
+.rev11-draft .slide[data-page="67"] .r-card {padding:26px 24px}
+.rev11-draft .slide[data-page="67"] .r-card h2 {font-size:28px}
+.rev11-draft .slide[data-page="67"] .r-body {font-size:23px}
+.rev11-draft .slide[data-page="67"] .r-example {font-size:22px!important}
+.rev11-draft .slide[data-page="40"] .r-card {padding:22px 26px}
+.rev11-draft .slide[data-page="40"] .r-card h2 {margin-bottom:10px}
+.rev11-draft .slide[data-page="78"] .r-table th:first-child {width:27%}
+.rev11-draft .slide[data-page="55"] .r-body {font-size:24px}
+.rev11-draft .slide[data-page="6"] .r-card {padding:24px 18px}
+.rev11-draft .slide[data-page="6"] .r-card h2 {font-size:27px}
+.rev11-draft .slide[data-page="6"] .r-body {font-size:23px}
+.rev11-draft .slide[data-page="71"] .recap-columns strong {word-break:normal;overflow-wrap:anywhere}
+#review-dialog {width:min(1100px,94vw);max-height:88vh;background:#0f1925;color:#f3f6fa;border:1px solid #40536a;border-radius:12px;padding:24px;box-sizing:border-box;overflow:auto}
+#review-dialog::backdrop {background:#000b}
+.r-dialog-head {display:flex;justify-content:space-between;align-items:center;gap:20px;position:sticky;top:-24px;background:#0f1925;padding:12px 0;z-index:2}
+.r-dialog-head h2 {font:700 23px/1.4 system-ui;margin:0}
+.r-dialog-head button {color:#e8edf5;background:#1b2a3b;border:1px solid #40536a;border-radius:6px;padding:10px 18px;font-size:16px}
+#dialog-body {font:17px/1.8 system-ui}
+#dialog-body .note-copy {white-space:pre-wrap}
+.r-toc-group {margin:22px 0}
+.r-toc-group h3 {color:#83bcff;font-size:20px}
+.r-toc-group a {display:block;color:#e8edf5;padding:8px 10px;border-bottom:1px solid #273747;text-decoration:none}
+.r-toc-group a:hover {background:#1b2a3b}
+.r-note-links {display:flex;gap:20px;margin:15px 0}.r-note-links a {color:#b8d8ff}
+@media(max-width:767px){
+ .rev11-draft .deck {display:grid;position:fixed;top:50%;left:50%;width:1440px;height:900px;min-height:0;transform:translate(-50%,-50%) scale(var(--deck-scale,1));transform-origin:center;grid-template-rows:54px minmax(0,1fr) 54px}
+ .rev11-draft .slides {position:relative;overflow:hidden}
+ .rev11-draft .slide {position:absolute;inset:0;min-height:0;height:auto}
+ .rev11-draft .topbar,.rev11-draft .controls {position:static}
+ .rev11-draft .section-rail {display:flex}.rev11-draft .section-rail a {font-size:14px}
+}

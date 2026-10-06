@@ -1,0 +1,834 @@
+{
+  "ssot": "docs/rev10-slide-by-slide-v1.md",
+  "ssotSha256": "e182ad1d8d95c0ad762ddba0b1757cb13337f78712bddf7043329d004f655f07",
+  "pages": [
+    {
+      "number": 1,
+      "chapter": "C0",
+      "kind": "沿用",
+      "ids": [
+        "P01"
+      ],
+      "title": "本課的例子：打造一個配對交友 App",
+      "original": 1
+    },
+    {
+      "number": 2,
+      "chapter": "C0",
+      "kind": "沿用",
+      "ids": [
+        "P02"
+      ],
+      "title": "要做一個類似 Tinder 的配對交友 App",
+      "original": 2
+    },
+    {
+      "number": 3,
+      "chapter": "C0",
+      "kind": "沿用",
+      "ids": [
+        "P03"
+      ],
+      "title": "這輪只做三件事：Like／Pass、雙向喜歡才配對、配對列表",
+      "original": 3
+    },
+    {
+      "number": 4,
+      "chapter": "C0",
+      "kind": "沿用",
+      "ids": [
+        "P04"
+      ],
+      "title": "一個產品是怎麼被做出來的：角色、流程、一張全貌圖",
+      "original": 4
+    },
+    {
+      "number": 5,
+      "chapter": "C0",
+      "kind": "沿用",
+      "ids": [
+        "P05"
+      ],
+      "title": "做出 Matching 需要哪些角色",
+      "original": 5
+    },
+    {
+      "number": 6,
+      "chapter": "C0",
+      "kind": "新增",
+      "ids": [
+        "N01"
+      ],
+      "title": "工作交出去，成果與證據交回來",
+      "original": null
+    },
+    {
+      "number": 7,
+      "chapter": "C0",
+      "kind": "調整",
+      "ids": [
+        "P06"
+      ],
+      "title": "一個需求會經過哪些人和關卡",
+      "original": 6
+    },
+    {
+      "number": 8,
+      "chapter": "C1",
+      "kind": "沿用",
+      "ids": [
+        "P07"
+      ],
+      "title": "版本控制：存檔點、分支、送審、合併",
+      "original": 7
+    },
+    {
+      "number": 9,
+      "chapter": "C1",
+      "kind": "新增",
+      "ids": [
+        "N02"
+      ],
+      "title": "三個人都交了 final，哪一份才是共同版本？",
+      "original": null
+    },
+    {
+      "number": 10,
+      "chapter": "C1",
+      "kind": "調整",
+      "ids": [
+        "P08",
+        "N03"
+      ],
+      "title": "Git 留下歷史，GitHub 讓大家共享與審查",
+      "original": 8
+    },
+    {
+      "number": 11,
+      "chapter": "C1",
+      "kind": "調整",
+      "ids": [
+        "P11",
+        "N05"
+      ],
+      "title": "Commit 留下一版，push 分享這些版本",
+      "original": 11
+    },
+    {
+      "number": 12,
+      "chapter": "C1",
+      "kind": "調整",
+      "ids": [
+        "P10",
+        "N04"
+      ],
+      "title": "三張票各有工作分支，從共同版本開始",
+      "original": 10
+    },
+    {
+      "number": 13,
+      "chapter": "C1",
+      "kind": "沿用",
+      "ids": [
+        "P09"
+      ],
+      "title": "Issue：大需求是 parent，子工作是 sub-issue",
+      "original": 9
+    },
+    {
+      "number": 14,
+      "chapter": "C1",
+      "kind": "調整",
+      "ids": [
+        "P12",
+        "N06"
+      ],
+      "title": "一張 PR，讓別人核對需求、差異與證據",
+      "original": 12
+    },
+    {
+      "number": 15,
+      "chapter": "C1",
+      "kind": "調整",
+      "ids": [
+        "P13",
+        "N07"
+      ],
+      "title": "Merge 把修改整合回共同版本，下一張票才能接上",
+      "original": 13
+    },
+    {
+      "number": 16,
+      "chapter": "C2",
+      "kind": "沿用",
+      "ids": [
+        "P14"
+      ],
+      "title": "從一個想法到上線：需求如何變成票與關卡",
+      "original": 14
+    },
+    {
+      "number": 17,
+      "chapter": "C2",
+      "kind": "沿用",
+      "ids": [
+        "P15"
+      ],
+      "title": "Brainstorming：從問題形成 Goal",
+      "original": 15
+    },
+    {
+      "number": 18,
+      "chapter": "C2",
+      "kind": "沿用",
+      "ids": [
+        "P16"
+      ],
+      "title": "一個好的 Goal 長怎樣",
+      "original": 16
+    },
+    {
+      "number": 19,
+      "chapter": "C2",
+      "kind": "調整",
+      "ids": [
+        "P17",
+        "N08"
+      ],
+      "title": "三張票怎麼拆、怎麼接、先做哪張？",
+      "original": 17
+    },
+    {
+      "number": 20,
+      "chapter": "C2",
+      "kind": "調整",
+      "ids": [
+        "P19"
+      ],
+      "title": "三張工作票先進 Backlog，再選一張開始做",
+      "original": 19
+    },
+    {
+      "number": 21,
+      "chapter": "C2",
+      "kind": "沿用",
+      "ids": [
+        "P28"
+      ],
+      "title": "Sprint 與 Kanban：固定節奏與持續拉票",
+      "original": 28
+    },
+    {
+      "number": 22,
+      "chapter": "C2",
+      "kind": "沿用",
+      "ids": [
+        "P20"
+      ],
+      "title": "Ticket Refinement / Backlog",
+      "original": 20
+    },
+    {
+      "number": 23,
+      "chapter": "C2",
+      "kind": "新增",
+      "ids": [
+        "N09"
+      ],
+      "title": "同一句「支援配對」，為什麼三種解讀？",
+      "original": null
+    },
+    {
+      "number": 24,
+      "chapter": "C2",
+      "kind": "新增",
+      "ids": [
+        "E10",
+        "N10"
+      ],
+      "title": "從「配對正常」到可以核對的範例",
+      "original": null
+    },
+    {
+      "number": 25,
+      "chapter": "C2",
+      "kind": "新增",
+      "ids": [
+        "N11"
+      ],
+      "title": "PO 寫了範例，為什麼還要找 Dev、QA？",
+      "original": null
+    },
+    {
+      "number": 26,
+      "chapter": "C2",
+      "kind": "新增",
+      "ids": [
+        "N12"
+      ],
+      "title": "把 #3 攤開：規則、範例、疑問一起看",
+      "original": null
+    },
+    {
+      "number": 27,
+      "chapter": "C2",
+      "kind": "新增",
+      "ids": [
+        "E06"
+      ],
+      "title": "範例寫到什麼時候才夠？",
+      "original": null
+    },
+    {
+      "number": 28,
+      "chapter": "C2",
+      "kind": "新增",
+      "ids": [
+        "N13"
+      ],
+      "title": "AC 決定接受條件，AT 說明怎麼驗，DoD 界定共同完成要求",
+      "original": null
+    },
+    {
+      "number": 29,
+      "chapter": "C2",
+      "kind": "沿用",
+      "ids": [
+        "P18"
+      ],
+      "title": "一張好票長怎樣",
+      "original": 18
+    },
+    {
+      "number": 30,
+      "chapter": "C2",
+      "kind": "沿用",
+      "ids": [
+        "P21"
+      ],
+      "title": "Ready",
+      "original": 21
+    },
+    {
+      "number": 31,
+      "chapter": "C3",
+      "kind": "調整",
+      "ids": [
+        "P22"
+      ],
+      "title": "Developer：依票實作，留下版本與自測紀錄",
+      "original": 22
+    },
+    {
+      "number": 32,
+      "chapter": "C3",
+      "kind": "新增",
+      "ids": [
+        "X03"
+      ],
+      "title": "送 PR 前測過，為什麼還需要 CI、Review、QA？",
+      "original": null
+    },
+    {
+      "number": 33,
+      "chapter": "C3",
+      "kind": "沿用",
+      "ids": [
+        "P23"
+      ],
+      "title": "PR Review",
+      "original": 23
+    },
+    {
+      "number": 34,
+      "chapter": "C3",
+      "kind": "新增",
+      "ids": [
+        "N14"
+      ],
+      "title": "不逐行讀程式，也要能驗收這個功能",
+      "original": null
+    },
+    {
+      "number": 35,
+      "chapter": "C3",
+      "kind": "新增",
+      "ids": [
+        "N15"
+      ],
+      "title": "雙向測過了，單向也可能錯：把條件攤成表",
+      "original": null
+    },
+    {
+      "number": 36,
+      "chapter": "C3",
+      "kind": "調整",
+      "ids": [
+        "P24"
+      ],
+      "title": "QA / Verification",
+      "original": 24
+    },
+    {
+      "number": 37,
+      "chapter": "C3",
+      "kind": "新增",
+      "ids": [
+        "N16"
+      ],
+      "title": "這個 PASS，要能追到哪一版、怎麼驗",
+      "original": null
+    },
+    {
+      "number": 38,
+      "chapter": "C3",
+      "kind": "調整",
+      "ids": [
+        "P25"
+      ],
+      "title": "Product / Goal Check",
+      "original": 25
+    },
+    {
+      "number": 39,
+      "chapter": "C4",
+      "kind": "新增",
+      "ids": [
+        "N19"
+      ],
+      "title": "同樣驗收通過，放到不同環境，風險一樣嗎？",
+      "original": null
+    },
+    {
+      "number": 40,
+      "chapter": "C4",
+      "kind": "新增",
+      "ids": [
+        "N20"
+      ],
+      "title": "放行前，確認證據，也確認出錯如何處理",
+      "original": null
+    },
+    {
+      "number": 41,
+      "chapter": "C4",
+      "kind": "調整",
+      "ids": [
+        "P26"
+      ],
+      "title": "Done：這張票完成，整個 Goal 還沒達成",
+      "original": 26
+    },
+    {
+      "number": 42,
+      "chapter": "C4",
+      "kind": "新增",
+      "ids": [
+        "N17"
+      ],
+      "title": "三張票都完成，還要走完使用者的整條路徑",
+      "original": null
+    },
+    {
+      "number": 43,
+      "chapter": "C5",
+      "kind": "沿用",
+      "ids": [
+        "P29"
+      ],
+      "title": "從一問一答到長任務：角色、資訊與交接開始混在一起",
+      "original": 29
+    },
+    {
+      "number": 44,
+      "chapter": "C5",
+      "kind": "調整",
+      "ids": [
+        "P30"
+      ],
+      "title": "從人逐步提問，到 Agent 持續朝目標工作",
+      "original": 30
+    },
+    {
+      "number": 45,
+      "chapter": "C5",
+      "kind": "沿用",
+      "ids": [
+        "P31"
+      ],
+      "title": "同一段對話包辦規劃、實作和自評，責任邊界會看不清",
+      "original": 31
+    },
+    {
+      "number": 46,
+      "chapter": "C5",
+      "kind": "調整",
+      "ids": [
+        "P32"
+      ],
+      "title": "對話壓縮後，關鍵規則可能被漏掉",
+      "original": 32
+    },
+    {
+      "number": 47,
+      "chapter": "C5",
+      "kind": "調整",
+      "ids": [
+        "P33"
+      ],
+      "title": "新 session 不會自動帶齊前文，接手需要共同紀錄",
+      "original": 33
+    },
+    {
+      "number": 48,
+      "chapter": "C5",
+      "kind": "新增",
+      "ids": [
+        "X01"
+      ],
+      "title": "拆成三個 chat 後，人還在搬什麼？",
+      "original": null
+    },
+    {
+      "number": 49,
+      "chapter": "C5",
+      "kind": "調整",
+      "ids": [
+        "P34"
+      ],
+      "title": "不同工作，是否需要不同的模型與思考設定？",
+      "original": 34
+    },
+    {
+      "number": 50,
+      "chapter": "C5",
+      "kind": "沿用",
+      "ids": [
+        "P35"
+      ],
+      "title": "多Agent開發：優勢與新問題",
+      "original": 35
+    },
+    {
+      "number": 51,
+      "chapter": "C5",
+      "kind": "沿用",
+      "ids": [
+        "P37"
+      ],
+      "title": "把工作拆開，也把各站只需要的資訊拆開",
+      "original": 37
+    },
+    {
+      "number": 52,
+      "chapter": "C5",
+      "kind": "沿用",
+      "ids": [
+        "P38"
+      ],
+      "title": "多 Agent 會遇到交接失真與衝突",
+      "original": 38
+    },
+    {
+      "number": 53,
+      "chapter": "C5",
+      "kind": "沿用",
+      "ids": [
+        "P39"
+      ],
+      "title": "重工與資訊孤島，讓協作成本上升",
+      "original": 39
+    },
+    {
+      "number": 54,
+      "chapter": "C5",
+      "kind": "沿用",
+      "ids": [
+        "P40"
+      ],
+      "title": "SHIFT：小偏誤會隨迭代一路放大",
+      "original": 40
+    },
+    {
+      "number": 55,
+      "chapter": "C5",
+      "kind": "新增",
+      "ids": [
+        "E08"
+      ],
+      "title": "從自己煮，到帶一個廚房",
+      "original": null
+    },
+    {
+      "number": 56,
+      "chapter": "C5",
+      "kind": "調整",
+      "ids": [
+        "P36",
+        "X02"
+      ],
+      "title": "分工之後，誰決定下一步？Workflow 與 Agent 數量分開看",
+      "original": 36
+    },
+    {
+      "number": 57,
+      "chapter": "C5",
+      "kind": "沿用",
+      "ids": [
+        "P41"
+      ],
+      "title": "為什麼多 Agent 要配合軟體工程：五個原則",
+      "original": 41
+    },
+    {
+      "number": 58,
+      "chapter": "C5",
+      "kind": "調整",
+      "ids": [
+        "P42"
+      ],
+      "title": "五個原則，逐一回應 Chat 與多 Agent 的問題",
+      "original": 42
+    },
+    {
+      "number": 59,
+      "chapter": "C5",
+      "kind": "調整",
+      "ids": [
+        "P43"
+      ],
+      "title": "External task state：工作狀態留在可查的紀錄",
+      "original": 43
+    },
+    {
+      "number": 60,
+      "chapter": "C5",
+      "kind": "沿用",
+      "ids": [
+        "P44"
+      ],
+      "title": "Bounded execution",
+      "original": 44
+    },
+    {
+      "number": 61,
+      "chapter": "C5",
+      "kind": "調整",
+      "ids": [
+        "P45"
+      ],
+      "title": "Role separation",
+      "original": 45
+    },
+    {
+      "number": 62,
+      "chapter": "C5",
+      "kind": "沿用",
+      "ids": [
+        "P46"
+      ],
+      "title": "Independent verification",
+      "original": 46
+    },
+    {
+      "number": 63,
+      "chapter": "C5",
+      "kind": "沿用",
+      "ids": [
+        "P47"
+      ],
+      "title": "Goal re-anchoring：回到 parent Goal",
+      "original": 47
+    },
+    {
+      "number": 64,
+      "chapter": "C6",
+      "kind": "沿用",
+      "ids": [
+        "P48"
+      ],
+      "title": "回顧從 Brainstorming 到上線：Agent與Human的新合作方式",
+      "original": 48
+    },
+    {
+      "number": 65,
+      "chapter": "C6",
+      "kind": "沿用",
+      "ids": [
+        "P50"
+      ],
+      "title": "Brainstorming：從 PM／PO 討論到 Agent 整理決議",
+      "original": 50
+    },
+    {
+      "number": 66,
+      "chapter": "C6",
+      "kind": "新增",
+      "ids": [
+        "E02"
+      ],
+      "title": "同一場 Example Mapping，AI 可以幫在哪裡？",
+      "original": null
+    },
+    {
+      "number": 67,
+      "chapter": "C6",
+      "kind": "調整",
+      "ids": [
+        "P49"
+      ],
+      "title": "Agent 接手工作，人保留方向與驗收",
+      "original": 49
+    },
+    {
+      "number": 68,
+      "chapter": "C6",
+      "kind": "沿用",
+      "ids": [
+        "P51"
+      ],
+      "title": "Human Gate 固定在 Goal Check 後；PR 人工審查依節奏選擇",
+      "original": 51
+    },
+    {
+      "number": 69,
+      "chapter": "C6",
+      "kind": "新增",
+      "ids": [
+        "N18"
+      ],
+      "title": "Agent 說做完，人拿什麼決定？",
+      "original": null
+    },
+    {
+      "number": 70,
+      "chapter": "C6",
+      "kind": "沿用",
+      "ids": [
+        "P52"
+      ],
+      "title": "反例｜Human Gate 被跳過，問題在合併後才被看見",
+      "original": 52
+    },
+    {
+      "number": 71,
+      "chapter": "C6",
+      "kind": "調整",
+      "ids": [
+        "P27"
+      ],
+      "title": "總回顧：票沿看板前進，動作留下在 GitHub",
+      "original": 27
+    },
+    {
+      "number": 72,
+      "chapter": "APP",
+      "kind": "調整",
+      "ids": [
+        "P53"
+      ],
+      "title": "附錄：方法、演練與技術補充",
+      "original": 53
+    },
+    {
+      "number": 73,
+      "chapter": "APP",
+      "kind": "新增",
+      "ids": [
+        "E01"
+      ],
+      "title": "同一條規則：條列、GWT、表格怎麼選？",
+      "original": null
+    },
+    {
+      "number": 74,
+      "chapter": "APP",
+      "kind": "新增",
+      "ids": [
+        "E03"
+      ],
+      "title": "測試全綠，也可能什麼都沒驗到",
+      "original": null
+    },
+    {
+      "number": 75,
+      "chapter": "APP",
+      "kind": "新增",
+      "ids": [
+        "E04"
+      ],
+      "title": "先看測試紅，再讓它綠：TDD 的一次循環",
+      "original": null
+    },
+    {
+      "number": 76,
+      "chapter": "APP",
+      "kind": "新增",
+      "ids": [
+        "E05"
+      ],
+      "title": "BDD：共同探索、精確描述、接上驗證",
+      "original": null
+    },
+    {
+      "number": 77,
+      "chapter": "APP",
+      "kind": "新增",
+      "ids": [
+        "E07"
+      ],
+      "title": "演練：先各自理解，再一起用範例釐清",
+      "original": null
+    },
+    {
+      "number": 78,
+      "chapter": "APP",
+      "kind": "新增",
+      "ids": [
+        "E09"
+      ],
+      "title": "票面完整，為什麼還是推不動？",
+      "original": null
+    },
+    {
+      "number": 79,
+      "chapter": "APP",
+      "kind": "新增",
+      "ids": [
+        "E11"
+      ],
+      "title": "Specification by Example：讓共同理解留得下來",
+      "original": null
+    },
+    {
+      "number": 80,
+      "chapter": "APP",
+      "kind": "新增",
+      "ids": [
+        "N21"
+      ],
+      "title": "上線後才發現錯配，怎樣停止與處理？",
+      "original": null
+    },
+    {
+      "number": 81,
+      "chapter": "APP",
+      "kind": "沿用",
+      "ids": [
+        "P54"
+      ],
+      "title": "架構六層：一張 #3 如何被交接",
+      "original": 54
+    },
+    {
+      "number": 82,
+      "chapter": "APP",
+      "kind": "沿用",
+      "ids": [
+        "P55"
+      ],
+      "title": "Kanban 回顧：Agent 依序拉取同一張票",
+      "original": 55
+    }
+  ]
+}
