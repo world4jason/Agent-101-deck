@@ -80,9 +80,599 @@
 .r-toc-group a:hover {background:#1b2a3b}
 .r-note-links {display:flex;gap:20px;margin:15px 0}.r-note-links a {color:#b8d8ff}
 @media(max-width:767px){
- .rev11-draft .deck {display:grid;position:fixed;top:50%;left:50%;width:1440px;height:900px;min-height:0;transform:translate(-50%,-50%) scale(var(--deck-scale,1));transform-origin:center;grid-template-rows:54px minmax(0,1fr) 54px}
+ .rev11-draft .deck {display:grid;position:fixed;top:50%;left:50%;width:1440px;height:900px;max-width:none;min-height:0;transform:translate(-50%,-50%) scale(var(--deck-scale,1));transform-origin:center;grid-template-rows:54px minmax(0,1fr) 54px}
  .rev11-draft .slides {position:relative;overflow:hidden}
  .rev11-draft .slide {position:absolute;inset:0;min-height:0;height:auto}
  .rev11-draft .topbar,.rev11-draft .controls {position:static}
  .rev11-draft .section-rail {display:flex}.rev11-draft .section-rail a {font-size:14px}
+}
+
+/* Reuse rev10 fixed-canvas refinements below its viewport breakpoint. */
+@media (max-width: 767px) {
+  .rev11-draft .comparison-lane.agent-lane {
+    gap: 0;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-top: 1px solid #304256;
+    border-radius: 0;
+    background: transparent;
+    text-align: left;
+  }
+  .rev11-draft .comparison-lane > * { gap: 4px; }
+  .rev11-draft .comparison-lane > strong { font-size: 13.5px; }
+  .rev11-draft .comparison-lane > span b { font-size: 12px; line-height: 1.25; }
+  .rev11-draft .comparison-lane > span em { font-size: 12px; line-height: 1.25; }
+  .rev11-draft .comparison-lane > span small,
+  .rev11-draft .comparison-lane > span i { font-size: 11px; line-height: 1.25; }
+
+}
+@media (max-width: 767px) {
+  .rev11-draft .gate-bypass-rule {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 28px max-content 28px minmax(0, 1fr);
+    justify-content: stretch;
+  }
+  .rev11-draft .gate-bypass-rule > span,
+  .rev11-draft .gate-bypass-rule > small { grid-column: 1 / -1; }
+  .rev11-draft .gate-bypass-rule > strong:first-of-type { justify-self: end; }
+  .rev11-draft .gate-bypass-rule > strong:last-of-type { justify-self: start; }
+
+}
+@media (max-width: 767px) {
+  .rev11-draft .chat-role-row {
+    display: grid;
+    grid-template-columns: minmax(92px, .7fr) minmax(0, 1.3fr) 30px minmax(92px, .7fr) minmax(0, 1.3fr);
+    align-items: center;
+    gap: 0;
+  }
+  .rev11-draft .chat-role-row > b { display: grid; place-items: center; white-space: nowrap; }
+  .rev11-draft .chat-role-row > span { min-width: 0; overflow-wrap: break-word; }
+  .rev11-draft .chat-role-row > i { display: grid; width: 100%; place-items: center; margin: 0; }
+
+}
+@media (max-width: 767px) {
+  .rev11-draft .recap-columns {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .rev11-draft .recap-columns article {
+    min-height: clamp(170px, calc(22 * var(--design-vh)), 240px);
+    padding: 14px 8px;
+  }
+  .rev11-draft .recap-columns article:not(:last-of-type)::after {
+    right: -15px;
+    width: 22px;
+    content: "→";
+    font-size: 25px;
+  }
+  .rev11-draft .recap-columns h2 { font-size: clamp(15px, calc(1 * var(--design-vw)), 19px); }
+  .rev11-draft .recap-columns strong { font-size: clamp(12px, calc(.82 * var(--design-vw)), 16px); }
+  .rev11-draft .recap-columns .recap-human-gate {
+    border-color: #806a36;
+    background: #211e15;
+    box-shadow: inset 0 3px #f2cf76;
+  }
+  .rev11-draft .recap-columns .recap-human-gate h2 { color: #ffe39a; }
+
+  .rev11-draft .return-routes { flex-basis: clamp(160px, calc(18 * var(--design-vh)), 210px); }
+
+  .rev11-draft .matching-demo {
+    min-height: clamp(330px, calc(43 * var(--design-vh)), 470px);
+    gap: 12px;
+  }
+  .rev11-draft .matching-demo .phone,
+  .rev11-draft .match-result,
+  .rev11-draft .match-list-node { min-height: clamp(250px, calc(30 * var(--design-vh)), 320px); }
+  .rev11-draft .matching-demo .avatar { width: 76px; height: 76px; font-size: 32px; }
+  .rev11-draft .matching-demo .phone > strong { font-size: 16px; }
+  .rev11-draft .matching-demo .phone-label,
+  .rev11-draft .match-result small,
+  .rev11-draft .match-list-node small { font-size: 14px; }
+  .rev11-draft .match-result strong { font-size: clamp(23px, calc(1.65 * var(--design-vw)), 31px); }
+  .rev11-draft .match-result p,
+  .rev11-draft .match-list-node span { font-size: 15px; }
+  .rev11-draft .match-list-node strong { font-size: clamp(20px, calc(1.35 * var(--design-vw)), 26px); }
+  .rev11-draft .matching-input-label { font-size: 17px; }
+
+  .rev11-draft .principle-overview {
+    align-self: stretch;
+    width: 100%;
+    max-width: none;
+    gap: 10px;
+  }
+  .rev11-draft .principle-row {
+    grid-template-columns: minmax(0, 1fr) clamp(80px, calc(8 * var(--design-vw)), 124px) minmax(0, 1fr);
+    min-height: clamp(92px, calc(10 * var(--design-vh)), 122px);
+  }
+  .rev11-draft .problem-side,
+  .rev11-draft .principle-side { min-height: 0; padding: 15px 20px; }
+  .rev11-draft .problem-side small,
+  .rev11-draft .principle-side small { font-size: 14px; }
+  .rev11-draft .problem-side strong { font-size: clamp(16px, calc(1.1 * var(--design-vw)), 21px); }
+  .rev11-draft .principle-name strong { font-size: clamp(19px, calc(1.3 * var(--design-vw)), 25px); }
+  .rev11-draft .principle-name span { font-size: clamp(15px, calc(.95 * var(--design-vw)), 18px); }
+
+  .rev11-draft .stage-table-desktop {
+    flex: 1 1 auto;
+    min-height: 0;
+    grid-template-rows: auto minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .rev11-draft .stage-table-head > * { min-height: 52px; }
+  .rev11-draft .stage-table-lane > span {
+    min-height: 0;
+    gap: 8px;
+    padding: 12px 9px;
+  }
+  .rev11-draft .cadence-exit-mobile { display: none; }
+
+}
+@media (max-width: 767px) {
+  .rev11-draft .slides > .rev10-slide {
+    padding: 26px 40px 18px;
+    gap: 20px;
+  }
+  .rev11-draft .slides > .rev10-slide h1 { max-width: none; font-size: 36px; line-height: 1.2; }
+  .rev11-draft .slides > .rev10-slide > .visual {
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 20px;
+    font-size: 20px;
+  }
+  .rev11-draft .slides .visual :is(div, article, p, span, b, strong, em, li, button) {
+    font-size: 20px;
+  }
+  .rev11-draft .slides .visual :is(p, span, b, strong, em, li) { line-height: 1.4; }
+  .rev11-draft .slides .visual small { font-size: 15px; line-height: 1.4; }
+  .rev11-draft .slides .visual i { font-size: 20px; }
+  .rev11-draft .slides .visual :is(.compact-time-arrow, .bypass-arrow, .chat-role-row > i, .shift-sequence > i) { font-size: 30px; }
+  .rev11-draft .slides .visual :is(h2, h3) { font-size: 26px; }
+  .rev11-draft .slides .visual :is(.case-reference, .role-index, .compact-ticket,
+    .coordination-ticket, .social-label, .stage-board-legend > span) { font-size: 15px; }
+  .rev11-draft .slides > .rev10-slide > .draft-source {
+    min-height: 0;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .rev11-draft .slides .visual > :is(.match-demo, .tree-layout, .ticket-compare,
+    .chat-agent-compare, .one-chat-layout, .compact-story, .session-story,
+    .model-problem, .two-questions, .split-work, .coordination-problems,
+    .rework-silo, .shift-sequence, .brainstorm-compare, .gate-bypass-story) {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    flex: 1 1 auto;
+    min-height: 0;
+    align-items: stretch;
+  }
+  .rev11-draft .slides .visual > :is(.context-note, .ticket-ac-dod,
+    .session-close, .two-axis-note, .shift-note, .matching-out, .matching-next) {
+    flex: 0 0 auto;
+    margin-block: 0;
+  }
+
+  /* Product and role examples grow within the area directly below the heading. */
+  .rev11-draft .slides .example-intro > .visual { justify-content: center; align-items: center; }
+  .rev11-draft .slides .example-phone { width: 320px; height: 500px; }
+  .rev11-draft .slides .example-profile-avatar { font-size: 54px; }
+  .rev11-draft .slides .example-actions span { font-size: 32px; }
+  .rev11-draft .slides .matching-demo { align-items: center; }
+  .rev11-draft .slides .matching-demo :is(.phone, .match-result, .match-list-node) { min-height: 390px; }
+  .rev11-draft .slides .matching-demo .avatar { font-size: 32px; }
+  .rev11-draft .slides .matching-demo .match-spark { font-size: 58px; }
+  .rev11-draft .slides .matching-demo .decision-actions { flex-wrap: wrap; justify-content: center; }
+  .rev11-draft .slides .matching-demo :is(.pass-button, .like-button) { padding: 9px 12px; }
+  .rev11-draft .slides .matching-demo :is(.match-result, .match-list-node) > strong { font-size: 30px; }
+  .rev11-draft .slides .role-grid { width: 100%; }
+  .rev11-draft .slides .role-card { padding: 28px; }
+  .rev11-draft .slides .role-card p { font-size: 22px; }
+  .rev11-draft .slides .sample-ticket { width: 100%; margin: 0; }
+  .rev11-draft .slides .tree-layout { grid-template-rows: auto 56px minmax(180px, 1fr) auto auto; align-content: stretch; }
+  .rev11-draft .slides .tree-tickets { width: 100%; }
+  .rev11-draft .slides .tree-lines { width: 100%; }
+  .rev11-draft .slides .tree-tickets article { justify-content: center; }
+  .rev11-draft .slides .ticket-compare { grid-template-columns: minmax(0, 3fr) minmax(260px, 1fr); }
+  .rev11-draft .slides .good-ticket { display: flex; flex-direction: column; }
+  .rev11-draft .slides .ticket-fields { display: grid; flex: 1; }
+  .rev11-draft .slides .ticket-fields > div { grid-template-columns: 210px minmax(0, 1fr); gap: 16px; padding: 9px 0; }
+  .rev11-draft .slides .ticket-titlebar span:last-child { font-size: 15px; }
+  .rev11-draft .slides .recap-visual .parent-action { width: 100%; flex-wrap: wrap; margin: 0; }
+  .rev11-draft .slides .recap-columns { flex: 1; gap: var(--recap-gap); }
+  .rev11-draft .slides .recap-columns article { padding: 18px 6px; }
+  .rev11-draft .slides .recap-columns article:not(:last-of-type)::after {
+    left: calc(100% + var(--recap-gap) / 2 + 1px);
+    right: auto;
+    transform: translate(-50%, -50%);
+  }
+  .rev11-draft .slides .recap-columns strong { word-break: keep-all; overflow-wrap: normal; }
+  .rev11-draft .slides .recap-human-gate strong > span { display: inline-block; white-space: nowrap; }
+  .rev11-draft .slides .recap-columns h2 { font-size: 20px; }
+  .rev11-draft .slides > .rev10-slide > .recap-visual { --recap-gap: 28px; gap: 0; }
+  .rev11-draft .slides .recap-visual .parent-action { margin-bottom: 20px; }
+  .rev11-draft .slides .return-routes { flex: 0 0 180px; }
+  /* Include the half-gaps so percentage-based routes land at column centers. */
+  .rev11-draft .slides .return-routes .return-desktop {
+    left: calc(var(--recap-gap) / -2);
+    width: calc(100% + var(--recap-gap));
+  }
+  .rev11-draft .slides .return-routes .return-dev-label { top: 50px; left: 43.75%; }
+  .rev11-draft .slides .return-desktop-label { font-size: 20px; }
+
+  /* Use the original SVG geometry; allow for its viewport scale in text sizes. */
+  .rev11-draft .slides .rev10-flow-svg text { font-size: 21px; }
+  .rev11-draft .slides .rev10-flow-svg .flow-status { font-size: 16px; }
+  .rev11-draft .slides .rev10-flow-svg .flow-lane .flow-lane-name { font-size: 21px; }
+  .rev11-draft .slides .rev10-flow-svg .flow-goal-text { font-size: 25px; }
+  .rev11-draft .slides .rev10-flow-svg .flow-origin-text { font-size: 21px; }
+
+  /* The conclusion spans the same height as the complete two-row role grid. */
+  .rev11-draft .slides .one-chat-layout { grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr); gap: 28px; }
+  .rev11-draft .slides .chat-window { display: grid; grid-template-rows: auto 1fr 1fr; }
+  .rev11-draft .slides .chat-window-head { gap: 20px; align-items: center; }
+  .rev11-draft .slides .chat-window-head span { font-size: 18px; }
+  .rev11-draft .slides .chat-role-row:nth-child(2) { padding-bottom: 10px; }
+  .rev11-draft .slides .chat-role-row:last-child { padding-top: 10px; }
+  .rev11-draft .slides .chat-role-card b { font-size: 28px; }
+  .rev11-draft .slides .chat-role-card span { font-size: 22px; }
+  .rev11-draft .slides .boundary-question { justify-content: center; gap: 24px; }
+  .rev11-draft .slides .boundary-question b { font-size: 32px; }
+  .rev11-draft .slides .boundary-question strong { font-size: 24px; }
+
+  /* Labels sit above dialogue, leaving the whole bubble width for 20px copy. */
+  .rev11-draft .slides .compact-story { gap: 16px; }
+  .rev11-draft .slides .compact-ticket { align-self: flex-start; }
+  .rev11-draft .slides .compact-timeline {
+    flex: 1;
+    grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr) 24px minmax(0, 1fr) 24px minmax(0, .9fr);
+    gap: 10px;
+  }
+  .rev11-draft .slides :is(.compact-step, .compact-outcome) { min-height: 0; padding: 18px; gap: 18px; }
+  .rev11-draft .slides .compact-step { grid-template-rows: 76px minmax(0, 1fr) minmax(0, 1fr); }
+  .rev11-draft .slides .compact-step > header { grid-template-columns: 28px minmax(0, 1fr); padding: 0; gap: 8px; }
+  .rev11-draft .slides .compact-step > header > span { font-size: 15px; }
+  .rev11-draft .slides .compact-chat { display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 16px; }
+  .rev11-draft .slides .compact-chat p { margin: 0; }
+  .rev11-draft .slides .compact-outcome > strong { font-size: 26px; }
+  .rev11-draft .slides .compact-missing { align-self: center; }
+  .rev11-draft .slides .session-story { grid-template-columns: minmax(0, 1fr) 64px minmax(0, 1fr); }
+  .rev11-draft .slides :is(.session-handoff, .session-unknowns) { padding: 36px; gap: 28px; }
+  .rev11-draft .slides .session-bubble { padding: 26px; font-size: 28px; }
+  .rev11-draft .slides .session-state { padding: 22px; }
+  .rev11-draft .slides .session-state b { font-size: 32px; }
+  .rev11-draft .slides .session-close { font-size: 24px; }
+
+  .rev11-draft .slides :is(.compare-panel, .question-card, .model-problem-chat,
+    .model-problem-tasks, .model-problem-risks article, .shift-sequence article,
+    .rework-silo > article, .brainstorm-side) { display: flex; flex-direction: column; justify-content: center; }
+  .rev11-draft .slides .compare-panel { gap: 20px; padding: 32px; }
+  .rev11-draft .slides .question-card { padding: 32px; }
+  .rev11-draft .slides :is(.shared-goal, .model-problem-chat, .shift-sequence article) > strong { font-size: 26px; }
+  .rev11-draft .slides .pair-options > div { min-height: 180px; }
+  .rev11-draft .slides .split-work { grid-template-rows: auto 70px minmax(180px, 1fr) auto; gap: 0; }
+  .rev11-draft .slides .split-branches { height: 70px; }
+  .rev11-draft .slides .single-first { margin-top: 18px; }
+  .rev11-draft .slides :is(.coordination-problems, .rework-silo) { grid-template-rows: auto minmax(0, 1fr); }
+  .rev11-draft .slides .coordination-problems > article { padding: 24px; }
+  .rev11-draft .slides .handoff-card { grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr) 24px minmax(0, 1.1fr); padding: 8px; }
+  .rev11-draft .slides .handoff-card > :is(span, strong) { padding: 10px; }
+  .rev11-draft .slides .shift-callout { width: 100%; margin: 0; }
+  .rev11-draft .slides .shift-sequence { align-items: stretch; }
+  .rev11-draft .slides .shift-sequence > i { display: grid; place-items: center; }
+  .rev11-draft .slides .principle-overview { flex: 1; grid-template-rows: repeat(5, 1fr); }
+  .rev11-draft .slides .principle-row { min-height: 0; align-items: stretch; }
+  .rev11-draft .slides :is(.problem-side, .principle-side) { min-height: 0; padding: 12px 20px; }
+  .rev11-draft .slides .brainstorm-compare { align-items: stretch; }
+  .rev11-draft .slides .brainstorm-output { flex-direction: column; gap: 6px; }
+  .rev11-draft .slides .brainstorm-output i { transform: rotate(90deg); }
+  .rev11-draft .slides .compare-transfer { display: grid; place-items: center; }
+  .rev11-draft .slides .gate-routing { margin: 0; width: 100%; flex: 1; min-height: 0; grid-template-rows: auto 32px minmax(0, 1fr) 32px auto 24px auto; align-content: stretch; }
+  .rev11-draft .slides .gate-pr { display: grid; grid-template-columns: auto auto minmax(0, 1fr); gap: 18px; width: 100%; padding: 12px 18px; }
+  .rev11-draft .slides .cadence-card { min-height: 0; padding: 18px 24px; }
+  .rev11-draft .slides .cadence-card h2 { margin: 8px 0; }
+  .rev11-draft .slides :is(.gate-branch-desktop, .gate-converge-desktop) { height: 32px; }
+  .rev11-draft .slides .gate-rule { max-width: none; margin: 0; font-size: 20px; }
+  .rev11-draft .slides .gate-bypass-story { display: flex; flex-direction: column; gap: 20px; }
+  .rev11-draft .slides .gate-bypass-actual { flex: 1; display: flex; flex-direction: column; }
+  .rev11-draft .slides .gate-bypass-timeline { flex: 1; }
+  .rev11-draft .slides :is(.demo-arrow, .session-arrow, .model-problem-arrow, .compare-transfer) { font-size: 36px; }
+
+  /* Nine checkpoints read down the page, with two spacious comparison columns. */
+  .rev11-draft .slides .stage-visual { gap: 8px; }
+  .rev11-draft .slides .stage-board-head { padding: 8px 12px; min-height: 0; }
+  .rev11-draft .slides .stage-board-legend { gap: 5px 12px; }
+  .rev11-draft .slides .stage-table-readable {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    background: var(--draft-panel);
+    font-size: 20px;
+  }
+  .rev11-draft .slides .stage-table-readable th,
+  .rev11-draft .slides .stage-table-readable td {
+    border: 1px solid var(--draft-line);
+    padding: 3px 12px;
+    vertical-align: middle;
+    text-align: left;
+    line-height: 1.2;
+  }
+  .rev11-draft .slides .stage-table-readable th:first-child { width: 160px; }
+  .rev11-draft .slides .stage-table-readable thead { background: var(--draft-raised); }
+  .rev11-draft .slides .stage-table-readable :is(b, em, i) { font-size: 20px; line-height: 1.2; font-style: normal; }
+  .rev11-draft .slides .stage-table-readable b { margin-right: 12px; }
+  .rev11-draft .slides .stage-table-readable em { color: #c8d4e0; }
+  .rev11-draft .slides .stage-table-readable i { display: block; color: #9bb9d8; }
+  .rev11-draft .slides .stage-human-gate { background: #302814; color: #ffe39a; }
+  .rev11-draft .slides .stage-visual .comparison-note { font-size: 20px; line-height: 1.3; }
+
+}
+@media (max-width: 767px) {
+  .rev11-draft .slides > .launch-timing-slide > .visual { gap: 12px; }
+  .rev11-draft .slides .launch-timing-slide .gate-routing {
+    grid-template-rows: auto 24px minmax(min-content, 1fr) 24px auto 20px auto;
+    gap: 3px;
+  }
+  .rev11-draft .slides .launch-timing-slide :is(.gate-branch-desktop, .gate-converge-desktop) { height: 24px; }
+  .rev11-draft .slides .launch-timing-slide .cadence-card { padding: 12px 18px; }
+
+}
+@media (max-width: 767px) {
+  .rev11-draft .deck {
+    display: grid;
+    position: fixed;
+    min-height: 0;
+    top: 50%;
+    left: 50%;
+    width: 1440px;
+    height: 900px;
+    max-width: none;
+    margin: 0;
+    transform: translate(-50%, -50%) scale(var(--deck-scale, 1));
+    transform-origin: center;
+    grid-template-rows: 54px minmax(0, 1fr) 54px;
+  }
+
+  /* Override the shared stylesheet's tablet flow inside the fixed canvas. */
+  .rev11-draft .topbar { position: static; }
+  .rev11-draft .slides { position: relative; }
+  .rev11-draft .slide { position: absolute; min-height: 0; }
+  .rev11-draft .demo-arrow { transform: none; }
+  .rev11-draft :is(.brand, .counter, .draft-badge, .section-rail a, .controls button) { font-size: 15px; }
+
+  /* Content determines card height; spare room belongs around the diagrams. */
+  .rev11-draft .slides > .rev10-slide > .visual { justify-content: center; }
+  .rev11-draft .slides .visual > :is(.match-demo, .tree-layout, .ticket-compare,
+    .chat-agent-compare, .one-chat-layout, .compact-story, .session-story,
+    .model-problem, .two-questions, .split-work, .coordination-problems,
+    .rework-silo, .shift-sequence, .brainstorm-compare, .gate-bypass-story,
+    .recap-columns, .principle-overview, .gate-routing) {
+    flex: 0 0 auto;
+    height: auto;
+    align-content: center;
+  }
+  .rev11-draft .slides .tree-layout { grid-template-rows: auto 56px auto auto auto; }
+  .rev11-draft .slides .matching-roles .visual { grid-template-rows: auto auto auto; align-content: center; }
+  .rev11-draft .slides .split-work-slide .split-work { grid-template-rows: auto 70px auto auto; }
+  .rev11-draft .slides :is(.coordination-problems, .rework-silo) { grid-template-rows: auto auto; }
+  .rev11-draft .slides .visual > .term-note { font-size: 20px; }
+
+  /* One intrinsic card row shares its height across all three groups. */
+  .rev11-draft .slides .matching-demo {
+    grid-template-rows: auto auto;
+    align-items: stretch;
+    min-height: 0;
+    row-gap: 12px;
+  }
+  .rev11-draft .slides .matching-inputs { display: contents; }
+  .rev11-draft .slides .matching-input-label { grid-column: 1; grid-row: 1; }
+  .rev11-draft .slides .matching-phones {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .rev11-draft .slides .matching-demo > .matching-result-label { grid-column: 3; grid-row: 1; }
+  .rev11-draft .slides .matching-demo > .matching-list-label { grid-column: 5; grid-row: 1; }
+  .rev11-draft .slides .matching-group-label { color: var(--draft-muted); font-weight: 800; font-size: 20px; }
+  .rev11-draft .slides .matching-demo :is(.phone, .match-result, .match-list-node) {
+    height: auto;
+    min-height: 0;
+    padding: 28px 10px;
+  }
+  .rev11-draft .slides .matching-demo .match-result { grid-column: 3; grid-row: 2; }
+  .rev11-draft .slides .matching-demo .match-list-node { grid-column: 5; grid-row: 2; }
+  .rev11-draft .slides .matching-demo .demo-arrow {
+    display: grid;
+    place-items: center;
+    align-self: center;
+    grid-row: 2;
+    line-height: 1;
+  }
+  .rev11-draft .slides .matching-demo .arrow-first { grid-column: 2; }
+  .rev11-draft .slides .matching-demo .arrow-second { grid-column: 4; }
+  .rev11-draft .slides .matching-demo :is(.match-result, .match-list-node) > small { display: none; }
+
+  .rev11-draft .slides .compact-timeline { flex: 0 0 auto; align-items: start; }
+  .rev11-draft .slides .compact-step { grid-template-rows: auto auto auto; align-content: start; }
+  .rev11-draft .slides .compact-chat { justify-content: flex-start; }
+  .rev11-draft .slides .compact-step > header { min-height: 0; }
+  .rev11-draft .slides .compact-time-arrow { align-self: center; }
+  .rev11-draft .slides .compact-outcome { align-self: center; }
+
+  .rev11-draft .slides .principle-overview { grid-template-rows: repeat(5, auto); }
+  .rev11-draft .slides .principle-row { align-items: center; }
+  .rev11-draft .slides .principle-link { align-self: center; }
+  .rev11-draft .slides :is(.problem-side, .principle-side) { align-self: stretch; }
+
+}
+@media (max-width: 767px) {
+  .rev11-draft .slides .carried-slide {
+    --carried-meta: 15px;
+    --carried-body: 20px;
+  }
+  .rev11-draft .slides .carried-slide > .visual {
+    gap: 20px;
+    align-items: stretch;
+  }
+  .rev11-draft .slides .carried-slide :is(.step-intro, .short-note) {
+    margin: 0;
+    font-size: var(--carried-body);
+    line-height: 1.4;
+  }
+  .rev11-draft .slides .carried-slide .visual :is(table, th, td, code, blockquote) {
+    font-size: var(--carried-body);
+    line-height: 1.4;
+  }
+  .rev11-draft .slides .carried-slide :is(.github-window, .ticket, .ready-card,
+    .goal-example-card, .done-summary, .sticky-wall) {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+  .rev11-draft .slides .carried-slide :is(.window-bar, .artifact-head,
+    .ticket-title, .ready-title) {
+    align-items: center;
+    gap: 12px;
+  }
+  .rev11-draft .slides .carried-slide :is(.window-bar, .artifact-head) span,
+  .rev11-draft .slides .carried-slide :is(.ticket-state, .ready-pill, .open-pill,
+    .request-pill, .compare-tag) {
+    font-size: var(--carried-meta);
+    line-height: 1.4;
+  }
+
+  /* Restore desktop diagrams even when the viewport is narrower than 900px:
+     it is the outer 1440px canvas that scales, not the diagram columns. */
+  .rev11-draft .slides .carried-slide :is(.git-metaphor, .state-compare) {
+    flex-direction: row;
+    align-items: center;
+    gap: 28px;
+  }
+  .rev11-draft .slides .carried-slide :is(.git-metaphor, .state-compare) article {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    min-height: 300px;
+    justify-content: center;
+    padding: 30px;
+  }
+  .rev11-draft .slides .carried-slide :is(.metaphor-icon, .state-icon) {
+    font-size: 52px;
+  }
+  .rev11-draft .slides .carried-slide :is(.branch-diagram, .merge-diagram, .commit-diagram) {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+  .rev11-draft .slides .carried-slide .git-graph { flex: 0 0 auto; height: 450px; }
+  .rev11-draft .slides .carried-slide .git-graph :is(.git-label, .git-note) { font-size: 20px; }
+  .rev11-draft .slides .carried-slide .brainstorming-visual .sticky-wall {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    padding: 24px;
+  }
+  .rev11-draft .slides .carried-slide .sticky { min-height: 140px; padding: 24px; }
+  .rev11-draft .slides .carried-slide .sticky small { font-size: var(--carried-body); }
+  .rev11-draft .slides .carried-slide .goal-example-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rev11-draft .slides .carried-slide .compare-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rev11-draft .slides .carried-slide .compare-card { padding: 32px; }
+  .rev11-draft .slides .carried-slide .compare-note { grid-column: 1 / -1; margin: 0; }
+
+  /* Board labels are supporting information (15px); the station artifact
+     carries the 20px body copy. Keep the seven columns aligned on every page. */
+  .rev11-draft .slides .carried-slide :is(.full-board-columns, .mini-board-columns) {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+  .rev11-draft .slides .carried-slide :is(.full-goal-lane, .mini-goal-lane,
+    .full-board-foot, .mini-board-note) {
+    flex-direction: row;
+    align-items: center;
+  }
+  .rev11-draft .slides .carried-slide :is(.full-column, .mini-column) h3 {
+    min-height: 28px;
+    font-size: var(--carried-body);
+    line-height: 1.3;
+  }
+  .rev11-draft .slides .carried-slide .full-column { min-height: 320px; }
+  .rev11-draft .slides .carried-slide .full-column h3 { min-height: 54px; }
+  .rev11-draft .slides .carried-slide .mini-column { min-height: 100px; }
+  .rev11-draft .slides .carried-slide .mini-column-head { min-height: 54px; }
+  .rev11-draft .slides .carried-slide .mini-ticket { padding: 4px; gap: 0 4px; }
+  .rev11-draft .slides .carried-slide .mini-ticket :is(span, b, small),
+  .rev11-draft .slides .carried-slide :is(.mini-board-note, .full-goal-lane, .mini-goal-lane) > span,
+  .rev11-draft .slides .carried-slide .mini-board-note > b {
+    font-size: var(--carried-meta);
+    line-height: 1.4;
+  }
+  .rev11-draft .slides .carried-station { gap: 14px; }
+  .rev11-draft .slides .carried-station > .visual { justify-content: flex-start; gap: 12px; }
+  .rev11-draft .slides .carried-slide .mini-board-return {
+    min-height: 0;
+    margin: 0;
+    padding: 5px 10px;
+    border: 1px solid #67444a;
+    border-radius: 7px;
+    background: #25191d;
+  }
+  .rev11-draft .slides .carried-slide .mini-board-return svg { display: none; }
+  .rev11-draft .slides .carried-slide .mini-board-return > span {
+    display: block;
+    padding: 0;
+    border: 0;
+    margin: 0;
+    font-size: var(--carried-meta);
+    line-height: 1.4;
+  }
+  .rev11-draft .slides .carried-slide .refinement-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .rev11-draft .slides .carried-slide .refinement-grid > div { padding: 8px 12px; border-right: 1px solid var(--draft-line); }
+  .rev11-draft .slides .carried-slide .refinement-grid > div:nth-child(4),
+  .rev11-draft .slides .carried-slide .refinement-grid > div:last-child { border-right: 0; }
+  .rev11-draft .slides .carried-slide .refinement-grid .refinement-ac { grid-column: span 2; }
+  .rev11-draft .slides .carried-slide .refinement-grid b { font-size: var(--carried-meta); }
+  .rev11-draft .slides .carried-slide :is(.ticket-rule-note, .refinement-move-note,
+    .developer-terms, .review-criteria, .qa-implementation-note, .qa-status-legend,
+    .goal-not-done-note) {
+    margin: 0;
+    font-size: var(--carried-body);
+    line-height: 1.4;
+  }
+  .rev11-draft .slides .carried-slide .checklist { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 9px; padding: 16px 20px; }
+  .rev11-draft .slides .carried-slide .dev-path { flex-wrap: nowrap; gap: 14px; }
+  .rev11-draft .slides .carried-slide .dev-path code { font-size: var(--carried-meta); }
+  .rev11-draft .slides .carried-slide .qa-evidence-table { max-width: none; table-layout: fixed; }
+  .rev11-draft .slides .carried-slide .qa-evidence-table :is(th, td) { padding: 10px 12px; overflow-wrap: break-word; }
+  .rev11-draft .slides .carried-slide .qa-evidence-table th:first-child { width: 13%; }
+  .rev11-draft .slides .carried-slide .qa-evidence-table th:last-child { width: 15%; }
+  .rev11-draft .slides .carried-slide .qa-artifact > p { margin-top: 10px; }
+  .rev11-draft .slides .carried-slide :is(.goal-check-layout, .done-summary) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rev11-draft .slides .carried-slide .goal-check-note { grid-column: 1 / -1; }
+  .rev11-draft .slides .carried-slide .goal-not-done-note { max-width: none; }
+  .rev11-draft .slides .carried-slide .goal-check-routes article { grid-template-columns: minmax(0, 1fr) 30px minmax(0, 1fr); }
+  .rev11-draft .slides .carried-slide .goal-check-routes :is(span, b) { font-size: var(--carried-meta); }
+  .rev11-draft .slides .carried-slide .project-dod { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .rev11-draft .slides .carried-slide :is(.boundary-boxes, .role-cards) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .rev11-draft .slides .carried-slide .role-cards article { min-height: 280px; justify-content: center; }
+  .rev11-draft .slides .carried-slide .verification-flow { grid-template-columns: minmax(0, 1fr) 45px minmax(0, 1fr); align-items: center; }
+  .rev11-draft .slides .carried-slide .verification-flow article { min-height: 220px; justify-content: center; }
+  .rev11-draft .slides .carried-slide .reanchor-path { grid-template-columns: minmax(0, 1fr) 65px minmax(0, 1fr); }
+  .rev11-draft .slides .carried-slide .reanchor-path article:first-child { grid-column: 3; grid-row: 1; }
+  .rev11-draft .slides .carried-slide .reanchor-path > .diagram-arrow { grid-column: 2; grid-row: 1; transform: none; }
+  .rev11-draft .slides .carried-slide .reanchor-path article:last-child { grid-column: 1; grid-row: 1; }
+  .rev11-draft .slides .carried-slide .architecture { align-content: center; gap: 14px; }
+  .rev11-draft .slides .carried-slide .architecture .layer { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); min-height: 70px; padding: 14px 20px; }
+  .rev11-draft .slides .carried-slide .kanban-board {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    grid-template-rows: auto auto minmax(140px, auto);
+    align-content: center;
+  }
+  .rev11-draft .slides .carried-slide .kanban-board h3 { min-height: 54px; font-size: var(--carried-body); }
+  .rev11-draft .slides .carried-slide .kanban-board :is(.recap-waiting, .moving-ticket) small { font-size: var(--carried-meta); }
+  .rev11-draft .slides .carried-slide .kanban-board .recap-waiting :is(span, b) { font-size: var(--carried-meta); }
+  .rev11-draft .slides .carried-slide .kanban-board > div:not(.board-parent) { min-height: 220px; }
+
 }

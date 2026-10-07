@@ -1301,8 +1301,8 @@
 .rev10-draft .cadence-stages strong { color: #ffe39a; }
 
 @media (max-width: 767px) {
-  .rev10-draft { overflow: hidden; }
-  .rev10-draft .deck {
+  .rev10-draft:where(:not(.rev11-draft)) { overflow: hidden; }
+  .rev10-draft:where(:not(.rev11-draft)) .deck {
     top: 0;
     left: 0;
     width: calc(100 * var(--design-vw));
@@ -1312,46 +1312,46 @@
     transform: none;
     grid-template-rows: 86px minmax(0, 1fr) 50px;
   }
-  .rev10-draft .topbar {
+  .rev10-draft:where(:not(.rev11-draft)) .topbar {
     grid-template-columns: minmax(0,1fr) auto;
     grid-template-rows: 28px minmax(0,1fr);
     gap: 2px 8px;
     padding: 5px 9px 7px;
   }
-  .rev10-draft .brand { grid-column: 1; grid-row: 1; font-size: 12px; }
-  .rev10-draft .counter { grid-column: 2; grid-row: 1; font-size: 12px; }
-  .rev10-draft .section-rail {
+  .rev10-draft:where(:not(.rev11-draft)) .brand { grid-column: 1; grid-row: 1; font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .counter { grid-column: 2; grid-row: 1; font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .section-rail {
     grid-column: 1 / -1;
     grid-row: 2;
     justify-content: flex-start;
     gap: 2px;
     overflow: hidden;
   }
-  .rev10-draft .section-rail a {
+  .rev10-draft:where(:not(.rev11-draft)) .section-rail a {
     min-width: 24px;
     min-height: 29px;
     padding: 4px 6px;
     font-size: 10px;
   }
-  .rev10-draft .section-rail a.active {
+  .rev10-draft:where(:not(.rev11-draft)) .section-rail a.active {
     flex: 1 1 auto;
     min-width: 0;
     justify-content: flex-start;
     padding: 4px 7px;
   }
-  .rev10-draft .section-rail a.active .rail-title {
+  .rev10-draft:where(:not(.rev11-draft)) .section-rail a.active .rail-title {
     overflow: hidden;
     font-size: 10px;
     line-height: 1.15;
     text-overflow: clip;
     white-space: normal;
   }
-  .rev10-draft .section-rail.rail-expanded a:not(.active) { display: none; }
-  .rev10-draft .section-rail.rail-expanded a.active .rail-title { white-space: normal; }
-  .rev10-draft .slide { padding: 12px 14px 10px; gap: 8px; }
-  .rev10-draft .slide h1 { font-size: 23px; line-height: 1.2; }
-  .rev10-draft .visual { gap: 9px; }
-  .rev10-draft .controls {
+  .rev10-draft:where(:not(.rev11-draft)) .section-rail.rail-expanded a:not(.active) { display: none; }
+  .rev10-draft:where(:not(.rev11-draft)) .section-rail.rail-expanded a.active .rail-title { white-space: normal; }
+  .rev10-draft:where(:not(.rev11-draft)) .slide { padding: 12px 14px 10px; gap: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .slide h1 { font-size: 23px; line-height: 1.2; }
+  .rev10-draft:where(:not(.rev11-draft)) .visual { gap: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .controls {
     position: relative;
     right: auto;
     bottom: auto;
@@ -1360,181 +1360,181 @@
     gap: 8px;
     padding: 0 8px;
   }
-  .rev10-draft .controls button { min-height: 34px; padding: 5px 3px; font-size: 11px; }
-  .rev10-draft .draft-source {
+  .rev10-draft:where(:not(.rev11-draft)) .controls button { min-height: 34px; padding: 5px 3px; font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .draft-source {
     max-height: 25px;
     font-size: 9px;
     line-height: 12px;
     white-space: normal;
   }
-  .rev10-draft .rev10-cover { padding: 54px 24px 44px; }
-  .rev10-draft .rev10-cover::after { right: 24px; bottom: 50px; width: 48%; }
-  .rev10-draft .rev10-cover .cover-mark { top: 44px; left: 20px; font-size: 74px; }
-  .rev10-draft .cover-kicker { margin-bottom: 9px; font-size: 12px; }
-  .rev10-draft .rev10-cover h1 { font-size: 30px; line-height: 1.25; }
-  .rev10-draft .sample-ticket { flex-wrap: wrap; gap: 8px; padding: 9px; }
-  .rev10-draft .sample-ticket > span { width: 30px; height: 30px; }
-  .rev10-draft .sample-ticket strong { font-size: 15px; }
-  .rev10-draft .sample-ticket em { flex-basis: 100%; margin-left: 38px; font-size: 11px; }
-  .rev10-draft .role-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 7px; }
-  .rev10-draft .role-card { min-height: 0; padding: 12px; }
-  .rev10-draft .role-card h2 { margin: 7px 0 5px; font-size: 17px; }
-  .rev10-draft .role-card p { font-size: 12px; line-height: 1.35; }
-  .rev10-draft .role-index { font-size: 10px; }
-  .rev10-draft .role-sequence { flex-wrap: wrap; gap: 5px; font-size: 11px; }
-  .rev10-draft .role-sequence i { font-size: 14px; }
-  .rev10-draft .rev10-flow-svg { width: 100%; height: auto; max-height: 100%; }
-  .rev10-draft .tree-layout { gap: 4px; }
-  .rev10-draft .tree-goal { min-width: 0; width: 100%; padding: 8px; }
-  .rev10-draft .tree-goal strong { font-size: 16px; }
-  .rev10-draft .tree-lines { display: none; }
-  .rev10-draft .tree-tickets { grid-template-columns: 1fr; gap: 5px; width: 100%; }
-  .rev10-draft .tree-tickets article { min-height: 0; flex-direction: row; justify-content: flex-start; gap: 9px; padding: 8px; }
-  .rev10-draft .tree-tickets article strong { font-size: 13px; }
-  .rev10-draft .tree-tickets small { font-size: 10px; }
-  .rev10-draft .tree-sequence { flex-wrap: wrap; gap: 5px; margin-top: 2px; font-size: 13px; }
-  .rev10-draft .tree-sequence span { min-width: 35px; padding: 4px 7px; }
-  .rev10-draft .tree-why { margin-top: 1px; font-size: 12px; }
-  .rev10-draft .ticket-compare { grid-template-columns: 1fr; gap: 7px; }
-  .rev10-draft .ticket-titlebar { padding: 7px 9px; font-size: 11px; }
-  .rev10-draft .ticket-fields { padding: 2px 9px; }
-  .rev10-draft .ticket-fields > div { grid-template-columns: minmax(105px,.9fr) minmax(0,1fr); min-height: 28px; }
-  .rev10-draft .ticket-fields b,
-  .rev10-draft .ticket-fields span { font-size: 10px; }
-  .rev10-draft .bad-ticket { gap: 7px; padding: 10px; }
-  .rev10-draft .bad-ticket strong { font-size: 17px; }
-  .rev10-draft .bad-ticket span { font-size: 11px; }
-  .rev10-draft .ticket-ac-dod { margin-top: 1px; font-size: 10px; }
-  .rev10-draft .parent-action { flex-wrap: wrap; gap: 5px; margin-bottom: 2px; padding: 7px; font-size: 11px; }
-  .rev10-draft .recap-columns { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 5px; }
-  .rev10-draft .recap-columns article { min-height: 57px; flex-direction: row; align-items: center; justify-content: space-between; gap: 5px; padding: 7px; text-align: left; }
-  .rev10-draft .recap-columns article::after { display: none; }
-  .rev10-draft .recap-columns h2 { font-size: 11px; }
-  .rev10-draft .recap-columns strong { font-size: 10px; }
-  .rev10-draft .return-routes { gap: 2px; }
-  .rev10-draft .return-route { min-height: 31px; }
-  .rev10-draft .return-route strong { font-size: 10px; }
-  .rev10-draft .chat-agent-compare,
-  .rev10-draft .two-questions,
-  .rev10-draft .coordination-problems,
-  .rev10-draft .rework-silo,
-  .rev10-draft .cadence-options { grid-template-columns: 1fr; gap: 7px; }
-  .rev10-draft .compare-panel { min-height: 0; padding: 13px; }
-  .rev10-draft .compare-panel h2 { margin: 7px 0 10px; font-size: 17px; }
-  .rev10-draft .compare-panel small,
-  .rev10-draft .question-card small { font-size: 9px; }
-  .rev10-draft .sequence-flow { gap: 4px; padding: 7px; }
-  .rev10-draft .sequence-flow span { font-size: 10px; }
-  .rev10-draft .sequence-flow i { font-size: 12px; }
-  .rev10-draft .compare-panel p { margin-top: 8px; font-size: 11px; }
-  .rev10-draft .one-chat-layout { grid-template-columns: 1fr; gap: 8px; }
-  .rev10-draft .chat-window-head { gap: 4px; padding: 7px; font-size: 10px; }
-  .rev10-draft .chat-role-row { flex-wrap: wrap; gap: 5px; min-height: 0; padding: 7px; font-size: 10px; }
-  .rev10-draft .chat-role-row b { padding: 5px; }
-  .rev10-draft .boundary-question { gap: 5px; padding: 8px; }
-  .rev10-draft .boundary-question b { font-size: 15px; }
-  .rev10-draft .boundary-question strong { font-size: 12px; }
-  .rev10-draft .context-story { grid-template-columns: 1fr; gap: 5px; }
-  .rev10-draft .context-history,
-  .rev10-draft .context-handoff { gap: 7px; min-height: 0; padding: 9px; font-size: 11px; }
-  .rev10-draft .context-bubbles { gap: 4px; }
-  .rev10-draft .context-bubbles span { padding: 5px; }
-  .rev10-draft .context-arrow { transform: rotate(90deg); font-size: 18px; }
-  .rev10-draft .context-note { font-size: 11px; }
-  .rev10-draft .model-routing { grid-template-columns: 1fr; gap: 6px; }
-  .rev10-draft .work-tasks { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 4px; }
-  .rev10-draft .work-tasks article { flex-direction: column; gap: 5px; padding: 7px 3px; font-size: 10px; text-align: center; }
-  .rev10-draft .shared-config { padding: 8px; font-size: 11px; }
-  .rev10-draft .shared-config span { margin-bottom: 4px; }
-  .rev10-draft .shared-config strong { font-size: 13px; }
-  .rev10-draft .routing-insight { gap: 4px; padding-left: 7px; }
-  .rev10-draft .routing-insight b { font-size: 13px; }
-  .rev10-draft .routing-insight span { font-size: 11px; }
-  .rev10-draft .handoff-question { margin-top: 2px; font-size: 13px; }
-  .rev10-draft .question-card { min-height: 0; padding: 11px; }
-  .rev10-draft .question-card h2 { margin: 5px 0 8px; font-size: 17px; }
-  .rev10-draft .pair-options { grid-template-columns: minmax(0,1fr) 18px minmax(0,1fr); gap: 4px; }
-  .rev10-draft .pair-options > div { gap: 4px; min-height: 0; padding: 7px; font-size: 10px; }
-  .rev10-draft .pair-options b { font-size: 12px; }
-  .rev10-draft .pair-options span { font-size: 10px; }
-  .rev10-draft .pair-options i { font-size: 14px; }
-  .rev10-draft .two-axis-note { font-size: 10px; }
-  .rev10-draft .split-work { grid-template-columns: 1fr; gap: 6px; }
-  .rev10-draft .shared-goal { gap: 5px; padding: 9px; font-size: 11px; }
-  .rev10-draft .shared-goal strong { font-size: 14px; }
-  .rev10-draft .split-branches { display: none; }
-  .rev10-draft .specialist-cards { gap: 5px; }
-  .rev10-draft .specialist-cards article { gap: 5px; min-height: 0; padding: 8px; font-size: 10px; }
-  .rev10-draft .specialist-cards b { font-size: 11px; }
-  .rev10-draft .single-first { font-size: 11px; }
-  .rev10-draft .coordination-problems > article { min-height: 0; padding: 10px; }
-  .rev10-draft .coordination-problems h2,
-  .rev10-draft .rework-silo h2 { margin: 5px 0 8px; font-size: 16px; }
-  .rev10-draft .handoff-card,
-  .rev10-draft .conflict-card { gap: 4px; min-height: 0; padding: 6px; }
-  .rev10-draft .handoff-card span,
-  .rev10-draft .conflict-card span { padding: 5px; font-size: 9px; }
-  .rev10-draft .coordination-problems p { margin-top: 6px; font-size: 10px; }
-  .rev10-draft .rework-silo > article { min-height: 0; padding: 10px; }
-  .rev10-draft .duplicate-work { gap: 5px; }
-  .rev10-draft .duplicate-work span { min-height: 0; padding: 7px; font-size: 10px; }
-  .rev10-draft .silo-cards { gap: 6px; }
-  .rev10-draft .silo-cards span { min-width: 0; min-height: 55px; flex: 1; font-size: 10px; }
-  .rev10-draft .shift-callout { flex-wrap: wrap; gap: 6px; margin-bottom: 6px; padding: 8px; }
-  .rev10-draft .shift-callout strong { font-size: 12px; }
-  .rev10-draft .shift-sequence { grid-template-columns: 1fr; gap: 3px; }
-  .rev10-draft .shift-sequence article { gap: 6px; min-height: 0; padding: 10px; }
-  .rev10-draft .shift-sequence article small { font-size: 12px; }
-  .rev10-draft .shift-sequence article strong { font-size: 14px; }
-  .rev10-draft .shift-sequence > i { transform: rotate(90deg); font-size: 18px; }
-  .rev10-draft .shift-note { margin: 3px 0; font-size: 10px; }
-  .rev10-draft .principle-overview { gap: 4px; }
-  .rev10-draft .principle-row { grid-template-columns: minmax(0,1fr) 18px minmax(0,1fr); min-height: 0; }
-  .rev10-draft .problem-side,
-  .rev10-draft .principle-side { gap: 3px; min-height: 0; padding: 6px; }
-  .rev10-draft .problem-side small,
-  .rev10-draft .principle-side small { font-size: 8px; }
-  .rev10-draft .problem-side strong { font-size: 9px; }
-  .rev10-draft .principle-name strong { font-size: 10px; }
-  .rev10-draft .same-ticket { flex-wrap: wrap; gap: 5px; margin-bottom: 4px; padding: 6px; }
-  .rev10-draft .same-ticket span { font-size: 9px; }
-  .rev10-draft .same-ticket strong { font-size: 11px; }
-  .rev10-draft .board-stage-head { display: none; }
-  .rev10-draft .comparison-lane {
+  .rev10-draft:where(:not(.rev11-draft)) .rev10-cover { padding: 54px 24px 44px; }
+  .rev10-draft:where(:not(.rev11-draft)) .rev10-cover::after { right: 24px; bottom: 50px; width: 48%; }
+  .rev10-draft:where(:not(.rev11-draft)) .rev10-cover .cover-mark { top: 44px; left: 20px; font-size: 74px; }
+  .rev10-draft:where(:not(.rev11-draft)) .cover-kicker { margin-bottom: 9px; font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .rev10-cover h1 { font-size: 30px; line-height: 1.25; }
+  .rev10-draft:where(:not(.rev11-draft)) .sample-ticket { flex-wrap: wrap; gap: 8px; padding: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .sample-ticket > span { width: 30px; height: 30px; }
+  .rev10-draft:where(:not(.rev11-draft)) .sample-ticket strong { font-size: 15px; }
+  .rev10-draft:where(:not(.rev11-draft)) .sample-ticket em { flex-basis: 100%; margin-left: 38px; font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .role-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 7px; }
+  .rev10-draft:where(:not(.rev11-draft)) .role-card { min-height: 0; padding: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .role-card h2 { margin: 7px 0 5px; font-size: 17px; }
+  .rev10-draft:where(:not(.rev11-draft)) .role-card p { font-size: 12px; line-height: 1.35; }
+  .rev10-draft:where(:not(.rev11-draft)) .role-index { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .role-sequence { flex-wrap: wrap; gap: 5px; font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .role-sequence i { font-size: 14px; }
+  .rev10-draft:where(:not(.rev11-draft)) .rev10-flow-svg { width: 100%; height: auto; max-height: 100%; }
+  .rev10-draft:where(:not(.rev11-draft)) .tree-layout { gap: 4px; }
+  .rev10-draft:where(:not(.rev11-draft)) .tree-goal { min-width: 0; width: 100%; padding: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .tree-goal strong { font-size: 16px; }
+  .rev10-draft:where(:not(.rev11-draft)) .tree-lines { display: none; }
+  .rev10-draft:where(:not(.rev11-draft)) .tree-tickets { grid-template-columns: 1fr; gap: 5px; width: 100%; }
+  .rev10-draft:where(:not(.rev11-draft)) .tree-tickets article { min-height: 0; flex-direction: row; justify-content: flex-start; gap: 9px; padding: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .tree-tickets article strong { font-size: 13px; }
+  .rev10-draft:where(:not(.rev11-draft)) .tree-tickets small { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .tree-sequence { flex-wrap: wrap; gap: 5px; margin-top: 2px; font-size: 13px; }
+  .rev10-draft:where(:not(.rev11-draft)) .tree-sequence span { min-width: 35px; padding: 4px 7px; }
+  .rev10-draft:where(:not(.rev11-draft)) .tree-why { margin-top: 1px; font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .ticket-compare { grid-template-columns: 1fr; gap: 7px; }
+  .rev10-draft:where(:not(.rev11-draft)) .ticket-titlebar { padding: 7px 9px; font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .ticket-fields { padding: 2px 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .ticket-fields > div { grid-template-columns: minmax(105px,.9fr) minmax(0,1fr); min-height: 28px; }
+  .rev10-draft:where(:not(.rev11-draft)) .ticket-fields b,
+  .rev10-draft:where(:not(.rev11-draft)) .ticket-fields span { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .bad-ticket { gap: 7px; padding: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .bad-ticket strong { font-size: 17px; }
+  .rev10-draft:where(:not(.rev11-draft)) .bad-ticket span { font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .ticket-ac-dod { margin-top: 1px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .parent-action { flex-wrap: wrap; gap: 5px; margin-bottom: 2px; padding: 7px; font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .recap-columns { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .recap-columns article { min-height: 57px; flex-direction: row; align-items: center; justify-content: space-between; gap: 5px; padding: 7px; text-align: left; }
+  .rev10-draft:where(:not(.rev11-draft)) .recap-columns article::after { display: none; }
+  .rev10-draft:where(:not(.rev11-draft)) .recap-columns h2 { font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .recap-columns strong { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-routes { gap: 2px; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-route { min-height: 31px; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-route strong { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .chat-agent-compare,
+  .rev10-draft:where(:not(.rev11-draft)) .two-questions,
+  .rev10-draft:where(:not(.rev11-draft)) .coordination-problems,
+  .rev10-draft:where(:not(.rev11-draft)) .rework-silo,
+  .rev10-draft:where(:not(.rev11-draft)) .cadence-options { grid-template-columns: 1fr; gap: 7px; }
+  .rev10-draft:where(:not(.rev11-draft)) .compare-panel { min-height: 0; padding: 13px; }
+  .rev10-draft:where(:not(.rev11-draft)) .compare-panel h2 { margin: 7px 0 10px; font-size: 17px; }
+  .rev10-draft:where(:not(.rev11-draft)) .compare-panel small,
+  .rev10-draft:where(:not(.rev11-draft)) .question-card small { font-size: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .sequence-flow { gap: 4px; padding: 7px; }
+  .rev10-draft:where(:not(.rev11-draft)) .sequence-flow span { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .sequence-flow i { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .compare-panel p { margin-top: 8px; font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .one-chat-layout { grid-template-columns: 1fr; gap: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .chat-window-head { gap: 4px; padding: 7px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .chat-role-row { flex-wrap: wrap; gap: 5px; min-height: 0; padding: 7px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .chat-role-row b { padding: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .boundary-question { gap: 5px; padding: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .boundary-question b { font-size: 15px; }
+  .rev10-draft:where(:not(.rev11-draft)) .boundary-question strong { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .context-story { grid-template-columns: 1fr; gap: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .context-history,
+  .rev10-draft:where(:not(.rev11-draft)) .context-handoff { gap: 7px; min-height: 0; padding: 9px; font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .context-bubbles { gap: 4px; }
+  .rev10-draft:where(:not(.rev11-draft)) .context-bubbles span { padding: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .context-arrow { transform: rotate(90deg); font-size: 18px; }
+  .rev10-draft:where(:not(.rev11-draft)) .context-note { font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .model-routing { grid-template-columns: 1fr; gap: 6px; }
+  .rev10-draft:where(:not(.rev11-draft)) .work-tasks { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 4px; }
+  .rev10-draft:where(:not(.rev11-draft)) .work-tasks article { flex-direction: column; gap: 5px; padding: 7px 3px; font-size: 10px; text-align: center; }
+  .rev10-draft:where(:not(.rev11-draft)) .shared-config { padding: 8px; font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .shared-config span { margin-bottom: 4px; }
+  .rev10-draft:where(:not(.rev11-draft)) .shared-config strong { font-size: 13px; }
+  .rev10-draft:where(:not(.rev11-draft)) .routing-insight { gap: 4px; padding-left: 7px; }
+  .rev10-draft:where(:not(.rev11-draft)) .routing-insight b { font-size: 13px; }
+  .rev10-draft:where(:not(.rev11-draft)) .routing-insight span { font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .handoff-question { margin-top: 2px; font-size: 13px; }
+  .rev10-draft:where(:not(.rev11-draft)) .question-card { min-height: 0; padding: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .question-card h2 { margin: 5px 0 8px; font-size: 17px; }
+  .rev10-draft:where(:not(.rev11-draft)) .pair-options { grid-template-columns: minmax(0,1fr) 18px minmax(0,1fr); gap: 4px; }
+  .rev10-draft:where(:not(.rev11-draft)) .pair-options > div { gap: 4px; min-height: 0; padding: 7px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .pair-options b { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .pair-options span { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .pair-options i { font-size: 14px; }
+  .rev10-draft:where(:not(.rev11-draft)) .two-axis-note { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .split-work { grid-template-columns: 1fr; gap: 6px; }
+  .rev10-draft:where(:not(.rev11-draft)) .shared-goal { gap: 5px; padding: 9px; font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .shared-goal strong { font-size: 14px; }
+  .rev10-draft:where(:not(.rev11-draft)) .split-branches { display: none; }
+  .rev10-draft:where(:not(.rev11-draft)) .specialist-cards { gap: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .specialist-cards article { gap: 5px; min-height: 0; padding: 8px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .specialist-cards b { font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .single-first { font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .coordination-problems > article { min-height: 0; padding: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .coordination-problems h2,
+  .rev10-draft:where(:not(.rev11-draft)) .rework-silo h2 { margin: 5px 0 8px; font-size: 16px; }
+  .rev10-draft:where(:not(.rev11-draft)) .handoff-card,
+  .rev10-draft:where(:not(.rev11-draft)) .conflict-card { gap: 4px; min-height: 0; padding: 6px; }
+  .rev10-draft:where(:not(.rev11-draft)) .handoff-card span,
+  .rev10-draft:where(:not(.rev11-draft)) .conflict-card span { padding: 5px; font-size: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .coordination-problems p { margin-top: 6px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .rework-silo > article { min-height: 0; padding: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .duplicate-work { gap: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .duplicate-work span { min-height: 0; padding: 7px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .silo-cards { gap: 6px; }
+  .rev10-draft:where(:not(.rev11-draft)) .silo-cards span { min-width: 0; min-height: 55px; flex: 1; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .shift-callout { flex-wrap: wrap; gap: 6px; margin-bottom: 6px; padding: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .shift-callout strong { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .shift-sequence { grid-template-columns: 1fr; gap: 3px; }
+  .rev10-draft:where(:not(.rev11-draft)) .shift-sequence article { gap: 6px; min-height: 0; padding: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .shift-sequence article small { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .shift-sequence article strong { font-size: 14px; }
+  .rev10-draft:where(:not(.rev11-draft)) .shift-sequence > i { transform: rotate(90deg); font-size: 18px; }
+  .rev10-draft:where(:not(.rev11-draft)) .shift-note { margin: 3px 0; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .principle-overview { gap: 4px; }
+  .rev10-draft:where(:not(.rev11-draft)) .principle-row { grid-template-columns: minmax(0,1fr) 18px minmax(0,1fr); min-height: 0; }
+  .rev10-draft:where(:not(.rev11-draft)) .problem-side,
+  .rev10-draft:where(:not(.rev11-draft)) .principle-side { gap: 3px; min-height: 0; padding: 6px; }
+  .rev10-draft:where(:not(.rev11-draft)) .problem-side small,
+  .rev10-draft:where(:not(.rev11-draft)) .principle-side small { font-size: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .problem-side strong { font-size: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .principle-name strong { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .same-ticket { flex-wrap: wrap; gap: 5px; margin-bottom: 4px; padding: 6px; }
+  .rev10-draft:where(:not(.rev11-draft)) .same-ticket span { font-size: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .same-ticket strong { font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .board-stage-head { display: none; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane {
     grid-template-columns: repeat(2,minmax(0,1fr));
     gap: 4px;
     padding: 5px;
   }
-  .rev10-draft .comparison-lane > * {
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > * {
     min-height: 0;
     padding: 6px;
     border: 1px solid #304256;
     border-radius: 5px;
     font-size: 9px;
   }
-  .rev10-draft .comparison-lane > strong { grid-column: 1 / -1; }
-  .rev10-draft .comparison-lane > span::before { content: attr(data-stage) " · "; color: var(--draft-blue); font-weight: 800; }
-  .rev10-draft .comparison-note { margin-top: 3px; font-size: 10px; }
-  .rev10-draft .brainstorm-compare { grid-template-columns: 1fr; gap: 5px; }
-  .rev10-draft .brainstorm-side { min-height: 0; padding: 10px; }
-  .rev10-draft .brainstorm-side h2 { margin: 5px 0 8px; font-size: 15px; }
-  .rev10-draft .brainstorm-questions,
-  .rev10-draft .agent-responsibilities { gap: 4px; }
-  .rev10-draft .brainstorm-questions span,
-  .rev10-draft .agent-responsibilities span { padding: 6px; font-size: 10px; }
-  .rev10-draft .brainstorm-side p { margin-top: 6px; font-size: 10px; }
-  .rev10-draft .compare-transfer { display: none; }
-  .rev10-draft .brainstorm-output { flex-wrap: wrap; gap: 5px; margin-top: 3px; padding: 7px; font-size: 10px; }
-  .rev10-draft .gate-flow { flex-wrap: wrap; gap: 5px; padding: 8px; }
-  .rev10-draft .gate-flow span,
-  .rev10-draft .gate-flow strong { font-size: 11px; }
-  .rev10-draft .gate-flow strong { padding: 6px; }
-  .rev10-draft .gate-flow i { font-size: 13px; }
-  .rev10-draft .gate-rule { font-size: 10px; }
-  .rev10-draft .cadence-card { min-height: 0; padding: 9px; }
-  .rev10-draft .cadence-card h2 { margin: 5px 0; font-size: 15px; }
-  .rev10-draft .cadence-card p { min-height: 0; margin-bottom: 6px; font-size: 10px; }
-  .rev10-draft .cadence-stages { flex-wrap: wrap; gap: 4px; font-size: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > strong { grid-column: 1 / -1; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > span::before { content: attr(data-stage) " · "; color: var(--draft-blue); font-weight: 800; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-note { margin-top: 3px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .brainstorm-compare { grid-template-columns: 1fr; gap: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .brainstorm-side { min-height: 0; padding: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .brainstorm-side h2 { margin: 5px 0 8px; font-size: 15px; }
+  .rev10-draft:where(:not(.rev11-draft)) .brainstorm-questions,
+  .rev10-draft:where(:not(.rev11-draft)) .agent-responsibilities { gap: 4px; }
+  .rev10-draft:where(:not(.rev11-draft)) .brainstorm-questions span,
+  .rev10-draft:where(:not(.rev11-draft)) .agent-responsibilities span { padding: 6px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .brainstorm-side p { margin-top: 6px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .compare-transfer { display: none; }
+  .rev10-draft:where(:not(.rev11-draft)) .brainstorm-output { flex-wrap: wrap; gap: 5px; margin-top: 3px; padding: 7px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-flow { flex-wrap: wrap; gap: 5px; padding: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-flow span,
+  .rev10-draft:where(:not(.rev11-draft)) .gate-flow strong { font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-flow strong { padding: 6px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-flow i { font-size: 13px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-rule { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .cadence-card { min-height: 0; padding: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .cadence-card h2 { margin: 5px 0; font-size: 15px; }
+  .rev10-draft:where(:not(.rev11-draft)) .cadence-card p { min-height: 0; margin-bottom: 6px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .cadence-stages { flex-wrap: wrap; gap: 4px; font-size: 9px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1580,39 +1580,39 @@
 .rev10-draft .matching-next { color: var(--draft-muted); font-size: 12px; line-height: 1.4; }
 
 @media (max-width: 767px) {
-  .rev10-draft .example-intro .visual { gap: 12px; }
-  .rev10-draft .example-intro-note { font-size: 16px; }
-  .rev10-draft .example-phone { width: 200px; height: clamp(270px, calc(46 * var(--design-vh)), 380px); padding: 8px; border-radius: 24px; }
-  .rev10-draft .example-phone-top { min-height: 21px; }
-  .rev10-draft .example-phone-top span { width: 17px; height: 4px; }
-  .rev10-draft .example-phone-top small { font-size: 9px; }
-  .rev10-draft .example-profile { gap: 5px; margin: 7px 0; border-radius: 16px; }
-  .rev10-draft .example-profile-avatar { width: 67px; height: 67px; margin-bottom: 3px; font-size: 28px; }
-  .rev10-draft .example-profile strong { font-size: 13px; }
-  .rev10-draft .example-profile > span { font-size: 9px; }
-  .rev10-draft .example-actions { gap: 12px; padding: 3px 0 0; }
-  .rev10-draft .example-actions span { width: 35px; height: 35px; font-size: 21px; }
-  .rev10-draft .matching-scope h1 { font-size: 20px; line-height: 1.18; }
-  .rev10-draft .matching-scope .visual { gap: 6px; }
-  .rev10-draft .matching-demo {
+  .rev10-draft:where(:not(.rev11-draft)) .example-intro .visual { gap: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .example-intro-note { font-size: 16px; }
+  .rev10-draft:where(:not(.rev11-draft)) .example-phone { width: 200px; height: clamp(270px, calc(46 * var(--design-vh)), 380px); padding: 8px; border-radius: 24px; }
+  .rev10-draft:where(:not(.rev11-draft)) .example-phone-top { min-height: 21px; }
+  .rev10-draft:where(:not(.rev11-draft)) .example-phone-top span { width: 17px; height: 4px; }
+  .rev10-draft:where(:not(.rev11-draft)) .example-phone-top small { font-size: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .example-profile { gap: 5px; margin: 7px 0; border-radius: 16px; }
+  .rev10-draft:where(:not(.rev11-draft)) .example-profile-avatar { width: 67px; height: 67px; margin-bottom: 3px; font-size: 28px; }
+  .rev10-draft:where(:not(.rev11-draft)) .example-profile strong { font-size: 13px; }
+  .rev10-draft:where(:not(.rev11-draft)) .example-profile > span { font-size: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .example-actions { gap: 12px; padding: 3px 0 0; }
+  .rev10-draft:where(:not(.rev11-draft)) .example-actions span { width: 35px; height: 35px; font-size: 21px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-scope h1 { font-size: 20px; line-height: 1.18; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-scope .visual { gap: 6px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo {
     grid-template-columns: minmax(0,1fr) 22px minmax(0,1fr);
     gap: 5px;
     width: 100%;
     margin: auto 0 0;
   }
-  .rev10-draft .matching-demo .phone { min-width: 0; min-height: 175px; gap: 6px; padding: 9px 5px; border-radius: 20px; }
-  .rev10-draft .matching-demo .phone-label { font-size: 10px; }
-  .rev10-draft .matching-demo .avatar { width: 58px; height: 58px; border-width: 3px; font-size: 25px; }
-  .rev10-draft .matching-demo .phone strong { margin: 0; font-size: 11px; }
-  .rev10-draft .matching-demo .like-button { padding: 6px 12px; font-size: 10px; }
-  .rev10-draft .matching-demo .arrow-first { grid-column: 2; grid-row: 1; transform: none; font-size: 18px; }
-  .rev10-draft .matching-demo .phone-b { grid-column: 3; grid-row: 1; }
-  .rev10-draft .matching-demo .arrow-second { grid-column: 2; grid-row: 2; font-size: 18px; }
-  .rev10-draft .matching-demo .match-result { grid-column: 1 / -1; grid-row: 3; min-height: 0; gap: 0; }
-  .rev10-draft .matching-demo .match-spark { font-size: 27px; }
-  .rev10-draft .matching-demo .match-result strong { font-size: 13px; }
-  .rev10-draft .matching-out { font-size: 11px; }
-  .rev10-draft .matching-next { font-size: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .phone { min-width: 0; min-height: 175px; gap: 6px; padding: 9px 5px; border-radius: 20px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .phone-label { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .avatar { width: 58px; height: 58px; border-width: 3px; font-size: 25px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .phone strong { margin: 0; font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .like-button { padding: 6px 12px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .arrow-first { grid-column: 2; grid-row: 1; transform: none; font-size: 18px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .phone-b { grid-column: 3; grid-row: 1; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .arrow-second { grid-column: 2; grid-row: 2; font-size: 18px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .match-result { grid-column: 1 / -1; grid-row: 3; min-height: 0; gap: 0; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .match-spark { font-size: 27px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .match-result strong { font-size: 13px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-out { font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-next { font-size: 9px; }
 }
 
 /* Layouts that change shape with the available width instead of shrinking a 1440px page. */
@@ -1855,99 +1855,99 @@
 .rev10-draft .gate-rule { max-width: 1050px; margin: 4px auto 0; line-height: 1.4; }
 
 @media (max-width: 767px) {
-  .rev10-draft .topbar { grid-template-columns: minmax(130px, auto) minmax(0, 1fr) auto; gap: 8px; padding: 0 14px; }
-  .rev10-draft .brand { gap: 7px; font-size: 12px; }
-  .rev10-draft .draft-badge { padding: 3px 6px; font-size: 10px; }
-  .rev10-draft .counter { font-size: 12px; }
-  .rev10-draft .section-rail { gap: 1px; }
-  .rev10-draft .section-rail a { min-width: 27px; padding: 5px; font-size: 11px; }
-  .rev10-draft .slide { padding: 24px 30px 16px; gap: 11px; }
-  .rev10-draft .slide h1 { font-size: clamp(25px, calc(3 * var(--design-vw)), 33px); }
-  .rev10-draft .rev10-cover { grid-template-columns: minmax(0,1fr); gap: 18px; padding: 42px calc(7 * var(--design-vw)); }
-  .rev10-draft .rev10-cover .cover-mark { top: 42px; left: calc(6 * var(--design-vw)); font-size: 92px; }
-  .rev10-draft .rev10-cover::after { right: calc(7 * var(--design-vw)); bottom: 36px; width: 40%; }
-  .rev10-draft .cover-preview { min-height: 150px; padding: 18px; gap: 13px; }
-  .rev10-draft .example-intro .visual { gap: 18px; }
-  .rev10-draft .role-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
-  .rev10-draft .role-card { min-height: 0; padding: 14px; }
-  .rev10-draft .role-card h2 { margin: 7px 0; font-size: 18px; }
-  .rev10-draft .role-card p { font-size: 13px; line-height: 1.35; }
-  .rev10-draft .matching-demo { grid-template-columns: minmax(0,1fr); grid-template-rows: auto 32px auto 32px auto; gap: 5px; }
-  .rev10-draft .matching-inputs { grid-column: 1; grid-row: 1; grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .rev10-draft .matching-demo .arrow-first,
-  .rev10-draft .matching-demo .arrow-second { display: grid; place-items: center; grid-column: 1; font-size: 0; }
-  .rev10-draft .matching-demo .arrow-first { grid-row: 2; }
-  .rev10-draft .matching-demo .arrow-second { grid-row: 4; }
-  .rev10-draft .matching-demo .arrow-first::before,
-  .rev10-draft .matching-demo .arrow-second::before { content: "↓"; color: var(--draft-blue); font-size: 25px; line-height: 1; }
-  .rev10-draft .matching-demo .match-result { grid-column: 1; grid-row: 3; min-height: 132px; }
-  .rev10-draft .matching-demo .match-list-node { grid-column: 1; grid-row: 5; min-height: 90px; }
-  .rev10-draft .rev10-flow-svg { display: none; }
-  .rev10-draft .flow-mobile { display: grid; grid-template-columns: minmax(0,1fr); gap: 9px; width: 100%; }
-  .rev10-draft .flow-mobile-goal,
-  .rev10-draft .flow-mobile-returns { grid-column: 1 / -1; }
-  .rev10-draft .flow-mobile-goal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; padding: 10px 13px; border: 1px solid #53775c; border-radius: 8px; background: #14231b; }
-  .rev10-draft .flow-mobile-goal strong { color: var(--draft-green); }
-  .rev10-draft .flow-mobile-lane span { padding: 3px 6px; border-radius: 5px; font-size: 12px; line-height: 1.4; }
-  .rev10-draft .flow-mobile-lane { display: grid; align-content: start; gap: 6px; padding: 10px; border: 1px solid var(--draft-line); border-radius: 8px; background: var(--draft-panel); }
-  .rev10-draft .flow-mobile-focus { border: 2px solid var(--draft-yellow); }
-  .rev10-draft .flow-mobile-lane span { background: #142235; color: #e8f0f7; text-align: center; }
-  .rev10-draft .flow-mobile-lane small { display: block; color: var(--draft-muted); font-size: 10px; }
-  .rev10-draft .flow-mobile-lane > strong { color: #e8f0f7; font-size: 13px; }
-  .rev10-draft .flow-mobile-lane > div { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
-  .rev10-draft .flow-mobile-lane i { color: var(--draft-blue); font-style: normal; }
-  .rev10-draft .flow-mobile-returns { display: flex; flex-wrap: wrap; gap: 6px; }
-  .rev10-draft .flow-mobile-returns span { padding: 6px 8px; border: 1px solid #465366; border-radius: 6px; color: #d7e1eb; font-size: 11px; }
-  .rev10-draft .recap-columns { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 7px; }
-  .rev10-draft .recap-columns article { min-height: 100px; padding: 12px 8px; }
-  .rev10-draft .recap-columns h2 { font-size: 14px; }
-  .rev10-draft .recap-columns strong { font-size: 12px; }
-  .rev10-draft .recap-columns article::after { right: -11px; font-size: 25px; }
-  .rev10-draft .return-routes { flex: 0 0 auto; min-height: 0; margin-top: 9px; }
-  .rev10-draft .return-routes .return-desktop,
-  .rev10-draft .return-desktop-label { display: none; }
-  .rev10-draft .return-mobile { display: flex; flex-wrap: wrap; gap: 7px; }
-  .rev10-draft .return-routes .return-mobile strong { position: static; top: auto; left: auto; transform: none; }
-  .rev10-draft .return-mobile strong { position: static; width: fit-content; padding: 6px 8px; border: 1px solid #39485a; border-radius: 6px; background: #101a26; font-size: 11px; white-space: normal; }
-  .rev10-draft .return-mobile .return-dev-label { color: #ffd0cb; }
-  .rev10-draft .return-mobile .return-goal-label { color: #f8dfa0; }
-  .rev10-draft .return-mobile i { font-style: normal; }
-  .rev10-draft .model-routing { grid-template-columns: minmax(0,1fr); grid-template-rows: auto 60px auto 27px auto; gap: 3px; }
-  .rev10-draft .work-tasks { grid-column: 1; grid-row: 1; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 7px; }
-  .rev10-draft .work-tasks article { min-height: 60px; flex-direction: column; justify-content: center; gap: 4px; padding: 7px; text-align: center; }
-  .rev10-draft .work-tasks small { font-size: 10px; }
-  .rev10-draft .work-tasks strong { font-size: 12px; }
-  .rev10-draft .task-config-arrows,
-  .rev10-draft .config-route-arrow { display: none; }
-  .rev10-draft .task-config-arrows-mobile { display: block; grid-column: 1; grid-row: 2; width: 100%; height: 60px; overflow: visible; }
-  .rev10-draft .shared-config { grid-column: 1; grid-row: 3; width: min(100%,460px); margin: 0 auto; padding: 11px 15px; }
-  .rev10-draft .model-mobile-arrow-end { display: block; grid-column: 1; grid-row: 4; color: var(--draft-blue); font-size: 23px; font-weight: 900; line-height: 1; text-align: center; }
-  .rev10-draft .routing-insight { grid-column: 1; grid-row: 5; align-items: center; padding: 10px 8px 0; border-top: 2px solid var(--draft-blue); border-left: 0; text-align: center; }
-  .rev10-draft .split-work { grid-template-columns: 1fr; grid-template-rows: auto 52px auto auto; }
-  .rev10-draft .split-branches { display: block; height: 52px; }
-  .rev10-draft .specialist-cards { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
-  .rev10-draft .specialist-cards article { min-height: 100px; padding: 12px; font-size: 12px; }
-  .rev10-draft .specialist-cards b { font-size: 14px; }
-  .rev10-draft .single-first { font-size: 13px; }
-  .rev10-draft .tree-layout { grid-template-rows: auto auto auto auto; height: auto; min-height: 100%; align-content: start; gap: 8px; }
-  .rev10-draft .tree-lines { display: none; }
-  .rev10-draft .comparison-board { overflow: visible; }
-  .rev10-draft .board-stage-head { display: none; }
-  .rev10-draft .comparison-lane { grid-template-columns: minmax(0,1fr); gap: 5px; padding: 8px; }
-  .rev10-draft .comparison-lane > * { min-height: 0; padding: 9px; border: 1px solid #304256; border-radius: 6px; }
-  .rev10-draft .comparison-lane > strong { grid-column: 1; min-height: 42px; }
-  .rev10-draft .comparison-lane > span { display: grid; grid-template-columns: minmax(112px,.7fr) minmax(0,1.3fr); align-items: start; gap: 4px 8px; text-align: left; }
-  .rev10-draft .comparison-lane > span::before { grid-row: 1 / span 4; content: attr(data-stage); color: var(--draft-blue); font-size: 11px; font-weight: 850; }
-  .rev10-draft .comparison-lane > span b,
-  .rev10-draft .comparison-lane > span em,
-  .rev10-draft .comparison-lane > span small,
-  .rev10-draft .comparison-lane > span i { grid-column: 2; }
-  .rev10-draft .brainstorm-compare { grid-template-columns: minmax(0,1fr); grid-template-rows: auto 32px auto; gap: 4px; }
-  .rev10-draft .brainstorm-side { min-height: 0; padding: 16px; }
-  .rev10-draft .brainstorm-compare > .brainstorm-side:first-child { grid-row: 1; }
-  .rev10-draft .compare-transfer { display: grid; grid-row: 2; place-items: center; transform: rotate(90deg); font-size: 24px; }
-  .rev10-draft .brainstorm-agent { grid-row: 3; }
-  .rev10-draft .brainstorm-output {
+  .rev10-draft:where(:not(.rev11-draft)) .topbar { grid-template-columns: minmax(130px, auto) minmax(0, 1fr) auto; gap: 8px; padding: 0 14px; }
+  .rev10-draft:where(:not(.rev11-draft)) .brand { gap: 7px; font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .draft-badge { padding: 3px 6px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .counter { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .section-rail { gap: 1px; }
+  .rev10-draft:where(:not(.rev11-draft)) .section-rail a { min-width: 27px; padding: 5px; font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .slide { padding: 24px 30px 16px; gap: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .slide h1 { font-size: clamp(25px, calc(3 * var(--design-vw)), 33px); }
+  .rev10-draft:where(:not(.rev11-draft)) .rev10-cover { grid-template-columns: minmax(0,1fr); gap: 18px; padding: 42px calc(7 * var(--design-vw)); }
+  .rev10-draft:where(:not(.rev11-draft)) .rev10-cover .cover-mark { top: 42px; left: calc(6 * var(--design-vw)); font-size: 92px; }
+  .rev10-draft:where(:not(.rev11-draft)) .rev10-cover::after { right: calc(7 * var(--design-vw)); bottom: 36px; width: 40%; }
+  .rev10-draft:where(:not(.rev11-draft)) .cover-preview { min-height: 150px; padding: 18px; gap: 13px; }
+  .rev10-draft:where(:not(.rev11-draft)) .example-intro .visual { gap: 18px; }
+  .rev10-draft:where(:not(.rev11-draft)) .role-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .role-card { min-height: 0; padding: 14px; }
+  .rev10-draft:where(:not(.rev11-draft)) .role-card h2 { margin: 7px 0; font-size: 18px; }
+  .rev10-draft:where(:not(.rev11-draft)) .role-card p { font-size: 13px; line-height: 1.35; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo { grid-template-columns: minmax(0,1fr); grid-template-rows: auto 32px auto 32px auto; gap: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-inputs { grid-column: 1; grid-row: 1; grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .arrow-first,
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .arrow-second { display: grid; place-items: center; grid-column: 1; font-size: 0; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .arrow-first { grid-row: 2; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .arrow-second { grid-row: 4; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .arrow-first::before,
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .arrow-second::before { content: "↓"; color: var(--draft-blue); font-size: 25px; line-height: 1; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .match-result { grid-column: 1; grid-row: 3; min-height: 132px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .match-list-node { grid-column: 1; grid-row: 5; min-height: 90px; }
+  .rev10-draft:where(:not(.rev11-draft)) .rev10-flow-svg { display: none; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile { display: grid; grid-template-columns: minmax(0,1fr); gap: 9px; width: 100%; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-goal,
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-returns { grid-column: 1 / -1; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-goal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; padding: 10px 13px; border: 1px solid #53775c; border-radius: 8px; background: #14231b; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-goal strong { color: var(--draft-green); }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-lane span { padding: 3px 6px; border-radius: 5px; font-size: 12px; line-height: 1.4; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-lane { display: grid; align-content: start; gap: 6px; padding: 10px; border: 1px solid var(--draft-line); border-radius: 8px; background: var(--draft-panel); }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-focus { border: 2px solid var(--draft-yellow); }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-lane span { background: #142235; color: #e8f0f7; text-align: center; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-lane small { display: block; color: var(--draft-muted); font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-lane > strong { color: #e8f0f7; font-size: 13px; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-lane > div { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-lane i { color: var(--draft-blue); font-style: normal; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-returns { display: flex; flex-wrap: wrap; gap: 6px; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-returns span { padding: 6px 8px; border: 1px solid #465366; border-radius: 6px; color: #d7e1eb; font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .recap-columns { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 7px; }
+  .rev10-draft:where(:not(.rev11-draft)) .recap-columns article { min-height: 100px; padding: 12px 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .recap-columns h2 { font-size: 14px; }
+  .rev10-draft:where(:not(.rev11-draft)) .recap-columns strong { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .recap-columns article::after { right: -11px; font-size: 25px; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-routes { flex: 0 0 auto; min-height: 0; margin-top: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-routes .return-desktop,
+  .rev10-draft:where(:not(.rev11-draft)) .return-desktop-label { display: none; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-mobile { display: flex; flex-wrap: wrap; gap: 7px; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-routes .return-mobile strong { position: static; top: auto; left: auto; transform: none; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-mobile strong { position: static; width: fit-content; padding: 6px 8px; border: 1px solid #39485a; border-radius: 6px; background: #101a26; font-size: 11px; white-space: normal; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-mobile .return-dev-label { color: #ffd0cb; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-mobile .return-goal-label { color: #f8dfa0; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-mobile i { font-style: normal; }
+  .rev10-draft:where(:not(.rev11-draft)) .model-routing { grid-template-columns: minmax(0,1fr); grid-template-rows: auto 60px auto 27px auto; gap: 3px; }
+  .rev10-draft:where(:not(.rev11-draft)) .work-tasks { grid-column: 1; grid-row: 1; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 7px; }
+  .rev10-draft:where(:not(.rev11-draft)) .work-tasks article { min-height: 60px; flex-direction: column; justify-content: center; gap: 4px; padding: 7px; text-align: center; }
+  .rev10-draft:where(:not(.rev11-draft)) .work-tasks small { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .work-tasks strong { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .task-config-arrows,
+  .rev10-draft:where(:not(.rev11-draft)) .config-route-arrow { display: none; }
+  .rev10-draft:where(:not(.rev11-draft)) .task-config-arrows-mobile { display: block; grid-column: 1; grid-row: 2; width: 100%; height: 60px; overflow: visible; }
+  .rev10-draft:where(:not(.rev11-draft)) .shared-config { grid-column: 1; grid-row: 3; width: min(100%,460px); margin: 0 auto; padding: 11px 15px; }
+  .rev10-draft:where(:not(.rev11-draft)) .model-mobile-arrow-end { display: block; grid-column: 1; grid-row: 4; color: var(--draft-blue); font-size: 23px; font-weight: 900; line-height: 1; text-align: center; }
+  .rev10-draft:where(:not(.rev11-draft)) .routing-insight { grid-column: 1; grid-row: 5; align-items: center; padding: 10px 8px 0; border-top: 2px solid var(--draft-blue); border-left: 0; text-align: center; }
+  .rev10-draft:where(:not(.rev11-draft)) .split-work { grid-template-columns: 1fr; grid-template-rows: auto 52px auto auto; }
+  .rev10-draft:where(:not(.rev11-draft)) .split-branches { display: block; height: 52px; }
+  .rev10-draft:where(:not(.rev11-draft)) .specialist-cards { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .specialist-cards article { min-height: 100px; padding: 12px; font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .specialist-cards b { font-size: 14px; }
+  .rev10-draft:where(:not(.rev11-draft)) .single-first { font-size: 13px; }
+  .rev10-draft:where(:not(.rev11-draft)) .tree-layout { grid-template-rows: auto auto auto auto; height: auto; min-height: 100%; align-content: start; gap: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .tree-lines { display: none; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-board { overflow: visible; }
+  .rev10-draft:where(:not(.rev11-draft)) .board-stage-head { display: none; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane { grid-template-columns: minmax(0,1fr); gap: 5px; padding: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > * { min-height: 0; padding: 9px; border: 1px solid #304256; border-radius: 6px; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > strong { grid-column: 1; min-height: 42px; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > span { display: grid; grid-template-columns: minmax(112px,.7fr) minmax(0,1.3fr); align-items: start; gap: 4px 8px; text-align: left; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > span::before { grid-row: 1 / span 4; content: attr(data-stage); color: var(--draft-blue); font-size: 11px; font-weight: 850; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > span b,
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > span em,
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > span small,
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > span i { grid-column: 2; }
+  .rev10-draft:where(:not(.rev11-draft)) .brainstorm-compare { grid-template-columns: minmax(0,1fr); grid-template-rows: auto 32px auto; gap: 4px; }
+  .rev10-draft:where(:not(.rev11-draft)) .brainstorm-side { min-height: 0; padding: 16px; }
+  .rev10-draft:where(:not(.rev11-draft)) .brainstorm-compare > .brainstorm-side:first-child { grid-row: 1; }
+  .rev10-draft:where(:not(.rev11-draft)) .compare-transfer { display: grid; grid-row: 2; place-items: center; transform: rotate(90deg); font-size: 24px; }
+  .rev10-draft:where(:not(.rev11-draft)) .brainstorm-agent { grid-row: 3; }
+  .rev10-draft:where(:not(.rev11-draft)) .brainstorm-output {
     display: grid;
     grid-template-columns: minmax(0,1fr) 24px minmax(0,1fr) 24px minmax(70px,.6fr);
     align-items: center;
@@ -1956,127 +1956,127 @@
     width: 100%;
     text-align: center;
   }
-  .rev10-draft .brainstorm-output > * { min-width: 0; }
-  .rev10-draft .gate-routing { gap: 5px; }
-  .rev10-draft .gate-branch-desktop,
-  .rev10-draft .gate-converge-desktop { display: none; }
-  .rev10-draft .gate-mobile-arrow { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 26px; color: var(--draft-blue); font-size: 19px; font-weight: 900; line-height: 1; }
-  .rev10-draft .gate-mobile-arrow span { color: var(--draft-muted); font-size: 11px; font-weight: 650; }
-  .rev10-draft .cadence-options { grid-template-columns: minmax(0,1fr); gap: 7px; }
-  .rev10-draft .cadence-card { min-height: 0; padding: 12px; }
-  .rev10-draft .gate-check-card { min-height: 40px; }
-  .rev10-draft .gate-final-flow { gap: 12px; }
-  .rev10-draft .gate-rule { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .brainstorm-output > * { min-width: 0; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-routing { gap: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-branch-desktop,
+  .rev10-draft:where(:not(.rev11-draft)) .gate-converge-desktop { display: none; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-mobile-arrow { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 26px; color: var(--draft-blue); font-size: 19px; font-weight: 900; line-height: 1; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-mobile-arrow span { color: var(--draft-muted); font-size: 11px; font-weight: 650; }
+  .rev10-draft:where(:not(.rev11-draft)) .cadence-options { grid-template-columns: minmax(0,1fr); gap: 7px; }
+  .rev10-draft:where(:not(.rev11-draft)) .cadence-card { min-height: 0; padding: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-check-card { min-height: 40px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-final-flow { gap: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-rule { font-size: 12px; }
 }
 
 @media (max-width: 767px) {
-  .rev10-draft { overflow: hidden; }
-  .rev10-draft .deck { width: 100%; max-width: 100%; height: 100dvh; min-width: 0; }
-  .rev10-draft .example-intro .visual { gap: 12px; }
-  .rev10-draft .slides { min-width: 0; overflow: hidden; }
-  .rev10-draft .slide { min-width: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; }
-  .rev10-draft .slide h1 { max-width: 100%; overflow-wrap: anywhere; }
-  .rev10-draft .draft-source { flex: 0 0 auto; max-height: none; overflow: visible; font-size: 10px; line-height: 1.4; }
-  .rev10-draft .rev10-cover { grid-template-columns: minmax(0,1fr); grid-template-rows: auto auto; align-content: center; gap: 17px; min-height: 100%; padding: 28px 18px; }
-  .rev10-draft .rev10-cover::after { display: none; }
-  .rev10-draft .rev10-cover .cover-mark { top: 16px; left: 17px; font-size: 52px; }
-  .rev10-draft .cover-preview { min-height: 0; padding: 15px; gap: 12px; font-size: 13px; }
-  .rev10-draft .preview-label { font-size: 12px; }
-  .rev10-draft .preview-track { gap: 5px; }
-  .rev10-draft .preview-track > span,
-  .rev10-draft .preview-track > strong,
-  .rev10-draft .preview-track > b { padding: 6px 7px; font-size: 11px; }
-  .rev10-draft .preview-track i { font-size: 16px; }
-  .rev10-draft .preview-note { font-size: 11px; }
-  .rev10-draft .flow-mobile { grid-template-columns: minmax(0,1fr); gap: 7px; }
-  .rev10-draft .flow-mobile-goal,
-  .rev10-draft .flow-mobile-returns { grid-column: 1; }
-  .rev10-draft .flow-mobile-goal { padding: 8px 10px; font-size: 12px; }
-  .rev10-draft .flow-mobile-lane span { font-size: 11px; }
-  .rev10-draft .flow-mobile-lane { gap: 5px; padding: 8px; }
-  .rev10-draft .flow-mobile-lane > strong { font-size: 12px; }
-  .rev10-draft .flow-mobile-lane > div { gap: 3px; }
-  .rev10-draft .flow-mobile-returns { gap: 4px; }
-  .rev10-draft .flow-mobile-returns span { padding: 5px 7px; font-size: 10px; }
-  .rev10-draft .recap-visual { justify-content: flex-start; gap: 0; }
-  .rev10-draft .recap-visual .parent-action { margin-bottom: 8px; }
-  .rev10-draft .recap-columns { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 5px; }
-  .rev10-draft .recap-columns article { min-height: 58px; flex-direction: row; align-items: center; justify-content: space-between; gap: 5px; padding: 7px; text-align: left; }
-  .rev10-draft .recap-columns article::after { display: none; }
-  .rev10-draft .recap-columns h2 { font-size: 11px; }
-  .rev10-draft .recap-columns strong { font-size: 10px; }
-  .rev10-draft .return-routes { margin-top: 7px; }
-  .rev10-draft .return-mobile { display: grid; grid-template-columns: minmax(0,1fr); gap: 5px; }
-  .rev10-draft .return-mobile strong { width: 100%; font-size: 10px; }
-  .rev10-draft .matching-demo { grid-template-columns: minmax(0,1fr); grid-template-rows: auto 26px auto 26px auto; gap: 4px; }
-  .rev10-draft .matching-inputs { grid-column: 1; grid-row: 1; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 5px; }
-  .rev10-draft .matching-input-label { font-size: 11px; }
-  .rev10-draft .matching-demo .phone { min-height: 153px; gap: 5px; padding: 8px 4px; }
-  .rev10-draft .matching-demo .phone-label { font-size: 9px; }
-  .rev10-draft .matching-demo .avatar { width: 48px; height: 48px; font-size: 21px; }
-  .rev10-draft .matching-demo .phone > strong { font-size: 10px; line-height: 1.25; }
-  .rev10-draft .decision-actions { gap: 3px; }
-  .rev10-draft .decision-actions > span { padding: 5px 6px; font-size: 9px; }
-  .rev10-draft .matching-demo .arrow-first,
-  .rev10-draft .matching-demo .arrow-second { display: grid; place-items: center; grid-column: 1; font-size: 0; }
-  .rev10-draft .matching-demo .arrow-first { grid-row: 2; }
-  .rev10-draft .matching-demo .arrow-second { grid-row: 4; }
-  .rev10-draft .matching-demo .arrow-first::before,
-  .rev10-draft .matching-demo .arrow-second::before { content: "↓"; color: var(--draft-blue); font-size: 23px; line-height: 1; }
-  .rev10-draft .matching-demo .match-result { grid-column: 1; grid-row: 3; min-height: 122px; gap: 3px; padding: 8px; }
-  .rev10-draft .matching-demo .match-spark { font-size: 24px; }
-  .rev10-draft .matching-demo .match-result strong { font-size: 13px; }
-  .rev10-draft .matching-demo .match-result p { font-size: 11px; }
-  .rev10-draft .matching-demo .match-list-node { grid-column: 1; grid-row: 5; min-height: 74px; gap: 3px; padding: 8px; }
-  .rev10-draft .matching-demo .match-list-node strong { font-size: 14px; }
-  .rev10-draft .matching-demo .match-list-node span { font-size: 11px; }
-  .rev10-draft .matching-out { margin-top: 5px; font-size: 10px; }
-  .rev10-draft .matching-next { font-size: 10px; }
-  .rev10-draft .tree-layout { grid-template-rows: none; grid-auto-rows: auto; height: auto; min-height: 100%; align-content: start; gap: 7px; }
-  .rev10-draft .tree-goal { min-width: 0; }
-  .rev10-draft .tree-tickets { grid-template-columns: minmax(0,1fr); }
-  .rev10-draft .model-routing { grid-template-rows: auto 48px auto 24px auto; }
-  .rev10-draft .work-tasks { gap: 4px; }
-  .rev10-draft .work-tasks article { min-height: 57px; padding: 5px 3px; }
-  .rev10-draft .work-tasks small { font-size: 9px; }
-  .rev10-draft .work-tasks strong { font-size: 10px; }
-  .rev10-draft .task-config-arrows-mobile { height: 48px; }
-  .rev10-draft .shared-config { padding: 8px; font-size: 11px; }
-  .rev10-draft .shared-config span { margin-bottom: 4px; }
-  .rev10-draft .shared-config strong { font-size: 14px; }
-  .rev10-draft .routing-insight { gap: 5px; }
-  .rev10-draft .routing-insight b { font-size: 13px; }
-  .rev10-draft .routing-insight span { font-size: 11px; }
-  .rev10-draft .split-work { grid-template-rows: auto 44px auto auto; }
-  .rev10-draft .shared-goal { gap: 6px; padding: 11px; }
-  .rev10-draft .shared-goal strong { font-size: 15px; }
-  .rev10-draft .shared-goal span { font-size: 11px; }
-  .rev10-draft .split-branches { height: 44px; }
-  .rev10-draft .specialist-cards { gap: 5px; }
-  .rev10-draft .specialist-cards article { gap: 6px; min-height: 96px; padding: 8px; font-size: 11px; }
-  .rev10-draft .specialist-cards b { font-size: 12px; }
-  .rev10-draft .specialist-cards small { font-size: 10px; }
-  .rev10-draft .single-first { margin-top: 7px; font-size: 11px; }
-  .rev10-draft .principle-row { grid-template-columns: minmax(0,1fr) 14px minmax(0,1fr); min-height: 77px; }
-  .rev10-draft .problem-side,
-  .rev10-draft .principle-side { gap: 3px; min-height: 73px; padding: 6px; }
-  .rev10-draft .problem-side small { font-size: 9px; line-height: 1.2; }
-  .rev10-draft .problem-side strong { font-size: 10px; line-height: 1.2; }
-  .rev10-draft .principle-side small { font-size: 10px; }
-  .rev10-draft .principle-name strong { font-size: 13px; line-height: 1.15; overflow-wrap: anywhere; }
-  .rev10-draft .principle-name span { font-size: 11px; line-height: 1.2; }
-  .rev10-draft .brainstorm-compare { grid-template-rows: auto 26px auto; }
-  .rev10-draft .brainstorm-side { padding: 10px; }
-  .rev10-draft .brainstorm-output { display: grid; grid-template-columns: 1fr; justify-items: center; gap: 4px; padding: 8px; font-size: 11px; text-align: center; }
-  .rev10-draft .brainstorm-output i { transform: rotate(90deg); }
-  .rev10-draft .gate-routing { gap: 4px; }
-  .rev10-draft .gate-pr { padding: 8px; }
-  .rev10-draft .cadence-card h2 { font-size: 15px; }
-  .rev10-draft .cadence-stages { gap: 4px; font-size: 10px; }
-  .rev10-draft .gate-final-flow { min-height: 48px; gap: 8px; padding: 5px; }
-  .rev10-draft .gate-final-flow strong { padding: 6px 8px; font-size: 12px; }
-  .rev10-draft .gate-final-flow i { font-size: 16px; }
-  .rev10-draft .gate-final-flow span { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) { overflow: hidden; }
+  .rev10-draft:where(:not(.rev11-draft)) .deck { width: 100%; max-width: 100%; height: 100dvh; min-width: 0; }
+  .rev10-draft:where(:not(.rev11-draft)) .example-intro .visual { gap: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .slides { min-width: 0; overflow: hidden; }
+  .rev10-draft:where(:not(.rev11-draft)) .slide { min-width: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; }
+  .rev10-draft:where(:not(.rev11-draft)) .slide h1 { max-width: 100%; overflow-wrap: anywhere; }
+  .rev10-draft:where(:not(.rev11-draft)) .draft-source { flex: 0 0 auto; max-height: none; overflow: visible; font-size: 10px; line-height: 1.4; }
+  .rev10-draft:where(:not(.rev11-draft)) .rev10-cover { grid-template-columns: minmax(0,1fr); grid-template-rows: auto auto; align-content: center; gap: 17px; min-height: 100%; padding: 28px 18px; }
+  .rev10-draft:where(:not(.rev11-draft)) .rev10-cover::after { display: none; }
+  .rev10-draft:where(:not(.rev11-draft)) .rev10-cover .cover-mark { top: 16px; left: 17px; font-size: 52px; }
+  .rev10-draft:where(:not(.rev11-draft)) .cover-preview { min-height: 0; padding: 15px; gap: 12px; font-size: 13px; }
+  .rev10-draft:where(:not(.rev11-draft)) .preview-label { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .preview-track { gap: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .preview-track > span,
+  .rev10-draft:where(:not(.rev11-draft)) .preview-track > strong,
+  .rev10-draft:where(:not(.rev11-draft)) .preview-track > b { padding: 6px 7px; font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .preview-track i { font-size: 16px; }
+  .rev10-draft:where(:not(.rev11-draft)) .preview-note { font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile { grid-template-columns: minmax(0,1fr); gap: 7px; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-goal,
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-returns { grid-column: 1; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-goal { padding: 8px 10px; font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-lane span { font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-lane { gap: 5px; padding: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-lane > strong { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-lane > div { gap: 3px; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-returns { gap: 4px; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-returns span { padding: 5px 7px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .recap-visual { justify-content: flex-start; gap: 0; }
+  .rev10-draft:where(:not(.rev11-draft)) .recap-visual .parent-action { margin-bottom: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .recap-columns { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .recap-columns article { min-height: 58px; flex-direction: row; align-items: center; justify-content: space-between; gap: 5px; padding: 7px; text-align: left; }
+  .rev10-draft:where(:not(.rev11-draft)) .recap-columns article::after { display: none; }
+  .rev10-draft:where(:not(.rev11-draft)) .recap-columns h2 { font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .recap-columns strong { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-routes { margin-top: 7px; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-mobile { display: grid; grid-template-columns: minmax(0,1fr); gap: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-mobile strong { width: 100%; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo { grid-template-columns: minmax(0,1fr); grid-template-rows: auto 26px auto 26px auto; gap: 4px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-inputs { grid-column: 1; grid-row: 1; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-input-label { font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .phone { min-height: 153px; gap: 5px; padding: 8px 4px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .phone-label { font-size: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .avatar { width: 48px; height: 48px; font-size: 21px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .phone > strong { font-size: 10px; line-height: 1.25; }
+  .rev10-draft:where(:not(.rev11-draft)) .decision-actions { gap: 3px; }
+  .rev10-draft:where(:not(.rev11-draft)) .decision-actions > span { padding: 5px 6px; font-size: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .arrow-first,
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .arrow-second { display: grid; place-items: center; grid-column: 1; font-size: 0; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .arrow-first { grid-row: 2; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .arrow-second { grid-row: 4; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .arrow-first::before,
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .arrow-second::before { content: "↓"; color: var(--draft-blue); font-size: 23px; line-height: 1; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .match-result { grid-column: 1; grid-row: 3; min-height: 122px; gap: 3px; padding: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .match-spark { font-size: 24px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .match-result strong { font-size: 13px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .match-result p { font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .match-list-node { grid-column: 1; grid-row: 5; min-height: 74px; gap: 3px; padding: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .match-list-node strong { font-size: 14px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-demo .match-list-node span { font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-out { margin-top: 5px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-next { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .tree-layout { grid-template-rows: none; grid-auto-rows: auto; height: auto; min-height: 100%; align-content: start; gap: 7px; }
+  .rev10-draft:where(:not(.rev11-draft)) .tree-goal { min-width: 0; }
+  .rev10-draft:where(:not(.rev11-draft)) .tree-tickets { grid-template-columns: minmax(0,1fr); }
+  .rev10-draft:where(:not(.rev11-draft)) .model-routing { grid-template-rows: auto 48px auto 24px auto; }
+  .rev10-draft:where(:not(.rev11-draft)) .work-tasks { gap: 4px; }
+  .rev10-draft:where(:not(.rev11-draft)) .work-tasks article { min-height: 57px; padding: 5px 3px; }
+  .rev10-draft:where(:not(.rev11-draft)) .work-tasks small { font-size: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .work-tasks strong { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .task-config-arrows-mobile { height: 48px; }
+  .rev10-draft:where(:not(.rev11-draft)) .shared-config { padding: 8px; font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .shared-config span { margin-bottom: 4px; }
+  .rev10-draft:where(:not(.rev11-draft)) .shared-config strong { font-size: 14px; }
+  .rev10-draft:where(:not(.rev11-draft)) .routing-insight { gap: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .routing-insight b { font-size: 13px; }
+  .rev10-draft:where(:not(.rev11-draft)) .routing-insight span { font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .split-work { grid-template-rows: auto 44px auto auto; }
+  .rev10-draft:where(:not(.rev11-draft)) .shared-goal { gap: 6px; padding: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .shared-goal strong { font-size: 15px; }
+  .rev10-draft:where(:not(.rev11-draft)) .shared-goal span { font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .split-branches { height: 44px; }
+  .rev10-draft:where(:not(.rev11-draft)) .specialist-cards { gap: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .specialist-cards article { gap: 6px; min-height: 96px; padding: 8px; font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .specialist-cards b { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .specialist-cards small { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .single-first { margin-top: 7px; font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .principle-row { grid-template-columns: minmax(0,1fr) 14px minmax(0,1fr); min-height: 77px; }
+  .rev10-draft:where(:not(.rev11-draft)) .problem-side,
+  .rev10-draft:where(:not(.rev11-draft)) .principle-side { gap: 3px; min-height: 73px; padding: 6px; }
+  .rev10-draft:where(:not(.rev11-draft)) .problem-side small { font-size: 9px; line-height: 1.2; }
+  .rev10-draft:where(:not(.rev11-draft)) .problem-side strong { font-size: 10px; line-height: 1.2; }
+  .rev10-draft:where(:not(.rev11-draft)) .principle-side small { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .principle-name strong { font-size: 13px; line-height: 1.15; overflow-wrap: anywhere; }
+  .rev10-draft:where(:not(.rev11-draft)) .principle-name span { font-size: 11px; line-height: 1.2; }
+  .rev10-draft:where(:not(.rev11-draft)) .brainstorm-compare { grid-template-rows: auto 26px auto; }
+  .rev10-draft:where(:not(.rev11-draft)) .brainstorm-side { padding: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .brainstorm-output { display: grid; grid-template-columns: 1fr; justify-items: center; gap: 4px; padding: 8px; font-size: 11px; text-align: center; }
+  .rev10-draft:where(:not(.rev11-draft)) .brainstorm-output i { transform: rotate(90deg); }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-routing { gap: 4px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-pr { padding: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .cadence-card h2 { font-size: 15px; }
+  .rev10-draft:where(:not(.rev11-draft)) .cadence-stages { gap: 4px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-final-flow { min-height: 48px; gap: 8px; padding: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-final-flow strong { padding: 6px 8px; font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-final-flow i { font-size: 16px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-final-flow span { font-size: 12px; }
 }
 
 
@@ -2363,70 +2363,70 @@
 .rev10-draft .return-routes .return-desktop-label { font-size: 12px; }
 
 @media (max-width: 767px) {
-  .rev10-draft .compact-story { grid-template-columns: minmax(0, 1fr); gap: 8px; }
-  .rev10-draft .compact-ticket { grid-column: 1; }
-  .rev10-draft .compact-thread,
-  .rev10-draft .compact-outcome { min-height: 0; padding: 14px; gap: 9px; }
-  .rev10-draft .compact-arrow { transform: rotate(90deg); line-height: 1; }
-  .rev10-draft .session-story { grid-template-columns: minmax(0, 1fr); gap: 8px; }
-  .rev10-draft .session-handoff,
-  .rev10-draft .session-unknowns { min-height: 0; padding: 14px; gap: 10px; }
-  .rev10-draft .session-arrow { transform: rotate(90deg); line-height: 1; }
-  .rev10-draft .session-bubble { padding: 12px; font-size: 15px; }
-  .rev10-draft .session-state { grid-template-columns: minmax(0,1fr) 30px minmax(0,1fr) 30px; padding: 8px; }
-  .rev10-draft .session-close { font-size: 15px; }
-  .rev10-draft .model-problem { grid-template-columns: minmax(0,1fr); gap: 7px; }
-  .rev10-draft .model-problem-tasks { min-height: 0; gap: 7px; padding: 12px; }
-  .rev10-draft .model-problem-tasks > div { min-height: 42px; padding: 7px 9px; }
-  .rev10-draft .model-problem-chat { gap: 7px; padding: 12px; }
-  .rev10-draft .model-problem-chat > strong { font-size: 18px; }
-  .rev10-draft .model-problem-arrow { transform: rotate(90deg); line-height: 1; }
-  .rev10-draft .model-problem-risks { grid-template-columns: repeat(2,minmax(0,1fr)); grid-template-rows: auto; gap: 7px; }
-  .rev10-draft .model-problem-risks article { gap: 7px; padding: 10px; }
-  .rev10-draft .model-problem-risks strong { font-size: 13px; }
-  .rev10-draft .model-problem-preview { margin-top: 3px; }
-  .rev10-draft .comparison-board { overflow: visible; }
-  .rev10-draft .board-stage-head { display: none; }
-  .rev10-draft .comparison-lane { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 6px; padding: 8px; border: 1px solid var(--draft-line); border-radius: 9px; }
-  .rev10-draft .comparison-lane > strong { grid-column: 1 / -1; min-height: 42px; }
-  .rev10-draft .comparison-lane > span { min-height: 112px; border: 1px solid #304256; border-radius: 6px; background: #111e2b; }
-  .rev10-draft .comparison-lane > span::before { content: attr(data-stage); color: var(--draft-blue); font-size: 10px; font-weight: 850; }
-  .rev10-draft .comparison-lane > .human-gate-cell { border: 1px solid #c59b42; background: #302814; box-shadow: inset 0 3px #f2cf76; }
-  .rev10-draft .specialist-cards article { min-height: 128px; }
+  .rev10-draft:where(:not(.rev11-draft)) .compact-story { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .compact-ticket { grid-column: 1; }
+  .rev10-draft:where(:not(.rev11-draft)) .compact-thread,
+  .rev10-draft:where(:not(.rev11-draft)) .compact-outcome { min-height: 0; padding: 14px; gap: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .compact-arrow { transform: rotate(90deg); line-height: 1; }
+  .rev10-draft:where(:not(.rev11-draft)) .session-story { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .session-handoff,
+  .rev10-draft:where(:not(.rev11-draft)) .session-unknowns { min-height: 0; padding: 14px; gap: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .session-arrow { transform: rotate(90deg); line-height: 1; }
+  .rev10-draft:where(:not(.rev11-draft)) .session-bubble { padding: 12px; font-size: 15px; }
+  .rev10-draft:where(:not(.rev11-draft)) .session-state { grid-template-columns: minmax(0,1fr) 30px minmax(0,1fr) 30px; padding: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .session-close { font-size: 15px; }
+  .rev10-draft:where(:not(.rev11-draft)) .model-problem { grid-template-columns: minmax(0,1fr); gap: 7px; }
+  .rev10-draft:where(:not(.rev11-draft)) .model-problem-tasks { min-height: 0; gap: 7px; padding: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .model-problem-tasks > div { min-height: 42px; padding: 7px 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .model-problem-chat { gap: 7px; padding: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .model-problem-chat > strong { font-size: 18px; }
+  .rev10-draft:where(:not(.rev11-draft)) .model-problem-arrow { transform: rotate(90deg); line-height: 1; }
+  .rev10-draft:where(:not(.rev11-draft)) .model-problem-risks { grid-template-columns: repeat(2,minmax(0,1fr)); grid-template-rows: auto; gap: 7px; }
+  .rev10-draft:where(:not(.rev11-draft)) .model-problem-risks article { gap: 7px; padding: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .model-problem-risks strong { font-size: 13px; }
+  .rev10-draft:where(:not(.rev11-draft)) .model-problem-preview { margin-top: 3px; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-board { overflow: visible; }
+  .rev10-draft:where(:not(.rev11-draft)) .board-stage-head { display: none; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 6px; padding: 8px; border: 1px solid var(--draft-line); border-radius: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > strong { grid-column: 1 / -1; min-height: 42px; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > span { min-height: 112px; border: 1px solid #304256; border-radius: 6px; background: #111e2b; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > span::before { content: attr(data-stage); color: var(--draft-blue); font-size: 10px; font-weight: 850; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > .human-gate-cell { border: 1px solid #c59b42; background: #302814; box-shadow: inset 0 3px #f2cf76; }
+  .rev10-draft:where(:not(.rev11-draft)) .specialist-cards article { min-height: 128px; }
 }
 
 @media (max-width: 767px) {
-  .rev10-draft .example-profile-content { gap: 5px; }
-  .rev10-draft .example-profile-content > span { font-size: 9px; }
-  .rev10-draft .slides > .rev10-cover.active { grid-template-columns: minmax(0,1fr); }
-  .rev10-draft .compact-thread,
-  .rev10-draft .compact-outcome { font-size: 12px; }
-  .rev10-draft .compact-turn { padding: 8px; }
-  .rev10-draft .compact-turn p { font-size: 12px; }
-  .rev10-draft .compact-outcome strong { font-size: 17px; }
-  .rev10-draft .model-problem-tasks > div { grid-template-columns: 48px minmax(0,1fr); gap: 6px; }
-  .rev10-draft .model-problem-tasks > div strong { font-size: 12px; }
-  .rev10-draft .model-problem-tasks > div span { font-size: 10px; }
-  .rev10-draft .model-problem-risks { grid-template-columns: minmax(0,1fr); }
-  .rev10-draft .comparison-lane { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 4px; padding: 5px; }
-  .rev10-draft .comparison-lane > span { min-height: 100px; padding: 6px; font-size: 9px; }
-  .rev10-draft .comparison-lane > span b { font-size: 10px; }
-  .rev10-draft .comparison-lane > span em { font-size: 10px; }
-  .rev10-draft .comparison-lane > span small,
-  .rev10-draft .comparison-lane > span i { font-size: 8px; }
-  .rev10-draft .specialist-cards { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 5px; }
-  .rev10-draft .specialist-cards article { gap: 6px; min-height: 112px; padding: 8px; font-size: 10px; }
-  .rev10-draft .specialist-cards b { font-size: 11px; line-height: 1.25; }
-  .rev10-draft .specialist-cards span { font-size: 10px; line-height: 1.3; }
-  .rev10-draft .specialist-cards small { font-size: 9px; }
-  .rev10-draft .single-first { font-size: 11px; line-height: 1.35; }
-  .rev10-draft .cover-preview-human .preview-track { grid-template-columns: minmax(0,.8fr) 14px minmax(0,1fr) 14px minmax(0,1.05fr) 14px minmax(0,.55fr); }
-  .rev10-draft .cover-preview-human .preview-track > span,
-  .rev10-draft .cover-preview-human .preview-track > strong,
-  .rev10-draft .cover-preview-human .preview-track > b { min-height: 32px; padding: 4px 2px; font-size: 10px; }
-  .rev10-draft .cover-preview-human .preview-track i { min-width: 14px; font-size: 14px; }
-  .rev10-draft .chat-role-row { display: grid; grid-template-columns: auto minmax(0,1fr) 20px auto minmax(0,1fr); gap: 5px; }
-  .rev10-draft .chat-role-row i { margin: 0; text-align: center; }
+  .rev10-draft:where(:not(.rev11-draft)) .example-profile-content { gap: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .example-profile-content > span { font-size: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .slides > .rev10-cover.active { grid-template-columns: minmax(0,1fr); }
+  .rev10-draft:where(:not(.rev11-draft)) .compact-thread,
+  .rev10-draft:where(:not(.rev11-draft)) .compact-outcome { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .compact-turn { padding: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .compact-turn p { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .compact-outcome strong { font-size: 17px; }
+  .rev10-draft:where(:not(.rev11-draft)) .model-problem-tasks > div { grid-template-columns: 48px minmax(0,1fr); gap: 6px; }
+  .rev10-draft:where(:not(.rev11-draft)) .model-problem-tasks > div strong { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .model-problem-tasks > div span { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .model-problem-risks { grid-template-columns: minmax(0,1fr); }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 4px; padding: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > span { min-height: 100px; padding: 6px; font-size: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > span b { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > span em { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > span small,
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > span i { font-size: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .specialist-cards { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .specialist-cards article { gap: 6px; min-height: 112px; padding: 8px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .specialist-cards b { font-size: 11px; line-height: 1.25; }
+  .rev10-draft:where(:not(.rev11-draft)) .specialist-cards span { font-size: 10px; line-height: 1.3; }
+  .rev10-draft:where(:not(.rev11-draft)) .specialist-cards small { font-size: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .single-first { font-size: 11px; line-height: 1.35; }
+  .rev10-draft:where(:not(.rev11-draft)) .cover-preview-human .preview-track { grid-template-columns: minmax(0,.8fr) 14px minmax(0,1fr) 14px minmax(0,1.05fr) 14px minmax(0,.55fr); }
+  .rev10-draft:where(:not(.rev11-draft)) .cover-preview-human .preview-track > span,
+  .rev10-draft:where(:not(.rev11-draft)) .cover-preview-human .preview-track > strong,
+  .rev10-draft:where(:not(.rev11-draft)) .cover-preview-human .preview-track > b { min-height: 32px; padding: 4px 2px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .cover-preview-human .preview-track i { min-width: 14px; font-size: 14px; }
+  .rev10-draft:where(:not(.rev11-draft)) .chat-role-row { display: grid; grid-template-columns: auto minmax(0,1fr) 20px auto minmax(0,1fr); gap: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .chat-role-row i { margin: 0; text-align: center; }
 }
 
 /* Review pass: make labels, status keys, and return arrows read at a glance. */
@@ -2525,32 +2525,32 @@
 }
 
 @media (max-width: 767px) {
-  .rev10-draft .coordination-problems > article,
-  .rev10-draft .rework-silo > article { min-height: 0; }
-  .rev10-draft .coordination-ticket { font-size: 12px; }
-  .rev10-draft .handoff-card span,
-  .rev10-draft .handoff-card > strong,
-  .rev10-draft .conflict-card span { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .coordination-problems > article,
+  .rev10-draft:where(:not(.rev11-draft)) .rework-silo > article { min-height: 0; }
+  .rev10-draft:where(:not(.rev11-draft)) .coordination-ticket { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .handoff-card span,
+  .rev10-draft:where(:not(.rev11-draft)) .handoff-card > strong,
+  .rev10-draft:where(:not(.rev11-draft)) .conflict-card span { font-size: 12px; }
 }
 
 @media (max-width: 767px) {
-  .rev10-draft .sample-ticket { gap: 8px; padding: 9px; }
-  .rev10-draft .sample-ticket > span { padding: 6px 8px; font-size: 10px; white-space: normal; }
-  .rev10-draft .sample-ticket em { margin-left: 0; }
-  .rev10-draft .coordination-ticket { justify-self: stretch; padding: 7px 9px; font-size: 11px; }
-  .rev10-draft .handoff-card { grid-template-columns: minmax(0, 1fr); gap: 4px; }
-  .rev10-draft .handoff-card span,
-  .rev10-draft .handoff-card > strong { min-height: 0; padding: 8px; }
-  .rev10-draft .handoff-card > i { min-height: 14px; transform: rotate(90deg); }
-  .rev10-draft .conflict-card { grid-template-columns: minmax(0, 1fr) 22px minmax(0, 1fr); }
-  .rev10-draft .conflict-card span { min-height: 70px; padding: 7px; font-size: 10px; }
-  .rev10-draft .duplicate-work { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .rev10-draft .duplicate-work span { min-height: 64px; padding: 7px; font-size: 10px; }
-  .rev10-draft .silo-cards span { min-height: 70px; font-size: 10px; }
-  .rev10-draft .comparison-lane > span b { font-size: 11px; }
-  .rev10-draft .comparison-lane > span em { font-size: 11px; }
-  .rev10-draft .comparison-lane > span small,
-  .rev10-draft .comparison-lane > span i { font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .sample-ticket { gap: 8px; padding: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .sample-ticket > span { padding: 6px 8px; font-size: 10px; white-space: normal; }
+  .rev10-draft:where(:not(.rev11-draft)) .sample-ticket em { margin-left: 0; }
+  .rev10-draft:where(:not(.rev11-draft)) .coordination-ticket { justify-self: stretch; padding: 7px 9px; font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .handoff-card { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .rev10-draft:where(:not(.rev11-draft)) .handoff-card span,
+  .rev10-draft:where(:not(.rev11-draft)) .handoff-card > strong { min-height: 0; padding: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .handoff-card > i { min-height: 14px; transform: rotate(90deg); }
+  .rev10-draft:where(:not(.rev11-draft)) .conflict-card { grid-template-columns: minmax(0, 1fr) 22px minmax(0, 1fr); }
+  .rev10-draft:where(:not(.rev11-draft)) .conflict-card span { min-height: 70px; padding: 7px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .duplicate-work { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rev10-draft:where(:not(.rev11-draft)) .duplicate-work span { min-height: 64px; padding: 7px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .silo-cards span { min-height: 70px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > span b { font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > span em { font-size: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > span small,
+  .rev10-draft:where(:not(.rev11-draft)) .comparison-lane > span i { font-size: 10px; }
 }
 
 /* Keep complete phrases intact on the section openers without widening every title. */
@@ -2775,10 +2775,10 @@
 
 /* Return routes stay attached to named source and destination nodes on narrow screens. */
 @media (max-width: 767px) {
-  .rev10-draft .return-routes .return-desktop,
-  .rev10-draft .return-desktop-label { display: none !important; }
-  .rev10-draft .return-mobile { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; width: 100%; }
-  .rev10-draft .return-mobile-route {
+  .rev10-draft:where(:not(.rev11-draft)) .return-routes .return-desktop,
+  .rev10-draft:where(:not(.rev11-draft)) .return-desktop-label { display: none !important; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-mobile { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; width: 100%; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-mobile-route {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 26px minmax(0, 1fr);
     align-items: center;
@@ -2790,13 +2790,13 @@
     background: #101a26;
     text-align: center;
   }
-  .rev10-draft .return-mobile-route > b,
-  .rev10-draft .return-mobile-route > span { min-width: 0; color: #d7e1eb; font-size: 11px; line-height: 1.25; overflow-wrap: break-word; }
-  .rev10-draft .return-mobile-route > b { color: #fff; }
-  .rev10-draft .return-mobile-route > i { color: var(--draft-red); font-size: 22px; font-style: normal; font-weight: 900; line-height: 1; }
-  .rev10-draft .return-goal-route > i { color: var(--draft-yellow); }
-  .rev10-draft .flow-mobile-returns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; width: 100%; }
-  .rev10-draft .flow-mobile-route {
+  .rev10-draft:where(:not(.rev11-draft)) .return-mobile-route > b,
+  .rev10-draft:where(:not(.rev11-draft)) .return-mobile-route > span { min-width: 0; color: #d7e1eb; font-size: 11px; line-height: 1.25; overflow-wrap: break-word; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-mobile-route > b { color: #fff; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-mobile-route > i { color: var(--draft-red); font-size: 22px; font-style: normal; font-weight: 900; line-height: 1; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-goal-route > i { color: var(--draft-yellow); }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-returns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; width: 100%; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-route {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 26px minmax(0, 1fr);
     align-items: center;
@@ -2808,13 +2808,13 @@
     background: #101a26;
     text-align: center;
   }
-  .rev10-draft .flow-mobile-route > b,
-  .rev10-draft .flow-mobile-route > span { min-width: 0; color: #d7e1eb; font-size: 11px; line-height: 1.25; overflow-wrap: break-word; }
-  .rev10-draft .flow-mobile-route > b { color: #fff; }
-  .rev10-draft .flow-mobile-route > span { padding: 0; border: 0; border-radius: 0; }
-  .rev10-draft .flow-mobile-route > i { color: var(--draft-red); font-size: 22px; font-style: normal; font-weight: 900; line-height: 1; }
-  .rev10-draft .flow-return-goal > i { color: var(--draft-yellow); }
-  .rev10-draft .flow-mobile-returns > p { grid-column: 1 / -1; margin: 0; color: var(--draft-muted); font-size: 11px; text-align: center; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-route > b,
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-route > span { min-width: 0; color: #d7e1eb; font-size: 11px; line-height: 1.25; overflow-wrap: break-word; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-route > b { color: #fff; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-route > span { padding: 0; border: 0; border-radius: 0; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-route > i { color: var(--draft-red); font-size: 22px; font-style: normal; font-weight: 900; line-height: 1; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-return-goal > i { color: var(--draft-yellow); }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-returns > p { grid-column: 1 / -1; margin: 0; color: var(--draft-muted); font-size: 11px; text-align: center; }
 }
 
 /* Human Gate counterexample: the missing review point is visible in the event order. */
@@ -2859,64 +2859,64 @@
 }
 
 @media (max-width: 767px) {
-  .rev10-draft .compact-dialog-slide.active,
-  .rev10-draft .stage-comparison-slide.active,
-  .rev10-draft .gate-bypass-slide.active { overflow-y: auto; overscroll-behavior: contain; }
-  .rev10-draft .compact-timeline { grid-template-columns: minmax(0, 1fr); gap: 7px; }
-  .rev10-draft .compact-step,
-  .rev10-draft .compact-outcome { min-height: 0; padding: 13px; }
-  .rev10-draft .compact-time-arrow { min-height: 24px; transform: rotate(90deg); }
-  .rev10-draft .stage-table-desktop { display: none; }
-  .rev10-draft .stage-comparison-mobile { display: block; }
-  .rev10-draft .stage-comparison-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: auto; flex: 0 0 auto; }
-  .rev10-draft .stage-compare-card { min-height: 155px; }
-  .rev10-draft .stage-visual .comparison-note { flex: 0 0 auto; }
-  .rev10-draft .gate-bypass-timeline { grid-template-columns: minmax(0, 1fr); gap: 5px; }
-  .rev10-draft .bypass-step { min-height: 0; }
-  .rev10-draft .bypass-arrow { min-height: 24px; transform: rotate(90deg); }
+  .rev10-draft:where(:not(.rev11-draft)) .compact-dialog-slide.active,
+  .rev10-draft:where(:not(.rev11-draft)) .stage-comparison-slide.active,
+  .rev10-draft:where(:not(.rev11-draft)) .gate-bypass-slide.active { overflow-y: auto; overscroll-behavior: contain; }
+  .rev10-draft:where(:not(.rev11-draft)) .compact-timeline { grid-template-columns: minmax(0, 1fr); gap: 7px; }
+  .rev10-draft:where(:not(.rev11-draft)) .compact-step,
+  .rev10-draft:where(:not(.rev11-draft)) .compact-outcome { min-height: 0; padding: 13px; }
+  .rev10-draft:where(:not(.rev11-draft)) .compact-time-arrow { min-height: 24px; transform: rotate(90deg); }
+  .rev10-draft:where(:not(.rev11-draft)) .stage-table-desktop { display: none; }
+  .rev10-draft:where(:not(.rev11-draft)) .stage-comparison-mobile { display: block; }
+  .rev10-draft:where(:not(.rev11-draft)) .stage-comparison-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: auto; flex: 0 0 auto; }
+  .rev10-draft:where(:not(.rev11-draft)) .stage-compare-card { min-height: 155px; }
+  .rev10-draft:where(:not(.rev11-draft)) .stage-visual .comparison-note { flex: 0 0 auto; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-bypass-timeline { grid-template-columns: minmax(0, 1fr); gap: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .bypass-step { min-height: 0; }
+  .rev10-draft:where(:not(.rev11-draft)) .bypass-arrow { min-height: 24px; transform: rotate(90deg); }
 }
 
 @media (max-width: 767px) {
-  .rev10-draft .compact-dialog-slide.active,
-  .rev10-draft .stage-comparison-slide.active,
-  .rev10-draft .gate-bypass-slide.active { overflow-y: auto; overscroll-behavior: contain; }
-  .rev10-draft .compact-dialog-slide.active { align-items: stretch; padding-bottom: 20px; }
-  .rev10-draft .compact-timeline { gap: 5px; }
-  .rev10-draft .compact-step,
-  .rev10-draft .compact-outcome { padding: 10px; }
-  .rev10-draft .compact-step > header { padding-inline: 10px; }
-  .rev10-draft .compact-chat { padding: 9px; }
-  .rev10-draft .compact-chat-tool,
-  .rev10-draft .compact-chat-other { padding-left: 7px; }
-  .rev10-draft .compact-chat p { font-size: 12px; }
-  .rev10-draft .stage-comparison-slide.active { align-items: stretch; padding: 18px 14px 20px; }
-  .rev10-draft .stage-board-head { align-items: flex-start; flex-direction: column; gap: 4px; }
-  .rev10-draft .stage-board-head span { text-align: left; }
-  .rev10-draft .stage-comparison-grid { grid-template-columns: minmax(0, 1fr); gap: 8px; }
-  .rev10-draft .stage-compare-card { min-height: 0; padding: 9px; }
-  .rev10-draft .stage-compare-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
-  .rev10-draft .stage-mode { padding: 8px; }
-  .rev10-draft .stage-mode > strong { font-size: 13px; }
-  .rev10-draft .stage-mode > span { font-size: 12px; }
-  .rev10-draft .stage-mode > em { font-size: 11.5px; }
-  .rev10-draft .stage-visual .comparison-note { text-align: left; }
-  .rev10-draft .return-mobile { grid-template-columns: minmax(0, 1fr); }
-  .rev10-draft .flow-mobile-returns { grid-template-columns: minmax(0, 1fr); }
-  .rev10-draft .flow-mobile-returns > p { grid-column: 1; }
-  .rev10-draft .return-mobile-route,
-  .rev10-draft .flow-mobile-route { grid-template-columns: minmax(0, .9fr) 24px minmax(0, 1.1fr); }
-  .rev10-draft .gate-bypass-story { gap: 9px; }
-  .rev10-draft .gate-bypass-rule,
-  .rev10-draft .gate-bypass-actual { padding: 11px; }
-  .rev10-draft .gate-bypass-rule { gap: 6px; }
-  .rev10-draft .gate-bypass-rule > strong,
-  .rev10-draft .gate-bypass-rule > b { padding: 7px; font-size: 12px; }
-  .rev10-draft .gate-bypass-rule > i { font-size: 18px; }
-  .rev10-draft .gate-bypass-heading { align-items: flex-start; flex-direction: column; gap: 4px; }
-  .rev10-draft .bypass-step { gap: 6px; padding: 10px; }
-  .rev10-draft .bypass-step > strong { font-size: 16px; }
-  .rev10-draft .bypass-step > span { font-size: 12px; }
-  .rev10-draft .gate-bypass-lesson { grid-template-columns: minmax(0, 1fr); gap: 5px; padding: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .compact-dialog-slide.active,
+  .rev10-draft:where(:not(.rev11-draft)) .stage-comparison-slide.active,
+  .rev10-draft:where(:not(.rev11-draft)) .gate-bypass-slide.active { overflow-y: auto; overscroll-behavior: contain; }
+  .rev10-draft:where(:not(.rev11-draft)) .compact-dialog-slide.active { align-items: stretch; padding-bottom: 20px; }
+  .rev10-draft:where(:not(.rev11-draft)) .compact-timeline { gap: 5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .compact-step,
+  .rev10-draft:where(:not(.rev11-draft)) .compact-outcome { padding: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .compact-step > header { padding-inline: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .compact-chat { padding: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .compact-chat-tool,
+  .rev10-draft:where(:not(.rev11-draft)) .compact-chat-other { padding-left: 7px; }
+  .rev10-draft:where(:not(.rev11-draft)) .compact-chat p { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .stage-comparison-slide.active { align-items: stretch; padding: 18px 14px 20px; }
+  .rev10-draft:where(:not(.rev11-draft)) .stage-board-head { align-items: flex-start; flex-direction: column; gap: 4px; }
+  .rev10-draft:where(:not(.rev11-draft)) .stage-board-head span { text-align: left; }
+  .rev10-draft:where(:not(.rev11-draft)) .stage-comparison-grid { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .stage-compare-card { min-height: 0; padding: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .stage-compare-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+  .rev10-draft:where(:not(.rev11-draft)) .stage-mode { padding: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .stage-mode > strong { font-size: 13px; }
+  .rev10-draft:where(:not(.rev11-draft)) .stage-mode > span { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .stage-mode > em { font-size: 11.5px; }
+  .rev10-draft:where(:not(.rev11-draft)) .stage-visual .comparison-note { text-align: left; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-mobile { grid-template-columns: minmax(0, 1fr); }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-returns { grid-template-columns: minmax(0, 1fr); }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-returns > p { grid-column: 1; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-mobile-route,
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-route { grid-template-columns: minmax(0, .9fr) 24px minmax(0, 1.1fr); }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-bypass-story { gap: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-bypass-rule,
+  .rev10-draft:where(:not(.rev11-draft)) .gate-bypass-actual { padding: 11px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-bypass-rule { gap: 6px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-bypass-rule > strong,
+  .rev10-draft:where(:not(.rev11-draft)) .gate-bypass-rule > b { padding: 7px; font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-bypass-rule > i { font-size: 18px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-bypass-heading { align-items: flex-start; flex-direction: column; gap: 4px; }
+  .rev10-draft:where(:not(.rev11-draft)) .bypass-step { gap: 6px; padding: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .bypass-step > strong { font-size: 16px; }
+  .rev10-draft:where(:not(.rev11-draft)) .bypass-step > span { font-size: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-bypass-lesson { grid-template-columns: minmax(0, 1fr); gap: 5px; padding: 10px; }
 }
 
 /* Keep the two comparison keys and their reading guide legible on the paired-row summary. */
@@ -2946,16 +2946,16 @@
 }
 
 @media (max-width: 767px) {
-  .rev10-draft .stage-board-legend { justify-content: flex-start; }
-  .rev10-draft .stage-board-legend .stage-read-guide { flex-basis: 100%; text-align: left; }
-  .rev10-draft .coordination-problem-slide > .draft-source,
-  .rev10-draft .shift-slide > .draft-source {
+  .rev10-draft:where(:not(.rev11-draft)) .stage-board-legend { justify-content: flex-start; }
+  .rev10-draft:where(:not(.rev11-draft)) .stage-board-legend .stage-read-guide { flex-basis: 100%; text-align: left; }
+  .rev10-draft:where(:not(.rev11-draft)) .coordination-problem-slide > .draft-source,
+  .rev10-draft:where(:not(.rev11-draft)) .shift-slide > .draft-source {
     min-height: 0;
     font-size: 11px;
     line-height: 1.35;
   }
-  .rev10-draft .split-work-slide .single-first { padding: 9px 11px; font-size: 14px; }
-  .rev10-draft .gate-bypass-rule > i { flex-basis: 22px; width: 22px; height: 26px; }
+  .rev10-draft:where(:not(.rev11-draft)) .split-work-slide .single-first { padding: 9px 11px; font-size: 14px; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-bypass-rule > i { flex-basis: 22px; width: 22px; height: 26px; }
 }
 
 /* Final rev10 pass: shared stage grids, centered handoffs, and readable diagrams. */
@@ -3050,13 +3050,13 @@
 
 
 @media (max-width: 767px) {
-  .rev10-draft .chat-role-row {
+  .rev10-draft:where(:not(.rev11-draft)) .chat-role-row {
     grid-template-columns: minmax(66px, .72fr) minmax(0, 1fr) 24px minmax(66px, .72fr) minmax(0, 1fr);
     gap: 4px;
     padding-inline: 8px;
   }
-  .rev10-draft .chat-role-row > b { padding: 5px 4px; font-size: 10px; }
-  .rev10-draft .cadence-exit-mobile {
+  .rev10-draft:where(:not(.rev11-draft)) .chat-role-row > b { padding: 5px 4px; font-size: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .cadence-exit-mobile {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3068,7 +3068,7 @@
     font-weight: 900;
     line-height: 1;
   }
-  .rev10-draft .cadence-exit-mobile span { color: var(--draft-muted); font-size: 11px; font-weight: 650; }
+  .rev10-draft:where(:not(.rev11-draft)) .cadence-exit-mobile span { color: var(--draft-muted); font-size: 11px; font-weight: 650; }
 }
 
 .rev10-draft .recap-columns .recap-human-gate {
@@ -3081,8 +3081,8 @@
 
 /* Mobile cover rhythm: number, section label, title, preview, then navigation. */
 @media (max-width: 767px) {
-  .rev10-draft .rev10-cover,
-  .rev10-draft .rev10-cover.active {
+  .rev10-draft:where(:not(.rev11-draft)) .rev10-cover,
+  .rev10-draft:where(:not(.rev11-draft)) .rev10-cover.active {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto minmax(0, 1fr) auto;
     align-content: stretch;
@@ -3090,7 +3090,7 @@
     gap: clamp(10px, calc(2 * var(--design-vh)), 18px);
     padding: 14px 20px;
   }
-  .rev10-draft .rev10-cover .cover-mark {
+  .rev10-draft:where(:not(.rev11-draft)) .rev10-cover .cover-mark {
     position: static;
     top: auto;
     left: auto;
@@ -3099,10 +3099,10 @@
     font-size: 24px;
     letter-spacing: .02em;
   }
-  .rev10-draft .rev10-cover .cover-copy { grid-row: 2; align-self: center; }
-  .rev10-draft .cover-kicker { margin-bottom: 9px; font-size: 12px; letter-spacing: .1em; }
-  .rev10-draft .rev10-cover h1 { max-width: 100%; font-size: clamp(25px, calc(7.2 * var(--design-vw)), 32px); line-height: 1.2; }
-  .rev10-draft .rev10-cover .cover-preview { grid-row: 3; min-height: 0; padding: 12px 14px; gap: 9px; }
+  .rev10-draft:where(:not(.rev11-draft)) .rev10-cover .cover-copy { grid-row: 2; align-self: center; }
+  .rev10-draft:where(:not(.rev11-draft)) .cover-kicker { margin-bottom: 9px; font-size: 12px; letter-spacing: .1em; }
+  .rev10-draft:where(:not(.rev11-draft)) .rev10-cover h1 { max-width: 100%; font-size: clamp(25px, calc(7.2 * var(--design-vw)), 32px); line-height: 1.2; }
+  .rev10-draft:where(:not(.rev11-draft)) .rev10-cover .cover-preview { grid-row: 3; min-height: 0; padding: 12px 14px; gap: 9px; }
 }
 
 /* Visible route geometry for the narrow-screen process summaries. */
@@ -3145,16 +3145,16 @@
 .rev10-draft .mobile-return-goal-label { fill: #ffe39a; }
 
 @media (max-width: 767px) {
-  .rev10-draft .flow-mobile-returns { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
-  .rev10-draft .flow-mobile-returns > svg { grid-column: 1 / -1; }
-  .rev10-draft .return-mobile {
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-returns { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .flow-mobile-returns > svg { grid-column: 1 / -1; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-mobile {
     display: grid !important;
     grid-template-columns: minmax(0, 1fr);
     justify-items: center;
     gap: 8px;
     width: 100%;
   }
-  .rev10-draft .return-mobile > svg {
+  .rev10-draft:where(:not(.rev11-draft)) .return-mobile > svg {
     position: relative;
     inset: auto;
     grid-column: 1;
@@ -3165,23 +3165,23 @@
 
 /* The expected Human Gate sequence remains a connected vertical flow on phones. */
 @media (max-width: 767px) {
-  .rev10-draft .gate-bypass-rule {
+  .rev10-draft:where(:not(.rev11-draft)) .gate-bypass-rule {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     justify-items: center;
     gap: 4px;
   }
-  .rev10-draft .gate-bypass-rule > span,
-  .rev10-draft .gate-bypass-rule > small { grid-column: 1; justify-self: stretch; text-align: center; }
-  .rev10-draft .gate-bypass-rule > strong,
-  .rev10-draft .gate-bypass-rule > b { justify-self: center; }
-  .rev10-draft .gate-bypass-rule > i {
+  .rev10-draft:where(:not(.rev11-draft)) .gate-bypass-rule > span,
+  .rev10-draft:where(:not(.rev11-draft)) .gate-bypass-rule > small { grid-column: 1; justify-self: stretch; text-align: center; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-bypass-rule > strong,
+  .rev10-draft:where(:not(.rev11-draft)) .gate-bypass-rule > b { justify-self: center; }
+  .rev10-draft:where(:not(.rev11-draft)) .gate-bypass-rule > i {
     flex-basis: auto;
     width: 24px;
     height: 20px;
     transform: rotate(90deg);
   }
-  .rev10-draft .gate-bypass-heading > span {
+  .rev10-draft:where(:not(.rev11-draft)) .gate-bypass-heading > span {
     display: block;
     padding: 5px 8px;
     border-left: 3px solid var(--draft-red);
@@ -3244,8 +3244,8 @@
 
 
 @media (max-width: 767px) {
-  .rev10-draft .citation-readability > .draft-source { font-size: 12px; line-height: 1.4; }
-  .rev10-draft .stage-board-head { gap: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .citation-readability > .draft-source { font-size: 12px; line-height: 1.4; }
+  .rev10-draft:where(:not(.rev11-draft)) .stage-board-head { gap: 8px; }
 }
 
 .rev10-draft .return-mobile-board-routes,
@@ -3254,7 +3254,7 @@
 
 
 @media (max-width: 767px) {
-  .rev10-draft .recap-columns {
+  .rev10-draft:where(:not(.rev11-draft)) .recap-columns {
     position: relative;
     width: min(100%, 400px);
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -3263,9 +3263,9 @@
     margin-inline: auto;
     overflow: visible;
   }
-  .rev10-draft .recap-visual .recap-columns { margin-bottom: 73px; }
-  .rev10-draft .recap-columns article { height: 68px; min-height: 68px; }
-  .rev10-draft .return-mobile-board-routes {
+  .rev10-draft:where(:not(.rev11-draft)) .recap-visual .recap-columns { margin-bottom: 73px; }
+  .rev10-draft:where(:not(.rev11-draft)) .recap-columns article { height: 68px; min-height: 68px; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-mobile-board-routes {
     position: absolute;
     top: 0;
     left: -20px;
@@ -3276,8 +3276,8 @@
     overflow: visible;
     pointer-events: none;
   }
-  .rev10-draft .return-tablet-board-routes { display: none; }
-  .rev10-draft .return-routes { display: none !important; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-tablet-board-routes { display: none; }
+  .rev10-draft:where(:not(.rev11-draft)) .return-routes { display: none !important; }
 }
 
 /* Owner readability pass: use the full content band and keep type legible at 1440×900. */
@@ -3531,15 +3531,15 @@
   .rev10-draft .slides .stage-visual .comparison-note { font-size: 20px; line-height: 1.3; }
 }
 @media (max-width: 767px) {
-  .rev10-draft .stage-table-readable { display: none; }
+  .rev10-draft:where(:not(.rev11-draft)) .stage-table-readable { display: none; }
 }
 
 @media (max-width: 767px) {
-  .rev10-draft .slides > .rev10-cover.active { gap: 24px; padding: 24px; }
-  .rev10-draft .rev10-cover .cover-mark { font-size: 56px; }
-  .rev10-draft .rev10-cover .cover-kicker { font-size: 15px; }
-  .rev10-draft .slides .chat-role-row { grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr); gap: 8px; padding: 12px; }
-  .rev10-draft .slides .chat-role-card { padding: 14px; gap: 8px; }
+  .rev10-draft:where(:not(.rev11-draft)) .slides > .rev10-cover.active { gap: 24px; padding: 24px; }
+  .rev10-draft:where(:not(.rev11-draft)) .rev10-cover .cover-mark { font-size: 56px; }
+  .rev10-draft:where(:not(.rev11-draft)) .rev10-cover .cover-kicker { font-size: 15px; }
+  .rev10-draft:where(:not(.rev11-draft)) .slides .chat-role-row { grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr); gap: 8px; padding: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .slides .chat-role-card { padding: 14px; gap: 8px; }
 }
 
 /* First-use definitions, limited to the three pages that introduce these terms. */
@@ -3614,25 +3614,25 @@
 }
 
 @media (max-width: 767px) {
-  .rev10-draft .slides .split-work-slide .specialist-handoff { gap: 8px; grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1.25fr) 24px minmax(0, 1fr); }
-  .rev10-draft .slides .specialist-handoff > article { padding: 12px; }
-  .rev10-draft .slides .specialist-delivery dl > div { grid-template-columns: minmax(0, 1fr); gap: 2px; font-size: 15px; }
-  .rev10-draft .slides .launch-timing-slide .launch-timeline { gap: 8px; padding: 12px; }
-  .rev10-draft .slides .launch-timeline :is(article, p) { font-size: 15px; }
+  .rev10-draft:where(:not(.rev11-draft)) .slides .split-work-slide .specialist-handoff { gap: 8px; grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1.25fr) 24px minmax(0, 1fr); }
+  .rev10-draft:where(:not(.rev11-draft)) .slides .specialist-handoff > article { padding: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .slides .specialist-delivery dl > div { grid-template-columns: minmax(0, 1fr); gap: 2px; font-size: 15px; }
+  .rev10-draft:where(:not(.rev11-draft)) .slides .launch-timing-slide .launch-timeline { gap: 8px; padding: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .slides .launch-timeline :is(article, p) { font-size: 15px; }
 }
 
 @media (max-width: 767px) {
-  .rev10-draft .slides .visual > .term-note { font-size: 15px; }
-  .rev10-draft .slides .split-work-slide .split-work { grid-template-rows: auto auto auto; gap: 12px; }
-  .rev10-draft .slides .split-work-slide .split-branches { display: none; }
-  .rev10-draft .slides .split-work-slide .specialist-handoff { grid-row: 2; grid-template-columns: minmax(0, 1fr); }
-  .rev10-draft .slides .split-work-slide .single-first { grid-row: 3; }
-  .rev10-draft .slides .specialist-handoff > article { min-height: 0; }
-  .rev10-draft .slides .specialist-handoff > .specialist-transfer { transform: rotate(90deg); }
-  .rev10-draft .slides .specialist-delivery dl > div { grid-template-columns: 4em minmax(0, 1fr); gap: 10px; }
-  .rev10-draft .slides .launch-timing-slide .launch-timeline { grid-template-columns: minmax(0, 1fr); }
-  .rev10-draft .slides .launch-timeline > :is(i, .launch-point) { justify-self: center; }
-  .rev10-draft .slides .launch-timeline > i { transform: rotate(90deg); }
+  .rev10-draft:where(:not(.rev11-draft)) .slides .visual > .term-note { font-size: 15px; }
+  .rev10-draft:where(:not(.rev11-draft)) .slides .split-work-slide .split-work { grid-template-rows: auto auto auto; gap: 12px; }
+  .rev10-draft:where(:not(.rev11-draft)) .slides .split-work-slide .split-branches { display: none; }
+  .rev10-draft:where(:not(.rev11-draft)) .slides .split-work-slide .specialist-handoff { grid-row: 2; grid-template-columns: minmax(0, 1fr); }
+  .rev10-draft:where(:not(.rev11-draft)) .slides .split-work-slide .single-first { grid-row: 3; }
+  .rev10-draft:where(:not(.rev11-draft)) .slides .specialist-handoff > article { min-height: 0; }
+  .rev10-draft:where(:not(.rev11-draft)) .slides .specialist-handoff > .specialist-transfer { transform: rotate(90deg); }
+  .rev10-draft:where(:not(.rev11-draft)) .slides .specialist-delivery dl > div { grid-template-columns: 4em minmax(0, 1fr); gap: 10px; }
+  .rev10-draft:where(:not(.rev11-draft)) .slides .launch-timing-slide .launch-timeline { grid-template-columns: minmax(0, 1fr); }
+  .rev10-draft:where(:not(.rev11-draft)) .slides .launch-timeline > :is(i, .launch-point) { justify-self: center; }
+  .rev10-draft:where(:not(.rev11-draft)) .slides .launch-timeline > i { transform: rotate(90deg); }
 }
 
 /* Scale the entire desktop page, including navigation, as one design canvas. */
@@ -3728,9 +3728,9 @@
 
 /* Preserve the existing scrolling mobile presentation without canvas scaling. */
 @media (max-width: 767px) {
-  .rev10-draft { --design-vw: 1vw; --design-vh: 1vh; }
-  .rev10-draft .matching-phones { display: contents; }
-  .rev10-draft .matching-group-label { display: none; }
+  .rev10-draft:where(:not(.rev11-draft)) { --design-vw: 1vw; --design-vh: 1vh; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-phones { display: contents; }
+  .rev10-draft:where(:not(.rev11-draft)) .matching-group-label { display: none; }
 }
 
 /* Retained pages use the same canvas, content edges and type scale as rev10.
