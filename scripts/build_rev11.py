@@ -88,7 +88,7 @@ new[40]=kicker('人看 #3 的交付與風險，記錄「放行／暫停」理由
  panel('2 驗證結果',para('這次版本的 AC 與結果證據','有沒有未跑或失敗的情境？')),
  panel('3 找出風險',para('資料、使用者與相依範圍','錯了會影響誰？')),
  panel('4 降低衝擊',para('如何停止擴散、回復與處理','這些能力真的可用嗎？'))])+'</div>'+ribbon('本課固定：Goal Check → 人記錄 Gate 決定 → 通過後才 merge／release。','human')
-new[42]=kicker('現在三張票都已交付；從使用者的目標走完整條路')+flow(
+new[42]=kicker('時間快轉：#1／#2 完成並整合後，從使用者目標走完整條路')+flow(
  panel('#1｜輸入',para('小安 Like 小晴','小晴也 Like 小安')),
  panel('#3｜判斷',para('確認雙向喜歡','只建立一筆配對')),
  panel('#2｜呈現',para('小安的列表看見小晴','小晴的列表也看見小安')))+ribbon('單票通過，不保證串接正確；整條路徑還要核對資料與結果。')+'<p class="r-meta">上線前確認行為；上線後再量 Goal 的成功訊號，兩者不能互相代替。</p>'
@@ -196,13 +196,15 @@ def adjust(node,p):
         replace_text(node,'session：一段獨立的對話；開新的對話就是新的 session，看不到前一段的內容。','session：一段工作對話。新 session 不會自動帶齊前文；可以透過共用票面與交接紀錄補齊。')
         replace_text(node,'新接手者看不到前段對話','這次交接缺少前文與共同紀錄')
     elif n==49:
+        replace_text(node,'全部放進同一個 chat','若各步驟沿用同一套設定')
         replace_text(node,'開越高越慢、越貴。','速度、成本與品質有取捨。')
         replace_text(node,'簡單的事也又慢又貴','簡單工作可能付出額外時間與成本')
         replace_text(node,'困難的規則判斷容易出錯','複雜規則是否可靠，仍需實際驗證')
-        replace_text(node,'第 5 段怎麼解','接著看多 Agent 分工')
+        replace_text(node,'第 5 段怎麼解','模型／effort 選擇與 Agent 數量是不同問題；接著看分工。')
     elif n==56:
         replace_text(node,'案例票｜#3 雙向喜歡才配對','例：#3 Review 不過 → Dev 修正 → 再送審；誰安排這條路徑？')
     elif n==58:
+        replace_text(node,'由另一站核對','依條件獨立核對')
         for a,b in [('5-5｜','SHIFT｜'),('4–5｜','交接問題｜'),('4｜','Chat 問題｜'),('5｜','協作問題｜')]:
             for t in list(node.find_all(string=True)):
                 if a in t:t.replace_with(str(t).replace(a,b))
@@ -210,7 +212,9 @@ def adjust(node,p):
         replace_text(node,'新 Session 讀票，不讀聊天','新 session 先讀共同紀錄，不只依賴聊天')
     elif n==61:
         replace_text(node,'規劃與接受','整理規劃與接受建議')
-        add_note(node,'人主導目標與接受標準，核對結果；Human Gate 由人決定放行，不由 Agent 自行核准。')
+        add_note(node,'角色代表責任，不代表每個職能都需要一個 Agent。人主導目標與接受標準，核對結果；Human Gate 由人決定放行，不由 Agent 自行核准。')
+    elif n==62:
+        replace_text(node,'PR Review、QA 與 Developer 分開；只認證據，不認自述。','核對責任與產出分開；可由人依 AC、版本與證據核對，不只接受產出者自述。')
     elif n==71:
         replace_text(node,'Push branch','Push branch／開 PR')
         replace_text(node,'開 Pull Request','審查差異與意見')

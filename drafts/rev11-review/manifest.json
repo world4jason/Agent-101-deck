@@ -1,6 +1,6 @@
 {
   "ssot": "docs/rev10-slide-by-slide-v1.md",
-  "ssotSha256": "e182ad1d8d95c0ad762ddba0b1757cb13337f78712bddf7043329d004f655f07",
+  "ssotSha256": "8eef6a0397389119b2e8dea43fdd480d0594ef09971e8e13f05f6b09c416498a",
   "pages": [
     {
       "number": 1,
@@ -623,7 +623,7 @@
     {
       "number": 62,
       "chapter": "C5",
-      "kind": "沿用",
+      "kind": "調整",
       "ids": [
         "P46"
       ],
