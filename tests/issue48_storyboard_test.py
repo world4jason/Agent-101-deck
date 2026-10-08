@@ -78,6 +78,10 @@ def main():
     candidate = BeautifulSoup((ROOT / "slides/index.html").read_text(), "html.parser")
     assert len(baseline.select(".slide")) == 82
     assert len(candidate.select(".slide")) == 107
+    opening = candidate.select_one('.slide[data-page="1"]')
+    assert opening and opening.select_one('.r-desktop-reading-notice')
+    assert '請用電腦版閱讀' in opening.get_text() and '手機版開發中' in opening.get_text()
+
     manifest = json.loads((ROOT / "drafts/rev12-review/manifest.json").read_text())
 
     # The top rail is the major-chapter navigation; covers reuse its labels
