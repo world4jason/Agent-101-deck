@@ -514,7 +514,8 @@ for i,p in enumerate(pages):
     if p['addedId']:node['data-added-id']=p['addedId']
     if p['oldRev11Page']==7:node['data-process-stage']='0'
     if p['oldRev11Page']==56:node['data-wip-stage']='workflow'
-    if node.select_one('.cover-kicker'):node.select_one('.cover-kicker').string={'C0':'先看人類如何合作','C1':'版本與協作','C2':'想法到 Ready','C5':'Agent 接手與新問題','C6':'Agent 交付與人的驗收','APP':'附錄'}.get(p['chapter'],p['chapter'])
+    if node.select_one('.cover-mark'):node.select_one('.cover-mark').decompose()
+    if node.select_one('.cover-kicker'):node.select_one('.cover-kicker').string=chapter_labels[p['chapter']]
     out.append(str(node))
     p['notes']=cards[p['number']].replace('新標題為提案，未修改 HTML。','本草稿採用此標題。')
     manifest.append(p)

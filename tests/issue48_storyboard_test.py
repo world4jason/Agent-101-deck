@@ -70,6 +70,17 @@ def main():
     assert len(candidate.select(".slide")) == 99
     manifest = json.loads((ROOT / "drafts/rev12-review/manifest.json").read_text())
 
+    # The top rail is the major-chapter navigation; covers reuse its labels
+    # and do not show the inherited rev11 decorative numbering.
+    rail_links = candidate.select(".section-rail [data-rail]")
+    rail_labels = {link["data-rail"]: link.get_text(" ", strip=True) for link in rail_links}
+    assert len(rail_links) == 8
+    assert [link["data-rail"] for link in rail_links] == chapter_order
+    assert not candidate.select(".section-slide .cover-mark")
+    for cover in candidate.select(".slide.section-slide"):
+        kicker = cover.select_one(".cover-kicker")
+        assert kicker and kicker.get_text(" ", strip=True) == rail_labels[cover["data-section"]]
+
     # The previewed PR/merge pages are explicitly separate from #3's current start.
     preview_pr = candidate.select_one('.slide[data-page="34"]')
     preview_merge = candidate.select_one('.slide[data-page="35"]')

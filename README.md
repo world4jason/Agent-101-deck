@@ -4,6 +4,8 @@
 
 用同一個配對 App 的三張票，先看人類如何協作、版本管理與驗收，再看 Agent 接手後的分工、交接與人的決策。
 
+頂端導覽只列八個大章節；章封面小標與導覽章名一致，內頁主題封面不再顯示舊版編號。
+
 - [正式投影片](https://world4jason.github.io/Agent-101-deck/slides/)
 - [rev12 執行故事板與頁面對照](docs/issue48-execution-storyboard.md)
 - [Issue #49 review 修正的 G1 頁序與先備檢查](docs/issue49-review-fixes.md)
