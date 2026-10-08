@@ -13,6 +13,85 @@
 - [三版本內容對照](docs/three-version-comparison.md)
 - [rev11交付紀錄](docs/rev11-delivery.md)
 
+## 教材製作與 Review Principles
+
+> **單頁正確，不代表教材正確。**
+>
+> 一頁只有在「前置知識、術語、running example、版本、證據、狀態與後續結論」全部一致時，才算正確。
+>
+> **Correct locally is not enough.** A slide is correct only when its prerequisite, terminology, running example, version, evidence, state, and downstream conclusion are all consistent.
+
+這份 deck 的預設受眾是第一次接觸軟體工程、專案管理與 Agent 工作流程的人。任何新增、重排或修改都必須遵守以下原則；PR review 也應依同一套規則驗收。
+
+| # | Principle | 固定規則 |
+|---|---|---|
+| P1 | Audience first | 預設學員是完全不懂軟體工程／專案管理的行銷、老師、行政等非工程背景受眾。術語第一次出現前，先用白話建立概念。 |
+| P2 | Prerequisite before consequence | 一個概念只能在前置知識已出現後使用。敘事應是「先遇到問題 → 再引出工具／概念」，不能先給答案再補前提。 |
+| P3 | Goal → Agreement → Work → Evidence | 核心主線固定為 Goal → Brainstorm / Refinement → AC → Ticket → Ready → Dev → PR Review → QA → Product / Goal Check → Done。重排可以，但因果不可跳躍。 |
+| P4 | One canonical running example | 配對 App 與工作票是同一條 running example。全 deck 不可偷偷產生第二條互相矛盾的版本／案例世界線。 |
+| P5 | One state, one timeline | 同一案例只能有一條版本、測試與證據時間線。倒帶、快轉、切換 snapshot 時必須在投影片主畫面明說。 |
+| P6 | Evidence proves exactly the claim | Evidence 只能支持它真正驗證過的 claim。規則層、UI、整體串接、Goal 驗收必須分層，不可互相代替。 |
+| P7 | No evidence → no claim | 沒跑就是 NOT RUN；沒有獨立證據就不能宣稱 PASS／Done；沒有真人試教就不能宣稱學習效果已驗證。 |
+| P8 | Roles ≠ People ≠ Agents | PO／Dev／Reviewer／QA 是責任，不等於人數，也不等於 Agent 數量。獨立驗證可由另一 Agent 或人承擔。 |
+| P9 | Single Agent before Multi-Agent | 先完整示範「一個人 + 一個 Agent」如何拿票、執行、測試、回報、被退回、修正與驗收，再引入 Multi-Agent。 |
+| P10 | Separate orthogonal concepts | Chat、Agent、Workflow、Agent count、Model、Effort、Session、Context、Memory、WIP 是不同軸，不可由一個問題直接推出另一個方案。 |
+| P11 | Teach the minimum visible truth | 主投影片只放學員此刻需要理解的資訊；raw JSON、完整 diff、replay path、完整 hash 等審計細節放 Evidence / Notes。 |
+| P12 | Change propagates downstream | 改案例、版本、狀態、頁序或術語後，必須全 repo 搜尋並同步 deck、storyboard、notes、exercise、demo、manifest 與 README。禁止只 local fix。 |
+| P13 | SSOT over duplicated truth | 同一個事實只保留一個 canonical source。投影片引用 evidence，不另外手打一份「差不多」的結果。 |
+| P14 | Exercise ≠ Answer sheet | 練習必須先讓學員做決策／輸出，再 reveal 答案；不能同頁先把正解與完整結果全部公開。 |
+| P15 | Every instruction must be executable | Deck、exercise、README 出現的命令、prompt、操作步驟，都必須由 reviewer 原樣 copy-paste 實跑一次。 |
+| P16 | Preserve scope intentionally | 重排是為了解決敘事，不是順手刪章節或擴 scope。延伸議題應另列 Issue，不偷塞進當前 PR。 |
+| P17 | Different gates prove different things | Content correctness、Evidence correctness、Narrative QA、Desktop/Mobile QA、真人小白試教、Release 是不同 gate；一個 gate 通過不代表其他 gate 通過。 |
+
+### Merge gates
+
+以下六條視為硬規則。任何一條不成立，PR 不應直接 merge：
+
+1. **前面沒教過的東西，後面不能假設學員懂。**
+2. **同一 running example 只能有一條版本／狀態／證據時間線。**
+3. **每個 PASS／FAIL／Done 都能回答：哪個版本、哪個 case、哪份 evidence？**
+4. **改一頁的事實，要搜尋並核對全 deck 與 supporting material 的所有引用；禁止只 local fix。**
+5. **投影片上的命令、prompt、操作流程，必須原樣實跑。**
+6. **Reviewer 必須同時回答：這句話本身正確嗎？小白走到這一頁時，已經有足夠資訊理解它嗎？**
+
+### Evidence presentation
+
+「Evidence 必須真實」不等於「所有 evidence 都要塞進投影片」。
+
+主畫面優先呈現：
+- 人交代了什麼。
+- 工具實際回傳什麼。
+- 預期與實際差在哪裡。
+- Agent 做了什麼修改。
+- 相同 case 重測後結果如何。
+- 交回哪個版本、還有哪些 NOT RUN。
+
+詳細 evidence 再放到可追溯材料：
+- artifact path / candidate ID
+- SHA-256 或其他版本指紋
+- command
+- raw JSON
+- diff
+- replay / log
+
+第一次使用技術識別時要給白話定義，例如：**「檔案指紋：用來確認測的是同一份程式；不一定等於 Git commit。」**
+
+### Reviewer checklist
+
+每次內容變更至少逐項檢查：
+
+- **Prerequisite：**這頁使用的術語與概念，前面是否已經教過？
+- **Narrative：**上一頁為什麼自然地需要這一頁？這一頁又交出什麼給下一頁？
+- **Running example：**案例、ticket、角色與目標是否仍是同一條故事？
+- **State / timeline：**版本、PASS／FAIL／NOT RUN、Human Gate 是否與前後頁一致？
+- **Evidence：**這個證據真的支持這個 claim 嗎？是否跨越了規則層／UI／整體產品的驗收邊界？
+- **SSOT：**數字、版本、命令、結果是否直接來自 canonical material，而不是手動複製的第二份真相？
+- **Executability：**命令、prompt、操作步驟是否已原樣跑過？
+- **Cognitive load：**主畫面是否只保留此刻必要的資訊？工程審計細節是否應移到 Evidence / Notes？
+- **Exercise：**若這頁是練習，學員是否先有真正做判斷的空間，再看到答案？
+- **Propagation：**本次改動是否已同步 storyboard、slides、notes、demo、exercise、manifest、README？
+- **Gate：**內容、證據、瀏覽器畫面、真人試教等狀態是否分開陳述，沒有把其中一項通過寫成全部通過？
+
 ## 內容
 
 | 頁碼 | 章節 |
