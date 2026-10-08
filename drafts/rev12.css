@@ -229,3 +229,25 @@
   font: 700 26px/1.45 system-ui, sans-serif;
   letter-spacing: .015em;
 }
+
+/* Mobile site visitor notice, shown only on the opening page and outside the scaled deck canvas. */
+@media (max-width: 767px) {
+  body.rev12-draft:has(#page-1.active)::before {
+    content: "請用電腦版閱讀｜手機版開發中";
+    position: fixed;
+    z-index: 999;
+    top: 18px;
+    left: 14px;
+    right: 14px;
+    box-sizing: border-box;
+    padding: 14px 16px;
+    border: 1px solid #83bcff;
+    border-left-width: 5px;
+    border-radius: 10px;
+    background: #17283a;
+    color: #f3f6fa;
+    font: 700 18px/1.5 system-ui, sans-serif;
+    text-align: center;
+    pointer-events: none;
+  }
+}
