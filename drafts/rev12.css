@@ -213,3 +213,50 @@
 .rev12-draft .r-exit-answer summary:focus-visible {outline:3px solid #f2cf76;outline-offset:5px;}
 .rev12-draft .r-exit-card ~ .r-exit-card {box-shadow:none;}
 .rev12-draft .r-exit-head + .r-exit-grid + .r-ribbon {font-size:18px;line-height:1.4;}
+
+
+/* Explicitly communicate supported viewing mode on the opening slide. */
+.rev12-draft #page-1 .r-desktop-reading-notice {
+  margin: 35px 0 0;
+  padding: 15px 21px;
+  width: fit-content;
+  max-width: 950px;
+  border-left: 5px solid #83bcff;
+  border-radius: 8px;
+  background: #172a3d;
+  color: #eef5fd;
+  font: 700 25px/1.45 system-ui, sans-serif;
+  letter-spacing: .015em;
+}
+/* Explain demo vs. measured result inside the projected learner-facing slide. */
+.rev12-draft #page-41 .r-scenario-note {
+  margin: 0 0 10px;
+  color: #f5d69e;
+  font: 650 19px/1.4 system-ui,sans-serif;
+  text-align: center;
+}
+/* P93's flow shares the canonical seven columns with the final recap page. */
+.rev12-draft #page-93 .recap-columns {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  --recap-gap: 20px;
+  gap: var(--recap-gap);
+}
+.rev12-draft #page-93 .recap-columns article {
+  min-width: 0;
+  padding-inline: 7px;
+}
+.rev12-draft #page-93 .recap-columns :is(h2,strong) {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+.rev12-draft #page-93 .r-recap-gate-note {
+  flex: 0 0 auto;
+  margin: 5px 0 0;
+  padding: 8px 13px;
+  color: #e6dbb9;
+  background: #241f17;
+  border-left: 4px solid #f2cf76;
+  border-radius: 5px;
+  font: 640 19px/1.3 system-ui,sans-serif;
+  text-align: center;
+}
