@@ -194,3 +194,22 @@
   .rev12-draft .slide[data-process-stage="1"] .flow-mobile-lane:not(.flow-mobile-focus) { display: none !important; }
   .rev12-draft .slide[data-process-stage="0"] .flow-mobile-returns { display: none !important; }
 }
+
+
+/* Chapter Exit Check: three readable, progressively revealed assessment cards. */
+.rev12-draft .r-exit-head {display:flex;flex-direction:column;gap:8px;max-width:1280px;margin:0 auto 6px;}
+.rev12-draft .r-exit-head .r-kicker {margin:0;color:#b7cee5;font-size:21px;}
+.rev12-draft .r-exit-outcome {margin:0;font:750 26px/1.35 system-ui;color:#f3f6fa;}
+.rev12-draft .r-exit-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;flex:1;align-items:stretch;min-height:0;width:100%;}
+.rev12-draft .r-exit-card {display:flex;min-width:0;min-height:0;flex-direction:column;gap:19px;padding:23px 23px 21px;border:1px solid #3f6080;border-top:4px solid #83bcff;border-radius:12px;background:#111d2b;}
+.rev12-draft .r-exit-question {display:flex;flex-direction:column;gap:17px;align-items:flex-start;}
+.rev12-draft .r-exit-marker {display:inline-block;padding:5px 13px;border-radius:7px;background:#223b54;color:#bedef9;font:800 21px/1.3 system-ui;}
+.rev12-draft .r-exit-card h2 {margin:0;font:750 27px/1.37 system-ui;letter-spacing:-.02em;color:#f4f7fb;}
+.rev12-draft .r-exit-answer {margin-top:auto;flex:0 0 auto;border:1px solid #416486;border-radius:9px;background:#172c3e;padding:12px 13px;max-height:260px;overflow:auto;}
+.rev12-draft .r-exit-answer summary {font:700 18px/1.4 system-ui;color:#c6e6ff;cursor:pointer;list-style-position:inside;}
+.rev12-draft .r-exit-answer[open] {background:#17352f;border-color:#569581;}
+.rev12-draft .r-exit-answer[open] summary {color:#b2f0d9;}
+.rev12-draft .r-exit-answer p {margin:11px 0 0;font:500 20px/1.5 system-ui;color:#eef7f5;}
+.rev12-draft .r-exit-answer summary:focus-visible {outline:3px solid #f2cf76;outline-offset:5px;}
+.rev12-draft .r-exit-card ~ .r-exit-card {box-shadow:none;}
+.rev12-draft .r-exit-head + .r-exit-grid + .r-ribbon {font-size:18px;line-height:1.4;}

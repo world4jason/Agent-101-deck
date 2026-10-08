@@ -1,3 +1,5 @@
+> 歷史審查紀錄：以下頁碼以 PR #49 原 99 頁候選版本為基準；八章 Exit Check 新增後，107 頁最新映射請以 `docs/issue48-execution-storyboard.md`／manifest 為準。
+
 # Issue #49 Review 修正稿｜G1 故事板與先備知識（實作前）
 
 > 狀態：G1 已在教材修改前完成，供本輪修正採用；這不是成品驗收，也不代表 G2–G5 通過。

@@ -1,6 +1,6 @@
 # Agent 101 Deck
 
-**rev12 候選：99頁（主線88頁、附錄11頁）；rev11 82頁基線保留。**
+**rev12 候選：107頁（主線95頁、附錄12頁）；原99頁全數保留、各章新增一張 Exit Check（A18–A25），rev11 82頁基線保留。**
 
 用同一個配對 App 的三張票，先看人類如何協作、版本管理與驗收，再看 Agent 接手後的分工、交接與人的決策。
 
@@ -96,6 +96,43 @@
 - **Gate：**內容、證據、瀏覽器畫面、真人試教等狀態是否分開陳述，沒有把其中一項通過寫成全部通過？
 
 
+### 教學簡報 Editorial QA｜每輪 PR 必做自我檢查
+
+> **107 頁都沒有溢出，也不等於學員學會了。** 本節是原 P1–P17 與 G1–G5 的延伸檢查，不另創互相競爭的 Gate；遇到與事實／流程一致性衝突時，仍先處理 P0/P1。
+
+| 自檢項目 | 實際判準 | 失敗時要做什麼 |
+|---|---|---|
+| **Title–Content Alignment**（標題／證據一致） | 教學敘述頁的標題用一個能理解的觀點或結論，主圖／例子真正支持它；章節頁、問題導入、練習頁可使用提問或任務式標題 | 將「Ready」「QA / Verification」等單純主題名改成對學員有用的訊息；避免提前揭露練習答案 |
+| **One Teaching Takeaway**（一頁一個學習任務） | 一頁主要教一件事或要求完成一項判斷；一張圖與三個例子可以共同支持同一件事 | 把不相關的第二個教學目標拆到原有頁或移至 Notes，不盲目增加頁數 |
+| **Prerequisite Check**（先備知識） | 首次使用 AC／PR／QA／Session 等術語前，已用白話解釋並有具體例子 | 先補先備觀念，不能只在筆記或附錄藏定義 |
+| **Chapter Outcome**（章節出口） | 每章具體指定學完「能做什麼」，至少有一項可觀察／可回答的檢核題；要能回扣 Goal → Ticket → Delivery → Evidence | 在 Exit Check 用清楚的問題、參考答案與學員自評補足 |
+| **Cognitive Load**（認知負荷） | 主畫面只放當下必要的概念、圖或紀錄；原始 JSON、SHA、完整 CLI、diff 留在 Evidence/Notes；不硬套固定字數 | 分清主畫面／講者筆記／可追溯材料，逐步揭露複雜流程 |
+| **Practice Before Reveal**（先作答再揭露） | 練習題真正讓學員先嘗試，答案以可操作的 reveal 展開；不以「問號句」假裝練習，卻同畫面提前給答案 | 增加提問—作答—揭露—回饋的停頓；不能把測試 PASS 當學習成效 PASS |
+| **Cross-slide Consistency**（跨頁心智模型一致） | 同一套狀態名稱、狀態欄數、Human Gate 決策點、版本 A/B、時間線與 NOT RUN，前後完全一致 | 全 deck 搜尋並修正全部下游引用，尤其回顧頁 |
+| **Visual Accessibility**（真實可讀） | 在 1440×900、投影與目標行動裝置實際看 final screenshot，能辨讀標題、箭頭、卡片、對比與留白；不靠「沒有 overflow」下結論 | 調整密度、層次與對比並重看最終圖，不把驗收 log 當投影片 |
+| **Learning Transfer**（可遷移） | 學員離開 Matching App，至少能自己寫一張 Ticket、指定驗收證據，並能接受或退回 Agent 交付 | 在章節出口先自測，最後用自己的工作轉用；必要時真人試教 |
+| **Evidence ≠ Teaching**（技術與學習證據分離） | 工程 PASS、模型模擬初學者 READY、真人學員實測各自陳述；不能替代 | G2/G3/G4/G5 分別留明確 evidence 和 NOT RUN |
+
+**標題形式選擇：**概念教學採 Message Title／Assertion–Evidence；問題導入採 Question Title；操作練習採 Task Title；章封面採 Chapter＋Learning Task；出口檢核採學員能回答的 Q&A。不是每頁硬改成結論句，也不是一頁只允許一行字。
+
+**建議 Pattern（不是硬性的科學比例）：**Backward Design／Constructive Alignment（先學習成果與證據）、Merrill's First Principles（問題→示範→練習→遷移）、Multimedia Learning（Coherence／Signaling／Spatial Contiguity／Segmenting／Pre-training）、Worked Example → Guided Practice → Independent Practice、Progressive Disclosure、SCQA／MECE。不要將 6×6、10/20/30 等字數規則當萬用學術標準。
+
+**八章 Exit Checks：**每章末一張，共八張；每張三題 Q&A，先讓學員思考或口頭作答，按鈕才揭露參考答案；每張對應「章節學完能做什麼」，而非名詞背誦。附錄的檢核強調「能查找／辨認」，不要求背誦全部方法。
+
+**合併前 Review 追問：**
+- 學員不看講者筆記，能否用自己的話說出這頁標題？
+- 主圖、內文與證據是否支持標題，還是只是工程紀錄？
+- 走到這頁時，學員是否已經理解所需術語和情境？
+- 學員能否在揭露答案前自行判斷？講者的回饋在哪裡？
+- 這次修改是否改變所有後續流程、Q&A、筆記和測試？
+- 改完最新 HEAD 是否真正重看，而非沿用前一版 PASS？
+
+**參考研究與實務來源：**
+- Michael Alley, Assertion–Evidence：https://www.engr.psu.edu/speaking/VISUAL-AIDS.html
+- Garner & Alley, *How the design of presentation slides affects audience comprehension*：https://pure.psu.edu/en/publications/how-the-design-of-presentation-slides-affects-audience-comprehens/
+- M. David Merrill, *First Principles of Instruction* (2002)：https://doi.org/10.1007/BF02505024
+- CAST UDL Guidelines v3.0：https://udlguidelines.cast.org/
+
 ### 教材 PR 的五道必要 Quality Gates
 
 > 以下是 P1–P17 的**執行流程**，不是另一套彼此競爭的原則。每道關卡都要記錄審查版本、涵蓋範圍、結果與證據；未執行寫 **NOT RUN**，不能用其他關卡的 PASS 代替。
@@ -120,14 +157,14 @@
 
 | 頁碼 | 章節 |
 |---|---|
-| 1–7 | 人類如何合作：角色、成果、證據與關卡 |
-| 8–28 | 從想法到 Ready：範例、Example Mapping、AC／AT／DoD |
-| 29–35 | 版本與協作：commit／branch／PR／merge |
-| 36–45 | 實作、Review、QA、黑箱驗收與證據 |
-| 46–49 | 放行、單票完成與整體驗收 |
-| 50–76 | Agent 演進：session、交接、分工、workflow 與原則 |
-| 77–88 | Agent 交付與人的驗收；人定方向與放行 |
-| 89–99 | 附錄：BDD、TDD、SBE、演練與架構 |
+| 1–8 | 人類如何合作：角色、成果、證據與關卡 |
+| 9–30 | 從想法到 Ready：範例、Example Mapping、AC／AT／DoD |
+| 31–38 | 版本與協作：commit／branch／PR／merge |
+| 39–49 | 實作、Review、QA、黑箱驗收與證據 |
+| 50–54 | 放行、單票完成與整體驗收 |
+| 55–82 | Agent 演進：session、交接、分工、workflow 與原則 |
+| 83–95 | Agent 交付與人的驗收；人定方向與放行 |
+| 96–107 | 附錄：BDD、TDD、SBE、演練與架構 |
 
 ## 播放與部署
 
@@ -163,4 +200,4 @@ npm run check:rev12
 python3 tests/deck_check.py
 ```
 
-`npm run check:rev11` 可回歸保留的舊版；`npm run check:rev12` 檢查 99 頁候選的載入、導覽、講者筆記連結與畫布邊界。`DECK_URL` 可指定入口；`BROWSER_CHANNEL=chrome` 可使用已安裝的Chrome。逐頁截圖與驗證結果輸出到 `drafts/rev12-review/`，由Git忽略；候選 manifest 保留頁序、來源、材料和 SSOT 雜湊。
+`npm run check:rev11` 可回歸保留的舊版；`npm run check:rev12` 檢查 107 頁候選的載入、導覽、講者筆記連結與畫布邊界。`DECK_URL` 可指定入口；`BROWSER_CHANNEL=chrome` 可使用已安裝的Chrome。逐頁截圖與驗證結果輸出到 `drafts/rev12-review/`，由Git忽略；候選 manifest 保留頁序、來源、材料和 SSOT 雜湊。

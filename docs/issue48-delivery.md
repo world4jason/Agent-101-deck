@@ -82,3 +82,12 @@ A12 指定 B 程式、fixture 和 runner；A13 的可複製 `--artifact` 命令�
 | `rtk git diff --check` | 通過。 |
 
 已檢視頁 25、33–36、99 的投影截圖及頁 25、34–36、99 的手機截圖，並檢視 P99 等待與放行兩張桌面狀態圖。頁 87 的七張緊湊卡片仍有既有水平文字溢出，原 rev11 同頁也有此情形；本輪未擴大修正。`check:rev11` 未重跑；保留版 SHA 已核對未變。最終候選的 Web 重審、手機版可讀性改善及真人試教仍待處理。
+
+
+## 2026-10-09 八章 Exit Checks 增量紀錄（原 99 頁完整保留）
+
+- Owner 最新確認：八個章節各新增一張自我檢核，共 A18–A25 八張，候選 107 頁；來源與驗收另見 [Issue #52](https://github.com/world4jason/Agent-101-deck/issues/52)。
+- 新頁位於 8、30、38、49、54、82、95、107；每頁三題，共 24 題，HTML details/summary 預設隱藏答案，讓學員先回答再揭露。
+- 產生器、storyboard、manifest、README、Chrome 測試與 rev11 基線同步；本次本機執行生成器、107 頁故事板契約、六項 deck regression、Chrome 檢查與八頁各一題的 reveal/rehide／界線檢查通過。
+- G4／G5 最終人工畫面審閱、實體投影、手機真機、真人初學者試教仍 **NOT RUN**；不能將 Chrome／HTML tests PASS 當作真人學習效果。
+- 未在此增量處理跨頁 Human Gate／Product Check 已知 P1；請追 [Issue #50](https://github.com/world4jason/Agent-101-deck/issues/50)。

@@ -16,7 +16,7 @@ let browser;
  await page.goto(process.env.DECK_URL || 'http://127.0.0.1:4318/slides/');await page.evaluate(()=>document.fonts.ready);
  results.navigation.chapterOrder=await page.locator('.section-rail [data-rail]').evaluateAll(links=>links.map(link=>link.dataset.rail));
  await page.addStyleTag({content:'.fragment{transition:none!important;animation:none!important}'});
- for(let n=1;n<=99;n++){
+ for(let n=1;n<=107;n++){
   await page.evaluate(n=>{location.hash='#'+n},n);
   await page.waitForFunction(n=>document.querySelector('.slide.active')?.dataset.page===String(n),n);
   // Disable transition timing while inspecting the complete page, not fragment animation.
@@ -30,7 +30,7 @@ let browser;
    }
    return {title:el.querySelector('h1')?.textContent,text:el.innerText,scrollHeight:el.scrollHeight,clientHeight:el.clientHeight,candidates};
   });
-  if([6,8,84].includes(n))stats.contentLayout=await page.locator('.slide.active').evaluate(el=>{
+  if([6,9,90].includes(n))stats.contentLayout=await page.locator('.slide.active').evaluate(el=>{
    const heading=el.querySelector('h1')?.getBoundingClientRect();
    const content=el.querySelector(':scope > .r-content');
    const children=content?[...content.children].filter(node=>node.getBoundingClientRect().height>0):[];
@@ -40,7 +40,23 @@ let browser;
   await page.screenshot({path:path.join(out,'pages',String(n).padStart(2,'0')+'.png')});
   results.pages.push({number:n,...stats});
  }
- await page.evaluate(()=>location.hash='#99');await page.waitForFunction(()=>document.querySelector('#current').textContent==='99');
+ // Each chapter-exit question is learner-first: answers start hidden and are revealed intentionally.
+ results.exitChecks=[];
+ for(const number of [8,30,38,49,54,82,95,107]){
+  await page.evaluate(n=>location.hash='#'+n,number);
+  await page.waitForFunction(n=>document.querySelector('.slide.active')?.dataset.page===String(n),number);
+  const checks=page.locator('.slide.active details.r-exit-answer');
+  const count=await checks.count();
+  const initiallyHidden=await checks.evaluateAll(nodes=>nodes.every(node=>!node.open));
+  await checks.first().locator('summary').click();
+  const opened=await checks.first().evaluate(node=>node.open);
+  const bounds=await page.locator('.slide.active').evaluate(slide=>({height:slide.scrollHeight,client:slide.clientHeight,answerBottom:slide.querySelector('.r-exit-answer[open]')?.getBoundingClientRect().bottom,slideBottom:slide.getBoundingClientRect().bottom}));
+  if(number===8)await page.screenshot({path:path.join(out,'exit-check-08-revealed.png')});
+  await checks.first().locator('summary').click();
+  const rehidden=await checks.first().evaluate(node=>!node.open);
+  results.exitChecks.push({number,count,initiallyHidden,opened,rehidden,noOverflow:bounds.height<=bounds.client+3 && bounds.answerBottom<=bounds.slideBottom});
+ }
+ await page.evaluate(()=>location.hash='#106');await page.waitForFunction(()=>document.querySelector('#current').textContent==='106');
  const gateStage=async stage=>{
   await page.locator('.slide.active').evaluate((slide,stage)=>slide.querySelectorAll('.fragment').forEach(node=>{
    const step=Number([...node.classList].map(name=>/^move-(\d+)$/.exec(name)?.[1]).find(Boolean));
@@ -66,7 +82,7 @@ let browser;
  results.interactions.humanGateReleased=await gateStage(7);
  await page.screenshot({path:path.join(out,'human-gate-released.png')});
  results.interactions.humanGateComplete=await gateStage(8);
- const reviewPages=[...new Set([3,4,5,6,7,8,9,10,11,12,13,14,15,20,21,22,23,24,25,26,33,34,35,36,37,38,39,40,41,42,43,44,45,46,52,53,54,55,56,57,58,59,60,80,81,82,83,84,85,98,99])].sort((a,b)=>a-b);
+ const reviewPages=[...new Set([3,4,5,6,7,8,9,10,11,12,13,14,15,16,21,22,23,24,25,26,27,30,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,54,57,58,59,60,61,62,63,64,65,82,86,87,88,89,90,91,95,105,106,107])].sort((a,b)=>a-b);
  fs.mkdirSync(path.join(out,'pages','projection'),{recursive:true});
  fs.mkdirSync(path.join(out,'pages','mobile'),{recursive:true});
  results.projectionScreenshots=[];
@@ -90,11 +106,11 @@ let browser;
  await page.keyboard.press('ArrowRight');results.navigation.right=await page.locator('#current').innerText();
  await page.keyboard.press('ArrowLeft');results.navigation.left=await page.locator('#current').innerText();
  await page.getByRole('button',{name:'目錄',exact:true}).click();results.navigation.tocEntries=await page.locator('#dialog-body a').count();
- await page.locator('#dialog-body a[href="#53"]').click();results.navigation.tocJump=await page.locator('#current').innerText();
+ await page.locator('#dialog-body a[href="#58"]').click();results.navigation.tocJump=await page.locator('#current').innerText();
  await page.getByRole('button',{name:'講者筆記',exact:true}).click();results.navigation.notes=await page.locator('#dialog-body').innerText();results.navigation.noteLinks=await page.locator('.r-note-links a').evaluateAll(links=>links.map(link=>link.getAttribute('href')));await page.keyboard.press('Escape');
  await page.keyboard.press('End');results.navigation.end=await page.locator('#current').innerText();results.navigation.lastDisabled=await page.locator('#next').isDisabled();
- await page.setViewportSize({width:1920,height:1080});await page.evaluate(()=>location.hash='#53');await page.waitForFunction(()=>document.querySelector('#current').textContent==='53');
- results.largeViewport=await page.locator('.deck').boundingBox();await page.screenshot({path:path.join(out,'large-53.png')});
+ await page.setViewportSize({width:1920,height:1080});await page.evaluate(()=>location.hash='#58');await page.waitForFunction(()=>document.querySelector('#current').textContent==='58');
+ results.largeViewport=await page.locator('.deck').boundingBox();await page.screenshot({path:path.join(out,'large-58.png')});
  await page.setViewportSize({width:1440,height:900});
  await page.evaluate(n=>location.hash='#'+n,processPage);await page.waitForFunction(n=>document.querySelector('#current').textContent===String(n),processPage);
  const processState=()=>page.locator('.slide.active').evaluate(el=>({
@@ -114,7 +130,7 @@ let browser;
  results.interactions.process[2]=await processState();
  await page.screenshot({path:path.join(out,'process-stage-3.png')});
  results.interactions.processButtonDisabled=await page.locator('[data-process-next]').isDisabled();
- await page.evaluate(()=>location.hash='#68');await page.waitForFunction(()=>document.querySelector('#current').textContent==='68');
+ await page.evaluate(()=>location.hash='#73');await page.waitForFunction(()=>document.querySelector('#current').textContent==='73');
  results.interactions.wipBefore=await page.locator('.slide.active').evaluate(el=>({stage:el.dataset.wipStage,chart:getComputedStyle(el.querySelector('.visual')).display,comparison:el.querySelector('[data-wip-sequence]').hidden}));
  await page.screenshot({path:path.join(out,'wip-workflow.png')});
  await page.locator('.slide.active [data-wip-reveal]').click();
@@ -122,7 +138,7 @@ let browser;
  await page.screenshot({path:path.join(out,'wip-comparison.png')});
  await page.locator('.slide.active [data-wip-return]').click();
  results.interactions.wipReturn=await page.locator('.slide.active').evaluate(el=>({stage:el.dataset.wipStage,chart:getComputedStyle(el.querySelector('.visual')).display,comparison:el.querySelector('[data-wip-sequence]').hidden,expanded:el.querySelector('[data-wip-reveal]').getAttribute('aria-expanded')}));
- await page.evaluate(()=>location.hash='#83');await page.waitForFunction(()=>document.querySelector('#current').textContent==='83');
+ await page.evaluate(()=>location.hash='#89');await page.waitForFunction(()=>document.querySelector('#current').textContent==='89');
  results.interactions.a13Before=await page.locator('.slide.active').evaluate(el=>({
   text:el.querySelector('.r-content').innerText,
   questionDisplay:getComputedStyle(el.querySelector('.r-content')).display,
@@ -163,11 +179,11 @@ let browser;
   triggerFocused:document.activeElement===el.querySelector('[data-wip-reveal]')
  }));
  await page.screenshot({path:path.join(out,'a13-return.png')});
- await page.evaluate(()=>location.hash='#84');await page.waitForFunction(()=>document.querySelector('#current').textContent==='84');
+ await page.evaluate(()=>location.hash='#90');await page.waitForFunction(()=>document.querySelector('#current').textContent==='90');
  results.interactions.a14Font=await page.locator('.slide.active .r-card .r-body').first().evaluate(node=>Number.parseFloat(getComputedStyle(node).fontSize));
  fs.writeFileSync(path.join(out,'verification.json'),JSON.stringify(results,null,2));
  const escaped=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- fs.writeFileSync(path.join(out,'index.html'),'<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><title>99頁版面總覽</title><style>body{background:#0b1119;color:#f3f6fa;font:16px system-ui;margin:30px}main{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}a{color:#c8e2ff;text-decoration:none}img{width:100%;border:1px solid #34475b}p{margin:8px 0;line-height:1.5}</style><h1>rev12 候選｜99頁版面總覽</h1><p><a href="../rev12.html">開啟完整投影片 →</a>　點縮圖跳到對應頁</p><main>'+results.pages.map(p=>`<a href="../rev12.html#${p.number}"><img loading="lazy" src="pages/${String(p.number).padStart(2,'0')}.png" alt="第${p.number}頁"><p>${p.number}｜${escaped(p.title)}</p></a>`).join('')+'</main></html>');
+ fs.writeFileSync(path.join(out,'index.html'),'<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><title>107頁版面總覽</title><style>body{background:#0b1119;color:#f3f6fa;font:16px system-ui;margin:30px}main{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}a{color:#c8e2ff;text-decoration:none}img{width:100%;border:1px solid #34475b}p{margin:8px 0;line-height:1.5}</style><h1>rev12 候選｜107頁版面總覽</h1><p><a href="../rev12.html">開啟完整投影片 →</a>　點縮圖跳到對應頁</p><main>'+results.pages.map(p=>`<a href="../rev12.html#${p.number}"><img loading="lazy" src="pages/${String(p.number).padStart(2,'0')}.png" alt="第${p.number}頁"><p>${p.number}｜${escaped(p.title)}</p></a>`).join('')+'</main></html>');
  const layoutIssues=results.pages.filter(p=>p.contentLayout&&(p.contentLayout.firstContentTop<p.contentLayout.headingBottom+8||p.contentLayout.lastContentBottom>p.contentLayout.footerTop-4));
  console.log(JSON.stringify({pages:results.pages.length,errors:results.errors,overflow:results.pages.filter(p=>p.candidates.length||p.scrollHeight>p.clientHeight+3).map(({number,candidates,scrollHeight,clientHeight})=>({number,candidates,scrollHeight,clientHeight})),layoutIssues:layoutIssues.map(p=>({number:p.number,...p.contentLayout})),interactions:results.interactions,navigation:{...results.navigation,notes:results.navigation.notes.slice(0,80)},largeViewport:results.largeViewport},null,2));
  const hasPlanLink=results.navigation.noteLinks.some(link=>link.endsWith('/workshop/matching-demo/evidence/A09-replay/plan-before-execution.md'));
@@ -179,7 +195,8 @@ let browser;
  const wipLabels=results.interactions.wipComparison?.labels?.join('|')||'';
  const wipSequence=results.interactions.wipBefore?.chart!=='none'&&results.interactions.wipBefore?.comparison===true&&results.interactions.wipComparison?.chart==='none'&&results.interactions.wipComparison?.comparison===false&&wipLabels.includes('1 Agent × WIP 2')&&wipLabels.includes('多 Agent × WIP 1')&&results.interactions.wipReturn?.stage==='workflow'&&results.interactions.wipReturn?.chart!=='none'&&results.interactions.wipReturn?.comparison===true&&results.interactions.wipReturn?.expanded==='false';
  const gatePending=results.interactions.humanGatePending,gateReleased=results.interactions.humanGateReleased,gateComplete=results.interactions.humanGateComplete;
+ const exitsCorrect=results.exitChecks?.length===8 && results.exitChecks.every(item=>item.count===3&&item.initiallyHidden&&item.opened&&item.rehidden&&item.noOverflow);
  const gateSequence=gatePending?.statusLabels?.join('|')==='Backlog|Ready|Dev|Review|QA|Product Check|Done'&&gatePending?.gateColumnCount===0&&gatePending?.ticketGridColumn==='6'&&gatePending?.gateColor==='rgb(242, 207, 118)'&&gatePending?.productCheckBorder==='rgb(131, 188, 255)'&&gatePending?.doneBorder==='rgb(43, 58, 76)'&&gatePending?.finalNoteVisible===false&&gateReleased?.ticketGridColumn==='7'&&gateReleased?.gateColor==='rgb(131, 221, 167)'&&gateReleased?.productCheckBorder==='rgb(43, 58, 76)'&&gateReleased?.doneBorder==='rgb(131, 188, 255)'&&gateReleased?.finalNoteVisible===false&&gateComplete?.finalNoteVisible===true;
- if(results.errors.length || results.pages.length!==99 || results.pages.some(p=>p.candidates.some(c=>c.kind==='outside') || p.scrollHeight>p.clientHeight+3) || layoutIssues.length || results.interactions.a14Font<24 || results.navigation.home!=='1' || results.navigation.right!=='2' || results.navigation.left!=='1' || results.navigation.tocEntries!==99 || results.navigation.tocJump!=='53' || results.navigation.end!=='99' || !results.navigation.lastDisabled || results.navigation.chapterOrder.join(',')!=='C0,C2,C1,C3,C4,C5,C6,APP' || !results.navigation.notes.includes('執行前計畫') || !hasPlanLink || !hasCommentLink || !processSequence || !results.interactions.processButtonDisabled || !wipSequence || !a13Sequence || !gateSequence || results.projectionScreenshots.length!==reviewPages.length || results.mobileScreenshots.length!==reviewPages.length) process.exitCode=1;
+ if(results.errors.length || results.pages.length!==107 || results.pages.some(p=>p.candidates.some(c=>c.kind==='outside') || p.scrollHeight>p.clientHeight+3) || layoutIssues.length || results.interactions.a14Font<24 || results.navigation.home!=='1' || results.navigation.right!=='2' || results.navigation.left!=='1' || results.navigation.tocEntries!==107 || results.navigation.tocJump!=='58' || results.navigation.end!=='107' || !results.navigation.lastDisabled || results.navigation.chapterOrder.join(',')!=='C0,C2,C1,C3,C4,C5,C6,APP' || !results.navigation.notes.includes('執行前計畫') || !hasPlanLink || !hasCommentLink || !processSequence || !results.interactions.processButtonDisabled || !wipSequence || !a13Sequence || !exitsCorrect || !gateSequence || results.projectionScreenshots.length!==reviewPages.length || results.mobileScreenshots.length!==reviewPages.length) process.exitCode=1;
  await browser.close();
 })().catch(async e=>{console.error(e);if(browser)await browser.close();process.exitCode=1});

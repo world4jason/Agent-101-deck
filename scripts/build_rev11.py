@@ -1,4 +1,4 @@
-"""Build the issue #48 99-page candidate deck from its consolidated storyboard.
+"""Build the issue #48 107-page candidate deck from its consolidated storyboard.
 
 Keep the rev11 output available at slides/rev11.html. Reuse the 82-page
 content and original diagrams; the issue #48 storyboard controls candidate
@@ -22,10 +22,10 @@ assert len(legacy_pages)==len(legacy_cards)==82
 
 STORYBOARD = ROOT/'docs/issue48-execution-storyboard.md'
 storyboard_source = STORYBOARD.read_text()
-cards = {int(n): body.strip() for n,body in re.findall(r'^### (\d{2})｜[^\n]+\n(.*?)(?=^### |\Z)',storyboard_source,re.M|re.S)}
+cards = {int(n): body.strip() for n,body in re.findall(r'^### (\d{2,3})｜[^\n]+\n(.*?)(?=^### |\Z)',storyboard_source,re.M|re.S)}
 pages=[]
 for line in storyboard_source.splitlines():
-    if re.match(r'\|\s*\d{2}\s*\|',line):
+    if re.match(r'\|\s*\d{2,3}\s*\|',line):
         fields=[v.strip() for v in line.strip().strip('|').split('|')]
         assert len(fields)==9, f'Unexpected storyboard row: {line}'
         number,chapter,old_number,source_ids,added_id,title,message,visual,transition=fields
@@ -37,12 +37,20 @@ for line in storyboard_source.splitlines():
             ids=ids,title=title,oldRev11Page=old_number,addedId=added_id,
             rev10SourcePage=next((int(x[1:]) for x in ids if x.startswith('P')),None),
             claim=message,visual=visual,transition=transition))
-assert len(pages)==len(cards)==99
-assert [p['number'] for p in pages]==list(range(1,100))
+assert len(pages)==len(cards)==107
+assert [p['number'] for p in pages]==list(range(1,108))
 assert sorted(p['oldRev11Page'] for p in pages if p['oldRev11Page'] is not None)==list(range(1,83))
-assert sorted(p['addedId'] for p in pages if p['addedId'])==[f'A{i:02}' for i in range(1,18)]
+assert sorted(p['addedId'] for p in pages if p['addedId'])==[f'A{i:02}' for i in range(1,26)]
 source_ids=[source_id for p in pages for source_id in p['ids']]
 assert len(source_ids)==len(set(source_ids))==90
+
+# Original 107-page candidate keeps its mappings; new exit checks are inserted at chapter ends.
+EXIT_PAGES={8,30,38,49,54,82,95,107}
+def old_candidate_number(page):
+    if page["addedId"] in {f"A{i:02}" for i in range(18,26)}:
+        return None
+    return page["number"]-sum(x<page["number"] for x in EXIT_PAGES)
+
 old=BeautifulSoup((ROOT/'drafts/rev10.html').read_text(),'html.parser')
 originals=old.select('.slide')
 assert len(originals)==55
@@ -256,6 +264,24 @@ added['A17']=kicker('電腦上的 Agent：先選接續方式，再核對工作�
 panel('Codex CLI',para('選取已保存的工作對話，或搜尋舊對話。','確認回到正確專案與工作內容。','再讀票面核對候選版本。')),
 panel('Claude Code',para('在目前目錄接續最近的工作對話，或從選單挑選既有 session。','回到後核對專案、票、已做與未測。'),'good'))+ribbon('接續對話不會回滾專案檔案或分支；仍要讀票、核對版本並確認未測事項。命令例子見講者筆記。')
 
+
+# Eight chapter exits: one learning objective and three learner questions each.
+exit_check_data = {
+    'A18': {'label': '人類合作', 'outcome': '能辨認職能、交付物與最後的接受責任。', 'questions': [('做出 #3 配對規則，至少有哪些工作責任？', 'PO 釐清 Goal／AC，Dev 實作，Reviewer 看改動，QA 依 AC 驗行為，最後由需求方接受。'), ('Reviewer、QA 和需求方各自要回答什麼？', 'Reviewer 看修改是否合理且未超出範圍；QA 對照 AC 與證據；需求方作接受、退回或暫停決定。'), ('有六種職能，是不是一定要六位 Agent？', '不是。職能代表責任，不代表人數或 Agent 數量；一個人或 Agent 可以承擔多項工作。')]},
+    'A19': {'label': '想法到 Ready', 'outcome': '能把模糊要求寫成有邊界、有 AC、有證據的可交辦 Ticket。', 'questions': [('只有一句「支援配對」，你會先問什麼？', '先釐清誰需要、Goal 是什麼；用單向、雙向、重複 Like 的具體情境確認共同理解。'), ('#3 Ticket 的 AC、Out of Scope、Evidence 各寫什麼？', 'AC：單向不配對、雙向才配對、重複不增筆；不做聊天；證據是規則層紀錄與測試結果。'), ('#3 在 Ready 尚未開始時，WIP 是 0/1 還是 1/1？', '0/1。Ready 代表可開工，尚未開始；進入 Dev 才計入進行中的 WIP。')]},
+    'A20': {'label': '版本協作', 'outcome': '能找到指定版本，分清 branch、commit、PR、merge 的用途。', 'questions': [('三份檔案都叫 final，要用什麼找回正確版本？', '用 Git 的提交紀錄與分支定位，依 PR 的改動與證據核對，不以檔名猜最新版。'), ('Commit、Branch、PR 分別幫我們做什麼？', 'Commit 留存一版、Branch 隔離修改路線、PR 讓協作者審查差異與相關證據。'), ('PR 通過或 Merge，是否代表產品已上線、Goal 已達成？', '不代表。Merge 是整合版本；部署與上線後是否達成 Goal，要另外確認。')]},
+    'A21': {'label': '實作與驗收', 'outcome': '能用 AC、候選版本和預期／實際結果判斷 PASS、FAIL、NOT RUN。', 'questions': [('Version A 只有小安 Like 小晴，預期／實際各幾筆？', '預期 0 筆，實際 1 筆 M01，所以是 FAIL；Version B 同案重跑實際 0 筆才 PASS。'), ('B-pre 的重複 Like 是 NOT RUN，可以當成 PASS 嗎？', '不可以。沒有執行與結果就不能宣稱通過，需補測同一版本並留下前後紀錄。'), ('Reviewer、QA、Product Check 的核對重點有何不同？', 'Reviewer 看修改範圍與品質，QA 驗行為與 AC，Product Check 判斷這張票是否仍推進 Goal。')]},
+    'A22': {'label': '放行與完成', 'outcome': '能區分單票驗收、人的放行、整體 Goal 成效。', 'questions': [('#3 已 Done，能說配對 App 的 Goal 已達成嗎？', '不能。#1／#2 可能還沒完成，且整體使用者路徑與上線後成效尚未確認。'), ('在 Product Check 之後，誰決定能否 Merge／Release？', '依本課約定是人作 Human Gate 放行或暫停；Gate 是決策點，不是多一個看板欄位。'), ('上線前核對什麼，上線後量什麼？', '上線前依 AC、版本、證據與風險決定接受／放行；上線後再觀察真正的 Goal 成效。')]},
+    'A23': {'label': 'Agent 演進', 'outcome': '能分辨 Agent、Workflow、Session、WIP，判斷何時需要多 Agent。', 'questions': [('只用一個 Agent，能不能完成 #3 的交辦與驗收？', '可以。讓它讀票、執行與自測、交出證據；人仍依原需求作接受或退回判斷。'), ('哪種理由足以考慮 Multi-Agent？', '需要不同職責、隔離上下文或有可驗證的分工效益時；不是因為職能多，就必須開一樣多的 Agent。'), ('換 Session 或 Compact 後，要優先核對哪幾項？', '共同 Ticket／AC、候選版本、已測／未測與授權狀態；Memory 不是最新工作狀態的證據。')]},
+    'A24': {'label': 'Agent 交付', 'outcome': '能交辦一張票、辨認缺證據並要求補驗與接續。', 'questions': [('交辦 #3 給 Agent，第一段話至少提供什麼？', '指定 Ticket、候選版本、範圍／AC、工具或入口、需交回的證據與停止條件。'), ('Agent 說 B 版完成，但重複 Like 是 NOT RUN，怎麼回覆？', '要求在相同 B artifact 與假資料重播重複 Like，交出操作前後筆數及原始結果；暫不接受。'), ('交給新的 Session，交接卡至少要記住什麼？', 'Ticket／Goal／AC、候選版本指紋、已測與未測、下一步及不可 Merge／發布的停點。')]},
+    'A25': {'label': '附錄', 'outcome': '能按需要查找方法，分辨教學示意與真正驗證過的結果。', 'questions': [('要把「已配對再 Like 不增筆」寫清楚，可用什麼格式？', '用 Given／When／Then：已配對 → 再 Like → 仍只有原本一筆；必要時用表格比較條件。'), ('TDD、BDD、Specification by Example 是同一件事嗎？', '不是。TDD 強調先失敗再通過的開發迴圈；BDD／SBE 強調用例子建立共同理解與可核對規格。'), ('看到六層架構圖或全綠畫面，就代表整個 App 已驗收嗎？', '不代表。圖是教學模型；測試結果只支持有執行且可追到版本、情境及證據的範圍。')]},
+}
+for exit_id,check in exit_check_data.items():
+    exit_items=[]
+    for n,(question,answer) in enumerate(check['questions'],1):
+        exit_items.append('<article class="r-exit-card"><div class="r-exit-question"><span class="r-exit-marker">Q'+str(n)+'</span><h2>'+e(question)+'</h2></div><details class="r-exit-answer"><summary>自己先回答，再揭露參考答案</summary><p>'+e(answer)+'</p></details></article>')
+    added[exit_id]='<div class="r-exit-head"><p class="r-kicker">Chapter Exit Check｜本章學完，你應該能做到：</p><p class="r-exit-outcome">'+e(check['outcome'])+'</p></div><div class="r-exit-grid">'+''.join(exit_items)+'</div>'+ribbon('自我檢查：三題能不用看答案說清楚嗎？可以口頭、筆記或畫流程回答；不確定的題目回到本章練習。')
+
 new[46]=kicker('長對話可能被整理成較短摘要，之後繼續工作')+'<div class="r-worktable"><section><b>共同工作票｜完整規則</b><span>單向 Like：不配對</span><span>雙向 Like：建立一筆配對</span><span>已配對再 Like：不增加筆數</span></section><section class="not-on-desk"><b>可能的精簡摘要｜示意</b><span>Goal：互相喜歡才算配對成功</span><span>此摘要省略了重複規則</span><span>回到票面核對 AC 與版本</span></section></div>'+ribbon('長對話的上下文可能被精簡；摘要可能省略細節，實際方式依產品而異。')
 new[47]=kicker('Session 是一段工作對話；視窗只是進入它的介面')+'<div class="r-worktable"><section><b>路徑 A｜恢復原 session</b><span>回到同一段工作對話。</span><span>核對目前專案與候選版本。</span><span>確認已做、未測與授權。</span></section><section class="not-on-desk"><b>路徑 B｜開新 session</b><span>讀共同工作紀錄與 AC。</span><span>指定候選 artifact／版本。</span><span>核對已做、未測與授權。</span></section></div>'+ribbon('新開對話不保證完整帶入前文；恢復對話也不保證已查證最新工作狀態。')
 
@@ -429,12 +455,15 @@ for i,p in enumerate(pages):
     p={**p,'sourceIds':p['ids'],'prerequisite':pages[i-1]['transition'] if i else '開場：使用共同案例。',
         'sourceCommentUrls':[{'label':f'Issue #48 comment {n}','url':issue_comment_urls[n]} for n in [4,8]]}
     if p['addedId'] in {f'A{i:02}' for i in range(1,16)}:p['sourceCommentUrls'].insert(1,{'label':'Issue #48 comment 5','url':issue_comment_urls[5]})
-    if p['addedId'] in {'A11','A14','A16','A17'} or (p['chapter']=='C5' and p['number'] in range(55,61)):
+    if p['addedId'] in {'A11','A14','A16','A17'} or (p['chapter']=='C5' and old_candidate_number(p) in range(55,61)):
         p['sourceCommentUrls'].append({'label':'Issue #48 comment 7','url':issue_comment_urls[7]})
     p['materialRefs']=[{'label':'Issue #48 執行故事板','path':'docs/issue48-execution-storyboard.md'}]
     if p['rev10SourcePage'] is not None:p['materialRefs'].append({'label':f'rev10 source P{p["rev10SourcePage"]:02}','path':f'drafts/rev10.html#{p["rev10SourcePage"]}'})
     if p['addedId'] in demo_refs:p['materialRefs'].extend({'label':Path(ref).name,'path':ref} for ref in demo_refs[p['addedId']])
     if p['oldRev11Page']==6:p['materialRefs'].extend({'label':Path(ref).name,'path':ref} for ref in ['workshop/matching-demo/evidence/A/one-way.json','workshop/matching-demo/evidence/B-pre-supplement/one-way.json'])
+    if p['addedId'] in {f'A{i:02}' for i in range(18,26)}:
+        p['materialRefs'].append({'label':'八章 Exit Check 原始問答與章節目標','path':'docs/issue48-execution-storyboard.md'})
+        p['sourceCommentUrls']=[{'label':'Issue #52｜八章 Exit Check 原話與驗收','url':'https://github.com/world4jason/Agent-101-deck/issues/52'}]
     if p['addedId']=='A16':p['materialRefs'].append({'label':'OpenAI Memory in ChatGPT','path':'https://help.openai.com/en/articles/8590148-memory-in-chatgpt'})
     if p['addedId']=='A17':p['materialRefs'].extend([
         {'label':'Claude Code: Sessions','path':'https://code.claude.com/docs/en/sessions'},
@@ -454,31 +483,31 @@ for i,p in enumerate(pages):
             else:
                 node.h1.clear();node.h1.append(p['title'])
                 if old_number in {21,22,30,82}:node=adjust_preserved_wip(node,old_number)
-    if p['number']==14:
+    if old_candidate_number(p)==14:
         replace_text(node,'本課交付 WIP 上限：1｜目前：0/1（都在 Backlog）','已開始但未完成的票數（WIP）上限：1｜目前：0/1（都在 Backlog）')
         replace_text(node,'Goal / Epic｜互相喜歡才算配對成功','共同目標｜互相喜歡才算配對成功')
         replace_text(node,'Parent issue · 三張票的共同目標與分組','三張工作票的共同目標與分組')
         definition=BeautifulSoup('<p class="r-meta">Backlog＝尚未開始的工作清單；Ready＝資訊齊全、可以開始。欄位表示工作狀態。</p>','html.parser').p
         node.select_one('.visual').insert(0,definition)
-    if p['number']==4:
+    if old_candidate_number(p)==4:
         replace_text(node,'後面每一段都用這個例子；#1 → #3 雙向喜歡才配對 → #2 配對列表','Like＝表示喜歡，Pass＝略過；雙方都 Like 才配對。後面沿 #1 輸入 → #3 判斷 → #2 查看結果。')
         match_title=node.select_one('.match-result strong')
         match_title.string='雙方都 Like 才配對'
         node.select_one('.match-result p').string='配對已建立'
         node.select_one('.match-list-node span').string='查看已配對對象'
-    if p['number']==9:
+    if old_candidate_number(p)==9:
         replace_text(node,'形成 parent Goal / Epic','形成共同目標')
         replace_text(node,'雙方 Like 才 Match','雙方 Like 才配對')
         definition=BeautifulSoup('<p class="r-meta">Brainstorming：共同釐清使用者問題與可能方案，先形成目標，不急著決定實作。</p>','html.parser').p
         node.select_one('.visual').insert(0,definition)
-    if p['number']==10:
+    if old_candidate_number(p)==10:
         replace_text(node,'GOAL / EPIC ISSUE · PARENT','共同目標（Goal）')
         replace_text(node,'不是 workflow state','不是目前進度欄位')
-    if p['number']==11:
+    if old_candidate_number(p)==11:
         replace_text(node,'Goal（parent issue）','共同目標')
         replace_text(node,'IMPLEMENTATION SUB-ISSUE','可獨立交付的工作票')
         replace_text(node,'#3 建立 Match，#2 才能列出已配對對象。','#3 建立配對紀錄，#2 才能列出已配對對象。')
-    if p['number']==21:
+    if old_candidate_number(p)==21:
         replace_text(node,'Goal / Epic｜互相喜歡才算配對成功','共同目標｜互相喜歡才算配對成功')
         replace_text(node,'parent issue · 泳道標題','三張工作票共同目標的泳道')
         replace_text(node,'等待 Refinement','待整理')
@@ -493,7 +522,7 @@ for i,p in enumerate(pages):
         replace_text(node,'Scope','工作範圍')
         replace_text(node,'Required Evidence','需要留下的驗證紀錄')
         replace_text(node,'AC 說明功能怎樣才算做對；DoD 是所有票共用的完工標準；Out-of-scope 是這次不做的事。','工作票整理＝把需求、例子與未決問題整理成可接手的票。AC 說明功能怎樣才算做對；DoD 是所有票共用的完工標準；本次不做的事要明列。')
-    if p['number']==99:
+    if old_candidate_number(p)==99:
         board=node.select_one('.recap-board')
         assert board, 'The preserved rev11 source must still contain its recap board.'
         gate_column=board.select_one(':scope > .human-gate-column')
@@ -502,7 +531,7 @@ for i,p in enumerate(pages):
         parent=board.select_one(':scope > .board-parent')
         append_html(parent,'<span class="human-gate-transition">Product Check → Human Gate（人決定放行／暫停）→ Done</span>')
         replace_text(node,'Human Gate 由產品負責人（人類流程中的 PO／PM 本人）決定，核准後 #3 才進 Done（目前 WIP 回到 0/1）。','Human Gate 是 Product Check 與 Done 之間的人類決策點；產品負責人核對後放行，#3 才進 Done（目前 WIP 回到 0/1）。Gate 不另增看板狀態。')
-    if p['number']==22:
+    if old_candidate_number(p)==22:
         replace_text(node,'三種情境的測試結果；確認雙方看到 Match，且只建立一次。','三種情境的測試結果；預期配對紀錄符合筆數與成員。')
     if p['addedId']=='A13':
         node['data-wip-stage']='workflow'
@@ -521,13 +550,13 @@ for i,p in enumerate(pages):
     manifest.append(p)
 assert sorted(p['oldRev11Page'] for p in manifest if p['oldRev11Page'] is not None)==list(range(1,83))
 assert sorted(p['rev10SourcePage'] for p in manifest if p['rev10SourcePage'] is not None)==list(range(1,56))
-assert sorted(p['addedId'] for p in manifest if p['addedId'])==[f'A{i:02}' for i in range(1,18)]
+assert sorted(p['addedId'] for p in manifest if p['addedId'])==[f'A{i:02}' for i in range(1,26)]
 
 source=storyboard_source
 ssot_sha=hashlib.sha256(source.encode()).hexdigest()
 data=json.dumps(manifest,ensure_ascii=False).replace('<','\\u003c')
 page_count=len(manifest);mainline_count=sum(p['chapter']!='APP' for p in manifest);appendix_start=chapter_starts['APP']
-draft_html='''<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>Agent 101｜rev12 候選 99 頁</title><link rel="stylesheet" href="rev11-base.css"><link rel="stylesheet" href="rev10.css"><link rel="stylesheet" href="rev11.css"><link rel="stylesheet" href="rev12.css"></head><body class="rev10-draft rev11-draft rev12-draft" data-review-mode="full"><main class="deck"><header class="topbar"><div class="brand">Agent 101 <span class="draft-badge">rev12 · 99 頁候選</span></div><nav class="section-rail" aria-label="簡報章節">'''+rail+'''</nav><div class="counter"><span id="current">1</span> / <span id="total">'''+str(page_count)+'''</span></div></header><div class="slides">'''+''.join(out)+'''</div><footer class="controls"><button id="prev" type="button">← 上一頁</button><div class="r-toolbar"><button id="contents" type="button">目錄</button><button id="notes" type="button">講者筆記</button><div class="progress-track" aria-hidden="true"><div id="progress"></div></div><a id="compare-link" target="_blank" rel="noopener">對照 rev10 ↗</a></div><button id="next" type="button">下一頁 →</button></footer></main><dialog id="review-dialog"><div class="r-dialog-head"><h2 id="dialog-title"></h2><button id="close-dialog" type="button">關閉</button></div><div id="dialog-body"></div></dialog><script id="deck-data" type="application/json">'''+data+'''</script><script src="rev12.js"></script></body></html>'''
+draft_html='''<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>Agent 101｜rev12 候選 107 頁</title><link rel="stylesheet" href="rev11-base.css"><link rel="stylesheet" href="rev10.css"><link rel="stylesheet" href="rev11.css"><link rel="stylesheet" href="rev12.css"></head><body class="rev10-draft rev11-draft rev12-draft" data-review-mode="full"><main class="deck"><header class="topbar"><div class="brand">Agent 101 <span class="draft-badge">rev12 · 107 頁候選</span></div><nav class="section-rail" aria-label="簡報章節">'''+rail+'''</nav><div class="counter"><span id="current">1</span> / <span id="total">'''+str(page_count)+'''</span></div></header><div class="slides">'''+''.join(out)+'''</div><footer class="controls"><button id="prev" type="button">← 上一頁</button><div class="r-toolbar"><button id="contents" type="button">目錄</button><button id="notes" type="button">講者筆記</button><div class="progress-track" aria-hidden="true"><div id="progress"></div></div><a id="compare-link" target="_blank" rel="noopener">對照 rev10 ↗</a></div><button id="next" type="button">下一頁 →</button></footer></main><dialog id="review-dialog"><div class="r-dialog-head"><h2 id="dialog-title"></h2><button id="close-dialog" type="button">關閉</button></div><div id="dialog-body"></div></dialog><script id="deck-data" type="application/json">'''+data+'''</script><script src="rev12.js"></script></body></html>'''
 release_html=draft_html
 for asset in ['rev11-base.css','rev10.css','rev11.css','rev12.css']:
     release_html=release_html.replace(f'href="{asset}"',f'href="../drafts/{asset}"')
