@@ -7,10 +7,10 @@ fs.mkdirSync(path.join(out,'pages'),{recursive:true});
 (async()=>{
  const browser=await chromium.launch({headless:true,...(process.env.BROWSER_CHANNEL?{channel:process.env.BROWSER_CHANNEL}:{})});
  const page=await browser.newPage({viewport:{width:1440,height:900},deviceScaleFactor:1});
- const results={deckURL:process.env.DECK_URL || 'http://127.0.0.1:4318/slides/',timestamp:new Date().toISOString(),ssotSha256:manifest.ssotSha256,errors:[],pages:[],navigation:{}};
+ const results={deckURL:process.env.DECK_URL || 'http://127.0.0.1:4318/slides/rev11.html',timestamp:new Date().toISOString(),ssotSha256:manifest.ssotSha256,errors:[],pages:[],navigation:{}};
  page.on('pageerror',e=>results.errors.push(e.message));
  page.on('response',r=>{if(r.status()>=400)results.errors.push(`${r.status()} ${r.url()}`)});
- await page.goto(process.env.DECK_URL || 'http://127.0.0.1:4318/slides/');await page.evaluate(()=>document.fonts.ready);
+ await page.goto(process.env.DECK_URL || 'http://127.0.0.1:4318/slides/rev11.html');await page.evaluate(()=>document.fonts.ready);
  for(let n=1;n<=82;n++){
   await page.evaluate(n=>{location.hash='#'+n},n);
   await page.waitForFunction(n=>document.querySelector('.slide.active')?.dataset.page===String(n),n);

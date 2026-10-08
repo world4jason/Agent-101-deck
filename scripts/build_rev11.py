@@ -1,7 +1,8 @@
-"""Build the authorized 82-page review deck. Content/order: storyboard SSOT.
+"""Build the issue #48 99-page candidate deck from its consolidated storyboard.
 
-Keep rev10 sources intact. Reuse its original diagrams; author only new pages
-and the explicitly planned changes. Generated HTML is not a second SSOT.
+Keep the rev11 output available at slides/rev11.html. Reuse the 82-page
+content and original diagrams; the issue #48 storyboard controls candidate
+order, titles, claims, transitions, and speaker-note source.
 """
 from pathlib import Path
 from bs4 import BeautifulSoup
@@ -9,15 +10,39 @@ from html import escape as e
 import json, re, hashlib, copy
 
 ROOT = Path(__file__).resolve().parents[1]
-SSOT = ROOT/'docs/rev10-slide-by-slide-v1.md'
-source = SSOT.read_text()
-cards = {int(n): body.strip() for n,body in re.findall(r'^### (\d+)｜[^\n]+\n(.*?)(?=^### |^## |\Z)',source,re.M|re.S)}
-pages=[]
-for line in source.splitlines():
+LEGACY_SSOT = ROOT/'docs/rev10-slide-by-slide-v1.md'
+legacy_source = LEGACY_SSOT.read_text()
+legacy_cards = {int(n): body.strip() for n,body in re.findall(r'^### (\d+)｜[^\n]+\n(.*?)(?=^### |^## |\Z)',legacy_source,re.M|re.S)}
+legacy_pages=[]
+for line in legacy_source.splitlines():
     if re.match(r'\| \d{2} \|',line):
         n,chapter,kind,ids,title,change=[v.strip() for v in line.split('|')[1:-1]]
-        pages.append(dict(number=int(n),chapter=chapter,kind=kind.strip('*'),ids=re.findall(r'[PNEX]\d+',ids),title=title))
-assert len(pages)==len(cards)==82
+        legacy_pages.append(dict(number=int(n),chapter=chapter,kind=kind.strip('*'),ids=re.findall(r'[PNEX]\d+',ids),title=title))
+assert len(legacy_pages)==len(legacy_cards)==82
+
+STORYBOARD = ROOT/'docs/issue48-execution-storyboard.md'
+storyboard_source = STORYBOARD.read_text()
+cards = {int(n): body.strip() for n,body in re.findall(r'^### (\d{2})｜[^\n]+\n(.*?)(?=^### |\Z)',storyboard_source,re.M|re.S)}
+pages=[]
+for line in storyboard_source.splitlines():
+    if re.match(r'\|\s*\d{2}\s*\|',line):
+        fields=[v.strip() for v in line.strip().strip('|').split('|')]
+        assert len(fields)==9, f'Unexpected storyboard row: {line}'
+        number,chapter,old_number,source_ids,added_id,title,message,visual,transition=fields
+        old_number=None if old_number=='—' else int(old_number)
+        added_id=None if added_id=='—' else added_id
+        ids=re.findall(r'[PNEX]\d+',source_ids)
+        legacy=next((p for p in legacy_pages if p['number']==old_number),None)
+        pages.append(dict(number=int(number),chapter=chapter,kind=legacy['kind'] if legacy else '新增',
+            ids=ids,title=title,oldRev11Page=old_number,addedId=added_id,
+            rev10SourcePage=next((int(x[1:]) for x in ids if x.startswith('P')),None),
+            claim=message,visual=visual,transition=transition))
+assert len(pages)==len(cards)==99
+assert [p['number'] for p in pages]==list(range(1,100))
+assert sorted(p['oldRev11Page'] for p in pages if p['oldRev11Page'] is not None)==list(range(1,83))
+assert sorted(p['addedId'] for p in pages if p['addedId'])==[f'A{i:02}' for i in range(1,18)]
+source_ids=[source_id for p in pages for source_id in p['ids']]
+assert len(source_ids)==len(set(source_ids))==90
 old=BeautifulSoup((ROOT/'drafts/rev10.html').read_text(),'html.parser')
 originals=old.select('.slide')
 assert len(originals)==55
@@ -36,11 +61,14 @@ def table(head,rows):
 def para(*lines):return ''.join(f'<p>{x}</p>' for x in lines)
 
 new={}
-new[6]=kicker('同一張 #3｜雙向喜歡才配對')+flow(
- panel('PM／PO',para('說清要什麼','交付需求與接受條件')),
- panel('Dev',para('依票實作與自測','交付改動與自測紀錄')),
- panel('Reviewer／QA',para('審差異、驗行為','交回意見與證據')),
- panel('PM／PO',para('對回需求與 Goal','判斷接受或退回'),'human'))+ribbon('需求 → 成果 → 證據 → 決定；Human Gate 再決定最終放行。')
+new[5]=kicker('Matching 的 #1／#2／#3 由 Planning／PO、UI／UX、Dev 接力推進')+cols(
+ panel('Planning／PO',para('<b>問題：</b>使用者要達成什麼？','<b>輸入：</b>使用者問題與範圍。','<b>交付：</b>Goal、#3 工作票與 AC：雙向 Like 才配對。','<b>接手：</b>UI／UX。')),
+ panel('UI／UX',para('<b>問題：</b>怎麼 Like／Pass，去哪看結果？','<b>輸入：</b>Goal、情境與 #3 AC。','<b>交付：</b>#1 Like／Pass 畫面；#2 配對列表顯示 Match。','<b>接手：</b>Developer。')),
+ panel('Developer',para('<b>問題：</b>如何依票實作並留紀錄？','<b>輸入：</b>設計、AC 與目前版本。','<b>交付：</b>#3 配對規則、#1 輸入、#2 列表；版本與自測。','<b>接手：</b>Reviewer／QA 核對。'),'good'))+ribbon('職能回答「誰負責哪個問題？」；同一個人可以承擔多種職能。')
+new[6]=kicker('同一張 #3｜單向 Like 不得配對：看見退回與同案重驗')+cols(
+ panel('1｜第一次驗收',para('初始 0 筆；只有安 Like 晴。','預期：0 筆。','Version A 實際 1 筆 M01。','工具回傳：<b class="r-red">FAIL</b>。'),'problem'),
+ panel('2｜退回修正',para('QA 對照 #3 AC 找出漏掉反向 Like。','把單向錯配交回 Dev。','Dev 只補「已有反向 Like 才配對」。')),
+ panel('3｜同案重驗',para('Version B 重跑相同單向操作。','預期 0 筆；實際 0 筆。','工具回傳：<b class="r-green">PASS</b>。','交回版本與證據，由需求方判斷接受。'),'good'))+ribbon('真實規則層執行；不能推論 UI／產品串接已驗收。')+'<p class="r-meta"><a href="../workshop/matching-demo/evidence/A/one-way.json" target="_blank" rel="noopener">開啟 Version A 實際 FAIL ↗</a>　<a href="../workshop/matching-demo/evidence/B-pre-supplement/one-way.json" target="_blank" rel="noopener">開啟 Version B 同案 PASS ↗</a></p>'
 new[9]=kicker('同一個 App，三張票各交回一份檔案')+cols(
  panel('#1 Like／Pass','<code>app_final</code>'+para('昨天的修改被覆蓋。','哪一份能找回？'),'problem'),
  panel('#3 雙向配對','<code>app_final_final</code>'+para('我從另一份開始改。','應該合回哪裡？'),'problem'),
@@ -131,7 +159,7 @@ new[78]=kicker('票填滿了，仍可能沒有人知道下一步怎麼做')+tabl
  ['Assignee','目前接手 #3 的 Dev：負責推進與更新狀態。'],
  ['Blocked 原因','缺少重測環境的存取，無法重跑已確認的情境。'],
  ['解除負責人／條件','環境負責人協助恢復存取；Dev 確認可以執行。'],
- ['下一步','沿原 AC 重跑、連結結果，解除阻礙標記並更新票。']])+ribbon('資訊透明、邊界清楚、可以執行；Blocked 是阻礙標記，不是另創一套流程。')
+ ['下一步','沿原 AC 重跑、連結結果，解除阻礙標記並更新票。']])+ribbon('Blocked 仍是已開始、未完成的票；它持續計入目前 WIP。阻礙解除後沿原工作接續。')
 new[79]=kicker('Specification by Example｜讓共同理解跨過人員與版本')+flow(
  panel('討論時',para('共同確認：','同一對不重複配對。','用關鍵範例找出歧義。')),
  panel('票與規格',para('保存規則與例子：','已配對 → 再 Like → 原一筆','讓下一位接手者讀得到。')),
@@ -140,6 +168,92 @@ new[80]=kicker('處理路徑示意｜不宣稱本 App 已具備以下機制')+co
  panel('發現與停止',para('偵測到錯配，確認影響範圍。','先停止擴大影響。','依現有能力關閉或限制功能。'),'problem'),
  panel('回復與資料處理',para('確認版本，按能力回復。','找出受影響的配對資料。','另行處理已發生的後果。')),
  panel('修正與重驗',para('修正錯誤、補齊漏掉的情境。','重跑 AC 與整體路徑。','由人重新判斷是否放行。'),'human'))+ribbon('回復程式版本，不會自動回復所有資料與使用者影響。')
+
+DEMO = ROOT/'workshop/matching-demo'
+def demo_case(path): return json.loads((DEMO/path).read_text())
+def case_result(path):
+    record=demo_case(path)
+    count=record['actual']['match_count']
+    ids='、'.join(match['id'] for match in record['actual']['match_records']) or '無'
+    return record, f'{count} 筆（{ids}）'
+
+a_one, a_actual=case_result(Path('evidence/A/one-way.json'))
+b_one, b_one_actual=case_result(Path('evidence/B-pre-supplement/one-way.json'))
+b_two, b_two_actual=case_result(Path('evidence/B-pre-supplement/two-way.json'))
+b_duplicate, b_duplicate_actual=case_result(Path('evidence/B-post-supplement/duplicate.json'))
+hash_a=a_one['artifact_sha256'];hash_b=b_one['artifact_sha256']
+assert hash_a!='' and hash_b==b_two['artifact_sha256']==b_duplicate['artifact_sha256']
+
+added={}
+added['A01']=kicker('這堂課不是背名詞；我們練習完成一輪小產品交付')+cols(
+ panel('說清楚',para('使用者要解決什麼？','這次做什麼、不做什麼？')),
+ panel('看懂交付',para('改了哪一版？','實際結果和證據在哪裡？'),'good'),
+ panel('作出判斷',para('缺證據就退回補驗。','符合要求後再由人接受。'),'human'))+ribbon('同一個 Matching App 串起軟體工程與 Agent 合作；方法也能轉用到你的工具。')
+added['A02']=kicker('職能是要負責回答的問題，不是人數或看板欄位')+cols(
+ panel('Reviewer｜改動合理嗎？',para('輸入：需求與變更差異。','交回：具體意見與待修項。','接手：Dev 修正或送驗。')),
+ panel('QA｜行為符合 AC 嗎？',para('輸入：AC、版本、入口與資料。','交回：操作、預期/實際、狀態與證據。','接手：Dev 處理，需求方核對。'),'good'),
+ panel('需求方｜可以接受嗎？',para('輸入：Goal、AC、交付與風險。','交回：接受、退回或暫停及理由。','放行仍由人決定。'),'human'))+ribbon('同一個人可以承擔多種職能；責任仍要分清楚。')
+added['A03']=kicker('同一張 #3：QA 是責任、#3 是工作、驗證中是狀態')+table(['類別','#3 的例子','用來回答'],[
+ ['職能／責任','QA 驗行為','誰負責這種判斷？'],
+ ['工作票','#3 雙向喜歡才配對','這一項要交付什麼？'],
+ ['狀態','驗證中','目前工作走到哪裡？'],
+ ['交付物','版本 hash＋測試紀錄','交回什麼讓人核對？']])+ribbon('四類名稱不能互換；流程圖會同時畫到它們。')
+added['A04']=kicker('先固定假資料，單獨執行 #3 規則')+flow(
+ panel('輸入',para('小安 Like 小晴。','起初尚未配對。')),
+ panel('#3 規則',para('只有一方 Like。','判斷是否建立配對。'),'rule'),
+ panel('檢查記錄',para('預期：0 筆。','實際：看版本與工具輸出。'),'good'))+ribbon('規則層可先驗；這不能證明 Like 按鈕、配對列表或整個 App 已通過。')
+added['A05']=kicker('目前 WIP 是已開始未完成的票數；上限是政策設定')+table(['票所在位置','目前是否計入','目前值例子'],[
+ ['Backlog／Ready（未開始）','不計','0/1；或 0/2'],
+ ['Dev、Review、QA、Product Check','計入','上限1：#3 在 Dev＝1/1；上限2：#1 在 Dev＋#2 在 QA＝2/2'],
+ ['等待驗收、Blocked、退回修正','仍計入','#3 等 QA＝1/1；#1 Dev＋#2 QA＝2/2'],
+ ['Done（達成本課 DoD）','不計','#3 Done 後 0/1；兩票 Done 後 0/2']])+ribbon('目前值／上限分開讀，例如 1/2 表示一張在製、最多可開兩張；上限是政策，不是產量目標。')
+added['A06']=kicker('同一張看板：上限 1 與 2 都有取捨')+cols(
+panel('本課交付上限 1',para('<b>好處：</b>同時只追一張未完成票，交付路徑較容易看清。','<b>代價：</b>若 #3 在外部等待、#1／#2 又不能共同推進，其他能力可能暫時閒置。','適合先練完一張；不保證整體產出最高。'),'rule'),
+panel('比較情境：明示上限改為 2',para('<b>好處：</b>#3 Done 後，獨立的 #1／#2 可分站並行；#1 Dev＋#2 QA 是目前 2／上限 2。','<b>代價：</b>要追更多版本、依賴、交接與待驗收事項；下游接不住會堆積。','條件：介面／資料已定、資源隔離、測試與審查接得住。'),'good'))+ribbon('增加 WIP 上限不會自動增加產能；選擇要看工作依賴與接手能力。')
+added['A07']=kicker('每個案例先重置同一份假帳號資料；以下是實際工具紀錄')+'<p class="r-meta"><b>初始：</b>小安、小晴尚未配對，0 筆。<b>操作：</b>單向＝安 Like；雙向＝兩人互 Like；重複＝先建 M01，再由安重複 Like 一次。入口：`run_case.py` 會從 fixture 重置並輸出操作前後記錄。</p>'+table(['版本／情境','預期','實際','狀態'],[
+ ['A｜單向 Like', '0 筆', a_actual, '<b class="r-red">FAIL</b>'],
+ ['B｜單向 Like', '0 筆', b_one_actual, '<b class="r-green">PASS</b>'],
+ ['B｜雙向 Like', '1 筆 M01', b_two_actual, '<b class="r-green">PASS</b>'],
+ ['B 前段快照｜重複 Like', '仍 1 筆 M01', '尚未執行', '<b>NOT RUN</b>']])+ribbon(f'候選 hash：A {hash_a[:12]}…；B {hash_b[:12]}…｜規則層；UI／產品串接 NOT RUN。')+'<p class="r-meta"><a href="../workshop/matching-demo/README.md" target="_blank" rel="noopener">開啟操作 Runbook ↗</a>　<a href="../workshop/matching-demo/evidence/B-pre-supplement/README.md" target="_blank" rel="noopener">開啟原始結果與未測狀態 ↗</a></p>'
+added['A08']=kicker('Agent 是 AI 模型依目標判斷下一步、呼叫工具並讀取回傳的工作循環')+flow(
+panel('人交代目標',para('指定 #3、AC 與範圍。','說明停止條件。')),
+panel('Agent 判斷下一步',para('先讀票與候選檔。','檢查能用的工具。')),
+panel('實際使用工具',para('讀檔、修改、執行。','工具有真實回傳。'),'rule'),
+panel('觀察後續',para('依回傳繼續、調整、詢問或停止。','回交結果與未測事項。'),'human'))+'<p class="r-loop-back"><b aria-hidden="true">↶</b> 結果未符合預期或需要補資料時，回到判斷，重新選擇下一步。</p>'+ribbon('不是只回答一句話：要觀察工具回傳，才知道接著該做什麼。')
+added['A09']=kicker('這次教學重演：先保存交辦與計畫，再看實際工具回傳')+cols(
+panel('交辦｜事前記錄',para('只處理 #3；先讀 ticket 與 Version A。','跑單向 Like；若失敗才改暫存副本。','保留 A/B 原件；不跑重複、UI 或全產品。')),
+panel('計畫｜執行前記錄',para('讀票與 A → 跑一次單向 → 比 AC。','失敗後複製到 replay 暫存路徑。','只改反向 Like 條件；差異、重跑、比對雜湊。'),'good'),
+panel('已執行｜Version A',para('<code>run_case.py · A · one-way</code>','<b>預期：</b>0 筆。 <b>實際：</b>1 筆 M01。','exit 1｜<b class="r-red">FAIL</b>','A SHA-256：'+hash_a[:12]+'…'),'problem'))+ribbon('原始交辦、事前計畫和工具輸出分開保存；此重演不冒充先前對話。')+'<p class="r-meta">Teaching replay｜完整 SHA-256 與輸出見講者筆記。</p>'
+added['A10']=kicker('依失敗只改暫存副本，同一情境重跑並核對工件')+cols(
+panel('修正｜工作副本',para('A 複製到 evidence/A09-replay/working。','只要求反向 Like 已存在。','原始 A/B 與既有快照不動。','實際差異：A-to-working.diff'),'problem'),
+panel('重跑｜同一單向情境',para('<code>run_case.py · B · one-way</code>','預期 0 筆；實際 0 筆。','exit 0｜<b class="r-green">PASS</b>','raw JSON 留存。'),'good'),
+panel('版本／範圍核對',para('暫存候選與 B byte-identical。','SHA-256：'+hash_b[:16]+'…','B-pre 雙向也 PASS；重複 Like 仍 NOT RUN。','UI／產品整合仍 NOT RUN。')))+ribbon('本次重跑驗的是一條規則；其他通過與未跑情境依各自證據標示。')
+added['A11']=kicker('Context window 有容量上限；材料存在，不代表這一輪已讀取')+'<div class="r-worktable"><section><b>桌面｜本輪已取得</b><span>#3 ticket／AC 與 Version A</span><span>單向 FAIL → 修正 → 同案 PASS</span><span>Version B：單向／雙向 PASS</span><span>未完成：重複 NOT RUN；UI NOT RUN</span><span>授權：尚未批准 merge／發布</span></section><section class="not-on-desk"><b>桌邊｜文件已存在但本輪未讀</b><span>workshop/matching-demo/exercise.md</span><span>講師練習說明；使用前須先開啟並核對內容。</span></section></div>'+ribbon('Context 容量有限，長對話可能精簡細節；資料在專案裡，不等於已進入本輪 Context。')
+added['A12']=kicker('交辦一項有邊界、能驗證、知道何時停的工作')+cols(
+ panel('交辦文字',para('只處理 Matching #3。','先讀 ticket.md 與指定 artifact。','用假帳號跑單向 Like。','回報 hash、預期／實際、筆數與狀態。')),
+ panel('停止條件',para('不要加新需求或改 AC。','不要宣稱 UI／產品已驗收。','若票、artifact 或 fixture 不可取得，停止並回報。','講師檢查實際工具輸出，不接受口述 PASS。'),'human'))+ribbon('練習產出：一段可讓另一個人重播並核對的交辦。')
+added['A13']=kicker('B 的前段紀錄有一個明確缺口：重複情境尚未跑')+cols(
+panel('補驗前｜B-pre',para('單向：PASS，預期／實際 0 筆。','雙向：PASS，預期／實際 1 筆 M01。','重複 Like：NOT RUN。','B hash：'+hash_b[:12]+'…'),'problem'),
+ panel('補驗後｜B-post',para('相同 B hash，未改規則。','先建立 M01，再只重複 Like 一次。','預期／實際都維持 1 筆 M01。','工具結果：PASS。'),'good'))+ribbon('要求只補這個情境；確認 artifact hash 相同，再把新證據追加到工作票。')
+added['A14']=kicker('用未補驗的 B-pre 練交接，再恢復補驗完成主線')+cols(
+panel('交接卡｜B-pre',para('Ticket：#3 雙向才配對。','版本：B · '+hash_b[:12]+'…','已驗：單向、雙向 PASS。','未驗：重複 Like；UI NOT RUN。','停點：不合併、不發布。'),'rule'),
+panel('練習｜寫下一句交辦',para('請寫給接手者：','先讀 #3 ticket，核對 B artifact hash。','重置後建立 M01，再只重複 Like 一次。','提供前後筆數、紀錄與執行結果。'),'human'),
+panel('回到主線｜B-post',para('恢復同一 B hash 的補驗後證據。','duplicate 實際 PASS，仍只有 M01。','下一頁：人依 Goal、AC 與證據作 Human Gate。'),'good'))+ribbon('接手演練結束；回到補驗完成的主線，核對更新證據，再進入 Human Gate。')+'<p class="r-meta"><a href="../workshop/matching-demo/evidence/B-pre-supplement/README.md" target="_blank" rel="noopener">開啟補驗前交接材料 ↗</a>　<a href="../workshop/matching-demo/evidence/B-post-supplement/README.md" target="_blank" rel="noopener">開啟補驗後證據 ↗</a></p>'
+added['A15']=kicker('把方法轉用到你熟悉的小工具：只寫第一張有邊界的票')+table(['票上要有','請寫清楚'],[
+ ['使用者與問題','誰需要它？要改善哪件事？'],
+ ['第一個交付','這一輪只做哪個最小結果？'],
+ ['成功與禁止','一個應成功的情況、一個不應發生的情況。'],
+ ['核對與停止','怎麼看結果與版本？什麼情況先停下回報？']])+ribbon('練習只寫一張票，不要求學員再做第二個完整產品。')
+added['A16']=kicker('背景記憶能幫助接續，但不能證明最新工作已核對')+'<div class="r-worktable"><section><b>共同工作桌｜#3</b><span>需求：雙向才配對</span><span>候選：Version B · '+hash_b[:12]+'…</span><span>待核對：重複情境證據</span><span>接受／合併：尚未授權</span></section><section class="not-on-desk"><b>可能記得的背景</b><span>正在做配對 App</span><span>熟悉工具與目標</span><span>不等於已查目前版本</span></section></div>'+ribbon('把工作狀態放回可查的票、版本與測試紀錄；記憶用來找方向，不代替核對。')
+added['A17']=kicker('電腦上的 Agent 接續有兩條路；兩邊都要查工作狀態')+cols(
+panel('恢復既有工作對話',para('回到原 session。','確認目前專案與版本。','從票和紀錄核對已做／未測。')),
+panel('開新對話，再取材料',para('讀共同工作票與 AC。','指定候選 artifact／版本。','查未測事項與下一步。'),'good'))+ribbon('讀票 → 核對版本 → 確認未測事項。操作方式與來源見講者筆記。')
+
+new[46]=kicker('對話可能被精簡；同一張 #3 工作票保留可回查規則')+'<div class="r-worktable"><section><b>桌面｜#3 正本規則</b><span>單向 Like：不配對</span><span>雙向 Like：建立一筆配對</span><span>已配對再 Like：不增加筆數</span></section><section class="not-on-desk"><b>摘要｜可能只保留</b><span>Goal：互相喜歡才算配對成功</span><span>摘要沒有列出重複規則</span><span>回到工作票核對 AC 與版本</span></section></div>'+ribbon('Compact 可能簡化細節；不代表每次都漏，也不會替代專案檔案。')
+new[47]=kicker('接續原對話與另開對話是兩條路；都要核對最新工作狀態')+'<div class="r-worktable"><section><b>路徑 A｜回到原 session</b><span>恢復原工作對話。</span><span>讀 #3 工單與目前候選版本。</span><span>核對已做、未測與授權。</span></section><section class="not-on-desk"><b>路徑 B｜另開 session</b><span>取得共同工作紀錄與 AC。</span><span>讀指定 artifact／版本。</span><span>核對已做、未測與授權。</span></section></div>'+ribbon('新對話不保證完整繼承前文；恢復原對話也不保證最新狀態已查證。')
+
+new[46]=kicker('對話可能被精簡；同一張 #3 工作票保留可回查規則')+'<div class="r-worktable"><section><b>桌面｜#3 正本規則</b><span>單向 Like：不配對</span><span>雙向 Like：建立一筆配對</span><span>已配對再 Like：不增加筆數</span></section><section class="not-on-desk"><b>摘要｜可能只保留</b><span>Goal：互相喜歡才算配對成功</span><span>摘要沒有列出重複規則</span><span>回到工作票核對 AC 與版本</span></section></div>'+ribbon('Compact 可能簡化細節；不代表每次都漏，也不會替代專案檔案。')
+new[47]=kicker('接續原對話與另開對話是兩條路；都要核對最新工作狀態')+'<div class="r-worktable"><section><b>路徑 A｜回到原 session</b><span>恢復原工作對話。</span><span>讀 #3 工單與目前候選版本。</span><span>核對已做、未測與授權。</span></section><section class="not-on-desk"><b>路徑 B｜另開 session</b><span>取得共同工作紀錄與 AC。</span><span>讀指定 artifact／版本。</span><span>核對已做、未測與授權。</span></section></div>'+ribbon('新對話不保證完整繼承前文；恢復原對話也不保證最新狀態已查證。')
 
 def replace_text(node, before, after):
     hits=0
@@ -158,6 +272,13 @@ def adjust(node,p):
     if n==7:
         replace_text(node,'每張票在 Goal Check 對回 Goal；退件則回 Refinement','每張票在 Goal Check 對回 Goal；退件回 Refinement。接受後，人於 Human Gate 放行，才 merge／release／檢查。')
         add_note(node,'Goal Check 接受 → Human Gate 由人放行 → merge／release／檢查。Gate 是決策註記，不另增看板狀態。')
+        steps=node.select('.flow-visual svg .flow-step')
+        assert len(steps)==2, 'Expected preserved forward and return groups in the legacy P06 diagram.'
+        steps[0]['class'].append('flow-forward-step')
+        steps[1]['class'].append('flow-return-step')
+        return_label=node.select_one('.flow-visual svg .flow-reanchor-label')
+        if return_label:return_label.string='#3 回查 Goal（re-anchor）'
+        append_html(node,'<div class="r-process-stepper" role="group" aria-label="完整流程圖逐步顯示"><span data-process-note aria-live="polite">1／3｜先看 #3 雙向配對一路經過關卡</span><button type="button" data-process-next>下一步：展開退回路徑 →</button></div>')
     elif n==10:
         add_note(node,'#3 的修改歷史：初版 → 修正單向錯配 → 補上重複情境；Git 比較前後差異，GitHub 分享給協作者。')
     elif n==11:
@@ -166,7 +287,7 @@ def adjust(node,p):
         add_note(node,'本地 commit ── push → 遠端分支；讓協作者取得這些版本。Push 還不是 merge。')
     elif n==12:
         replace_text(node,'分出一份','建立工作分支')
-        add_note(node,'#1 Like／Pass、#2 配對列表也各有自己的工作分支。本例 WIP＝1：目前只推進 #3；接手時先更新共同版本。')
+        add_note(node,'#1 Like／Pass、#2 配對列表也各有自己的工作分支。本課交付 WIP 上限：1；本頁 #3 尚未開工，目前 0/1。真正開始後，接手時先更新共同版本。')
     elif n==14:
         vals=['對照 Issue #3 的範圍與 diff','「再次 Like 會不會重複配對？」','单向／雙向／重複情境的結果']
         for x,t in zip(node.select('.pr-sections > div > span'),vals):x.string=t.replace('单','單')
@@ -178,14 +299,29 @@ def adjust(node,p):
         add_note(node,'開發順序：#3 可用測試資料先驗核心規則；#1、#2 再串接。各票要有可交付結果、驗收方式與清楚依賴。')
     elif n==20:
         replace_text(node,'Parent issue · 泳道標題，不佔欄位','Parent issue · 三張票的共同目標與分組')
+        replace_text(node,'WIP=1：同時只推進一張票','本課交付 WIP 上限：1｜目前：0/1（都在 Backlog）')
+    elif n==21:
+        replace_text(node,'工作持續流動；本例一次只做一張（WIP=1）。','工作持續流動；本課交付 WIP 上限 1，目前 0/1。')
+        add_note(node,'目前 WIP＝開始但尚未完成的票數；本課交付 WIP 上限 1 是政策。Ready 尚未開工，尚不計入。')
+    elif n==22:
+        replace_text(node,'WIP=1','本課交付 WIP 上限 1｜目前 0/1')
+    elif n==30:
+        replace_text(node,'WIP=1','本課交付上限 1｜目前 0/1（Ready 尚未開工）')
+        add_note(node,'#3 可先用測試資料驗核心規則；#1、#2 再串接。各票要有可交付結果、驗收方式與清楚依賴。')
     elif n==31:
+        replace_text(node,'WIP=1','本課交付上限 1｜目前 1/1（#3 已開始）')
         replace_text(node,'Developer＝第 2 段的 branch＋commit：','Developer 接回前面學過的 branch＋commit：')
         replace_text(node,'branch 是隔離修改的副本','branch 標示一條獨立的開發路線')
+    elif n==33:
+        replace_text(node,'WIP=1','本課交付上限 1｜目前 1/1（#3 在 Review）')
     elif n==36:
+        replace_text(node,'WIP=1','本課交付上限 1｜目前 1/1（#3 在 QA）')
         replace_text(node,'CI 是每個 PR 都會自動執行的檢查；QA 依 AC 驗證實際行為與邊界。','本課設定 CI 在 PR 更新時執行 checks；QA 依 AC 驗行為。下表結果為教學示意。')
     elif n==38:
+        replace_text(node,'WIP=1','本課交付上限 1｜目前 1/1（#3 在 Product Check）')
         replace_text(node,'接受後 → merge 回 main → 上線檢查 → 關閉子票。','接受後 → Human Gate 放行 → merge／上線／檢查 → 關閉子票。')
     elif n==41:
+        replace_text(node,'WIP=1','本課交付上限 1｜目前 0/1（#3 Done；#1、#2 尚未開工）')
         replace_text(node,'Done 接回第 2 段的 Merge：通過關卡後合回 main，上線檢查後關閉子票。','本課 Done：依 Human Gate 決議 merge／上線，完成共用 DoD 後關閉子票。')
         replace_text(node,'產品接受後，#3 已 merge','產品接受並經 Human Gate 放行後，#3 已 merge')
     elif n==44:
@@ -193,8 +329,8 @@ def adjust(node,p):
     elif n==46:
         replace_text(node,'系統把前面的內容自動壓縮成摘要。','系統可能把前文壓縮成摘要；以下是關鍵規則被漏掉的示例。')
     elif n==47:
-        replace_text(node,'session：一段獨立的對話；開新的對話就是新的 session，看不到前一段的內容。','session：一段工作對話。新 session 不會自動帶齊前文；可以透過共用票面與交接紀錄補齊。')
-        replace_text(node,'新接手者看不到前段對話','這次交接缺少前文與共同紀錄')
+        replace_text(node,'session：一段獨立的對話；開新的對話就是新的 session，看不到前一段的內容。','session：一段工作對話。可恢復原對話，或新開後讀共用票面與交接紀錄。')
+        replace_text(node,'新接手者看不到前段對話','另開 session 需要取得共同紀錄；續聊也要核對最新狀態')
     elif n==49:
         replace_text(node,'全部放進同一個 chat','若各步驟沿用同一套設定')
         replace_text(node,'開越高越慢、越貴。','速度、成本與品質有取捨。')
@@ -203,6 +339,14 @@ def adjust(node,p):
         replace_text(node,'第 5 段怎麼解','模型／effort 選擇與 Agent 數量是不同問題；接著看分工。')
     elif n==56:
         replace_text(node,'案例票｜#3 雙向喜歡才配對','例：#3 Review 不過 → Dev 修正 → 再送審；誰安排這條路徑？')
+        append_html(node,'<button class="r-wip-trigger" type="button" data-wip-reveal aria-expanded="false">下一步：收起路線圖，展示 Agent 數量 × WIP 比較 →</button><section class="r-wip-sequence" data-wip-sequence hidden><p class="r-kicker">先固定一張票，再改變 Agent 數量；再固定 Agent 數量，改變未完成票數</p><div class="r-grid4">'+
+            panel('1 Agent × WIP 1',para('只推進同一張 #3。','先完成、交回，再接下一張。'))+
+            panel('1 Agent × WIP 2',para('同一 Agent 先接 #1，未 Done 又開始 #2。','兩張都未完成，Agent 需切換注意力。'),'problem')+
+            panel('多 Agent × WIP 1',para('Dev、Reviewer、QA 接力同一張 #3。','仍是一張未完成工作票。'))+
+            panel('多 Agent × WIP 2',para('#3 Done 後，#1 在 Dev、#2 在 QA。','目前 2/2；先明示上限改為 2，確認依賴獨立、資源隔離、驗收接得住。'),'good')+
+            '</div><p class="r-meta">上限 2 是 A06 的比較政策，不代表本課預設改成 2；等待驗收的已開工票仍計入。</p><button type="button" data-wip-return>返回原 Workflow／執行者圖</button></section>')
+    elif n==60:
+        replace_text(node,'WIP=1','本課交付 WIP 上限：1')
     elif n==58:
         replace_text(node,'由另一站核對','依條件獨立核對')
         for a,b in [('5-5｜','SHIFT｜'),('4–5｜','交接問題｜'),('4｜','Chat 問題｜'),('5｜','協作問題｜')]:
@@ -214,6 +358,7 @@ def adjust(node,p):
         replace_text(node,'規劃與接受','整理規劃與接受建議')
         add_note(node,'角色代表責任，不代表每個職能都需要一個 Agent。人主導目標與接受標準，核對結果；Human Gate 由人決定放行，不由 Agent 自行核准。')
     elif n==62:
+        replace_text(node,'核對 #3 的 AC 與證據','核對 #3 AC：單向不配對、雙向才配對、重複不增筆；再對版本與證據')
         replace_text(node,'PR Review、QA 與 Developer 分開；只認證據，不認自述。','核對責任與產出分開；可由人依 AC、版本與證據核對，不只接受產出者自述。')
     elif n==71:
         replace_text(node,'Push branch','Push branch／開 PR')
@@ -221,34 +366,112 @@ def adjust(node,p):
         replace_text(node,'執行 checks','依 AC 驗行為、留證據')
     elif n==72:
         replace_text(node,'Appendix','附錄')
+    elif n==68:
+        add_note(node,'這張 #3 已開始後退回 Dev 修正，仍在交付區間內；退回、Blocked、等人驗收都不會讓它退出目前 WIP。')
+    elif n==82:
+        replace_text(node,'Agent 依序交接 · WIP=1','Agent 依序交接 · 本課交付上限 1｜目前 0/1')
+        replace_text(node,'核准後 #3 才進 Done（WIP=1）。','核准後 #3 才進 Done（目前 WIP 回到 0/1）。')
     else:raise ValueError(n)
     return node
 
-out=[];manifest=[]
-for p in pages:
-    n=p['number'];orig=next((int(x[1:]) for x in p['ids'] if x.startswith('P')),None)
-    if n in new:
-        node=BeautifulSoup(f'<section class="slide rev10-slide r-new"><h1>{e(p["title"])}</h1><div class="r-content">{new[n]}</div></section>','html.parser').section
+def adjust_preserved_wip(node,old_number):
+    """Apply only the approved WIP count labels to otherwise preserved pages."""
+    if old_number==21:
+        replace_text(node,'工作持續流動；本例一次只做一張（WIP=1）。','工作持續流動；目前 WIP 是已開始未完成的票數；本課交付上限：1，當下 0/1（尚未開工）。')
+    elif old_number==22:
+        replace_text(node,'WIP=1','本課交付 WIP 上限：1｜目前：0/1（全在 Backlog）')
+    elif old_number==30:
+        replace_text(node,'WIP=1','本課交付 WIP 上限：1｜目前：0/1（Ready 尚未開工）')
+    elif old_number==82:
+        replace_text(node,'Agent 依序交接 · WIP=1','Agent 依序交接 · 本課交付 WIP 上限：1｜目前：0/1')
+        replace_text(node,'核准後 #3 才進 Done（WIP=1）。','核准後 #3 才進 Done（目前 WIP 回到 0/1）。')
     else:
-        assert orig
-        node=copy.deepcopy(originals[orig-1])
-        if p['kind']=='調整':node=adjust(node,p)
-    node['data-section']=p['chapter'];node['data-page']=str(n);node['data-source']=' '.join(p['ids']);node['id']=f'page-{n}'
-    # Deck-wide section labels are navigation, not course content changes.
-    if node.select_one('.cover-kicker'):
-        node.select_one('.cover-kicker').string={'C0':'先看人類如何合作','C1':'版本與協作','C2':'想法到 Ready','C5':'Agent 接手與新問題','C6':'Agent 交付與人的驗收','APP':'附錄'}.get(p['chapter'],p['chapter'])
+        raise ValueError(f'No preserved-page WIP label update for rev11 page {old_number}.')
+    return node
+
+baseline_path=ROOT/'slides/rev11.html'
+if not baseline_path.exists():
+    baseline_html=(ROOT/'slides/index.html').read_text()
+    assert len(BeautifulSoup(baseline_html,'html.parser').select('.slide'))==82, 'Refusing to archive a non-rev11 baseline.'
+    baseline_path.write_text(baseline_html)
+baseline_sha=hashlib.sha256(baseline_path.read_bytes()).hexdigest()
+
+issue_comment_urls={
+    4:'https://github.com/world4jason/Agent-101-deck/issues/48#issuecomment-6039187588',
+    5:'https://github.com/world4jason/Agent-101-deck/issues/48#issuecomment-6039188518',
+    7:'https://github.com/world4jason/Agent-101-deck/issues/48#issuecomment-6042650681',
+    8:'https://github.com/world4jason/Agent-101-deck/issues/48#issuecomment-6052541648',
+}
+demo_refs={
+    'A04':['workshop/matching-demo/ticket.md','workshop/matching-demo/fixtures/users.json','workshop/matching-demo/run_case.py'],
+    'A07':['workshop/matching-demo/evidence/A/one-way.json','workshop/matching-demo/evidence/B-pre-supplement/one-way.json','workshop/matching-demo/evidence/B-pre-supplement/two-way.json','workshop/matching-demo/evidence/B-pre-supplement/README.md'],
+    'A09':['workshop/matching-demo/evidence/A09-replay/README.md','workshop/matching-demo/evidence/A09-replay/assignment.md','workshop/matching-demo/evidence/A09-replay/plan-before-execution.md','workshop/matching-demo/evidence/A09-replay/ticket-read.txt','workshop/matching-demo/evidence/A09-replay/version-a-read.txt','workshop/matching-demo/evidence/A09-replay/version-a-one-way.json','workshop/matching-demo/evidence/A09-replay/identity-hashes.txt','workshop/matching-demo/versions/A/matching.py'],
+    'A10':['workshop/matching-demo/evidence/A09-replay/README.md','workshop/matching-demo/evidence/A09-replay/A-to-working.diff','workshop/matching-demo/evidence/A09-replay/candidate-b-one-way.json','workshop/matching-demo/evidence/A09-replay/identity-hashes.txt','workshop/matching-demo/evidence/B-pre-supplement/one-way.json','workshop/matching-demo/evidence/B-pre-supplement/two-way.json','workshop/matching-demo/evidence/B-pre-supplement/README.md'],
+    'A12':['workshop/matching-demo/exercise.md','workshop/matching-demo/ticket.md'],
+    'A13':['workshop/matching-demo/exercise.md','workshop/matching-demo/evidence/B-pre-supplement/README.md','workshop/matching-demo/evidence/B-post-supplement/duplicate.json'],
+    'A14':['workshop/matching-demo/exercise.md','workshop/matching-demo/evidence/B-pre-supplement/README.md','workshop/matching-demo/evidence/B-post-supplement/README.md'],
+}
+
+chapter_labels={'C0':'人類合作','C2':'想法到 Ready','C1':'版本協作','C3':'實作與驗收','C4':'放行與完成','C5':'Agent 演進','C6':'Agent 交付','APP':'附錄'}
+chapter_order=[]
+for p in pages:
+    if p['chapter'] not in chapter_order:chapter_order.append(p['chapter'])
+chapter_starts={key:next(p['number'] for p in pages if p['chapter']==key) for key in chapter_order}
+rail=''.join(f'<a href="#{chapter_starts[key]}" data-rail="{key}">{chapter_labels[key]}</a>' for key in chapter_order)
+
+manifest=[];out=[]
+for i,p in enumerate(pages):
+    p={**p,'sourceIds':p['ids'],'prerequisite':pages[i-1]['transition'] if i else '開場：使用共同案例。',
+        'sourceCommentUrls':[{'label':f'Issue #48 comment {n}','url':issue_comment_urls[n]} for n in [4,8]]}
+    if p['addedId'] in {f'A{i:02}' for i in range(1,16)}:p['sourceCommentUrls'].insert(1,{'label':'Issue #48 comment 5','url':issue_comment_urls[5]})
+    if p['addedId'] in {'A11','A14','A16','A17'} or (p['chapter']=='C5' and p['number'] in range(55,61)):
+        p['sourceCommentUrls'].append({'label':'Issue #48 comment 7','url':issue_comment_urls[7]})
+    p['materialRefs']=[{'label':'Issue #48 執行故事板','path':'docs/issue48-execution-storyboard.md'}]
+    if p['rev10SourcePage'] is not None:p['materialRefs'].append({'label':f'rev10 source P{p["rev10SourcePage"]:02}','path':f'drafts/rev10.html#{p["rev10SourcePage"]}'})
+    if p['addedId'] in demo_refs:p['materialRefs'].extend({'label':Path(ref).name,'path':ref} for ref in demo_refs[p['addedId']])
+    if p['oldRev11Page']==6:p['materialRefs'].extend({'label':Path(ref).name,'path':ref} for ref in ['workshop/matching-demo/evidence/A/one-way.json','workshop/matching-demo/evidence/B-pre-supplement/one-way.json'])
+    if p['addedId']=='A16':p['materialRefs'].append({'label':'OpenAI Memory in ChatGPT','path':'https://help.openai.com/en/articles/8590148-memory-in-chatgpt'})
+    if p['addedId']=='A17':p['materialRefs'].extend([
+        {'label':'Claude Code: Sessions','path':'https://code.claude.com/docs/en/sessions'},
+        {'label':'Claude Code: How it works','path':'https://code.claude.com/docs/en/how-claude-code-works'},
+        {'label':'Codex CLI','path':'https://learn.chatgpt.com/docs/codex/cli'}])
+    old_number=p['oldRev11Page'];source_page=p['rev10SourcePage']
+    if p['addedId']:
+        node=BeautifulSoup(f'<section class="slide rev10-slide r-new"><h1>{e(p["title"])}</h1><div class="r-content">{added[p["addedId"]]}</div></section>','html.parser').section
+    else:
+        legacy=next(x for x in legacy_pages if x['number']==old_number)
+        if old_number in new:
+            node=BeautifulSoup(f'<section class="slide rev10-slide r-new"><h1>{e(p["title"])}</h1><div class="r-content">{new[old_number]}</div></section>','html.parser').section
+        else:
+            assert source_page is not None, f'Legacy page {old_number} has no source P-page and no custom content.'
+            node=copy.deepcopy(originals[source_page-1])
+            if legacy['kind']=='調整':node=adjust(node,{**p,'number':old_number})
+            else:
+                node.h1.clear();node.h1.append(p['title'])
+                if old_number in {21,22,30,82}:node=adjust_preserved_wip(node,old_number)
+    node['data-section']=p['chapter'];node['data-page']=str(p['number']);node['data-source']=' '.join(p['ids']);node['id']=f'page-{p["number"]}'
+    if p['addedId']:node['data-added-id']=p['addedId']
+    if p['oldRev11Page']==7:node['data-process-stage']='0'
+    if p['oldRev11Page']==56:node['data-wip-stage']='workflow'
+    if node.select_one('.cover-kicker'):node.select_one('.cover-kicker').string={'C0':'先看人類如何合作','C1':'版本與協作','C2':'想法到 Ready','C5':'Agent 接手與新問題','C6':'Agent 交付與人的驗收','APP':'附錄'}.get(p['chapter'],p['chapter'])
     out.append(str(node))
-    manifest.append({**p,'original':orig,'notes':cards[n].replace('新標題為提案，未修改 HTML。','本草稿採用此標題。')})
-assert sorted(x['original'] for x in manifest if x['original'])==list(range(1,56))
-chapters=[('C0',1,'人類合作'),('C1',8,'版本協作'),('C2',16,'想法到 Ready'),('C3',31,'實作與驗收'),('C4',39,'放行與完成'),('C5',43,'Agent 演進'),('C6',64,'Agent 交付'),('APP',72,'附錄')]
-rail=''.join(f'<a href="#{n}" data-rail="{key}">{name}</a>' for key,n,name in chapters)
-html='''<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>Agent 101｜rev11 正式版</title><link rel="stylesheet" href="rev11-base.css"><link rel="stylesheet" href="rev10.css"><link rel="stylesheet" href="rev11.css"></head><body class="rev10-draft rev11-draft" data-review-mode="full"><main class="deck"><header class="topbar"><div class="brand">Agent 101 <span class="draft-badge">rev11 · 82 頁</span></div><nav class="section-rail" aria-label="簡報章節">'''+rail+'''</nav><div class="counter"><span id="current">1</span> / <span id="total">82</span></div></header><div class="slides">'''+''.join(out)+'''</div><footer class="controls"><button id="prev" type="button">← 上一頁</button><div class="r-toolbar"><button id="contents" type="button">目錄</button><button id="notes" type="button">講者筆記</button><div class="progress-track" aria-hidden="true"><div id="progress"></div></div><a id="compare-link" target="_blank" rel="noopener">對照 rev10 ↗</a></div><button id="next" type="button">下一頁 →</button></footer></main><dialog id="review-dialog"><div class="r-dialog-head"><h2 id="dialog-title"></h2><button id="close-dialog" type="button">關閉</button></div><div id="dialog-body"></div></dialog><script id="deck-data" type="application/json">'''+json.dumps(manifest,ensure_ascii=False).replace('<','\\u003c')+'''</script><script src="rev11.js"></script></body></html>'''
-(ROOT/'drafts/rev11.html').write_text(html)
-release_html=html
-for asset in ['rev11-base.css','rev10.css','rev11.css']:
+    p['notes']=cards[p['number']].replace('新標題為提案，未修改 HTML。','本草稿採用此標題。')
+    manifest.append(p)
+assert sorted(p['oldRev11Page'] for p in manifest if p['oldRev11Page'] is not None)==list(range(1,83))
+assert sorted(p['rev10SourcePage'] for p in manifest if p['rev10SourcePage'] is not None)==list(range(1,56))
+assert sorted(p['addedId'] for p in manifest if p['addedId'])==[f'A{i:02}' for i in range(1,18)]
+
+source=storyboard_source
+ssot_sha=hashlib.sha256(source.encode()).hexdigest()
+data=json.dumps(manifest,ensure_ascii=False).replace('<','\\u003c')
+page_count=len(manifest);mainline_count=sum(p['chapter']!='APP' for p in manifest);appendix_start=chapter_starts['APP']
+draft_html='''<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>Agent 101｜rev12 候選 99 頁</title><link rel="stylesheet" href="rev11-base.css"><link rel="stylesheet" href="rev10.css"><link rel="stylesheet" href="rev11.css"><link rel="stylesheet" href="rev12.css"></head><body class="rev10-draft rev11-draft rev12-draft" data-review-mode="full"><main class="deck"><header class="topbar"><div class="brand">Agent 101 <span class="draft-badge">rev12 · 99 頁候選</span></div><nav class="section-rail" aria-label="簡報章節">'''+rail+'''</nav><div class="counter"><span id="current">1</span> / <span id="total">'''+str(page_count)+'''</span></div></header><div class="slides">'''+''.join(out)+'''</div><footer class="controls"><button id="prev" type="button">← 上一頁</button><div class="r-toolbar"><button id="contents" type="button">目錄</button><button id="notes" type="button">講者筆記</button><div class="progress-track" aria-hidden="true"><div id="progress"></div></div><a id="compare-link" target="_blank" rel="noopener">對照 rev10 ↗</a></div><button id="next" type="button">下一頁 →</button></footer></main><dialog id="review-dialog"><div class="r-dialog-head"><h2 id="dialog-title"></h2><button id="close-dialog" type="button">關閉</button></div><div id="dialog-body"></div></dialog><script id="deck-data" type="application/json">'''+data+'''</script><script src="rev12.js"></script></body></html>'''
+release_html=draft_html
+for asset in ['rev11-base.css','rev10.css','rev11.css','rev12.css']:
     release_html=release_html.replace(f'href="{asset}"',f'href="../drafts/{asset}"')
-release_html=release_html.replace('src="rev11.js"','src="../drafts/rev11.js"')
+release_html=release_html.replace('src="rev12.js"','src="../drafts/rev12.js"')
+(ROOT/'drafts/rev12.html').write_text(draft_html)
 (ROOT/'slides/index.html').write_text(release_html)
-(ROOT/'drafts/rev11-review').mkdir(parents=True,exist_ok=True)
-(ROOT/'drafts/rev11-review/manifest.json').write_text(json.dumps({'ssot':str(SSOT.relative_to(ROOT)),'ssotSha256':hashlib.sha256(source.encode()).hexdigest(),'pages':[{k:v for k,v in p.items() if k!='notes'} for p in manifest]},ensure_ascii=False,indent=2))
-print(f'Built {len(out)} pages: {sum(p["kind"]=="沿用" for p in pages)} reused, {sum(p["kind"]=="調整" for p in pages)} adjusted, {sum(p["kind"]=="新增" for p in pages)} new. All 55 originals mapped.')
+review_dir=ROOT/'drafts/rev12-review';review_dir.mkdir(parents=True,exist_ok=True)
+(review_dir/'manifest.json').write_text(json.dumps({'ssot':'docs/issue48-execution-storyboard.md','ssotSha256':ssot_sha,'baseline':{'path':'slides/rev11.html','pages':82,'sha256':baseline_sha},'deck':{'title':'Agent 101','revision':'rev12 candidate','pageCount':page_count,'mainlinePageCount':mainline_count,'appendixStartsAt':appendix_start,'chapterOrder':chapter_order},'demo':{'versionA':hash_a,'versionB':hash_b,'evidenceRoot':'workshop/matching-demo/evidence/','uiAndProductIntegration':'NOT RUN'},'pages':manifest},ensure_ascii=False,indent=2))
+print(f'Built {page_count} candidate pages: {sum(p["oldRev11Page"] is not None for p in manifest)} preserved rev11 pages, {sum(p["addedId"] is not None for p in manifest)} added A-pages. Baseline: slides/rev11.html ({baseline_sha}).')

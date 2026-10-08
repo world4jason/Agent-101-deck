@@ -1,0 +1,19 @@
+--- workshop/matching-demo/versions/A/matching.py	2026-10-08 13:09:28
++++ workshop/matching-demo/candidate/matching.py	2026-10-08 13:09:46
+@@ -1,4 +1,4 @@
+-"""Matching #3 teaching artifact, Version A (intentionally incorrect)."""
++"""Matching #3 teaching artifact, Version B (corrected rule-level candidate)."""
+ 
+ 
+ def new_state(fixture):
+@@ -14,8 +14,8 @@
+     if action not in state["likes"]:
+         state["likes"].append(action)
+ 
+-    # Version A teaching defect: any Like creates a match.
+-    if action in state["likes"]:
++    # A pair matches only after both directional Likes are present.
++    if [target, actor] in state["likes"]:
+         pair = sorted([actor, target])
+         if not any(record["users"] == pair for record in state["matches"]):
+             match_id = f"M{len(state['matches']) + 1:02d}"

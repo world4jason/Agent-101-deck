@@ -1,0 +1,6 @@
+test_repeated_like_keeps_one_match_record (test_matching_demo.MatchingDemoTests) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.025s
+
+OK

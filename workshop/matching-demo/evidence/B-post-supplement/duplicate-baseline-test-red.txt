@@ -1,0 +1,16 @@
+test_repeated_like_keeps_one_match_record (test_matching_demo.MatchingDemoTests) ... FAIL
+
+======================================================================
+FAIL: test_repeated_like_keeps_one_match_record (test_matching_demo.MatchingDemoTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/world4jason/.codex/worktrees/issue-48/Agent-101-deck/workshop/matching-demo/tests/test_matching_demo.py", line 59, in test_repeated_like_keeps_one_match_record
+    self.assert_case_passes("duplicate", 1, expected_before_count=1)
+  File "/Users/world4jason/.codex/worktrees/issue-48/Agent-101-deck/workshop/matching-demo/tests/test_matching_demo.py", line 37, in assert_case_passes
+    self.assertEqual(len(payload["before"]["matches"]), expected_before_count)
+AssertionError: 0 != 1
+
+----------------------------------------------------------------------
+Ran 1 test in 0.027s
+
+FAILED (failures=1)

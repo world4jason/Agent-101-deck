@@ -1,0 +1,88 @@
+{
+  "actions": [
+    {
+      "actor": "an",
+      "target": "qing"
+    },
+    {
+      "actor": "qing",
+      "target": "an"
+    }
+  ],
+  "actual": {
+    "before_match_count": 0,
+    "before_match_records": [],
+    "likes": [
+      [
+        "an",
+        "qing"
+      ],
+      [
+        "qing",
+        "an"
+      ]
+    ],
+    "match_count": 1,
+    "match_records": [
+      {
+        "id": "M01",
+        "users": [
+          "an",
+          "qing"
+        ]
+      }
+    ]
+  },
+  "artifact": "versions/A/matching.py",
+  "artifact_sha256": "ce09ee4c8091325bb40c71d7b5e74114af77b05be7457110a6274e5ea91e22b4",
+  "before": {
+    "likes": [],
+    "matches": [],
+    "users": [
+      {
+        "id": "an",
+        "name": "小安"
+      },
+      {
+        "id": "qing",
+        "name": "小晴"
+      }
+    ]
+  },
+  "candidate_id": "A",
+  "case": "two-way",
+  "expected": {
+    "before_match_count": 0,
+    "before_match_records": [],
+    "match_count": 1,
+    "match_records": [
+      {
+        "id": "M01",
+        "users": [
+          "an",
+          "qing"
+        ]
+      }
+    ]
+  },
+  "fixture": "fixtures/users.json",
+  "reset_state": {
+    "likes": [],
+    "matches": [],
+    "users": [
+      {
+        "id": "an",
+        "name": "小安"
+      },
+      {
+        "id": "qing",
+        "name": "小晴"
+      }
+    ]
+  },
+  "setup_actions": [],
+  "status": "PASS",
+  "teaching_environment": true,
+  "ui_and_product_integration": "NOT RUN",
+  "validation_layer": "Matching #3 rules and records"
+}

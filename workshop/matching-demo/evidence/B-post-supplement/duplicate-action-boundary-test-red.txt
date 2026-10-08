@@ -1,0 +1,27 @@
+test_repeated_like_keeps_one_match_record (test_matching_demo.MatchingDemoTests) ... FAIL
+
+======================================================================
+FAIL: test_repeated_like_keeps_one_match_record (test_matching_demo.MatchingDemoTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/world4jason/.codex/worktrees/issue-48/Agent-101-deck/workshop/matching-demo/tests/test_matching_demo.py", line 64, in test_repeated_like_keeps_one_match_record
+    self.assertEqual(
+AssertionError: Lists differ: [{'ac[24 chars]ing'}, {'actor': 'qing', 'target': 'an'}, {'ac[25 chars]ng'}] != [{'ac[24 chars]ing'}]
+
+First list contains 2 additional elements.
+First extra element 1:
+{'actor': 'qing', 'target': 'an'}
+
+- [{'actor': 'an', 'target': 'qing'},
+?                                   ^
+
++ [{'actor': 'an', 'target': 'qing'}]
+?                                   ^
+
+-  {'actor': 'qing', 'target': 'an'},
+-  {'actor': 'an', 'target': 'qing'}]
+
+----------------------------------------------------------------------
+Ran 1 test in 0.026s
+
+FAILED (failures=1)

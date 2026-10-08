@@ -1,0 +1,70 @@
+test_one_way_like_does_not_create_a_match (test_matching_demo.MatchingDemoTests) ... FAIL
+test_two_way_like_creates_one_match (test_matching_demo.MatchingDemoTests) ... ok
+
+======================================================================
+FAIL: test_one_way_like_does_not_create_a_match (test_matching_demo.MatchingDemoTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/world4jason/.codex/worktrees/issue-48/Agent-101-deck/workshop/matching-demo/tests/test_matching_demo.py", line 46, in test_one_way_like_does_not_create_a_match
+    self.assert_case_passes("one-way", 0)
+  File "/Users/world4jason/.codex/worktrees/issue-48/Agent-101-deck/workshop/matching-demo/tests/test_matching_demo.py", line 35, in assert_case_passes
+    self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+AssertionError: 1 != 0 : {
+  "actions": [
+    {
+      "actor": "an",
+      "target": "qing"
+    }
+  ],
+  "actual": {
+    "likes": [
+      [
+        "an",
+        "qing"
+      ]
+    ],
+    "match_count": 1,
+    "match_records": [
+      {
+        "id": "M01",
+        "users": [
+          "an",
+          "qing"
+        ]
+      }
+    ]
+  },
+  "artifact": "candidate/matching.py",
+  "artifact_sha256": "ce09ee4c8091325bb40c71d7b5e74114af77b05be7457110a6274e5ea91e22b4",
+  "before": {
+    "likes": [],
+    "matches": [],
+    "users": [
+      {
+        "id": "an",
+        "name": "安"
+      },
+      {
+        "id": "qing",
+        "name": "小晴"
+      }
+    ]
+  },
+  "candidate_id": "A",
+  "case": "one-way",
+  "expected": {
+    "match_count": 0,
+    "match_records": []
+  },
+  "fixture": "fixtures/users.json",
+  "status": "FAIL",
+  "teaching_environment": true,
+  "ui_and_product_integration": "NOT RUN",
+  "validation_layer": "Matching #3 rules and records"
+}
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.046s
+
+FAILED (failures=1)

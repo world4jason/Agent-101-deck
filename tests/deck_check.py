@@ -117,6 +117,19 @@ def check_fragment_opacity(browser):
     selector = ".slide.active .fragment"
     count = page.locator(selector).count()
     if page.locator("body").get_attribute("data-review-mode") == "full":
+        local_stepper = page.locator(".slide.active [data-process-next]")
+        if local_stepper.count():
+            # P06 keeps its original three-ticket diagram but teaches it in
+            # three local stages; reach the complete state before checking
+            # full-page visibility rather than treating stage one as a bug.
+            local_stepper.click()
+            local_stepper.click()
+            page.wait_for_function(
+                """() => [...document.querySelectorAll('.slide.active .fragment')]
+                  .every(f => getComputedStyle(f).opacity === '1')""",
+                timeout=5000,
+            )
+            check(page.locator(".slide.active").get_attribute("data-process-stage") == "2", "full-page mode: local process stepper reaches the complete diagram")
         check(page.locator(selector).evaluate_all("fs => fs.every(f => getComputedStyle(f).opacity === '1')"), "full-page mode: fragments must be visible")
         page.close()
         return

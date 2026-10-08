@@ -1,0 +1,3 @@
+PASS: replay assignment/plan preceded execution; A failed AC1, temporary candidate passed, and its bytes/hash equal preserved B.
+PASS: existing B-pre-supplement duplicate status remains NOT RUN; no duplicate case ran in the A09 replay.
+temporary/B SHA-256: 0415bddc460265e1ef7c91fe96859b3a507cb345d2edd25ddccf6f061fbfc682

@@ -1,0 +1,8 @@
+{
+  "users": [
+    {"id": "an", "name": "小安"},
+    {"id": "qing", "name": "小晴"}
+  ],
+  "likes": [],
+  "matches": []
+}
