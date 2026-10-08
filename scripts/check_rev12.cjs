@@ -40,7 +40,33 @@ let browser;
   await page.screenshot({path:path.join(out,'pages',String(n).padStart(2,'0')+'.png')});
   results.pages.push({number:n,...stats});
  }
- const reviewPages=[3,4,5,6,7,8,9,10,11,12,13,14,15,20,21,22,23,38,39,40,41,42,43,44,45,46,52,53,54,55,56,57,58,59,60,80,81,82,83,84,85];
+ await page.evaluate(()=>location.hash='#99');await page.waitForFunction(()=>document.querySelector('#current').textContent==='99');
+ const gateStage=async stage=>{
+  await page.locator('.slide.active').evaluate((slide,stage)=>slide.querySelectorAll('.fragment').forEach(node=>{
+   const step=Number([...node.classList].map(name=>/^move-(\d+)$/.exec(name)?.[1]).find(Boolean));
+   node.classList.toggle('visible',Number.isFinite(step)&&step<=stage);
+  }),stage);
+  return page.locator('.slide.active').evaluate(slide=>{
+   const board=slide.querySelector('.recap-board'),ticket=board.querySelector('.moving-ticket');
+   const marker=board.querySelector('.human-gate-transition');
+   const column=label=>[...board.querySelectorAll(':scope > div:not(.board-parent)')].find(node=>node.querySelector(':scope > h3')?.textContent.trim()===label);
+   return {
+    statusLabels:[...board.querySelectorAll(':scope > div:not(.board-parent) > h3')].map(node=>node.textContent.trim()),
+    gateColumnCount:board.querySelectorAll(':scope > .human-gate-column').length,
+    ticketGridColumn:getComputedStyle(ticket).gridColumnStart,
+    gateColor:getComputedStyle(marker).color,
+    productCheckBorder:getComputedStyle(column('Product Check')).borderTopColor,
+    doneBorder:getComputedStyle(column('Done')).borderTopColor,
+    finalNoteVisible:getComputedStyle(slide.querySelector('.move-8')).opacity==='1'
+   };
+  });
+ };
+ results.interactions.humanGatePending=await gateStage(6);
+ await page.screenshot({path:path.join(out,'human-gate-pending.png')});
+ results.interactions.humanGateReleased=await gateStage(7);
+ await page.screenshot({path:path.join(out,'human-gate-released.png')});
+ results.interactions.humanGateComplete=await gateStage(8);
+ const reviewPages=[...new Set([3,4,5,6,7,8,9,10,11,12,13,14,15,20,21,22,23,24,25,26,33,34,35,36,37,38,39,40,41,42,43,44,45,46,52,53,54,55,56,57,58,59,60,80,81,82,83,84,85,98,99])].sort((a,b)=>a-b);
  fs.mkdirSync(path.join(out,'pages','projection'),{recursive:true});
  fs.mkdirSync(path.join(out,'pages','mobile'),{recursive:true});
  results.projectionScreenshots=[];
@@ -152,6 +178,8 @@ let browser;
  const a13Sequence=a13Before?.sequenceHidden===true&&a13Before?.expanded==='false'&&a13Before?.questionDisplay!=='none'&&a13Before?.text.includes('B-pre')&&!a13Before?.text.includes('補驗後')&&a13After?.sequenceHidden===false&&a13After?.expanded==='true'&&a13After?.questionDisplay==='none'&&a13After?.text.includes('同一個 B 版')&&a13After?.text.includes('不要改規則')&&a13After?.text.includes('B-post')&&a13After?.text.includes('PASS')&&!a13After?.text.includes('--artifact')&&a13After?.text.includes('NOT RUN')&&a13After?.links?.some(link=>link.includes('matching-demo/exercise.md'))&&a13Print?.questionDisplay!=='none'&&a13Print?.answerDisplay==='none'&&a13Mobile?.questionDisplay==='none'&&a13Mobile?.sequenceHidden===false&&a13Mobile?.minBodyFont>=16&&a13Font>=18&&a13Return?.sequenceHidden===true&&a13Return?.expanded==='false'&&a13Return?.triggerFocused;
  const wipLabels=results.interactions.wipComparison?.labels?.join('|')||'';
  const wipSequence=results.interactions.wipBefore?.chart!=='none'&&results.interactions.wipBefore?.comparison===true&&results.interactions.wipComparison?.chart==='none'&&results.interactions.wipComparison?.comparison===false&&wipLabels.includes('1 Agent × WIP 2')&&wipLabels.includes('多 Agent × WIP 1')&&results.interactions.wipReturn?.stage==='workflow'&&results.interactions.wipReturn?.chart!=='none'&&results.interactions.wipReturn?.comparison===true&&results.interactions.wipReturn?.expanded==='false';
- if(results.errors.length || results.pages.length!==99 || results.pages.some(p=>p.candidates.some(c=>c.kind==='outside') || p.scrollHeight>p.clientHeight+3) || layoutIssues.length || results.interactions.a14Font<24 || results.navigation.home!=='1' || results.navigation.right!=='2' || results.navigation.left!=='1' || results.navigation.tocEntries!==99 || results.navigation.tocJump!=='53' || results.navigation.end!=='99' || !results.navigation.lastDisabled || results.navigation.chapterOrder.join(',')!=='C0,C2,C1,C3,C4,C5,C6,APP' || !results.navigation.notes.includes('執行前計畫') || !hasPlanLink || !hasCommentLink || !processSequence || !results.interactions.processButtonDisabled || !wipSequence || !a13Sequence || results.projectionScreenshots.length!==reviewPages.length || results.mobileScreenshots.length!==reviewPages.length) process.exitCode=1;
+ const gatePending=results.interactions.humanGatePending,gateReleased=results.interactions.humanGateReleased,gateComplete=results.interactions.humanGateComplete;
+ const gateSequence=gatePending?.statusLabels?.join('|')==='Backlog|Ready|Dev|Review|QA|Product Check|Done'&&gatePending?.gateColumnCount===0&&gatePending?.ticketGridColumn==='6'&&gatePending?.gateColor==='rgb(242, 207, 118)'&&gatePending?.productCheckBorder==='rgb(131, 188, 255)'&&gatePending?.doneBorder==='rgb(43, 58, 76)'&&gatePending?.finalNoteVisible===false&&gateReleased?.ticketGridColumn==='7'&&gateReleased?.gateColor==='rgb(131, 221, 167)'&&gateReleased?.productCheckBorder==='rgb(43, 58, 76)'&&gateReleased?.doneBorder==='rgb(131, 188, 255)'&&gateReleased?.finalNoteVisible===false&&gateComplete?.finalNoteVisible===true;
+ if(results.errors.length || results.pages.length!==99 || results.pages.some(p=>p.candidates.some(c=>c.kind==='outside') || p.scrollHeight>p.clientHeight+3) || layoutIssues.length || results.interactions.a14Font<24 || results.navigation.home!=='1' || results.navigation.right!=='2' || results.navigation.left!=='1' || results.navigation.tocEntries!==99 || results.navigation.tocJump!=='53' || results.navigation.end!=='99' || !results.navigation.lastDisabled || results.navigation.chapterOrder.join(',')!=='C0,C2,C1,C3,C4,C5,C6,APP' || !results.navigation.notes.includes('執行前計畫') || !hasPlanLink || !hasCommentLink || !processSequence || !results.interactions.processButtonDisabled || !wipSequence || !a13Sequence || !gateSequence || results.projectionScreenshots.length!==reviewPages.length || results.mobileScreenshots.length!==reviewPages.length) process.exitCode=1;
  await browser.close();
 })().catch(async e=>{console.error(e);if(browser)await browser.close();process.exitCode=1});

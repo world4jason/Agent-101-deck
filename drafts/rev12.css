@@ -78,6 +78,41 @@
 .rev12-draft .slide[data-wip-stage="compare"] > .r-revision,
 .rev12-draft .slide[data-wip-stage="compare"] > .r-wip-trigger { display: none; }
 .rev12-draft .slide[data-added-id="A13"][data-wip-stage="compare"] > .r-content { display: none; }
+
+/* Candidate P99 keeps Human Gate on the Product Check → Done transition. */
+.rev12-draft .recap-board { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.rev12-draft .recap-board > .board-parent { flex-wrap: wrap; gap: 4px 12px; }
+.rev12-draft .recap-board .human-gate-transition { color: var(--muted); font-size: 14px; font-weight: 700; text-align: right; }
+.rev12-draft .recap-board:has(.move-6.visible) .human-gate-transition { color: var(--yellow); font-weight: 900; }
+.rev12-draft .recap-board:has(.move-7.visible) .human-gate-transition { color: var(--green); font-weight: 900; }
+.rev12-draft .recap-board:has(.move-6.visible) .moving-ticket { grid-column: 6; }
+.rev12-draft .recap-board:has(.move-7.visible) .moving-ticket { grid-column: 7; }
+.rev12-draft .recap-board:has(.move-6.visible):not(:has(.move-7.visible)) > div:nth-of-type(2),
+.rev12-draft .recap-board:has(.move-6.visible):not(:has(.move-7.visible)) > div:nth-of-type(3),
+.rev12-draft .recap-board:has(.move-6.visible):not(:has(.move-7.visible)) > div:nth-of-type(4),
+.rev12-draft .recap-board:has(.move-6.visible):not(:has(.move-7.visible)) > div:nth-of-type(5),
+.rev12-draft .recap-board:has(.move-6.visible):not(:has(.move-7.visible)) > div:nth-of-type(6),
+.rev12-draft .recap-board:has(.move-6.visible):not(:has(.move-7.visible)) > div:nth-of-type(8),
+.rev12-draft .recap-board:has(.move-7.visible) > div:nth-of-type(2),
+.rev12-draft .recap-board:has(.move-7.visible) > div:nth-of-type(3),
+.rev12-draft .recap-board:has(.move-7.visible) > div:nth-of-type(4),
+.rev12-draft .recap-board:has(.move-7.visible) > div:nth-of-type(5),
+.rev12-draft .recap-board:has(.move-7.visible) > div:nth-of-type(6),
+.rev12-draft .recap-board:has(.move-7.visible) > div:nth-of-type(7) {
+  border-color: var(--line);
+  background: #101923;
+  box-shadow: none;
+}
+.rev12-draft .recap-board:has(.move-6.visible):not(:has(.move-7.visible)) > div:nth-of-type(7),
+.rev12-draft .recap-board:has(.move-7.visible) > div:nth-of-type(8) {
+  border-color: var(--blue);
+  background: #172b3e;
+  box-shadow: 0 0 0 1px #83bcff55;
+}
+@media (max-width: 950px) {
+  .rev12-draft .recap-board:has(.move-6.visible) .moving-ticket { order: 13; }
+  .rev12-draft .recap-board:has(.move-7.visible) .moving-ticket { order: 15; }
+}
 .rev12-draft .r-wip-sequence[hidden] { display: none !important; }
 .rev12-draft .slide[data-wip-stage="compare"] .r-wip-sequence { display: flex; }
 .rev12-draft .r-wip-sequence {

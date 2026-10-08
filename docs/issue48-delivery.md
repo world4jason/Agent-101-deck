@@ -36,7 +36,7 @@ Chrome 檢查的逐頁截圖與 JSON 結果位於 `drafts/rev12-review/`。已�
 
 ### G1 故事與先備知識
 
-- 將「個人回饋」後接成 Brainstorming、形成 Goal、拆票、看板、驗收與 Agent 接手；頁序、章跨度、導覽、README 範圍和逐頁來源已同步。
+- 將職能介紹後接成 Brainstorming、形成 Goal、拆票、看板、驗收與 Agent 接手；頁序、章跨度、導覽、README 範圍和逐頁來源已同步。
 - 在首次出現處用白話說明 Goal／AC、Brainstorming、Backlog／Ready、工作票整理、Context／Session／Compact／Memory；早期看板標籤與狀態描述避免在定義前先用英文術語。
 - 明確標出 QA 頁先快轉到 B-post；後續 Agent／練習頁倒回 B-pre，並回到 B-post 主線。
 
@@ -57,7 +57,28 @@ A12 指定 B 程式、fixture 和 runner；A13 的可複製 `--artifact` 命令�
 - `rtk env BROWSER_CHANNEL=chrome npm run check:rev12`：通過。載入 99 頁，沒有瀏覽器錯誤；導覽、流程圖／WIP 互動、A13 提問揭露／返回、列印狀態與版面檢查通過。A13 正文在揭露時隱藏，桌機與手機寬度正文最小 19px，列印保留提問、不列出答案。
 - `rtk env BROWSER_CHANNEL=chrome npm run check:rev11`：通過，保留版 82 頁。
 - `rtk python3 tests/deck_check.py`：六項逐頁、fragment、鍵盤、hash 與列印檢查通過。
-- 最新逐頁文字及截圖位於 `drafts/rev12-review/verification.json` 與 `drafts/rev12-review/pages/`：99 張桌面截圖，另有 41 張投影尺寸和 41 張手機尺寸截圖；A13 前／後／返回狀態另有獨立截圖。
+- 最新逐頁文字及截圖位於 [`verification.json`](../drafts/rev12-review/verification.json) 與 `drafts/rev12-review/pages/`：99 張桌面截圖，另有 51 張投影尺寸和 51 張手機尺寸截圖（頁 03–15、20–26、33–46、52–60、80–85、98–99）。A13 提問／揭露／返回，以及 P99 Human Gate 等待／放行狀態另有獨立截圖。
 - 瀏覽器仍辨識到候選第 87 頁七張緊湊卡片的水平文字溢出；同一問題出現在不可修改的 rev11 第 71 頁。沒有投影片畫布外溢或垂直溢出。
 
-WebChatGPT 對凍結候選的盲審由父任務安排；本節不將未完成的 G3 寫成通過。修改尚未提交或推送。
+凍結候選 `e5d55470cd7b955e5d213034ee2539754004d764` 的兩份 WebChatGPT 審查均已完成；初心者審查提出兩項 P1，內容／證據審查為 READY。原報告與呼叫紀錄保存在 [beginner review](reviews/issue49-web-e5d5547-beginner.md)、[content review](reviews/issue49-web-e5d5547-content.md) 與 [invocation record](reviews/issue49-web-e5d5547-invocation.md)。本輪只處理兩項 P1；最終候選的 Web 重審仍待執行，不能沿用凍結候選的 verdict。P2 與真人試教狀態見下方本輪記錄。修改尚未提交或推送。
+
+### 凍結候選 Web findings 的範圍與處置
+
+- P1（頁 99）：七個 Kanban 狀態欄不含 Human Gate；以 Product Check → Done 之間的決策標記呈現，動畫明示等待放行時仍停在 Product Check，放行後才移至 Done。
+- P1（頁 34–36）：頁 34–35 標為概念預演 1/2、2/2；頁 36 明示回到主線，#3 此時才從 Ready 進 Dev。頁數與順序不變。
+- 兩份初審都由 `codex exec --ephemeral -m chatgpt-web/gpt-5.6-sol -c model_reasoning_effort=xhigh -s read-only` 執行並 exit 0；它們是同一個指定模型的兩個 session，不是跨模型共識。beginner report 自稱 GPT-6 Astra，與呼叫端記錄的 GPT-5.6 Sol 不一致；未據此宣稱模型身分經獨立驗證。
+- 延後的 P2：頁 16 BRIEF 全名只在講者筆記、頁 86 內部 ID／SSOT、頁 98 架構術語、手機直向可讀性。這些不納入本輪修正或新驗收條件。
+- 初審只使用凍結候選 SHA；目前候選的最終 Web 重審與真人初學者試教仍待執行。
+
+### 本輪實作驗證
+
+| 命令 | 結果 |
+|---|---|
+| `rtk python3 scripts/build_rev11.py` | 通過；99 頁候選重建完成，82 頁 rev11 基線 SHA 維持 `539f43b427dfeea7533639535763ab0517ad2e9581a76ecbc2f2e18387139fea`。 |
+| `rtk python3 tests/issue48_storyboard_test.py` | 通過；99 頁映射／排序、34–36 預演與回主線文字、P99 七個狀態欄及保留的 rev11 Human Gate 欄檢查通過。 |
+| `rtk python3 tests/deck_check.py` | 通過；六項逐頁、片段、鍵盤、hash 與列印檢查通過。 |
+| `rtk python3 -m py_compile scripts/build_rev11.py tests/issue48_storyboard_test.py tests/deck_check.py`、`rtk node --check scripts/check_rev12.cjs`、`rtk node --check drafts/rev12.js` | 全部通過。 |
+| `rtk env BROWSER_CHANNEL=chrome npm run check:rev12` | 通過；99 頁、無 browser errors，導覽及互動檢查通過；投影與手機截圖各 51 張。Gate 等待時 ticket 留在 Product Check、Done 未亮；放行後 ticket 移到 Done、Product Check 退場。 |
+| `rtk git diff --check` | 通過。 |
+
+已檢視頁 25、33–36、99 的投影截圖及頁 25、34–36、99 的手機截圖，並檢視 P99 等待與放行兩張桌面狀態圖。頁 87 的七張緊湊卡片仍有既有水平文字溢出，原 rev11 同頁也有此情形；本輪未擴大修正。`check:rev11` 未重跑；保留版 SHA 已核對未變。最終候選的 Web 重審、手機版可讀性改善及真人試教仍待處理。

@@ -493,6 +493,15 @@ for i,p in enumerate(pages):
         replace_text(node,'Scope','工作範圍')
         replace_text(node,'Required Evidence','需要留下的驗證紀錄')
         replace_text(node,'AC 說明功能怎樣才算做對；DoD 是所有票共用的完工標準；Out-of-scope 是這次不做的事。','工作票整理＝把需求、例子與未決問題整理成可接手的票。AC 說明功能怎樣才算做對；DoD 是所有票共用的完工標準；本次不做的事要明列。')
+    if p['number']==99:
+        board=node.select_one('.recap-board')
+        assert board, 'The preserved rev11 source must still contain its recap board.'
+        gate_column=board.select_one(':scope > .human-gate-column')
+        assert gate_column, 'The preserved rev11 source must still contain its original Human Gate column.'
+        gate_column.decompose()
+        parent=board.select_one(':scope > .board-parent')
+        append_html(parent,'<span class="human-gate-transition">Product Check → Human Gate（人決定放行／暫停）→ Done</span>')
+        replace_text(node,'Human Gate 由產品負責人（人類流程中的 PO／PM 本人）決定，核准後 #3 才進 Done（目前 WIP 回到 0/1）。','Human Gate 是 Product Check 與 Done 之間的人類決策點；產品負責人核對後放行，#3 才進 Done（目前 WIP 回到 0/1）。Gate 不另增看板狀態。')
     if p['number']==22:
         replace_text(node,'三種情境的測試結果；確認雙方看到 Match，且只建立一次。','三種情境的測試結果；預期配對紀錄符合筆數與成員。')
     if p['addedId']=='A13':

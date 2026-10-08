@@ -68,6 +68,21 @@ def main():
     candidate = BeautifulSoup((ROOT / "slides/index.html").read_text(), "html.parser")
     assert len(baseline.select(".slide")) == 82
     assert len(candidate.select(".slide")) == 99
+    manifest = json.loads((ROOT / "drafts/rev12-review/manifest.json").read_text())
+
+    # The previewed PR/merge pages are explicitly separate from #3's current start.
+    preview_pr = candidate.select_one('.slide[data-page="34"]')
+    preview_merge = candidate.select_one('.slide[data-page="35"]')
+    mainline_start = candidate.select_one('.slide[data-page="36"]')
+    assert preview_pr and preview_pr.h1.get_text().startswith("概念預演 1/2")
+    assert preview_merge and preview_merge.h1.get_text().startswith("概念預演 2/2")
+    assert mainline_start and mainline_start.h1.get_text().startswith("回到主線")
+    assert "現在從 Ready 進 Dev 實作" in mainline_start.h1.get_text()
+    assert "#3 已開始" in mainline_start.get_text()
+    manifest_by_number = {page["number"]: page for page in manifest["pages"]}
+    assert "概念預演" in manifest_by_number[34]["notes"]
+    assert "概念預演" in manifest_by_number[35]["notes"]
+    assert "回到主線" in manifest_by_number[36]["notes"]
 
     # WIP policy and current count must stay distinct on the inherited scenes.
     backlog = candidate.select_one('.slide[data-page="14"]')
@@ -81,7 +96,21 @@ def main():
     assert appendix and "上限：1" in appendix.get_text() and "目前：0/1" in appendix.get_text()
     assert all("WIP=1" not in page.get_text() for page in [backlog, all_ready, cadence, appendix])
 
-    manifest = json.loads((ROOT / "drafts/rev12-review/manifest.json").read_text())
+    # Candidate recap models Human Gate as a decision point, not a status column.
+    baseline_appendix = baseline.select_one('.slide[data-page="82"] .recap-board')
+    appendix_board = appendix.select_one(".recap-board")
+    assert baseline_appendix and baseline_appendix.select_one(":scope > .human-gate-column")
+    assert appendix_board and not appendix_board.select_one(":scope > .human-gate-column")
+    status_labels = [
+        column.h3.get_text(" ", strip=True)
+        for column in appendix_board.find_all("div", recursive=False)
+        if column.select_one(":scope > h3")
+    ]
+    assert status_labels == ["Backlog", "Ready", "Dev", "Review", "QA", "Product Check", "Done"]
+    gate_marker = appendix_board.select_one(".board-parent .human-gate-transition")
+    assert gate_marker and all(word in gate_marker.get_text() for word in ["Product Check", "Human Gate", "Done", "放行", "暫停"])
+    assert "決策點" in appendix.get_text() and "不另增看板狀態" in appendix.get_text()
+
     assert len(manifest["pages"]) == 99
     assert [page["number"] for page in manifest["pages"]] == list(range(1, 100))
     assert [page["oldRev11Page"] for page in manifest["pages"] if page["oldRev11Page"] is not None] == legacy_pages

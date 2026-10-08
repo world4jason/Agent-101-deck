@@ -134,3 +134,16 @@
 - 這是修改前的完整故事板、先備概念與轉場審查；不是投影片成品或學員理解證據。
 - G2 需重跑實際命令並核對版本、fixture、PASS／FAIL／NOT RUN；G3 由只看最終投影片的 WebChatGPT reviewer 盲審；G4 看最終桌面及手機截圖；G5 以最新候選版本重驗。未執行的 Gate 標示 NOT RUN。
 - 真人初學者試教與學習成效仍待符合受眾的學員實際驗證，不由 AI review 或自動測試代替。
+
+## 凍結候選 Web 審查與本輪修正範圍
+
+兩份 Web review 審查的是候選 SHA `e5d55470cd7b955e5d213034ee2539754004d764`。初心者模擬審查判定 NOT READY，提出兩項 P1；內容／證據審查判定 READY。原報告與執行紀錄逐字保存在 [beginner report](reviews/issue49-web-e5d5547-beginner.md)、[content report](reviews/issue49-web-e5d5547-content.md) 和 [invocation record](reviews/issue49-web-e5d5547-invocation.md)。
+
+兩個 review process 都以 `codex exec --ephemeral -m chatgpt-web/gpt-5.6-sol -c model_reasoning_effort=xhigh -s read-only` 呼叫並 exit 0；是同一指定模型的兩個 session，不能稱為跨模型共識。Beginner report 自稱 GPT-6 Astra，與 invocation 記錄的 GPT-5.6 Sol 不一致；記錄保留這項差異，不將它當成 runtime 身分的獨立驗證。
+
+本輪只實作兩項 P1：
+
+1. 候選頁 99 保留七個狀態欄，將 Human Gate 移到 Product Check → Done 之間的欄外決策標記。動畫等待決定時停在 Product Check；放行後才移至 Done。
+2. 頁 34、35 標示流程概念預演 1/2、2/2；頁 36 明確回到目前主線，#3 現在才從 Ready 進 Dev。頁數與順序維持不變。
+
+凍結候選審查列出的 P2 只記錄、不擴大本輪：頁 16 BRIEF 全名僅在講者筆記、頁 86 內部 ID／SSOT、頁 98 架構詞，以及手機直向可讀性。以上不是新增驗收條件。上述修正完成後的候選仍待 Web reviewer 重看；AI 審查和自動檢查都不取代真人初學者試教。
