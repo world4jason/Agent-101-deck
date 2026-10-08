@@ -213,3 +213,19 @@
 .rev12-draft .r-exit-answer summary:focus-visible {outline:3px solid #f2cf76;outline-offset:5px;}
 .rev12-draft .r-exit-card ~ .r-exit-card {box-shadow:none;}
 .rev12-draft .r-exit-head + .r-exit-grid + .r-ribbon {font-size:18px;line-height:1.4;}
+
+/* Owner-approved first-page viewing scope: desktop is supported; mobile is under development. */
+.rev12-draft .slide[data-page="1"] .r-desktop-reading-notice {
+  display: inline-block;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 32px 0 0;
+  padding: 14px 22px;
+  border: 1px solid #537ca6;
+  border-left: 5px solid #83bcff;
+  border-radius: 10px;
+  background: #17283a;
+  color: #f3f6fa;
+  font: 700 26px/1.45 system-ui, sans-serif;
+  letter-spacing: .015em;
+}
