@@ -1,0 +1,22 @@
+{
+  "title": "Agent 接手工作，人保留方向與驗收",
+  "subtitle": "同一張 #3｜雙向喜歡才配對",
+  "cards": [
+    {
+      "label": "人主導：定方向",
+      "desc": "Brainstorming、Idea 發想\n決定 Goal、範圍與 AC\nAgent 協助提案、反例與整理",
+      "example": "#3：只有雙向喜歡才配對"
+    },
+    {
+      "label": "Agent：執行與交證據",
+      "desc": "實作、Review、QA 驗證\n交付 PR、審查意見與測試結果\n未決需求，帶回人決定",
+      "example": "#3：提交改動與驗證結果"
+    },
+    {
+      "label": "人決定：驗收與放行",
+      "desc": "對照 Goal／AC，核對證據\n決定接受或退回\nHuman Gate：放行／暫停",
+      "example": "#3：單向不配對、重複不新增"
+    }
+  ],
+  "footer": "Agent 可以參與發想、提供建議；人決定做什麼、做到什麼才接受，以及是否上線。"
+}

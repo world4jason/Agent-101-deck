@@ -1,0 +1,9 @@
+.DS_Store
+node_modules/
+__pycache__/
+.ruff_cache/
+.venv/
+drafts/rev11-review/pages/
+drafts/rev11-review/verification.json
+drafts/rev11-review/index.html
+drafts/rev11-review/*.png

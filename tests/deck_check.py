@@ -4,12 +4,13 @@ Run:  python3 tests/deck_check.py
 Needs: pip install playwright && python3 -m playwright install chromium
 Exits non-zero if any check fails.
 """
+import os
 import pathlib
 import sys
 
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError, sync_playwright
 
-DECK = (pathlib.Path(__file__).resolve().parent.parent / "slides" / "index.html").as_uri()
+DECK = os.environ.get("DECK_URL", (pathlib.Path(__file__).resolve().parent.parent / "slides" / "index.html").as_uri())
 VIEWPORTS = [(1440, 900), (1366, 768), (390, 844)]
 BAD_HASHES = ["#1.5", "#0", "#999", "#abc", "#", "#-1", "#1e1", "#05", "#05x", "# 3"]
 
@@ -93,7 +94,8 @@ def check_fragments_walk(browser):
         page.keyboard.press("ArrowLeft")
     expect_slide(page, 0, "fragment walk back")
     visible = page.evaluate("[...document.querySelectorAll('.fragment')].filter(f => f.classList.contains('visible')).length")
-    check(visible == 0, f"fragment walk back: {visible} fragments still visible")
+    full = page.locator("body").get_attribute("data-review-mode") == "full"
+    check(visible == (total_frags if full else 0), f"fragment walk back: unexpected visible count {visible}")
     check(not errors, f"fragment walk: page errors {errors}")
     page.close()
 
@@ -114,6 +116,10 @@ def check_fragment_opacity(browser):
     expect_slide(page, fragment_slide, "fragment opacity start")
     selector = ".slide.active .fragment"
     count = page.locator(selector).count()
+    if page.locator("body").get_attribute("data-review-mode") == "full":
+        check(page.locator(selector).evaluate_all("fs => fs.every(f => getComputedStyle(f).opacity === '1')"), "full-page mode: fragments must be visible")
+        page.close()
+        return
     opacity_before = page.locator(selector).evaluate_all("fragments => fragments.map(f => getComputedStyle(f).opacity)")
     check(opacity_before == ["0"] * count, f"fragment opacity: before reveal {opacity_before} != all 0")
 
@@ -165,7 +171,8 @@ def check_keyboard_after_buttons(browser):
     page.click("#prev")
     expect_slide(page, nav_start, "click Prev")
     page.keyboard.press("Tab")
-    check(page.evaluate("document.activeElement.id") == "next", "Tab from Prev focuses Next")
+    want_focus = "contents" if page.locator("#contents").count() else "next"
+    check(page.evaluate("document.activeElement.id") == want_focus, "Tab from Prev follows footer controls")
     expect_slide(page, nav_start, "Tab leaves slide unchanged")
     page.keyboard.press("PageDown")
     expect_slide(page, nav_start + 1, "PageDown with button focused")
@@ -257,7 +264,7 @@ def check_print(browser):
 
 def main():
     with sync_playwright() as p:
-        browser = p.chromium.launch()
+        browser = p.chromium.launch(**({"channel": os.environ["BROWSER_CHANNEL"]} if os.environ.get("BROWSER_CHANNEL") else {}))
         for fn in (check_every_slide, check_fragments_walk, check_fragment_opacity, check_keyboard_after_buttons, check_hash, check_print):
             before = len(failures)
             fn(browser)
