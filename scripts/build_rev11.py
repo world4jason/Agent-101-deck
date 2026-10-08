@@ -539,6 +539,10 @@ for i,p in enumerate(pages):
             panel('補驗要求｜沿用 B 版',para('請用同一個 B 版與原有假資料。','先確認已有一筆 M01，再讓小安重複 Like 一次。','交回補驗前後的筆數、紀錄與結果；不要改規則。'))+
             panel('B-post｜實際補驗紀錄',para(f'補驗前：{b_duplicate["actual"]["before_match_count"]} 筆 M01。',f'補驗後：預期 {b_duplicate["expected"]["match_count"]} 筆；實際 {b_duplicate_actual}。',f'工具結果：<b class="r-green">{b_duplicate["status"]}</b>。','UI／產品串接仍 NOT RUN。'),'good')+
             '</div><p class="r-meta"><a href="../workshop/matching-demo/exercise.md" target="_blank" rel="noopener">開啟 A13 練習與可複製命令 ↗</a>　<a href="../workshop/matching-demo/evidence/B-post-supplement/duplicate.json" target="_blank" rel="noopener">開啟 B-post 重複情境原始結果 ↗</a></p><button type="button" data-wip-return>返回補驗問題</button></section>')
+    if p['number']==1:
+        cover_copy=node.select_one('.cover-copy')
+        assert cover_copy is not None, 'Missing first-page cover content'
+        append_html(cover_copy,'<p class="r-desktop-reading-notice">請用電腦版閱讀｜手機版開發中</p>')
     node['data-section']=p['chapter'];node['data-page']=str(p['number']);node['data-source']=' '.join(p['ids']);node['id']=f'page-{p["number"]}'
     if p['addedId']:node['data-added-id']=p['addedId']
     if p['oldRev11Page']==7:node['data-process-stage']='0'
