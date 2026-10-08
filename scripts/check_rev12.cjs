@@ -3,9 +3,12 @@ const {chromium}=require('playwright');
 const fs=require('fs'),path=require('path');
 const root=path.resolve(__dirname,'..'),out=path.join(root,'drafts/rev12-review');
 const manifest=JSON.parse(fs.readFileSync(path.join(out,'manifest.json'),'utf8'));
+const processPage=manifest.pages.find(page=>page.sourceIds.includes('P06'))?.number;
+if(!processPage)throw new Error('P06 process page is missing from the candidate manifest');
 fs.mkdirSync(path.join(out,'pages'),{recursive:true});
+let browser;
 (async()=>{
- const browser=await chromium.launch({headless:true,...(process.env.BROWSER_CHANNEL?{channel:process.env.BROWSER_CHANNEL}:{})});
+ browser=await chromium.launch({headless:true,...(process.env.BROWSER_CHANNEL?{channel:process.env.BROWSER_CHANNEL}:{})});
  const page=await browser.newPage({viewport:{width:1440,height:900},deviceScaleFactor:1});
  const results={deckURL:process.env.DECK_URL || 'http://127.0.0.1:4318/slides/',timestamp:new Date().toISOString(),ssotSha256:manifest.ssotSha256,errors:[],pages:[],navigation:{},interactions:{}};
  page.on('pageerror',e=>results.errors.push(e.message));
@@ -37,6 +40,26 @@ fs.mkdirSync(path.join(out,'pages'),{recursive:true});
   await page.screenshot({path:path.join(out,'pages',String(n).padStart(2,'0')+'.png')});
   results.pages.push({number:n,...stats});
  }
+ const reviewPages=[3,4,5,6,7,8,9,10,11,12,13,14,15,20,21,22,23,38,39,40,41,42,43,44,45,46,52,53,54,55,56,57,58,59,60,80,81,82,83,84,85];
+ fs.mkdirSync(path.join(out,'pages','projection'),{recursive:true});
+ fs.mkdirSync(path.join(out,'pages','mobile'),{recursive:true});
+ results.projectionScreenshots=[];
+ await page.setViewportSize({width:1920,height:1080});
+ for(const n of reviewPages){
+  await page.evaluate(n=>{location.hash='#'+n},n);
+  await page.waitForFunction(n=>document.querySelector('.slide.active')?.dataset.page===String(n),n);
+  await page.screenshot({path:path.join(out,'pages','projection',String(n).padStart(2,'0')+'.png')});
+  results.projectionScreenshots.push(n);
+ }
+ results.mobileScreenshots=[];
+ await page.setViewportSize({width:390,height:844});
+ for(const n of reviewPages){
+  await page.evaluate(n=>{location.hash='#'+n},n);
+  await page.waitForFunction(n=>document.querySelector('.slide.active')?.dataset.page===String(n),n);
+  await page.screenshot({path:path.join(out,'pages','mobile',String(n).padStart(2,'0')+'.png')});
+  results.mobileScreenshots.push(n);
+ }
+ await page.setViewportSize({width:1440,height:900});
  await page.keyboard.press('Home');results.navigation.home=await page.locator('#current').innerText();
  await page.keyboard.press('ArrowRight');results.navigation.right=await page.locator('#current').innerText();
  await page.keyboard.press('ArrowLeft');results.navigation.left=await page.locator('#current').innerText();
@@ -47,7 +70,7 @@ fs.mkdirSync(path.join(out,'pages'),{recursive:true});
  await page.setViewportSize({width:1920,height:1080});await page.evaluate(()=>location.hash='#53');await page.waitForFunction(()=>document.querySelector('#current').textContent==='53');
  results.largeViewport=await page.locator('.deck').boundingBox();await page.screenshot({path:path.join(out,'large-53.png')});
  await page.setViewportSize({width:1440,height:900});
- await page.evaluate(()=>location.hash='#10');await page.waitForFunction(()=>document.querySelector('#current').textContent==='10');
+ await page.evaluate(n=>location.hash='#'+n,processPage);await page.waitForFunction(n=>document.querySelector('#current').textContent===String(n),processPage);
  const processState=()=>page.locator('.slide.active').evaluate(el=>({
   stage:Number(el.dataset.processStage),
   visibleLanes:[...el.querySelectorAll('.flow-lane')].filter(node=>getComputedStyle(node).display!=='none'&&getComputedStyle(node).visibility!=='hidden').length,
@@ -68,11 +91,52 @@ fs.mkdirSync(path.join(out,'pages'),{recursive:true});
  await page.evaluate(()=>location.hash='#68');await page.waitForFunction(()=>document.querySelector('#current').textContent==='68');
  results.interactions.wipBefore=await page.locator('.slide.active').evaluate(el=>({stage:el.dataset.wipStage,chart:getComputedStyle(el.querySelector('.visual')).display,comparison:el.querySelector('[data-wip-sequence]').hidden}));
  await page.screenshot({path:path.join(out,'wip-workflow.png')});
- await page.locator('[data-wip-reveal]').click();
+ await page.locator('.slide.active [data-wip-reveal]').click();
  results.interactions.wipComparison=await page.locator('.slide.active').evaluate(el=>({stage:el.dataset.wipStage,chart:getComputedStyle(el.querySelector('.visual')).display,comparison:el.querySelector('[data-wip-sequence]').hidden,labels:[...el.querySelectorAll('.r-wip-sequence .r-card h2')].map(node=>node.textContent),text:el.querySelector('[data-wip-sequence]').innerText}));
  await page.screenshot({path:path.join(out,'wip-comparison.png')});
- await page.locator('[data-wip-return]').click();
+ await page.locator('.slide.active [data-wip-return]').click();
  results.interactions.wipReturn=await page.locator('.slide.active').evaluate(el=>({stage:el.dataset.wipStage,chart:getComputedStyle(el.querySelector('.visual')).display,comparison:el.querySelector('[data-wip-sequence]').hidden,expanded:el.querySelector('[data-wip-reveal]').getAttribute('aria-expanded')}));
+ await page.evaluate(()=>location.hash='#83');await page.waitForFunction(()=>document.querySelector('#current').textContent==='83');
+ results.interactions.a13Before=await page.locator('.slide.active').evaluate(el=>({
+  text:el.querySelector('.r-content').innerText,
+  questionDisplay:getComputedStyle(el.querySelector('.r-content')).display,
+  sequenceHidden:el.querySelector('[data-wip-sequence]').hidden,
+  expanded:el.querySelector('[data-wip-reveal]').getAttribute('aria-expanded')
+ }));
+ await page.screenshot({path:path.join(out,'a13-before.png')});
+ await page.locator('.slide.active [data-wip-reveal]').click();
+ results.interactions.a13After=await page.locator('.slide.active').evaluate(el=>({
+ text:el.querySelector('[data-wip-sequence]').innerText,
+ links:[...el.querySelectorAll('[data-wip-sequence] a')].map(link=>link.getAttribute('href')),
+  questionDisplay:getComputedStyle(el.querySelector('.r-content')).display,
+  sequenceHidden:el.querySelector('[data-wip-sequence]').hidden,
+  expanded:el.querySelector('[data-wip-reveal]').getAttribute('aria-expanded')
+ }));
+ await page.screenshot({path:path.join(out,'a13-after.png')});
+ results.interactions.a13Font=await page.locator('.slide.active [data-wip-sequence] .r-body').evaluateAll(nodes=>Math.min(...nodes.map(node=>Number.parseFloat(getComputedStyle(node).fontSize))));
+ await page.setViewportSize({width:390,height:844});
+ results.interactions.a13Mobile=await page.locator('.slide.active').evaluate(el=>({
+  questionDisplay:getComputedStyle(el.querySelector('.r-content')).display,
+  sequenceHidden:el.querySelector('[data-wip-sequence]').hidden,
+  minBodyFont:Math.min(...[...el.querySelectorAll('[data-wip-sequence] .r-body')].map(node=>Number.parseFloat(getComputedStyle(node).fontSize))),
+  slideHeight:el.scrollHeight,
+  viewportHeight:el.clientHeight
+ }));
+ await page.screenshot({path:path.join(out,'a13-after-mobile.png')});
+ await page.setViewportSize({width:1440,height:900});
+ await page.emulateMedia({media:'print'});
+ results.interactions.a13Print=await page.locator('.slide.active').evaluate(el=>({
+  questionDisplay:getComputedStyle(el.querySelector('.r-content')).display,
+  answerDisplay:getComputedStyle(el.querySelector('[data-wip-sequence]')).display
+ }));
+ await page.emulateMedia({media:'screen'});
+ await page.locator('.slide.active [data-wip-return]').click();
+ results.interactions.a13Return=await page.locator('.slide.active').evaluate(el=>({
+  sequenceHidden:el.querySelector('[data-wip-sequence]').hidden,
+  expanded:el.querySelector('[data-wip-reveal]').getAttribute('aria-expanded'),
+  triggerFocused:document.activeElement===el.querySelector('[data-wip-reveal]')
+ }));
+ await page.screenshot({path:path.join(out,'a13-return.png')});
  await page.evaluate(()=>location.hash='#84');await page.waitForFunction(()=>document.querySelector('#current').textContent==='84');
  results.interactions.a14Font=await page.locator('.slide.active .r-card .r-body').first().evaluate(node=>Number.parseFloat(getComputedStyle(node).fontSize));
  fs.writeFileSync(path.join(out,'verification.json'),JSON.stringify(results,null,2));
@@ -84,8 +148,10 @@ fs.mkdirSync(path.join(out,'pages'),{recursive:true});
  const hasCommentLink=results.navigation.noteLinks.some(link=>link.includes('issuecomment-6052541648'));
  const processStates=results.interactions.process;
  const processSequence=processStates.length===3&&processStates[0].stage===0&&processStates[0].visibleLanes===1&&processStates[0].visibleReturns===0&&processStates[1].stage===1&&processStates[1].visibleLanes===1&&processStates[1].visibleReturns>0&&processStates[2].stage===2&&processStates[2].visibleLanes===3&&processStates[2].visibleReturns>0;
+ const a13Before=results.interactions.a13Before, a13After=results.interactions.a13After, a13Print=results.interactions.a13Print, a13Mobile=results.interactions.a13Mobile, a13Font=results.interactions.a13Font, a13Return=results.interactions.a13Return;
+ const a13Sequence=a13Before?.sequenceHidden===true&&a13Before?.expanded==='false'&&a13Before?.questionDisplay!=='none'&&a13Before?.text.includes('B-pre')&&!a13Before?.text.includes('補驗後')&&a13After?.sequenceHidden===false&&a13After?.expanded==='true'&&a13After?.questionDisplay==='none'&&a13After?.text.includes('同一個 B 版')&&a13After?.text.includes('不要改規則')&&a13After?.text.includes('B-post')&&a13After?.text.includes('PASS')&&!a13After?.text.includes('--artifact')&&a13After?.text.includes('NOT RUN')&&a13After?.links?.some(link=>link.includes('matching-demo/exercise.md'))&&a13Print?.questionDisplay!=='none'&&a13Print?.answerDisplay==='none'&&a13Mobile?.questionDisplay==='none'&&a13Mobile?.sequenceHidden===false&&a13Mobile?.minBodyFont>=16&&a13Font>=18&&a13Return?.sequenceHidden===true&&a13Return?.expanded==='false'&&a13Return?.triggerFocused;
  const wipLabels=results.interactions.wipComparison?.labels?.join('|')||'';
  const wipSequence=results.interactions.wipBefore?.chart!=='none'&&results.interactions.wipBefore?.comparison===true&&results.interactions.wipComparison?.chart==='none'&&results.interactions.wipComparison?.comparison===false&&wipLabels.includes('1 Agent × WIP 2')&&wipLabels.includes('多 Agent × WIP 1')&&results.interactions.wipReturn?.stage==='workflow'&&results.interactions.wipReturn?.chart!=='none'&&results.interactions.wipReturn?.comparison===true&&results.interactions.wipReturn?.expanded==='false';
- if(results.errors.length || results.pages.length!==99 || results.pages.some(p=>p.candidates.some(c=>c.kind==='outside') || p.scrollHeight>p.clientHeight+3) || layoutIssues.length || results.interactions.a14Font<24 || results.navigation.home!=='1' || results.navigation.right!=='2' || results.navigation.left!=='1' || results.navigation.tocEntries!==99 || results.navigation.tocJump!=='53' || results.navigation.end!=='99' || !results.navigation.lastDisabled || results.navigation.chapterOrder.join(',')!=='C0,C2,C1,C3,C4,C5,C6,APP' || !results.navigation.notes.includes('執行前計畫') || !hasPlanLink || !hasCommentLink || !processSequence || !results.interactions.processButtonDisabled || !wipSequence) process.exitCode=1;
+ if(results.errors.length || results.pages.length!==99 || results.pages.some(p=>p.candidates.some(c=>c.kind==='outside') || p.scrollHeight>p.clientHeight+3) || layoutIssues.length || results.interactions.a14Font<24 || results.navigation.home!=='1' || results.navigation.right!=='2' || results.navigation.left!=='1' || results.navigation.tocEntries!==99 || results.navigation.tocJump!=='53' || results.navigation.end!=='99' || !results.navigation.lastDisabled || results.navigation.chapterOrder.join(',')!=='C0,C2,C1,C3,C4,C5,C6,APP' || !results.navigation.notes.includes('執行前計畫') || !hasPlanLink || !hasCommentLink || !processSequence || !results.interactions.processButtonDisabled || !wipSequence || !a13Sequence || results.projectionScreenshots.length!==reviewPages.length || results.mobileScreenshots.length!==reviewPages.length) process.exitCode=1;
  await browser.close();
-})().catch(e=>{console.error(e);process.exitCode=1});
+})().catch(async e=>{console.error(e);if(browser)await browser.close();process.exitCode=1});

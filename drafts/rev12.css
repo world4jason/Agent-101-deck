@@ -77,6 +77,7 @@
 .rev12-draft .slide[data-wip-stage="compare"] > .draft-source,
 .rev12-draft .slide[data-wip-stage="compare"] > .r-revision,
 .rev12-draft .slide[data-wip-stage="compare"] > .r-wip-trigger { display: none; }
+.rev12-draft .slide[data-added-id="A13"][data-wip-stage="compare"] > .r-content { display: none; }
 .rev12-draft .r-wip-sequence[hidden] { display: none !important; }
 .rev12-draft .slide[data-wip-stage="compare"] .r-wip-sequence { display: flex; }
 .rev12-draft .r-wip-sequence {
@@ -131,6 +132,7 @@
   .rev12-draft .slide[data-wip-stage] > .draft-source,
   .rev12-draft .slide[data-wip-stage] > .r-revision { display: initial !important; }
   .rev12-draft .slide[data-wip-stage] > .r-wip-sequence { display: none !important; }
+  .rev12-draft .slide[data-added-id="A13"][data-wip-stage="compare"] > .r-content { display: block !important; }
 }
 .rev12-draft .slide[data-page="28"] .r-table th,
 .rev12-draft .slide[data-page="29"] .r-table th { font-size: 20px; padding: 11px 13px; }

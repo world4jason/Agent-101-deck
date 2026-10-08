@@ -6,7 +6,13 @@ These steps use the same ticket, fake accounts, reset command, and B artifact. T
 
 Give the learner this assignment:
 
-> Work only on Matching ticket #3 in this teaching package. Read `ticket.md` and the selected candidate artifact first. Run the one-way Like case with the supplied fake-account fixture. Report the exact artifact SHA-256, expected and actual match records and count, command result, and anything not run. Do not change the ticket, add behavior, or claim UI/product acceptance. Stop and report if the artifact or fixture is unavailable.
+> From the repository root, work only on Matching ticket #3. Read `workshop/matching-demo/ticket.md`, `workshop/matching-demo/versions/B/matching.py`, and `workshop/matching-demo/fixtures/users.json`. Use the supplied runner and run this exact command:
+>
+> ```sh
+> python3 workshop/matching-demo/run_case.py --artifact workshop/matching-demo/versions/B/matching.py --candidate-id B --case one-way
+> ```
+>
+> Report the artifact SHA-256, expected and actual records and counts, command result, and anything not run. Do not change the ticket, add behavior, or claim UI/product acceptance. Stop and report if the ticket, artifact, fixture, or runner is unavailable.
 
 Facilitator checks that the assignment names the ticket, version/artifact, scope, AC, executable entry point, evidence, and stop condition. The action and returned output must be actual tool results, not narrated intent.
 
@@ -18,7 +24,13 @@ Starting from the B pre-supplement snapshot, the learner sees:
 - two-way: PASS, expected and actual one `M01` record;
 - duplicate Like: **NOT RUN**, because that case has not yet been executed in this snapshot.
 
-Ask the learner to request that exact missing case on the same B artifact, without editing its rule code. Run `run_case.py --candidate-id B --case duplicate`; the runner resets the fixture, creates `M01` in separately listed `setup_actions`, captures `before_match_count: 1`, then executes only the repeated Like in `actions`. Compare the new output's SHA-256 with the B pre-supplement evidence, then record the updated result. PASS is recorded only after this command returns it and confirms one record before and after.
+Ask the learner to request that exact missing case on the same B artifact, without editing its rule code. From the repository root, copy and run this exact command:
+
+```sh
+python3 workshop/matching-demo/run_case.py --artifact workshop/matching-demo/versions/B/matching.py --candidate-id B --case duplicate
+```
+
+The runner resets the fixture, creates `M01` in separately listed `setup_actions`, captures `before_match_count: 1`, then executes only the repeated Like in `actions`. Compare the output artifact SHA-256 with the B pre-supplement evidence, then record the updated result. PASS is recorded only after this command returns it and confirms one record before and after.
 
 ## A14 — Rewind for a handoff, then return to the mainline
 

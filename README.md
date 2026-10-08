@@ -6,6 +6,7 @@
 
 - [正式投影片](https://world4jason.github.io/Agent-101-deck/slides/)
 - [rev12 執行故事板與頁面對照](docs/issue48-execution-storyboard.md)
+- [Issue #49 review 修正的 G1 頁序與先備檢查](docs/issue49-review-fixes.md)
 - [Issue #48 交付與檢查紀錄](docs/issue48-delivery.md)
 - [rev11 基線 SSOT](docs/rev10-slide-by-slide-v1.md)（原檔名保留）
 - [rev11 正式版存檔](slides/rev11.html)
@@ -117,10 +118,10 @@
 
 | 頁碼 | 章節 |
 |---|---|
-| 1–10 | 人類如何合作：角色、成果、證據與關卡 |
-| 11–29 | 從想法到 Ready：範例、Example Mapping、AC／AT／DoD |
-| 30–36 | 版本與協作：commit／branch／PR／merge |
-| 37–45 | 實作、Review、QA、黑箱驗收與證據 |
+| 1–7 | 人類如何合作：角色、成果、證據與關卡 |
+| 8–28 | 從想法到 Ready：範例、Example Mapping、AC／AT／DoD |
+| 29–35 | 版本與協作：commit／branch／PR／merge |
+| 36–45 | 實作、Review、QA、黑箱驗收與證據 |
 | 46–49 | 放行、單票完成與整體驗收 |
 | 50–76 | Agent 演進：session、交接、分工、workflow 與原則 |
 | 77–88 | Agent 交付與人的驗收；人定方向與放行 |

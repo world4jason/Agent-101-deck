@@ -61,10 +61,10 @@ def table(head,rows):
 def para(*lines):return ''.join(f'<p>{x}</p>' for x in lines)
 
 new={}
-new[5]=kicker('Matching 的 #1／#2／#3 由 Planning／PO、UI／UX、Dev 接力推進')+cols(
- panel('Planning／PO',para('<b>問題：</b>使用者要達成什麼？','<b>輸入：</b>使用者問題與範圍。','<b>交付：</b>Goal、#3 工作票與 AC：雙向 Like 才配對。','<b>接手：</b>UI／UX。')),
- panel('UI／UX',para('<b>問題：</b>怎麼 Like／Pass，去哪看結果？','<b>輸入：</b>Goal、情境與 #3 AC。','<b>交付：</b>#1 Like／Pass 畫面；#2 配對列表顯示 Match。','<b>接手：</b>Developer。')),
- panel('Developer',para('<b>問題：</b>如何依票實作並留紀錄？','<b>輸入：</b>設計、AC 與目前版本。','<b>交付：</b>#3 配對規則、#1 輸入、#2 列表；版本與自測。','<b>接手：</b>Reviewer／QA 核對。'),'good'))+ribbon('職能回答「誰負責哪個問題？」；同一個人可以承擔多種職能。')
+new[5]=kicker('產品目標（Goal）說使用者想得到的結果；接受條件（AC）說怎樣算符合約定。')+cols(
+panel('Planning／PO｜釐清目標與需求',para('<b>問題：</b>使用者要達成什麼？','<b>輸入：</b>使用者問題與範圍。','<b>交付：</b>Goal、#3 工作票與 AC：雙向 Like 才配對。','<b>接手：</b>UI／UX。')),
+panel('UI／UX｜設計使用方式與畫面',para('<b>問題：</b>怎麼 Like／Pass，去哪看結果？','<b>輸入：</b>Goal、情境與 #3 AC。','<b>交付：</b>#1 Like／Pass 畫面；#2 配對列表顯示 Match。','<b>接手：</b>Developer。')),
+panel('Developer／Dev｜實作',para('<b>問題：</b>如何依票實作並留紀錄？','<b>輸入：</b>設計、AC 與目前版本。','<b>交付：</b>#3 配對規則、#1 輸入、#2 列表；版本與自測。','<b>接手：</b>Reviewer／QA 核對。'),'good'))+ribbon('這些是職責，不是人數；一個人可以承擔多種職能。')
 new[6]=kicker('同一張 #3｜單向 Like 不得配對：看見退回與同案重驗')+cols(
  panel('1｜第一次驗收',para('初始 0 筆；只有安 Like 晴。','預期：0 筆。','Version A 實際 1 筆 M01。','工具回傳：<b class="r-red">FAIL</b>。'),'problem'),
  panel('2｜退回修正',para('QA 對照 #3 AC 找出漏掉反向 Like。','把單向錯配交回 Dev。','Dev 只補「已有反向 Like 才配對」。')),
@@ -105,9 +105,6 @@ new[34]=kicker('把 #3 視為黑箱：先約定輸入與可觀察結果')+table(
  ['兩人已配對','再次 Like','<b>仍只有原本那一筆</b>']])+ribbon('驗收包含應有、禁止與重複情境；不能只看一個成功畫面。')+'<p class="r-meta">這裡是驗證設計示意。畫面正常，不能單獨證明所有內部資料都正確。</p>'
 new[35]=kicker('前提固定：這兩人起初尚未配對')+table(['小安 Like 小晴','小晴 Like 小安','預期結果'],[
  ['否','否','不建立配對'],['是','否','不建立配對'],['否','是','不建立配對'],['是','是','<b class="r-green">建立配對</b>']])+ribbon('只有最後一列成功還不夠；另外三列也必須不配對。')+'<p class="r-meta">這就是決策表。已有配對再 Like，是另一個初始狀態，另外驗。</p>'
-new[37]=kicker('教學示意｜不是實際 App 測試結果')+cols(
- panel('共同的驗證條件',para('<b>Arrange／Given：</b>已配對一筆','<b>Act／When：</b>再次 Like','<b>Assert／Then：</b>仍只有原配對','固定測試環境與同一組假資料。')),
- panel('版本 A → 修正 → 版本 B',table(['版本','實際結果','判定'],[['A','多出第二筆','<b class="r-red">FAIL</b>'],['B','維持原一筆','<b class="r-green">PASS</b>']]),'good'))+ribbon('留下版本、環境、資料、操作、預期、實際結果與證據；修正後必須重測。')
 new[39]=kicker('同一張 #3、同樣的驗收結果，放到不同地方')+cols(
  panel('假資料環境',para('錯配影響的是測試帳號。','可以重建測試資料，再驗一次。','確認隔離與回復方式。')),
  panel('真實使用者環境',para('錯配可能影響使用者與既有資料。','退回程式版本，未必消除既有後果。','需要知道曝光範圍與處理能力。'),'human'))+ribbon('驗收通過仍有剩餘不確定性；放行還要看影響範圍、資料與可逆性。')
@@ -183,9 +180,20 @@ b_two, b_two_actual=case_result(Path('evidence/B-pre-supplement/two-way.json'))
 b_duplicate, b_duplicate_actual=case_result(Path('evidence/B-post-supplement/duplicate.json'))
 hash_a=a_one['artifact_sha256'];hash_b=b_one['artifact_sha256']
 assert hash_a!='' and hash_b==b_two['artifact_sha256']==b_duplicate['artifact_sha256']
+def transition_summary(record):
+    expected=record['expected'];actual=record['actual']
+    return (f'預期 {expected["before_match_count"]}→{expected["match_count"]} 筆；'
+        f'實際 {actual["before_match_count"]}→{actual["match_count"]} 筆。')
+new[36]=kicker('時間快轉至 B-post｜前兩項沿用 B-pre 紀錄，這次只補驗重複情境')+table(['情境','B-pre｜補驗前已有證據','B-post｜此次補驗'],[
+ ['單向 Like',transition_summary(b_one)+f'<b class="r-green">{b_one["status"]}</b>','本次未重跑'],
+ ['雙向 Like',transition_summary(b_two)+f'<b class="r-green">{b_two["status"]}</b>','本次未重跑'],
+ ['已配對再 Like','<b>NOT RUN</b>',transition_summary(b_duplicate)+f'<b class="r-green">{b_duplicate["status"]}</b>']])+ribbon('B-post 只補上重複情境；B-pre 單向與雙向證據保留。UI／產品串接仍是 NOT RUN。')+'<p class="r-meta"><a href="../workshop/matching-demo/evidence/B-pre-supplement/README.md" target="_blank" rel="noopener">B-pre 原始紀錄 ↗</a>　<a href="../workshop/matching-demo/evidence/B-post-supplement/README.md" target="_blank" rel="noopener">B-post 補驗紀錄 ↗</a></p>'
+new[37]=kicker('真實規則層證據｜同一個單向 Like 情境，A 失敗、B 通過')+table(['版本／情境','預期','實際配對紀錄','工具判定'],[
+ [f'Version A｜單向 Like',f'{a_one["expected"]["match_count"]} 筆',a_actual,f'<b class="r-red">{a_one["status"]}</b>'],
+ [f'Version B｜同一單向 Like',f'{b_one["expected"]["match_count"]} 筆',b_one_actual,f'<b class="r-green">{b_one["status"]}</b>']])+ribbon('檔案指紋：用來確認測的是同一份程式；不一定是 Git commit。這裡只證明 #3 規則；UI／產品串接仍 NOT RUN。')+'<p class="r-meta"><a href="../workshop/matching-demo/evidence/A/one-way.json" target="_blank" rel="noopener">Version A 原始 FAIL ↗</a>　<a href="../workshop/matching-demo/evidence/B-pre-supplement/one-way.json" target="_blank" rel="noopener">Version B 同案 PASS ↗</a></p>'
 
 added={}
-added['A01']=kicker('這堂課不是背名詞；我們練習完成一輪小產品交付')+cols(
+added['A01']=kicker('AI Agent 是能依目標使用工具推進工作的 AI；後面會看它如何交回可核對的成果。')+cols(
  panel('說清楚',para('使用者要解決什麼？','這次做什麼、不做什麼？')),
  panel('看懂交付',para('改了哪一版？','實際結果和證據在哪裡？'),'good'),
  panel('作出判斷',para('缺證據就退回補驗。','符合要求後再由人接受。'),'human'))+ribbon('同一個 Matching App 串起軟體工程與 Agent 合作；方法也能轉用到你的工具。')
@@ -197,7 +205,7 @@ added['A03']=kicker('同一張 #3：QA 是責任、#3 是工作、驗證中是�
  ['職能／責任','QA 驗行為','誰負責這種判斷？'],
  ['工作票','#3 雙向喜歡才配對','這一項要交付什麼？'],
  ['狀態','驗證中','目前工作走到哪裡？'],
- ['交付物','版本 hash＋測試紀錄','交回什麼讓人核對？']])+ribbon('四類名稱不能互換；流程圖會同時畫到它們。')
+ ['交付物','可核對的測試紀錄','交回什麼讓人核對？']])+ribbon('四類名稱不能互換；流程圖會同時畫到它們。')
 added['A04']=kicker('先固定假資料，單獨執行 #3 規則')+flow(
  panel('輸入',para('小安 Like 小晴。','起初尚未配對。')),
  panel('#3 規則',para('只有一方 Like。','判斷是否建立配對。'),'rule'),
@@ -210,31 +218,30 @@ added['A05']=kicker('目前 WIP 是已開始未完成的票數；上限是政策
 added['A06']=kicker('同一張看板：上限 1 與 2 都有取捨')+cols(
 panel('本課交付上限 1',para('<b>好處：</b>同時只追一張未完成票，交付路徑較容易看清。','<b>代價：</b>若 #3 在外部等待、#1／#2 又不能共同推進，其他能力可能暫時閒置。','適合先練完一張；不保證整體產出最高。'),'rule'),
 panel('比較情境：明示上限改為 2',para('<b>好處：</b>#3 Done 後，獨立的 #1／#2 可分站並行；#1 Dev＋#2 QA 是目前 2／上限 2。','<b>代價：</b>要追更多版本、依賴、交接與待驗收事項；下游接不住會堆積。','條件：介面／資料已定、資源隔離、測試與審查接得住。'),'good'))+ribbon('增加 WIP 上限不會自動增加產能；選擇要看工作依賴與接手能力。')
-added['A07']=kicker('每個案例先重置同一份假帳號資料；以下是實際工具紀錄')+'<p class="r-meta"><b>初始：</b>小安、小晴尚未配對，0 筆。<b>操作：</b>單向＝安 Like；雙向＝兩人互 Like；重複＝先建 M01，再由安重複 Like 一次。入口：`run_case.py` 會從 fixture 重置並輸出操作前後記錄。</p>'+table(['版本／情境','預期','實際','狀態'],[
+added['A07']=kicker('每個案例先重置同一份假帳號資料；以下是實際工具紀錄')+'<p class="r-meta"><b>初始：</b>小安、小晴尚未配對，0 筆。<b>操作：</b>單向＝安 Like；雙向＝兩人互 Like；重複＝先建 M01，再由安重複 Like 一次。入口：`run_case.py` 會從固定假資料重置並輸出操作前後紀錄。</p>'+table(['版本／情境','預期','實際','狀態'],[
  ['A｜單向 Like', '0 筆', a_actual, '<b class="r-red">FAIL</b>'],
  ['B｜單向 Like', '0 筆', b_one_actual, '<b class="r-green">PASS</b>'],
  ['B｜雙向 Like', '1 筆 M01', b_two_actual, '<b class="r-green">PASS</b>'],
- ['B 前段快照｜重複 Like', '仍 1 筆 M01', '尚未執行', '<b>NOT RUN</b>']])+ribbon(f'候選 hash：A {hash_a[:12]}…；B {hash_b[:12]}…｜規則層；UI／產品串接 NOT RUN。')+'<p class="r-meta"><a href="../workshop/matching-demo/README.md" target="_blank" rel="noopener">開啟操作 Runbook ↗</a>　<a href="../workshop/matching-demo/evidence/B-pre-supplement/README.md" target="_blank" rel="noopener">開啟原始結果與未測狀態 ↗</a></p>'
+ ['B-pre｜重複 Like', '仍 1 筆 M01', '尚未執行', '<b>NOT RUN</b>']])+ribbon('Version A／B 的原始紀錄可由下方連結核對；這些結果只屬規則層，UI／產品串接仍 NOT RUN。')+'<p class="r-meta"><a href="../workshop/matching-demo/README.md" target="_blank" rel="noopener">開啟操作 Runbook ↗</a>　<a href="../workshop/matching-demo/evidence/B-pre-supplement/README.md" target="_blank" rel="noopener">開啟原始結果與未測狀態 ↗</a></p>'
 added['A08']=kicker('Agent 是 AI 模型依目標判斷下一步、呼叫工具並讀取回傳的工作循環')+flow(
 panel('人交代目標',para('指定 #3、AC 與範圍。','說明停止條件。')),
 panel('Agent 判斷下一步',para('先讀票與候選檔。','檢查能用的工具。')),
 panel('實際使用工具',para('讀檔、修改、執行。','工具有真實回傳。'),'rule'),
 panel('觀察後續',para('依回傳繼續、調整、詢問或停止。','回交結果與未測事項。'),'human'))+'<p class="r-loop-back"><b aria-hidden="true">↶</b> 結果未符合預期或需要補資料時，回到判斷，重新選擇下一步。</p>'+ribbon('不是只回答一句話：要觀察工具回傳，才知道接著該做什麼。')
-added['A09']=kicker('這次教學重演：先保存交辦與計畫，再看實際工具回傳')+cols(
-panel('交辦｜事前記錄',para('只處理 #3；先讀 ticket 與 Version A。','跑單向 Like；若失敗才改暫存副本。','保留 A/B 原件；不跑重複、UI 或全產品。')),
-panel('計畫｜執行前記錄',para('讀票與 A → 跑一次單向 → 比 AC。','失敗後複製到 replay 暫存路徑。','只改反向 Like 條件；差異、重跑、比對雜湊。'),'good'),
-panel('已執行｜Version A',para('<code>run_case.py · A · one-way</code>','<b>預期：</b>0 筆。 <b>實際：</b>1 筆 M01。','exit 1｜<b class="r-red">FAIL</b>','A SHA-256：'+hash_a[:12]+'…'),'problem'))+ribbon('原始交辦、事前計畫和工具輸出分開保存；此重演不冒充先前對話。')+'<p class="r-meta">Teaching replay｜完整 SHA-256 與輸出見講者筆記。</p>'
-added['A10']=kicker('依失敗只改暫存副本，同一情境重跑並核對工件')+cols(
-panel('修正｜工作副本',para('A 複製到 evidence/A09-replay/working。','只要求反向 Like 已存在。','原始 A/B 與既有快照不動。','實際差異：A-to-working.diff'),'problem'),
-panel('重跑｜同一單向情境',para('<code>run_case.py · B · one-way</code>','預期 0 筆；實際 0 筆。','exit 0｜<b class="r-green">PASS</b>','raw JSON 留存。'),'good'),
-panel('版本／範圍核對',para('暫存候選與 B byte-identical。','SHA-256：'+hash_b[:16]+'…','B-pre 雙向也 PASS；重複 Like 仍 NOT RUN。','UI／產品整合仍 NOT RUN。')))+ribbon('本次重跑驗的是一條規則；其他通過與未跑情境依各自證據標示。')
-added['A11']=kicker('Context window 有容量上限；材料存在，不代表這一輪已讀取')+'<div class="r-worktable"><section><b>桌面｜本輪已取得</b><span>#3 ticket／AC 與 Version A</span><span>單向 FAIL → 修正 → 同案 PASS</span><span>Version B：單向／雙向 PASS</span><span>未完成：重複 NOT RUN；UI NOT RUN</span><span>授權：尚未批准 merge／發布</span></section><section class="not-on-desk"><b>桌邊｜文件已存在但本輪未讀</b><span>workshop/matching-demo/exercise.md</span><span>講師練習說明；使用前須先開啟並核對內容。</span></section></div>'+ribbon('Context 容量有限，長對話可能精簡細節；資料在專案裡，不等於已進入本輪 Context。')
+added['A09']=kicker('時間倒回至獨立教學重演的起點：先看交辦、計畫與實際結果')+cols(
+panel('交辦｜範圍先說清楚',para('只處理 #3 單向 Like。','預期：尚未互相喜歡時，不建立配對。','保留既有案例；不測 UI 或完整產品。')),
+panel('計畫｜執行前先安排',para('讀票與候選版本。','執行一次單向情境，再對照 AC。','若不符合，才修正並用同一情境重驗。'),'good'),
+panel('工具實際回傳｜Version A',para('<b>預期：</b>0 筆。','<b>實際：</b>1 筆 M01。','<b class="r-red">FAIL</b>','把錯誤結果交回修正。'),'problem'))+ribbon('這是獨立教學重演：主畫面呈現決策與結果；命令、檔案指紋、完整輸出與 replay 材料留在筆記。')
+added['A10']=kicker('時間倒回 B-pre｜看同一單向情境如何由 FAIL 修正為 PASS')+cols(
+panel('修正｜只改判斷條件',para('依 Version A 的失敗結果修正。','只有反向 Like 也存在時才配對。','接著重跑原本的單向情境。'),'problem'),
+panel('重測｜Version B 單向 Like',para('<b>預期：</b>0 筆。','<b>實際：</b>0 筆。','<b class="r-green">PASS</b>','同一規則情境已通過。'),'good'),
+panel('當時仍未知',para('B-pre 的雙向情境：PASS。','重複 Like：NOT RUN。','UI／產品串接：NOT RUN。','後面的 B-post 才補上重複情境。')))+ribbon('這裡明確回到重複情境補驗前的 B-pre；不把後來的 B-post 結果提前。')
+added['A11']=kicker('Context 是 AI 這一輪實際取得並可使用的工作材料')+'<div class="r-worktable"><section><b>桌面｜本輪已取得</b><span>#3 ticket／AC 與 Version A</span><span>單向 FAIL → 修正 → 同案 PASS</span><span>Version B：單向／雙向 PASS</span><span>未完成：重複 NOT RUN；UI NOT RUN</span><span>授權：尚未批准 merge／發布</span></section><section class="not-on-desk"><b>桌邊｜文件已存在但本輪未讀</b><span>workshop/matching-demo/exercise.md</span><span>講師練習說明；使用前須先開啟並核對內容。</span></section></div>'+ribbon('本輪可用材料有上限；專案中存在的資料，不代表這一輪已讀取。')
 added['A12']=kicker('交辦一項有邊界、能驗證、知道何時停的工作')+cols(
- panel('交辦文字',para('只處理 Matching #3。','先讀 ticket.md 與指定 artifact。','用假帳號跑單向 Like。','回報 hash、預期／實際、筆數與狀態。')),
- panel('停止條件',para('不要加新需求或改 AC。','不要宣稱 UI／產品已驗收。','若票、artifact 或 fixture 不可取得，停止並回報。','講師檢查實際工具輸出，不接受口述 PASS。'),'human'))+ribbon('練習產出：一段可讓另一個人重播並核對的交辦。')
-added['A13']=kicker('B 的前段紀錄有一個明確缺口：重複情境尚未跑')+cols(
-panel('補驗前｜B-pre',para('單向：PASS，預期／實際 0 筆。','雙向：PASS，預期／實際 1 筆 M01。','重複 Like：NOT RUN。','B hash：'+hash_b[:12]+'…'),'problem'),
- panel('補驗後｜B-post',para('相同 B hash，未改規則。','先建立 M01，再只重複 Like 一次。','預期／實際都維持 1 筆 M01。','工具結果：PASS。'),'good'))+ribbon('要求只補這個情境；確認 artifact hash 相同，再把新證據追加到工作票。')
+ panel('指定材料',para('ticket：`workshop/matching-demo/ticket.md`','程式：`workshop/matching-demo/versions/B/matching.py`','假資料：`workshop/matching-demo/fixtures/users.json`','執行入口：`workshop/matching-demo/run_case.py`')),
+ panel('從專案根目錄執行',para('<code>python3 workshop/matching-demo/run_case.py --artifact workshop/matching-demo/versions/B/matching.py --candidate-id B --case one-way</code>','回報預期／實際紀錄、筆數與結果。','只驗 #3 規則；UI／產品串接不在此範圍。'),'good'))+ribbon('若票、B 程式、假資料或 runner 不可取得，停止並回報；不要改 AC 或宣稱產品驗收。')
+added['A13']=kicker('B-pre 有一個缺口：重複情境尚未跑；你會怎麼要求補驗？')+cols(
+panel('補驗前｜B-pre',para('單向：PASS，預期／實際 0 筆。','雙向：PASS，預期／實際 1 筆 M01。','重複 Like：NOT RUN。','先寫下一句補驗指令。'),'problem'))+ribbon('請在揭露前說清楚：核對同一個 B artifact、不可改規則、重置資料後只補跑重複 Like，並交回前後紀錄。')
 added['A14']=kicker('用未補驗的 B-pre 練交接，再恢復補驗完成主線')+cols(
 panel('交接卡｜B-pre',para('Ticket：#3 雙向才配對。','版本：B · '+hash_b[:12]+'…','已驗：單向、雙向 PASS。','未驗：重複 Like；UI NOT RUN。','停點：不合併、不發布。'),'rule'),
 panel('練習｜寫下一句交辦',para('請寫給接手者：','先讀 #3 ticket，核對 B artifact hash。','重置後建立 M01，再只重複 Like 一次。','提供前後筆數、紀錄與執行結果。'),'human'),
@@ -244,16 +251,14 @@ added['A15']=kicker('把方法轉用到你熟悉的小工具：只寫第一張�
  ['第一個交付','這一輪只做哪個最小結果？'],
  ['成功與禁止','一個應成功的情況、一個不應發生的情況。'],
  ['核對與停止','怎麼看結果與版本？什麼情況先停下回報？']])+ribbon('練習只寫一張票，不要求學員再做第二個完整產品。')
-added['A16']=kicker('背景記憶能幫助接續，但不能證明最新工作已核對')+'<div class="r-worktable"><section><b>共同工作桌｜#3</b><span>需求：雙向才配對</span><span>候選：Version B · '+hash_b[:12]+'…</span><span>待核對：重複情境證據</span><span>接受／合併：尚未授權</span></section><section class="not-on-desk"><b>可能記得的背景</b><span>正在做配對 App</span><span>熟悉工具與目標</span><span>不等於已查目前版本</span></section></div>'+ribbon('把工作狀態放回可查的票、版本與測試紀錄；記憶用來找方向，不代替核對。')
-added['A17']=kicker('電腦上的 Agent 接續有兩條路；兩邊都要查工作狀態')+cols(
-panel('恢復既有工作對話',para('回到原 session。','確認目前專案與版本。','從票和紀錄核對已做／未測。')),
-panel('開新對話，再取材料',para('讀共同工作票與 AC。','指定候選 artifact／版本。','查未測事項與下一步。'),'good'))+ribbon('讀票 → 核對版本 → 確認未測事項。操作方式與來源見講者筆記。')
+added['A16']=kicker('產品可能把另存背景或過去對話的相關資訊帶進本輪')+'<div class="r-worktable"><section><b>共同工作桌｜最新正式狀態</b><span>需求：雙向才配對</span><span>候選：Version B · '+hash_b[:12]+'…</span><span>待核對：重複情境證據</span><span>接受／合併：尚未授權</span></section><section class="not-on-desk"><b>可能帶入的背景</b><span>正在做配對 App</span><span>熟悉工具與目標</span><span>來源依產品與設定而異</span></section></div>'+ribbon('不同產品與設定可取得的背景不同，也不保證保留所有細節；仍要核對最新版本、未測事項與授權。')
+added['A17']=kicker('電腦上的 Agent：先選接續方式，再核對工作狀態')+cols(
+panel('Codex CLI',para('選取已保存的工作對話，或搜尋舊對話。','確認回到正確專案與工作內容。','再讀票面核對候選版本。')),
+panel('Claude Code',para('在目前目錄接續最近的工作對話，或從選單挑選既有 session。','回到後核對專案、票、已做與未測。'),'good'))+ribbon('接續對話不會回滾專案檔案或分支；仍要讀票、核對版本並確認未測事項。命令例子見講者筆記。')
 
-new[46]=kicker('對話可能被精簡；同一張 #3 工作票保留可回查規則')+'<div class="r-worktable"><section><b>桌面｜#3 正本規則</b><span>單向 Like：不配對</span><span>雙向 Like：建立一筆配對</span><span>已配對再 Like：不增加筆數</span></section><section class="not-on-desk"><b>摘要｜可能只保留</b><span>Goal：互相喜歡才算配對成功</span><span>摘要沒有列出重複規則</span><span>回到工作票核對 AC 與版本</span></section></div>'+ribbon('Compact 可能簡化細節；不代表每次都漏，也不會替代專案檔案。')
-new[47]=kicker('接續原對話與另開對話是兩條路；都要核對最新工作狀態')+'<div class="r-worktable"><section><b>路徑 A｜回到原 session</b><span>恢復原工作對話。</span><span>讀 #3 工單與目前候選版本。</span><span>核對已做、未測與授權。</span></section><section class="not-on-desk"><b>路徑 B｜另開 session</b><span>取得共同工作紀錄與 AC。</span><span>讀指定 artifact／版本。</span><span>核對已做、未測與授權。</span></section></div>'+ribbon('新對話不保證完整繼承前文；恢復原對話也不保證最新狀態已查證。')
+new[46]=kicker('長對話可能被整理成較短摘要，之後繼續工作')+'<div class="r-worktable"><section><b>共同工作票｜完整規則</b><span>單向 Like：不配對</span><span>雙向 Like：建立一筆配對</span><span>已配對再 Like：不增加筆數</span></section><section class="not-on-desk"><b>可能的精簡摘要｜示意</b><span>Goal：互相喜歡才算配對成功</span><span>此摘要省略了重複規則</span><span>回到票面核對 AC 與版本</span></section></div>'+ribbon('長對話的上下文可能被精簡；摘要可能省略細節，實際方式依產品而異。')
+new[47]=kicker('Session 是一段工作對話；視窗只是進入它的介面')+'<div class="r-worktable"><section><b>路徑 A｜恢復原 session</b><span>回到同一段工作對話。</span><span>核對目前專案與候選版本。</span><span>確認已做、未測與授權。</span></section><section class="not-on-desk"><b>路徑 B｜開新 session</b><span>讀共同工作紀錄與 AC。</span><span>指定候選 artifact／版本。</span><span>核對已做、未測與授權。</span></section></div>'+ribbon('新開對話不保證完整帶入前文；恢復對話也不保證已查證最新工作狀態。')
 
-new[46]=kicker('對話可能被精簡；同一張 #3 工作票保留可回查規則')+'<div class="r-worktable"><section><b>桌面｜#3 正本規則</b><span>單向 Like：不配對</span><span>雙向 Like：建立一筆配對</span><span>已配對再 Like：不增加筆數</span></section><section class="not-on-desk"><b>摘要｜可能只保留</b><span>Goal：互相喜歡才算配對成功</span><span>摘要沒有列出重複規則</span><span>回到工作票核對 AC 與版本</span></section></div>'+ribbon('Compact 可能簡化細節；不代表每次都漏，也不會替代專案檔案。')
-new[47]=kicker('接續原對話與另開對話是兩條路；都要核對最新工作狀態')+'<div class="r-worktable"><section><b>路徑 A｜回到原 session</b><span>恢復原工作對話。</span><span>讀 #3 工單與目前候選版本。</span><span>核對已做、未測與授權。</span></section><section class="not-on-desk"><b>路徑 B｜另開 session</b><span>取得共同工作紀錄與 AC。</span><span>讀指定 artifact／版本。</span><span>核對已做、未測與授權。</span></section></div>'+ribbon('新對話不保證完整繼承前文；恢復原對話也不保證最新狀態已查證。')
 
 def replace_text(node, before, after):
     hits=0
@@ -449,6 +454,53 @@ for i,p in enumerate(pages):
             else:
                 node.h1.clear();node.h1.append(p['title'])
                 if old_number in {21,22,30,82}:node=adjust_preserved_wip(node,old_number)
+    if p['number']==14:
+        replace_text(node,'本課交付 WIP 上限：1｜目前：0/1（都在 Backlog）','已開始但未完成的票數（WIP）上限：1｜目前：0/1（都在 Backlog）')
+        replace_text(node,'Goal / Epic｜互相喜歡才算配對成功','共同目標｜互相喜歡才算配對成功')
+        replace_text(node,'Parent issue · 三張票的共同目標與分組','三張工作票的共同目標與分組')
+        definition=BeautifulSoup('<p class="r-meta">Backlog＝尚未開始的工作清單；Ready＝資訊齊全、可以開始。欄位表示工作狀態。</p>','html.parser').p
+        node.select_one('.visual').insert(0,definition)
+    if p['number']==4:
+        replace_text(node,'後面每一段都用這個例子；#1 → #3 雙向喜歡才配對 → #2 配對列表','Like＝表示喜歡，Pass＝略過；雙方都 Like 才配對。後面沿 #1 輸入 → #3 判斷 → #2 查看結果。')
+        match_title=node.select_one('.match-result strong')
+        match_title.string='雙方都 Like 才配對'
+        node.select_one('.match-result p').string='配對已建立'
+        node.select_one('.match-list-node span').string='查看已配對對象'
+    if p['number']==9:
+        replace_text(node,'形成 parent Goal / Epic','形成共同目標')
+        replace_text(node,'雙方 Like 才 Match','雙方 Like 才配對')
+        definition=BeautifulSoup('<p class="r-meta">Brainstorming：共同釐清使用者問題與可能方案，先形成目標，不急著決定實作。</p>','html.parser').p
+        node.select_one('.visual').insert(0,definition)
+    if p['number']==10:
+        replace_text(node,'GOAL / EPIC ISSUE · PARENT','共同目標（Goal）')
+        replace_text(node,'不是 workflow state','不是目前進度欄位')
+    if p['number']==11:
+        replace_text(node,'Goal（parent issue）','共同目標')
+        replace_text(node,'IMPLEMENTATION SUB-ISSUE','可獨立交付的工作票')
+        replace_text(node,'#3 建立 Match，#2 才能列出已配對對象。','#3 建立配對紀錄，#2 才能列出已配對對象。')
+    if p['number']==21:
+        replace_text(node,'Goal / Epic｜互相喜歡才算配對成功','共同目標｜互相喜歡才算配對成功')
+        replace_text(node,'parent issue · 泳道標題','三張工作票共同目標的泳道')
+        replace_text(node,'等待 Refinement','待整理')
+        replace_text(node,'Refinement','整理中')
+        replace_text(node,'SUB-ISSUE #3','工作票 #3')
+        replace_text(node,'BACKLOG','待辦')
+        replace_text(node,'Title','標題')
+        replace_text(node,'Context / Why','背景／原因')
+        replace_text(node,'Goal linkage','對應共同目標')
+        replace_text(node,'Acceptance Criteria（AC）','接受條件（AC）')
+        replace_text(node,'Out of Scope','本次不做')
+        replace_text(node,'Scope','工作範圍')
+        replace_text(node,'Required Evidence','需要留下的驗證紀錄')
+        replace_text(node,'AC 說明功能怎樣才算做對；DoD 是所有票共用的完工標準；Out-of-scope 是這次不做的事。','工作票整理＝把需求、例子與未決問題整理成可接手的票。AC 說明功能怎樣才算做對；DoD 是所有票共用的完工標準；本次不做的事要明列。')
+    if p['number']==22:
+        replace_text(node,'三種情境的測試結果；確認雙方看到 Match，且只建立一次。','三種情境的測試結果；預期配對紀錄符合筆數與成員。')
+    if p['addedId']=='A13':
+        node['data-wip-stage']='workflow'
+        append_html(node,'<button class="r-wip-trigger" type="button" data-wip-reveal aria-expanded="false">顯示補驗要求與 B-post 結果 →</button><section class="r-wip-sequence" data-wip-sequence hidden><p class="r-kicker">同一個 B artifact；補驗前後狀態逐項對照</p><div class="r-cols r-cols-2">'+
+            panel('補驗要求｜沿用 B 版',para('請用同一個 B 版與原有假資料。','先確認已有一筆 M01，再讓小安重複 Like 一次。','交回補驗前後的筆數、紀錄與結果；不要改規則。'))+
+            panel('B-post｜實際補驗紀錄',para(f'補驗前：{b_duplicate["actual"]["before_match_count"]} 筆 M01。',f'補驗後：預期 {b_duplicate["expected"]["match_count"]} 筆；實際 {b_duplicate_actual}。',f'工具結果：<b class="r-green">{b_duplicate["status"]}</b>。','UI／產品串接仍 NOT RUN。'),'good')+
+            '</div><p class="r-meta"><a href="../workshop/matching-demo/exercise.md" target="_blank" rel="noopener">開啟 A13 練習與可複製命令 ↗</a>　<a href="../workshop/matching-demo/evidence/B-post-supplement/duplicate.json" target="_blank" rel="noopener">開啟 B-post 重複情境原始結果 ↗</a></p><button type="button" data-wip-return>返回補驗問題</button></section>')
     node['data-section']=p['chapter'];node['data-page']=str(p['number']);node['data-source']=' '.join(p['ids']);node['id']=f'page-{p["number"]}'
     if p['addedId']:node['data-added-id']=p['addedId']
     if p['oldRev11Page']==7:node['data-process-stage']='0'
