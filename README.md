@@ -27,7 +27,7 @@
 |---|---|---|
 | P1 | Audience first | 預設學員是完全不懂軟體工程／專案管理的行銷、老師、行政等非工程背景受眾。術語第一次出現前，先用白話建立概念。 |
 | P2 | Prerequisite before consequence | 一個概念只能在前置知識已出現後使用。敘事應是「先遇到問題 → 再引出工具／概念」，不能先給答案再補前提。 |
-| P3 | Goal → Agreement → Work → Evidence | 核心主線固定為 Goal → Brainstorm / Refinement → AC → Ticket → Ready → Dev → PR Review → QA → Product / Goal Check → Done。重排可以，但因果不可跳躍。 |
+| P3 | Brainstorming → Goal → Ticket → Delivery → Evidence | 教學主線從 **Brainstorming → Goal → Refinement／Backlog（形成票、AC／AT／DoD）→ Ready → Dev → PR Review → QA／Verification → Product／Goal Check → Human Gate → Merge／Release／檢查 → Done**，上線後再量 Goal 成效；敘事不能先給結論才補形成過程。 |
 | P4 | One canonical running example | 配對 App 與工作票是同一條 running example。全 deck 不可偷偷產生第二條互相矛盾的版本／案例世界線。 |
 | P5 | One state, one timeline | 同一案例只能有一條版本、測試與證據時間線。倒帶、快轉、切換 snapshot 時必須在投影片主畫面明說。 |
 | P6 | Evidence proves exactly the claim | Evidence 只能支持它真正驗證過的 claim。規則層、UI、整體串接、Goal 驗收必須分層，不可互相代替。 |
@@ -91,6 +91,27 @@
 - **Exercise：**若這頁是練習，學員是否先有真正做判斷的空間，再看到答案？
 - **Propagation：**本次改動是否已同步 storyboard、slides、notes、demo、exercise、manifest、README？
 - **Gate：**內容、證據、瀏覽器畫面、真人試教等狀態是否分開陳述，沒有把其中一項通過寫成全部通過？
+
+
+### 教材 PR 的五道必要 Quality Gates
+
+> 以下是 P1–P17 的**執行流程**，不是另一套彼此競爭的原則。每道關卡都要記錄審查版本、涵蓋範圍、結果與證據；未執行寫 **NOT RUN**，不能用其他關卡的 PASS 代替。
+
+| Gate | 必須實際檢查什麼 | 最低可核對產出 |
+|---|---|---|
+| **G1 故事板／先備知識**（製作前） | 按學員視角從開場到結尾推演完整故事，確認 Brainstorming、Goal、需求／票、版本、驗證到 Agent 接手的因果順序；不能只看 SSOT 合規，因為規格也可能錯。 | 逐頁主張、首次名詞、前後轉場、先備概念與待修頁面。 |
+| **G2 事實／證據一致性**（示範材料完成後） | 沿同一 Matching 案例逐頁比對票、AC、版本、fixture、PASS／FAIL／NOT RUN、WIP、Human Gate 與時間線；重演所有需要驗證的命令，不能用示意冒充實測。 | 實際版本／commit、重跑結果、證據連結、跨頁不一致清單。 |
+| **G3 Blind Beginner Review**（候選教材完成後） | 審查者**只從第一頁順序看完整成品，不先讀規格、PR 說明或作者解釋**；以不懂軟工／PM／Agent 的學員身分，記錄未教先用、故事跳步、混淆名詞、跟不上的位置。 | 「頁碼 → 看不懂什麼 → 缺的前提 → 可能誤解 → 建議示範」及學員可否提出下一步。 |
+| **G4 簡報敘事／視覺**（成品截圖後） | 真正查看桌面、投影尺寸與手機等目標畫面，包含改動頁及其前後頁；檢查**一頁一主張**、圖文一致、視線順序、箭頭碰字、對齊、留白、字級、對比與密度。幾何／無溢出測試不等於視覺通過。 | 最終版本截圖、具體頁面 findings、修正前後對照。 |
+| **G5 Final Artifact／Human Gate**（每輪修正後） | 以**最新 PR HEAD** 重新執行相關測試與跨頁檢查；P0／本次範圍內 P1 解決後，重新看**修正後的完整成品**，不能沿用舊截圖或舊 reviewer PASS。最後由人判斷是否接受及合併。 | HEAD SHA、各 gate 狀態、已關閉 findings 與重驗證據、Human 放行紀錄。 |
+
+### Review 報告與放行標準
+
+- 每位審查者應記錄：**審查角色／是否真正獨立、版本 SHA、實際看到的範圍、finding 頁碼、嚴重度、原因、可執行的修法、證據連結、修正後重審結果**。若僅同一模型扮演不同角色，不得宣稱已由獨立審查者確認。
+- **P0：阻擋放行**（如案例事實與證據相反、重大敘事順序倒置、主畫面無法辨讀）。**P1：本次必修**（影響教學理解、驗收或本 PR 目標）。**P2：可追蹤**（不影響本次目標者另開 Issue，註明原因）。不能因有自動測試 PASS 就略過 P0/P1。
+- **工程品質、內容／證據、故事連貫性、視覺品質、真人學員成效分開驗收**；沒有實際執行的 gate 標記 NOT RUN，不得寫成全面 PASS。
+- **學習成果要驗證三件事：**學員能描述從想法到交付的軟工流程；能說出要交辦哪種職能及其交付物；Agent 說完成時能根據工作票、版本和證據提出接受或退回的理由。真正的學習成效須由符合受眾的真人試教驗證。
+- **修改範圍控制：**本 PR 的 P0/P1 在本 PR 內修正；與本次無關的擴充列 Issue，不藉 Review 任意改既定章節或增加功能。所有合併決定保留 Human Gate。
 
 ## 內容
 
