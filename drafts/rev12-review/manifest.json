@@ -1,6 +1,6 @@
 {
   "ssot": "docs/issue48-execution-storyboard.md",
-  "ssotSha256": "0ff392cf200fb6bd2597fed731689c458e1f55eed2a55e8fa0bb0dc1ad5feeb8",
+  "ssotSha256": "1d2b96382dcca581b0371f222d64953ea6c31400e9117cc0be88e170c784238c",
   "baseline": {
     "path": "slides/rev11.html",
     "pages": 82,
@@ -41,8 +41,8 @@
       "oldRev11Page": 1,
       "addedId": null,
       "rev10SourcePage": 1,
-      "claim": "以配對 App 建立本課共同案例，後面頁面沿同一產品推進。",
-      "visual": "配對 App＝讓使用者表示喜好、互相喜歡後建立配對並查看列表的產品；此處只介紹本課案例。",
+      "claim": "此頁明示使用電腦閱讀；手機版仍在開發中。",
+      "visual": "同一配對 App 作為 running example；首頁提供可見的「請用電腦版閱讀／手機版開發中」。",
       "transition": "我們到底要完成哪種使用者體驗？",
       "sourceIds": [
         "P01"
@@ -68,7 +68,7 @@
           "path": "drafts/rev10.html#1"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 01；source ID：P01；章節 C0。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P01。\n- **教學作用：** 先有共同案例，後面的工具才有使用情境。\n- **帶入方式：** 沿用封面，口頭預告：先看人類怎麼做，再看 Agent 接手。\n- **帶走重點：** 這堂課跟著同一個產品走。\n- **圖面／示範：** 封面原樣沿用\n\n畫面主句：\n\n- 打造配對交友 App\n講者轉場：我們到底要完成哪種使用者體驗？"
+      "notes": "- **對應：**舊 rev11 頁 01；source ID：P01；章節 C0。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P01。\n- **教學作用：** 先有共同案例，後面的工具才有使用情境。\n- **帶入方式：** 沿用封面，口頭預告：先看人類怎麼做，再看 Agent 接手。\n- **帶走重點：** 這堂課跟著同一個產品走。\n- **圖面／示範：** 封面原樣沿用\n\n畫面主句：\n\n- 打造配對交友 App\n講者轉場：我們到底要完成哪種使用者體驗？\n\n- **2026-10-09 合併後學員可見版本：** 此頁明示使用電腦閱讀；手機版仍在開發中。 同一配對 App 作為 running example；首頁提供可見的「請用電腦版閱讀／手機版開發中」。"
     },
     {
       "number": 2,
@@ -595,8 +595,8 @@
       "oldRev11Page": 20,
       "addedId": null,
       "rev10SourcePage": 19,
-      "claim": "三張票尚未開始；#3 是本課先選的工作。",
-      "visual": "原看板標清 Backlog、Ready、#3 選票；先解釋 Backlog 與 Ready；本課交付 WIP 上限 1，目前 0/1。",
+      "claim": "本課 WIP 政策以 Dev～Product Check 為已開始的計數區間，Ready 不計。",
+      "visual": "用本課 WIP 政策和 0/1 說明，並非所有團隊唯一算法。",
       "transition": "票選出來後，大家對「支援配對」是否仍有不同理解？",
       "sourceIds": [
         "P19"
@@ -622,7 +622,7 @@
           "path": "drafts/rev10.html#19"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 20；source ID：P19。 章節 C2。\n- **教學作用：**讓學員看見三張工作票在看板上的起始狀態與本課選票。\n- **帶入方式：**保留原看板，顯示三票 Backlog、#3 為先選工作但尚未開工；先白話解釋 Backlog 與 Ready，再標出本課交付 WIP 上限 1、目前 0/1。\n- **帶走重點：**看板記錄工作位置；#3 接下來仍需澄清規則，尚未計入 WIP。\n- **圖面／示範：**原看板圖，強調 Backlog→拉票。\n\n畫面主句：\n\n- 三張票先列入待辦；本課先選 #3。\n講者轉場：票選出來後，大家對「支援配對」是否仍有不同理解？"
+      "notes": "- **對應：**舊 rev11 頁 20；source ID：P19。 章節 C2。\n- **教學作用：**讓學員看見三張工作票在看板上的起始狀態與本課選票。\n- **帶入方式：**保留原看板，顯示三票 Backlog、#3 為先選工作但尚未開工；先白話解釋 Backlog 與 Ready，再標出本課交付 WIP 上限 1、目前 0/1。\n- **帶走重點：**看板記錄工作位置；#3 接下來仍需澄清規則，尚未計入 WIP。\n- **圖面／示範：**原看板圖，強調 Backlog→拉票。\n\n畫面主句：\n\n- 三張票先列入待辦；本課先選 #3。\n講者轉場：票選出來後，大家對「支援配對」是否仍有不同理解？\n\n- **2026-10-09 合併後學員可見版本：** 本課 WIP 政策以 Dev～Product Check 為已開始的計數區間，Ready 不計。 用本課 WIP 政策和 0/1 說明，並非所有團隊唯一算法。"
     },
     {
       "number": 16,
@@ -1005,12 +1005,12 @@
       "ids": [
         "P06"
       ],
-      "title": "一個需求會經過哪些人和關卡",
+      "title": "本課示範流程：從 Backlog 到 Done",
       "oldRev11Page": 7,
       "addedId": null,
       "rev10SourcePage": 6,
-      "claim": "先沿 #3 雙向配對走過關卡，再看退回修正，最後展開 #1／#2 的完整三票圖。",
-      "visual": "保留原流程圖，用頁內按鈕分三步：#3 前進、顯示 #3 退回、完整三票；結束狀態與列印保留原圖。",
+      "claim": "本課看板七欄；Refinement 是 Backlog 期間活動，Human Gate 是欄外決策。",
+      "visual": "以七個 canonical states 呈現完整動線；Refinement 不單列狀態。",
       "transition": "需求與 Ready 條件已整理好；接著看工作如何被拉取，以及同時進行的工作怎麼算。",
       "sourceIds": [
         "P06"
@@ -1036,7 +1036,7 @@
           "path": "drafts/rev10.html#6"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 07；source ID：P06。 章節 C0。\n- **教學作用：**接起前半段的人類交付全貌，轉入需求先於版本協作的重排。\n- **帶入方式：**保留完整原圖。頁內按鈕第一步只看 #3 前進；第二步顯示 #3 退回 Dev 與 Refinement；第三步展開 #1、#2 的完整三票。\n- **帶走重點：**責任、票、狀態和交付物各有位置；需求整理在版本協作前。\n- **圖面／示範：**使用來源 P06 三票流程圖與原退回箭頭，不以新圖取代；完成第三步與列印時保留完整圖。\n\n畫面主句：\n\n- 先整理需求與驗收條件，再進入版本協作。\n講者轉場：需求與 Ready 條件已整理好；接著看工作如何被拉取，以及同時進行的工作怎麼算。"
+      "notes": "- **對應：**舊 rev11 頁 07；source ID：P06。 章節 C0。\n- **教學作用：**接起前半段的人類交付全貌，轉入需求先於版本協作的重排。\n- **帶入方式：**保留完整原圖。頁內按鈕第一步只看 #3 前進；第二步顯示 #3 退回 Dev 與 Refinement；第三步展開 #1、#2 的完整三票。\n- **帶走重點：**責任、票、狀態和交付物各有位置；需求整理在版本協作前。\n- **圖面／示範：**使用來源 P06 三票流程圖與原退回箭頭，不以新圖取代；完成第三步與列印時保留完整圖。\n\n畫面主句：\n\n- 先整理需求與驗收條件，再進入版本協作。\n講者轉場：需求與 Ready 條件已整理好；接著看工作如何被拉取，以及同時進行的工作怎麼算。\n\n- **2026-10-09 合併後學員可見版本：** 本課看板七欄；Refinement 是 Backlog 期間活動，Human Gate 是欄外決策。 以七個 canonical states 呈現完整動線；Refinement 不單列狀態。"
     },
     {
       "number": 27,
@@ -1587,8 +1587,8 @@
       "oldRev11Page": 33,
       "addedId": null,
       "rev10SourcePage": 23,
-      "claim": "這張票沒有聊天",
-      "visual": "沿用留言與退回 Dev 路徑，完整保留案例",
+      "claim": "Review 示意多做聊天室後退回 Dev；Reviewer 看差異，QA 依 AC 驗行為。",
+      "visual": "標示 PR Review 是模擬情境，不與下一頁真實 A/B 規則實測混淆。",
       "transition": "改動審過後，行為要怎麼驗？",
       "sourceIds": [
         "P23"
@@ -1614,7 +1614,7 @@
           "path": "drafts/rev10.html#23"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 33；source ID：P23；章節 C3。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P23。\n- **教學作用：** 做得出來也可能不該接受。\n- **帶入方式：** 原樣保留多做聊天室→Request changes→移除→重新送審。\n- **帶走重點：** Review 檢查改動、範圍、風險與維護性。\n- **圖面／示範：** 沿用留言與退回 Dev 路徑，完整保留案例\n\n畫面主句：\n\n- 這張票沒有聊天\n- 超出範圍就退回\n- 修正後重新送審\n講者轉場：改動審過後，行為要怎麼驗？"
+      "notes": "- **對應：**舊 rev11 頁 33；source ID：P23；章節 C3。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P23。\n- **教學作用：** 做得出來也可能不該接受。\n- **帶入方式：** 原樣保留多做聊天室→Request changes→移除→重新送審。\n- **帶走重點：** Review 檢查改動、範圍、風險與維護性。\n- **圖面／示範：** 沿用留言與退回 Dev 路徑，完整保留案例\n\n畫面主句：\n\n- 這張票沒有聊天\n- 超出範圍就退回\n- 修正後重新送審\n講者轉場：改動審過後，行為要怎麼驗？\n\n- **2026-10-09 合併後學員可見版本：** Review 示意多做聊天室後退回 Dev；Reviewer 看差異，QA 依 AC 驗行為。 標示 PR Review 是模擬情境，不與下一頁真實 A/B 規則實測混淆。"
     },
     {
       "number": 42,
@@ -1867,7 +1867,7 @@
       "ids": [
         "P25"
       ],
-      "title": "Product / Goal Check",
+      "title": "Product / Product Check",
       "oldRev11Page": 38,
       "addedId": null,
       "rev10SourcePage": 25,
@@ -2015,8 +2015,8 @@
       "oldRev11Page": 41,
       "addedId": null,
       "rev10SourcePage": 26,
-      "claim": "依 Gate 放行後 merge／上線／檢查",
-      "visual": "保留原看板與 DoD；標明本課設定，不改成普遍規定",
+      "claim": "Done 為條件式教學推演：只在串接、放行及上線檢查完成後成立；本次 demo 只有規則層實測。",
+      "visual": "Closed 標明假設；UI／完整產品／真實發布仍 NOT RUN。",
       "transition": "等其他兩票也完成，還需要驗什麼？",
       "sourceIds": [
         "P26"
@@ -2042,7 +2042,7 @@
           "path": "drafts/rev10.html#26"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 41；source ID：P26；章節 C4。\n- **原卡內容：**\n\n- **處理／來源：** 調整 · P26。\n- **原標題：** Done。本草稿採用此標題。\n- **教學作用：** 單票完成與產品結果需要分開。\n- **帶入方式：** 保留 #3 Done、#1／#2 等待、共用 DoD；補上先依 Gate 決議再整合／上線。\n- **帶走重點：** Done 是本課約定的單票狀態，不是 Goal 成效。\n- **圖面／示範：** 保留原看板與 DoD；標明本課設定，不改成普遍規定\n\n畫面主句：\n\n- 依 Gate 放行後 merge／上線／檢查\n- 本課 DoD 全部滿足才關票\n- #3 Done，#1／#2 尚未完成\n講者轉場：等其他兩票也完成，還需要驗什麼？"
+      "notes": "- **對應：**舊 rev11 頁 41；source ID：P26；章節 C4。\n- **原卡內容：**\n\n- **處理／來源：** 調整 · P26。\n- **原標題：** Done。本草稿採用此標題。\n- **教學作用：** 單票完成與產品結果需要分開。\n- **帶入方式：** 保留 #3 Done、#1／#2 等待、共用 DoD；補上先依 Gate 決議再整合／上線。\n- **帶走重點：** Done 是本課約定的單票狀態，不是 Goal 成效。\n- **圖面／示範：** 保留原看板與 DoD；標明本課設定，不改成普遍規定\n\n畫面主句：\n\n- 依 Gate 放行後 merge／上線／檢查\n- 本課 DoD 全部滿足才關票\n- #3 Done，#1／#2 尚未完成\n講者轉場：等其他兩票也完成，還需要驗什麼？\n\n- **2026-10-09 合併後學員可見版本：** Done 為條件式教學推演：只在串接、放行及上線檢查完成後成立；本次 demo 只有規則層實測。 Closed 標明假設；UI／完整產品／真實發布仍 NOT RUN。"
     },
     {
       "number": 53,
@@ -2055,8 +2055,8 @@
       "oldRev11Page": 42,
       "addedId": null,
       "rev10SourcePage": null,
-      "claim": "時間快轉：#1／#2 完成並整合後",
-      "visual": "完整產品路徑；明示時間快轉至 #1／#2 完成並整合後，對照剛才只有 #3 完成的狀態。",
+      "claim": "假設 #1／#2 已完成並整合，示範使用者路徑；UI 串接仍 NOT RUN。",
+      "visual": "明示「教學假設」，不把使用者路徑圖當成真正的 UI 測試。",
       "transition": "接著完成本章 Exit Check：不看講義先自行回答。",
       "sourceIds": [
         "N17"
@@ -2078,7 +2078,7 @@
           "path": "docs/issue48-execution-storyboard.md"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 42；source ID：N17；章節 C4。\n- **原卡內容：**\n\n- **處理／來源：** 新增 · N17。\n- **教學作用：** 各票分別成立，不代表接起來的資料與行為一致。\n- **帶入方式：** #1 按 Like→#3 形成配對→#2 雙方在列表找到彼此。\n- **帶走重點：** 從使用者目標走一次完整路徑，找出交接或整合失配；回扣 branch／merge 只完成程式整合的一部分。\n- **圖面／示範：** 完整產品路徑；明示時間快轉至 #1／#2 完成並整合後，對照剛才只有 #3 完成的狀態。\n\n畫面主句：\n\n- 時間快轉：#1／#2 完成並整合後\n- #1：A／B 表達 Like\n- #3：雙向才建立配對\n- #2：雙方能在列表找到彼此\n講者轉場：請先完成本章 Exit Check；之後再進入下一章。原轉場：人類流程學完了；現在把同樣的工作交給 Agent。"
+      "notes": "- **對應：**舊 rev11 頁 42；source ID：N17；章節 C4。\n- **原卡內容：**\n\n- **處理／來源：** 新增 · N17。\n- **教學作用：** 各票分別成立，不代表接起來的資料與行為一致。\n- **帶入方式：** #1 按 Like→#3 形成配對→#2 雙方在列表找到彼此。\n- **帶走重點：** 從使用者目標走一次完整路徑，找出交接或整合失配；回扣 branch／merge 只完成程式整合的一部分。\n- **圖面／示範：** 完整產品路徑；明示時間快轉至 #1／#2 完成並整合後，對照剛才只有 #3 完成的狀態。\n\n畫面主句：\n\n- 時間快轉：#1／#2 完成並整合後\n- #1：A／B 表達 Like\n- #3：雙向才建立配對\n- #2：雙方能在列表找到彼此\n講者轉場：請先完成本章 Exit Check；之後再進入下一章。原轉場：人類流程學完了；現在把同樣的工作交給 Agent。\n\n- **2026-10-09 合併後學員可見版本：** 假設 #1／#2 已完成並整合，示範使用者路徑；UI 串接仍 NOT RUN。 明示「教學假設」，不把使用者路徑圖當成真正的 UI 測試。"
     },
     {
       "number": 54,
@@ -3629,12 +3629,12 @@
       "ids": [
         "P51"
       ],
-      "title": "Human Gate 固定在 Goal Check 後；PR 人工審查依節奏選擇",
+      "title": "本課的 Human Gate：依風險選擇 PR／QA 審查配置",
       "oldRev11Page": 68,
       "addedId": null,
       "rev10SourcePage": 51,
-      "claim": "Review／QA 可採不同節奏",
-      "visual": "沿用兩路合流與上線前後成效對照",
+      "claim": "PR 審查由風險／授權／規範決定人或 Agent 的工作配置，而非單純快慢。",
+      "visual": "兩種示範配置仍在 Product Check 收斂，Human Gate 由人決定。",
       "transition": "若跳過人的放行判斷，問題可能在整合後才被發現。",
       "sourceIds": [
         "P51"
@@ -3660,7 +3660,7 @@
           "path": "drafts/rev10.html#51"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 68；source ID：P51；章節 C6。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P51。\n- **教學作用：** PR 審查節奏可不同，但最後放行不能被默認跳過。\n- **帶入方式：** 保留人工審查與 Agent Review／QA 兩路，合流到 Goal Check／Human Gate。\n- **帶走重點：** 審查節奏與最後放行是不同決策。\n- **圖面／示範：** 沿用兩路合流與上線前後成效對照\n\n畫面主句：\n\n- Review／QA 可採不同節奏\n- 兩路都回 Goal Check\n- 固定 Human Gate 後才 merge／上線\n講者轉場：若跳過人的放行判斷，問題可能在整合後才被發現。"
+      "notes": "- **對應：**舊 rev11 頁 68；source ID：P51；章節 C6。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P51。\n- **教學作用：** PR 審查節奏可不同，但最後放行不能被默認跳過。\n- **帶入方式：** 保留人工審查與 Agent Review／QA 兩路，合流到 Product Check／Human Gate。\n- **帶走重點：** 審查節奏與最後放行是不同決策。\n- **圖面／示範：** 沿用兩路合流與上線前後成效對照\n\n畫面主句：\n\n- Review／QA 可採不同節奏\n- 兩路都回 Product Check\n- 固定 Human Gate 後才 merge／上線\n講者轉場：若跳過人的放行判斷，問題可能在整合後才被發現。\n\n- **2026-10-09 合併後學員可見版本：** PR 審查由風險／授權／規範決定人或 Agent 的工作配置，而非單純快慢。 兩種示範配置仍在 Product Check 收斂，Human Gate 由人決定。"
     },
     {
       "number": 92,
@@ -3713,8 +3713,8 @@
       "oldRev11Page": 71,
       "addedId": null,
       "rev10SourcePage": 27,
-      "claim": "工作票沿流程推進；GitHub 記錄動作、版本與證據。",
-      "visual": "沿用完整看板與退回線，保留 Review、QA、Goal Check、人類放行的不同責任。",
+      "claim": "七個狀態欄與欄外 Human Gate；Review／QA 退回 Dev，Product Check 退回 Backlog。",
+      "visual": "保留原 return routes；Human Gate 另以說明註記，不能多算一欄。",
       "transition": "把同一套交付方法轉用到自己的第一張小工作票。",
       "sourceIds": [
         "P27"
@@ -3740,7 +3740,7 @@
           "path": "drafts/rev10.html#27"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 71；source ID：P27。 章節 C6。\n- **教學作用：**主線收束需求、版本、交付、驗收和人的 Gate。\n- **帶入方式：**沿用看板總回顧與退回線，保留 Review、QA、Goal Check、人類放行的責任區分。\n- **帶走重點：**工作票有自己的完成條件；全產品與 Goal 仍需整體判斷。\n- **圖面／示範：**原總覽圖，不刪站點。\n\n畫面主句：\n\n- 票沿看板前進；GitHub 留下版本與交付證據。\n講者轉場：把同一套交付方法轉用到自己的第一張小工作票。"
+      "notes": "- **對應：**舊 rev11 頁 71；source ID：P27。 章節 C6。\n- **教學作用：**主線收束需求、版本、交付、驗收和人的 Gate。\n- **帶入方式：**沿用看板總回顧與退回線，保留 Review、QA、Product Check、人類放行的責任區分。\n- **帶走重點：**工作票有自己的完成條件；全產品與 Goal 仍需整體判斷。\n- **圖面／示範：**原總覽圖，不刪站點。\n\n畫面主句：\n\n- 票沿看板前進；GitHub 留下版本與交付證據。\n講者轉場：把同一套交付方法轉用到自己的第一張小工作票。\n\n- **2026-10-09 合併後學員可見版本：** 七個狀態欄與欄外 Human Gate；Review／QA 退回 Dev，Product Check 退回 Backlog。 保留原 return routes；Human Gate 另以說明註記，不能多算一欄。"
     },
     {
       "number": 94,
@@ -4189,8 +4189,8 @@
       "oldRev11Page": 82,
       "addedId": null,
       "rev10SourcePage": 55,
-      "claim": "#3 Done、#1/#2 尚在 Ready；目前 WIP 回到 0/1，不等於 Goal 已達成。Human Gate 是 Product Check 與 Done 間的人類決策點，不是狀態。",
-      "visual": "保留七個看板狀態欄；Human Gate 以 Product Check → Done 間的決策標記呈現，並在動畫中標示等待放行與放行後的位置。",
+      "claim": "七個看板狀態欄＋Human Gate 人工決策；單票 Done 與 Goal 效益分開，勿將規則層測試當已部署。",
+      "visual": "既有動畫和 Product Check → Done 路徑保留；UI／發布證據仍 NOT RUN。",
       "transition": "接著完成本章 Exit Check：不看講義先自行回答。",
       "sourceIds": [
         "P55"
@@ -4216,7 +4216,7 @@
           "path": "drafts/rev10.html#55"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 82；source ID：P55；章節 APP。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P55。\n- **教學作用：** 查詢完整看板與責任接力。\n- **帶入方式：** 沿用 #3 Done、其他票等待的完整看板；Human Gate 是 Product Check 與 Done 間的人類決策點，不另增狀態欄。\n- **帶走重點：**本課 WIP 上限 1、目前 0/1（#3 Done、#1/#2 尚未開工）；#3 Done≠Goal 達成。\n- **圖面／示範：**七個狀態欄為 Backlog、Ready、Dev、Review、QA、Product Check、Done；Human Gate 以 Product Check → Done 間的決策標記呈現。動畫在 Gate 決定時停留於 Product Check，放行後才移至 Done；標示本課交付上限 1、目前 0/1。\n\n畫面主句：\n\n- #3 依序被接手\n- Product Check → Human Gate 決策點（人決定放行／暫停）→ Done\n- 單票完成與 Goal 成效分開\n講者轉場：請先完成本章 Exit Check；之後再進入下一章。原轉場：附錄結束。"
+      "notes": "- **對應：**舊 rev11 頁 82；source ID：P55；章節 APP。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P55。\n- **教學作用：** 查詢完整看板與責任接力。\n- **帶入方式：** 沿用 #3 Done、其他票等待的完整看板；Human Gate 是 Product Check 與 Done 間的人類決策點，不另增狀態欄。\n- **帶走重點：**本課 WIP 上限 1、目前 0/1（#3 Done、#1/#2 尚未開工）；#3 Done≠Goal 達成。\n- **圖面／示範：**七個狀態欄為 Backlog、Ready、Dev、Review、QA、Product Check、Done；Human Gate 以 Product Check → Done 間的決策標記呈現。動畫在 Gate 決定時停留於 Product Check，放行後才移至 Done；標示本課交付上限 1、目前 0/1。\n\n畫面主句：\n\n- #3 依序被接手\n- Product Check → Human Gate 決策點（人決定放行／暫停）→ Done\n- 單票完成與 Goal 成效分開\n講者轉場：請先完成本章 Exit Check；之後再進入下一章。原轉場：附錄結束。\n\n- **2026-10-09 合併後學員可見版本：** 七個看板狀態欄＋Human Gate 人工決策；單票 Done 與 Goal 效益分開，勿將規則層測試當已部署。 既有動畫和 Product Check → Done 路徑保留；UI／發布證據仍 NOT RUN。"
     },
     {
       "number": 107,

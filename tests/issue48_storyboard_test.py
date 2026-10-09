@@ -254,6 +254,32 @@ def main():
         assert all(not d.has_attr("open") and d.select_one("summary") for d in quiz.select("details.r-exit-answer"))
         assert "本章學完" in quiz.get_text() and "參考答案" in quiz.get_text()
 
+    # 2026-10-09 dual-branch merge contract: preserve both the cloud opening
+    # notice and the local corrections to status, evidence and review policy.
+    assert "請用電腦版閱讀" in candidate.select_one('.slide[data-page="1"]').get_text()
+    assert "手機版開發中" in candidate.select_one('.slide[data-page="1"]').get_text()
+    expected_board = ["Backlog", "Ready", "Dev", "Review", "QA", "Product Check", "Done"]
+    recap = candidate.select_one('.slide[data-page="93"]')
+    assert [e.h2.get_text(" ", strip=True) for e in recap.select(".recap-columns > article")] == expected_board
+    assert recap.select_one(".r-recap-gate-note") and "不新增看板欄位" in recap.get_text()
+    assert not recap.select_one(".recap-columns > .recap-human-gate")
+    flow = candidate.select_one('.slide[data-page="26"]')
+    assert "Product Check" in flow.get_text() and "Goal Check" not in flow.get_text()
+    assert flow.h1.get_text().startswith("本課示範流程")
+    qa = candidate.select_one('.slide[data-page="41"]')
+    assert qa.select_one(".r-scenario-note") and "Reviewer 看 code" in qa.get_text()
+    done = candidate.select_one('.slide[data-page="52"]')
+    journey = candidate.select_one('.slide[data-page="53"]')
+    assert "教學流程假設" in done.get_text() and "NOT RUN" in done.get_text()
+    assert "教學假設" in journey.get_text() and "NOT RUN" in journey.get_text()
+    gate = candidate.select_one('.slide[data-page="91"]')
+    assert "依風險" in gate.h1.get_text()
+    assert "配置 A" in gate.get_text() and "配置 B" in gate.get_text()
+    assert "慢速節奏" not in gate.get_text() and "快速節奏" not in gate.get_text()
+    for page_data in manifest["pages"]:
+        slide = candidate.select_one(f'.slide[data-page="{page_data["number"]}"]')
+        assert slide.h1.get_text(" ", strip=True) == page_data["title"], page_data["number"]
+
     print("issue48 storyboard contract: 107 pages, unique mapping, ordering, manifest, baseline and P06 diagram OK")
 
 

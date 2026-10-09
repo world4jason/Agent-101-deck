@@ -543,6 +543,75 @@ for i,p in enumerate(pages):
         cover_copy=node.select_one('.cover-copy')
         assert cover_copy is not None, 'Missing first-page cover content'
         append_html(cover_copy,'<p class="r-desktop-reading-notice">請用電腦版閱讀｜手機版開發中</p>')
+    # One canonical learner-facing status name. Goal alignment remains a question
+    # performed inside Product Check, not a separate stage.
+    for part in list(node.find_all(string=True)):
+        if 'Goal Check' in part:
+            part.replace_with(str(part).replace('Goal Check','Product Check'))
+
+    if p['number']==26:
+        # Refinement is a backlog activity, not an extra canonical Kanban column.
+        for part in list(node.find_all(string=True)):
+            if 'Refinement' in part:
+                part.replace_with(str(part).replace('Refinement','Backlog'))
+        node.h1.string='本課示範流程：從 Backlog 到 Done'
+        add_note(node,'本課看板共七欄：Backlog、Ready、Dev、Review、QA、Product Check、Done。Refinement 是 Backlog 階段的需求釐清活動；Human Gate 是欄位外的人類放行判斷。團隊實務可選用其他流程。')
+    if p['number']==15:
+        add_note(node,'本課 WIP 計數政策：從 Dev 到 Product Check 的已開始、未完成票計入，Blocked 仍計入；Ready 不計。這是本課示例政策，不是全業界唯一規則。')
+    if p['number']==41:
+        criteria=node.select_one('.review-criteria')
+        assert criteria and '檢查 code' in criteria.get_text()
+        criteria.string='Reviewer 看 code／architecture／maintainability 與範圍；QA 依 AC 驗行為和相關 regression。'
+        review=node.select_one('.review-context')
+        assert review
+        label=BeautifulSoup('<p class="r-scenario-note">PR Review 教學示意：多做聊天室不是 A/B 實測紀錄；下一頁才展示真實規則層 FAIL → PASS。</p>','html.parser').p
+        review.insert_before(label)
+    if p['number']==52:
+        intro=node.select_one('.carried-note.git-callback')
+        assert intro
+        intro.string='教學流程假設：若串接驗證、Human Gate、Merge／上線檢查都完成，#3 才能 Done。真實僅有規則層證據；UI／產品整合與發布 NOT RUN。'
+        question=node.select_one('.step-question.step-intro')
+        assert question
+        question.string='流程推演：假設 #3 完成；整體 Goal 仍未達成。'
+        summary=node.select_one('.done-summary p')
+        assert summary
+        summary.string='此為條件式交付示意：假設產品串接驗證、人的接受與放行、Merge／上線檢查均已完成，才關閉 #3。這些動作並未在 Matching 示範包實測。'
+        closing=node.select_one('.closed-issue b')
+        assert closing
+        closing.string='Closed（假設）'
+    if p['number']==53:
+        for part in list(node.find_all(string=True)):
+            if '時間快轉：#1／#2 完成並整合後' in part:
+                part.replace_with(str(part).replace('時間快轉：#1／#2 完成並整合後','教學假設：若 #1／#2 已完成並整合後'))
+        add_note(node,'這一整條使用者路徑是「若三張票完成之後」的教學示例，不是本次規則層 demo 的真實 UI／整合測試結果；UI／產品串接仍 NOT RUN。')
+    if p['number']==91:
+        node.h1.string='本課的 Human Gate：依風險選擇 PR／QA 審查配置'
+        replace_text(node,'慢速節奏／重要 release 前','配置 A｜人主導 Review／QA')
+        replace_text(node,'快速節奏','配置 B｜Agent 協助 Review／QA')
+        replace_text(node,'Agent 檢查 PR；人關注 Epic／milestone。','Agent 交回可核對證據；是否另需人工 PR Review，依風險與政策決定。')
+        replace_text(node,'選一種 PR 審查節奏','依風險與授權選審查配置')
+        # The teaching qualification is kept in the SSOT speaker notes; the slide is already dense.
+    if p['number']==93:
+        # Keep all seven canonical state cards and all return routes, but
+        # move the Human Gate out of the status grid.
+        statuses=node.select_one('.recap-columns')
+        assert statuses
+        gate=statuses.select_one(':scope > .recap-human-gate')
+        assert gate
+        gate.decompose()
+        assert len(statuses.find_all('article',recursive=False))==7
+        note=BeautifulSoup('<p class="r-recap-gate-note">Human Gate 是 <strong>Product Check → Done</strong> 之間的人類決策點；等待放行時仍留在 Product Check，不新增看板欄位。</p>','html.parser').p
+        statuses.insert_after(note)
+        ret=node.select_one('.return-desktop')
+        assert ret
+        paths=ret.select('path.return-dev-branch, path.return-dev-path, path.return-goal-path')
+        assert len(paths)==3
+        paths[0]['d']='M500 0 V42 Q500 54 512 54 H571 M642.9 0 V42 Q642.9 54 631 54 H571'
+        paths[1]['d']='M571 54 H369 Q357.1 54 357.1 43 V0'
+        paths[2]['d']='M785.7 0 V150 Q785.7 162 773.7 162 H83.4 Q71.4 162 71.4 150 V0'
+        # The names in SVGs/notes are normalized to Product Check above.
+    if p['number']==106:
+        add_note(node,'所有欄位只代表本課定義的七個看板狀態；Product Check 判斷是否推進 Goal，Human Gate 是欄外決策；圖中 Done 為教學推演，不能拿規則層 PASS 宣稱 UI／部署已完成。')
     node['data-section']=p['chapter'];node['data-page']=str(p['number']);node['data-source']=' '.join(p['ids']);node['id']=f'page-{p["number"]}'
     if p['addedId']:node['data-added-id']=p['addedId']
     if p['oldRev11Page']==7:node['data-process-stage']='0'

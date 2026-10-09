@@ -32,7 +32,7 @@
 |---|---|---|
 | P1 | Audience first | 預設學員是完全不懂軟體工程／專案管理的行銷、老師、行政等非工程背景受眾。術語第一次出現前，先用白話建立概念。 |
 | P2 | Prerequisite before consequence | 一個概念只能在前置知識已出現後使用。敘事應是「先遇到問題 → 再引出工具／概念」，不能先給答案再補前提。 |
-| P3 | Brainstorming → Goal → Ticket → Delivery → Evidence | 教學主線從 **Brainstorming → Goal → Refinement／Backlog（形成票、AC／AT／DoD）→ Ready → Dev → PR Review → QA／Verification → Product／Goal Check → Human Gate → Merge／Release／檢查 → Done**，上線後再量 Goal 成效；敘事不能先給結論才補形成過程。 |
+| P3 | Brainstorming → Goal → Ticket → Delivery → Evidence | 教學主線從 **Brainstorming → Goal → Backlog（於 Refinement 活動形成票、AC／AT／DoD）→ Ready → Dev → PR Review → QA／Verification → Product Check → Human Gate（欄外決策）→ Merge／Release／檢查 → Done**，上線後再量 Goal 成效；敘事不能先給結論才補形成過程。 |
 | P4 | One canonical running example | 配對 App 與工作票是同一條 running example。全 deck 不可偷偷產生第二條互相矛盾的版本／案例世界線。 |
 | P5 | One state, one timeline | 同一案例只能有一條版本、測試與證據時間線。倒帶、快轉、切換 snapshot 時必須在投影片主畫面明說。 |
 | P6 | Evidence proves exactly the claim | Evidence 只能支持它真正驗證過的 claim。規則層、UI、整體串接、Goal 驗收必須分層，不可互相代替。 |
@@ -47,6 +47,16 @@
 | P15 | Every instruction must be executable | Deck、exercise、README 出現的命令、prompt、操作步驟，都必須由 reviewer 原樣 copy-paste 實跑一次。 |
 | P16 | Preserve scope intentionally | 重排是為了解決敘事，不是順手刪章節或擴 scope。延伸議題應另列 Issue，不偷塞進當前 PR。 |
 | P17 | Different gates prove different things | Content correctness、Evidence correctness、Narrative QA、Desktop/Mobile QA、真人小白試教、Release 是不同 gate；一個 gate 通過不代表其他 gate 通過。 |
+
+### 本課的唯一看板模型（Canonical Workflow）
+
+- **七個看板狀態欄**：Backlog → Ready → Dev → Review → QA → Product Check → Done。
+- **Refinement** 是在 Backlog 梳理工作票、形成共識的活動，不新增看板欄。
+- **Product Check** 問「這張票是否符合需求、仍推進 Goal？」；真正的整體 Goal 成效要上線後衡量。
+- **Human Gate** 是 Product Check → Done 間的人類放行／暫停決策註記，不是第八欄。放行之前仍停在 Product Check。
+- **Merge／Release／上線檢查** 是人放行後、達成此課 DoD 才能 Done 的工作，不因規則層測試通過就自動發生。
+- **WIP 計數**採本課自訂示範政策：Dev ～ Product Check 已開始尚未完成的票計入；Blocked／退回／等待仍計入；Ready 尚未開始不計。此非所有團隊的唯一 Kanban／Done 定義。
+- **Evidence scope**：Matching A/B 真實實測只涵蓋規則層；任何 Done／Merge／UI／Release 畫面若無實際外部證據，必須明示為條件式教學流程推演。
 
 ### Merge gates
 
