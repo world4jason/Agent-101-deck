@@ -111,6 +111,8 @@ class EducationalContract(unittest.TestCase):
         self.assertEqual(len(page(90).select("details.r-tech-reveal")),2)
         self.assertTrue(all(not x.has_attr("open") for x in page(90).select("details.r-tech-reveal")))
         self.assertIn("Merge／Release／上線檢查", (ROOT / "drafts/rev12.js").read_text())
+        self.assertIn("共用 DoD 後",page(106).get_text())
+        self.assertIn("'SUMMARY'",(ROOT / "drafts/rev12.js").read_text())
 
     def test_progressive_disclosure_not_mandatory_cli(self):
         novice=page(87)

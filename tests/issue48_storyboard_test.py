@@ -118,7 +118,7 @@ def main():
     assert "已開始但未完成的票數（WIP）" in backlog.get_text()
     assert all_ready and "上限：1" in all_ready.get_text() and "目前：0/1" in all_ready.get_text()
     assert cadence and all(text in cadence.get_text() for text in ["本課 WIP", "上限", "2/2"])
-    assert appendix and "WIP 1/1" in appendix.get_text() and "回到 0/1" in appendix.get_text() and "回到 0/1" in appendix.get_text()
+    assert appendix and "WIP 1/1" in appendix.get_text() and "WIP 0/1" in appendix.get_text() and "DoD" in appendix.get_text()
     assert all("WIP=1" not in page.get_text() for page in [backlog, all_ready, cadence, appendix])
 
     # Candidate recap models Human Gate as a decision point, not a status column.

@@ -59,7 +59,7 @@
     const stages = [
       '1／3｜#3 在 Product Check，WIP 1/1；等待人的放行決定',
       '2／3｜教學假設：人已放行，且 Merge／Release／上線檢查與 DoD 均完成，#3 才 Done；WIP 0/1',
-      '3／3｜#3 Done 不等於 Goal 達成；#1／#2 尚未完成',
+      '3／3｜教學假設：放行、Merge／Release／上線檢查及 DoD 均完成，#3 才 Done；但整體 Goal 尚未達成',
     ];
     const syncGateStage = (nextStage) => {
       const stage = Math.max(0, Math.min(2, nextStage));
@@ -71,7 +71,7 @@
       gateMessage.textContent = stages[stage];
       ticketCount.textContent = stage===0
         ? 'WIP 1/1｜待人放行'
-        : 'WIP 0/1｜已放行';
+        : 'WIP 0/1｜已完成本課 DoD（假設）';
       gateNext.textContent = stage===0 ? '下一步：由人決定放行 →'
         : stage===1 ? '下一步：核對是否達成 Goal →' : '已完成三階段回顧';
       gateNext.disabled = stage===2;
@@ -187,7 +187,7 @@
   document.addEventListener('keydown', event => {
     if (event.altKey || event.ctrlKey || event.metaKey || dialog.open) return;
     const element = document.activeElement;
-    if (element && (['INPUT', 'TEXTAREA', 'SELECT'].includes(element.tagName) || element.isContentEditable)) return;
+    if (element && (['INPUT', 'TEXTAREA', 'SELECT', 'SUMMARY'].includes(element.tagName) || element.isContentEditable)) return;
     if (['ArrowRight', 'PageDown'].includes(event.key) || (event.key === ' ' && element?.tagName !== 'BUTTON')) { event.preventDefault(); go(index + 1); }
     else if (['ArrowLeft', 'PageUp'].includes(event.key)) { event.preventDefault(); go(index - 1); }
     else if (event.key === 'Home') { event.preventDefault(); go(0); }

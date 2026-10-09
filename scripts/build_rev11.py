@@ -657,6 +657,7 @@ for i,p in enumerate(pages):
         controls=BeautifulSoup('<div class="r-gate-controls" role="group" aria-label="Kanban 交付三階段回顧"><span data-gate-message aria-live="polite">1／3｜#3 在 Product Check，WIP 1/1；等待人的放行決定</span><button type="button" data-gate-next>下一步：由人決定放行 →</button><button type="button" data-gate-reset disabled>重頭回顧</button></div>','html.parser').div
         note=node.select_one('.short-note.move-8')
         assert note is not None
+        note.string='Human Gate 是 Product Check 與 Done 間的人類決策點，不另增看板狀態。本課的條件式回顧：人放行並完成 Merge／Release／上線檢查及共用 DoD 後，#3 才進 Done、WIP 0/1；#1／#2 仍在 Ready，整體 Goal 未達成。本次規則層 demo 不代表 UI／部署已完成。'
         note.insert_before(controls)
 
     # Learner-facing editorial correctness and prerequisite fixes.
