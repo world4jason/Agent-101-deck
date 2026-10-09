@@ -105,6 +105,13 @@ class EducationalContract(unittest.TestCase):
         self.assertIn("寫一段",page(95).select(".r-exit-card")[0].h2.get_text())
         self.assertIn("頁碼",page(107).select(".r-exit-card")[0].h2.get_text())
 
+    def test_independent_review_p1_fixes(self):
+        self.assertIn("人＋一 Agent 的完整交付示例", page(64).get_text())
+        self.assertIn("人依 AC 退回補驗", page(64).get_text())
+        self.assertEqual(len(page(90).select("details.r-tech-reveal")),2)
+        self.assertTrue(all(not x.has_attr("open") for x in page(90).select("details.r-tech-reveal")))
+        self.assertIn("Merge／Release／上線檢查", (ROOT / "drafts/rev12.js").read_text())
+
     def test_progressive_disclosure_not_mandatory_cli(self):
         novice=page(87)
         self.assertIn("非工程師",novice.get_text())

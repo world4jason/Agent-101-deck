@@ -58,7 +58,7 @@
     const ticketCount = gateSlide.querySelector('.moving-ticket small');
     const stages = [
       '1／3｜#3 在 Product Check，WIP 1/1；等待人的放行決定',
-      '2／3｜人已放行 → #3 才能移至 Done；WIP 回到 0/1',
+      '2／3｜教學假設：人已放行，且 Merge／Release／上線檢查與 DoD 均完成，#3 才 Done；WIP 0/1',
       '3／3｜#3 Done 不等於 Goal 達成；#1／#2 尚未完成',
     ];
     const syncGateStage = (nextStage) => {

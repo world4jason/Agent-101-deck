@@ -780,7 +780,23 @@ for i,p in enumerate(pages):
         second.append(more)
         node.select_one(".r-kicker").string="非工程師也能交辦：說明目標、AC、證據與停止條件；Python 是進階選項。"
     if n==90:
-        node.select_one(".r-kicker").string="時間倒回 B-pre（補驗前）：靠交接卡補證據，再回到 B-post 主線；不要求學員會 CLI。"
+        node.select_one(".r-kicker").string="時間倒回 B-pre：先根據交接卡自己寫補驗指令，再逐項揭露參考答案及 B-post 證據。"
+        reviewcards=node.select(".r-cols > .r-card")
+        assert len(reviewcards)==3
+        for i,card in enumerate(reviewcards[1:],1):
+            body=card.select_one(".r-body")
+            assert body
+            details=BeautifulSoup('<details class="r-tech-reveal"><summary>完成自己的回答後，點此揭露</summary></details>','html.parser').details
+            for child in list(body.contents):
+                details.append(child.extract())
+            body.append(details)
+            title=card.select_one("h2")
+            assert title
+            title.string="參考補驗指令（先作答）" if i==1 else "B-post 結果（先推測）"
+    if n==64:
+        ribbon=node.select_one(".r-ribbon")
+        assert ribbon
+        ribbon.string="一人＋一 Agent 的完整交付示例：Agent 交 B-pre（單向／雙向 PASS，重複 NOT RUN）→ 人依 AC 退回補驗 → 接手 Agent 用同一 B 版補測 duplicate PASS（B-post）→ 人核對版本與證據；UI／產品整合仍 NOT RUN，不准自行 Merge／發布。接著才討論何時值得增加 Agent。"
     if n==92:
         replace_text(node,"另一個實際案例｜v7 簡報首版發布 PR #43","實際教材改版案例｜未經最終確認就發布")
         replace_text(node,"PR #43 合併，v7 簡報上線","教材首版先合併並發布")

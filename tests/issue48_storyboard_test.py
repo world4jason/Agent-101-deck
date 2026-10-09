@@ -219,7 +219,9 @@ def main():
     assert wip_page.select_one("[data-wip-reveal]") and wip_page.select_one("[data-wip-sequence][hidden]")
     assert not wip_page.select_one('.r-revision')
     handoff = added_page("A14")
-    assert handoff and "下一句交辦" in handoff.get_text() and handoff.select_one('a[href*="B-pre-supplement"]')
+    assert handoff and "參考補驗指令" in handoff.get_text() and handoff.select_one('a[href*="B-pre-supplement"]')
+    assert len(handoff.select("details.r-tech-reveal")) == 2
+    assert all(not detail.has_attr("open") for detail in handoff.select("details.r-tech-reveal"))
     a13 = added_page("A13").get_text()
     assert full_b_hash[:12] not in a13 and full_b_hash not in a13
     a13_slide = added_page("A13")
