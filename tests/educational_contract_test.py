@@ -95,12 +95,17 @@ class EducationalContract(unittest.TestCase):
 
     def test_kanban_and_release_are_taught_consistently(self):
         expected=["Backlog","Ready","Dev","Review","QA","Product Check","Done"]
-        for n in (15,24,41,48,52):
+        for n in (15,24):
             selector=".full-board-columns" if n==15 else ".mini-board-columns"
             x=page(n).select_one(selector)
             self.assertIsNotNone(x,f"Missing board at {n}")
             actual=[h.get_text(" ",strip=True) for h in x.select("h3" if n==15 else ".mini-column-head")]
             self.assertEqual(actual,expected,f"Board at {n}")
+        # Tutorial slides deliberately use focused diagrams in place of
+        # repeating the full seven-column board on every page.
+        assert len(page(41).select('.r-pr-frame > article'))==3
+        assert page(48).select_one('.r-product-story')
+        assert page(52).select_one('.r-done-journey')
         recap=page(93)
         self.assertEqual([x.h2.get_text(" ",strip=True) for x in recap.select(".recap-columns > article")],expected)
         self.assertFalse(recap.select(".recap-human-gate"))
@@ -181,6 +186,60 @@ class EducationalContract(unittest.TestCase):
         appendix=page(105).get_text(' ',strip=True)
         for claim in ('Release','上線檢查','DoD','Done'):
             self.assertIn(claim,appendix)
+
+    def test_editorial_density_changes_keep_evidence_and_learning_actions(self):
+        # The former full memo / seven-column board / PR thread cannot return
+        # to pages where only one learner decision should be visible.
+        p22=page(22)
+        self.assertEqual(len(p22.select(".r-ac-row")),3)
+        self.assertFalse(p22.select(".refinement-grid"))
+        self.assertFalse(p22.select(".refinement-ac"))
+        self.assertFalse(p22.select(".mini-board"))
+        self.assertIsNotNone(p22.select_one(".r-ticket-place"))
+        p41=page(41)
+        self.assertIsNotNone(p41.select_one(".r-pr-story[data-pr-stage='0']"))
+        self.assertEqual(len(p41.select("[data-pr-pane]")),3)
+        self.assertEqual([x.get("hidden") is not None for x in p41.select("[data-pr-pane]")],
+                         [False,True,True])
+        self.assertIn("教學示意",p41.get_text())
+        self.assertIn("Reviewer 看改動",p41.get_text())
+        self.assertIn("QA 依 AC",p41.get_text())
+        p45=page(45)
+        self.assertIn("B-pre 的「重複 Like」是 NOT RUN",p45.get_text())
+        self.assertEqual(len(p45.select(".r-table tbody tr")),4)
+        self.assertTrue(any("① 操作步驟" in link.get_text()
+                            for link in p45.select(".r-content > .r-meta a")))
+        p46=page(46)
+        self.assertEqual(len(p46.select(".r-evidence-checkpoint")),2)
+        self.assertIn("同一版",p46.get_text())
+        self.assertIn("NOT RUN",p46.get_text())
+        self.assertIn("PASS",p46.get_text())
+        p48=page(48)
+        self.assertEqual(len(p48.select(".r-product-routes article")),3)
+        self.assertNotIn("goal-check-layout",str(p48))
+        for token in ("Product Check","Human Gate","Backlog","Dev","NOT RUN"):
+            self.assertIn(token,p48.get_text())
+        p52=page(52)
+        self.assertEqual(len(p52.select(".r-done-steps article")),3)
+        self.assertFalse(p52.select(".done-summary"))
+        for token in ("#1","#2","#3","教學假設","NOT RUN","DoD"):
+            self.assertIn(token,p52.get_text())
+        p91=page(91)
+        self.assertFalse(p91.select(".launch-timeline"))
+        self.assertIn("尚未放行",p91.get_text())
+        self.assertIn("Human Gate",p91.get_text())
+        recap=page(93)
+        self.assertIsNotNone(recap.select_one(".return-routes .return-goal-path"))
+        self.assertIsNotNone(recap.select_one(".return-routes .return-product-dev-path"))
+        self.assertIn("需求問題退回 Backlog",recap.get_text())
+        self.assertIn("實作問題回 Dev",recap.get_text())
+        p95=page(95)
+        question=p95.select(".r-exit-card")[2].select_one("h2")
+        answer=p95.select(".r-exit-card")[2].select_one("details p")
+        self.assertIn("還沒執行",question.get_text())
+        self.assertIn("候選版本＝無",answer.get_text())
+        self.assertIn("未測＝全部 AC",answer.get_text())
+        self.assertIn("B-pre 補驗前",p95.select(".r-exit-card")[1].h2.get_text())
 
     def test_progressive_disclosure_not_mandatory_cli(self):
         novice=page(87)

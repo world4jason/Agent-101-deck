@@ -81,6 +81,29 @@
     gateReset.addEventListener('click', () => { syncGateStage(0); gateNext.focus(); });
     syncGateStage(0);
   }
+  // PR Review is a staged teaching illustration. Stage 0 cannot silently
+  // include a repair or successful re-review that has not happened yet.
+  document.querySelectorAll('.r-pr-story').forEach(story => {
+    const slides = [...story.querySelectorAll('[data-pr-pane]')];
+    const markers = [...story.querySelectorAll('[data-pr-marker]')];
+    const counter = story.querySelector('[data-pr-counter]');
+    const next = story.querySelector('[data-pr-next]');
+    const reset = story.querySelector('[data-pr-reset]');
+    const labels = ['下一步：Dev 修正 →', '下一步：重新送審 →', '本例已交給 QA'];
+    const show = value => {
+      const current = Math.max(0, Math.min(slides.length-1, value));
+      story.dataset.prStage = String(current);
+      slides.forEach((pane, i) => {pane.hidden=i!==current;});
+      markers.forEach((el,i) => el.classList.toggle('active',i===current));
+      counter.textContent = String(current+1)+'／'+String(slides.length);
+      next.textContent = labels[current];
+      next.disabled = current===slides.length-1;
+      reset.disabled = current===0;
+    };
+    next.addEventListener('click',()=>show(Number(story.dataset.prStage||0)+1));
+    reset.addEventListener('click',()=>{show(0);next.focus();});
+    show(0);
+  });
   document.querySelectorAll('[data-process-next]').forEach(button => {
     const slide = button.closest('.slide');
     const note = slide.querySelector('[data-process-note]');

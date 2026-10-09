@@ -633,3 +633,208 @@
 .rev12-draft #page-64 .r-session-reference .r-card {padding:10px 13px;}
 .rev12-draft #page-64 .r-session-reference .r-card h2 {font-size:18px;}
 .rev12-draft #page-64 .r-session-reference .r-body {font-size:16px;}
+
+/* Editorial revision: leave the detailed artifact in notes, put the taught
+   relationship and evidence into the learner-facing frame. */
+.rev12-draft #page-22 .mini-board { flex: 0 0 auto; min-height: 0; }
+.rev12-draft #page-22 .refinement-ticket {
+  display: flex; flex-direction: column; gap: 18px;
+  padding: 18px 22px;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+.rev12-draft #page-22 .r-ac-short {
+  display: grid; grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 15px; min-height: 0; flex: 1 1 auto;
+}
+.rev12-draft #page-22 .r-ac-row {
+  display: flex; flex-direction: column; justify-content: center;
+  align-items: flex-start; gap: 14px;
+  min-width: 0; padding: 18px;
+  border: 1px solid #365a7a; border-radius: 10px;
+  background: #132438;
+}
+.rev12-draft #page-22 .r-ac-row span {font: 650 22px/1.35 system-ui; color: #bfdbf6;}
+.rev12-draft #page-22 .r-ac-row strong {font: 760 26px/1.35 system-ui; color: #f0f7fc;}
+.rev12-draft #page-22 .r-ac-row:nth-child(2) strong {color:#a8e5bf;}
+.rev12-draft #page-22 .ticket-rule-note {font-size:19px; line-height:1.35;}
+
+/* PR Review: only one time-point is shown at once, with explicit learner steps. */
+.rev12-draft #page-41 .r-pr-story {
+  display: flex; flex-direction: column;
+  gap: 18px; flex: 1 1 auto; min-height: 0;
+  width: 100%; margin: 0;
+}
+.rev12-draft #page-41 .r-scenario-note {
+  text-align:left; margin:0; font:600 20px/1.35 system-ui;
+  color: #cce1f3;
+}
+.rev12-draft #page-41 .r-pr-sequence {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 11px; padding: 11px 13px;
+  border:1px solid #3b5571; border-radius:10px;
+  background:#111e2c;
+}
+.rev12-draft #page-41 .r-pr-sequence > span {
+  flex: 1 1 0; text-align:center; padding:12px 9px;
+  border-radius:8px; background:#172a3c;
+  font:710 22px/1.3 system-ui; color:#aec5d9;
+}
+.rev12-draft #page-41 .r-pr-sequence > span.active {
+  background:#284465; color:#f3f9ff;
+  outline:2px solid #83bcff; outline-offset:0;
+}
+.rev12-draft #page-41 .r-pr-sequence i {color:#89b7dc;font:780 25px/1 system-ui;font-style:normal;}
+.rev12-draft #page-41 .r-pr-frame {
+  flex:1 1 auto; min-height:0; display:grid;
+  place-items:stretch; max-height:380px;
+}
+.rev12-draft #page-41 .r-pr-frame article {
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:center; gap:22px; min-height:0;
+  border:1px solid #416184; border-top:4px solid #84bafa;
+  border-radius:13px; background:#152436; padding:30px;
+}
+.rev12-draft #page-41 .r-pr-frame article[hidden] {display:none;}
+.rev12-draft #page-41 .r-pr-step {color:#bdd5ee;font:700 21px/1.3 system-ui;}
+.rev12-draft #page-41 .r-pr-frame h2 {color:#f6faff;font:760 38px/1.25 system-ui;margin:0;}
+.rev12-draft #page-41 .r-pr-frame p {color:#dbe7f3;font:560 26px/1.3 system-ui;margin:0;}
+.rev12-draft #page-41 .r-pr-frame b {
+  padding:10px 25px;border-radius:9px;font:740 24px/1.3 system-ui;
+}
+.rev12-draft #page-41 .r-pr-request {background:#45221d;color:#ffb6ae;}
+.rev12-draft #page-41 .r-pr-okay {background:#1b3e35;color:#c0f4d4;}
+.rev12-draft #page-41 .r-pr-controls {
+  display:flex; align-items:center; justify-content:center;
+  gap:35px; min-height:50px;
+}
+.rev12-draft #page-41 .r-pr-controls button {
+  cursor:pointer; border:1px solid #537fa6; border-radius:8px;
+  color:#e3f0fd;background:#213b56;
+  font:710 20px/1.3 system-ui;padding:9px 18px;
+}
+.rev12-draft #page-41 .r-pr-controls button:disabled {opacity:.5;cursor:default;}
+.rev12-draft #page-41 .r-pr-controls button:focus-visible {outline:3px solid #f2cf76;outline-offset:4px;}
+.rev12-draft #page-41 [data-pr-counter] {font:700 19px/1.3 system-ui;color:#c1d7ed;}
+
+/* Product Check: one question and three outcomes, not a full Kanban + memo. */
+.rev12-draft #page-48 .r-product-story {
+  display:flex; flex-direction:column; align-items:stretch;
+  gap:18px; width:100%; flex:1 1 auto; min-height:0;
+}
+.rev12-draft #page-48 .r-product-position {
+  margin:0; font:650 20px/1.35 system-ui;color:#d8e5f4;
+  background:#17283c;border-left:4px solid #80b4ef;
+  border-radius:7px;padding:10px 17px;
+}
+.rev12-draft #page-48 .r-product-question {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:11px; background:#173024;border:1px solid #528467;
+  border-radius:12px; flex:1 1 auto; min-height:160px;padding:22px;
+}
+.rev12-draft #page-48 .r-product-question span {color:#a9d3bd;font:660 21px/1.3 system-ui;}
+.rev12-draft #page-48 .r-product-question h2 {color:#f2faf6;font:780 36px/1.24 system-ui;margin:0;}
+.rev12-draft #page-48 .r-product-question p {color:#c1e6ce;font:560 21px/1.32 system-ui;margin:0;}
+.rev12-draft #page-48 .r-product-routes {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
+.rev12-draft #page-48 .r-product-routes article {
+  display:flex;flex-direction:column;gap:10px;padding:17px 18px;
+  border:1px solid #435f7e;border-radius:10px;background:#122237;
+}
+.rev12-draft #page-48 .r-product-accept {border-top:4px solid #86d6ad!important;}
+.rev12-draft #page-48 .r-product-return {border-top:4px solid #f2cf76!important;}
+.rev12-draft #page-48 .r-product-routes span {font:680 20px/1.25 system-ui;color:#d4e5f5;}
+.rev12-draft #page-48 .r-product-routes b {font:780 25px/1.27 system-ui;color:#fbfdff;}
+.rev12-draft #page-48 .r-product-routes small {font:490 17px/1.35 system-ui;color:#b9cbdb;}
+.rev12-draft #page-48 .r-product-boundary {
+  margin:0; padding:10px 15px;border-left:4px solid #86d6ad;
+  background:#14241d;color:#cee8d6;font:620 19px/1.3 system-ui;
+}
+
+/* Contrast a completed ticket with an incomplete user journey. */
+.rev12-draft #page-52 .r-done-journey {
+  display:flex; flex-direction:column; justify-content:center;
+  gap:25px; flex:1 1 auto; min-height:0;width:100%;
+}
+.rev12-draft #page-52 .r-done-goal {
+  margin:auto 0 0; padding:21px;
+  border:1px solid #50755d;border-radius:10px;background:#172b21;
+  color:#d2ebd7;text-align:center;font:740 25px/1.3 system-ui;
+}
+.rev12-draft #page-52 .r-done-steps {
+  display:grid;grid-template-columns:minmax(0,1fr) 48px minmax(0,1fr) 48px minmax(0,1fr);
+  gap:12px;align-items:center;width:100%;
+}
+.rev12-draft #page-52 .r-done-steps article {
+  display:flex;flex-direction:column;justify-content:center;
+  min-height:174px;gap:18px;padding:23px;
+  border:1px solid #4a6482;border-top:5px solid #839db9;
+  border-radius:11px;background:#132538;text-align:center;
+}
+.rev12-draft #page-52 .r-done-steps article.r-done-if {border-top-color:#8bdcb1;background:#172c25;}
+.rev12-draft #page-52 .r-done-steps article b {font:760 27px/1.28 system-ui;color:#eff8ff;}
+.rev12-draft #page-52 .r-done-steps article span {font:690 23px/1.3 system-ui;color:#d5e7f8;}
+.rev12-draft #page-52 .r-done-steps .r-done-if span {color:#b4edcc;}
+.rev12-draft #page-52 .r-done-steps i {font:770 36px/1 system-ui;color:#8fb8dc;font-style:normal;text-align:center;}
+.rev12-draft #page-52 .r-done-gap {
+  margin:0;padding:15px 18px;border:1px solid #9f8949;
+  border-radius:8px;color:#ffe4ac;background:#2b251b;
+  font:760 25px/1.35 system-ui;text-align:center;
+}
+.rev12-draft #page-52 .r-done-evidence {
+  margin:0 auto auto;max-width:1120px;
+  color:#bed0df;font:500 18px/1.5 system-ui;text-align:center;
+}
+
+/* B-pre/B-post: one candidate program, two verification checkpoints. */
+.rev12-draft #page-46 .r-evidence-timeline {
+  display:grid;grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr);
+  gap:13px;flex:1 1 auto;min-height:0;align-items:stretch;width:100%;
+}
+.rev12-draft #page-46 .r-evidence-checkpoint {
+  display:flex; flex-direction:column;justify-content:center;
+  gap:21px;padding:24px 31px;
+  border:1px solid #4e7091;border-top:5px solid #88bcfc;
+  border-radius:12px;background:#132336;
+}
+.rev12-draft #page-46 .r-evidence-checkpoint.after {border-top-color:#91ddb2;background:#152c26;}
+.rev12-draft #page-46 .r-evidence-label {font:780 29px/1.3 system-ui;color:#dbeaff;}
+.rev12-draft #page-46 .r-evidence-checkpoint p {margin:0;font:680 24px/1.4 system-ui;color:#e9f4fc;}
+.rev12-draft #page-46 .r-evidence-checkpoint .r-evidence-new {font-size:25px;}
+.rev12-draft #page-46 .r-evidence-pending {color:#ffe1a2!important;}
+.rev12-draft #page-46 .r-evidence-forward {align-self:center;text-align:center;color:#a4d7ff;font:760 47px/1 system-ui;}
+.rev12-draft #page-46 .r-evidence-timeline + .r-ribbon {font-size:20px;line-height:1.35;}
+.rev12-draft #page-46 .r-content > .r-meta {margin:0;}
+
+/* Human Gate: show review configurations converging on a human decision. */
+.rev12-draft #page-91 .visual {display:flex;flex-direction:column;justify-content:center;}
+.rev12-draft #page-91 .gate-routing {flex:1 1 auto;max-height:660px;min-height:0;}
+.rev12-draft #page-91 .r-gate-takeup {
+  margin:9px 0 0;padding:12px 16px;color:#d9e9f4;
+  border-left:4px solid #f2cf76;background:#241f17;
+  font:630 19px/1.35 system-ui;text-align:center;
+}
+.rev12-draft #page-91 .cadence-card {min-height:170px;padding:18px 20px;}
+.rev12-draft #page-91 .cadence-card h2 {font-size:25px;}
+.rev12-draft #page-91 .gate-pr span {font-size:16px;}
+
+/* The Product Check return map has two real destinations. */
+.rev12-draft #page-93 .return-routes .return-product-dev-path {
+  stroke:#f2cf76;stroke-dasharray:9 7;stroke-width:3.4;
+}
+
+
+/* Follow-up G4 check: keep the three acceptance rules visually dominant. */
+.rev12-draft #page-22 .mini-board-columns {
+  min-height: 176px;
+  height: 176px;
+}
+
+/* P22: status context is short; make the AC examples the main visual. */
+.rev12-draft #page-22 .r-ticket-place {
+  display:flex;align-items:center;gap:20px;min-height:93px;
+  padding:16px 23px;border:1px solid #446480;border-left:5px solid #80b9f4;
+  border-radius:10px;background:#14263a;flex:0 0 auto;
+}
+.rev12-draft #page-22 .r-ticket-place span {font:740 24px/1.25 system-ui;color:#bedcf7;}
+.rev12-draft #page-22 .r-ticket-place strong {font:760 28px/1.25 system-ui;color:#f0f7ff;}
+.rev12-draft #page-22 .r-ticket-place small {font:580 20px/1.25 system-ui;color:#b3c9de;margin-left:auto;}

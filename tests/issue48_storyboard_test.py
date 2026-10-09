@@ -204,9 +204,9 @@ def main():
     decomposition = candidate.select_one('.slide[data-page="12"]')
     assert goal_page and "不是目前進度欄位" in goal_page.get_text() and "workflow state" not in goal_page.get_text()
     assert decomposition and "IMPLEMENTATION SUB-ISSUE" not in decomposition.get_text() and "parent issue" not in decomposition.get_text() and "Match" not in decomposition.get_text()
-    assert "Backlog＝待釐清或退回的待辦" in backlog.get_text() and "Ready＝可以開工" in backlog.get_text()
+    assert "Backlog 是待辦" in backlog.get_text() and "Ready 表示可開工" in backlog.get_text()
     refinement = candidate.select_one('.slide[data-page="22"]')
-    assert refinement and "工作票整理" in refinement.h1.get_text() and "把需求、例子與未決問題整理成可接手的票" in refinement.get_text()
+    assert refinement and "工作票整理" in refinement.h1.get_text() and len(refinement.select(".r-ac-row")) == 3 and "完整工作票下一頁" in refinement.get_text()
     chapter_cover = candidate.select_one('.slide[data-page="9"]')
     assert chapter_cover and chapter_cover.get("data-section") == "C2"
     qa_return = candidate.select_one('.slide[data-page="42"]')
@@ -222,7 +222,7 @@ def main():
     wip_definition = added_page("A05").get_text()
     assert "2/2" in wip_definition and "#1" in wip_definition and "#2" in wip_definition
     demo = added_page("A07")
-    assert demo and all(word in demo.get_text() for word in ["重置", "初始", "操作", "開啟"])
+    assert demo and all(word in demo.get_text() for word in ["B-pre", "NOT RUN", "預期", "實際", "①", "②"])
     assert demo.select_one('a[href*="matching-demo"]')
     agent_intro = added_page("A08").get_text()
     assert all(word in agent_intro for word in ["AI", "工具", "回到判斷"])
@@ -294,13 +294,13 @@ def main():
     expected_board = ["Backlog", "Ready", "Dev", "Review", "QA", "Product Check", "Done"]
     recap = candidate.select_one('.slide[data-page="93"]')
     assert [e.h2.get_text(" ", strip=True) for e in recap.select(".recap-columns > article")] == expected_board
-    assert recap.select_one(".r-recap-gate-note") and "不新增看板欄位" in recap.get_text()
+    assert recap.select_one(".r-recap-gate-note") and "欄外決策點" in recap.get_text()
     assert not recap.select_one(".recap-columns > .recap-human-gate")
     flow = candidate.select_one('.slide[data-page="26"]')
     assert "Product Check" in flow.get_text() and "Goal Check" not in flow.get_text()
     assert flow.h1.get_text().startswith("本課示範流程")
     qa = candidate.select_one('.slide[data-page="41"]')
-    assert qa.select_one(".r-scenario-note") and "Reviewer 看 code" in qa.get_text()
+    assert qa.select_one(".r-scenario-note") and "Reviewer 看改動" in qa.get_text() and len(qa.select("[data-pr-pane]")) == 3
     done = candidate.select_one('.slide[data-page="52"]')
     journey = candidate.select_one('.slide[data-page="53"]')
     assert "教學假設" in done.get_text() and "NOT RUN" in done.get_text()

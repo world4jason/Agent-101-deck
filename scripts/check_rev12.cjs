@@ -52,6 +52,27 @@ let browser;
   await page.screenshot({path:path.join(out,'pages',String(n).padStart(2,'0')+'.png')});
   results.pages.push({number:n,...stats});
  }
+ // PR Review: real three-step interaction, never reveal all timepoints together.
+ await page.evaluate(()=>location.hash='#41');
+ await page.waitForFunction(()=>document.querySelector('.slide.active')?.dataset.page==='41');
+ const prScene=page.locator('.slide.active .r-pr-story');
+ const prSnap=async()=>prScene.evaluate(el=>{
+   const panes=[...el.querySelectorAll('[data-pr-pane]')];
+   return {stage:+el.dataset.prStage,shown:panes.filter(x=>!x.hidden).map(x=>x.getAttribute('data-pr-pane')),
+     nextDisabled:el.querySelector('[data-pr-next]').disabled,
+     resetDisabled:el.querySelector('[data-pr-reset]').disabled,
+     withinCanvas:el.getBoundingClientRect().bottom<=el.closest('.slide').getBoundingClientRect().bottom+2};
+ });
+ results.interactions.prReview=[await prSnap()];
+ await page.screenshot({path:path.join(out,'pr-review-before.png')});
+ await page.locator('.slide.active [data-pr-next]').focus();
+ await page.keyboard.press('Space');
+ results.interactions.prReview.push(await prSnap());
+ await page.locator('.slide.active [data-pr-next]').click();
+ results.interactions.prReview.push(await prSnap());
+ await page.screenshot({path:path.join(out,'pr-review-after.png')});
+ await page.locator('.slide.active [data-pr-reset]').click();
+ results.interactions.prReview.push(await prSnap());
  // Each chapter-exit question is learner-first: answers start hidden and are revealed intentionally.
  results.exitChecks=[];
  for(const number of [8,30,38,49,54,82,95,107]){
@@ -261,6 +282,7 @@ let browser;
  const gatePending=results.interactions.humanGatePending,gateReleased=results.interactions.humanGateReleased,gateComplete=results.interactions.humanGateComplete;
  const exitsCorrect=results.exitChecks?.length===8 && results.exitChecks.every(item=>item.count===3&&item.initiallyHidden&&item.opened&&item.rehidden&&item.noOverflow);
  const gateReset=results.interactions.humanGateReset;
+ const prSequence=results.interactions.prReview.length===4 && [0,1,2,0].every((stage,i)=>{const x=results.interactions.prReview[i];return x.stage===stage && x.shown.length===1 && x.shown[0]===String(stage) && x.withinCanvas;}) && results.interactions.prReview[2].nextDisabled && results.interactions.prReview[0].resetDisabled && results.interactions.prReview[3].resetDisabled;
  const gateSequence=gatePending?.statusLabels?.join('|')==='Backlog|Ready|Dev|Review|QA|Product Check|Done'
   &&gatePending?.gateColumnCount===0&&gatePending?.stage===0&&gatePending?.WIP?.includes('1/1')
   &&gatePending?.guidance?.includes('等待')&&gatePending?.ticketGridColumn==='6'
@@ -279,6 +301,6 @@ let browser;
     ||results.navigation.backToOutline!=='2'
     ||results.navigation.tocChapters!==manifest.deck.chapterOrder.length
     ||results.navigation.tocOpenedByDefault!==0
-    ||!results.navigation.tocPreview.includes('先看人類如何分工與交付') || !results.navigation.notes.includes('執行前計畫') || !hasPlanLink || !hasCommentLink || !processSequence || !results.interactions.processButtonDisabled || !wipSequence || !a13Sequence || !exitsCorrect || !gateSequence || results.projectionScreenshots.length!==reviewPages.length || results.mobileScreenshots.length!==reviewPages.length) process.exitCode=1;
+    ||!results.navigation.tocPreview.includes('先看人類如何分工與交付') || !results.navigation.notes.includes('執行前計畫') || !hasPlanLink || !hasCommentLink || !processSequence || !results.interactions.processButtonDisabled || !wipSequence || !a13Sequence || !exitsCorrect || !prSequence || !gateSequence || results.projectionScreenshots.length!==reviewPages.length || results.mobileScreenshots.length!==reviewPages.length) process.exitCode=1;
  await browser.close();
 })().catch(async e=>{console.error(e);if(browser)await browser.close();process.exitCode=1});

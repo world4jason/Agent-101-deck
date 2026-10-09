@@ -120,7 +120,7 @@ new[27]=kicker('先問：這些範例有沒有解決我們的分歧？')+cols(
 new[28]=kicker('同一個例子，把「接受什麼」接到「如何證明」')+cols(
  panel('AC｜接受條件',para('<b>同一對不重複配對。</b>','描述必須成立的行為。'),'rule'),
  panel('AT｜驗收測試',para('<b>Given</b> 小安與小晴已配對','<b>When</b> 小安再次 Like','<b>Then</b> 仍只有原本一筆'),'good'),
- panel('DoD｜共用完成要求',para('PR 已審查、沒有超出範圍','既有功能沒壞、上線後檢查','本課所有票共同遵守。')))+ribbon('一張票的特定行為用 AC 判斷；AT 驗證它；完成還要滿足團隊共用 DoD。')
+ panel('DoD｜共用完成要求',para('改動有人審查、沒有超出範圍','既有功能沒壞、上線後檢查','本課所有票共同遵守。')))+ribbon('一張票的特定行為用 AC 判斷；AT 驗證它；完成還要滿足團隊共用 DoD。')
 new[32]=kicker('#3 單向不得配對：不同檢查回答不同問題')+flow(
  panel('Dev ↔ 自測',para('邊改邊測，快速修正。','PR 帶著改動與自測紀錄。')),
  panel('PR／CI',para('PR 是送審與討論位置。','CI 依設定重複執行 checks。')),
@@ -216,10 +216,26 @@ def transition_summary(record):
     expected=record['expected'];actual=record['actual']
     return (f'預期 {expected["before_match_count"]}→{expected["match_count"]} 筆；'
         f'實際 {actual["before_match_count"]}→{actual["match_count"]} 筆。')
-new[36]=kicker('時間快轉至 B-post｜前兩項沿用 B-pre 紀錄，這次只補驗重複情境')+table(['情境','B-pre｜補驗前已有證據','B-post｜此次補驗'],[
- ['單向 Like',transition_summary(b_one)+f'<b class="r-green">{b_one["status"]}</b>','表格沿用 B-pre；B-post 套件另有重跑'],
- ['雙向 Like',transition_summary(b_two)+f'<b class="r-green">{b_two["status"]}</b>','表格沿用 B-pre；B-post 套件另有重跑'],
- ['已配對再 Like','<b>NOT RUN</b>',transition_summary(b_duplicate)+f'<b class="r-green">{b_duplicate["status"]}</b>']])+ribbon('本表沿用 B-pre 單向／雙向原始紀錄；B-post 的完整測試套件也曾重跑三情境。B-pre／B-post 是同一 B 指紋，UI／串接 NOT RUN。')+'<p class="r-meta"><a href="../workshop/matching-demo/evidence/B-pre-supplement/README.md" target="_blank" rel="noopener">B-pre 原始紀錄 ↗</a>　<a href="../workshop/matching-demo/evidence/B-post-supplement/README.md" target="_blank" rel="noopener">B-post 補驗紀錄 ↗</a></p>'
+# A single B artifact, two reporting checkpoints. A previous full-suite replay
+# is kept in evidence, not mixed into the learner-facing timeline.
+new[36] = (
+  kicker('時間快轉：程式仍是 Version B；B-post 只新增重複 Like 的補驗證據。')
+  + '<div class="r-evidence-timeline" aria-label="B 版補驗前後的證據差異">'
+  + '<article class="r-evidence-checkpoint before"><span class="r-evidence-label">B-pre｜補驗前</span>'
+  + '<p>單向 Like <b class="r-green">PASS</b></p>'
+  + '<p>雙向 Like <b class="r-green">PASS</b></p>'
+  + '<p class="r-evidence-pending">已配對再 Like <b>NOT RUN</b></p></article>'
+  + '<span class="r-evidence-forward" aria-hidden="true">→</span>'
+  + '<article class="r-evidence-checkpoint after"><span class="r-evidence-label">B-post｜同一版，補驗後</span>'
+  + '<p>單向／雙向：沿用 B-pre 既有紀錄</p>'
+  + '<p class="r-evidence-new">重複 Like：'
+  + e(str(b_duplicate['expected']['match_count']))+' 筆預期／'
+  + e(str(b_duplicate['actual']['match_count']))+' 筆實際 <b class="r-green">'
+  + e(b_duplicate['status'])+'</b></p>'
+  + '</article></div>'
+  + ribbon('時間線：B-pre 的「重複」未測 → B-post 同一 B 版補驗 PASS。UI／產品串接、其他未執行情境仍 NOT RUN。')
+  + '<p class="r-meta"><a href="../workshop/matching-demo/evidence/B-pre-supplement/README.md" target="_blank" rel="noopener">B-pre 原始紀錄 ↗</a>　<a href="../workshop/matching-demo/evidence/B-post-supplement/README.md" target="_blank" rel="noopener">B-post 補驗紀錄 ↗</a></p>'
+)
 new[37]=kicker('真實規則層證據｜同一個單向 Like 情境，A 失敗、B 通過')+table(['版本／情境','預期','實際配對紀錄','工具判定'],[
  [f'Version A｜單向 Like',f'{a_one["expected"]["match_count"]} 筆',a_actual,f'<b class="r-red">{a_one["status"]}</b>'],
  [f'Version B｜同一單向 Like',f'{b_one["expected"]["match_count"]} 筆',b_one_actual,f'<b class="r-green">{b_one["status"]}</b>']])+ribbon('檔案指紋：用來確認測的是同一份程式；不一定是 Git commit。這裡只證明 #3 規則；UI／產品串接仍 NOT RUN。')+'<p class="r-meta"><a href="../workshop/matching-demo/evidence/A/one-way.json" target="_blank" rel="noopener">Version A 原始 FAIL ↗</a>　<a href="../workshop/matching-demo/evidence/B-pre-supplement/one-way.json" target="_blank" rel="noopener">Version B 同案 PASS ↗</a></p>'
@@ -361,9 +377,9 @@ exit_check_data = {'A18': {'label': '人類合作',
  'A24': {'label': 'Agent 交付',
          'outcome': '能交辦一張票、辨認缺證據並要求補驗與接續。',
          'questions': [('拿上一頁自己寫的 Ticket，寫一段可交給 Agent 的交辦與停止條件。', '例如：「請先讀［票］，只做［範圍］，按［AC］交回版本、預期／實際及未測事項；缺資料或超出範圍先停下詢問，不得自行發布。」'),
-                       ('Agent 說 B 版完成，但重複 Like 是 NOT RUN，怎麼回覆？', '要求在相同 B artifact 與假資料重播重複 Like，交出操作前後筆數及原始結果；暫不接受。'),
-                       ('把上一頁自己的 Ticket 交接給新 Agent：請寫版本、已做／未測、下一步、停止條件。',
-                        '示例：票＝你上一頁的工作；版本＝候選版本／連結；已做＝哪些 AC 有證據；未測＝明列；下一步＝具體補驗；停止＝未核准前不 Merge／發布，缺資料先詢問。')]},
+                       ('回到 B-pre 補驗前：Agent 說 B 版完成，但重複 Like 仍 NOT RUN，怎麼回覆？', '要求在相同 B artifact 與假資料重播重複 Like，交出操作前後筆數及原始結果；暫不接受。'),
+                       ('上一頁的 Ticket 還沒執行。交給新 Agent 時，版本、進度、未測、下一步與停止條件怎麼寫？',
+                        '候選版本＝無；已做＝票面整理；未測＝全部 AC；下一步＝首次交辦；停止＝資料不足先問、未核准不發布。已有實作才填真實版本與結果。')]},
  'A25': {'label': '附錄',
          'outcome': '能按需要查找方法，分辨教學示意與真正驗證過的結果。',
          'questions': [('需求理解分歧、條件組合多、想先看失敗測試：請在附錄找三種方法與頁碼。',
@@ -905,6 +921,173 @@ for i,p in enumerate(pages):
             "6｜Review / QA / Human":"6｜Review / QA / Human（審查與人放行）",
         }
         for before,after in mapping.items():replace_text(node,before,after)
+
+    # Editorial QA: retain full rationale in the Storyboard/Notes; present one
+    # learner decision at a time, without substituting appearance for evidence.
+    if n==15:
+        for note in list(node.select('.r-revision')):
+            if 'WIP 計數政策' in note.get_text():
+                note.decompose()
+        stage=node.select_one('.visual > .r-meta')
+        if stage:stage.string='Backlog 是待辦；Ready 表示可開工。三張都未開始，目前 WIP 0/1。'
+    if n==22:
+        # Page 23 already teaches what a complete ticket contains. Page 22
+        # shows only the three acceptance examples and the current board state.
+        old_grid=node.select_one('.refinement-grid')
+        assert old_grid
+        compact=BeautifulSoup('''<div class="r-ac-short" aria-label="工作票 #3 的三條驗收情境">
+          <div class="r-ac-row"><span>單向喜歡</span><strong>不建立配對</strong></div>
+          <div class="r-ac-row"><span>雙向喜歡</span><strong>建立一筆配對</strong></div>
+          <div class="r-ac-row"><span>已配對再 Like</span><strong>不增加筆數</strong></div>
+        </div>''','html.parser').div
+        old_grid.replace_with(compact)
+        board=node.select_one('.mini-board')
+        assert board
+        status=BeautifulSoup('''<div class="r-ticket-place" aria-label="工作票目前的位置">
+          <span>#3｜Backlog</span><strong>正在整理三條 AC</strong>
+          <small>#1、#2 尚待整理｜目前 WIP 0/1</small>
+        </div>''','html.parser').div
+        board.replace_with(status)
+        ticket=node.select_one('.mini-ticket[data-ticket="3"] small')
+        if ticket:ticket.string='AC 整理中'
+        note=node.select_one('.ticket-rule-note')
+        assert note
+        note.string='目前 #3 留在 Backlog，把三條 AC 整理清楚；完整工作票下一頁再看。'
+    if n==23:
+        replace_text(node,'A 喜歡 B：不配對','只有 A 喜歡 B、B 尚未 Like：不配對')
+    if n==41:
+        # The PR Review teaching example is imaginary and must not be
+        # confused with the following real Version A/B rule-level replay.
+        stage=node.select_one('.visual.step-visual')
+        assert stage
+        new_story=BeautifulSoup('''<div class="r-pr-story" data-pr-stage="0" aria-label="PR Review 三步互動示意">
+          <p class="r-scenario-note">PR Review 教學示意｜配對規則 A/B 的真實測試接下一頁。</p>
+          <div class="r-pr-sequence" role="group" aria-label="PR Review 事件順序">
+            <span data-pr-marker="0">1　超出 #3 範圍</span><i>→</i>
+            <span data-pr-marker="1">2　Dev 修正</span><i>→</i>
+            <span data-pr-marker="2">3　重送 PR</span>
+          </div>
+          <div class="r-pr-frame">
+            <article data-pr-pane="0">
+              <span class="r-pr-step">Review｜第 1 次</span>
+              <h2>Reviewer：多做了聊天室</h2>
+              <p>聊天室不在 #3 工作範圍內。</p>
+              <b class="r-pr-request">Request changes → Dev</b>
+            </article>
+            <article data-pr-pane="1" hidden>
+              <span class="r-pr-step">Dev｜修正中</span>
+              <h2>移除超出範圍的聊天室</h2>
+              <p>只保留 #3 配對規則的修改。</p>
+              <b class="r-pr-okay">重新送審</b>
+            </article>
+            <article data-pr-pane="2" hidden>
+              <span class="r-pr-step">Review｜再次檢查（示意）</span>
+              <h2>改動符合 #3 範圍</h2>
+              <p>Reviewer 看改動；QA 依 AC 驗行為。</p>
+              <b class="r-pr-okay">通過 Review → 交 QA</b>
+            </article>
+          </div>
+          <div class="r-pr-controls">
+            <button type="button" data-pr-reset disabled>重看</button>
+            <span data-pr-counter aria-live="polite">1／3</span>
+            <button type="button" data-pr-next>下一步：Dev 修正 →</button>
+          </div>
+        </div>''','html.parser').div
+        stage.replace_with(new_story)
+        intro=node.select_one('.carried-note.git-callback')
+        if intro:intro.decompose()
+    if n==45:
+        title=node.select_one('.r-kicker')
+        assert title
+        title.string='B-pre 實測當下｜Version A 單向 FAIL；Version B 單向／雙向 PASS，重複 Like 尚未執行。'
+        intro=node.select_one('.r-meta')
+        assert intro
+        intro.string='每個已執行情境都重置同一份假帳號資料，再比對預期／實際；完整操作與執行命令在 Evidence。'
+        r=node.select_one('.r-ribbon')
+        assert r
+        r.string='B-pre 的「重複 Like」是 NOT RUN。下一頁才補驗；僅晴→安、雙方都未 Like、UI／整合等仍缺獨立實測紀錄。'
+    if n==45:
+        # Keep the evidence links visible above the table. The reproduction
+        # command and fixtures live in the linked Runbook, not the slide.
+        metas=node.select('.r-content > .r-meta')
+        assert len(metas)==2
+        explanation, links=metas
+        anchors=links.select('a')
+        assert len(anchors)==2
+        anchors[0].string='① 操作步驟 ↗'
+        anchors[1].string='② 結果與未測紀錄 ↗'
+        explanation.decompose()
+        node.select_one('.r-kicker').insert_after(links.extract())
+    if n==48:
+        section=node.select_one('.visual.step-visual')
+        assert section
+        decision=BeautifulSoup('''<div class="r-product-story" aria-label="Product Check 判斷與退回方向">
+          <p class="r-product-position">#3 在 Product Check｜已見規則層證據；UI／整合仍 NOT RUN</p>
+          <div class="r-product-question">
+            <span>Product Check 問的是</span>
+            <h2>這張 #3 工作票仍有助於 Goal 嗎？</h2>
+            <p>讓互相喜歡的兩人建立配對。</p>
+          </div>
+          <div class="r-product-routes">
+            <article class="r-product-accept"><span>方向正確</span><b>交由人類判斷接受</b>
+              <small>Human Gate／發布與 DoD 仍須另外檢查</small></article>
+            <article class="r-product-return"><span>需求變了</span><b>退回 Backlog</b>
+              <small>重新釐清真正要解決的問題</small></article>
+            <article class="r-product-return"><span>實作不符合 AC</span><b>退回 Dev</b>
+              <small>修正後再送驗證</small></article>
+          </div>
+          <p class="r-product-boundary">工作票是否合適，在上線前判斷；Goal 成效要等真實使用結果才能衡量。</p>
+        </div>''','html.parser').div
+        section.replace_with(decision)
+        intro=node.select_one('.step-question.step-intro')
+        if intro:intro.decompose()
+    if n==52:
+        status=node.select_one('.visual.step-visual')
+        assert status
+        journey=BeautifulSoup('''<div class="r-done-journey" aria-label="工作票與整體 Goal 的完成差異">
+          <div class="r-done-goal">共同 Goal｜使用者能從按喜歡到查看配對結果</div>
+          <div class="r-done-steps">
+            <article><b>#1　Like／Pass</b><span>Ready｜未開工</span></article>
+            <i aria-hidden="true">→</i>
+            <article class="r-done-if"><b>#3　配對判斷</b><span>Done（教學假設）</span></article>
+            <i aria-hidden="true">→</i>
+            <article><b>#2　配對列表</b><span>Ready｜未開工</span></article>
+          </div>
+          <p class="r-done-gap">#3 單票假設完成，使用者仍走不完完整流程，整體 Goal 尚未達成。</p>
+          <p class="r-done-evidence">此為流程推演：假設 Review／QA、人類放行、Merge／Release／上線檢查與 DoD 均完成，#3 才可能 Done。真實 UI／部署 NOT RUN。</p>
+        </div>''','html.parser').div
+        status.replace_with(journey)
+        for sel in ['.carried-note.git-callback','.step-question.step-intro']:
+            element=node.select_one(sel)
+            if element:element.decompose()
+    if n==91:
+        flow=node.select_one('.launch-timeline')
+        assert flow
+        flow.decompose()
+        cardA=node.select_one('.cadence-card.slow-cadence')
+        cardB=node.select_one('.cadence-card.fast-cadence')
+        assert cardA and cardB
+        for card in [cardA,cardB]:
+            p0=card.select_one('p')
+            if p0:p0.decompose()
+        title=node.select_one('.gate-pr span')
+        assert title
+        title.string='教學示意｜僅晴→安、雙方未 Like、UI 仍 NOT RUN；尚未放行，須補驗後才討論 Merge。'
+        extra=BeautifulSoup('<p class="r-gate-takeup">審查可由人或 Agent 協助；人仍須依風險、授權與證據作放行決定。上線後再評估 Goal 成效。</p>','html.parser').p
+        node.select_one('.visual').append(extra)
+    if n==93:
+        # Two destinations were named but only the Backlog path was drawn.
+        svg=node.select_one('.return-routes .return-desktop')
+        assert svg
+        branch=BeautifulSoup('<path class="return-product-dev-path" d="M785.7 0 V103 Q785.7 115 772 115 H371 Q357.1 115 357.1 103 V0" marker-end="url(#return-goal-up)"></path>','html.parser').path
+        svg.append(branch)
+        note=node.select_one('.r-recap-gate-note')
+        assert note
+        note.clear()
+        note.append(BeautifulSoup('Human Gate 在 <strong>Product Check → Done</strong> 間由人決定放行；等待時仍留 Product Check（欄外決策點）。','html.parser'))
+        lead=node.select_one('.parent-action small')
+        if lead:lead.string='共同 Goal｜互相喜歡才建立配對'
+
     # Goal outcomes are measurable only with a real observation mechanism:
     # observed=0 must not imply all incidents were impossible.
     for t in list(node.find_all(string=True)):

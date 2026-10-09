@@ -1,6 +1,6 @@
 {
   "ssot": "docs/issue48-execution-storyboard.md",
-  "ssotSha256": "9615209d93a1b4bab23e5932c88d18165bc51621fbb2e5636c278b79818f802b",
+  "ssotSha256": "9449b0f71f16219c23968e227687503b806409ab01abbd8104f6d4c55d8bb1e1",
   "baseline": {
     "path": "slides/rev11.html",
     "pages": 82,
@@ -595,8 +595,8 @@
       "oldRev11Page": 20,
       "addedId": null,
       "rev10SourcePage": 19,
-      "claim": "Backlog 可含退回待釐清票；已開工退回仍計 WIP。",
-      "visual": "本課 Backlog 是未釐清或退回待辦；未開工不計，已開工的票即使退回也計 WIP。",
+      "claim": "三張票目前都未開始；看板顯示 Backlog，WIP 0/1。退回與 Blocked 等情況到 WIP 專頁再講。",
+      "visual": "七欄看板保留三張待辦與 WIP 0/1；主畫面只解釋 Backlog／Ready，例外情況留 Notes。",
       "transition": "票選出來後，大家對「支援配對」是否仍有不同理解？",
       "sourceIds": [
         "P19"
@@ -622,7 +622,7 @@
           "path": "drafts/rev10.html#19"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 20；source ID：P19。 章節 C2。\n- **教學作用：**讓學員看見三張工作票在看板上的起始狀態與本課選票。\n- **帶入方式：**保留原看板，顯示三票 Backlog、#3 為先選工作但尚未開工；先白話解釋 Backlog 與 Ready，再標出本課交付 WIP 上限 1、目前 0/1。\n- **帶走重點：**看板記錄工作位置；#3 接下來仍需澄清規則，尚未計入 WIP。\n- **圖面／示範：**原看板圖，強調 Backlog→拉票。\n\n畫面主句：\n\n- 三張票先列入待辦；本課先選 #3。\n講者轉場：票選出來後，大家對「支援配對」是否仍有不同理解？\n\n- **2026-10-09 合併後學員可見版本：** 本課 WIP 政策以 Dev～Product Check 為已開始的計數區間，Ready 不計。 用本課 WIP 政策和 0/1 說明，並非所有團隊唯一算法。\n\n- **2026-10-09 Editorial Review 修正：** 本課 WIP 從 Dev～Product Check 計入，Ready 不計，屬教學政策。\n\n- **2026-10-09 Evidence Review 精確界線：**Backlog 可含退回待釐清票；已開工退回仍計 WIP。 本課 Backlog 是未釐清或退回待辦；未開工不計，已開工的票即使退回也計 WIP。"
+      "notes": "- **對應：**舊 rev11 頁 20；source ID：P19。 章節 C2。\n- **教學作用：**讓學員看見三張工作票在看板上的起始狀態與本課選票。\n- **帶入方式：**保留原看板，顯示三票 Backlog、#3 為先選工作但尚未開工；先白話解釋 Backlog 與 Ready，再標出本課交付 WIP 上限 1、目前 0/1。\n- **帶走重點：**看板記錄工作位置；#3 接下來仍需澄清規則，尚未計入 WIP。\n- **圖面／示範：**原看板圖，強調 Backlog→拉票。\n\n畫面主句：\n\n- 三張票先列入待辦；本課先選 #3。\n講者轉場：票選出來後，大家對「支援配對」是否仍有不同理解？\n\n- **2026-10-09 合併後學員可見版本：** 本課 WIP 政策以 Dev～Product Check 為已開始的計數區間，Ready 不計。 用本課 WIP 政策和 0/1 說明，並非所有團隊唯一算法。\n\n- **2026-10-09 Editorial Review 修正：** 本課 WIP 從 Dev～Product Check 計入，Ready 不計，屬教學政策。\n\n- **2026-10-09 Evidence Review 精確界線：**Backlog 可含退回待釐清票；已開工退回仍計 WIP。 本課 Backlog 是未釐清或退回待辦；未開工不計，已開工的票即使退回也計 WIP。\n\n- **2026-10-09 Editorial 收斂：** 三張票目前都未開始；看板顯示 Backlog，WIP 0/1。退回與 Blocked 等情況到 WIP 專頁再講。 七欄看板保留三張待辦與 WIP 0/1；主畫面只解釋 Backlog／Ready，例外情況留 Notes。"
     },
     {
       "number": 16,
@@ -817,8 +817,8 @@
       "oldRev11Page": 28,
       "addedId": null,
       "rev10SourcePage": null,
-      "claim": "AC：同一對不重複配對",
-      "visual": "同一規則向下串成一條 GWT，旁邊標出團隊共用 DoD；不是三份無關定義。",
+      "claim": "同一條規則示範 AC、AT、DoD 的差異；PR 尚未正式介紹，這裡用「修改有人審查」說明共用要求。",
+      "visual": "三欄分別回答要做到什麼、怎麼驗、交付還缺什麼，名詞的細節下放備註。",
       "transition": "把這些整理回票，就得到什麼樣的交付？",
       "sourceIds": [
         "N13"
@@ -840,7 +840,7 @@
           "path": "docs/issue48-execution-storyboard.md"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 28；source ID：N13；章節 C2。\n- **原卡內容：**\n\n- **處理／來源：** 新增 · N13。\n- **教學作用：** 只有需求共識，還不足以避免 Dev 說做完、QA 或 PO 卻不接受。\n- **帶入方式：** AC：同一對不重複配對；AT：已配對→再次 Like→仍為原配對；DoD：對照團隊既定的共用完成要求。\n- **帶走重點：** 同一例子串 AC、AT、DoD；AT 可用 Given–When–Then，示範前提、事件與結果。\n- **圖面／示範：** 同一規則向下串成一條 GWT，旁邊標出團隊共用 DoD；不是三份無關定義。\n\n畫面主句：\n\n- AC：同一對不重複配對\n- AT：Given 已配對／When 再 Like／Then 仍是原配對\n- DoD：本課共用的審查、範圍、回歸與上線檢查要求\n講者轉場：把這些整理回票，就得到什麼樣的交付？"
+      "notes": "- **對應：**舊 rev11 頁 28；source ID：N13；章節 C2。\n- **原卡內容：**\n\n- **處理／來源：** 新增 · N13。\n- **教學作用：** 只有需求共識，還不足以避免 Dev 說做完、QA 或 PO 卻不接受。\n- **帶入方式：** AC：同一對不重複配對；AT：已配對→再次 Like→仍為原配對；DoD：對照團隊既定的共用完成要求。\n- **帶走重點：** 同一例子串 AC、AT、DoD；AT 可用 Given–When–Then，示範前提、事件與結果。\n- **圖面／示範：** 同一規則向下串成一條 GWT，旁邊標出團隊共用 DoD；不是三份無關定義。\n\n畫面主句：\n\n- AC：同一對不重複配對\n- AT：Given 已配對／When 再 Like／Then 仍是原配對\n- DoD：本課共用的審查、範圍、回歸與上線檢查要求\n講者轉場：把這些整理回票，就得到什麼樣的交付？\n\n- **2026-10-09 Editorial 收斂：** 同一條規則示範 AC、AT、DoD 的差異；PR 尚未正式介紹，這裡用「修改有人審查」說明共用要求。 三欄分別回答要做到什麼、怎麼驗、交付還缺什麼，名詞的細節下放備註。"
     },
     {
       "number": 22,
@@ -853,8 +853,8 @@
       "oldRev11Page": 22,
       "addedId": null,
       "rev10SourcePage": 20,
-      "claim": "已釐清的規則、範例與疑問回到 #3 工作票；所有票仍未開始，所以目前 WIP 是 0/1。",
-      "visual": "同一票面，白話說明工作票整理，連回 AC/AT/DoD 與待處理問題；明示本課上限 1、目前 0/1。",
+      "claim": "工作票 #3 留在 Backlog，整理三條 AC：單向不配對、雙向建立一筆、重複不增筆。",
+      "visual": "七欄空看板改成 #3 Backlog 的簡短狀態列，三張大卡只放單向、雙向、重複三條 AC；完整票面留 P23／Notes。",
       "transition": "現在打開票面，檢查接手者拿到哪些可執行資訊。",
       "sourceIds": [
         "P20"
@@ -880,7 +880,7 @@
           "path": "drafts/rev10.html#20"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 22；source ID：P20。 章節 C2。\n- **教學作用：**把已形成的共同理解落回工作票，白話說明工作票整理如何讓內容可接手。\n- **帶入方式：**使用同一張 #3 票面；把規則、範例、驗收條件與待決問題映回欄位，不再重新問同一句需求是否有歧義。\n- **帶走重點：**共識要能進入可接手的工作紀錄。\n- **圖面／示範：**原票面與待辦狀態圖；本課交付 WIP 上限 1、目前 0/1（全未開始）。\n\n畫面主句：\n\n- 已釐清的規則與驗收方式要回到票面。\n講者轉場：現在打開票面，檢查接手者拿到哪些可執行資訊。"
+      "notes": "- **對應：**舊 rev11 頁 22；source ID：P20。 章節 C2。\n- **教學作用：**把已形成的共同理解落回工作票，白話說明工作票整理如何讓內容可接手。\n- **帶入方式：**使用同一張 #3 票面；把規則、範例、驗收條件與待決問題映回欄位，不再重新問同一句需求是否有歧義。\n- **帶走重點：**共識要能進入可接手的工作紀錄。\n- **圖面／示範：**原票面與待辦狀態圖；本課交付 WIP 上限 1、目前 0/1（全未開始）。\n\n畫面主句：\n\n- 已釐清的規則與驗收方式要回到票面。\n講者轉場：現在打開票面，檢查接手者拿到哪些可執行資訊。\n\n- **2026-10-09 Editorial 收斂：** 工作票 #3 留在 Backlog，整理三條 AC：單向不配對、雙向建立一筆、重複不增筆。 七欄空看板改成 #3 Backlog 的簡短狀態列，三張大卡只放單向、雙向、重複三條 AC；完整票面留 P23／Notes。"
     },
     {
       "number": 23,
@@ -1587,8 +1587,8 @@
       "oldRev11Page": 33,
       "addedId": null,
       "rev10SourcePage": 23,
-      "claim": "示意 PR 審查的是範圍，Reviewer 與 QA 分工清楚；下一頁才是真實規則層 A/B 實測。",
-      "visual": "標示 PR Review 是模擬情境，不與下一頁真實 A/B 規則實測混淆。",
+      "claim": "PR Review 模擬一個越界改動：Reviewer 發現聊天室→Dev 刪除→重送 Review→再交 QA。",
+      "visual": "學員按下一步顯示三階段，只顯示當下的 PR 訊息；跟後頁真實規則層 A/B 回放分開。",
       "transition": "改動審過後，行為要怎麼驗？",
       "sourceIds": [
         "P23"
@@ -1614,7 +1614,7 @@
           "path": "drafts/rev10.html#23"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 33；source ID：P23；章節 C3。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P23。\n- **教學作用：** 做得出來也可能不該接受。\n- **帶入方式：** 原樣保留多做聊天室→Request changes→移除→重新送審。\n- **帶走重點：** Review 檢查改動、範圍、風險與維護性。\n- **圖面／示範：** 沿用留言與退回 Dev 路徑，完整保留案例\n\n畫面主句：\n\n- 這張票沒有聊天\n- 超出範圍就退回\n- 修正後重新送審\n講者轉場：改動審過後，行為要怎麼驗？\n\n- **2026-10-09 合併後學員可見版本：** Review 示意多做聊天室後退回 Dev；Reviewer 看差異，QA 依 AC 驗行為。 標示 PR Review 是模擬情境，不與下一頁真實 A/B 規則實測混淆。\n\n- **2026-10-09 Editorial Review 修正：** 示意 PR 審查的是範圍，Reviewer 與 QA 分工清楚；下一頁才是真實規則層 A/B 實測。"
+      "notes": "- **對應：**舊 rev11 頁 33；source ID：P23；章節 C3。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P23。\n- **教學作用：** 做得出來也可能不該接受。\n- **帶入方式：** 原樣保留多做聊天室→Request changes→移除→重新送審。\n- **帶走重點：** Review 檢查改動、範圍、風險與維護性。\n- **圖面／示範：** 沿用留言與退回 Dev 路徑，完整保留案例\n\n畫面主句：\n\n- 這張票沒有聊天\n- 超出範圍就退回\n- 修正後重新送審\n講者轉場：改動審過後，行為要怎麼驗？\n\n- **2026-10-09 合併後學員可見版本：** Review 示意多做聊天室後退回 Dev；Reviewer 看差異，QA 依 AC 驗行為。 標示 PR Review 是模擬情境，不與下一頁真實 A/B 規則實測混淆。\n\n- **2026-10-09 Editorial Review 修正：** 示意 PR 審查的是範圍，Reviewer 與 QA 分工清楚；下一頁才是真實規則層 A/B 實測。\n\n- **2026-10-09 Editorial 收斂：** PR Review 模擬一個越界改動：Reviewer 發現聊天室→Dev 刪除→重送 Review→再交 QA。 學員按下一步顯示三階段，只顯示當下的 PR 訊息；跟後頁真實規則層 A/B 回放分開。"
     },
     {
       "number": 42,
@@ -1741,8 +1741,8 @@
       "oldRev11Page": null,
       "addedId": "A07",
       "rev10SourcePage": null,
-      "claim": "本課真實工具只實測安→晴單向、雙向、重複；另外兩列尚未提供獨立實測。",
-      "visual": "示範 table 並區別未提供證據與確定 NOT RUN，UI 仍 NOT RUN。",
+      "claim": "B-pre 當下的真實實測範圍：A 單向 FAIL、B 單向及雙向 PASS、B 重複 Like NOT RUN。",
+      "visual": "四列預期與實際對照；明說重複尚未測、其他條件／UI 沒有執行證據；命令下放 Evidence。",
       "transition": "看完實際輸入輸出，再比較要求、預期與候選版本證據。",
       "sourceIds": [],
       "prerequisite": "QA 執行後，會留下什麼結果？",
@@ -1782,7 +1782,7 @@
           "path": "workshop/matching-demo/evidence/B-pre-supplement/README.md"
         }
       ],
-      "notes": "- **對應：**新增頁 A07；舊 rev11 頁：無；章節 C3。\n- **教學作用：**這是可執行規則層示範，不代表 UI 或完整產品已驗。\n- **帶走重點：**FAIL/PASS/NOT RUN 都連回原始執行證據；NOT RUN 不代表已證實 bug。\n- **圖面／示範：**顯示 run_case.py 入口、開始狀態、操作步驟、預期與實際筆數；Version A／B 原始 JSON 與完整檔案指紋由連結追溯，不塞進主畫面。\n- **主畫面訊息：**重置假資料，從可見入口執行，核對紀錄與筆數；版本證據可點開追溯。\n講者轉場：看完實際輸入輸出，再比較要求、預期與候選版本證據。\n- **規格來源：**Issue comments 1 §4, 5 A07, 8 §4.2\n\n- **2026-10-09 Evidence Review 精確界線：**本課真實工具只實測安→晴單向、雙向、重複；另外兩列尚未提供獨立實測。 示範 table 並區別未提供證據與確定 NOT RUN，UI 仍 NOT RUN。"
+      "notes": "- **對應：**新增頁 A07；舊 rev11 頁：無；章節 C3。\n- **教學作用：**這是可執行規則層示範，不代表 UI 或完整產品已驗。\n- **帶走重點：**FAIL/PASS/NOT RUN 都連回原始執行證據；NOT RUN 不代表已證實 bug。\n- **圖面／示範：**顯示 run_case.py 入口、開始狀態、操作步驟、預期與實際筆數；Version A／B 原始 JSON 與完整檔案指紋由連結追溯，不塞進主畫面。\n- **主畫面訊息：**重置假資料，從可見入口執行，核對紀錄與筆數；版本證據可點開追溯。\n講者轉場：看完實際輸入輸出，再比較要求、預期與候選版本證據。\n- **規格來源：**Issue comments 1 §4, 5 A07, 8 §4.2\n\n- **2026-10-09 Evidence Review 精確界線：**本課真實工具只實測安→晴單向、雙向、重複；另外兩列尚未提供獨立實測。 示範 table 並區別未提供證據與確定 NOT RUN，UI 仍 NOT RUN。\n\n- **2026-10-09 Editorial 收斂：** B-pre 當下的真實實測範圍：A 單向 FAIL、B 單向及雙向 PASS、B 重複 Like NOT RUN。 四列預期與實際對照；明說重複尚未測、其他條件／UI 沒有執行證據；命令下放 Evidence。"
     },
     {
       "number": 46,
@@ -1795,8 +1795,8 @@
       "oldRev11Page": 36,
       "addedId": null,
       "rev10SourcePage": 24,
-      "claim": "B-pre 與 B-post 是同一份 B 程式（相同 hash）。本表沿用 B-pre 兩個 JSON；B-post 完整套件另有三情境實跑。",
-      "visual": "B-post 新增 duplicate 單例 JSON；B-post test-green 完整套件也記錄三情境 PASS，不要寫成從未重跑。",
+      "claim": "Version B 候選不變：B-pre 單向／雙向 PASS、重複 NOT RUN；B-post 補驗重複 PASS。",
+      "visual": "兩張時間對照卡，箭頭指向補驗後；完整套件重播紀錄保留在 Evidence／Notes，不在主畫面混用兩輪結果。",
       "transition": "證據要能追到同一版與相同規則；再看 A 單向失敗、修正後 B 同案通過的真實結果。",
       "sourceIds": [
         "P24"
@@ -1822,7 +1822,7 @@
           "path": "drafts/rev10.html#24"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 36；source ID：P24；章節 C3。\n- **原卡內容：**\n\n- **處理／來源：** 調整 · P24。\n- **教學作用：** Review 通過仍需核對實際行為。\n- **帶入方式：**保留真實 B-pre 單向／雙向 PASS，並明示 B-post 補驗重複 Like；不宣稱畫面已顯示 Match。\n- **帶走重點：** QA 依 AC 驗證；CI 是已設定的執行檢查方式。\n- **圖面／示範：**依 B-pre 與 B-post 的實際 JSON 分列單向、雙向及重複情境；前兩項不宣稱在 B-post 重跑，CI 只按本課設定說明。\n\n畫面主句：\n\n- 時間快轉至 B-post 補驗完成\n- B-pre 單向／雙向 PASS；B-post 重複情境 PASS\n- UI／產品串接仍 NOT RUN\n講者轉場：驗證紀錄要多具體，才足以相信這個 PASS？\n\n- **2026-10-09 Editorial Review 修正：** 保留本頁原有教學功能並修正標題、先備與證據分層。\n\n- **2026-10-09 Evidence Review 精確界線：**B-pre 與 B-post 是同一份 B 程式（相同 hash）。本表沿用 B-pre 兩個 JSON；B-post 完整套件另有三情境實跑。 B-post 新增 duplicate 單例 JSON；B-post test-green 完整套件也記錄三情境 PASS，不要寫成從未重跑。"
+      "notes": "- **對應：**舊 rev11 頁 36；source ID：P24；章節 C3。\n- **原卡內容：**\n\n- **處理／來源：** 調整 · P24。\n- **教學作用：** Review 通過仍需核對實際行為。\n- **帶入方式：**保留真實 B-pre 單向／雙向 PASS，並明示 B-post 補驗重複 Like；不宣稱畫面已顯示 Match。\n- **帶走重點：** QA 依 AC 驗證；CI 是已設定的執行檢查方式。\n- **圖面／示範：**依 B-pre 與 B-post 的實際 JSON 分列單向、雙向及重複情境；前兩項不宣稱在 B-post 重跑，CI 只按本課設定說明。\n\n畫面主句：\n\n- 時間快轉至 B-post 補驗完成\n- B-pre 單向／雙向 PASS；B-post 重複情境 PASS\n- UI／產品串接仍 NOT RUN\n講者轉場：驗證紀錄要多具體，才足以相信這個 PASS？\n\n- **2026-10-09 Editorial Review 修正：** 保留本頁原有教學功能並修正標題、先備與證據分層。\n\n- **2026-10-09 Evidence Review 精確界線：**B-pre 與 B-post 是同一份 B 程式（相同 hash）。本表沿用 B-pre 兩個 JSON；B-post 完整套件另有三情境實跑。 B-post 新增 duplicate 單例 JSON；B-post test-green 完整套件也記錄三情境 PASS，不要寫成從未重跑。\n\n- **2026-10-09 Editorial 收斂：** Version B 候選不變：B-pre 單向／雙向 PASS、重複 NOT RUN；B-post 補驗重複 PASS。 兩張時間對照卡，箭頭指向補驗後；完整套件重播紀錄保留在 Evidence／Notes，不在主畫面混用兩輪結果。"
     },
     {
       "number": 47,
@@ -1871,8 +1871,8 @@
       "oldRev11Page": 38,
       "addedId": null,
       "rev10SourcePage": 25,
-      "claim": "這張票解原問題嗎？",
-      "visual": "沿用看板與退回路徑，校正直接 merge 的連接；不改原成功訊號",
+      "claim": "Product Check 判斷這張票仍否推進共同 Goal；需求有變退 Backlog、實作不符 AC 退 Dev、接受後另經 Human Gate。",
+      "visual": "集中呈現單一判斷與三條分流；完整看板、上線後成效數字與補充文件留相關章節或 Notes。",
       "transition": "接著完成本章 Exit Check：不看講義先自行回答。",
       "sourceIds": [
         "P25"
@@ -1898,7 +1898,7 @@
           "path": "drafts/rev10.html#25"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 38；source ID：P25；章節 C3。\n- **原卡內容：**\n\n- **處理／來源：** 調整 · P25。\n- **教學作用：** 功能符合 AC，仍可能不是目前最值得做的事。\n- **帶入方式：** 保留三個判斷問題與實作／目標問題不同退回路徑，改清楚放行銜接。\n- **帶走重點：** 接受對 Goal 有幫助的成果，再送人工 Gate 決定。\n- **圖面／示範：** 沿用看板與退回路徑，校正直接 merge 的連接；不改原成功訊號\n\n畫面主句：\n\n- 這張票解原問題嗎？\n- 會推進成功訊號嗎？\n- 現在仍是優先嗎？接受後進 Human Gate\n講者轉場：請先完成本章 Exit Check；之後再進入下一章。原轉場：驗收通過，是否就能給所有人用？\n\n- **2026-10-09 Editorial Review 修正：** 保留本頁原有教學功能並修正標題、先備與證據分層。"
+      "notes": "- **對應：**舊 rev11 頁 38；source ID：P25；章節 C3。\n- **原卡內容：**\n\n- **處理／來源：** 調整 · P25。\n- **教學作用：** 功能符合 AC，仍可能不是目前最值得做的事。\n- **帶入方式：** 保留三個判斷問題與實作／目標問題不同退回路徑，改清楚放行銜接。\n- **帶走重點：** 接受對 Goal 有幫助的成果，再送人工 Gate 決定。\n- **圖面／示範：** 沿用看板與退回路徑，校正直接 merge 的連接；不改原成功訊號\n\n畫面主句：\n\n- 這張票解原問題嗎？\n- 會推進成功訊號嗎？\n- 現在仍是優先嗎？接受後進 Human Gate\n講者轉場：請先完成本章 Exit Check；之後再進入下一章。原轉場：驗收通過，是否就能給所有人用？\n\n- **2026-10-09 Editorial Review 修正：** 保留本頁原有教學功能並修正標題、先備與證據分層。\n\n- **2026-10-09 Editorial 收斂：** Product Check 判斷這張票仍否推進共同 Goal；需求有變退 Backlog、實作不符 AC 退 Dev、接受後另經 Human Gate。 集中呈現單一判斷與三條分流；完整看板、上線後成效數字與補充文件留相關章節或 Notes。"
     },
     {
       "number": 49,
@@ -2015,8 +2015,8 @@
       "oldRev11Page": 41,
       "addedId": null,
       "rev10SourcePage": 26,
-      "claim": "條件式 #3 Done 只要求本票規則獨立驗證與人的放行；完整 UI 端到端必待其他票。",
-      "visual": "若 #3 自身交付完成才假設 Done；#1/#2 尚 Ready，產品串接 NOT RUN。",
+      "claim": "流程推演：假設 #3 達成 Review／QA、人的放行、發布與 DoD 才能 Done；#1／#2 仍 Ready，整體使用者路徑與 Goal 沒完成。",
+      "visual": "Goal→#1 Ready→#3 Done（假設）→#2 Ready 的三站圖；在畫面保留真實 UI／部署 NOT RUN。詳細 DoD 在 Notes。",
       "transition": "等其他兩票也完成，還需要驗什麼？",
       "sourceIds": [
         "P26"
@@ -2042,7 +2042,7 @@
           "path": "drafts/rev10.html#26"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 41；source ID：P26；章節 C4。\n- **原卡內容：**\n\n- **處理／來源：** 調整 · P26。\n- **原標題：** Done。本草稿採用此標題。\n- **教學作用：** 單票完成與產品結果需要分開。\n- **帶入方式：** 保留 #3 Done、#1／#2 等待、共用 DoD；補上先依 Gate 決議再整合／上線。\n- **帶走重點：** Done 是本課約定的單票狀態，不是 Goal 成效。\n- **圖面／示範：** 保留原看板與 DoD；標明本課設定，不改成普遍規定\n\n畫面主句：\n\n- 依 Gate 放行後 merge／上線／檢查\n- 本課 DoD 全部滿足才關票\n- #3 Done，#1／#2 尚未完成\n講者轉場：等其他兩票也完成，還需要驗什麼？\n\n- **2026-10-09 合併後學員可見版本：** Done 為條件式教學推演：只在串接、放行及上線檢查完成後成立；本次 demo 只有規則層實測。 Closed 標明假設；UI／完整產品／真實發布仍 NOT RUN。\n\n- **2026-10-09 Evidence Review 精確界線：**條件式 #3 Done 只要求本票規則獨立驗證與人的放行；完整 UI 端到端必待其他票。 若 #3 自身交付完成才假設 Done；#1/#2 尚 Ready，產品串接 NOT RUN。"
+      "notes": "- **對應：**舊 rev11 頁 41；source ID：P26；章節 C4。\n- **原卡內容：**\n\n- **處理／來源：** 調整 · P26。\n- **原標題：** Done。本草稿採用此標題。\n- **教學作用：** 單票完成與產品結果需要分開。\n- **帶入方式：** 保留 #3 Done、#1／#2 等待、共用 DoD；補上先依 Gate 決議再整合／上線。\n- **帶走重點：** Done 是本課約定的單票狀態，不是 Goal 成效。\n- **圖面／示範：** 保留原看板與 DoD；標明本課設定，不改成普遍規定\n\n畫面主句：\n\n- 依 Gate 放行後 merge／上線／檢查\n- 本課 DoD 全部滿足才關票\n- #3 Done，#1／#2 尚未完成\n講者轉場：等其他兩票也完成，還需要驗什麼？\n\n- **2026-10-09 合併後學員可見版本：** Done 為條件式教學推演：只在串接、放行及上線檢查完成後成立；本次 demo 只有規則層實測。 Closed 標明假設；UI／完整產品／真實發布仍 NOT RUN。\n\n- **2026-10-09 Evidence Review 精確界線：**條件式 #3 Done 只要求本票規則獨立驗證與人的放行；完整 UI 端到端必待其他票。 若 #3 自身交付完成才假設 Done；#1/#2 尚 Ready，產品串接 NOT RUN。\n\n- **2026-10-09 Editorial 收斂：** 流程推演：假設 #3 達成 Review／QA、人的放行、發布與 DoD 才能 Done；#1／#2 仍 Ready，整體使用者路徑與 Goal 沒完成。 Goal→#1 Ready→#3 Done（假設）→#2 Ready 的三站圖；在畫面保留真實 UI／部署 NOT RUN。詳細 DoD 在 Notes。"
     },
     {
       "number": 53,
@@ -3633,8 +3633,8 @@
       "oldRev11Page": 68,
       "addedId": null,
       "rev10SourcePage": 51,
-      "claim": "人或 Agent 參與 Review／QA 的配置取決風險與政策；Human Gate 尚須逐項核對 NOT RUN，才可能放行。",
-      "visual": "條件式兩路示意保留，PR 入口明示僅晴→安、雙方未 Like、UI／串接 NOT RUN，尚未放行；箭頭只在補驗足夠後才可能 Merge／上線。",
+      "claim": "PR Review／QA 的參與配置可以有人／Agent 兩路，匯流 Product Check，Human Gate 仍由人判斷。尚有未測情境，不自動發布。",
+      "visual": "保留上下兩種配置匯流圖，移除上線前後大型時間線；留一條清楚的 NOT RUN 提醒，Goal 觀測另頁教。",
       "transition": "若跳過人的放行判斷，問題可能在整合後才被發現。",
       "sourceIds": [
         "P51"
@@ -3660,7 +3660,7 @@
           "path": "drafts/rev10.html#51"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 68；source ID：P51；章節 C6。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P51。\n- **教學作用：** PR 審查節奏可不同，但最後放行不能被默認跳過。\n- **帶入方式：** 保留人工審查與 Agent Review／QA 兩路，合流到 Product Check／Human Gate。\n- **帶走重點：** 審查節奏與最後放行是不同決策。\n- **圖面／示範：** 沿用兩路合流與上線前後成效對照\n\n畫面主句：\n\n- Review／QA 可採不同節奏\n- 兩路都回 Product Check\n- 固定 Human Gate 後才 merge／上線\n講者轉場：若跳過人的放行判斷，問題可能在整合後才被發現。\n\n- **2026-10-09 合併後學員可見版本：** PR 審查由風險／授權／規範決定人或 Agent 的工作配置，而非單純快慢。 兩種示範配置仍在 Product Check 收斂，Human Gate 由人決定。\n\n- **2026-10-09 G3 再審修正：** 人或 Agent 參與 Review／QA 的配置取決風險與政策；Human Gate 尚須逐項核對 NOT RUN，才可能放行。 條件式兩路示意保留，PR 入口明示僅晴→安、雙方未 Like、UI／串接 NOT RUN，尚未放行；箭頭只在補驗足夠後才可能 Merge／上線。"
+      "notes": "- **對應：**舊 rev11 頁 68；source ID：P51；章節 C6。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P51。\n- **教學作用：** PR 審查節奏可不同，但最後放行不能被默認跳過。\n- **帶入方式：** 保留人工審查與 Agent Review／QA 兩路，合流到 Product Check／Human Gate。\n- **帶走重點：** 審查節奏與最後放行是不同決策。\n- **圖面／示範：** 沿用兩路合流與上線前後成效對照\n\n畫面主句：\n\n- Review／QA 可採不同節奏\n- 兩路都回 Product Check\n- 固定 Human Gate 後才 merge／上線\n講者轉場：若跳過人的放行判斷，問題可能在整合後才被發現。\n\n- **2026-10-09 合併後學員可見版本：** PR 審查由風險／授權／規範決定人或 Agent 的工作配置，而非單純快慢。 兩種示範配置仍在 Product Check 收斂，Human Gate 由人決定。\n\n- **2026-10-09 G3 再審修正：** 人或 Agent 參與 Review／QA 的配置取決風險與政策；Human Gate 尚須逐項核對 NOT RUN，才可能放行。 條件式兩路示意保留，PR 入口明示僅晴→安、雙方未 Like、UI／串接 NOT RUN，尚未放行；箭頭只在補驗足夠後才可能 Merge／上線。\n\n- **2026-10-09 Editorial 收斂：** PR Review／QA 的參與配置可以有人／Agent 兩路，匯流 Product Check，Human Gate 仍由人判斷。尚有未測情境，不自動發布。 保留上下兩種配置匯流圖，移除上線前後大型時間線；留一條清楚的 NOT RUN 提醒，Goal 觀測另頁教。"
     },
     {
       "number": 92,
@@ -3713,8 +3713,8 @@
       "oldRev11Page": 71,
       "addedId": null,
       "rev10SourcePage": 27,
-      "claim": "總回顧維持七欄，看板欄外 Human Gate；放行後尚須 Merge／上線檢查與共用 DoD 才可 Done。",
-      "visual": "Done 卡片寫明 DoD 與上線檢查後關票，原人類決策與紅黃退回箭頭保留。",
+      "claim": "七欄看板總回顧：Review／QA 退 Dev；Product Check 需求問題退 Backlog、實作問題退 Dev；Human Gate 在欄外決定放行。",
+      "visual": "保留七欄與兩條 Product Check 退回箭頭；縮短 Goal 標籤和 Gate 註記，回顧時靠線路讀動作。",
       "transition": "把同一套交付方法轉用到自己的第一張小工作票。",
       "sourceIds": [
         "P27"
@@ -3740,7 +3740,7 @@
           "path": "drafts/rev10.html#27"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 71；source ID：P27。 章節 C6。\n- **教學作用：**主線收束需求、版本、交付、驗收和人的 Gate。\n- **帶入方式：**沿用看板總回顧與退回線，保留 Review、QA、Product Check、人類放行的責任區分。\n- **帶走重點：**工作票有自己的完成條件；全產品與 Goal 仍需整體判斷。\n- **圖面／示範：**原總覽圖，不刪站點。\n\n畫面主句：\n\n- 票沿看板前進；GitHub 留下版本與交付證據。\n講者轉場：把同一套交付方法轉用到自己的第一張小工作票。\n\n- **2026-10-09 合併後學員可見版本：** 七個狀態欄與欄外 Human Gate；Review／QA 退回 Dev，Product Check 退回 Backlog。 保留原 return routes；Human Gate 另以說明註記，不能多算一欄。\n\n- **2026-10-09 G3 Blind Beginner Review 修正：** 總回顧維持七欄，看板欄外 Human Gate；放行後尚須 Merge／上線檢查與共用 DoD 才可 Done。 Done 卡片寫明 DoD 與上線檢查後關票，原人類決策與紅黃退回箭頭保留。"
+      "notes": "- **對應：**舊 rev11 頁 71；source ID：P27。 章節 C6。\n- **教學作用：**主線收束需求、版本、交付、驗收和人的 Gate。\n- **帶入方式：**沿用看板總回顧與退回線，保留 Review、QA、Product Check、人類放行的責任區分。\n- **帶走重點：**工作票有自己的完成條件；全產品與 Goal 仍需整體判斷。\n- **圖面／示範：**原總覽圖，不刪站點。\n\n畫面主句：\n\n- 票沿看板前進；GitHub 留下版本與交付證據。\n講者轉場：把同一套交付方法轉用到自己的第一張小工作票。\n\n- **2026-10-09 合併後學員可見版本：** 七個狀態欄與欄外 Human Gate；Review／QA 退回 Dev，Product Check 退回 Backlog。 保留原 return routes；Human Gate 另以說明註記，不能多算一欄。\n\n- **2026-10-09 G3 Blind Beginner Review 修正：** 總回顧維持七欄，看板欄外 Human Gate；放行後尚須 Merge／上線檢查與共用 DoD 才可 Done。 Done 卡片寫明 DoD 與上線檢查後關票，原人類決策與紅黃退回箭頭保留。\n\n- **2026-10-09 Editorial 收斂：** 七欄看板總回顧：Review／QA 退 Dev；Product Check 需求問題退 Backlog、實作問題退 Dev；Human Gate 在欄外決定放行。 保留七欄與兩條 Product Check 退回箭頭；縮短 Goal 標籤和 Gate 註記，回顧時靠線路讀動作。"
     },
     {
       "number": 94,
@@ -3787,8 +3787,8 @@
       "oldRev11Page": null,
       "addedId": "A24",
       "rev10SourcePage": null,
-      "claim": "能交辦一張票、辨認缺證據並要求補驗與接續。",
-      "visual": "三題先答再展開：拿上一頁自己寫的 Ticket，寫一段可交給 Agent 的交辦與停止條件。；Agent 說 B 版完成，但重複 Like 是 NOT RUN，怎麼回覆？；把上一頁自己的 Ticket 交接給新 Agent：請寫版本、已做／未測、下一步、停止條件。",
+      "claim": "交辦、補驗、交接自評；新 Ticket 尚未執行也可照實寫無候選版本、無測試結果，不編造工作進度。",
+      "visual": "三題先回答後揭露參考；Q3 加入尚未執行的情境，參考答案明列無候選／全未測，符合證據規範。 Q3 探索未開工時如何誠實交接。",
       "transition": "確認自己能解釋後，進入下一章。",
       "sourceIds": [],
       "prerequisite": "接著完成本章 Exit Check：不看講義先自行回答。",
@@ -3808,7 +3808,7 @@
           "path": "docs/issue48-execution-storyboard.md"
         }
       ],
-      "notes": "- **對應：**新增 A24；章節 C6；原有內容全部保留。\n- **教學作用：**章節自我檢核，不是講義答案表；要求學員先回答，再按各題「揭露參考答案」。\n- **帶走重點：**能交辦一張票、辨認缺證據並要求補驗與接續。\n- **畫面／示範：**三張可互動 Q&A 卡片；預設答案隱藏，使用 HTML details/summary 原生控制，逐題展開，不修改 QA 所引述的 Matching 事實。\n\n- **Q1：**拿上一頁自己寫的 Ticket，寫一段可交給 Agent 的交辦與停止條件。\n  - **參考答案：**例如：「請先讀［票］，只做［範圍］，按［AC］交回版本、預期／實際及未測事項；缺資料或超出範圍先停下詢問，不得自行發布。」\n- **Q2：**Agent 說 B 版完成，但重複 Like 是 NOT RUN，怎麼回覆？\n  - **參考答案：**要求在相同 B artifact 與假資料重播重複 Like，交出操作前後筆數及原始結果；暫不接受。\n- **Q3：**把上一頁自己的 Ticket 交接給新 Agent：請寫版本、已做／未測、下一步、停止條件。\n  - **參考答案：**示例：票＝你上一頁的工作；版本＝候選版本／連結；已做＝哪些 AC 有證據；未測＝明列；下一步＝具體補驗；停止＝未核准前不 Merge／發布，缺資料先詢問。\n\n講者轉場：請學員先獨立回答並核對自己的答案，再往下一章前進。\n\n- **2026-10-09 Editorial Review 修正：** 保留本頁原有教學功能並修正標題、先備與證據分層。"
+      "notes": "- **對應：**新增 A24；章節 C6；原有內容全部保留。\n- **教學作用：**章節自我檢核，不是講義答案表；要求學員先回答，再按各題「揭露參考答案」。\n- **帶走重點：**能交辦一張票、辨認缺證據並要求補驗與接續。\n- **畫面／示範：**三張可互動 Q&A 卡片；預設答案隱藏，使用 HTML details/summary 原生控制，逐題展開，不修改 QA 所引述的 Matching 事實。\n\n- **Q1：**拿上一頁自己寫的 Ticket，寫一段可交給 Agent 的交辦與停止條件。\n  - **參考答案：**例如：「請先讀［票］，只做［範圍］，按［AC］交回版本、預期／實際及未測事項；缺資料或超出範圍先停下詢問，不得自行發布。」\n- **Q2：**回到 B-pre 補驗前：Agent 說 B 版完成，但重複 Like 仍 NOT RUN，怎麼回覆？\n  - **參考答案：**要求在相同 B artifact 與假資料重播重複 Like，交出操作前後筆數及原始結果；暫不接受。\n- **Q3：**上一頁的 Ticket 還沒執行。交給新 Agent 時，版本、進度、未測、下一步與停止條件怎麼寫？\n  - **參考答案：**候選版本＝無；已做＝票面整理；未測＝全部 AC；下一步＝首次交辦；停止＝資料不足先問、未核准不發布。已有實作才填真實版本與結果。\n\n講者轉場：請學員先獨立回答並核對自己的答案，再往下一章前進。\n\n- **2026-10-09 Editorial Review 修正：** 保留本頁原有教學功能並修正標題、先備與證據分層。\n\n- **2026-10-09 Editorial 收斂：** 交辦、補驗、交接自評；新 Ticket 尚未執行也可照實寫無候選版本、無測試結果，不編造工作進度。 三題先回答後揭露參考；Q3 加入尚未執行的情境，參考答案明列無候選／全未測，符合證據規範。"
     },
     {
       "number": 96,
