@@ -55,7 +55,7 @@
 - **Product Check** 問「這張票是否符合需求、仍推進 Goal？」；真正的整體 Goal 成效要上線後衡量。
 - **Human Gate** 是 Product Check → Done 間的人類放行／暫停決策註記，不是第八欄。放行之前仍停在 Product Check。
 - **Merge／Release／上線檢查** 是人放行後、達成此課 DoD 才能 Done 的工作，不因規則層測試通過就自動發生。
-- **WIP 計數**採本課自訂示範政策：Dev ～ Product Check 已開始尚未完成的票計入；Blocked／退回／等待仍計入；Ready 尚未開始不計。此非所有團隊的唯一 Kanban／Done 定義。
+- **WIP 計數**採本課示範政策：票首次進 Dev 算已開工，到 Done 前仍計入；即使退回 Backlog／Refinement、Blocked 或等待驗收，也不會變回 0。未開工的 Backlog／Ready 不計；此非所有團隊唯一的算法。
 - **Evidence scope**：Matching A/B 真實實測只涵蓋規則層；任何 Done／Merge／UI／Release 畫面若無實際外部證據，必須明示為條件式教學流程推演。
 
 ### Merge gates
@@ -121,7 +121,7 @@
 | **Cognitive Load**（認知負荷） | 主畫面只放當下必要的概念、圖或紀錄；原始 JSON、SHA、完整 CLI、diff 留在 Evidence/Notes；不硬套固定字數 | 分清主畫面／講者筆記／可追溯材料，逐步揭露複雜流程 |
 | **Practice Before Reveal**（先作答再揭露） | 練習題真正讓學員先嘗試，答案以可操作的 reveal 展開；不以「問號句」假裝練習，卻同畫面提前給答案 | 增加提問—作答—揭露—回饋的停頓；不能把測試 PASS 當學習成效 PASS |
 | **Cross-slide Consistency**（跨頁心智模型一致） | 同一套狀態名稱、狀態欄數、Human Gate 決策點、版本 A/B、時間線與 NOT RUN，前後完全一致 | 全 deck 搜尋並修正全部下游引用，尤其回顧頁 |
-| **Visual Accessibility**（真實可讀） | 在 1440×900、投影與目標行動裝置實際看 final screenshot，能辨讀標題、箭頭、卡片、對比與留白；不靠「沒有 overflow」下結論 | 調整密度、層次與對比並重看最終圖，不把驗收 log 當投影片 |
+| **Visual Accessibility**（真實可讀） | 在 1440×900 與投影尺寸實際看 final screenshot；本版手機僅做 smoke test，能辨讀標題、箭頭、卡片、對比與留白；不靠「沒有 overflow」下結論 | 調整密度、層次與對比並重看最終圖，不把驗收 log 當投影片 |
 | **Learning Transfer**（可遷移） | 學員離開 Matching App，至少能自己寫一張 Ticket、指定驗收證據，並能接受或退回 Agent 交付 | 在章節出口先自測，最後用自己的工作轉用；必要時真人試教 |
 | **Evidence ≠ Teaching**（技術與學習證據分離） | 工程 PASS、模型模擬初學者 READY、真人學員實測各自陳述；不能替代 | G2/G3/G4/G5 分別留明確 evidence 和 NOT RUN |
 
@@ -154,7 +154,7 @@
 | **G1 故事板／先備知識**（製作前） | 按學員視角從開場到結尾推演完整故事，確認 Brainstorming、Goal、需求／票、版本、驗證到 Agent 接手的因果順序；不能只看 SSOT 合規，因為規格也可能錯。 | 逐頁主張、首次名詞、前後轉場、先備概念與待修頁面。 |
 | **G2 事實／證據一致性**（示範材料完成後） | 沿同一 Matching 案例逐頁比對票、AC、版本、fixture、PASS／FAIL／NOT RUN、WIP、Human Gate 與時間線；重演所有需要驗證的命令，不能用示意冒充實測。 | 實際版本／commit、重跑結果、證據連結、跨頁不一致清單。 |
 | **G3 Blind Beginner Review**（候選教材完成後） | 審查者**只從第一頁順序看完整成品，不先讀規格、PR 說明或作者解釋**；以不懂軟工／PM／Agent 的學員身分，記錄未教先用、故事跳步、混淆名詞、跟不上的位置。 | 「頁碼 → 看不懂什麼 → 缺的前提 → 可能誤解 → 建議示範」及學員可否提出下一步。 |
-| **G4 簡報敘事／視覺**（成品截圖後） | 真正查看桌面、投影尺寸與手機等目標畫面，包含改動頁及其前後頁；檢查**一頁一主張**、圖文一致、視線順序、箭頭碰字、對齊、留白、字級、對比與密度。幾何／無溢出測試不等於視覺通過。 | 最終版本截圖、具體頁面 findings、修正前後對照。 |
+| **G4 簡報敘事／視覺**（成品截圖後） | 真正查看桌面、投影等本輪支援尺寸；手機版開發中，僅做載入 smoke test，包含改動頁及其前後頁；檢查**一頁一主張**、圖文一致、視線順序、箭頭碰字、對齊、留白、字級、對比與密度。幾何／無溢出測試不等於視覺通過。 | 最終版本截圖、具體頁面 findings、修正前後對照。 |
 | **G5 Final Artifact／Human Gate**（每輪修正後） | 以**最新 PR HEAD** 重新執行相關測試與跨頁檢查；P0／本次範圍內 P1 解決後，重新看**修正後的完整成品**，不能沿用舊截圖或舊 reviewer PASS。最後由人判斷是否接受及合併。 | HEAD SHA、各 gate 狀態、已關閉 findings 與重驗證據、Human 放行紀錄。 |
 
 ### Review 報告與放行標準

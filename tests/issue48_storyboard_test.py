@@ -70,7 +70,7 @@ def main():
     # inserts the two new pages between P46 and P31.
     assert [row[4] if row[4] != "—" else row[2] for row in original_rows[54:61]] == ["A11", "47", "46", "A16", "A17", "45", "48"]
     assert original_rows[25][6].startswith("Sprint 與 Kanban 描述不同的拉票節奏")
-    assert "目前 WIP" in original_rows[26][6] and "上限" in original_rows[26][6]
+    assert "WIP" in original_rows[26][6] and "退回" in original_rows[26][6]
     assert "上限" in original_rows[27][6] and "2/2" in original_rows[27][6]
 
     # Both formal candidate and preserved baseline must remain directly reviewable.
@@ -117,8 +117,8 @@ def main():
     assert backlog and "上限：1" in backlog.get_text() and "目前：0/1" in backlog.get_text()
     assert "已開始但未完成的票數（WIP）" in backlog.get_text()
     assert all_ready and "上限：1" in all_ready.get_text() and "目前：0/1" in all_ready.get_text()
-    assert cadence and all(text in cadence.get_text() for text in ["已開始未完成的票數", "上限是政策設定", "2/2"])
-    assert appendix and "上限：1" in appendix.get_text() and "目前：0/1" in appendix.get_text()
+    assert cadence and all(text in cadence.get_text() for text in ["本課 WIP", "上限", "2/2"])
+    assert appendix and "WIP 1/1" in appendix.get_text() and "回到 0/1" in appendix.get_text() and "回到 0/1" in appendix.get_text()
     assert all("WIP=1" not in page.get_text() for page in [backlog, all_ready, cadence, appendix])
 
     # Candidate recap models Human Gate as a decision point, not a status column.
@@ -132,6 +132,8 @@ def main():
         if column.select_one(":scope > h3")
     ]
     assert status_labels == ["Backlog", "Ready", "Dev", "Review", "QA", "Product Check", "Done"]
+    assert appendix.select_one('[data-gate-next]') and appendix.select_one('[data-gate-reset]')
+    assert appendix.select_one('[data-gate-message]')
     gate_marker = appendix_board.select_one(".board-parent .human-gate-transition")
     assert gate_marker and all(word in gate_marker.get_text() for word in ["Product Check", "Human Gate", "Done", "放行", "暫停"])
     assert "決策點" in appendix.get_text() and "不另增看板狀態" in appendix.get_text()
@@ -166,14 +168,14 @@ def main():
     like_intro = candidate.select_one('.slide[data-page="4"]')
     brainstorm = candidate.select_one('.slide[data-page="10"]')
     assert like_intro and all(term in like_intro.get_text() for term in ["Like＝表示喜歡", "Pass＝略過", "雙方都 Like 才配對"])
-    assert brainstorm and "Brainstorming：共同釐清使用者問題與可能方案" in brainstorm.get_text()
+    assert brainstorm and "Brainstorming 先釐清為誰解決什麼問題" in brainstorm.get_text()
     assert "parent Goal / Epic" not in brainstorm.get_text()
     assert "Match" not in brainstorm.get_text()
     goal_page = candidate.select_one('.slide[data-page="11"]')
     decomposition = candidate.select_one('.slide[data-page="12"]')
     assert goal_page and "不是目前進度欄位" in goal_page.get_text() and "workflow state" not in goal_page.get_text()
     assert decomposition and "IMPLEMENTATION SUB-ISSUE" not in decomposition.get_text() and "parent issue" not in decomposition.get_text() and "Match" not in decomposition.get_text()
-    assert "Backlog＝尚未開始的工作清單" in backlog.get_text() and "Ready＝資訊齊全、可以開始" in backlog.get_text()
+    assert "Backlog＝待釐清或退回的待辦" in backlog.get_text() and "Ready＝可以開工" in backlog.get_text()
     refinement = candidate.select_one('.slide[data-page="22"]')
     assert refinement and "工作票整理" in refinement.h1.get_text() and "把需求、例子與未決問題整理成可接手的票" in refinement.get_text()
     chapter_cover = candidate.select_one('.slide[data-page="9"]')
@@ -270,7 +272,7 @@ def main():
     assert qa.select_one(".r-scenario-note") and "Reviewer 看 code" in qa.get_text()
     done = candidate.select_one('.slide[data-page="52"]')
     journey = candidate.select_one('.slide[data-page="53"]')
-    assert "教學流程假設" in done.get_text() and "NOT RUN" in done.get_text()
+    assert "教學假設" in done.get_text() and "NOT RUN" in done.get_text()
     assert "教學假設" in journey.get_text() and "NOT RUN" in journey.get_text()
     gate = candidate.select_one('.slide[data-page="91"]')
     assert "依風險" in gate.h1.get_text()

@@ -26,7 +26,19 @@ let browser;
     const r=node.getBoundingClientRect(),style=getComputedStyle(node);
     if(!r.width||!r.height||style.visibility==='hidden'||Number(style.opacity)===0||r.width<3||r.height<3)continue;
     if(r.top<outer.top-2||r.bottom>outer.bottom+2||r.left<outer.left-2||r.right>outer.right+2)candidates.push({kind:'outside',tag:node.tagName,cls:node.className?.baseVal??node.className,text:node.textContent.trim().slice(0,100),rect:{x:r.x,y:r.y,w:r.width,h:r.height}});
-    if(node.namespaceURI!=='http://www.w3.org/2000/svg'&&node.clientWidth>0&&node.scrollWidth>node.clientWidth+3)candidates.push({kind:'horizontal',tag:node.tagName,cls:node.className,text:node.textContent.trim().slice(0,100),client:node.clientWidth,scroll:node.scrollWidth});
+    if(node.namespaceURI!=='http://www.w3.org/2000/svg'&&node.clientWidth>0&&node.scrollWidth>node.clientWidth+3){
+      // Recap cards have intentionally protruding CSS arrow pseudo-elements;
+      // do not mistake that decoration for overflowing learner-facing text.
+      const arrow=getComputedStyle(node,'::after').content;
+      const isRecapArrow=node.matches('.recap-columns > article')&&arrow.includes('→');
+      const box=node.getBoundingClientRect();
+      const labels=[...node.querySelectorAll('h2,strong')];
+      const textFits=isRecapArrow&&labels.every(label=>{
+       const r=document.createRange();r.selectNodeContents(label);const bounds=r.getBoundingClientRect();
+       return bounds.left>=box.left-2&&bounds.right<=box.right+2;
+      });
+      if(!textFits)candidates.push({kind:'horizontal',tag:node.tagName,cls:node.className,text:node.textContent.trim().slice(0,100),client:node.clientWidth,scroll:node.scrollWidth});
+    }
    }
    return {title:el.querySelector('h1')?.textContent,text:el.innerText,scrollHeight:el.scrollHeight,clientHeight:el.clientHeight,candidates};
   });
@@ -56,17 +68,48 @@ let browser;
   const rehidden=await checks.first().evaluate(node=>!node.open);
   results.exitChecks.push({number,count,initiallyHidden,opened,rehidden,noOverflow:bounds.height<=bounds.client+3 && bounds.answerBottom<=bounds.slideBottom});
  }
+ // Extra learner interaction QA: every one of the 24 answers can be revealed
+ // without expanding the slide beyond the design canvas.
+ results.interactions.allExitAnswers=[];
+ for(const number of [8,30,38,49,54,82,95,107]){
+   await page.evaluate(n=>location.hash='#'+n,number);
+   await page.waitForFunction(n=>document.querySelector('.slide.active')?.dataset.page===String(n),number);
+   const q=page.locator('.slide.active .r-exit-answer > summary');
+   for(let i=0;i<3;i++)await q.nth(i).click();
+   const metric=await page.locator('.slide.active').evaluate(slide=>({
+      opened:slide.querySelectorAll('details.r-exit-answer[open]').length,
+      overflow:slide.scrollHeight>slide.clientHeight+3,
+      cardsOverflow:[...slide.querySelectorAll('.r-exit-card')].some(card=>card.scrollHeight>card.clientHeight+3),
+      allInside:[...slide.querySelectorAll('.r-exit-answer[open]')].every(d=>d.getBoundingClientRect().bottom<=slide.getBoundingClientRect().bottom+2)
+   }));
+   results.interactions.allExitAnswers.push({number,...metric});
+   for(let i=0;i<3;i++)await q.nth(i).click();
+ }
+ // Engineering details are optional to beginners but must remain keyboard-visible.
+ await page.evaluate(()=>location.hash='#87');
+ await page.waitForFunction(()=>document.querySelector('.slide.active')?.dataset.page==='87');
+ const disclosures=page.locator('.slide.active details.r-tech-reveal');
+ const techCount=await disclosures.count();
+ const techInitiallyHidden=await disclosures.evaluateAll(nodes=>nodes.every(d=>!d.open));
+ for(let i=0;i<techCount;i++)await disclosures.nth(i).locator('summary').click();
+ const techOpened=await disclosures.evaluateAll(nodes=>nodes.every(d=>d.open));
+ const techLayout=await page.locator('.slide.active').evaluate(slide=>({
+    outside:slide.scrollHeight>slide.clientHeight+3,
+    codeVisible:[...slide.querySelectorAll('.r-tech-reveal code')].some(code=>getComputedStyle(code).display!=='none')
+ }));
+ results.interactions.technicalDisclosure={techCount,techInitiallyHidden,techOpened,...techLayout};
+ for(let i=0;i<techCount;i++)await disclosures.nth(i).locator('summary').click();
  await page.evaluate(()=>location.hash='#106');await page.waitForFunction(()=>document.querySelector('#current').textContent==='106');
- const gateStage=async stage=>{
-  await page.locator('.slide.active').evaluate((slide,stage)=>slide.querySelectorAll('.fragment').forEach(node=>{
-   const step=Number([...node.classList].map(name=>/^move-(\d+)$/.exec(name)?.[1]).find(Boolean));
-   node.classList.toggle('visible',Number.isFinite(step)&&step<=stage);
-  }),stage);
+ const gateStage=async()=>{
   return page.locator('.slide.active').evaluate(slide=>{
    const board=slide.querySelector('.recap-board'),ticket=board.querySelector('.moving-ticket');
    const marker=board.querySelector('.human-gate-transition');
    const column=label=>[...board.querySelectorAll(':scope > div:not(.board-parent)')].find(node=>node.querySelector(':scope > h3')?.textContent.trim()===label);
    return {
+    stage:Number(slide.dataset.gateStage),
+    guidance:slide.querySelector('[data-gate-message]')?.textContent,
+    WIP:ticket.querySelector('small')?.textContent,
+    nextDisabled:slide.querySelector('[data-gate-next]')?.disabled,
     statusLabels:[...board.querySelectorAll(':scope > div:not(.board-parent) > h3')].map(node=>node.textContent.trim()),
     gateColumnCount:board.querySelectorAll(':scope > .human-gate-column').length,
     ticketGridColumn:getComputedStyle(ticket).gridColumnStart,
@@ -77,11 +120,16 @@ let browser;
    };
   });
  };
- results.interactions.humanGatePending=await gateStage(6);
+ results.interactions.humanGatePending=await gateStage();
  await page.screenshot({path:path.join(out,'human-gate-pending.png')});
- results.interactions.humanGateReleased=await gateStage(7);
+ await page.locator('.slide.active [data-gate-next]').click();
+ results.interactions.humanGateReleased=await gateStage();
  await page.screenshot({path:path.join(out,'human-gate-released.png')});
- results.interactions.humanGateComplete=await gateStage(8);
+ await page.locator('.slide.active [data-gate-next]').click();
+ results.interactions.humanGateComplete=await gateStage();
+ await page.screenshot({path:path.join(out,'human-gate-complete.png')});
+ await page.locator('.slide.active [data-gate-reset]').click();
+ results.interactions.humanGateReset=await gateStage();
  const reviewPages=[...new Set([3,4,5,6,7,8,9,10,11,12,13,14,15,16,21,22,23,24,25,26,27,30,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,54,57,58,59,60,61,62,63,64,65,82,86,87,88,89,90,91,95,105,106,107])].sort((a,b)=>a-b);
  fs.mkdirSync(path.join(out,'pages','projection'),{recursive:true});
  fs.mkdirSync(path.join(out,'pages','mobile'),{recursive:true});
@@ -196,7 +244,18 @@ let browser;
  const wipSequence=results.interactions.wipBefore?.chart!=='none'&&results.interactions.wipBefore?.comparison===true&&results.interactions.wipComparison?.chart==='none'&&results.interactions.wipComparison?.comparison===false&&wipLabels.includes('1 Agent × WIP 2')&&wipLabels.includes('多 Agent × WIP 1')&&results.interactions.wipReturn?.stage==='workflow'&&results.interactions.wipReturn?.chart!=='none'&&results.interactions.wipReturn?.comparison===true&&results.interactions.wipReturn?.expanded==='false';
  const gatePending=results.interactions.humanGatePending,gateReleased=results.interactions.humanGateReleased,gateComplete=results.interactions.humanGateComplete;
  const exitsCorrect=results.exitChecks?.length===8 && results.exitChecks.every(item=>item.count===3&&item.initiallyHidden&&item.opened&&item.rehidden&&item.noOverflow);
- const gateSequence=gatePending?.statusLabels?.join('|')==='Backlog|Ready|Dev|Review|QA|Product Check|Done'&&gatePending?.gateColumnCount===0&&gatePending?.ticketGridColumn==='6'&&gatePending?.gateColor==='rgb(242, 207, 118)'&&gatePending?.productCheckBorder==='rgb(131, 188, 255)'&&gatePending?.doneBorder==='rgb(43, 58, 76)'&&gatePending?.finalNoteVisible===false&&gateReleased?.ticketGridColumn==='7'&&gateReleased?.gateColor==='rgb(131, 221, 167)'&&gateReleased?.productCheckBorder==='rgb(43, 58, 76)'&&gateReleased?.doneBorder==='rgb(131, 188, 255)'&&gateReleased?.finalNoteVisible===false&&gateComplete?.finalNoteVisible===true;
- if(results.errors.length || results.pages.length!==107 || results.pages.some(p=>p.candidates.some(c=>c.kind==='outside') || p.scrollHeight>p.clientHeight+3) || layoutIssues.length || results.interactions.a14Font<24 || results.navigation.home!=='1' || results.navigation.right!=='2' || results.navigation.left!=='1' || results.navigation.tocEntries!==107 || results.navigation.tocJump!=='58' || results.navigation.end!=='107' || !results.navigation.lastDisabled || results.navigation.chapterOrder.join(',')!=='C0,C2,C1,C3,C4,C5,C6,APP' || !results.navigation.notes.includes('執行前計畫') || !hasPlanLink || !hasCommentLink || !processSequence || !results.interactions.processButtonDisabled || !wipSequence || !a13Sequence || !exitsCorrect || !gateSequence || results.projectionScreenshots.length!==reviewPages.length || results.mobileScreenshots.length!==reviewPages.length) process.exitCode=1;
+ const gateReset=results.interactions.humanGateReset;
+ const gateSequence=gatePending?.statusLabels?.join('|')==='Backlog|Ready|Dev|Review|QA|Product Check|Done'
+  &&gatePending?.gateColumnCount===0&&gatePending?.stage===0&&gatePending?.WIP?.includes('1/1')
+  &&gatePending?.guidance?.includes('等待')&&gatePending?.ticketGridColumn==='6'
+  &&gatePending?.gateColor==='rgb(242, 207, 118)'&&gatePending?.productCheckBorder==='rgb(131, 188, 255)'
+  &&gatePending?.doneBorder==='rgb(43, 58, 76)'&&gatePending?.finalNoteVisible===false
+  &&gateReleased?.stage===1&&gateReleased?.WIP?.includes('0/1')
+  &&gateReleased?.ticketGridColumn==='7'&&gateReleased?.gateColor==='rgb(131, 221, 167)'
+  &&gateReleased?.productCheckBorder==='rgb(43, 58, 76)'
+  &&gateReleased?.doneBorder==='rgb(131, 188, 255)'&&gateReleased?.finalNoteVisible===false
+  &&gateComplete?.stage===2&&gateComplete?.nextDisabled===true&&gateComplete?.finalNoteVisible===true
+  &&gateReset?.stage===0&&gateReset?.WIP?.includes('1/1')&&gateReset?.ticketGridColumn==='6';
+ if(results.errors.length || results.pages.length!==107 || results.interactions.allExitAnswers.length!==8 || results.interactions.allExitAnswers.some(x=>x.opened!==3||x.overflow||x.cardsOverflow||!x.allInside) || results.interactions.technicalDisclosure.techCount!==2 || !results.interactions.technicalDisclosure.techInitiallyHidden || !results.interactions.technicalDisclosure.techOpened || results.interactions.technicalDisclosure.outside || results.pages.some(p=>p.candidates.length>0 || p.scrollHeight>p.clientHeight+3) || layoutIssues.length || results.interactions.a14Font<24 || results.navigation.home!=='1' || results.navigation.right!=='2' || results.navigation.left!=='1' || results.navigation.tocEntries!==107 || results.navigation.tocJump!=='58' || results.navigation.end!=='107' || !results.navigation.lastDisabled || results.navigation.chapterOrder.join(',')!=='C0,C2,C1,C3,C4,C5,C6,APP' || !results.navigation.notes.includes('執行前計畫') || !hasPlanLink || !hasCommentLink || !processSequence || !results.interactions.processButtonDisabled || !wipSequence || !a13Sequence || !exitsCorrect || !gateSequence || results.projectionScreenshots.length!==reviewPages.length || results.mobileScreenshots.length!==reviewPages.length) process.exitCode=1;
  await browser.close();
 })().catch(async e=>{console.error(e);if(browser)await browser.close();process.exitCode=1});

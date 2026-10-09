@@ -112,7 +112,7 @@ new[34]=kicker('把 #3 視為黑箱：先約定輸入與可觀察結果')+table(
  ['尚未配對；雙方都 Like','執行配對判斷','<b class="r-green">建立配對</b>'],
  ['兩人已配對','再次 Like','<b>仍只有原本那一筆</b>']])+ribbon('驗收包含應有、禁止與重複情境；不能只看一個成功畫面。')+'<p class="r-meta">這裡是驗證設計示意。畫面正常，不能單獨證明所有內部資料都正確。</p>'
 new[35]=kicker('前提固定：這兩人起初尚未配對')+table(['小安 Like 小晴','小晴 Like 小安','預期結果'],[
- ['否','否','不建立配對'],['是','否','不建立配對'],['否','是','不建立配對'],['是','是','<b class="r-green">建立配對</b>']])+ribbon('只有最後一列成功還不夠；另外三列也必須不配對。')+'<p class="r-meta">這就是決策表。已有配對再 Like，是另一個初始狀態，另外驗。</p>'
+ ['否','否','不建立配對'],['是','否','不建立配對'],['否','是','不建立配對'],['是','是','<b class="r-green">建立配對</b>']])+ribbon('只有最後一列成功還不夠；另外三列也必須不配對。')+'<p class="r-meta">決策表描述四種預期，不代表四列全都已實測；重複 Like 是另一種初始狀態。</p>'
 new[39]=kicker('同一張 #3、同樣的驗收結果，放到不同地方')+cols(
  panel('假資料環境',para('錯配影響的是測試帳號。','可以重建測試資料，再驗一次。','確認隔離與回復方式。')),
  panel('真實使用者環境',para('錯配可能影響使用者與既有資料。','退回程式版本，未必消除既有後果。','需要知道曝光範圍與處理能力。'),'human'))+ribbon('驗收通過仍有剩餘不確定性；放行還要看影響範圍、資料與可逆性。')
@@ -193,9 +193,9 @@ def transition_summary(record):
     return (f'預期 {expected["before_match_count"]}→{expected["match_count"]} 筆；'
         f'實際 {actual["before_match_count"]}→{actual["match_count"]} 筆。')
 new[36]=kicker('時間快轉至 B-post｜前兩項沿用 B-pre 紀錄，這次只補驗重複情境')+table(['情境','B-pre｜補驗前已有證據','B-post｜此次補驗'],[
- ['單向 Like',transition_summary(b_one)+f'<b class="r-green">{b_one["status"]}</b>','本次未重跑'],
- ['雙向 Like',transition_summary(b_two)+f'<b class="r-green">{b_two["status"]}</b>','本次未重跑'],
- ['已配對再 Like','<b>NOT RUN</b>',transition_summary(b_duplicate)+f'<b class="r-green">{b_duplicate["status"]}</b>']])+ribbon('B-post 只補上重複情境；B-pre 單向與雙向證據保留。UI／產品串接仍是 NOT RUN。')+'<p class="r-meta"><a href="../workshop/matching-demo/evidence/B-pre-supplement/README.md" target="_blank" rel="noopener">B-pre 原始紀錄 ↗</a>　<a href="../workshop/matching-demo/evidence/B-post-supplement/README.md" target="_blank" rel="noopener">B-post 補驗紀錄 ↗</a></p>'
+ ['單向 Like',transition_summary(b_one)+f'<b class="r-green">{b_one["status"]}</b>','表格沿用 B-pre；B-post 套件另有重跑'],
+ ['雙向 Like',transition_summary(b_two)+f'<b class="r-green">{b_two["status"]}</b>','表格沿用 B-pre；B-post 套件另有重跑'],
+ ['已配對再 Like','<b>NOT RUN</b>',transition_summary(b_duplicate)+f'<b class="r-green">{b_duplicate["status"]}</b>']])+ribbon('本表沿用 B-pre 單向／雙向原始紀錄；B-post 的完整測試套件也曾重跑三情境。B-pre／B-post 是同一 B 指紋，UI／串接 NOT RUN。')+'<p class="r-meta"><a href="../workshop/matching-demo/evidence/B-pre-supplement/README.md" target="_blank" rel="noopener">B-pre 原始紀錄 ↗</a>　<a href="../workshop/matching-demo/evidence/B-post-supplement/README.md" target="_blank" rel="noopener">B-post 補驗紀錄 ↗</a></p>'
 new[37]=kicker('真實規則層證據｜同一個單向 Like 情境，A 失敗、B 通過')+table(['版本／情境','預期','實際配對紀錄','工具判定'],[
  [f'Version A｜單向 Like',f'{a_one["expected"]["match_count"]} 筆',a_actual,f'<b class="r-red">{a_one["status"]}</b>'],
  [f'Version B｜同一單向 Like',f'{b_one["expected"]["match_count"]} 筆',b_one_actual,f'<b class="r-green">{b_one["status"]}</b>']])+ribbon('檔案指紋：用來確認測的是同一份程式；不一定是 Git commit。這裡只證明 #3 規則；UI／產品串接仍 NOT RUN。')+'<p class="r-meta"><a href="../workshop/matching-demo/evidence/A/one-way.json" target="_blank" rel="noopener">Version A 原始 FAIL ↗</a>　<a href="../workshop/matching-demo/evidence/B-pre-supplement/one-way.json" target="_blank" rel="noopener">Version B 同案 PASS ↗</a></p>'
@@ -222,7 +222,7 @@ added['A05']=kicker('目前 WIP 是已開始未完成的票數；上限是政策
  ['Backlog／Ready（未開始）','不計','0/1；或 0/2'],
  ['Dev、Review、QA、Product Check','計入','上限1：#3 在 Dev＝1/1；上限2：#1 在 Dev＋#2 在 QA＝2/2'],
  ['等待驗收、Blocked、退回修正','仍計入','#3 等 QA＝1/1；#1 Dev＋#2 QA＝2/2'],
- ['Done（達成本課 DoD）','不計','#3 Done 後 0/1；兩票 Done 後 0/2']])+ribbon('目前值／上限分開讀，例如 1/2 表示一張在製、最多可開兩張；上限是政策，不是產量目標。')
+ ['Done（達成本課 DoD）','不計','#3 Done 後 0/1；兩票 Done 後 0/2']])+ribbon('1/2 表示一張進行中、上限兩張；已開工的票退回 Backlog 仍計入。上限是政策，不是產量目標。')
 added['A06']=kicker('同一張看板：上限 1 與 2 都有取捨')+cols(
 panel('本課交付上限 1',para('<b>好處：</b>同時只追一張未完成票，交付路徑較容易看清。','<b>代價：</b>若 #3 在外部等待、#1／#2 又不能共同推進，其他能力可能暫時閒置。','適合先練完一張；不保證整體產出最高。'),'rule'),
 panel('比較情境：明示上限改為 2',para('<b>好處：</b>#3 Done 後，獨立的 #1／#2 可分站並行；#1 Dev＋#2 QA 是目前 2／上限 2。','<b>代價：</b>要追更多版本、依賴、交接與待驗收事項；下游接不住會堆積。','條件：介面／資料已定、資源隔離、測試與審查接得住。'),'good'))+ribbon('增加 WIP 上限不會自動增加產能；選擇要看工作依賴與接手能力。')
@@ -230,7 +230,7 @@ added['A07']=kicker('每個案例先重置同一份假帳號資料；以下是�
  ['A｜單向 Like', '0 筆', a_actual, '<b class="r-red">FAIL</b>'],
  ['B｜單向 Like', '0 筆', b_one_actual, '<b class="r-green">PASS</b>'],
  ['B｜雙向 Like', '1 筆 M01', b_two_actual, '<b class="r-green">PASS</b>'],
- ['B-pre｜重複 Like', '仍 1 筆 M01', '尚未執行', '<b>NOT RUN</b>']])+ribbon('Version A／B 的原始紀錄可由下方連結核對；這些結果只屬規則層，UI／產品串接仍 NOT RUN。')+'<p class="r-meta"><a href="../workshop/matching-demo/README.md" target="_blank" rel="noopener">開啟操作 Runbook ↗</a>　<a href="../workshop/matching-demo/evidence/B-pre-supplement/README.md" target="_blank" rel="noopener">開啟原始結果與未測狀態 ↗</a></p>'
+ ['B-pre｜重複 Like', '仍 1 筆 M01', '尚未執行', '<b>NOT RUN</b>']])+ribbon('真實證據只涵蓋安→晴單向、雙向、重複；雙方都未 Like／僅晴→安 尚未提供另測紀錄。UI／串接 NOT RUN。')+'<p class="r-meta"><a href="../workshop/matching-demo/README.md" target="_blank" rel="noopener">開啟操作 Runbook ↗</a>　<a href="../workshop/matching-demo/evidence/B-pre-supplement/README.md" target="_blank" rel="noopener">開啟原始結果與未測狀態 ↗</a></p>'
 added['A08']=kicker('Agent 是 AI 模型依目標判斷下一步、呼叫工具並讀取回傳的工作循環')+flow(
 panel('人交代目標',para('指定 #3、AC 與範圍。','說明停止條件。')),
 panel('Agent 判斷下一步',para('先讀票與候選檔。','檢查能用的工具。')),
@@ -266,21 +266,60 @@ panel('Claude Code',para('在目前目錄接續最近的工作對話，或從選
 
 
 # Eight chapter exits: one learning objective and three learner questions each.
-exit_check_data = {
-    'A18': {'label': '人類合作', 'outcome': '能辨認職能、交付物與最後的接受責任。', 'questions': [('做出 #3 配對規則，至少有哪些工作責任？', 'PO 釐清 Goal／AC，Dev 實作，Reviewer 看改動，QA 依 AC 驗行為，最後由需求方接受。'), ('Reviewer、QA 和需求方各自要回答什麼？', 'Reviewer 看修改是否合理且未超出範圍；QA 對照 AC 與證據；需求方作接受、退回或暫停決定。'), ('有六種職能，是不是一定要六位 Agent？', '不是。職能代表責任，不代表人數或 Agent 數量；一個人或 Agent 可以承擔多項工作。')]},
-    'A19': {'label': '想法到 Ready', 'outcome': '能把模糊要求寫成有邊界、有 AC、有證據的可交辦 Ticket。', 'questions': [('只有一句「支援配對」，你會先問什麼？', '先釐清誰需要、Goal 是什麼；用單向、雙向、重複 Like 的具體情境確認共同理解。'), ('#3 Ticket 的 AC、Out of Scope、Evidence 各寫什麼？', 'AC：單向不配對、雙向才配對、重複不增筆；不做聊天；證據是規則層紀錄與測試結果。'), ('#3 在 Ready 尚未開始時，WIP 是 0/1 還是 1/1？', '0/1。Ready 代表可開工，尚未開始；進入 Dev 才計入進行中的 WIP。')]},
-    'A20': {'label': '版本協作', 'outcome': '能找到指定版本，分清 branch、commit、PR、merge 的用途。', 'questions': [('三份檔案都叫 final，要用什麼找回正確版本？', '用 Git 的提交紀錄與分支定位，依 PR 的改動與證據核對，不以檔名猜最新版。'), ('Commit、Branch、PR 分別幫我們做什麼？', 'Commit 留存一版、Branch 隔離修改路線、PR 讓協作者審查差異與相關證據。'), ('PR 通過或 Merge，是否代表產品已上線、Goal 已達成？', '不代表。Merge 是整合版本；部署與上線後是否達成 Goal，要另外確認。')]},
-    'A21': {'label': '實作與驗收', 'outcome': '能用 AC、候選版本和預期／實際結果判斷 PASS、FAIL、NOT RUN。', 'questions': [('Version A 只有小安 Like 小晴，預期／實際各幾筆？', '預期 0 筆，實際 1 筆 M01，所以是 FAIL；Version B 同案重跑實際 0 筆才 PASS。'), ('B-pre 的重複 Like 是 NOT RUN，可以當成 PASS 嗎？', '不可以。沒有執行與結果就不能宣稱通過，需補測同一版本並留下前後紀錄。'), ('Reviewer、QA、Product Check 的核對重點有何不同？', 'Reviewer 看修改範圍與品質，QA 驗行為與 AC，Product Check 判斷這張票是否仍推進 Goal。')]},
-    'A22': {'label': '放行與完成', 'outcome': '能區分單票驗收、人的放行、整體 Goal 成效。', 'questions': [('#3 已 Done，能說配對 App 的 Goal 已達成嗎？', '不能。#1／#2 可能還沒完成，且整體使用者路徑與上線後成效尚未確認。'), ('在 Product Check 之後，誰決定能否 Merge／Release？', '依本課約定是人作 Human Gate 放行或暫停；Gate 是決策點，不是多一個看板欄位。'), ('上線前核對什麼，上線後量什麼？', '上線前依 AC、版本、證據與風險決定接受／放行；上線後再觀察真正的 Goal 成效。')]},
-    'A23': {'label': 'Agent 演進', 'outcome': '能分辨 Agent、Workflow、Session、WIP，判斷何時需要多 Agent。', 'questions': [('只用一個 Agent，能不能完成 #3 的交辦與驗收？', '可以。讓它讀票、執行與自測、交出證據；人仍依原需求作接受或退回判斷。'), ('哪種理由足以考慮 Multi-Agent？', '需要不同職責、隔離上下文或有可驗證的分工效益時；不是因為職能多，就必須開一樣多的 Agent。'), ('換 Session 或 Compact 後，要優先核對哪幾項？', '共同 Ticket／AC、候選版本、已測／未測與授權狀態；Memory 不是最新工作狀態的證據。')]},
-    'A24': {'label': 'Agent 交付', 'outcome': '能交辦一張票、辨認缺證據並要求補驗與接續。', 'questions': [('交辦 #3 給 Agent，第一段話至少提供什麼？', '指定 Ticket、候選版本、範圍／AC、工具或入口、需交回的證據與停止條件。'), ('Agent 說 B 版完成，但重複 Like 是 NOT RUN，怎麼回覆？', '要求在相同 B artifact 與假資料重播重複 Like，交出操作前後筆數及原始結果；暫不接受。'), ('交給新的 Session，交接卡至少要記住什麼？', 'Ticket／Goal／AC、候選版本指紋、已測與未測、下一步及不可 Merge／發布的停點。')]},
-    'A25': {'label': '附錄', 'outcome': '能按需要查找方法，分辨教學示意與真正驗證過的結果。', 'questions': [('要把「已配對再 Like 不增筆」寫清楚，可用什麼格式？', '用 Given／When／Then：已配對 → 再 Like → 仍只有原本一筆；必要時用表格比較條件。'), ('TDD、BDD、Specification by Example 是同一件事嗎？', '不是。TDD 強調先失敗再通過的開發迴圈；BDD／SBE 強調用例子建立共同理解與可核對規格。'), ('看到六層架構圖或全綠畫面，就代表整個 App 已驗收嗎？', '不代表。圖是教學模型；測試結果只支持有執行且可追到版本、情境及證據的範圍。')]},
-}
+exit_check_data = {'A18': {'label': '人類合作',
+         'outcome': '能辨認職能、交付物與最後的接受責任。',
+         'questions': [('做出 #3 配對規則，要有哪些工作責任？各交回什麼？', 'PO 交 Goal／AC，Dev 交候選規則與自測，Reviewer 交改動意見，QA 交預期／實際證據，需求方交接受／退回決議。'),
+                       ('Reviewer、QA 和需求方各自要回答什麼？', 'Reviewer 看修改是否合理且未超出範圍；QA 對照 AC 與證據；需求方作接受、退回或暫停決定。'),
+                       ('需要六種工作責任，就一定要六個人嗎？', '不一定。職能代表責任，不代表人數；同一個人可以承擔多項工作，仍應分清審查與接受責任。')]},
+ 'A19': {'label': '想法到 Ready',
+         'outcome': '能把模糊要求寫成有邊界、有 AC、有證據的可交辦 Ticket。',
+         'questions': [('只有一句「支援配對」，你會先問什麼？', '先釐清誰需要、Goal 是什麼；用單向、雙向、重複 Like 的具體情境確認共同理解。'),
+                       ('老師已確認「文字非空才能提交、空白不得送」，但自動評分未決。你會怎麼寫第一張 Ticket？',
+                        '範圍：文字提交；AC：非空新增一筆、空白不能提交；評分先列待確認，不擅自加入 AC 或宣布不做；驗證：兩種前提的預期／實際提交紀錄。'),
+                       ('#3 在 Ready 尚未開始時，WIP 是 0/1 還是 1/1？', '0/1。Ready 代表可開工，尚未開始；進入 Dev 才計入進行中的 WIP。')]},
+ 'A20': {'label': '版本協作',
+         'outcome': '能找到指定版本，分清 branch、commit、PR、merge 的用途。',
+         'questions': [('PR #3 指定已審查的 commit abc123；另有 app_final。要重現那次改動，該選哪個版本？',
+                        '選 PR 指定的 commit abc123，核對對應測試紀錄；檔名 app_final 不能證明版本。檔案指紋與 commit 的差別留待後續實測章節教。'),
+                       ('Commit、Branch、PR 分別幫我們做什麼？', 'Commit 留存一版、Branch 隔離修改路線、PR 讓協作者審查差異與相關證據。'),
+                       ('PR 通過或 Merge，是否代表產品已上線、Goal 已達成？', '不代表。Merge 是整合版本；部署與上線後是否達成 Goal，要另外確認。')]},
+ 'A21': {'label': '實作與驗收',
+         'outcome': '能用 AC、候選版本和預期／實際結果判斷 PASS、FAIL、NOT RUN。',
+         'questions': [('Version A 只有小安 Like 小晴，預期／實際各幾筆？', '預期 0 筆，實際 1 筆 M01，所以是 FAIL；Version B 同案重跑實際 0 筆才 PASS。'),
+                       ('新案例預期 1 筆、實際 0 筆；另一個案例已確認尚未執行。各標什麼？',
+                        '第一個是 FAIL，第二個是 NOT RUN；若只缺紀錄、不能確認是否曾執行，應先要求補證據，不自行判定 NOT RUN 或 PASS。'),
+                       ('Reviewer、QA、Product Check 的核對重點有何不同？', 'Reviewer 看修改範圍與品質，QA 驗行為與 AC，Product Check 判斷這張票是否仍推進 Goal。')]},
+ 'A22': {'label': '放行與完成',
+         'outcome': '能區分單票驗收、人的放行、整體 Goal 成效。',
+         'questions': [('在教材推演中，若 #3 的工作票已 Done，就代表配對 App 的 Goal 達成嗎？',
+                        '不代表。這是假設 #3 本身已完成的示意，不是實際部署證據；#1／#2 與完整使用者路徑仍待整合，上線後也須觀察 Goal 訊號。'),
+                       ('在 Product Check 之後，誰決定能否 Merge／Release？', '依本課約定是人作 Human Gate 放行或暫停；Gate 是決策點，不是多一個看板欄位。'),
+                       ('上線前核對什麼，上線後量什麼？', '上線前依 AC、版本、證據與風險決定接受／放行；上線後再觀察真正的 Goal 成效。')]},
+ 'A23': {'label': 'Agent 演進',
+         'outcome': '能分辨 Agent、Workflow、Session、WIP，判斷何時需要多 Agent。',
+         'questions': [('比較情境：已核准把 WIP 上限調為 2；同一個 Agent 開始 #1／#2，均未完成。Agent 數和 WIP 各多少？',
+                        'Agent 1 位、WIP 2 張。因已明示調整上限，此情境不違反上限；Agent 數量與 WIP 是兩種獨立尺度。'),
+                       ('按本課已定流程，QA 不通過便退回 Dev。這條路由誰定？是否一定要增加 Agent？',
+                        '由人核准的 Workflow／看板規則決定退回路徑，可由系統或獲授權者執行；工作者人數不因此增加，多 Agent 另看隔離、專責或並行效益。'),
+                       ('換 Session 或 Compact 後，要優先核對哪幾項？', '共同 Ticket／AC、候選版本、已測／未測與授權狀態；Memory 不是最新工作狀態的證據。')]},
+ 'A24': {'label': 'Agent 交付',
+         'outcome': '能交辦一張票、辨認缺證據並要求補驗與接續。',
+         'questions': [('拿上一頁自己寫的 Ticket，寫一段可交給 Agent 的交辦與停止條件。', '例如：「請先讀［票］，只做［範圍］，按［AC］交回版本、預期／實際及未測事項；缺資料或超出範圍先停下詢問，不得自行發布。」'),
+                       ('Agent 說 B 版完成，但重複 Like 是 NOT RUN，怎麼回覆？', '要求在相同 B artifact 與假資料重播重複 Like，交出操作前後筆數及原始結果；暫不接受。'),
+                       ('把上一頁自己的 Ticket 交接給新 Agent：請寫版本、已做／未測、下一步、停止條件。',
+                        '示例：票＝你上一頁的工作；版本＝候選版本／連結；已做＝哪些 AC 有證據；未測＝明列；下一步＝具體補驗；停止＝未核准前不 Merge／發布，缺資料先詢問。')]},
+ 'A25': {'label': '附錄',
+         'outcome': '能按需要查找方法，分辨教學示意與真正驗證過的結果。',
+         'questions': [('需求理解分歧、條件組合多、想先看失敗測試：請在附錄找三種方法與頁碼。',
+                        '可回查 P101 Example Mapping 釐清分歧、P97 規則／決策表比較條件、P99 TDD 先紅再綠；必要時 P100 BDD。選法依問題，不必記全部術語。'),
+                       ('TDD、BDD、Specification by Example 是同一件事嗎？能如何配合？',
+                        '不是同一件事。TDD 用失敗測試推進實作；BDD 共同探索、描述與驗證行為；SBE 用範例保存可核對的長期規格，三者可以搭配。'),
+                       ('看到六層架構圖或全綠畫面，就代表整個 App 已驗收嗎？', '不代表。圖是教學模型；測試結果只支持有執行且可追到版本、情境及證據的範圍。')]}}
 for exit_id,check in exit_check_data.items():
     exit_items=[]
     for n,(question,answer) in enumerate(check['questions'],1):
         exit_items.append('<article class="r-exit-card"><div class="r-exit-question"><span class="r-exit-marker">Q'+str(n)+'</span><h2>'+e(question)+'</h2></div><details class="r-exit-answer"><summary>自己先回答，再揭露參考答案</summary><p>'+e(answer)+'</p></details></article>')
-    added[exit_id]='<div class="r-exit-head"><p class="r-kicker">Chapter Exit Check｜本章學完，你應該能做到：</p><p class="r-exit-outcome">'+e(check['outcome'])+'</p></div><div class="r-exit-grid">'+''.join(exit_items)+'</div>'+ribbon('自我檢查：三題能不用看答案說清楚嗎？可以口頭、筆記或畫流程回答；不確定的題目回到本章練習。')
+    added[exit_id]='<div class="r-exit-head"><p class="r-kicker">Chapter Exit Check｜本章學完，你應該能做到：</p><p class="r-exit-outcome">'+e(check['outcome'])+'</p></div><div class="r-exit-grid">'+''.join(exit_items)+'</div>'+ribbon('先口頭／筆記作答，再逐題展開必要要點；未決條件不自行補成 AC，答不出就回到本章練習。')
 
 new[46]=kicker('長對話可能被整理成較短摘要，之後繼續工作')+'<div class="r-worktable"><section><b>共同工作票｜完整規則</b><span>單向 Like：不配對</span><span>雙向 Like：建立一筆配對</span><span>已配對再 Like：不增加筆數</span></section><section class="not-on-desk"><b>可能的精簡摘要｜示意</b><span>Goal：互相喜歡才算配對成功</span><span>此摘要省略了重複規則</span><span>回到票面核對 AC 與版本</span></section></div>'+ribbon('長對話的上下文可能被精簡；摘要可能省略細節，實際方式依產品而異。')
 new[47]=kicker('Session 是一段工作對話；視窗只是進入它的介面')+'<div class="r-worktable"><section><b>路徑 A｜恢復原 session</b><span>回到同一段工作對話。</span><span>核對目前專案與候選版本。</span><span>確認已做、未測與授權。</span></section><section class="not-on-desk"><b>路徑 B｜開新 session</b><span>讀共同工作紀錄與 AC。</span><span>指定候選 artifact／版本。</span><span>核對已做、未測與授權。</span></section></div>'+ribbon('新開對話不保證完整帶入前文；恢復對話也不保證已查證最新工作狀態。')
@@ -487,7 +526,7 @@ for i,p in enumerate(pages):
         replace_text(node,'本課交付 WIP 上限：1｜目前：0/1（都在 Backlog）','已開始但未完成的票數（WIP）上限：1｜目前：0/1（都在 Backlog）')
         replace_text(node,'Goal / Epic｜互相喜歡才算配對成功','共同目標｜互相喜歡才算配對成功')
         replace_text(node,'Parent issue · 三張票的共同目標與分組','三張工作票的共同目標與分組')
-        definition=BeautifulSoup('<p class="r-meta">Backlog＝尚未開始的工作清單；Ready＝資訊齊全、可以開始。欄位表示工作狀態。</p>','html.parser').p
+        definition=BeautifulSoup('<p class="r-meta">Backlog＝待釐清或退回的待辦；Ready＝可以開工。已開工的票退回 Backlog，仍計入 WIP。</p>','html.parser').p
         node.select_one('.visual').insert(0,definition)
     if old_candidate_number(p)==4:
         replace_text(node,'後面每一段都用這個例子；#1 → #3 雙向喜歡才配對 → #2 配對列表','Like＝表示喜歡，Pass＝略過；雙方都 Like 才配對。後面沿 #1 輸入 → #3 判斷 → #2 查看結果。')
@@ -569,13 +608,13 @@ for i,p in enumerate(pages):
     if p['number']==52:
         intro=node.select_one('.carried-note.git-callback')
         assert intro
-        intro.string='教學流程假設：若串接驗證、Human Gate、Merge／上線檢查都完成，#3 才能 Done。真實僅有規則層證據；UI／產品整合與發布 NOT RUN。'
+        intro.string='教學假設：#3 規則票可先獨立驗輸入／輸出，並完成本票人工放行與發布檢查才 Done；#1／#2 未開工，端到端串接留下一頁。真實部署 NOT RUN。'
         question=node.select_one('.step-question.step-intro')
         assert question
         question.string='流程推演：假設 #3 完成；整體 Goal 仍未達成。'
         summary=node.select_one('.done-summary p')
         assert summary
-        summary.string='此為條件式交付示意：假設產品串接驗證、人的接受與放行、Merge／上線檢查均已完成，才關閉 #3。這些動作並未在 Matching 示範包實測。'
+        summary.string='條件式示意：#3 可先用假資料驗核心規則；假設完成本票 Review／QA、Human Gate 與整合／上線檢查才關票。#1／#2 仍在 Ready，完整 UI 串接等三票完成。'
         closing=node.select_one('.closed-issue b')
         assert closing
         closing.string='Closed（假設）'
@@ -612,6 +651,169 @@ for i,p in enumerate(pages):
         # The names in SVGs/notes are normalized to Product Check above.
     if p['number']==106:
         add_note(node,'所有欄位只代表本課定義的七個看板狀態；Product Check 判斷是否推進 Goal，Human Gate 是欄外決策；圖中 Done 為教學推演，不能拿規則層 PASS 宣稱 UI／部署已完成。')
+        small=node.select_one('.moving-ticket small')
+        assert small is not None
+        small.string='WIP 1/1｜待人放行'
+        controls=BeautifulSoup('<div class="r-gate-controls" role="group" aria-label="Kanban 交付三階段回顧"><span data-gate-message aria-live="polite">1／3｜#3 在 Product Check，WIP 1/1；等待人的放行決定</span><button type="button" data-gate-next>下一步：由人決定放行 →</button><button type="button" data-gate-reset disabled>重頭回顧</button></div>','html.parser').div
+        note=node.select_one('.short-note.move-8')
+        assert note is not None
+        note.insert_before(controls)
+
+    # Learner-facing editorial correctness and prerequisite fixes.
+    # The page title and rationale come from the authoritative storyboard.
+    assert node.h1
+    node.h1.clear()
+    node.h1.append(p["title"])
+    n=p["number"]
+    if n==6:
+        note=node.select_one(".r-kicker")
+        assert note
+        note.string="PO（Product Owner：產品需求）、UI／UX（操作與畫面）、Dev（實作）是職責；Goal 是目標，AC 是驗收約定。"
+    if n==7:
+        note=node.select_one(".r-kicker")
+        assert note
+        note.string="Reviewer＝檢查改動；QA＝驗證行為；需求方決定是否接受。這些是責任，不是固定人數。"
+        ribbon_node=node.select_one(".r-ribbon")
+        assert ribbon_node
+        ribbon_node.string="需求方定目標／接受；PO 代表需求方整理需求，PM 在本課泛指規劃／排優先序。可同人擔任，職責不會混成一個 Gate。"
+    if n==10:
+        wall=node.select(".sticky-wall > .sticky")
+        assert len(wall)==4
+        for t in list(wall[2].find_all(string=True,recursive=False)):
+            if "方案？" in t:t.replace_with(str(t).replace("方案？","候選做法？"))
+        wall[2].small.string="提議：雙方 Like 才配對（待確認）"
+        node.select_one(".brainstorming-visual > .r-meta").string="Brainstorming 先釐清為誰解決什麼問題，再形成 Goal；方案在後續和 PO／Dev／QA 確認。"
+    if n==11:
+        replace_text(node,"錯誤配對率＝0（核對錯配紀錄）。","觀測到的錯配事件＝0（須有監測或回報資料）。")
+    if n==14:
+        replace_text(node,"Parent issue 記錄大需求；sub-issue 拆成能分別處理的子工作。","本課用 parent issue 記共同 Goal；sub-issue 分成可交付工作。這是一種安排，不是每個團隊的硬規則。")
+    if n==13:
+        ribbon_node=node.select_one(".r-ribbon")
+        assert ribbon_node
+        ribbon_node.string="規則層＝只測配對判斷及紀錄；不包含 Like 按鈕、配對畫面與整體產品串接。此處 PASS 只能證明規則層。"
+    if n==17:
+        x=node.select_one(".r-meta")
+        assert x
+        x.string="寫出可核對範例：業務語言、具體資料、清楚意圖、必要前提、一次聚焦一件事。"
+    if n==20:
+        x=node.select_one(".r-meta")
+        assert x and "等價分割" in x.get_text()
+        x.decompose()
+    if n==26:
+        # The teaching gate compares two questions, not two unrelated job titles.
+        # Keep one brief projected annotation, not three large note blocks
+        # that shrink the seven-state diagram until learners cannot read it.
+        for prior in node.select('.r-revision'):
+            prior.decompose()
+        add_note(node,'Product Check 核對是否推進 Goal（實作問題回 Dev；需求問題回 Backlog）；Human Gate 決定現在可否發布。兩者可同人負責，Gate 不設看板欄。已開工票退回仍計 WIP。')
+        for term in list(node.find_all(string=True)):
+            if str(term).strip()=='已上線':term.replace_with('放行且檢查')
+    if n==28:
+        x=node.select_one(".r-kicker")
+        assert x
+        x.string="本課 WIP 政策：開始且未完成的票才計入；上限由團隊決定。"
+    if n==33:
+        replace_text(node,"共享資料夾＋審查室","託管 Git 歷史、PR 與協作討論")
+    if n==40:
+        note=node.select_one('.r-meta')
+        assert note
+        note.string='CI（Continuous Integration，持續整合）＝依 PR 設定自動重跑檢查；此頁是審查流程示意，不聲稱已搭建真實 CI。'
+    if n==62:
+        kicker_note=node.select_one('.r-kicker')
+        assert kicker_note
+        kicker_note.string='對話壓縮（Compact）：長對話整理成摘要後，仍需回到工作票核對完整規則。'
+    if n==57:
+        replace_text(node,"CHAT｜一問一答","手動 Chat｜逐輪追問")
+        replace_text(node,"AGENT｜朝目標工作","Agent 工作方式｜循環執行")
+    if n==68:
+        replace_text(node,"模型依任務選用：規則判斷用推理較強的模型；畫面樣板用較輕的模型。","模型可依任務、風險、成本與驗證結果調整；此處只是分工示例，不是固定配置。")
+    if n in (71,76,81):
+        for t in list(node.find_all(string=True)):
+            if "SHIFT" in t:t.replace_with(str(t).replace("SHIFT","目標漂移"))
+    if n in (69,70):
+        citation=node.select_one(".draft-source")
+        assert citation
+        citation.insert(0,"配對 App 情境為教材改編，非研究原案例｜")
+    if n==74:
+        x=node.select_one(".term-note")
+        assert x
+        x.string="model：選擇使用的 AI 模型。effort：產品提供的推理強度／資源設定，延遲、成本與結果可能不同；支援方式依模型而異。"
+    if n==77:
+        replace_text(node,"Chat-driven｜靠對話推進","只靠 Chat 紀錄工作")
+    if n==78:
+        replace_text(node,"WIP=1","本課 WIP 上限 1")
+    if n==80:
+        add_note(node,"另一隻 Agent 不代表已獨立驗證：先由原 AC 確定預期，再核對特定版本與原始結果；人也可以獨立核驗。")
+    if n==85:
+        replace_text(node,"現在：PM Agent＋PO Agent｜#3 雙向喜歡才配對","現在：Agent 協助規劃職能｜#3 雙向喜歡才配對")
+        tasks=node.select(".agent-responsibilities span")
+        assert len(tasks)==2
+        tasks[0].b.string="理解問題"
+        tasks[1].b.string="整理規格"
+        node.select_one(".brainstorm-agent p").append("（同一 Agent 可協助兩種職能。）")
+    if n==86:
+        replace_text(node,"把確認結果整理成票與 GWT。","把確認結果整理成票與 Given–When–Then（GWT）。")
+    if n==87:
+        # Give the assignment to copy/edit before showing any technical paths.
+        cards_start=node.select_one('.r-cols')
+        assert cards_start
+        instruction=BeautifulSoup('<p class="r-assignment-line">交辦示例：請依 #3 的 AC 驗證 B 候選規則，交回預期／實際結果與未測事項；若材料不足或超出範圍，先停止詢問，不能自行發布。</p>','html.parser').p
+        cards_start.insert_before(instruction)
+        # Novices answer from expected/actual; engineering execution is opt-in.
+        handout_cards=node.select(".r-cols > .r-card")
+        assert len(handout_cards)==2
+        first=handout_cards[0].select_one(".r-body")
+        second=handout_cards[1].select_one(".r-body")
+        assert first and second
+        paths=list(first.find_all("p",recursive=False))
+        assert len(paths)==4
+        raw=BeautifulSoup('<details class="r-tech-reveal"><summary>進階：查看本次實際檔案路徑</summary></details>','html.parser').details
+        for entry in paths:raw.append(entry.extract())
+        first.append(BeautifulSoup('<p>交辦時要附上工作票、候選版本、測試資料、驗證入口；不用背檔案路徑。</p>','html.parser').p)
+        first.append(raw)
+        cmdp=next((x for x in second.find_all("p",recursive=False) if x.select_one("code")),None)
+        assert cmdp
+        cmdp.extract()
+        more=BeautifulSoup('<details class="r-tech-reveal"><summary>進階：展開並複製實測命令</summary></details>','html.parser').details
+        more.append(cmdp)
+        second.insert(0,BeautifulSoup('<p>非工程師先看：預期什麼、實際什麼、還有哪些 NOT RUN；命令可由講師或 Agent 執行。</p>','html.parser').p)
+        second.append(more)
+        node.select_one(".r-kicker").string="非工程師也能交辦：說明目標、AC、證據與停止條件；Python 是進階選項。"
+    if n==90:
+        node.select_one(".r-kicker").string="時間倒回 B-pre（補驗前）：靠交接卡補證據，再回到 B-post 主線；不要求學員會 CLI。"
+    if n==92:
+        replace_text(node,"另一個實際案例｜v7 簡報首版發布 PR #43","實際教材改版案例｜未經最終確認就發布")
+        replace_text(node,"PR #43 合併，v7 簡報上線","教材首版先合併並發布")
+        replace_text(node,"Owner 看過首版後指出問題","發布後需求方才指出說明錯誤")
+        replace_text(node,"Owner 看過 v7 上線版後才指出問題。","需求方在發布後才指出問題。")
+        source=node.select_one(".draft-source")
+        assert source
+        replace_text(node,"上線前未攔下「把 AC 當成成效」的錯誤說明；需求方在發布後才指出問題。","發布後才發現誤把 AC 當成成效；Human Gate 能提供核對機會，但不保證一定攔得住所有錯誤。")
+        source.string="真實教材的發布復盤；PR 編號、合併 SHA 與完整來源保留在講者筆記。"
+    if n==93:
+        replace_text(node,"Product Check 退回 Backlog／Refinement","Product Check 需求問題退回 Backlog；實作問題回 Dev")
+    if n==94:
+        node.select_one(".r-kicker").string="從活動報名、課程作業、行銷素材審核、行政申請或小工具，選一件真正熟悉的工作。"
+    if n==105:
+        mapping={
+            "1｜Goal / Governance":"1｜Goal / Governance（目標決策）",
+            "2｜Planning / Backlog":"2｜Planning / Backlog（拆票）",
+            "3｜Task Graph / Kanban":"3｜Task Graph / Kanban（看板）",
+            "4｜Orchestrator":"4｜Orchestrator（安排接手）",
+            "5｜Execution Runtime":"5｜Execution Runtime（實際執行）",
+            "6｜Review / QA / Human":"6｜Review / QA / Human（審查與人放行）",
+        }
+        for before,after in mapping.items():replace_text(node,before,after)
+    # Goal outcomes are measurable only with a real observation mechanism:
+    # observed=0 must not imply all incidents were impossible.
+    for t in list(node.find_all(string=True)):
+        x=str(t)
+        if "錯誤配對率" in x:
+            x=x.replace("錯誤配對率維持 0","觀測到的錯配事件維持 0")
+            x=x.replace("錯誤配對率為 0","觀測到的錯配事件為 0")
+            x=x.replace("錯誤配對率＝0","觀測到的錯配事件＝0")
+            if x!=str(t):t.replace_with(x)
+
     node['data-section']=p['chapter'];node['data-page']=str(p['number']);node['data-source']=' '.join(p['ids']);node['id']=f'page-{p["number"]}'
     if p['addedId']:node['data-added-id']=p['addedId']
     if p['oldRev11Page']==7:node['data-process-stage']='0'

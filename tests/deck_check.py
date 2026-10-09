@@ -88,14 +88,20 @@ def check_fragments_walk(browser):
         page.keyboard.press("ArrowRight")
     s = state(page)
     check(s["active"] == n - 1, f"fragment walk: ended at {s['active']} not {n - 1}")
+    # rev12 uses learner-controlled steps for the closing Human Gate recap.
+    # Two post-decision fragments intentionally remain hidden at stage 0;
+    # this is not a slide-navigation regression.
+    progressive_gate = page.locator('.slide[data-page="106"] [data-gate-next]').count() > 0
+    expected_hidden = 2 if progressive_gate else 0
     hidden = page.evaluate("[...document.querySelectorAll('.fragment')].filter(f => !f.classList.contains('visible')).length")
-    check(hidden == 0, f"fragment walk: {hidden} fragments still hidden")
+    check(hidden == expected_hidden, f"fragment walk: {hidden} hidden, expected {expected_hidden}")
     for _ in range(n + total_frags - 1):
         page.keyboard.press("ArrowLeft")
     expect_slide(page, 0, "fragment walk back")
     visible = page.evaluate("[...document.querySelectorAll('.fragment')].filter(f => f.classList.contains('visible')).length")
     full = page.locator("body").get_attribute("data-review-mode") == "full"
-    check(visible == (total_frags if full else 0), f"fragment walk back: unexpected visible count {visible}")
+    expected_visible = (total_frags - expected_hidden) if full else 0
+    check(visible == expected_visible, f"fragment walk back: unexpected visible count {visible}; expected {expected_visible}")
     check(not errors, f"fragment walk: page errors {errors}")
     page.close()
 

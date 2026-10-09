@@ -45,14 +45,49 @@
     slides[index].scrollTop = 0;
     sync();
   }
-  document.querySelectorAll('.fragment').forEach(node => node.classList.add('visible'));
+  // Other legacy fragments are deliberately fully visible; the final Kanban recap
+  // is an actual learner-operated sequence, not a synthetic test-only screenshot.
+  document.querySelectorAll('.fragment').forEach(node => {
+    if (!node.closest('.slide[data-page="106"]')) node.classList.add('visible');
+  });
+  const gateSlide = document.querySelector('.slide[data-page="106"]');
+  if (gateSlide) {
+    const gateNext = gateSlide.querySelector('[data-gate-next]');
+    const gateReset = gateSlide.querySelector('[data-gate-reset]');
+    const gateMessage = gateSlide.querySelector('[data-gate-message]');
+    const ticketCount = gateSlide.querySelector('.moving-ticket small');
+    const stages = [
+      '1／3｜#3 在 Product Check，WIP 1/1；等待人的放行決定',
+      '2／3｜人已放行 → #3 才能移至 Done；WIP 回到 0/1',
+      '3／3｜#3 Done 不等於 Goal 達成；#1／#2 尚未完成',
+    ];
+    const syncGateStage = (nextStage) => {
+      const stage = Math.max(0, Math.min(2, nextStage));
+      gateSlide.dataset.gateStage = String(stage);
+      gateSlide.querySelectorAll('.fragment').forEach(fragment => {
+        const step = Number([...fragment.classList].map(c => /^move-(\d+)$/.exec(c)?.[1]).find(Boolean));
+        fragment.classList.toggle('visible', step===6 || (step===7 && stage>=1) || (step===8 && stage>=2) || (step<6 && !!step));
+      });
+      gateMessage.textContent = stages[stage];
+      ticketCount.textContent = stage===0
+        ? 'WIP 1/1｜待人放行'
+        : 'WIP 0/1｜已放行';
+      gateNext.textContent = stage===0 ? '下一步：由人決定放行 →'
+        : stage===1 ? '下一步：核對是否達成 Goal →' : '已完成三階段回顧';
+      gateNext.disabled = stage===2;
+      gateReset.disabled = stage===0;
+    };
+    gateNext.addEventListener('click', () => syncGateStage(Number(gateSlide.dataset.gateStage||0)+1));
+    gateReset.addEventListener('click', () => { syncGateStage(0); gateNext.focus(); });
+    syncGateStage(0);
+  }
   document.querySelectorAll('[data-process-next]').forEach(button => {
     const slide = button.closest('.slide');
     const note = slide.querySelector('[data-process-note]');
     const returnLabel = slide.querySelector('.flow-reanchor-label');
     const labels = [
       '1／3｜先看 #3 雙向配對一路經過關卡',
-      '2／3｜Review／QA 退回 Dev；Goal Check 可回 Refinement',
+      '2／3｜Review／QA 退回 Dev；Product Check 可回 Backlog 重新釐清',
       '3／3｜再展開 #1、#2，回到完整三票流程',
     ];
     function syncProcessStep() {

@@ -284,3 +284,91 @@
   font: 640 19px/1.3 system-ui,sans-serif;
   text-align: center;
 }
+
+/* Beginner-friendly progressive disclosure for optional engineering evidence. */
+.rev12-draft .r-tech-reveal {
+  margin-top: 14px;
+  max-height: 260px;
+  overflow: auto;
+  border: 1px solid #4b7196;
+  border-radius: 9px;
+  background: #152a40;
+  padding: 12px 15px;
+}
+.rev12-draft .r-tech-reveal summary {
+  cursor: pointer;
+  font: 700 19px/1.45 system-ui,sans-serif;
+  color: #cbe8ff;
+}
+.rev12-draft .r-tech-reveal[open] { border-color: #86c3fc; }
+.rev12-draft .r-tech-reveal :is(p,code) {
+  overflow-wrap: anywhere;
+  word-break: normal;
+  font-size: 16px;
+  line-height: 1.4;
+}
+.rev12-draft .r-tech-reveal summary:focus-visible {outline:3px solid #f2cf76;outline-offset:4px;}
+
+/* Learner-operated Human Gate stage controls. */
+.rev12-draft #page-106 .r-gate-controls {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  border: 1px solid #385c77;
+  border-radius: 8px;
+  background: #132436;
+  padding: 8px 12px;
+}
+.rev12-draft #page-106 .r-gate-controls [data-gate-message] {
+  flex: 1 1 auto;
+  color: #d9eaf8;
+  font: 650 19px/1.3 system-ui,sans-serif;
+}
+.rev12-draft #page-106 .r-gate-controls button {
+  flex: 0 0 auto;
+  background: #19344e;
+  border: 1px solid #6392b4;
+  border-radius: 6px;
+  color: #e7f6ff;
+  cursor: pointer;
+  padding: 8px 12px;
+  font: 650 17px/1.3 system-ui,sans-serif;
+}
+.rev12-draft #page-106 .r-gate-controls button:disabled {opacity:.45;cursor:default;}
+.rev12-draft #page-106 .r-gate-controls button:focus-visible {outline:3px solid #f2cf76;outline-offset:3px;}
+
+/* First example prompt for non-technical learners. */
+.rev12-draft .r-assignment-line {
+  display: block;
+  margin: 0 0 12px;
+  padding: 13px 16px;
+  border-left: 4px solid #82baeb;
+  border-radius: 7px;
+  background: #162b3c;
+  color: #ecf4fb;
+  font: 630 20px/1.42 system-ui,sans-serif;
+}
+
+/* Keep the seven-state recap's header and ticket text within their own cells. */
+.rev12-draft #page-106 .recap-board > .board-parent {
+  min-height: 39px;
+  padding: 7px 12px;
+  box-sizing: border-box;
+  align-items: center;
+}
+.rev12-draft #page-106 .recap-board > .board-parent :is(b,span) {
+  line-height: 1.2;
+}
+.rev12-draft #page-106 .recap-board .moving-ticket {
+  min-height: 0;
+  padding: 11px 9px;
+  gap: 3px;
+}
+.rev12-draft #page-106 .recap-board .moving-ticket small {
+  display: block;
+  font-size: 14px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
