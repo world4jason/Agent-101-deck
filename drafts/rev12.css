@@ -372,3 +372,97 @@
   line-height: 1.25;
   overflow-wrap: anywhere;
 }
+
+/* Phase-led instructional design: roles travel on one continuous human workflow.
+   Keep the audience-facing copy sparse; detailed inputs/outputs live in notes. */
+.rev12-draft .r-human-flow {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: minmax(0,1fr) 27px minmax(0,1fr) 27px minmax(0,1fr) 27px minmax(0,1fr);
+  gap: 8px;
+  align-items: stretch;
+  min-height: 0;
+  width: 100%;
+}
+.rev12-draft .r-human-step {
+  min-width: 0;
+  min-height: 286px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 17px;
+  padding: 22px 20px;
+  background: #14202e;
+  border: 1px solid #375677;
+  border-top: 4px solid #88bcfc;
+  border-radius: 14px;
+  overflow-wrap: anywhere;
+}
+.rev12-draft .r-human-step.good { border-top-color: #86d6ad; }
+.rev12-draft .r-human-step.human {
+  background: #1b211d;
+  border-color: #4d7763;
+  border-top-color: #f0d27b;
+}
+.rev12-draft .r-human-step.problem { border-top-color: #bbdaff; }
+.rev12-draft .r-human-step h2 {
+  margin: 0;
+  color: #f4f8fc;
+  font: 750 31px/1.22 system-ui, sans-serif;
+  letter-spacing: -.025em;
+}
+.rev12-draft .r-human-step .r-human-role {
+  display: block;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: #20344a;
+  color: #badaff;
+  font: 700 19px/1.3 system-ui, sans-serif;
+}
+.rev12-draft .r-human-step.human .r-human-role { background: #313025; color: #f9df99; }
+.rev12-draft .r-human-step .r-human-action {
+  margin: 1px 0 0;
+  color: #f1f6fc;
+  font: 660 22px/1.4 system-ui, sans-serif;
+}
+.rev12-draft .r-human-step .r-human-example {
+  margin: 0;
+  color: #aac0d4;
+  font: 520 18px/1.4 system-ui, sans-serif;
+}
+.rev12-draft .r-human-arrow {
+  align-self: center;
+  justify-self: center;
+  color: #91c8ff;
+  font: 700 26px/1 system-ui, sans-serif;
+}
+.rev12-draft .r-human-flow + .r-ribbon {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  padding: 12px 18px;
+  font-size: 21px;
+  line-height: 1.35;
+}
+.rev12-draft .slide[data-page="2"] .r-human-step { min-height: 260px; }
+.rev12-draft .r-storyline-phase {
+  max-width: 1050px;
+  margin: 24px auto 0;
+  color: #c1dfff;
+  font: 620 23px/1.4 system-ui, sans-serif;
+  letter-spacing: .015em;
+}
+
+/* Use compact four-card rows rather than full-height panels on teaching overview pages. */
+.rev12-draft .r-human-flow {
+  flex: 0 0 auto;
+  height: 292px;
+  margin: auto 0;
+}
+.rev12-draft .r-human-step {
+  min-height: 0;
+  height: 292px;
+  gap: 13px;
+}
+.rev12-draft .slide[data-page="2"] .r-human-flow { height: 276px; }
+.rev12-draft .slide[data-page="2"] .r-human-step { min-height: 0; height: 276px; }

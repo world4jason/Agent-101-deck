@@ -33,6 +33,21 @@ class EducationalContract(unittest.TestCase):
         for record in MANIFEST["pages"]:
             self.assertEqual(page(record["number"]).h1.get_text(" ",strip=True),record["title"])
 
+    def test_four_stage_storyline_allows_role_to_agent_transfer(self):
+        self.assertIn("四階段教學主軸", (ROOT / "README.md").read_text())
+        self.assertIn("課程四階段", page(2).h1.get_text())
+        for n in (2,6,7,84):
+            cards=page(n).select(".r-human-step")
+            self.assertEqual(len(cards),4)
+            self.assertTrue(all(len(card.get_text(" ",strip=True))<95 for card in cards))
+        self.assertEqual([x.h2.get_text(" ",strip=True) for x in page(6).select(".r-human-step")],
+                         ["問題","輸入","交付","接受"])
+        self.assertIn("Human Gate",page(84).get_text())
+        self.assertIn("需求方",page(7).get_text())
+        self.assertNotIn("輸入：使用者問題",page(6).get_text())
+        for n in (5,9,31,55,83):
+            self.assertIsNotNone(page(n).select_one(".r-storyline-phase"))
+
     def test_desktop_only_notice_first_page(self):
         self.assertIn("請用電腦版閱讀", page(1).get_text())
         self.assertIn("手機版開發中", page(1).get_text())
@@ -40,8 +55,12 @@ class EducationalContract(unittest.TestCase):
     def test_first_use_and_policy(self):
         for keyword in ("Product Owner", "Goal", "AC"):
             self.assertIn(keyword,page(6).get_text())
-        self.assertIn("Reviewer＝",page(7).get_text())
-        self.assertIn("QA＝",page(7).get_text())
+        self.assertIn("Reviewer（看改動）",page(7).get_text())
+        self.assertIn("QA（驗行為）",page(7).get_text())
+        self.assertIn("問題",page(6).get_text())
+        self.assertIn("輸入",page(6).get_text())
+        self.assertIn("交付",page(6).get_text())
+        self.assertIn("接受",page(6).get_text())
         self.assertIn("候選做法",page(10).get_text())
         self.assertIn("待確認",page(10).get_text())
         self.assertIn("觀測到的錯配事件",page(11).get_text())

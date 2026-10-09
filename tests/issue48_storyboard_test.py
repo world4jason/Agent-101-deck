@@ -162,9 +162,29 @@ def main():
     full_b_hash = manifest["demo"]["versionB"]
     assert len(full_a_hash) == len(full_b_hash) == 64
     assert full_a_hash[:12] not in a09.get_text() and full_a_hash not in a09.get_text()
+    # Opening narrative must teach roles inside a flow before the detailed software-process section.
+    expected_stages = ["問題", "輸入", "交付", "接受"]
+    roadmap = candidate.select_one('.slide[data-page="2"]')
     role_page = candidate.select_one('.slide[data-page="6"]')
-    assert role_page and len(role_page.select('.r-cols-3 .r-card')) == 3
-    assert all(word in role_page.get_text() for word in ["Planning／PO", "UI／UX", "Developer", "輸入", "交付", "接手", "#1 Like", "#2 配對列表"])
+    review_page = candidate.select_one('.slide[data-page="7"]')
+    agent_map = candidate.select_one('.slide[data-page="84"]')
+    assert roadmap and role_page and review_page and agent_map
+    assert len(roadmap.select('.r-human-step')) == 4
+    assert [x.h2.get_text(" ", strip=True) for x in role_page.select('.r-human-step')] == expected_stages
+    assert [x.h2.get_text(" ", strip=True) for x in review_page.select('.r-human-step')] == ["交付", "審查", "驗證", "接受"]
+    assert len(agent_map.select('.r-human-step')) == 4
+    assert all("→" in item.get_text() or len(item.select(".r-human-arrow"))==3 for item in [role_page,review_page])
+    for slide in [roadmap,role_page,review_page,agent_map]:
+        cards = slide.select('.r-human-step')
+        assert len(cards)==4
+        assert all(len(card.get_text(" ", strip=True))<95 for card in cards)
+        assert all(card.select_one(".r-human-role") and card.select_one(".r-human-action") for card in cards)
+        assert not slide.select(".r-cols-3 > .r-card"), "Dense role list must not return"
+    for cover_num in [5,9,31,55,83,96]:
+        assert candidate.select_one(f'.slide[data-page="{cover_num}"] .r-storyline-phase')
+    assert all(word in role_page.get_text() for word in ["Product Owner", "Goal", "AC", "UI／UX（畫面設計）", "#1 Like", "#2 配對列表", "實作 #1／#2／#3", "需求方"])
+    assert "Reviewer" in review_page.get_text() and "QA" in review_page.get_text()
+    assert all(word in agent_map.get_text() for word in ["PO／UI／UX", "Dev", "Reviewer／QA", "需求方", "Human Gate"])
     like_intro = candidate.select_one('.slide[data-page="4"]')
     brainstorm = candidate.select_one('.slide[data-page="10"]')
     assert like_intro and all(term in like_intro.get_text() for term in ["Like＝表示喜歡", "Pass＝略過", "雙方都 Like 才配對"])

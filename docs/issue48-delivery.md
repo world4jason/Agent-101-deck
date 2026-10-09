@@ -91,3 +91,12 @@ A12 指定 B 程式、fixture 和 runner；A13 的可複製 `--artifact` 命令�
 - 產生器、storyboard、manifest、README、Chrome 測試與 rev11 基線同步；本次本機執行生成器、107 頁故事板契約、六項 deck regression、Chrome 檢查與八頁各一題的 reveal/rehide／界線檢查通過。
 - G4／G5 最終人工畫面審閱、實體投影、手機真機、真人初學者試教仍 **NOT RUN**；不能將 Chrome／HTML tests PASS 當作真人學習效果。
 - 未在此增量處理跨頁 Human Gate／Product Check 已知 P1；請追 [Issue #50](https://github.com/world4jason/Agent-101-deck/issues/50)。
+
+## 2026-10-09｜Owner 四階段主線與四卡職能重構
+
+- 教學四階段明確成為全 deck 的敘事契約：**人類職能與合作流程 → 細拆交付流程 → Agent 接手職能 → 人類驗收／放行**，附錄保留按需查閱。
+- 先保留原 107 頁、rev11 82 頁及所有 Exit Checks；將第 2、6、7、84 頁主畫面統一為四張精簡卡，不再逐個職能塞「問題／輸入／交付／接手」長清單。
+- 第 6 頁明示：UI／UX 的設計是交給 Dev 的輸入；#1 Like／Pass、#2 配對列表及 #3 配對規則全部需要實作與核對。首次角色縮寫以中文責任提示，不提前假設初學者懂職能。
+- 第 7 頁縮放交付之後的 Dev → Reviewer → QA → 需求方核對流程；第 84 頁呼應 UI／UX、Dev、Reviewer／QA 可由 Agent 協助，但人的 Goal／AC／設計接受與放行權不轉交。
+- 第 8 頁 Exit Check 第一題改問同一條責任交接鏈，參考答案必須維持精簡並預設隱藏；詳細資料保留於故事板／講者筆記。
+- 正式閱讀範圍仍是**電腦／投影**。頁面故事板、產生器、manifest、README、教材與瀏覽器契約需以同一 HEAD 驗證，真人試教／實體投影仍另列 NOT RUN。

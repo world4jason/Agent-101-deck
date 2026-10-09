@@ -68,11 +68,29 @@ def table(head,rows):
     return '<table class="r-table"><thead><tr>'+''.join(f'<th scope="col">{x}</th>' for x in head)+'</tr></thead><tbody>'+''.join('<tr>'+''.join(f'<td>{x}</td>' for x in row)+'</tr>' for row in rows)+'</tbody></table>'
 def para(*lines):return ''.join(f'<p>{x}</p>' for x in lines)
 
+def four_step_flow(*steps):
+    """A four-stage learner journey; roles and outputs stay visible together."""
+    assert len(steps)==4
+    nodes=[]
+    for i,(name,role,action,example,variant) in enumerate(steps):
+        if i:nodes.append('<span class="r-human-arrow" aria-hidden="true">→</span>')
+        nodes.append('<article class="r-human-step '+variant+'">'
+          +'<h2>'+e(name)+'</h2>'
+          +'<span class="r-human-role">'+e(role)+'</span>'
+          +'<p class="r-human-action">'+e(action)+'</p>'
+          +'<p class="r-human-example">'+e(example)+'</p>'
+          +'</article>')
+    return '<div class="r-human-flow" aria-label="四個階段與各自負責的職能">'+''.join(nodes)+'</div>'
+
+
+
 new={}
-new[5]=kicker('產品目標（Goal）說使用者想得到的結果；接受條件（AC）說怎樣算符合約定。')+cols(
-panel('Planning／PO｜釐清目標與需求',para('<b>問題：</b>使用者要達成什麼？','<b>輸入：</b>使用者問題與範圍。','<b>交付：</b>Goal、#3 工作票與 AC：雙向 Like 才配對。','<b>接手：</b>UI／UX。')),
-panel('UI／UX｜設計使用方式與畫面',para('<b>問題：</b>怎麼 Like／Pass，去哪看結果？','<b>輸入：</b>Goal、情境與 #3 AC。','<b>交付：</b>#1 Like／Pass 畫面；#2 配對列表顯示 Match。','<b>接手：</b>Developer。')),
-panel('Developer／Dev｜實作',para('<b>問題：</b>如何依票實作並留紀錄？','<b>輸入：</b>設計、AC 與目前版本。','<b>交付：</b>#3 配對規則、#1 輸入、#2 列表；版本與自測。','<b>接手：</b>Reviewer／QA 核對。'),'good'))+ribbon('這些是職責，不是人數；一個人可以承擔多種職能。')
+new[5]=kicker('PO（Product Owner）整理產品需求；Goal＝目標；AC＝驗收條件。先看四站接力。')+four_step_flow(
+ ('問題','需求方／PO（需求）','先釐清要解決什麼','互相喜歡才算配對','problem'),
+ ('輸入','UI／UX（畫面設計）','把需求交成可實作的設計','#1 Like／Pass、#2 配對列表',''),
+ ('交付','Dev（實作）→ 審查／驗證','依設計實作 #1／#2／#3','交程式版本＋驗證證據','good'),
+ ('接受','需求方（人）','對照 Goal／AC 接受或退回','最後是否放行由人決定','human')
+)+ribbon('一條工作流、不同職能接力；這些是責任，不一定需要六個人。')
 new[6]=kicker('同一張 #3｜單向 Like 不得配對：看見退回與同案重驗')+cols(
  panel('1｜第一次驗收',para('初始 0 筆；只有安 Like 晴。','預期：0 筆。','Version A 實際 1 筆 M01。','工具回傳：<b class="r-red">FAIL</b>。'),'problem'),
  panel('2｜退回修正',para('QA 對照 #3 AC 找出漏掉反向 Like。','把單向錯配交回 Dev。','Dev 只補「已有反向 Like 才配對」。')),
@@ -138,7 +156,13 @@ new[66]=kicker('已確認：雙向才配對、不重複；未確認的推測仍�
  panel('會後｜轉寫',para('把確認結果整理成票與 GWT。','核對前提、事件、結果，','沒有在轉寫時偷偷改規則。')),
  panel('抓漏｜提疑問',para('AI 問：取消 Like 要怎麼辦？','先標成疑問，不加入 AC。','人決定是否另列後續工作。'),'human'))+ribbon('AI 幫忙準備、整理與找漏洞；需求的意思和取捨仍由人確認。')
 responsibility=json.loads((ROOT/'drafts/rev11-responsibility.json').read_text())
-new[67]=kicker(responsibility['subtitle'])+flow(*[panel(c['label'],para(*c['desc'].splitlines())+f'<p class="r-example">{c["example"]}</p>','human' if i!=1 else '') for i,c in enumerate(responsibility['cards'])])+ribbon(responsibility['footer'])
+new[67]=kicker('人類的責任不會消失：把可交辦的工作交給 Agent，最後仍由人驗收。')+four_step_flow(
+ ('需求與設計','PO／UI／UX 職能','Agent 可整理需求、草擬畫面','Goal／AC、設計仍由人確認',''),
+ ('實作交付','Dev 職能','Agent 可寫程式與自測','交回版本與改動記錄',''),
+ ('審查驗證','Reviewer／QA 職能','Agent 可依 AC 核對','要獨立證據，不信自述','good'),
+ ('接受放行','需求方（人）','對照條件決定接受或退回','Human Gate 仍由人決定','human')
+)+ribbon('職能是責任，不等於 Agent 數量；委託工作 ≠ 委託最後的接受與放行權。')
+
 new[69]=kicker('Agent 回報「#3 完成，測試 PASS」；人還要打開交付包')+cols(
  panel('應能對上的材料',para('原 Issue／Goal 與每條 AC','PR、交付版本與變更範圍','測試前提、實際結果、證據','未跑情境、失敗與未解問題')),
  panel('根據材料作決定',para('<b>缺少重複情境證據：</b>退回補驗。','<b>需求仍有重大疑問：</b>暫停釐清。','<b>證據支持接受：</b>再作 Gate 決定。'),'human'))+ribbon('不只看 Agent 的完成摘要；把「接受／退回／暫停」及理由留在 Issue／PR。')
@@ -201,14 +225,18 @@ new[37]=kicker('真實規則層證據｜同一個單向 Like 情境，A 失敗�
  [f'Version B｜同一單向 Like',f'{b_one["expected"]["match_count"]} 筆',b_one_actual,f'<b class="r-green">{b_one["status"]}</b>']])+ribbon('檔案指紋：用來確認測的是同一份程式；不一定是 Git commit。這裡只證明 #3 規則；UI／產品串接仍 NOT RUN。')+'<p class="r-meta"><a href="../workshop/matching-demo/evidence/A/one-way.json" target="_blank" rel="noopener">Version A 原始 FAIL ↗</a>　<a href="../workshop/matching-demo/evidence/B-pre-supplement/one-way.json" target="_blank" rel="noopener">Version B 同案 PASS ↗</a></p>'
 
 added={}
-added['A01']=kicker('AI Agent 是能依目標使用工具推進工作的 AI；後面會看它如何交回可核對的成果。')+cols(
- panel('說清楚',para('使用者要解決什麼？','這次做什麼、不做什麼？')),
- panel('看懂交付',para('改了哪一版？','實際結果和證據在哪裡？'),'good'),
- panel('作出判斷',para('缺證據就退回補驗。','符合要求後再由人接受。'),'human'))+ribbon('同一個 Matching App 串起軟體工程與 Agent 合作；方法也能轉用到你的工具。')
-added['A02']=kicker('職能是要負責回答的問題，不是人數或看板欄位')+cols(
- panel('Reviewer｜改動合理嗎？',para('輸入：需求與變更差異。','交回：具體意見與待修項。','接手：Dev 修正或送驗。')),
- panel('QA｜行為符合 AC 嗎？',para('輸入：AC、版本、入口與資料。','交回：操作、預期/實際、狀態與證據。','接手：Dev 處理，需求方核對。'),'good'),
- panel('需求方｜可以接受嗎？',para('輸入：Goal、AC、交付與風險。','交回：接受、退回或暫停及理由。','放行仍由人決定。'),'human'))+ribbon('同一個人可以承擔多種職能；責任仍要分清楚。')
+added['A01']=kicker('先看人類怎麼把工作做完，才有辦法理解 Agent 如何接手。')+four_step_flow(
+ ('人類職能','誰負責？','規劃、設計、實作、驗收','先看誰接手什麼',''),
+ ('完整流程','怎麼推進？','把目標拆成工作票','沿看板交付與檢查',''),
+ ('Agent 接手','能委託什麼？','讓 Agent 執行可交辦的職能','仍要留下版本與證據','good'),
+ ('人類驗收','誰決定完成？','人依條件接受或退回','最後放行仍由人決定','human')
+)+ribbon('同一個 Matching App：先看人怎麼做，再把能交辦的工作交給 Agent。')
+added['A02']=kicker('聚焦交付後的接力：Dev 說做好了，誰能判定真的可以接受？')+four_step_flow(
+ ('交付','Dev（實作）','交回 #3 規則版本','附上自我測試',''),
+ ('審查','Reviewer（看改動）','有沒有超出工作範圍？','交回改動意見',''),
+ ('驗證','QA（驗行為）','單向 Like 會錯配嗎？','留下預期／實際證據','good'),
+ ('接受','需求方（人）','證據足夠接受嗎？','接受、退回或暫停','human')
+)+ribbon('Reviewer 看改動、QA 驗行為、需求方決定是否接受；不通過就退回修正。')
 added['A03']=kicker('同一張 #3：QA 是責任、#3 是工作、驗證中是狀態')+table(['類別','#3 的例子','用來回答'],[
  ['職能／責任','QA 驗行為','誰負責這種判斷？'],
  ['工作票','#3 雙向喜歡才配對','這一項要交付什麼？'],
@@ -268,7 +296,7 @@ panel('Claude Code',para('在目前目錄接續最近的工作對話，或從選
 # Eight chapter exits: one learning objective and three learner questions each.
 exit_check_data = {'A18': {'label': '人類合作',
          'outcome': '能辨認職能、交付物與最後的接受責任。',
-         'questions': [('做出 #3 配對規則，要有哪些工作責任？各交回什麼？', 'PO 交 Goal／AC，Dev 交候選規則與自測，Reviewer 交改動意見，QA 交預期／實際證據，需求方交接受／退回決議。'),
+         'questions': [('沿著問題 → 輸入 → 交付 → 接受，說出做 Matching App 的職能和交接物。', 'PO 交 Goal／AC → UI／UX 交設計 → Dev 交三張票的版本 → Reviewer 交意見、QA 交證據 → 需求方接受／退回。'),
                        ('Reviewer、QA 和需求方各自要回答什麼？', 'Reviewer 看修改是否合理且未超出範圍；QA 對照 AC 與證據；需求方作接受、退回或暫停決定。'),
                        ('需要六種工作責任，就一定要六個人嗎？', '不一定。職能代表責任，不代表人數；同一個人可以承擔多項工作，仍應分清審查與接受責任。')]},
  'A19': {'label': '想法到 Ready',
@@ -667,16 +695,9 @@ for i,p in enumerate(pages):
     node.h1.append(p["title"])
     n=p["number"]
     if n==6:
-        note=node.select_one(".r-kicker")
-        assert note
-        note.string="PO（Product Owner：產品需求）、UI／UX（操作與畫面）、Dev（實作）是職責；Goal 是目標，AC 是驗收約定。"
+        assert len(node.select('.r-human-step'))==4
     if n==7:
-        note=node.select_one(".r-kicker")
-        assert note
-        note.string="Reviewer＝檢查改動；QA＝驗證行為；需求方決定是否接受。這些是責任，不是固定人數。"
-        ribbon_node=node.select_one(".r-ribbon")
-        assert ribbon_node
-        ribbon_node.string="需求方定目標／接受；PO 代表需求方整理需求，PM 在本課泛指規劃／排優先序。可同人擔任，職責不會混成一個 Gate。"
+        assert len(node.select('.r-human-step'))==4
     if n==10:
         wall=node.select(".sticky-wall > .sticky")
         assert len(wall)==4
@@ -837,6 +858,22 @@ for i,p in enumerate(pages):
     if p['oldRev11Page']==56:node['data-wip-stage']='workflow'
     if node.select_one('.cover-mark'):node.select_one('.cover-mark').decompose()
     if node.select_one('.cover-kicker'):node.select_one('.cover-kicker').string=chapter_labels[p['chapter']]
+
+    if 'section-slide' in node.get('class',[]) and p['number']!=1:
+        phase={
+          'C0':'第一階段｜人類有哪些職能？如何接力？',
+          'C2':'第二階段｜細拆人類交付流程',
+          'C1':'第二階段｜版本怎麼合作',
+          'C3':'第二階段｜實作、審查與驗證',
+          'C4':'第二階段｜放行與完成條件',
+          'C5':'第三階段｜哪些職能能交給 Agent？',
+          'C6':'第四階段｜人如何驗收 Agent 交付？',
+          'APP':'延伸學習｜按需要查方法'
+        }[p['chapter']]
+        cover_copy=node.select_one('.cover-copy')
+        assert cover_copy
+        append_html(cover_copy,'<p class="r-storyline-phase">'+e(phase)+'</p>')
+
     out.append(str(node))
     p['notes']=cards[p['number']].replace('新標題為提案，未修改 HTML。','本草稿採用此標題。')
     manifest.append(p)
