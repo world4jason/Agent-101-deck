@@ -162,22 +162,40 @@
     dialog.showModal();
   }
   function showContents() {
-    const appendixStart = data.findIndex(page => page.chapter === 'APP') + 1;
-    title.textContent = `${slides.length} 頁目錄 · 主線 1–${appendixStart - 1}／附錄 ${appendixStart}–${slides.length}`;
+    // The course map and dialog follow the actual chapter order of this deck.
+    // A chapter-count change is an instructional decision, not a code error.
+    const chapterGroups = [...document.querySelectorAll('.section-rail [data-rail]')];
+    const appendixStart = data.find(page => page.chapter === 'APP')?.number;
+    title.textContent = '全課 Outline · ' + (appendixStart - 1) +
+                        ' 頁主線／附錄 ' + appendixStart + '–' + data.length;
     body.replaceChildren();
-    for (const [key, label] of Object.entries(chapterNames)) {
-      const group = document.createElement('section');
+    const introduction = document.createElement('p');
+    introduction.className = 'r-toc-course-context';
+    introduction.textContent = '先看人類如何分工與交付，接著細拆需求、版本、實作與放行；再看 Agent 如何承接，最後由人根據證據驗收。';
+    body.append(introduction);
+
+    for (const chapterLink of chapterGroups) {
+      const key = chapterLink.dataset.rail;
+      const matching = data.filter(page => page.chapter === key);
+      if (!matching.length) throw new Error('Outline chapter missing: ' + key);
+      const group = document.createElement('details');
       group.className = 'r-toc-group';
-      const heading = document.createElement('h3');
-      heading.textContent = label;
-      group.append(heading);
-      data.filter(page => page.chapter === key).forEach(page => {
+      group.dataset.tocChapter = key;
+      const summary = document.createElement('summary');
+      summary.textContent = chapterLink.textContent.trim() + '｜' +
+                            matching[0].number + '–' + matching.at(-1).number + ' 頁';
+      group.append(summary);
+      const pages = document.createElement('div');
+      pages.className = 'r-toc-page-links';
+      for (const page of matching) {
         const link = document.createElement('a');
-        link.href = `#${page.number}`;
-        link.textContent = `${String(page.number).padStart(2, '0')}　${page.title}`;
+        link.href = '#' + page.number;
+        link.textContent = String(page.number).padStart(2, '0') + '　' + page.title;
         link.onclick = () => { dialog.close(); go(page.number - 1); };
-        group.append(link);
-      });
+        pages.append(link);
+      }
+      group.append(pages);
+      if (key === 'APP') group.classList.add('r-toc-reference');
       body.append(group);
     }
     dialog.showModal();

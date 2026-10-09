@@ -153,7 +153,23 @@ let browser;
  await page.keyboard.press('Home');results.navigation.home=await page.locator('#current').innerText();
  await page.keyboard.press('ArrowRight');results.navigation.right=await page.locator('#current').innerText();
  await page.keyboard.press('ArrowLeft');results.navigation.left=await page.locator('#current').innerText();
- await page.getByRole('button',{name:'目錄',exact:true}).click();results.navigation.tocEntries=await page.locator('#dialog-body a').count();
+ // The opening overview is actionable, but its item count is content-driven.
+ await page.evaluate(()=>location.hash='#2');
+ await page.waitForFunction(()=>document.querySelector('.slide.active')?.dataset.page==='2');
+ results.navigation.outlineChapters=await page.locator('.slide.active .r-course-map-card').evaluateAll(a=>a.map(x=>x.dataset.outlineChapter));
+ results.navigation.outlineQuestions=await page.locator('.slide.active .r-course-map-question').count();
+ await page.locator('.slide.active .r-course-map-card[href="#55"]').click();
+ await page.waitForFunction(()=>document.querySelector('#current').textContent==='55');
+ results.navigation.outlineJump=await page.locator('#current').innerText();
+ await page.locator('.slide.active .r-back-to-outline').click();
+ await page.waitForFunction(()=>document.querySelector('#current').textContent==='2');
+ results.navigation.backToOutline=await page.locator('#current').innerText();
+ await page.getByRole('button',{name:'目錄',exact:true}).click();
+ results.navigation.tocEntries=await page.locator('#dialog-body .r-toc-page-links a').count();
+ results.navigation.tocChapters=await page.locator('#dialog-body details.r-toc-group').count();
+ results.navigation.tocPreview=await page.locator('#dialog-body .r-toc-course-context').innerText();
+ results.navigation.tocOpenedByDefault=await page.locator('#dialog-body details.r-toc-group[open]').count();
+ await page.locator('#dialog-body details[data-toc-chapter="C5"] summary').click();
  await page.locator('#dialog-body a[href="#58"]').click();results.navigation.tocJump=await page.locator('#current').innerText();
  await page.getByRole('button',{name:'講者筆記',exact:true}).click();results.navigation.notes=await page.locator('#dialog-body').innerText();results.navigation.noteLinks=await page.locator('.r-note-links a').evaluateAll(links=>links.map(link=>link.getAttribute('href')));await page.keyboard.press('Escape');
  await page.keyboard.press('End');results.navigation.end=await page.locator('#current').innerText();results.navigation.lastDisabled=await page.locator('#next').isDisabled();
@@ -256,6 +272,13 @@ let browser;
   &&gateReleased?.doneBorder==='rgb(131, 188, 255)'&&gateReleased?.finalNoteVisible===false
   &&gateComplete?.stage===2&&gateComplete?.nextDisabled===true&&gateComplete?.finalNoteVisible===true
   &&gateReset?.stage===0&&gateReset?.WIP?.includes('1/1')&&gateReset?.ticketGridColumn==='6';
- if(results.errors.length || results.pages.length!==107 || results.interactions.allExitAnswers.length!==8 || results.interactions.allExitAnswers.some(x=>x.opened!==3||x.overflow||x.cardsOverflow||!x.allInside) || results.interactions.technicalDisclosure.techCount!==2 || !results.interactions.technicalDisclosure.techInitiallyHidden || !results.interactions.technicalDisclosure.techOpened || results.interactions.technicalDisclosure.outside || results.pages.some(p=>p.candidates.length>0 || p.scrollHeight>p.clientHeight+3) || layoutIssues.length || results.interactions.a14Font<24 || results.navigation.home!=='1' || results.navigation.right!=='2' || results.navigation.left!=='1' || results.navigation.tocEntries!==107 || results.navigation.tocJump!=='58' || results.navigation.end!=='107' || !results.navigation.lastDisabled || results.navigation.chapterOrder.join(',')!=='C0,C2,C1,C3,C4,C5,C6,APP' || !results.navigation.notes.includes('執行前計畫') || !hasPlanLink || !hasCommentLink || !processSequence || !results.interactions.processButtonDisabled || !wipSequence || !a13Sequence || !exitsCorrect || !gateSequence || results.projectionScreenshots.length!==reviewPages.length || results.mobileScreenshots.length!==reviewPages.length) process.exitCode=1;
+ if(results.errors.length || results.pages.length!==107 || results.interactions.allExitAnswers.length!==8 || results.interactions.allExitAnswers.some(x=>x.opened!==3||x.overflow||x.cardsOverflow||!x.allInside) || results.interactions.technicalDisclosure.techCount!==2 || !results.interactions.technicalDisclosure.techInitiallyHidden || !results.interactions.technicalDisclosure.techOpened || results.interactions.technicalDisclosure.outside || results.pages.some(p=>p.candidates.length>0 || p.scrollHeight>p.clientHeight+3) || layoutIssues.length || results.interactions.a14Font<24 || results.navigation.home!=='1' || results.navigation.right!=='2' || results.navigation.left!=='1' || results.navigation.tocEntries!==107 || results.navigation.tocJump!=='58' || results.navigation.end!=='107' || !results.navigation.lastDisabled || results.navigation.chapterOrder.join(',')!==manifest.deck.chapterOrder.join(',')
+    ||results.navigation.outlineChapters.join(',')!==manifest.deck.chapterOrder.join(',')
+    ||results.navigation.outlineQuestions!==manifest.deck.chapterOrder.length
+    ||results.navigation.outlineJump!=='55'
+    ||results.navigation.backToOutline!=='2'
+    ||results.navigation.tocChapters!==manifest.deck.chapterOrder.length
+    ||results.navigation.tocOpenedByDefault!==0
+    ||!results.navigation.tocPreview.includes('先看人類如何分工與交付') || !results.navigation.notes.includes('執行前計畫') || !hasPlanLink || !hasCommentLink || !processSequence || !results.interactions.processButtonDisabled || !wipSequence || !a13Sequence || !exitsCorrect || !gateSequence || results.projectionScreenshots.length!==reviewPages.length || results.mobileScreenshots.length!==reviewPages.length) process.exitCode=1;
  await browser.close();
 })().catch(async e=>{console.error(e);if(browser)await browser.close();process.exitCode=1});

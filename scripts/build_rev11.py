@@ -225,12 +225,40 @@ new[37]=kicker('真實規則層證據｜同一個單向 Like 情境，A 失敗�
  [f'Version B｜同一單向 Like',f'{b_one["expected"]["match_count"]} 筆',b_one_actual,f'<b class="r-green">{b_one["status"]}</b>']])+ribbon('檔案指紋：用來確認測的是同一份程式；不一定是 Git commit。這裡只證明 #3 規則；UI／產品串接仍 NOT RUN。')+'<p class="r-meta"><a href="../workshop/matching-demo/evidence/A/one-way.json" target="_blank" rel="noopener">Version A 原始 FAIL ↗</a>　<a href="../workshop/matching-demo/evidence/B-pre-supplement/one-way.json" target="_blank" rel="noopener">Version B 同案 PASS ↗</a></p>'
 
 added={}
-added['A01']=kicker('先看人類怎麼把工作做完，才有辦法理解 Agent 如何接手。')+four_step_flow(
- ('人類職能','誰負責？','規劃、設計、實作、驗收','先看誰接手什麼',''),
- ('完整流程','怎麼推進？','把目標拆成工作票','沿看板交付與檢查',''),
- ('Agent 接手','能委託什麼？','讓 Agent 執行可交辦的職能','仍要留下版本與證據','good'),
- ('人類驗收','誰決定完成？','人依條件接受或退回','最後放行仍由人決定','human')
-)+ribbon('同一個 Matching App：先看人怎麼做，再把能交辦的工作交給 Agent。')
+# The whole-picture organizer follows the current storyboard's chapter order.
+# Eight happens to be the current count; it is not a constraint on teaching design.
+# Questions motivate the work, rather than ask novices to recognize unfamiliar jargon.
+outline_prompts = {
+    'C0':('人類怎麼合作？','先認識職能與交接','誰負責、誰接受？'),
+    'C2':('需求怎麼變成工作？','從想法到可交辦的票','怎樣才算 Ready？'),
+    'C1':('修改怎麼協作？','讓不同版本可追溯','PR 怎麼幫忙？'),
+    'C3':('成果如何證明？','實作、審查、測試','怎麼判斷 PASS？'),
+    'C4':('什麼時候完成？','人的放行與 Done','上線不等於 Goal 達成'),
+    'C5':('Agent 怎麼接手？','先一個，再學分工','交接如何不斷線？'),
+    'C6':('人要怎麼驗收？','核對版本、AC 與證據','接受、退回或暫停？'),
+    'APP':('需要時再查什麼？','課後查閱方法與練習','附錄｜不必一次背完'),
+}
+chapter_order_at_outline = list(dict.fromkeys(page['chapter'] for page in pages))
+assert set(chapter_order_at_outline) == set(outline_prompts)
+outline_items = []
+for idx,chapter in enumerate(chapter_order_at_outline,1):
+    chapter_pages = [page for page in pages if page['chapter']==chapter]
+    start = max(3,chapter_pages[0]['number']) if chapter=='C0' else chapter_pages[0]['number']
+    question, purpose, outcome = outline_prompts[chapter]
+    is_reference = chapter == 'APP'
+    outline_items.append(
+      '<a class="r-course-map-card'+(' r-course-reference' if is_reference else '')+'"'
+      +f' data-outline-chapter="{chapter}" href="#{start}">'
+      +f'<span class="r-course-map-no">{idx:02d}</span>'
+      +f'<h2 class="r-course-map-title">{e(question)}</h2>'
+      +f'<p class="r-course-map-purpose">{e(purpose)}</p>'
+      +f'<p class="r-course-map-question">{e(outcome)}</p>'
+      +'</a>'
+    )
+added['A01']=(kicker('一個配對 App，帶我們認識人類分工、工作交付、Agent 協作與人的驗收。')
+    +'<div class="r-course-map" aria-label="整堂課章節 Outline：從人類合作到 Agent 與驗收">'
+    +''.join(outline_items)+'</div>'
+    +ribbon('先看整張地圖，再逐章走同一個 App；Agent 是能用工具推進任務的 AI，後面才深入；最後要學會交辦與驗收。'))
 added['A02']=kicker('聚焦交付後的接力：Dev 說做好了，誰能判定真的可以接受？')+four_step_flow(
  ('交付','Dev（實作）','交回 #3 規則版本','附上自我測試',''),
  ('審查','Reviewer（看改動）','有沒有超出工作範圍？','交回改動意見',''),
@@ -801,6 +829,10 @@ for i,p in enumerate(pages):
         second.insert(0,BeautifulSoup('<p>非工程師先看：預期什麼、實際什麼、還有哪些 NOT RUN；命令可由講師或 Agent 執行。</p>','html.parser').p)
         second.append(more)
         node.select_one(".r-kicker").string="非工程師也能交辦：說明目標、AC、證據與停止條件；Python 是進階選項。"
+    if n==88:
+        summary=node.select_one('.r-ribbon')
+        assert summary
+        summary.string='Version B 的預期／實際只支持已測規則；重複 Like 於 B-pre 仍 NOT RUN。僅晴→安、雙方未 Like、UI／整合也尚未測，不應說整個產品完成。'
     if n==90:
         node.select_one(".r-kicker").string="時間倒回 B-pre：先根據交接卡自己寫補驗指令，再逐項揭露參考答案及 B-post 證據。"
         reviewcards=node.select(".r-cols > .r-card")
@@ -816,9 +848,32 @@ for i,p in enumerate(pages):
             assert title
             title.string="參考補驗指令（先作答）" if i==1 else "B-post 結果（先推測）"
     if n==64:
-        ribbon=node.select_one(".r-ribbon")
+        # Put the complete human + one Agent return loop BEFORE multi-Agent.
+        # CLI-specific session/resume instructions remain in the storyboard notes.
+        cols_node=node.select_one('.r-content > .r-cols')
+        assert cols_node
+        cycle=BeautifulSoup('''<div class="r-one-agent-cycle" aria-label="同一 Agent 的人類退回補驗完整流程">
+          <article><b>1 Agent 交付</b><p>B-pre：單向／雙向 PASS</p><small>重複 Like：NOT RUN</small></article>
+          <article><b>2 人驗收退回</b><p>人依 AC 退回補驗</p><small>指定同一 B 候選版本</small></article>
+          <article><b>3 Agent 同版補驗</b><p>B-post：duplicate PASS</p><small>交前後筆數與原始證據</small></article>
+          <article><b>4 人重新核對</b><p>核對版本、證據與剩餘 NOT RUN</p><small>UI 未測，不發布</small></article>
+        </div>''','html.parser').div
+        cols_node.replace_with(cycle)
+        commands=BeautifulSoup('<details class="r-session-reference"><summary>進階：如何接續 Codex／Claude 工作對話</summary></details>','html.parser').details
+        commands.append(BeautifulSoup('<p>Codex CLI 可選已保存的工作對話；Claude Code 可接續最近的工作對話。恢復後先核對工作狀態、版本、已驗與未測，以及是否有權發布。操作細節與來源保留在講者筆記。</p>','html.parser').p)
+        cycle.insert_after(commands)
+        node.select_one('.r-kicker').string='人＋一 Agent 的完整交付示例：先交辦、再退回補驗；工具操作是進階選項。'
+        ribbon=node.select_one('.r-ribbon')
         assert ribbon
-        ribbon.string="一人＋一 Agent 的完整交付示例：Agent 交 B-pre（單向／雙向 PASS，重複 NOT RUN）→ 人依 AC 退回補驗 → 接手 Agent 用同一 B 版補測 duplicate PASS（B-post）→ 人核對版本與證據；UI／產品整合仍 NOT RUN，不准自行 Merge／發布。接著才討論何時值得增加 Agent。"
+        ribbon.string='接續對話仍要核對工作狀態；人核對 B-pre／B-post 後才決定下一步。'
+    if n==90:
+        caveat=node.select_one('.r-ribbon')
+        assert caveat
+        caveat.string='B-post 只補驗了重複 Like；僅晴→安、雙方未 Like、UI／整合仍 NOT RUN。不能宣稱全部通過、不能自行接受或發布。'
+    if n==91:
+        root=node.select_one('.gate-pr span')
+        assert root
+        root.string='教學示意：僅晴→安、雙方未 Like、UI 仍 NOT RUN，尚未放行；需補驗後才討論 Merge。'
     if n==92:
         replace_text(node,"另一個實際案例｜v7 簡報首版發布 PR #43","實際教材改版案例｜未經最終確認就發布")
         replace_text(node,"PR #43 合併，v7 簡報上線","教材首版先合併並發布")
@@ -830,8 +885,16 @@ for i,p in enumerate(pages):
         source.string="真實教材的發布復盤；PR 編號、合併 SHA 與完整來源保留在講者筆記。"
     if n==93:
         replace_text(node,"Product Check 退回 Backlog／Refinement","Product Check 需求問題退回 Backlog；實作問題回 Dev")
+    if n==93:
+        strong=node.select_one('.recap-columns > article:last-of-type strong')
+        assert strong
+        strong.string='Merge＋上線檢查＋DoD 後關票'
     if n==94:
         node.select_one(".r-kicker").string="從活動報名、課程作業、行銷素材審核、行政申請或小工具，選一件真正熟悉的工作。"
+    if n==105:
+        last=node.select('.visual.architecture > .layer')[-1]
+        assert last.select_one('span')
+        last.select_one('span').string='Review／QA 留證據；人放行後，仍須 Release／上線檢查及 DoD，才能 Done。'
     if n==105:
         mapping={
             "1｜Goal / Governance":"1｜Goal / Governance（目標決策）",
@@ -860,20 +923,12 @@ for i,p in enumerate(pages):
     if node.select_one('.cover-kicker'):node.select_one('.cover-kicker').string=chapter_labels[p['chapter']]
 
     if 'section-slide' in node.get('class',[]) and p['number']!=1:
-        phase={
-          'C0':'第一階段｜人類有哪些職能？如何接力？',
-          'C2':'第二階段｜細拆人類交付流程',
-          'C1':'第二階段｜版本怎麼合作',
-          'C3':'第二階段｜實作、審查與驗證',
-          'C4':'第二階段｜放行與完成條件',
-          'C5':'第三階段｜哪些職能能交給 Agent？',
-          'C6':'第四階段｜人如何驗收 Agent 交付？',
-          'APP':'延伸學習｜按需要查方法'
-        }[p['chapter']]
         cover_copy=node.select_one('.cover-copy')
-        assert cover_copy
-        append_html(cover_copy,'<p class="r-storyline-phase">'+e(phase)+'</p>')
-
+        assert cover_copy, f'Chapter cover {p["number"]} missing'
+        append_html(cover_copy,'<p class="r-storyline-phase">本章：'+e(chapter_labels[p['chapter']])+'</p>')
+        append_html(cover_copy,'<a class="r-back-to-outline" href="#2" aria-label="返回整門課地圖">↖ 返回課程全貌</a>')
+        if p['number']==55:
+            cover_copy.select_one('.r-storyline-phase').string='前面先學人如何交付一張票；現在讓 Agent 接手其中的工作，驗收仍要核對版本與證據。'
     out.append(str(node))
     p['notes']=cards[p['number']].replace('新標題為提案，未修改 HTML。','本草稿採用此標題。')
     manifest.append(p)

@@ -33,20 +33,42 @@ class EducationalContract(unittest.TestCase):
         for record in MANIFEST["pages"]:
             self.assertEqual(page(record["number"]).h1.get_text(" ",strip=True),record["title"])
 
-    def test_four_stage_storyline_allows_role_to_agent_transfer(self):
-        self.assertIn("四階段教學主軸", (ROOT / "README.md").read_text())
-        self.assertIn("課程四階段", page(2).h1.get_text())
-        for n in (2,6,7,84):
-            cards=page(n).select(".r-human-step")
-            self.assertEqual(len(cards),4)
-            self.assertTrue(all(len(card.get_text(" ",strip=True))<95 for card in cards))
-        self.assertEqual([x.h2.get_text(" ",strip=True) for x in page(6).select(".r-human-step")],
-                         ["問題","輸入","交付","接受"])
-        self.assertIn("Human Gate",page(84).get_text())
-        self.assertIn("需求方",page(7).get_text())
-        self.assertNotIn("輸入：使用者問題",page(6).get_text())
-        for n in (5,9,31,55,83):
-            self.assertIsNotNone(page(n).select_one(".r-storyline-phase"))
+    def test_whole_picture_comes_before_details_and_role_agent_transfer(self):
+        # The owner asked for a big-picture advance organizer, NOT a fixed
+        # number of teaching phases. The map must follow the current SSOT.
+        self.assertIn("開場先給 Whole Picture", (ROOT / "README.md").read_text())
+        self.assertIn("先看整門課", page(2).h1.get_text())
+        outline = page(2).select(".r-course-map-card")
+        chapters = ["C0", "C2", "C1", "C3", "C4", "C5", "C6", "APP"]
+        starts = ["#3", "#9", "#31", "#39", "#50", "#55", "#83", "#96"]
+        self.assertEqual([card["data-outline-chapter"] for card in outline], chapters)
+        self.assertEqual([card["href"] for card in outline], starts)
+        self.assertEqual(len(outline), len({p["chapter"] for p in MANIFEST["pages"]}))
+        for item in outline:
+            self.assertTrue(item.select_one(".r-course-map-title"))
+            self.assertTrue(item.select_one(".r-course-map-question"))
+            self.assertTrue(item.select_one(".r-course-map-purpose"))
+            self.assertLess(len(item.get_text(" ", strip=True)), 100)
+        self.assertIn("r-course-reference", outline[-1].get("class", []))
+        self.assertIn("查閱", outline[-1].get_text())
+        self.assertNotIn("四階段", page(2).get_text())
+        for n in (6, 7, 84):
+            cards = page(n).select(".r-human-step")
+            self.assertEqual(len(cards), 4)
+            self.assertTrue(all(len(card.get_text(" ", strip=True)) < 95 for card in cards))
+        self.assertEqual(
+            [x.h2.get_text(" ", strip=True) for x in page(6).select(".r-human-step")],
+            ["問題", "輸入", "交付", "接受"],
+        )
+        self.assertIn("Human Gate", page(84).get_text())
+        self.assertIn("需求方", page(7).get_text())
+        self.assertNotIn("輸入：使用者問題", page(6).get_text())
+        for cover in HTML.select('.slide.section-slide:not([data-page="1"])'):
+            # Only true chapter cover slides need the explicit back-to-outline cue.
+            self.assertIsNotNone(cover.select_one(".r-storyline-phase"))
+            link = cover.select_one(".r-back-to-outline")
+            self.assertIsNotNone(link)
+            self.assertEqual(link["href"], "#2")
 
     def test_desktop_only_notice_first_page(self):
         self.assertIn("請用電腦版閱讀", page(1).get_text())
@@ -132,6 +154,33 @@ class EducationalContract(unittest.TestCase):
         self.assertIn("Merge／Release／上線檢查", (ROOT / "drafts/rev12.js").read_text())
         self.assertIn("共用 DoD 後",page(106).get_text())
         self.assertIn("'SUMMARY'",(ROOT / "drafts/rev12.js").read_text())
+
+    def test_whole_picture_promises_are_earned_by_later_evidence(self):
+        # Full handoff+human-verification BEFORE the multi-agent section,
+        # concrete candidate evidence, untouched NOT RUN cases, true DoD.
+        cycle=page(64).select('.r-one-agent-cycle > article')
+        self.assertEqual(len(cycle),4)
+        sequence=' '.join(c.get_text(' ',strip=True) for c in cycle)
+        for claim in ('B-pre','人依 AC 退回補驗','B-post','NOT RUN','不發布'):
+            self.assertIn(claim,sequence)
+        acceptance=page(88).get_text(' ',strip=True)
+        for claim in ('Version B','預期','實際','NOT RUN','僅晴→安','UI'):
+            self.assertIn(claim,acceptance)
+        handoff=page(90).get_text(' ',strip=True)
+        for claim in ('僅晴→安','雙方未 Like','NOT RUN','不能宣稱'):
+            self.assertIn(claim,handoff)
+        recap=page(93).get_text(' ',strip=True)
+        for claim in ('DoD','上線檢查','決策點','Merge'):
+            self.assertIn(claim,recap)
+        self.assertIn('DoD',page(93).select_one('.recap-columns > article:last-of-type').get_text())
+
+    def test_human_gate_never_licenses_unverified_release(self):
+        mainline=page(91).get_text(' ',strip=True)
+        for claim in ('僅晴→安','雙方未 Like','NOT RUN','尚未放行','補驗'):
+            self.assertIn(claim,mainline)
+        appendix=page(105).get_text(' ',strip=True)
+        for claim in ('Release','上線檢查','DoD','Done'):
+            self.assertIn(claim,appendix)
 
     def test_progressive_disclosure_not_mandatory_cli(self):
         novice=page(87)

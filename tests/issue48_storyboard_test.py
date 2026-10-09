@@ -90,6 +90,15 @@ def main():
     rail_labels = {link["data-rail"]: link.get_text(" ", strip=True) for link in rail_links}
     assert len(rail_links) == 8
     assert [link["data-rail"] for link in rail_links] == chapter_order
+    # Whole-picture advance organizer: it communicates the course why/what
+    # before details, and chapter count is derived from the current storyboard.
+    roadmap = candidate.select('.slide[data-page="2"] .r-course-map-card')
+    assert len(roadmap) == len(chapter_order)
+    assert [card["data-outline-chapter"] for card in roadmap] == chapter_order
+    assert [card["href"] for card in roadmap] == ["#3", "#9", "#31", "#39", "#50", "#55", "#83", "#96"]
+    assert all(card.select_one('.r-course-map-question') for card in roadmap)
+    assert roadmap[-1].get('data-outline-chapter') == 'APP'
+    assert '課程 Outline' not in candidate.select_one('.slide[data-page="2"] h1').get_text()
     assert not candidate.select(".section-slide .cover-mark")
     for cover in candidate.select(".slide.section-slide"):
         kicker = cover.select_one(".cover-kicker")
@@ -169,12 +178,12 @@ def main():
     review_page = candidate.select_one('.slide[data-page="7"]')
     agent_map = candidate.select_one('.slide[data-page="84"]')
     assert roadmap and role_page and review_page and agent_map
-    assert len(roadmap.select('.r-human-step')) == 4
+    assert len(roadmap.select('.r-course-map-card')) == len(chapter_order)
     assert [x.h2.get_text(" ", strip=True) for x in role_page.select('.r-human-step')] == expected_stages
     assert [x.h2.get_text(" ", strip=True) for x in review_page.select('.r-human-step')] == ["交付", "審查", "驗證", "接受"]
     assert len(agent_map.select('.r-human-step')) == 4
     assert all("→" in item.get_text() or len(item.select(".r-human-arrow"))==3 for item in [role_page,review_page])
-    for slide in [roadmap,role_page,review_page,agent_map]:
+    for slide in [role_page,review_page,agent_map]:
         cards = slide.select('.r-human-step')
         assert len(cards)==4
         assert all(len(card.get_text(" ", strip=True))<95 for card in cards)
@@ -303,6 +312,15 @@ def main():
     for page_data in manifest["pages"]:
         slide = candidate.select_one(f'.slide[data-page="{page_data["number"]}"]')
         assert slide.h1.get_text(" ", strip=True) == page_data["title"], page_data["number"]
+
+    # A blind learner should not infer that B-post duplicate PASS proves every
+    # Like combination or authorizes Release. The core recap cannot skip DoD.
+    for no in (64,88,90,93):
+        assert no in [int(p['number']) for p in manifest['pages']]
+    assert len(candidate.select('.slide[data-page="64"] .r-one-agent-cycle article'))==4
+    assert '僅晴→安' in candidate.select_one('.slide[data-page="88"]').get_text()
+    assert 'NOT RUN' in candidate.select_one('.slide[data-page="90"]').get_text()
+    assert 'DoD' in candidate.select_one('.slide[data-page="93"]').get_text()
 
     print("issue48 storyboard contract: 107 pages, unique mapping, ordering, manifest, baseline and P06 diagram OK")
 

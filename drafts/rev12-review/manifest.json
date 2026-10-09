@@ -1,6 +1,6 @@
 {
   "ssot": "docs/issue48-execution-storyboard.md",
-  "ssotSha256": "3634e970c54e559c7b85d3767190128777b0efffe7cd518fd3517c803307152b",
+  "ssotSha256": "9615209d93a1b4bab23e5932c88d18165bc51621fbb2e5636c278b79818f802b",
   "baseline": {
     "path": "slides/rev11.html",
     "pages": 82,
@@ -75,13 +75,13 @@
       "chapter": "C0",
       "kind": "新增",
       "ids": [],
-      "title": "課程四階段：人類分工 → 流程 → Agent 接手 → 人驗收",
+      "title": "先看整門課：從人類合作到 Agent 交付與驗收",
       "oldRev11Page": null,
       "addedId": "A01",
       "rev10SourcePage": null,
-      "claim": "整份教材沿人類職能與流程、細拆交付、Agent 代勞、人類驗收四階段前進。",
-      "visual": "四張輕量課程地圖卡，所有章節都對回這條主線；不先教名詞清單。",
-      "transition": "接著看這個案例要做出什麼使用者體驗。",
+      "claim": "開場先給全貌：現有八章沿同一 Matching App，從人類職能／交付，走到 Agent 接手與人的驗收；數量不是硬規格。",
+      "visual": "每章一張簡短可跳轉的路線卡：章名、頁碼、該章回答的問題；附錄標為按需查閱，不當第五階段。",
+      "transition": "整張地圖看完後，先從 Matching App 的使用者問題進入真實案例。",
       "sourceIds": [],
       "prerequisite": "我們到底要完成哪種使用者體驗？",
       "sourceCommentUrls": [
@@ -104,7 +104,7 @@
           "path": "docs/issue48-execution-storyboard.md"
         }
       ],
-      "notes": "- **對應：**新增頁 A01；舊 rev11 頁：無；章節 C0。\n- **教學作用：**學員將知道軟體工程與 Agent 合作如何在同一小產品中串起來。\n- **帶走重點：**小產品不是唯一成果；學會的是交付與驗收方法。\n- **圖面／示範：**四階段課程地圖：人類職能、細拆流程、Agent 接手、人類驗收；同一 Matching App 走完全程。\n- **主畫面訊息：**先懂人類如何合作交付，再將可交辦工作交給 Agent；最後由人驗收。\n講者轉場：接著看這個案例要做出什麼使用者體驗。\n- **規格來源：**Issue comment 5 §1\n\n- **本輪四階段主軸修正：**整份教材沿人類職能與流程、細拆交付、Agent 代勞、人類驗收四階段前進。 四張輕量課程地圖卡，所有章節都對回這條主線；不先教名詞清單。"
+      "notes": "- **對應：**新增頁 A01；舊 rev11 頁：無；章節 C0。\n- **教學作用：**學員將知道軟體工程與 Agent 合作如何在同一小產品中串起來。\n- **帶走重點：**小產品不是唯一成果；學會的是交付與驗收方法。\n- **圖面／示範：**整門課課程地圖：人類職能、細拆流程、Agent 接手、人類驗收；同一 Matching App 走完全程。\n- **主畫面訊息：**先懂人類如何合作交付，再將可交辦工作交給 Agent；最後由人驗收。\n講者轉場：接著看這個案例要做出什麼使用者體驗。\n- **規格來源：**Issue comment 5 §1\n\n- **本輪整門課主軸修正：**整份教材沿人類職能與流程、細拆交付、Agent 代勞、人類驗收整門課前進。 四張輕量課程地圖卡，所有章節都對回這條主線；不先教名詞清單。\n- **本次開場需求：**Advance Organizer / Whole Picture。不是替教材定死四階段；目前的八章只是一份可依教學需求調整的內容大綱。\n- **重要敘事鏈：**先理解人如何解決問題與分工 → 工作票／版本／實作／驗收如何接力 → Agent 如何接手 → 人如何按證據驗收。Matching App、三張 Ticket 及 A/B 證據維持同一世界線。\n- **學員帶走：**知道為什麼要學每一章、下一章承接上章什麼；此頁不先教熟練 Git/AC/QA 等細節。\n- **設計驗收：**八張可辨讀的章節問句卡（第八張附錄標為參考），頁序來自章節 manifest；每張卡可跳到該章；章封面能返回 Whole Picture。"
     },
     {
       "number": 3,
@@ -123,7 +123,7 @@
       "sourceIds": [
         "P02"
       ],
-      "prerequisite": "接著看這個案例要做出什麼使用者體驗。",
+      "prerequisite": "整張地圖看完後，先從 Matching App 的使用者問題進入真實案例。",
       "sourceCommentUrls": [
         {
           "label": "Issue #48 comment 4",
@@ -2123,8 +2123,8 @@
       "oldRev11Page": 43,
       "addedId": null,
       "rev10SourcePage": 29,
-      "claim": "同一張 #3，現在交給 Agent",
-      "visual": "沿用章封面，保留原內容",
+      "claim": "進入 Agent 段先回扣人類交付流程：Agent 接手同一張票的可交辦工作，人仍依版本和證據驗收。",
+      "visual": "章封面先用一句白話銜接上一段的人類流程，再介紹一人＋一 Agent 的具體任務；Session、Context 等細節後教。",
       "transition": "進入 Agent 章前，先把「Agent」的意思和工作循環說清楚。",
       "sourceIds": [
         "P29"
@@ -2537,8 +2537,8 @@
       "oldRev11Page": null,
       "addedId": "A17",
       "rev10SourcePage": null,
-      "claim": "單一 Agent 的人類驗收閉環先於多 Agent：B-pre 缺測 → 人按 AC 退回 → B-post 同版補驗 → 人核對，UI／發布仍 NOT RUN。",
-      "visual": "在 Session 接續概念之後、進入多 Agent 前，明確展示一人＋一 Agent 的完整交付及補驗決策。",
+      "claim": "單一 Agent 接續工作先核對狀態；用 B-pre 的未測缺口示範人依 AC 退回、同一 B 版補驗 B-post、人再核對。",
+      "visual": "維持 Codex／Claude 接續比較，將冗長下方敘述改成四個短實例：Agent 交付 → 人退回 → Agent 同版補驗 → 人核對；其他組合與 UI 仍未測。",
       "transition": "資料接得上後，回到誰負責獨立檢查及接受。",
       "sourceIds": [],
       "prerequisite": "電腦上的 Agent 可恢復原工作對話或開始新對話讀共同紀錄；看實際命令例子。",
@@ -2574,7 +2574,7 @@
           "path": "https://learn.chatgpt.com/docs/codex/cli"
         }
       ],
-      "notes": "- **對應：**新增頁 A17；舊 rev11 頁：無；章節 C5。\n- **教學作用：**恢復對話不會把工作檔案、分支或資料回復到舊狀態。\n- **帶走重點：**讀票 → 核對版本 → 確認未測事項；產品能力依工具與設定。\n- **圖面／示範：**主畫面用產品操作描述接續選項；精確 CLI 指令與來源只入講者筆記。\n- **主畫面訊息：**Codex 選既有對話／搜尋；Claude 接續目前目錄最近對話或選既有 session；回到後讀票、核對版本與未測項目。\n講者轉場：資料接得上後，接回角色與獨立核對的責任。\n- **規格來源：**Issue comment 7 §3 A17; parent verified official sources 2026-10-08\n- **講者筆記：**截至 2026-10-08，Codex CLI 可用 `codex resume` 開啟選擇器、`codex resume --last` 接續最近工作，或 `codex resume <SESSION_ID>` 指定 session；本機 `codex resume --help` 已核對。Claude Code 可用 `claude --continue` 或 `claude --resume <session-id>`。展示前先確認工具版本與登入狀態；恢復 session 不會回滾專案檔案或分支。兩條路都先讀票、核對版本、確認未測事項。來源：[Codex CLI](https://learn.chatgpt.com/docs/codex/cli)、[Claude Code sessions](https://code.claude.com/docs/en/sessions)、[Claude Code how it works](https://code.claude.com/docs/en/how-claude-code-works)。"
+      "notes": "- **對應：**新增頁 A17；舊 rev11 頁：無；章節 C5。\n- **教學作用：**恢復對話不會把工作檔案、分支或資料回復到舊狀態。\n- **帶走重點：**讀票 → 核對版本 → 確認未測事項；產品能力依工具與設定。\n- **圖面／示範：**主畫面用產品操作描述接續選項；精確 CLI 指令與來源只入講者筆記。\n- **主畫面訊息：**Codex 選既有對話／搜尋；Claude 接續目前目錄最近對話或選既有 session；回到後讀票、核對版本與未測項目。\n講者轉場：資料接得上後，接回角色與獨立核對的責任。\n- **規格來源：**Issue comment 7 §3 A17; parent verified official sources 2026-10-08\n- **講者筆記：**截至 2026-10-08，Codex CLI 可用 `codex resume` 開啟選擇器、`codex resume --last` 接續最近工作，或 `codex resume <SESSION_ID>` 指定 session；本機 `codex resume --help` 已核對。Claude Code 可用 `claude --continue` 或 `claude --resume <session-id>`。展示前先確認工具版本與登入狀態；恢復 session 不會回滾專案檔案或分支。兩條路都先讀票、核對版本、確認未測事項。來源：[Codex CLI](https://learn.chatgpt.com/docs/codex/cli)、[Claude Code sessions](https://code.claude.com/docs/en/sessions)、[Claude Code how it works](https://code.claude.com/docs/en/how-claude-code-works)。\n\n- **2026-10-09 G3 Blind Beginner Review 修正：** 單一 Agent 接續工作先核對狀態；用 B-pre 的未測缺口示範人依 AC 退回、同一 B 版補驗 B-post、人再核對。 維持 Codex／Claude 接續比較，將冗長下方敘述改成四個短實例：Agent 交付 → 人退回 → Agent 同版補驗 → 人核對；其他組合與 UI 仍未測。"
     },
     {
       "number": 65,
@@ -3497,8 +3497,8 @@
       "oldRev11Page": 69,
       "addedId": null,
       "rev10SourcePage": null,
-      "claim": "原需求與交付版本是否對得上？",
-      "visual": "展示同一張 #3 的交付包與人的判定理由；不以 Agent 的 PASS 摘要取代前面學的驗收。",
+      "claim": "Agent 自述 PASS 不代表全過：B-pre 交付包包含原 AC、同一候選版本、已驗預期／實際與明列的 NOT RUN。",
+      "visual": "兩欄先展示真正的 B-pre 交付包，再由人按 AC 逐項對照決定；原始 B-pre 證據可從講者筆記開啟。",
       "transition": "若交付包缺少重複情境證據，學員要怎樣明確要求補驗？",
       "sourceIds": [
         "N18"
@@ -3520,7 +3520,7 @@
           "path": "docs/issue48-execution-storyboard.md"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 69；source ID：N18；章節 C6。\n- **原卡內容：**\n\n- **處理／來源：** 新增 · N18。\n- **教學作用：** 多 Agent 分工後，完成摘要可能很漂亮，但缺少關鍵證據或偏離原 Goal。\n- **帶入方式：** #3 交付包：原需求、版本、驗證結果、未解問題；人逐項對照後接受或退回並說明原因。\n- **帶走重點：** 把前面的驗收方法搬到 Agent 協作；不要求所有 PR 一律人工逐行重審，也不只信任 Agent 自評。\n- **圖面／示範：** 展示同一張 #3 的交付包與人的判定理由；不以 Agent 的 PASS 摘要取代前面學的驗收。\n\n畫面主句：\n\n- 原需求與交付版本是否對得上？\n- 每條 AC 有沒有實際結果與證據？\n- 還有哪些未解問題，現在接受、退回或暫停？\n講者轉場：若交付包缺少重複情境證據，學員要怎樣明確要求補驗？"
+      "notes": "- **對應：**舊 rev11 頁 69；source ID：N18；章節 C6。\n- **原卡內容：**\n\n- **處理／來源：** 新增 · N18。\n- **教學作用：** 多 Agent 分工後，完成摘要可能很漂亮，但缺少關鍵證據或偏離原 Goal。\n- **帶入方式：** #3 交付包：原需求、版本、驗證結果、未解問題；人逐項對照後接受或退回並說明原因。\n- **帶走重點：** 把前面的驗收方法搬到 Agent 協作；不要求所有 PR 一律人工逐行重審，也不只信任 Agent 自評。\n- **圖面／示範：** 展示同一張 #3 的交付包與人的判定理由；不以 Agent 的 PASS 摘要取代前面學的驗收。\n\n畫面主句：\n\n- 原需求與交付版本是否對得上？\n- 每條 AC 有沒有實際結果與證據？\n- 還有哪些未解問題，現在接受、退回或暫停？\n講者轉場：若交付包缺少重複情境證據，學員要怎樣明確要求補驗？\n\n- **2026-10-09 G3 Blind Beginner Review 修正：** Agent 自述 PASS 不代表全過：B-pre 交付包包含原 AC、同一候選版本、已驗預期／實際與明列的 NOT RUN。 兩欄先展示真正的 B-pre 交付包，再由人按 AC 逐項對照決定；原始 B-pre 證據可從講者筆記開啟。"
     },
     {
       "number": 89,
@@ -3579,8 +3579,8 @@
       "oldRev11Page": null,
       "addedId": "A14",
       "rev10SourcePage": null,
-      "claim": "學員先自己寫接手指令，再揭露參考指令、補驗後 B-post 結果。",
-      "visual": "三欄原教學材料完整保留；後兩欄答案改為原生 details/summary，預設隱藏，可鍵盤揭露。",
+      "claim": "只補驗 duplicate PASS 並未關閉其他條件組合；僅晴→安、雙方都未 Like 和 UI／整合仍 NOT RUN，接受／發布權仍由人判斷。",
+      "visual": "原交接卡＋隱藏參考指令／結果保留；新增未測清單與受限接受範圍的提醒，不提前揭露答案。",
       "transition": "接手演練結束；明示恢復到補驗完成的 B-post 主線，核對更新證據，再進 Human Gate。",
       "sourceIds": [],
       "prerequisite": "為練換 session，明示倒回未補驗時點；不把這當主線新結果。",
@@ -3620,7 +3620,7 @@
           "path": "workshop/matching-demo/evidence/B-post-supplement/README.md"
         }
       ],
-      "notes": "- **對應：**新增頁 A14；舊 rev11 頁：無；章節 C6。\n- **教學作用：**換 session 不改測試結果、不使票離開 WIP，也不授權合併。\n- **帶走重點：**學員先寫下一句接手指令，再回到補驗已完成主線，核對更新證據並接 Human Gate。\n- **圖面／示範：**顯示填妥交接卡，包含 ticket、候選 artifact SHA-256、已驗／未驗、停點與可點開的 B-pre/B-post 材料；不虛構 Git commit。這是 A13 補驗前的歷史狀態。\n- **主畫面訊息：**讀原票、核對版本、確認未測，再寫出下一步具體操作。\n講者轉場：回到補驗完成的版本和證據，判斷是否可放行。\n- **規格來源：**Issue comments 5 A14, 7 §4, 8 §4.3\n\n- **2026-10-09 Editorial Review 修正：** 先對照版本與缺少的證據寫交接，再回到已補驗主線；指紋僅作版本辨認。"
+      "notes": "- **對應：**新增頁 A14；舊 rev11 頁：無；章節 C6。\n- **教學作用：**換 session 不改測試結果、不使票離開 WIP，也不授權合併。\n- **帶走重點：**學員先寫下一句接手指令，再回到補驗已完成主線，核對更新證據並接 Human Gate。\n- **圖面／示範：**顯示填妥交接卡，包含 ticket、候選 artifact SHA-256、已驗／未驗、停點與可點開的 B-pre/B-post 材料；不虛構 Git commit。這是 A13 補驗前的歷史狀態。\n- **主畫面訊息：**讀原票、核對版本、確認未測，再寫出下一步具體操作。\n講者轉場：回到補驗完成的版本和證據，判斷是否可放行。\n- **規格來源：**Issue comments 5 A14, 7 §4, 8 §4.3\n\n- **2026-10-09 Editorial Review 修正：** 先對照版本與缺少的證據寫交接，再回到已補驗主線；指紋僅作版本辨認。\n\n- **2026-10-09 G3 Blind Beginner Review 修正：** 只補驗 duplicate PASS 並未關閉其他條件組合；僅晴→安、雙方都未 Like 和 UI／整合仍 NOT RUN，接受／發布權仍由人判斷。 原交接卡＋隱藏參考指令／結果保留；新增未測清單與受限接受範圍的提醒，不提前揭露答案。"
     },
     {
       "number": 91,
@@ -3633,8 +3633,8 @@
       "oldRev11Page": 68,
       "addedId": null,
       "rev10SourcePage": 51,
-      "claim": "PR 審查由風險／授權／規範決定人或 Agent 的工作配置，而非單純快慢。",
-      "visual": "兩種示範配置仍在 Product Check 收斂，Human Gate 由人決定。",
+      "claim": "人或 Agent 參與 Review／QA 的配置取決風險與政策；Human Gate 尚須逐項核對 NOT RUN，才可能放行。",
+      "visual": "條件式兩路示意保留，PR 入口明示僅晴→安、雙方未 Like、UI／串接 NOT RUN，尚未放行；箭頭只在補驗足夠後才可能 Merge／上線。",
       "transition": "若跳過人的放行判斷，問題可能在整合後才被發現。",
       "sourceIds": [
         "P51"
@@ -3660,7 +3660,7 @@
           "path": "drafts/rev10.html#51"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 68；source ID：P51；章節 C6。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P51。\n- **教學作用：** PR 審查節奏可不同，但最後放行不能被默認跳過。\n- **帶入方式：** 保留人工審查與 Agent Review／QA 兩路，合流到 Product Check／Human Gate。\n- **帶走重點：** 審查節奏與最後放行是不同決策。\n- **圖面／示範：** 沿用兩路合流與上線前後成效對照\n\n畫面主句：\n\n- Review／QA 可採不同節奏\n- 兩路都回 Product Check\n- 固定 Human Gate 後才 merge／上線\n講者轉場：若跳過人的放行判斷，問題可能在整合後才被發現。\n\n- **2026-10-09 合併後學員可見版本：** PR 審查由風險／授權／規範決定人或 Agent 的工作配置，而非單純快慢。 兩種示範配置仍在 Product Check 收斂，Human Gate 由人決定。"
+      "notes": "- **對應：**舊 rev11 頁 68；source ID：P51；章節 C6。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P51。\n- **教學作用：** PR 審查節奏可不同，但最後放行不能被默認跳過。\n- **帶入方式：** 保留人工審查與 Agent Review／QA 兩路，合流到 Product Check／Human Gate。\n- **帶走重點：** 審查節奏與最後放行是不同決策。\n- **圖面／示範：** 沿用兩路合流與上線前後成效對照\n\n畫面主句：\n\n- Review／QA 可採不同節奏\n- 兩路都回 Product Check\n- 固定 Human Gate 後才 merge／上線\n講者轉場：若跳過人的放行判斷，問題可能在整合後才被發現。\n\n- **2026-10-09 合併後學員可見版本：** PR 審查由風險／授權／規範決定人或 Agent 的工作配置，而非單純快慢。 兩種示範配置仍在 Product Check 收斂，Human Gate 由人決定。\n\n- **2026-10-09 G3 再審修正：** 人或 Agent 參與 Review／QA 的配置取決風險與政策；Human Gate 尚須逐項核對 NOT RUN，才可能放行。 條件式兩路示意保留，PR 入口明示僅晴→安、雙方未 Like、UI／串接 NOT RUN，尚未放行；箭頭只在補驗足夠後才可能 Merge／上線。"
     },
     {
       "number": 92,
@@ -3713,8 +3713,8 @@
       "oldRev11Page": 71,
       "addedId": null,
       "rev10SourcePage": 27,
-      "claim": "七個狀態欄與欄外 Human Gate；Review／QA 退回 Dev，Product Check 退回 Backlog。",
-      "visual": "保留原 return routes；Human Gate 另以說明註記，不能多算一欄。",
+      "claim": "總回顧維持七欄，看板欄外 Human Gate；放行後尚須 Merge／上線檢查與共用 DoD 才可 Done。",
+      "visual": "Done 卡片寫明 DoD 與上線檢查後關票，原人類決策與紅黃退回箭頭保留。",
       "transition": "把同一套交付方法轉用到自己的第一張小工作票。",
       "sourceIds": [
         "P27"
@@ -3740,7 +3740,7 @@
           "path": "drafts/rev10.html#27"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 71；source ID：P27。 章節 C6。\n- **教學作用：**主線收束需求、版本、交付、驗收和人的 Gate。\n- **帶入方式：**沿用看板總回顧與退回線，保留 Review、QA、Product Check、人類放行的責任區分。\n- **帶走重點：**工作票有自己的完成條件；全產品與 Goal 仍需整體判斷。\n- **圖面／示範：**原總覽圖，不刪站點。\n\n畫面主句：\n\n- 票沿看板前進；GitHub 留下版本與交付證據。\n講者轉場：把同一套交付方法轉用到自己的第一張小工作票。\n\n- **2026-10-09 合併後學員可見版本：** 七個狀態欄與欄外 Human Gate；Review／QA 退回 Dev，Product Check 退回 Backlog。 保留原 return routes；Human Gate 另以說明註記，不能多算一欄。"
+      "notes": "- **對應：**舊 rev11 頁 71；source ID：P27。 章節 C6。\n- **教學作用：**主線收束需求、版本、交付、驗收和人的 Gate。\n- **帶入方式：**沿用看板總回顧與退回線，保留 Review、QA、Product Check、人類放行的責任區分。\n- **帶走重點：**工作票有自己的完成條件；全產品與 Goal 仍需整體判斷。\n- **圖面／示範：**原總覽圖，不刪站點。\n\n畫面主句：\n\n- 票沿看板前進；GitHub 留下版本與交付證據。\n講者轉場：把同一套交付方法轉用到自己的第一張小工作票。\n\n- **2026-10-09 合併後學員可見版本：** 七個狀態欄與欄外 Human Gate；Review／QA 退回 Dev，Product Check 退回 Backlog。 保留原 return routes；Human Gate 另以說明註記，不能多算一欄。\n\n- **2026-10-09 G3 Blind Beginner Review 修正：** 總回顧維持七欄，看板欄外 Human Gate；放行後尚須 Merge／上線檢查與共用 DoD 才可 Done。 Done 卡片寫明 DoD 與上線檢查後關票，原人類決策與紅黃退回箭頭保留。"
     },
     {
       "number": 94,
@@ -4149,8 +4149,8 @@
       "oldRev11Page": 81,
       "addedId": null,
       "rev10SourcePage": 54,
-      "claim": "六層是本課幫助理解的示意模型，術語需有中文任務描述。",
-      "visual": "沿用六層圖，留附錄",
+      "claim": "六層模型是課程補充：Human Gate 同意還不等於 Done，需 Release／上線檢查及共用 DoD。",
+      "visual": "最後一層明確保留人類核對後的 Merge、Release／上線檢查與 DoD 條件。",
       "transition": "再用看板回顧 Agent 如何接力。",
       "sourceIds": [
         "P54"
@@ -4176,7 +4176,7 @@
           "path": "drafts/rev10.html#54"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 81；source ID：P54；章節 APP。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P54。\n- **教學作用：** 需要架構視角時，看流程如何被承載。\n- **帶入方式：** 沿用六層逐一對照同一張票。\n- **帶走重點：** Goal／Planning／Kanban／Orchestrator／Runtime／Review。\n- **圖面／示範：** 沿用六層圖，留附錄\n\n畫面主句：\n\n- 同一張 #3 在六層的交付\n- 證據與人工核准仍保留\n- 層次不等於新增產品需求\n講者轉場：再用看板回顧 Agent 如何接力。\n\n- **2026-10-09 Editorial Review 修正：** 六層是本課幫助理解的示意模型，術語需有中文任務描述。"
+      "notes": "- **對應：**舊 rev11 頁 81；source ID：P54；章節 APP。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P54。\n- **教學作用：** 需要架構視角時，看流程如何被承載。\n- **帶入方式：** 沿用六層逐一對照同一張票。\n- **帶走重點：** Goal／Planning／Kanban／Orchestrator／Runtime／Review。\n- **圖面／示範：** 沿用六層圖，留附錄\n\n畫面主句：\n\n- 同一張 #3 在六層的交付\n- 證據與人工核准仍保留\n- 層次不等於新增產品需求\n講者轉場：再用看板回顧 Agent 如何接力。\n\n- **2026-10-09 Editorial Review 修正：** 六層是本課幫助理解的示意模型，術語需有中文任務描述。\n\n- **2026-10-09 G3 再審修正：** 六層模型是課程補充：Human Gate 同意還不等於 Done，需 Release／上線檢查及共用 DoD。 最後一層明確保留人類核對後的 Merge、Release／上線檢查與 DoD 條件。"
     },
     {
       "number": 106,
