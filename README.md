@@ -9,6 +9,11 @@
 頂端導覽只列八個大章節；章封面小標與導覽章名一致，內頁主題封面不再顯示舊版編號。
 
 - [正式投影片](https://world4jason.github.io/Agent-101-deck/slides/)
+- [版本總覽｜v7、v10、最新版及 PPTX 下載](versions/)
+- [v7 存檔｜44 頁](versions/v7/)（來源：2026-10-01 合併版本 e33e696）
+- [v10 草稿｜55 頁](drafts/rev10.html)
+- [最新版 PPTX｜107 頁](downloads/agent101-current.pptx)
+- [v10 PPTX](downloads/agent101-v10.pptx) · [v7 PPTX](downloads/agent101-v7.pptx)
 - [rev12 執行故事板與頁面對照](docs/issue48-execution-storyboard.md)
 - [Issue #49 review 修正的 G1 頁序與先備檢查](docs/issue49-review-fixes.md)
 - [Issue #48 交付與檢查紀錄](docs/issue48-delivery.md)
@@ -218,6 +223,24 @@
 左右鍵、PageUp／PageDown、Home／End或頁面按鈕翻頁。一頁完整顯示，每次前進一頁。O開目錄、N開講者筆記、Esc關閉。沿用／調整頁可連到rev10原頁。
 
 rev10保留原內容與原fragment操作；`drafts/rev11-base.css` 固定它依賴的基礎樣式。工具試作、研究原文與截圖留在原工作目錄，不是正式版執行依賴。
+
+## 版本切換與 PowerPoint 匯出
+
+[版本總覽](versions/) 可選擇 v7（44 頁）、v10（55 頁）與 rev12（107 頁）；三個網頁版底部工具列也可切換版本或下載對應 PPTX。
+
+歷史版本都有固定網址。v7 擷取自 Git commit e33e696 的 HTML、CSS、JS 與圖片；v10 使用 drafts/rev10.html，兩者不受 rev12 產生器改寫。
+
+三份 PowerPoint 存在 downloads/。匯出使用 Playwright 擷取投影片畫面，透過 PptxGenJS 放入 16:9 PowerPoint。每張投影片以圖片呈現，保留字型、色彩與位置；文字和圖形不可直接編輯，按鈕與逐步揭露請使用網頁版。最新版的講者筆記及 Exit Check 參考答案保留在 PowerPoint 備忘稿。
+
+匯出指令：
+
+    npm ci
+    npm run export:pptx             # 重建三個版本
+    npm run export:pptx:current     # 只更新最新版
+    npm run check:versions          # 檢查版本切換、連結及下載路徑
+    npm run check:exports           # 檢查 PPTX 格式、頁數、圖片、備忘稿
+
+更新網頁版後需要重建對應 PPTX，連同下載檔一起提交。若要讓文字與圖形在 PowerPoint 中可編輯，須另行建立原生元件的轉換流程。
 
 ## 修改與重建
 

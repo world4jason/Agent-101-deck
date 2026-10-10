@@ -3,9 +3,14 @@
   "private": true,
   "scripts": {
     "check:rev11": "node scripts/check_rev11.cjs",
-    "check:rev12": "node scripts/check_rev12.cjs"
+    "check:rev12": "node scripts/check_rev12.cjs",
+    "export:pptx": "node scripts/export_pptx.cjs --version=all",
+    "export:pptx:current": "node scripts/export_pptx.cjs --version=current",
+    "check:exports": "python3 tests/version_export_contract_test.py",
+    "check:versions": "node scripts/check_versions.cjs"
   },
   "devDependencies": {
-    "playwright": "1.62.1"
+    "playwright": "1.62.1",
+    "pptxgenjs": "^4.0.1"
   }
 }

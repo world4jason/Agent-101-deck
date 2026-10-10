@@ -1,0 +1,67 @@
+/* Shared by v7, v10 and the latest deck. The links do not alter legacy slide layouts. */
+footer.controls { position: relative; }
+.deck-version-tools {
+  position:absolute;
+  z-index:35;
+  top:50%;
+  right:153px;
+  transform:translateY(-50%);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  width:max-content;
+  white-space:nowrap;
+  font-family:system-ui,-apple-system,sans-serif;
+}
+.deck-version-links {
+  display:flex;
+  align-items:center;
+  gap:3px;
+  padding:3px;
+  border:1px solid #385470;
+  border-radius:9px;
+  background:#0b1726;
+}
+.deck-version-links .deck-version-link {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:39px;
+  min-height:29px;
+  padding:3px 9px;
+  color:#bbd4ee;
+  border-radius:6px;
+  font-size:14px;
+  line-height:1.25;
+  font-weight:680;
+  text-decoration:none;
+  background:transparent;
+}
+.deck-version-links .deck-version-link.is-current {
+  background:#375b80;
+  color:#f5faff;
+}
+.deck-version-links .deck-version-link:hover { background:#294868; color:white; }
+.deck-version-tools .deck-pptx-export {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:5px 12px;
+  min-height:36px;
+  border:1px solid #7c9b65;
+  border-radius:8px;
+  background:#1d342a;
+  font-size:14px;
+  font-weight:730;
+  line-height:1.25;
+  color:#def8e9;
+  text-decoration:none;
+  cursor:pointer;
+}
+.deck-version-tools .deck-pptx-export:hover { background:#305343; }
+.deck-version-tools a:focus-visible { outline:3px solid #f9d78c; outline-offset:3px; }
+@media (max-width:1050px) {
+  .deck-version-tools {right:128px;gap:4px;}
+  .deck-version-links .deck-version-link {min-width:32px;padding:3px 5px;font-size:12px;}
+  .deck-version-tools .deck-pptx-export {padding:4px 6px;font-size:12px;}
+}
