@@ -321,7 +321,7 @@ added['A12']=kicker('交辦一項有邊界、能驗證、知道何時停的工�
  panel('指定材料',para('ticket：`workshop/matching-demo/ticket.md`','程式：`workshop/matching-demo/versions/B/matching.py`','假資料：`workshop/matching-demo/fixtures/users.json`','執行入口：`workshop/matching-demo/run_case.py`')),
  panel('從專案根目錄執行',para('<code>python3 workshop/matching-demo/run_case.py --artifact workshop/matching-demo/versions/B/matching.py --candidate-id B --case one-way</code>','回報預期／實際紀錄、筆數與結果。','只驗 #3 規則；UI／產品串接不在此範圍。'),'good'))+ribbon('若票、B 程式、假資料或 runner 不可取得，停止並回報；不要改 AC 或宣稱產品驗收。')
 added['A13']=kicker('B-pre 有一個缺口：重複情境尚未跑；你會怎麼要求補驗？')+cols(
-panel('補驗前｜B-pre',para('單向：PASS，預期／實際 0 筆。','雙向：PASS，預期／實際 1 筆 M01。','重複 Like：NOT RUN。','先寫下一句補驗指令。'),'problem'))+ribbon('請在揭露前說清楚：核對同一個 B artifact、不可改規則、重置資料後只補跑重複 Like，並交回前後紀錄。')
+panel('補驗前｜B-pre',para('單向：PASS，預期／實際 0 筆。','雙向：PASS，預期／實際 1 筆 M01。','重複 Like：NOT RUN。','先寫下一句補驗指令。'),'problem'))+ribbon('請先自行寫下補驗要求，再按下方按鈕核對參考答案；缺證據前不能宣布完成。')
 added['A14']=kicker('用未補驗的 B-pre 練交接，再恢復補驗完成主線')+cols(
 panel('交接卡｜B-pre',para('Ticket：#3 雙向才配對。','版本：B · '+hash_b[:12]+'…','已驗：單向、雙向 PASS。','未驗：重複 Like；UI NOT RUN。','停點：不合併、不發布。'),'rule'),
 panel('練習｜寫下一句交辦',para('請寫給接手者：','先讀 #3 ticket，核對 B artifact hash。','重置後建立 M01，再只重複 Like 一次。','提供前後筆數、紀錄與執行結果。'),'human'),

@@ -1,6 +1,6 @@
 {
   "ssot": "docs/issue48-execution-storyboard.md",
-  "ssotSha256": "4c4632824a276e507025abfbeebf75608cf0424610c8f139aa68df8d8cbde25f",
+  "ssotSha256": "8b856d361088c728f69093700c8a16d9ec3d03dd9f813dc21575fc7eda2e5c7a",
   "baseline": {
     "path": "slides/rev11.html",
     "pages": 82,
@@ -2533,7 +2533,7 @@
       "chapter": "C5",
       "kind": "新增",
       "ids": [],
-      "title": "電腦上的 Agent，要怎麼接續？",
+      "title": "一個 Agent，如何交接、補驗與驗收？",
       "oldRev11Page": null,
       "addedId": "A17",
       "rev10SourcePage": null,
@@ -3568,7 +3568,7 @@
           "path": "workshop/matching-demo/evidence/B-post-supplement/duplicate.json"
         }
       ],
-      "notes": "- **對應：**新增頁 A13；舊 rev11 頁：無；章節 C6。\n- **教學作用：**缺少證據代表未驗，不等於已證實行為錯誤。\n- **帶走重點：**補驗期間同一票仍在 WIP；版本未變，更新證據即可。\n- **圖面／示範：**學員寫具體指令：已配對前後筆數/紀錄；再 Like；更新狀態和證據。\n- **主畫面訊息：**先展示 B-pre 的已知／未測狀態，讓學員寫出同一 B 版的白話補驗要求，再揭露 B-post 實際結果；精確命令放在連結的練習材料中。\n講者轉場：時間倒回 B-pre 的未補驗時點；讓接手者先核對票、版本、未測事項，再回到 B-post 主線。\n- **規格來源：**Issue comments 5 A13, 8 §4.3"
+      "notes": "- **對應：**新增頁 A13；舊 rev11 頁：無；章節 C6。\n- **教學作用：**缺少證據代表未驗，不等於已證實行為錯誤。\n- **帶走重點：**補驗期間同一票仍在 WIP；版本未變，更新證據即可。\n- **圖面／示範：**先顯示 B-pre 缺口與作答提示；學員自行寫下補驗要求後，才揭露參考要求、B-post 實際結果與原始紀錄。精確命令可由 exercise.md 另行查看；主畫面不放 CLI。\n- **主畫面訊息：**先展示 B-pre 的已知／未測狀態，讓學員寫出同一 B 版的白話補驗要求，再揭露 B-post 實際結果；精確命令放在連結的練習材料中。\n講者轉場：時間倒回 B-pre 的未補驗時點；讓接手者先核對票、版本、未測事項，再回到 B-post 主線。\n- **規格來源：**Issue comments 5 A13, 8 §4.3"
     },
     {
       "number": 90,
