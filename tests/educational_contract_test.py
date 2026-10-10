@@ -46,7 +46,7 @@ class EducationalContract(unittest.TestCase):
         self.assertEqual(len(outline), len({p["chapter"] for p in MANIFEST["pages"]}))
         for item in outline:
             self.assertTrue(item.select_one(".r-course-map-title"))
-            self.assertTrue(item.select_one(".r-course-map-question"))
+            self.assertIsNone(item.select_one(".r-course-map-question"), "Outline should not repeat a third explanatory line")
             self.assertTrue(item.select_one(".r-course-map-purpose"))
             self.assertLess(len(item.get_text(" ", strip=True)), 100)
         self.assertIn("r-course-reference", outline[-1].get("class", []))
@@ -65,7 +65,7 @@ class EducationalContract(unittest.TestCase):
         self.assertNotIn("輸入：使用者問題", page(6).get_text())
         for cover in HTML.select('.slide.section-slide:not([data-page="1"])'):
             # Only true chapter cover slides need the explicit back-to-outline cue.
-            self.assertIsNotNone(cover.select_one(".r-storyline-phase"))
+            self.assertIsNotNone(cover.select_one(".r-chapter-overview"), "A chapter needs a real learning route")
             link = cover.select_one(".r-back-to-outline")
             self.assertIsNotNone(link)
             self.assertEqual(link["href"], "#2")
@@ -101,7 +101,9 @@ class EducationalContract(unittest.TestCase):
         ready=page(24)
         self.assertEqual(len(ready.select(".r-ready-questions article")),3)
         self.assertIn("目前：0/1",ready.get_text())
-        self.assertIn("Backlog → Ready",ready.get_text())
+        self.assertIn("Backlog",ready.get_text())
+        self.assertIn("Ready",ready.get_text())
+        self.assertIsNotNone(ready.select_one(".r-ready-status > i"), "A directed move must be visibly shown")
         # Tutorial slides deliberately use focused diagrams in place of
         # repeating the full seven-column board on every page.
         assert len(page(41).select('.r-pr-frame > article'))==3
@@ -246,7 +248,7 @@ class EducationalContract(unittest.TestCase):
         self.assertIn("Version B 補驗前",p95.select(".r-exit-card")[1].h2.get_text())
 
     def test_novice_prerequisites_and_human_gate_boundaries(self):
-        self.assertIn("先學人怎麼交接與驗收",page(2).get_text())
+        self.assertIn("課程先教人類流程",page(2).get_text())
         self.assertIn("PR＝把一組修改交給別人審查",page(33).get_text())
         self.assertIn("diff＝這次改了哪些內容",page(33).get_text())
         self.assertIn("diff",page(36).get_text())
@@ -315,6 +317,16 @@ class EducationalContract(unittest.TestCase):
             if number in (39,50):
                 content=slide.select_one(".r-content")
                 self.assertIs(content.find(recursive=False),overview)
+        # The three route steps must be readable and do actual teaching;
+        # keeping old detailed agenda text on the projector is a regression.
+        for page_id in starts:
+            slide=page(page_id)
+            steps=slide.select(".r-overview-agenda li")
+            self.assertEqual(len(steps),3)
+            self.assertTrue(all(len(item.get_text(" ",strip=True))<=24 for item in steps))
+            self.assertIsNone(slide.select_one(".r-storyline-phase"))
+            self.assertTrue(slide.select_one(".r-overview-bridge > strong"))
+            self.assertTrue(slide.select_one(".r-overview-outcome > strong"))
         self.assertIn("Ready",page(39).get_text())
         self.assertIn("Dev",page(39).get_text())
         self.assertIn("假資料環境",page(50).get_text())

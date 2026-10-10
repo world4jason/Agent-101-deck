@@ -948,75 +948,200 @@
   font: 570 18px/1.35 system-ui;
 }
 
-/* Eight course sections get an actual teachable overview.
-   Keep the deck's page count flexible; no new administrative stage. */
+/* Editorial revision: main projector surfaces carry a route and one
+   next usable result. Details remain in the storyboard / presenter notes. */
 .rev12-draft .rev10-cover:has(.r-chapter-overview) {
   display:flex;
   flex-direction:column;
   justify-content:center;
-  padding:36px 58px;
+  align-items:stretch;
+  padding:38px 66px;
 }
 .rev12-draft .rev10-cover:has(.r-chapter-overview) .cover-copy {
-  display:flex;flex-direction:column;gap:9px;
-  width:100%;max-width:1350px;min-height:0;
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+  width:100%;
+  max-width:1400px;
+  margin:auto;
+  min-height:0;
 }
 .rev12-draft .rev10-cover:has(.r-chapter-overview) .cover-kicker {
-  order:0;margin:0;font:760 19px/1.3 system-ui;
+  order:0;
+  margin:0;
+  color:#a9c9e8;
+  font:700 19px/1.25 system-ui,sans-serif;
 }
 .rev12-draft .rev10-cover:has(.r-chapter-overview) h1 {
-  order:1;font:780 40px/1.25 system-ui;margin:0;max-width:none;
-}
-.rev12-draft .rev10-cover:has(.r-chapter-overview) .r-storyline-phase {
-  display:none;
+  order:1;
+  margin:0;
+  max-width:none;
+  letter-spacing:-.025em;
+  font:800 50px/1.17 system-ui,sans-serif;
 }
 .rev12-draft .rev10-cover:has(.r-chapter-overview) .r-back-to-outline {
-  order:4;margin:1px 0 0 auto;align-self:flex-end;
-  font-size:15px;padding:5px 10px;
+  order:3;align-self:flex-end;
+  margin:0;
+  border:none;
+  background:transparent;
+  color:#9cbed9;
+  padding:5px;
+  font:650 16px/1.25 system-ui,sans-serif;
+}
+.rev12-draft .rev10-cover:has(.r-chapter-overview) .r-back-to-outline:is(:hover,:focus-visible) {
+  background:#263c52;color:#f3f9ff;
 }
 .rev12-draft .r-chapter-overview {
-  display:flex;flex-direction:column;gap:13px;
-  min-height:0;min-width:0;width:100%;order:3;
+  order:2;
+  display:flex;
+  flex-direction:column;
+  gap:33px;
+  width:100%;
+  min-width:0;
+  min-height:0;
 }
 .rev12-draft .r-overview-bridge {
-  color:#bed8ec;background:#13273b;border-left:4px solid #83bcff;
-  margin:0;padding:11px 15px;border-radius:5px;
-  font:610 19px/1.4 system-ui;
+  display:flex;
+  align-items:baseline;
+  gap:17px;
+  padding:0;
+  margin:0;
+  background:transparent;
+  border:none;
 }
-.rev12-draft .r-overview-main {display:flex;flex-direction:column;gap:11px;min-height:0;}
-.rev12-draft .r-overview-main > p {
-  color:#98bcd9;font:730 18px/1.2 system-ui;margin:0;
+.rev12-draft .r-overview-bridge > span {
+  flex:0 0 auto;
+  font:700 18px/1.25 system-ui,sans-serif;
+  color:#91b6d5;
+}
+.rev12-draft .r-overview-bridge > strong {
+  color:#e5f2ff;
+  font:560 25px/1.35 system-ui,sans-serif;
+}
+.rev12-draft .r-overview-main {
+  display:block;
+  width:100%;
+  min-height:0;
 }
 .rev12-draft .r-overview-agenda {
-  list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:13px;margin:0;padding:0;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  list-style:none;
+  padding:0;
+  margin:0;
+  gap:30px;
+  width:100%;
 }
 .rev12-draft .r-overview-agenda li {
-  display:flex;align-items:center;
-  padding:17px 19px;min-height:122px;
-  border-radius:10px;border:1px solid #395c7e;border-top:4px solid #83bcff;
-  background:#14263a;color:#f1f7fe;font:690 23px/1.35 system-ui;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  gap:16px;
+  min-width:0;
+  min-height:170px;
+  padding:22px 23px;
+  background:#14263a;
+  border:1px solid #406287;
+  border-bottom:4px solid #87bce9;
+  border-radius:9px;
 }
-.rev12-draft .r-overview-agenda li:nth-child(2) {border-top-color:#a4cba9;}
-.rev12-draft .r-overview-agenda li:nth-child(3) {border-top-color:#e6c87f;}
+.rev12-draft .r-overview-agenda li:nth-child(2) {border-bottom-color:#9dd9b2;}
+.rev12-draft .r-overview-agenda li:nth-child(3) {border-bottom-color:#ead08c;}
+.rev12-draft .r-overview-agenda li:not(:last-child)::after {
+  content:"→";
+  position:absolute;
+  right:-27px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#a8cde8;
+  font:800 30px/1 system-ui,sans-serif;
+}
+.rev12-draft .r-overview-index {
+  color:#96b6d4;
+  font:800 19px/1.1 system-ui,sans-serif;
+}
+.rev12-draft .r-overview-agenda li > strong {
+  color:#f0f7ff;
+  font:750 31px/1.23 system-ui,sans-serif;
+}
 .rev12-draft .r-overview-outcome {
-  margin:0;border-radius:7px;padding:13px 16px;
-  background:#172d25;border-left:4px solid #83d4a4;
-  color:#d2f1dd;font:690 20px/1.35 system-ui;
+  display:flex;
+  align-items:center;
+  gap:20px;
+  border:none;
+  border-top:1px solid #355874;
+  border-radius:0;
+  background:transparent;
+  margin:0;
+  padding:24px 0 0;
+  text-align:left;
 }
-/* The C3 and C4 first lesson pages must begin with the same chapter roadmap. */
+.rev12-draft .r-overview-outcome > span {
+  flex:0 0 auto;
+  font:760 19px/1.3 system-ui,sans-serif;
+  color:#b7d8bd;
+}
+.rev12-draft .r-overview-outcome > strong {
+  color:#bdeece;
+  font:730 32px/1.28 system-ui,sans-serif;
+}
+/* Some chapters enter directly at P39 and P50. Their real state must remain,
+   but it is secondary to the three chapter tasks, not another content wall. */
 .rev12-draft .r-chapter-start .r-content {
-  display:flex;flex-direction:column;justify-content:center;
-  gap:17px;min-height:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:24px;
+  min-height:0;
 }
-.rev12-draft .r-chapter-start .r-overview-agenda li {min-height:114px;font-size:21px;padding:17px;}
+.rev12-draft .r-chapter-start h1 {font:800 48px/1.16 system-ui,sans-serif;}
+.rev12-draft .r-chapter-start .r-overview-bridge > strong {font-size:22px;}
+.rev12-draft .r-chapter-start .r-overview-agenda li {min-height:155px;}
+.rev12-draft .r-chapter-start .r-overview-agenda li > strong {font-size:30px;}
+.rev12-draft .r-chapter-start .r-overview-outcome > strong {font-size:28px;}
 .rev12-draft .r-chapter-start-proof {
-  display:flex;align-items:center;justify-content:space-around;gap:17px;
-  padding:15px 20px;border:1px solid #536c88;border-radius:8px;
-  background:#111f2e;color:#d5e9fa;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:28px;
+  margin:0;
+  padding:10px;
+  border:none;
+  background:transparent;
+  color:#d2e8f9;
 }
-.rev12-draft .r-chapter-start-proof span {font:710 21px/1.25 system-ui;}
-.rev12-draft .r-chapter-start-proof b {font:760 22px/1.25 system-ui;color:#f1f8ff;}
-.rev12-draft .r-chapter-start-proof small {font:560 17px/1.35 system-ui;color:#aac5d9;}
+.rev12-draft .r-chapter-start-proof span,
+.rev12-draft .r-chapter-start-proof b {
+  font:720 21px/1.28 system-ui,sans-serif;
+  color:#d6eaff;
+}
+/* Eight chapters, just a title and the role in the course. The third
+   explanation was repeating each heading without teaching something new. */
+.rev12-draft #page-2 .r-course-map {gap:13px;}
+.rev12-draft #page-2 .r-course-map-card {
+  align-items:flex-start;
+  justify-content:center;
+  gap:13px;
+  padding:17px 20px;
+  border:1px solid #416084;
+  border-top:3px solid #8dbfe9;
+  border-radius:9px;
+  background:#142437;
+}
+.rev12-draft #page-2 .r-course-map-no {font-size:18px;}
+.rev12-draft #page-2 .r-course-map-title {font:760 28px/1.22 system-ui,sans-serif;}
+.rev12-draft #page-2 .r-course-map-purpose {font:560 20px/1.34 system-ui,sans-serif;}
+.rev12-draft #page-2 .r-course-map-card:nth-child(6),
+.rev12-draft #page-2 .r-course-map-card:nth-child(7) {border-top-color:#8dd5b0;background:#172c28;}
+.rev12-draft #page-2 .r-course-reference {border-top-color:#e8cc89;}
+.rev12-draft #page-2 .r-kicker {font:600 23px/1.3 system-ui,sans-serif;}
+.rev12-draft #page-2 .r-course-map + .r-ribbon {font:600 19px/1.35 system-ui,sans-serif;}
+
+/* Timeline evidence and lesson-state badges follow the actual learner case. */
+.rev12-draft .r-chapter-start .r-chapter-start-proof {order:3;}
+.rev12-draft [data-overview-chapter="APP"] .r-overview-agenda li::after {display:none;}
 
 /* Ready: feasibility and testability are discussed when facts change. */
 .rev12-draft #page-24 .r-ready-refinement {
@@ -1046,35 +1171,34 @@
 .rev12-draft #page-23 .ticket-ac-dod {
   margin:9px 0 0;font:630 17px/1.35 system-ui;
 }
-/* Two different levels of human direction; both retain human approval. */
-.rev12-draft #page-75 .r-content {gap:18px;}
+/* Editorial: people decide whether to lead the interview or approve a
+   structured plan. The arrows carry the concept; no parallel paragraphs. */
+.rev12-draft #page-75 .r-content {gap:19px;}
+.rev12-draft #page-75 .r-kicker {font:600 21px/1.35 system-ui,sans-serif;margin:0;}
 .rev12-draft #page-75 .r-collaboration-choice {
   display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:20px;min-height:0;width:100%;flex:1 1 auto;
+  gap:22px;flex:1 1 auto;min-height:0;
 }
 .rev12-draft #page-75 .r-collaboration-choice article {
-  display:flex;flex-direction:column;justify-content:center;gap:13px;
-  padding:27px 31px;min-width:0;min-height:0;
-  border-radius:12px;border:1px solid #456687;border-top:5px solid #83bcff;
-  background:#142638;
+  display:flex;flex-direction:column;justify-content:center;
+  gap:27px;padding:28px 30px;min-width:0;min-height:0;
+  border:1px solid #42617d;border-top:5px solid #8bbcf0;
+  border-radius:10px;background:#142538;
 }
-.rev12-draft #page-75 .r-collaboration-choice .r-superpowers {
-  border-top-color:#8cd4ae;background:#172b25;
+.rev12-draft #page-75 .r-collaboration-choice article.r-superpowers {
+  background:#172c25;border-top-color:#88d3a3;
 }
-.rev12-draft #page-75 .r-collaboration-choice article > span {
-  font:700 19px/1.3 system-ui;color:#afcbea;
+.rev12-draft #page-75 .r-collaboration-choice article > span {font:720 20px/1.3 system-ui;color:#bed8ee;}
+.rev12-draft #page-75 .r-collaboration-choice h2 {font:800 38px/1.2 system-ui;color:#f4f9ff;margin:0;}
+.rev12-draft #page-75 .r-collaboration-choice p {font:580 21px/1.4 system-ui;color:#c8deef;margin:0;}
+.rev12-draft #page-75 .r-choice-chain {
+  display:flex;align-items:center;flex-wrap:wrap;gap:13px;min-height:100px;
+  color:#e5f4ff;
 }
-.rev12-draft #page-75 .r-collaboration-choice h2 {
-  font:760 30px/1.3 system-ui;color:#f4faff;margin:0;
-}
-.rev12-draft #page-75 .r-collaboration-choice p {
-  font:560 22px/1.38 system-ui;color:#dbeaf7;margin:0;
-}
-.rev12-draft #page-75 .r-collaboration-choice small {
-  color:#a4c4d9;font:560 17px/1.4 system-ui;
-}
-.rev12-draft #page-75 .r-content > .r-meta {margin:0;font-size:15px;}
-.rev12-draft #page-75 .r-content > .r-ribbon {font-size:20px;padding:12px 18px;}
+.rev12-draft #page-75 .r-choice-chain b {font:750 24px/1.3 system-ui;}
+.rev12-draft #page-75 .r-choice-chain i {font:820 28px/1 system-ui;font-style:normal;color:#91bded;}
+.rev12-draft #page-75 .r-content > .r-ribbon {padding:15px 19px;font:610 21px/1.4 system-ui;margin:0;}
+
 /* Internal evidence names appear once as small source mappings. */
 .rev12-draft .r-version-time-label {
   margin:0 0 -3px;padding:8px 14px;border-radius:7px;
@@ -1082,74 +1206,99 @@
   color:#c8e1f4;font:670 18px/1.3 system-ui;
 }
 
-/* One decision per slide: the complete template is still in the source notes. */
-.rev12-draft #page-23 .ticket-compare,
-.rev12-draft #page-24 .mini-board { display:none; }
-.rev12-draft #page-23 .ticket-three,
-.rev12-draft #page-23 .r-ticket-three {
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  flex:1 1 auto;min-height:0;gap:18px;width:100%;
+/* P23: one usable ticket. AC is a short rule; AT is the 3-step proof
+   path; evidence cannot exist before execution. */
+.rev12-draft #page-23 .r-ticket-lesson {
+  display:flex;flex-direction:column;gap:22px;flex:1 1 auto;
+  min-height:0;width:100%;
 }
-.rev12-draft #page-23 .r-ticket-three article {
-  min-width:0;display:flex;flex-direction:column;justify-content:center;gap:13px;
-  padding:24px 23px;border:1px solid #456482;border-top:5px solid #83bcff;
-  border-radius:11px;background:#142436;
+.rev12-draft #page-23 .r-ticket-focus {
+  display:flex;align-items:baseline;gap:20px;
+  border-bottom:1px solid #385a78;padding:8px 3px 20px;
 }
-.rev12-draft #page-23 .r-ticket-three article:nth-child(2) {
-  border-top-color:#a9dbab;background:#172a24;
+.rev12-draft #page-23 .r-ticket-focus > span {font:720 21px/1.25 system-ui;color:#9fc7e7;}
+.rev12-draft #page-23 .r-ticket-focus > strong {font:800 29px/1.25 system-ui;color:#eff8ff;}
+.rev12-draft #page-23 .r-ticket-focus > small {font:550 18px/1.3 system-ui;color:#b6cade;margin-left:auto;}
+.rev12-draft #page-23 .r-ticket-ac-brief {
+  display:grid;grid-template-columns:220px repeat(3,minmax(0,1fr));
+  gap:12px;align-items:center;
+  min-height:72px;background:#142a21;border-left:4px solid #83d9ab;
+  border-radius:8px;padding:14px 18px;
 }
-.rev12-draft #page-23 .r-ticket-three article:nth-child(3) {
-  border-top-color:#f0cf8e;background:#29251c;
+.rev12-draft #page-23 .r-ticket-ac-brief > b {font:740 21px/1.25 system-ui;color:#c7f1d8;}
+.rev12-draft #page-23 .r-ticket-ac-brief > span {font:680 21px/1.25 system-ui;color:#e2f6e9;}
+.rev12-draft #page-23 .r-ticket-at {
+  display:flex;flex-direction:column;gap:19px;min-height:0;flex:1 1 auto;
 }
-.rev12-draft #page-23 .r-ticket-three h2 {font:760 28px/1.3 system-ui;margin:0;color:#edf6ff;}
-.rev12-draft #page-23 .r-ticket-three p {font:580 22px/1.35 system-ui;margin:0;color:#e3eefb;}
-.rev12-draft #page-23 .r-ticket-three small {
-  display:block;font:570 18px/1.42 system-ui;color:#bdd4e8;
+.rev12-draft #page-23 .r-ticket-at > h2 {font:760 30px/1.3 system-ui;color:#f1f6ff;margin:0;}
+.rev12-draft #page-23 .r-at-steps {
+  display:grid;grid-template-columns:minmax(0,1fr) 38px minmax(0,1fr) 38px minmax(0,1fr);
+  gap:12px;min-height:0;flex:1 1 auto;align-items:center;
 }
-.rev12-draft #page-23 .r-ticket-three .r-ticket-evidence {
-  background:#162a1e;border-left:3px solid #92cca4;border-radius:5px;
-  padding:10px 13px;color:#d1efdb;font-size:17px;
+.rev12-draft #page-23 .r-at-steps article {
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+  gap:14px;padding:22px;min-width:0;min-height:160px;
+  background:#172d42;border:1px solid #4c7298;border-top:4px solid #8ebcf0;border-radius:10px;
 }
+.rev12-draft #page-23 .r-at-steps article:nth-of-type(3) {
+  border-top-color:#9ee4b3;background:#192f25;
+}
+.rev12-draft #page-23 .r-at-steps small {font:750 20px/1.2 system-ui;color:#adcee9;}
+.rev12-draft #page-23 .r-at-steps strong {font:820 31px/1.2 system-ui;color:#f3faff;}
+.rev12-draft #page-23 .r-at-steps > span {font:800 31px/1 system-ui;color:#99c7e8;text-align:center;}
+.rev12-draft #page-23 .r-ticket-evidence {
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  margin:0;padding:12px 18px;border-left:4px solid #eac986;
+  border-radius:6px;background:#282519;color:#f3e5c1;
+}
+.rev12-draft #page-23 .r-ticket-evidence strong {font:740 19px/1.32 system-ui;}
+.rev12-draft #page-23 .r-ticket-evidence > span {font:520 18px/1.33 system-ui;color:#e1d9cb;}
 .rev12-draft #page-23 .r-ticket-conclusion {
-  flex:0 0 auto;text-align:center;padding:13px 18px;margin:0;
-  background:#172b24;border-left:4px solid #7ed3a1;border-radius:6px;
-  color:#dcf0e4;font:630 20px/1.36 system-ui;
+  margin:0;max-width:100%;padding:10px 13px;
+  font:550 19px/1.35 system-ui;color:#bfd5e7;
+  background:transparent;border:none;
 }
-/* Ready: an answerable decision, not another seven-column board behind the prompt. */
+/* P24: the action is choosing Ready or returning an incomplete ticket.
+   Reuse the three answerable questions, not three long prose boxes. */
 .rev12-draft #page-24 .r-ready-flow {
-  display:flex;flex-direction:column;justify-content:center;gap:21px;
-  flex:1 1 auto;min-height:0;width:100%;
+  display:flex;flex-direction:column;gap:26px;
+  flex:1 1 auto;justify-content:center;min-height:0;
 }
 .rev12-draft #page-24 .r-ready-status {
-  display:flex;justify-content:space-between;align-items:center;
-  gap:16px;padding:18px 20px;border:1px solid #496f92;border-radius:9px;
-  background:#172a40;
+  display:flex;align-items:center;justify-content:center;
+  gap:18px;padding:20px 22px;border:none;background:transparent;
 }
-.rev12-draft #page-24 .r-ready-status span {font:750 28px/1.28 system-ui;color:#d9efff;}
-.rev12-draft #page-24 .r-ready-status b {font:690 22px/1.28 system-ui;color:#bedcf2;}
+.rev12-draft #page-24 .r-ready-status > strong {
+  font:800 32px/1.25 system-ui;color:#f1f9ff;
+}
+.rev12-draft #page-24 .r-ready-status > i {font:800 36px/1 system-ui;color:#a3cfec;font-style:normal;}
+.rev12-draft #page-24 .r-ready-status > span {
+  font:570 21px/1.3 system-ui;color:#b4cbe0;margin-left:auto;
+}
 .rev12-draft #page-24 .r-ready-questions {
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:20px;
 }
 .rev12-draft #page-24 .r-ready-questions article {
-  display:flex;flex-direction:column;gap:17px;justify-content:center;
-  padding:25px;min-width:0;min-height:215px;
-  border:1px solid #4a6c8a;border-top:5px solid #83bcff;
-  border-radius:10px;background:#14273c;
+  display:flex;flex-direction:column;justify-content:center;
+  gap:19px;min-height:210px;padding:24px 25px;min-width:0;
+  background:#172a3e;border:1px solid #416688;
+  border-top:5px solid #8abdec;border-radius:10px;
 }
-.rev12-draft #page-24 .r-ready-questions article:nth-child(2) {border-top-color:#8edeb8;}
-.rev12-draft #page-24 .r-ready-questions article:nth-child(3) {border-top-color:#f3d28d;}
-.rev12-draft #page-24 .r-ready-questions h2 {font:770 31px/1.25 system-ui;margin:0;color:#f3faff;}
-.rev12-draft #page-24 .r-ready-questions p {font:570 22px/1.38 system-ui;margin:0;color:#dbeafa;}
-.rev12-draft #page-24 .r-ready-flow > .r-ready-refinement {
-  margin:0;padding:14px 18px;display:block;text-align:left;
-  font:560 19px/1.45 system-ui;color:#e0eafa;
-  background:#203049;border-left:4px solid #a3c5e8;border-radius:7px;
+.rev12-draft #page-24 .r-ready-questions article:nth-child(2) {border-top-color:#a3dab4;}
+.rev12-draft #page-24 .r-ready-questions article:nth-child(3) {border-top-color:#efd18c;}
+.rev12-draft #page-24 .r-ready-questions article > span {font:760 19px/1.1 system-ui;color:#90b8d7;}
+.rev12-draft #page-24 .r-ready-questions h2 {font:800 33px/1.25 system-ui;color:#f2faff;margin:0;}
+.rev12-draft #page-24 .r-ready-questions p {font:540 21px/1.35 system-ui;color:#c4d9e9;margin:0;}
+.rev12-draft #page-24 .r-ready-refinement {
+  margin:0;padding:15px 18px;background:#172736;border-left:4px solid #91bde5;
+  border-radius:6px;font:570 18px/1.4 system-ui;color:#d1e5f3;
 }
 .rev12-draft #page-24 .r-ready-outcome {
-  margin:0;color:#d7f2e2;font:690 22px/1.34 system-ui;
-  background:#173026;padding:13px 16px;border-radius:6px;
-  border-left:4px solid #94d9b2;
+  margin:0;background:transparent;border:none;
+  font:730 22px/1.3 system-ui;color:#bdeacf;
 }
+
 /* Contrast available task information with the worker, at first context use. */
 .rev12-draft #page-60 .r-agent-context-contrast {
   flex:0 0 auto;max-width:1190px;margin:0 auto;padding:12px 17px;

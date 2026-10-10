@@ -197,6 +197,9 @@
 
 本次修正、G4 截圖與頁面前後對照： [PR #49 Editorial Review](docs/reviews/issue49-editorial-20261009/README.md)。
 
+PR #57 新版 [章節 Overview、AT、Ready、協作方式修正前後圖片與視覺複查](docs/reviews/issue57-editorial-redesign-20261010/README.md)，以及 visual_storytelling_contract_test.py 的新版面驗收。
+
+
 ### 教材 PR 的五道必要 Quality Gates
 
 > 以下是 P1–P17 的**執行流程**，不是另一套彼此競爭的原則。每道關卡都要記錄審查版本、涵蓋範圍、結果與證據；未執行寫 **NOT RUN**，不能用其他關卡的 PASS 代替。

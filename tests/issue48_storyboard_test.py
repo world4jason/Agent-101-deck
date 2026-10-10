@@ -96,7 +96,7 @@ def main():
     assert len(roadmap) == len(chapter_order)
     assert [card["data-outline-chapter"] for card in roadmap] == chapter_order
     assert [card["href"] for card in roadmap] == ["#3", "#9", "#31", "#39", "#50", "#55", "#83", "#96"]
-    assert all(card.select_one('.r-course-map-question') for card in roadmap)
+    assert all(card.select_one('.r-course-map-purpose') for card in roadmap) and not any(card.select_one('.r-course-map-question') for card in roadmap)
     assert roadmap[-1].get('data-outline-chapter') == 'APP'
     assert '課程 Outline' not in candidate.select_one('.slide[data-page="2"] h1').get_text()
     assert not candidate.select(".section-slide .cover-mark")
@@ -110,8 +110,8 @@ def main():
     mainline_start = candidate.select_one('.slide[data-page="39"]')
     assert preview_pr and preview_pr.h1.get_text().startswith("概念預演 1/2")
     assert preview_merge and preview_merge.h1.get_text().startswith("概念預演 2/2")
-    assert mainline_start and mainline_start.h1.get_text().startswith("回到主線")
-    assert "現在從 Ready 進 Dev 實作" in mainline_start.h1.get_text()
+    assert mainline_start and "Dev" in mainline_start.h1.get_text()
+    assert "Ready → Dev" in mainline_start.get_text()
     assert "#3 已開始" in mainline_start.get_text()
     manifest_by_number = {page["number"]: page for page in manifest["pages"]}
     assert "概念預演" in manifest_by_number[remap(34)]["notes"]
@@ -190,7 +190,8 @@ def main():
         assert all(card.select_one(".r-human-role") and card.select_one(".r-human-action") for card in cards)
         assert not slide.select(".r-cols-3 > .r-card"), "Dense role list must not return"
     for cover_num in [5,9,31,55,83,96]:
-        assert candidate.select_one(f'.slide[data-page="{cover_num}"] .r-storyline-phase')
+        assert candidate.select_one(f'.slide[data-page="{cover_num}"] .r-overview-bridge')
+        assert len(candidate.select(f'.slide[data-page="{cover_num}"] .r-overview-agenda li'))==3
     assert all(word in role_page.get_text() for word in ["Product Owner", "Goal", "AC", "UI／UX（畫面設計）", "#1 Like", "#2 配對列表", "實作 #1／#2／#3", "需求方"])
     assert "Reviewer" in review_page.get_text() and "QA" in review_page.get_text()
     assert all(word in agent_map.get_text() for word in ["PO／UI／UX", "Dev", "Reviewer／QA", "需求方", "Human Gate"])

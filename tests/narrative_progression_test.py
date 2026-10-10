@@ -131,8 +131,11 @@ class Narrative(unittest.TestCase):
         self.assertIn("Blocked",text(103))
         self.assertIn("事故",rows[103]["transition"]+" "+text(104))
         self.assertIn("先前阻礙已解除",text(104))
-        self.assertIn("P97–102",text(96))
-        self.assertIn("P103–104",text(96))
+        self.assertIn("P97–102",manifest["pages"][95]["notes"])
+        self.assertIn("測試與練習",text(96))
+        self.assertIn("P103–104",manifest["pages"][95]["notes"])
+        self.assertIn("工作卡住與錯配",text(96))
+        self.assertIn("Blocked",manifest["pages"][95]["notes"])
 
     def test_learner_support_and_exit_checks_survive(self):
         self.assertEqual([n for n in slides if slides[n].get("data-added-id") in
