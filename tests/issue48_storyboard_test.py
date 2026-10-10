@@ -96,7 +96,7 @@ def main():
     assert len(roadmap) == len(chapter_order)
     assert [card["data-outline-chapter"] for card in roadmap] == chapter_order
     assert [card["href"] for card in roadmap] == ["#3", "#9", "#31", "#39", "#50", "#55", "#83", "#96"]
-    assert all(card.select_one('.r-course-map-question') for card in roadmap)
+    assert all(card.select_one('.r-course-map-purpose') for card in roadmap) and not any(card.select_one('.r-course-map-question') for card in roadmap)
     assert roadmap[-1].get('data-outline-chapter') == 'APP'
     assert '課程 Outline' not in candidate.select_one('.slide[data-page="2"] h1').get_text()
     assert not candidate.select(".section-slide .cover-mark")
@@ -110,8 +110,8 @@ def main():
     mainline_start = candidate.select_one('.slide[data-page="39"]')
     assert preview_pr and preview_pr.h1.get_text().startswith("概念預演 1/2")
     assert preview_merge and preview_merge.h1.get_text().startswith("概念預演 2/2")
-    assert mainline_start and mainline_start.h1.get_text().startswith("回到主線")
-    assert "現在從 Ready 進 Dev 實作" in mainline_start.h1.get_text()
+    assert mainline_start and "Dev" in mainline_start.h1.get_text()
+    assert "Ready → Dev" in mainline_start.get_text()
     assert "#3 已開始" in mainline_start.get_text()
     manifest_by_number = {page["number"]: page for page in manifest["pages"]}
     assert "概念預演" in manifest_by_number[remap(34)]["notes"]
@@ -190,7 +190,8 @@ def main():
         assert all(card.select_one(".r-human-role") and card.select_one(".r-human-action") for card in cards)
         assert not slide.select(".r-cols-3 > .r-card"), "Dense role list must not return"
     for cover_num in [5,9,31,55,83,96]:
-        assert candidate.select_one(f'.slide[data-page="{cover_num}"] .r-storyline-phase')
+        assert candidate.select_one(f'.slide[data-page="{cover_num}"] .r-overview-bridge')
+        assert len(candidate.select(f'.slide[data-page="{cover_num}"] .r-overview-agenda li'))==3
     assert all(word in role_page.get_text() for word in ["Product Owner", "Goal", "AC", "UI／UX（畫面設計）", "#1 Like", "#2 配對列表", "實作 #1／#2／#3", "需求方"])
     assert "Reviewer" in review_page.get_text() and "QA" in review_page.get_text()
     assert all(word in agent_map.get_text() for word in ["PO／UI／UX", "Dev", "Reviewer／QA", "需求方", "Human Gate"])
@@ -209,7 +210,7 @@ def main():
     assert refinement and "工作票整理" in refinement.h1.get_text() and len(refinement.select(".r-ac-row")) == 3 and "完整工作票下一頁" in refinement.get_text()
     chapter_cover = candidate.select_one('.slide[data-page="9"]')
     assert chapter_cover and chapter_cover.get("data-section") == "C2"
-    qa_return = candidate.select_one('.slide[data-page="42"]')
+    qa_return = candidate.select_one('.slide[data-page="44"]')
     assert qa_return and all(word in qa_return.get_text() for word in ["Version A", "1 筆 M01", "FAIL", "退回", "Version B", "0 筆", "PASS"])
     assert "重複 Like" not in qa_return.get_text()
 
@@ -235,12 +236,12 @@ def main():
     a10_text = candidate.select_one('.slide[data-page="59"]').get_text()
     for text in (a09_text, a10_text):
         assert not any(token in text for token in ["A09-replay", "byte-identical", "SHA-256", "raw JSON", "replay path"])
-    assert "B-pre" in a10_text and "補驗前" in a10_text
+    assert "Version B 補驗前" in a10_text and "補驗前" in a10_text
     qa_evidence = candidate.select_one('.slide[data-page="46"]').get_text()
-    assert all(word in qa_evidence for word in ["B-pre", "B-post", "單向", "雙向", "重複", "NOT RUN", "PASS", "UI"])
+    assert all(word in qa_evidence for word in ["Version B 補驗前", "Version B 補驗後", "單向", "雙向", "重複", "NOT RUN", "PASS", "UI"])
     assert "快轉" in qa_evidence
     canonical_result = candidate.select_one('.slide[data-page="47"]').get_text()
-    assert all(word in canonical_result for word in ["單向", "Version A", "FAIL", "Version B", "PASS"])
+    assert all(word in canonical_result for word in ["Version B 補驗前", "Version B 補驗後", "Version B", "NOT RUN", "PASS"])
     assert "Arrange：準備已配對狀態" not in canonical_result
     assert "UI" not in canonical_result or "NOT RUN" in canonical_result
     wip_page = candidate.select_one('.slide[data-page="73"]')
@@ -259,8 +260,14 @@ def main():
     assert "補驗前" in a13_slide.select_one('.r-content').get_text()
     assert "補驗後" in a13_slide.select_one('[data-wip-sequence]').get_text()
     a13_reveal = a13_slide.select_one('[data-wip-sequence]')
+    a13_ribbon = a13_slide.select_one('.r-ribbon').get_text(" ", strip=True)
+    assert all(term in a13_ribbon for term in ("先", "補驗要求", "核對參考答案", "缺證據"))
     a13_exercise = (ROOT / "workshop/matching-demo/exercise.md").read_text()
-    assert "同一個 B 版" in a13_reveal.get_text() and "不要改規則" in a13_reveal.get_text()
+    a13_reference = a13_reveal.get_text(" ", strip=True)
+    assert all(term in a13_reference for term in (
+        "同一個 B 版與原有假資料", "已有一筆 M01", "重複 Like 一次",
+        "補驗前後的筆數、紀錄與結果", "不要改規則",
+    ))
     assert "--artifact workshop/matching-demo/versions/B/matching.py --candidate-id B --case duplicate" in a13_exercise
     assert "--artifact" not in a13_reveal.get_text()
     assert a13_reveal.select_one('a[href*="matching-demo/exercise.md"]')
@@ -306,7 +313,9 @@ def main():
     assert "教學假設" in done.get_text() and "NOT RUN" in done.get_text()
     assert "教學假設" in journey.get_text() and "NOT RUN" in journey.get_text()
     gate = candidate.select_one('.slide[data-page="91"]')
-    assert "依風險" in gate.h1.get_text()
+    assert gate.h1.get_text(" ", strip=True) == "審查可分工，放行仍由人決定"
+    assert "依風險與授權" in gate.get_text()
+    assert "Human Gate" in gate.get_text() and "NOT RUN" in gate.get_text()
     assert "配置 A" in gate.get_text() and "配置 B" in gate.get_text()
     assert "慢速節奏" not in gate.get_text() and "快速節奏" not in gate.get_text()
     for page_data in manifest["pages"]:

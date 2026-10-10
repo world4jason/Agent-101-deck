@@ -9,6 +9,11 @@
 頂端導覽只列八個大章節；章封面小標與導覽章名一致，內頁主題封面不再顯示舊版編號。
 
 - [正式投影片](https://world4jason.github.io/Agent-101-deck/slides/)
+- [版本總覽｜v7、v10、最新版及 PPTX 下載](versions/)
+- [v7 存檔｜44 頁](versions/v7/)（來源：2026-10-01 合併版本 e33e696）
+- [v10 草稿｜55 頁](drafts/rev10.html)
+- [最新版 PPTX｜107 頁](downloads/agent101-current.pptx)
+- [v10 PPTX](downloads/agent101-v10.pptx) · [v7 PPTX](downloads/agent101-v7.pptx)
 - [rev12 執行故事板與頁面對照](docs/issue48-execution-storyboard.md)
 - [Issue #49 review 修正的 G1 頁序與先備檢查](docs/issue49-review-fixes.md)
 - [Issue #48 交付與檢查紀錄](docs/issue48-delivery.md)
@@ -66,6 +71,20 @@
 | P15 | Every instruction must be executable | Deck、exercise、README 出現的命令、prompt、操作步驟，都必須由 reviewer 原樣 copy-paste 實跑一次。 |
 | P16 | Preserve scope intentionally | 重排是為了解決敘事，不是順手刪章節或擴 scope。延伸議題應另列 Issue，不偷塞進當前 PR。 |
 | P17 | Different gates prove different things | Content correctness、Evidence correctness、Narrative QA、Desktop/Mobile QA、真人小白試教、Release 是不同 gate；一個 gate 通過不代表其他 gate 通過。 |
+
+### 初學者術語與教學例子
+
+- **Agent：**按照工作票決定下一步、使用工具、讀取結果並繼續工作的 AI。
+- **Context：**Agent 這一輪已取得且可以使用的資料，例如 Ticket、AC、已測紀錄。資料存在專案中，不代表本輪已讀到。
+- **AC（Acceptance Criteria）：**怎樣的結果能接受。配對例：單向 0 筆，雙向 1 筆，重複 Like 不新增。
+- **AT（Acceptance Test）：**怎樣驗證 AC。例：先有一筆配對，再次 Like，預期仍只有一筆；執行前是預期，執行後才有實際 Evidence。
+- **Refinement：**持續釐清工作票的活動，通常讓 Backlog 漸漸可進 Ready；開發或測試遇到需求不清楚、無法執行或無法驗證，也要把問題記回票面討論。七欄看板不為它另增欄位。
+- **Version B 補驗前／補驗後：**同一份 Version B 程式，原 Evidence 資料夾名稱為 B-pre 與 B-post；前者重複 Like 尚未執行，後者新增重複 Like 的結果。沒有新增 UI 整合／部署證據。
+- **兩種 Agent 工作安排：**Grill Me 協助人逐題澄清、由本人確認；Superpowers 有人核准設計後才建立計畫、實作和 Review。兩者都需依工作範圍核對成果。參考 [Grill Me](https://github.com/stevegsax/grill-me) 與 [Superpowers](https://github.com/obra/superpowers)。
+
+用語原則：在主畫面以「不希望發生的錯誤配對」「怎樣驗」「哪些未測」這類自然語句描述任務。避免將尚無觀測的錯配事件寫成 0；不得靠模糊的工程名詞替代明確的測試前提與資料來源。
+
+參考：[Agile Alliance Acceptance Testing](https://agilealliance.org/glossary/acceptance-testing/)；[Scrum.org Product Backlog Refinement](https://www.scrum.org/resources/product-backlog-refinement)；[OpenAI Agents SDK Agents](https://openai.github.io/openai-agents-python/agents/) 與 [Context](https://openai.github.io/openai-agents-python/context/)。
 
 ### 本課的唯一看板模型（Canonical Workflow）
 
@@ -127,56 +146,60 @@
 - **Gate：**內容、證據、瀏覽器畫面、真人試教等狀態是否分開陳述，沒有把其中一項通過寫成全部通過？
 
 
-### 教學簡報 Editorial QA｜每輪 PR 必做自我檢查
+### 教學投影片設計 Guideline｜十項可驗收原則（2026-10-11）
 
-> **107 頁都沒有溢出，也不等於學員學會了。** 本節是原 P1–P17 與 G1–G5 的延伸檢查，不另創互相競爭的 Gate；遇到與事實／流程一致性衝突時，仍先處理 P0/P1。
+> **目的：**讓非工程背景學員能理解、記住、串接前後知識，並在練習中運用。這是原 P1–P17 與 G1–G5 的共同編輯規範，**不另外發明一套 Gate**；各頁真正的事實、驗收範圍與人類放行仍須符合現有規則。
 
-| 自檢項目 | 實際判準 | 失敗時要做什麼 |
+| 原則 | 製作要求 | Reviewer 如何判斷／不符合時怎麼修 |
 |---|---|---|
-| **Title–Content Alignment**（標題／證據一致） | 教學敘述頁的標題用一個能理解的觀點或結論，主圖／例子真正支持它；章節頁、問題導入、練習頁可使用提問或任務式標題 | 將「Ready」「QA / Verification」等單純主題名改成對學員有用的訊息；避免提前揭露練習答案 |
-| **One Teaching Takeaway**（一頁一個學習任務） | 一頁主要教一件事或要求完成一項判斷；一張圖與三個例子可以共同支持同一件事 | 把不相關的第二個教學目標拆到原有頁或移至 Notes，不盲目增加頁數 |
-| **Prerequisite Check**（先備知識） | 首次使用 AC／PR／QA／Session 等術語前，已用白話解釋並有具體例子 | 先補先備觀念，不能只在筆記或附錄藏定義 |
-| **Chapter Outcome**（章節出口） | 每章具體指定學完「能做什麼」，至少有一項可觀察／可回答的檢核題；要能回扣 Goal → Ticket → Delivery → Evidence | 在 Exit Check 用清楚的問題、參考答案與學員自評補足 |
-| **Cognitive Load**（認知負荷） | 主畫面只放當下必要的概念、圖或紀錄；原始 JSON、SHA、完整 CLI、diff 留在 Evidence/Notes；不硬套固定字數 | 分清主畫面／講者筆記／可追溯材料，逐步揭露複雜流程 |
-| **Practice Before Reveal**（先作答再揭露） | 練習題真正讓學員先嘗試，答案以可操作的 reveal 展開；不以「問號句」假裝練習，卻同畫面提前給答案 | 增加提問—作答—揭露—回饋的停頓；不能把測試 PASS 當學習成效 PASS |
-| **Cross-slide Consistency**（跨頁心智模型一致） | 同一套狀態名稱、狀態欄數、Human Gate 決策點、版本 A/B、時間線與 NOT RUN，前後完全一致 | 全 deck 搜尋並修正全部下游引用，尤其回顧頁 |
-| **Visual Accessibility**（真實可讀） | 在 1440×900 與投影尺寸實際看 final screenshot；本版手機僅做 smoke test，能辨讀標題、箭頭、卡片、對比與留白；不靠「沒有 overflow」下結論 | 調整密度、層次與對比並重看最終圖，不把驗收 log 當投影片 |
-| **Learning Transfer**（可遷移） | 學員離開 Matching App，至少能自己寫一張 Ticket、指定驗收證據，並能接受或退回 Agent 交付 | 在章節出口先自測，最後用自己的工作轉用；必要時真人試教 |
-| **Evidence ≠ Teaching**（技術與學習證據分離） | 工程 PASS、模型模擬初學者 READY、真人學員實測各自陳述；不能替代 | G2/G3/G4/G5 分別留明確 evidence 和 NOT RUN |
+| **1. 先給全貌與章節定位** | 課程開場有 Whole Picture；每章開始交代已知前提、這章要學的任務、學完能做什麼。 | 觀眾能說出本章為何接在上一章後。避免每章用同一套三張文字卡；用短路徑或真正的實例。 |
+| **2. 一頁有一個教學任務** | 一頁主要用於解釋、比較、決策、操作或練習之一；多個例子可共同支持同一主張。 | 能指出這頁唯一要帶走的判斷。若流程、定義、例外、完整工作票同時爭注意力，移入 Notes、分步揭露或合理增頁。 |
+| **3. 相鄰頁有資訊增益** | 每頁交代「前頁已知 → 本頁新增 → 下頁要用它回答什麼」，名詞先教後用，情境與時間線不任意跳回。 | G1 要檢查前後至少各一頁；沒有新增能力的重複需合併或改成練習。換案例、切到補驗前時要有可見的情境定位。 |
+| **4. 標題與主畫面一致** | 概念頁優先採 **Message Title／Assertion–Evidence**，標題表達觀點，圖／例／資料支持它；問題、練習與章封面可以使用問句或任務式標題。 | 蓋住 Notes 也能從主畫面找到標題依據。練習標題不得先洩漏答案；避免只有「Review」「Context」等無方向的主題名。 |
+| **5. 讓圖解真正表達關係** | 用箭頭表示順序／退回／依賴，用表格比較條件，用資料標明預期與實際；視覺提示貼在對應元素旁。 | 若移除彩色卡片外框後只剩好幾段可逐字唸的文字，重新設計圖解；箭頭不得為裝飾或指錯方向。 |
+| **6. 控制認知負擔** | 遵循 **Coherence、Signaling、Segmenting、Pre-training**：刪除當下無關細節，突顯目前焦點，複雜流程依時間分段，必要術語先以白話建立。 | 不同時間點、完整表單與驗收結果不應預先同權重顯示；不要用縮小字型或換成多張顏色卡來假裝減少資訊。 |
+| **7. 投影可讀性與無障礙** | 使用一致字級層次、留白、清楚對比與可辨箭頭；狀態同時顯示文字，不只用紅綠顏色。 | 在本輪實際支援的桌面／投影尺寸看**最新截圖**，核對標題、表格、圖與小字；沒有 JavaScript 錯誤和 overflow 不代表投影片易讀。 |
+| **8. 主張有真實且有界線的證據** | 規則層、UI、整合、部署的證據不能混稱；Version A／B、補驗前／後、PASS／FAIL／NOT RUN 要有一致的版本與時點。 | 見到數值或成功宣稱，必須找得到來源及測試範圍；流程假設明示「教學示意」，不可把尚未執行的測試寫成 PASS。 |
+| **9. 練習能驗證學會了什麼** | 學習目標、示範、練習與 Exit Check 對應；學員先作答，再揭露參考答案和回饋。 | 不能只問縮寫定義。至少能讓學員根據一張票、預期／實際結果提出接受、補驗或退回的理由；保留遷移到自己工作的機會。 |
+| **10. 全課術語、案例與角色一致** | 持續用 Matching App 的 #1 輸入 → #3 配對 → #2 列表；同一 Workflow、WIP、Human Gate、Agent／Context、AC／AT／DoD 前後定義一致。 | 逐頁找沒有解釋的英文、制式 AI 話術與空泛新名詞；以人會說的具體操作替代，例如「不希望發生：錯誤配對」，不要使用「護欄訊號」。 |
 
-**標題形式選擇：**概念教學採 Message Title／Assertion–Evidence；問題導入採 Question Title；操作練習採 Task Title；章封面採 Chapter＋Learning Task；出口檢核採學員能回答的 Q&A。不是每頁硬改成結論句，也不是一頁只允許一行字。
+#### 版面選擇與資訊分層
 
-**建議 Pattern（不是硬性的科學比例）：**Backward Design／Constructive Alignment（先學習成果與證據）、Merrill's First Principles（問題→示範→練習→遷移）、Multimedia Learning（Coherence／Signaling／Spatial Contiguity／Segmenting／Pre-training）、Worked Example → Guided Practice → Independent Practice、Progressive Disclosure、SCQA／MECE。不要將 6×6、10/20/30 等字數規則當萬用學術標準。
+**學員畫面**只放此刻的主張、可理解它的圖／例子，以及影響判斷的狀態。**講者筆記（Notes）**放名詞細節、提問方式、轉場、操作口令與補充說明。**Evidence／附錄**保留 raw JSON、完整 SHA、執行命令、diff、文獻與可重播資料。精簡畫面時**不可以刪掉可追溯證據**。
 
-**八章 Exit Checks：**每章末一張，共八張；每張三題 Q&A，先讓學員思考或口頭作答，按鈕才揭露參考答案；每張對應「章節學完能做什麼」，而非名詞背誦。附錄的檢核強調「能查找／辨認」，不要求背誦全部方法。
+優先依資訊類型選版型：時間／交接用路徑圖、條件用決策表、前後差異用對照、驗收用預期／實際／未測、練習用「先回答 → 揭露」。**圖片與動畫不是必要條件**；沒有教學功能的裝飾應移除。P23 的 AT 可用「已配對一筆 → 再按 Like → 預期仍是一筆」表示；執行前 Evidence 必須是 NOT RUN。
 
-**合併前 Review 追問：**
-- 學員不看講者筆記，能否用自己的話說出這頁標題？
-- 主圖、內文與證據是否支持標題，還是只是工程紀錄？
-- 走到這頁時，學員是否已經理解所需術語和情境？
-- 學員能否在揭露答案前自行判斷？講者的回饋在哪裡？
-- 這次修改是否改變所有後續流程、Q&A、筆記和測試？
-- 改完最新 HEAD 是否真正重看，而非沿用前一版 PASS？
+#### 可讀性的實務參考
 
-**參考研究與實務來源：**
-- Michael Alley, Assertion–Evidence：https://www.engr.psu.edu/speaking/VISUAL-AIDS.html
-- Garner & Alley, *How the design of presentation slides affects audience comprehension*：https://pure.psu.edu/en/publications/how-the-design-of-presentation-slides-affects-audience-comprehens/
-- M. David Merrill, *First Principles of Instruction* (2002)：https://doi.org/10.1007/BF02505024
-- CAST UDL Guidelines v3.0：https://udlguidelines.cast.org/
+- Waterloo 的教學簡報指南提供**標題約 32–40 pt、內文約 24–28 pt** 的起始建議；其無障礙清單偏好 24–32 pt，18 pt 是較低的數位閱讀建議，**不能當成教室後排一定可讀的保證**。網頁 CSS px 和 PPTX pt 也不可直接視為同一單位。
+- 網頁版以 **WCAG 2.2 AA** 作數位可讀性參考：一般文字對比至少 4.5:1、大字至少 3:1；理解內容必需的圖形／控制元件至少 3:1。顏色不是 PASS／FAIL 的唯一訊號。符合對比數字仍需人工看投影。
+- **五秒掃讀**是專案編輯檢查：請審查者不看 Notes，快速辨認主張、先看哪裡、狀態代表什麼。它不是已證實的普遍學習測驗。**6×6、10/20/30、固定字數、固定頁數、每頁三卡**也不是強制科學標準。
+- 真實練習可有必要重複：介紹 AC → 在 #3 案例使用 → 讓學員獨立驗收，三次用途不同。要移除的是**沒有新增判斷能力**的重述。
 
-### G4 畫面審查：五秒掃讀與文字密度
+#### 每輪 PR 的操作驗收（直接對應 G1–G5）
 
-這是原 G4 的操作要求，並未新增另一個 Gate。每次改頁都要保留最新 HEAD 的桌面截圖，再由沒有撰寫該頁的人檢查。
+| 階段 | Reviewer 必須留下的可核對證據 |
+|---|---|
+| **G1 故事板** | 逐頁「已知／新增／下一頁問題」、章節學習成果、術語首次定義、與本次變更相關的相鄰頁；調整頁數／頁序可以，但更新 SSOT。 |
+| **G2 事實與示範** | Ticket、AC/AT、候選版本、預期／實際、原始 Evidence、NOT RUN 及 Human Gate 的對應；演示命令真正重跑。 |
+| **G3 零基礎審查** | 不預讀作者解釋的審查者，記錄頁碼、看不懂什麼、缺少什麼前提、會做錯哪一步；AI 模擬不能冒稱真人試教。 |
+| **G4 視覺審查** | **最新 HEAD** 之改動頁及相鄰頁真實截圖，檢查畫面主角、視線順序、文字密度、字級、對比、箭頭、圖／文對齊；必要時 before／after；與作者的自檢分開。 |
+| **G5 成品驗收／人放行** | 最新 SHA、重建結果、互動與鍵盤操作、章末答題揭露、頁面幾何、PPTX 同步、剩餘 P0／P1／P2、各項 NOT RUN；由 Owner 決定 Merge／Release。 |
 
-- **五秒掃讀：**能辨認這頁的教學問題、目前狀態及要看哪個差異；需要逐段讀完才懂，應修改主畫面。
-- **資訊焦點：**看板、完整工作票、補充說明、兩個時間點不得全部以相同視覺權重爭取注意力。
-- **交付證據：**精簡文字時仍保留 PASS／FAIL／NOT RUN、候選版本及「教學假設」等會影響判斷的限制。
-- **圖表任務：**箭頭應表示交接、退回與時間，分類卡應幫助比較；把長文件放進色塊不算完成圖解。
-- **可以增頁：**若兩個獨立教學問題需要各自的練習或時序，就分步呈現或新增頁面。新增 P2 Outline 沒有取代舊頁，107 頁是現況，毋須維持固定數量。
-- **人員分離：**作者做的 Chrome 及幾何檢查只算工程證據；G4 須查看實際截圖，G3 須另做初學者檢查，真人試教沒做就寫 NOT RUN。
-- **文案用語：**新稿請避開過度工整的 AI 口吻，例如「總結來說」「首先／其次／最後」「不是…而是」「不僅如此」「不僅…更是…」「深入探討」「值得注意的是」「格局」「見證」「關鍵」等。使用具體情境、動作、數字與版本。全課標題長度另輪處理。
+**放行界線：**事實錯誤、反向證據、學習所需先備概念缺失、嚴重跨頁跳接、主畫面無法辨讀、練習提前洩漏答案等列 **P0／P1**，應先修再重新截圖審查。可讀性小調整列 **P2** 並指向頁碼。**不得**把自動化測試 PASS、模型審查 PASS、真人教學成效、正式發布混成一個狀態。
 
-本次修正、G4 截圖與頁面前後對照： [PR #49 Editorial Review](docs/reviews/issue49-editorial-20261009/README.md)。
+#### 研究來源與適用界線
+
+以下**研究原則或機構指南**支持大方向；表格中的具體 G1–G5 操作、五秒掃讀、PR 優先級屬**本專案的工作規範**，不應描述為論文驗證過的數值標準。
+
+- **Mayer／Fiorella，Cambridge Handbook of Multimedia Learning（2021）**：Coherence、Signaling、Redundancy、Spatial／Temporal Contiguity。https://www.cambridge.org/core/books/abs/cambridge-handbook-of-multimedia-learning/principles-for-reducing-extraneous-processing-in-multimedia-learning/F29A19FCD34C542806F736E0661C05F5
+- **Mayer／Fiorella（2021）**：Segmenting、Pre-training 與 Modality。https://www.cambridge.org/core/books/abs/cambridge-handbook-of-multimedia-learning/principles-for-managing-essential-processing-in-multimedia-learning/A9E77D0172F905AC957689D1771E2888
+- **Garner & Alley（2013）**：Assertion–Evidence，110 位工程學生的理解、回憶與認知負擔比較；研究發現不能直接保證任何其他教材對所有人同樣有效。https://pure.psu.edu/en/publications/how-the-design-of-presentation-slides-affects-audience-comprehens/
+- **Carnegie Mellon Eberly Center**：課程依學習目標組織，從先備能力逐漸整合，並讓教學、練習與評量互相對應。https://www.cmu.edu/teaching/designteach/design/contentschedule.html ；https://www.cmu.edu/teaching/assessment/basics/alignment.html
+- **University of Waterloo CTE**：一頁主題、主張與圖形匹配、簡潔投影文字、字級、對比與留白。https://uwaterloo.ca/centre-for-teaching-excellence/catalogs/tip-sheets/designing-visual-aids ；https://uwaterloo.ca/centre-for-teaching-excellence/accessibility-checklist-ms-powerpoint
+- **W3C WCAG 2.2**：文字、圖形／控制元件對比以及不可只靠顏色傳達資訊的數位無障礙基準。https://www.w3.org/TR/WCAG22/
+
+**對應 Issue：**[#51 標題與畫面對齊](https://github.com/world4jason/Agent-101-deck/issues/51)、[#53 主畫面／Notes／Evidence 分層](https://github.com/world4jason/Agent-101-deck/issues/53)、[#54 演練與學習遷移](https://github.com/world4jason/Agent-101-deck/issues/54)、**[#55 G4／G5 視覺驗收](https://github.com/world4jason/Agent-101-deck/issues/55)**。此處是長期準則，執行狀態與未通過頁面追蹤在 #55。
 
 ### 教材 PR 的五道必要 Quality Gates
 
@@ -219,6 +242,24 @@
 
 rev10保留原內容與原fragment操作；`drafts/rev11-base.css` 固定它依賴的基礎樣式。工具試作、研究原文與截圖留在原工作目錄，不是正式版執行依賴。
 
+## 版本切換與 PowerPoint 匯出
+
+[版本總覽](versions/) 可選擇 v7（44 頁）、v10（55 頁）與 rev12（107 頁）；三個網頁版底部工具列也可切換版本或下載對應 PPTX。
+
+歷史版本都有固定網址。v7 擷取自 Git commit e33e696 的 HTML、CSS、JS 與圖片；v10 使用 drafts/rev10.html，兩者不受 rev12 產生器改寫。
+
+三份 PowerPoint 存在 downloads/。匯出使用 Playwright 擷取投影片畫面，透過 PptxGenJS 放入 16:9 PowerPoint。每張投影片以圖片呈現，保留字型、色彩與位置；文字和圖形不可直接編輯，按鈕與逐步揭露請使用網頁版。最新版的講者筆記及 Exit Check 參考答案保留在 PowerPoint 備忘稿。
+
+匯出指令：
+
+    npm ci
+    npm run export:pptx             # 重建三個版本
+    npm run export:pptx:current     # 只更新最新版
+    npm run check:versions          # 檢查版本切換、連結及下載路徑
+    npm run check:exports           # 檢查 PPTX 格式、頁數、圖片、備忘稿
+
+更新網頁版後需要重建對應 PPTX，連同下載檔一起提交。若要讓文字與圖形在 PowerPoint 中可編輯，須另行建立原生元件的轉換流程。
+
 ## 修改與重建
 
 先更新 `docs/issue48-execution-storyboard.md`，再修改 `scripts/build_rev11.py` 中對應頁的內容。產生器寫入 `slides/index.html`、`drafts/rev12.html` 與 `drafts/rev12-review/manifest.json`，並將原 82 頁存為 `slides/rev11.html`；不要直接修改生成的HTML。
@@ -243,6 +284,7 @@ python3 -m http.server 4318 --bind 127.0.0.1
 npm run check:rev11
 npm run check:rev12
 python3 tests/deck_check.py
+python3 tests/narrative_progression_test.py  # G1：檢查跨頁新增資訊與案例／證據時間線
 ```
 
 `npm run check:rev11` 可回歸保留的舊版；`npm run check:rev12` 檢查 107 頁候選的載入、導覽、講者筆記連結與畫布邊界。`DECK_URL` 可指定入口；`BROWSER_CHANNEL=chrome` 可使用已安裝的Chrome。逐頁截圖與驗證結果輸出到 `drafts/rev12-review/`，由Git忽略；候選 manifest 保留頁序、來源、材料和 SSOT 雜湊。
