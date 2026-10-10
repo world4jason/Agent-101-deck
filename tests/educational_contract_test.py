@@ -115,7 +115,10 @@ class EducationalContract(unittest.TestCase):
         self.assertIn("教學假設",page(52).get_text())
         self.assertIn("NOT RUN",page(52).get_text())
         self.assertIn("教學假設",page(53).get_text())
-        self.assertIn("本課的 Human Gate",page(91).h1.get_text())
+        self.assertIn("審查可分工",page(91).h1.get_text())
+        self.assertIn("放行仍由人決定",page(91).h1.get_text())
+        self.assertIn("Human Gate",page(91).get_text())
+        self.assertIn("NOT RUN",page(91).get_text())
         self.assertIn("依風險",page(91).get_text())
 
     def test_distinguish_review_and_runner_from_hypothetical_release(self):
@@ -253,7 +256,8 @@ class EducationalContract(unittest.TestCase):
         self.assertNotIn("PR #43",page(92).get_text())
         self.assertNotIn("SSOT #41",page(92).get_text())
         self.assertIn("活動報名",page(94).get_text())
-        self.assertIn("本課用六層視角",page(105).h1.get_text())
+        self.assertIn("六層如何接力",page(105).h1.get_text())
+        self.assertIn("驗收與放行",page(105).h1.get_text())
 
 
 if __name__ == "__main__":

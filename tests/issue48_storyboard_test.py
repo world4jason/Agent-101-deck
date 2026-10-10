@@ -259,8 +259,14 @@ def main():
     assert "補驗前" in a13_slide.select_one('.r-content').get_text()
     assert "補驗後" in a13_slide.select_one('[data-wip-sequence]').get_text()
     a13_reveal = a13_slide.select_one('[data-wip-sequence]')
+    a13_ribbon = a13_slide.select_one('.r-ribbon').get_text(" ", strip=True)
+    assert a13_ribbon == "請先自行寫下補驗要求，再按下方按鈕核對參考答案；缺證據前不能宣布完成。"
     a13_exercise = (ROOT / "workshop/matching-demo/exercise.md").read_text()
-    assert "同一個 B 版" in a13_reveal.get_text() and "不要改規則" in a13_reveal.get_text()
+    a13_reference = a13_reveal.get_text(" ", strip=True)
+    assert all(term in a13_reference for term in (
+        "同一個 B 版與原有假資料", "已有一筆 M01", "重複 Like 一次",
+        "補驗前後的筆數、紀錄與結果", "不要改規則",
+    ))
     assert "--artifact workshop/matching-demo/versions/B/matching.py --candidate-id B --case duplicate" in a13_exercise
     assert "--artifact" not in a13_reveal.get_text()
     assert a13_reveal.select_one('a[href*="matching-demo/exercise.md"]')
@@ -306,7 +312,9 @@ def main():
     assert "教學假設" in done.get_text() and "NOT RUN" in done.get_text()
     assert "教學假設" in journey.get_text() and "NOT RUN" in journey.get_text()
     gate = candidate.select_one('.slide[data-page="91"]')
-    assert "依風險" in gate.h1.get_text()
+    assert gate.h1.get_text(" ", strip=True) == "審查可分工，放行仍由人決定"
+    assert "依風險與授權" in gate.get_text()
+    assert "Human Gate" in gate.get_text() and "NOT RUN" in gate.get_text()
     assert "配置 A" in gate.get_text() and "配置 B" in gate.get_text()
     assert "慢速節奏" not in gate.get_text() and "快速節奏" not in gate.get_text()
     for page_data in manifest["pages"]:
