@@ -306,7 +306,9 @@ def main():
     assert "教學假設" in done.get_text() and "NOT RUN" in done.get_text()
     assert "教學假設" in journey.get_text() and "NOT RUN" in journey.get_text()
     gate = candidate.select_one('.slide[data-page="91"]')
-    assert "依風險" in gate.h1.get_text()
+    assert gate.h1.get_text(" ", strip=True) == "審查可分工，放行仍由人決定"
+    assert "依風險與授權" in gate.get_text()
+    assert "Human Gate" in gate.get_text() and "NOT RUN" in gate.get_text()
     assert "配置 A" in gate.get_text() and "配置 B" in gate.get_text()
     assert "慢速節奏" not in gate.get_text() and "快速節奏" not in gate.get_text()
     for page_data in manifest["pages"]:
