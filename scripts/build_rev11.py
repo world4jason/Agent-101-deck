@@ -1304,6 +1304,134 @@ for i,p in enumerate(pages):
             marker=node.select_one('.r-version-time-label')
             assert marker
             marker.string='Version B 補驗前（B-pre）｜這份紀錄還缺重複 Like' if n==45 else 'Version B 補驗後（B-post）｜同一份程式，增加重複 Like 測試'
+
+    # G4 repair: same information, projector-oriented visual structure.
+    # Keep original source in rev11 and technical details in Storyboard/Notes.
+    if n==64:
+        cycle=node.select_one('.r-one-agent-cycle')
+        assert cycle and len(cycle.select(':scope > article'))==4
+        compressed=BeautifulSoup('''<div class="r-one-agent-cycle r-review-timeline" aria-label="一個 Agent 的補驗與人類接受流程">
+          <article><span>01 · Agent</span><strong>交件</strong><p>Version B 補驗前</p><b>重複 Like：NOT RUN</b></article>
+          <article class="human"><span>02 · 人</span><strong>退回</strong><p>人依 AC 退回補驗</p><b>同一版，請補測</b></article>
+          <article><span>03 · Agent</span><strong>補驗</strong><p>Version B 補驗後</p><b>重複 Like：PASS</b></article>
+          <article class="human"><span>04 · 人</span><strong>核對</strong><p>比對版本與證據</p><b>UI NOT RUN，不發布</b></article>
+        </div>''','html.parser').div
+        cycle.replace_with(compressed)
+        node.select_one('.r-kicker').string='同一個 #3 工作票：Agent 交件後，人要求補驗，再依證據判斷。'
+        node.select_one('.r-ribbon').string='版本沒有換，重複 Like 的證據增加了；下一頁看為何產出與自評需要分清。'
+    if n==68:
+        visual=node.select_one('.visual')
+        assert visual and visual.select_one('.split-work')
+        visual.clear()
+        append_html(visual,'''<div class="r-handoff-scene" aria-label="Agent A 經由交接卡交給 Agent B">
+          <p class="r-handoff-goal">共同 Goal｜雙向喜歡才建立配對</p>
+          <div class="r-handoff-main">
+            <section class="r-handoff-worker"><small>Agent A · #3</small><strong>完成配對規則</strong><p>雙向 Like → M01（示意）</p></section>
+            <span class="r-handoff-arrow" aria-hidden="true">→</span>
+            <section class="r-handoff-contract"><small>交接卡｜#3 交給 #2</small><strong>讓下一位有資料可接</strong>
+              <ul><li><b>連結</b><span>#3 的 Issue／PR</span></li>
+                  <li><b>格式</b><span>編號 M01＋雙方使用者</span></li>
+                  <li><b>進度</b><span>已測／未測＋待確認</span></li></ul>
+            </section>
+            <span class="r-handoff-arrow" aria-hidden="true">→</span>
+            <section class="r-handoff-worker"><small>Agent B · #2</small><strong>製作配對列表</strong><p>依交接格式呈現結果</p></section>
+          </div>
+          <p class="r-handoff-caution">少了格式或測試狀態，B 先問清楚再動工。</p>
+        </div>''')
+    if n==76:
+        visual=node.select_one('.visual')
+        assert visual and len(visual.select('.principle-row'))==5
+        visual.clear()
+        append_html(visual,'''<div class="r-five-fixes" aria-label="五種協作問題對應可執行做法">
+          <div class="r-five-fixes-head"><span>協作時遇到</span><strong>對應做法</strong></div>
+          <ol>
+            <li><span>工作進度只留在聊天</span><i aria-hidden="true">→</i><strong>狀態寫進 Ticket</strong></li>
+            <li><span>Agent 不知道何時停</span><i aria-hidden="true">→</i><strong>先定核准範圍</strong></li>
+            <li><span>產出與審查混在一起</span><i aria-hidden="true">→</i><strong>分清職責</strong></li>
+            <li><span>Agent 自己說完成</span><i aria-hidden="true">→</i><strong>獨立核對證據</strong></li>
+            <li><span>越做越偏離 Goal</span><i aria-hidden="true">→</i><strong>每輪核對目標</strong></li>
+          </ol>
+          <p>下一段用 #3 的交付示範這些做法；英文名稱及詳細說明保留在後續頁。</p>
+        </div>''')
+    if n==85:
+        visual=node.select_one('.visual')
+        assert visual and visual.select_one('.brainstorm-compare')
+        visual.clear()
+        append_html(visual,'''<div class="r-planning-route" aria-label="#3 工作票由人釐清再由 Agent 整理">
+          <p class="r-planning-goal">要解決的事｜互相喜歡才建立配對</p>
+          <div class="r-planning-main">
+            <article><small>人定方向</small><strong>說清楚要解決什麼</strong><p>誰遇到問題？怎樣算成功？</p></article>
+            <i aria-hidden="true">→</i>
+            <article class="r-planning-agent"><small>Agent 整理</small><strong>寫出 #3 工作票</strong><p>Scope／AC／AT</p></article>
+            <i aria-hidden="true">→</i>
+            <article class="r-planning-human"><small>人再確認</small><strong>符合目標才交 Dev</strong><p>不清楚就退回補問</p></article>
+          </div>
+          <p class="r-planning-note">Agent 可以協助整理規格，需求方向與優先順序仍由人決定。</p>
+        </div>''')
+    if n==86:
+        content=node.select_one('.r-content')
+        assert content and content.select_one('.r-cols')
+        grid=content.select_one('.r-cols')
+        replacement=BeautifulSoup('''<div class="r-example-lane" aria-label="一場 Example Mapping 中 AI 與人的分工">
+          <div class="r-example-context">#3 已確認：雙向才配對、同一對不重複配對</div>
+          <div class="r-example-steps">
+            <article><small>AI 提例子</small><strong>只有一方 Like？</strong></article>
+            <i aria-hidden="true">→</i>
+            <article class="r-example-human"><small>人做決定</small><strong>預期：0 筆配對</strong></article>
+            <i aria-hidden="true">→</i>
+            <article><small>AI 記成 AT</small><strong>Given–When–Then（GWT）</strong></article>
+          </div>
+          <div class="r-example-pending"><span>AI 提出的新問題：取消 Like 呢？</span><strong>待釐清，不自行加進 AC</strong></div>
+        </div>''','html.parser').div
+        grid.replace_with(replacement)
+        content.select_one('.r-kicker').string='已確認的規則用例子核對；新問題先留下，交由人決定。'
+        content.select_one('.r-ribbon').string='AI 可準備情境、記錄共識；規則怎樣改仍由 PO／Dev／QA 確認。'
+    if n==69:
+        # After P68 the audience sees one specific way the handoff can fail.
+        visual=node.select_one('.visual')
+        assert visual and visual.select_one('.coordination-problems')
+        visual.clear()
+        append_html(visual,'''<div class="r-risk-scene">
+          <p class="r-risk-case">教學示意｜同一張 #3 配對規則工作票</p>
+          <div class="r-risk-track">
+            <section><small>工作票 AC</small><strong>重複 Like<br/>仍是一筆</strong></section>
+            <i aria-hidden="true">→</i>
+            <section class="r-risk-missing"><small>交接摘要漏了這條</small><strong>只說「雙向才配對」</strong></section>
+            <i aria-hidden="true">→</i>
+            <section class="r-risk-consequence"><small>接手者可能</small><strong>再次建立配對</strong></section>
+          </div>
+          <p class="r-risk-note">交接摘要若少了 AC，接手者應回 Ticket 核對，不能猜規則。</p>
+        </div>''')
+    if n==70:
+        # Distinct failure from P69: information exists, but the handoff
+        # does not expose status. No real Agent A/B test is claimed.
+        visual=node.select_one('.visual')
+        assert visual and visual.select_one('.rework-silo')
+        visual.clear()
+        append_html(visual,'''<div class="r-risk-scene">
+          <p class="r-risk-case">現有 Version B 補驗前紀錄：單向／雙向 PASS，重複 Like NOT RUN。</p>
+          <div class="r-risk-track">
+            <section><small>原始測試紀錄</small><strong>已測／未測<br/>都有記</strong></section>
+            <i aria-hidden="true">→</i>
+            <section class="r-risk-missing"><small>教學假設｜交接卡只寫</small><strong>單向／雙向 PASS</strong></section>
+            <i aria-hidden="true">→</i>
+            <section class="r-risk-consequence"><small>接手者可能</small><strong>跳過重複 Like 補驗</strong></section>
+          </div>
+          <p class="r-risk-note">交給另一位 Agent 前，附上候選版本、已測／未測與下一步。</p>
+        </div>''')
+    if n==88:
+        content=node.select_one('.r-content')
+        assert content and content.select_one('.r-cols')
+        content.select_one('.r-cols').replace_with(BeautifulSoup('''<div class="r-human-decision" aria-label="Agent 說完成時人的核對順序">
+          <div class="r-human-claim">Agent：<strong>「#3 做完了，單向／雙向 PASS」</strong></div>
+          <div class="r-human-checks">
+            <span><b>工作票</b>原 Goal／AC</span><span><b>候選</b>Version B／PR</span>
+            <span><b>證據</b>預期／實際</span><span><b>缺口</b>NOT RUN</span>
+          </div>
+          <div class="r-human-result"><span>Version B 補驗前：重複 Like <strong>NOT RUN</strong></span><i aria-hidden="true">→</i><b>退回補驗</b></div>
+        </div>''','html.parser').div)
+        content.select_one('.r-kicker').string='人拿原 AC、候選版本與測試證據，檢查 Agent 的「完成」宣稱。'
+        content.select_one('.r-ribbon').string='僅晴→安、雙方未 Like、UI／整合仍 NOT RUN；這些缺口未補齊前不能說整個產品完成。'
     node['data-section']=p['chapter'];node['data-page']=str(p['number']);node['data-source']=' '.join(p['ids']);node['id']=f'page-{p["number"]}'
     if p['addedId']:node['data-added-id']=p['addedId']
     if p['oldRev11Page']==7:node['data-process-stage']='0'

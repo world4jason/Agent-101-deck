@@ -1,6 +1,6 @@
 {
   "ssot": "docs/issue48-execution-storyboard.md",
-  "ssotSha256": "604911a4b0bebd6b865ab9e1e4753d9bb05a78b53b4adee696d7214546d1f7f8",
+  "ssotSha256": "ccdddc99df35f920cf2ef35d91aff9914195dd828763aef5843061ef8e2434d4",
   "baseline": {
     "path": "slides/rev11.html",
     "pages": 82,
@@ -2537,8 +2537,8 @@
       "oldRev11Page": null,
       "addedId": "A17",
       "rev10SourcePage": null,
-      "claim": "單一 Agent 接續工作先核對狀態；用 B-pre 的未測缺口示範人依 AC 退回、同一 B 版補驗 B-post、人再核對。",
-      "visual": "維持 Codex／Claude 接續比較，將冗長下方敘述改成四個短實例：Agent 交付 → 人退回 → Agent 同版補驗 → 人核對；其他組合與 UI 仍未測。",
+      "claim": "Agent 第一次交件時，B 補驗前的重複 Like 仍 NOT RUN；人依 AC 退回，Agent 用同一 B 版補驗，最後由人檢查版本與證據，UI 未測所以不發布。",
+      "visual": "保留四站，但各站只顯示角色／動作／一項證據：Agent 交件 → 人退回 → Agent 補驗 → 人核對。CLI Session 細節保存在收合區與 Notes。",
       "transition": "單 Agent 的交接與人類補驗已走完；若讓同一角色產出又評分，會出現什麼問題？",
       "sourceIds": [],
       "prerequisite": "現在有一份 B-pre 的未測缺口；下一頁讓人退回補驗，再核對同一 B 版的結果。",
@@ -2574,7 +2574,7 @@
           "path": "https://learn.chatgpt.com/docs/codex/cli"
         }
       ],
-      "notes": "- **對應：**新增頁 A17；舊 rev11 頁：無；章節 C5。\n- **教學作用：**恢復對話不會把工作檔案、分支或資料回復到舊狀態。\n- **帶走重點：**讀票 → 核對版本 → 確認未測事項；產品能力依工具與設定。\n- **圖面／示範：**主畫面用產品操作描述接續選項；精確 CLI 指令與來源只入講者筆記。\n- **主畫面訊息：**Codex 選既有對話／搜尋；Claude 接續目前目錄最近對話或選既有 session；回到後讀票、核對版本與未測項目。\n講者轉場：資料接得上後，接回角色與獨立核對的責任。\n- **規格來源：**Issue comment 7 §3 A17; parent verified official sources 2026-10-08\n- **講者筆記：**截至 2026-10-08，Codex CLI 可用 `codex resume` 開啟選擇器、`codex resume --last` 接續最近工作，或 `codex resume <SESSION_ID>` 指定 session；本機 `codex resume --help` 已核對。Claude Code 可用 `claude --continue` 或 `claude --resume <session-id>`。展示前先確認工具版本與登入狀態；恢復 session 不會回滾專案檔案或分支。兩條路都先讀票、核對版本、確認未測事項。來源：[Codex CLI](https://learn.chatgpt.com/docs/codex/cli)、[Claude Code sessions](https://code.claude.com/docs/en/sessions)、[Claude Code how it works](https://code.claude.com/docs/en/how-claude-code-works)。\n\n- **2026-10-09 G3 Blind Beginner Review 修正：** 單一 Agent 接續工作先核對狀態；用 B-pre 的未測缺口示範人依 AC 退回、同一 B 版補驗 B-post、人再核對。 維持 Codex／Claude 接續比較，將冗長下方敘述改成四個短實例：Agent 交付 → 人退回 → Agent 同版補驗 → 人核對；其他組合與 UI 仍未測。\n\n- **本輪跨頁橋接：**單 Agent 的交接與人類補驗已走完；若讓同一角色產出又評分，會出現什麼問題？"
+      "notes": "- **對應：**新增頁 A17；舊 rev11 頁：無；章節 C5。\n- **教學作用：**恢復對話不會把工作檔案、分支或資料回復到舊狀態。\n- **帶走重點：**讀票 → 核對版本 → 確認未測事項；產品能力依工具與設定。\n- **圖面／示範：**主畫面用產品操作描述接續選項；精確 CLI 指令與來源只入講者筆記。\n- **主畫面訊息：**Codex 選既有對話／搜尋；Claude 接續目前目錄最近對話或選既有 session；回到後讀票、核對版本與未測項目。\n講者轉場：資料接得上後，接回角色與獨立核對的責任。\n- **規格來源：**Issue comment 7 §3 A17; parent verified official sources 2026-10-08\n- **講者筆記：**截至 2026-10-08，Codex CLI 可用 `codex resume` 開啟選擇器、`codex resume --last` 接續最近工作，或 `codex resume <SESSION_ID>` 指定 session；本機 `codex resume --help` 已核對。Claude Code 可用 `claude --continue` 或 `claude --resume <session-id>`。展示前先確認工具版本與登入狀態；恢復 session 不會回滾專案檔案或分支。兩條路都先讀票、核對版本、確認未測事項。來源：[Codex CLI](https://learn.chatgpt.com/docs/codex/cli)、[Claude Code sessions](https://code.claude.com/docs/en/sessions)、[Claude Code how it works](https://code.claude.com/docs/en/how-claude-code-works)。\n\n- **2026-10-09 G3 Blind Beginner Review 修正：** 單一 Agent 接續工作先核對狀態；用 B-pre 的未測缺口示範人依 AC 退回、同一 B 版補驗 B-post、人再核對。 維持 Codex／Claude 接續比較，將冗長下方敘述改成四個短實例：Agent 交付 → 人退回 → Agent 同版補驗 → 人核對；其他組合與 UI 仍未測。\n\n- **本輪跨頁橋接：**單 Agent 的交接與人類補驗已走完；若讓同一角色產出又評分，會出現什麼問題？\n\n- **2026-10-11 G4 projector review：**Agent 第一次交件時，B 補驗前的重複 Like 仍 NOT RUN；人依 AC 退回，Agent 用同一 B 版補驗，最後由人檢查版本與證據，UI 未測所以不發布。 保留四站，但各站只顯示角色／動作／一項證據：Agent 交件 → 人退回 → Agent 補驗 → 人核對。CLI Session 細節保存在收合區與 Notes。 原始文件、完整證據與英文技術名稱仍留講者筆記及原 Evidence，未增造測試結果。"
     },
     {
       "number": 65,
@@ -2707,8 +2707,8 @@
       "oldRev11Page": 51,
       "addedId": null,
       "rev10SourcePage": 37,
-      "claim": "模型分配是可以依任務、成本與驗證結果調整的例子，沒有固定 routing 法則。",
-      "visual": "完整沿用交接卡，不改配對資料格式",
+      "claim": "兩 Agent 分工的難點在交接契約；Agent A 的 #3 配對規則結果，要交 Issue/PR 連結、配對格式及已測／未測，Agent B 才能用在 #2 列表。",
+      "visual": "交接卡置中放大，兩側僅是 A 產出與 B 消費；箭頭表示依賴，格式 M01、雙方使用者、測試狀態均可辨認。",
       "transition": "這次交接如果漏了一條規則呢？",
       "sourceIds": [
         "P37"
@@ -2734,7 +2734,7 @@
           "path": "drafts/rev10.html#37"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 51；source ID：P37；章節 C5。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P37。\n- **教學作用：** 不同工作需要不同輸入，但要對回同一目標。\n- **帶入方式：** 保留 Agent A 的 #3 交接卡與 Agent B 的 #2 列表任務。\n- **帶走重點：** 產物、格式、例子、未決事項必須明確。\n- **圖面／示範：** 完整沿用交接卡，不改配對資料格式\n\n畫面主句：\n\n- 共同 Goal\n- A 交格式與範例\n- B 讀交接卡與連結繼續工作\n講者轉場：這次交接如果漏了一條規則呢？\n\n- **2026-10-09 Editorial Review 修正：** 模型分配是可以依任務、成本與驗證結果調整的例子，沒有固定 routing 法則。"
+      "notes": "- **對應：**舊 rev11 頁 51；source ID：P37；章節 C5。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P37。\n- **教學作用：** 不同工作需要不同輸入，但要對回同一目標。\n- **帶入方式：** 保留 Agent A 的 #3 交接卡與 Agent B 的 #2 列表任務。\n- **帶走重點：** 產物、格式、例子、未決事項必須明確。\n- **圖面／示範：** 完整沿用交接卡，不改配對資料格式\n\n畫面主句：\n\n- 共同 Goal\n- A 交格式與範例\n- B 讀交接卡與連結繼續工作\n講者轉場：這次交接如果漏了一條規則呢？\n\n- **2026-10-09 Editorial Review 修正：** 模型分配是可以依任務、成本與驗證結果調整的例子，沒有固定 routing 法則。\n\n- **2026-10-11 G4 projector review：**兩 Agent 分工的難點在交接契約；Agent A 的 #3 配對規則結果，要交 Issue/PR 連結、配對格式及已測／未測，Agent B 才能用在 #2 列表。 交接卡置中放大，兩側僅是 A 產出與 B 消費；箭頭表示依賴，格式 M01、雙方使用者、測試狀態均可辨認。 原始文件、完整證據與英文技術名稱仍留講者筆記及原 Evidence，未增造測試結果。"
     },
     {
       "number": 69,
@@ -2747,8 +2747,8 @@
       "oldRev11Page": 52,
       "addedId": null,
       "rev10SourcePage": 38,
-      "claim": "配對 App 的協作失真是研究風險改寫的教學示意，非來源原案例。",
-      "visual": "明示研究與教學例子之間的界線。",
+      "claim": "一張 #3 工作票規定已配對再 Like 仍一筆；若交接摘要漏掉該 AC，下一位可能再建立一筆錯誤配對。",
+      "visual": "只顯示工作票 AC → 摘要缺漏 → 可能重複建配對的一條風險流程；原本的兩套衝突實作細節保留在 Storyboard／Notes。",
       "transition": "知道彼此做到哪裡，也是問題。",
       "sourceIds": [
         "P38"
@@ -2774,7 +2774,7 @@
           "path": "drafts/rev10.html#38"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 52；source ID：P38；章節 C5。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P38。\n- **教學作用：** 分工不保證彼此理解一致。\n- **帶入方式：** 保留不重複配對規則被漏、兩種實作衝突。\n- **帶走重點：** 共同來源與核對不能只靠摘要。\n- **圖面／示範：** 沿用原兩種失敗例子\n\n畫面主句：\n\n- 漏規則→錯實作\n- 不同理解→整合衝突\n- 對照原票與行為證據\n講者轉場：知道彼此做到哪裡，也是問題。\n\n- **2026-10-09 Evidence Review 精確界線：**配對 App 的協作失真是研究風險改寫的教學示意，非來源原案例。 明示研究與教學例子之間的界線。"
+      "notes": "- **對應：**舊 rev11 頁 52；source ID：P38；章節 C5。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P38。\n- **教學作用：** 分工不保證彼此理解一致。\n- **帶入方式：** 保留不重複配對規則被漏、兩種實作衝突。\n- **帶走重點：** 共同來源與核對不能只靠摘要。\n- **圖面／示範：** 沿用原兩種失敗例子\n\n畫面主句：\n\n- 漏規則→錯實作\n- 不同理解→整合衝突\n- 對照原票與行為證據\n講者轉場：知道彼此做到哪裡，也是問題。\n\n- **2026-10-09 Evidence Review 精確界線：**配對 App 的協作失真是研究風險改寫的教學示意，非來源原案例。 明示研究與教學例子之間的界線。\n\n- **2026-10-11 G4 單一失誤示例：** 一張 #3 工作票規定已配對再 Like 仍一筆；若交接摘要漏掉該 AC，下一位可能再建立一筆錯誤配對。 只顯示工作票 AC → 摘要缺漏 → 可能重複建配對的一條風險流程；原本的兩套衝突實作細節保留在 Storyboard／Notes。 此處情境非真實多 Agent 系統的事故紀錄，符合教學推演範圍。"
     },
     {
       "number": 70,
@@ -2783,13 +2783,13 @@
       "ids": [
         "P39"
       ],
-      "title": "看不到進度，可能重做規則或漏測",
+      "title": "交接卡漏掉未測，補驗可能被跳過",
       "oldRev11Page": 53,
       "addedId": null,
       "rev10SourcePage": 39,
-      "claim": "重工／資訊孤島的配對情境是風險示意，不代表研究測過本課案例。",
-      "visual": "來源僅支持風險，非 A/B Matching 實測。",
-      "transition": "每次小偏差累積後又會怎樣？",
+      "claim": "Version B 補驗前紀錄實際有「重複 Like NOT RUN」；教學假設交接卡只寫已測 PASS，下一位可能跳過重複補驗。",
+      "visual": "清楚標明原始紀錄與教學假設：原始有 NOT RUN → 交接卡只寫 PASS → 接手者可能跳過重複 Like 補驗。",
+      "transition": "未測狀態漏交仍可能使工作失敗；下一頁看目標如何逐輪偏移。",
       "sourceIds": [
         "P39"
       ],
@@ -2814,7 +2814,7 @@
           "path": "drafts/rev10.html#39"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 53；source ID：P39；章節 C5。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P39。\n- **教學作用：** 看不到工作狀態，就可能重做或漏接。\n- **帶入方式：** 沿用配對規則做兩次與不知重複 Like 是否已測的例子。\n- **帶走重點：** 外部工作狀態支援協作。\n- **圖面／示範：** 保留原來源層級，不把社群經驗當量化定律\n\n畫面主句：\n\n- 重做同一規則\n- 看不到測試進度\n- 缺少可查的共同狀態\n講者轉場：每次小偏差累積後又會怎樣？\n\n- **2026-10-09 Evidence Review 精確界線：**重工／資訊孤島的配對情境是風險示意，不代表研究測過本課案例。 來源僅支持風險，非 A/B Matching 實測。"
+      "notes": "- **對應：**舊 rev11 頁 53；source ID：P39；章節 C5。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P39。\n- **教學作用：** 看不到工作狀態，就可能重做或漏接。\n- **帶入方式：** 沿用配對規則做兩次與不知重複 Like 是否已測的例子。\n- **帶走重點：** 外部工作狀態支援協作。\n- **圖面／示範：** 保留原來源層級，不把社群經驗當量化定律\n\n畫面主句：\n\n- 重做同一規則\n- 看不到測試進度\n- 缺少可查的共同狀態\n講者轉場：每次小偏差累積後又會怎樣？\n\n- **2026-10-09 Evidence Review 精確界線：**重工／資訊孤島的配對情境是風險示意，不代表研究測過本課案例。 來源僅支持風險，非 A/B Matching 實測。\n\n- **2026-10-11 G4 單一失誤示例：** Version B 補驗前紀錄已記單向／雙向 PASS、重複 Like NOT RUN；如果交接卡沒有傳未測狀態，接手者可能重做或漏測。 現有測試紀錄 → 交接漏未測清單 → 接手者不知是否要測的一條風險流程；測試結果仍需回溯 Evidence。 此處情境非真實多 Agent 系統的事故紀錄，符合教學推演範圍。"
     },
     {
       "number": 71,
@@ -2833,7 +2833,7 @@
       "sourceIds": [
         "P40"
       ],
-      "prerequisite": "每次小偏差累積後又會怎樣？",
+      "prerequisite": "未測狀態漏交仍可能使工作失敗；下一頁看目標如何逐輪偏移。",
       "sourceCommentUrls": [
         {
           "label": "Issue #48 comment 4",
@@ -3025,8 +3025,8 @@
       "oldRev11Page": 58,
       "addedId": null,
       "rev10SourcePage": 42,
-      "claim": "五種常見協作風險，對應五種可執行的做法；英文術語在 P77–81 再逐項學。",
-      "visual": "只保留五條風險→做法的中文對照，英文僅作次要查閱標籤；由後五頁承接細節。",
+      "claim": "把前段已遇到的五種 Agent 協作風險，對成五個可執行的動作：票面狀態、核准範圍、職責、獨立查證、回對 Goal。",
+      "visual": "一張五列雙欄問題→做法的表格，移走五組英文標籤及重複文字；後續 P77–P81 才分別解釋原則。",
       "transition": "狀態應該放哪裡？",
       "sourceIds": [
         "P42"
@@ -3052,7 +3052,7 @@
           "path": "drafts/rev10.html#42"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 58；source ID：P42；章節 C5。\n- **原卡內容：**\n\n- **處理／來源：** 調整 · P42。\n- **教學作用：** 不能只記名詞，要能對回失敗例子。\n- **帶入方式：** 保留原五組問題／解法對照，將過時章碼改為問題名稱。\n- **帶走重點：** 狀態、邊界、角色、驗證、Goal 的分工。\n- **圖面／示範：** 保留五組原則並更新導覽引用；改為依條件獨立核對，不限定另一個 Agent\n\n畫面主句：\n\n- 狀態留下來\n- 範圍與角色分清楚\n- 獨立驗證並回查 Goal\n講者轉場：狀態應該放哪裡？\n\n- **2026-10-09 Editorial Review 修正：** 五個原則是本課綜合歸納，而非引用來源共同提出的正式五分類。"
+      "notes": "- **對應：**舊 rev11 頁 58；source ID：P42；章節 C5。\n- **原卡內容：**\n\n- **處理／來源：** 調整 · P42。\n- **教學作用：** 不能只記名詞，要能對回失敗例子。\n- **帶入方式：** 保留原五組問題／解法對照，將過時章碼改為問題名稱。\n- **帶走重點：** 狀態、邊界、角色、驗證、Goal 的分工。\n- **圖面／示範：** 保留五組原則並更新導覽引用；改為依條件獨立核對，不限定另一個 Agent\n\n畫面主句：\n\n- 狀態留下來\n- 範圍與角色分清楚\n- 獨立驗證並回查 Goal\n講者轉場：狀態應該放哪裡？\n\n- **2026-10-09 Editorial Review 修正：** 五個原則是本課綜合歸納，而非引用來源共同提出的正式五分類。\n\n- **2026-10-11 G4 projector review：**把前段已遇到的五種 Agent 協作風險，對成五個可執行的動作：票面狀態、核准範圍、職責、獨立查證、回對 Goal。 一張五列雙欄問題→做法的表格，移走五組英文標籤及重複文字；後續 P77–P81 才分別解釋原則。 原始文件、完整證據與英文技術名稱仍留講者筆記及原 Evidence，未增造測試結果。"
     },
     {
       "number": 77,
@@ -3377,8 +3377,8 @@
       "oldRev11Page": 65,
       "addedId": null,
       "rev10SourcePage": 50,
-      "claim": "同一個 Agent 可以協助規劃等職能，不把 PM 與 PO 當成兩隻 Agent 的硬性配置。",
-      "visual": "沿用原對照",
+      "claim": "人先說清 Matching #3 要解決的事，Agent 才整理工作票 Scope／AC／AT，方向和優先順序由人再次確認。",
+      "visual": "人定方向 → Agent 整理票 → 人確認才交 Dev 的三站流程，保留 Goal 成果，取消傳統／Agent 的並列長篇逐字稿。",
       "transition": "Refinement 裡的 Example Mapping 又怎麼用 AI？",
       "sourceIds": [
         "P50"
@@ -3404,7 +3404,7 @@
           "path": "drafts/rev10.html#50"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 65；source ID：P50；章節 C6。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P50。\n- **教學作用：** Agent 可以協助整理，但方向要有人的背景與意圖。\n- **帶入方式：** 保留傳統／Agent 對照與人提供背景、目標、優先序。\n- **帶走重點：** Agent 整理 Goal 與票面；人確認方向。\n- **圖面／示範：** 沿用原對照\n\n畫面主句：\n\n- 人提供背景與目標\n- Agent 整理問題與範圍\n- 決議可對回原意圖\n講者轉場：Refinement 裡的 Example Mapping 又怎麼用 AI？\n\n- **2026-10-09 Editorial Review 修正：** 同一個 Agent 可以協助規劃等職能，不把 PM 與 PO 當成兩隻 Agent 的硬性配置。"
+      "notes": "- **對應：**舊 rev11 頁 65；source ID：P50；章節 C6。\n- **原卡內容：**\n\n- **處理／來源：** 沿用 · P50。\n- **教學作用：** Agent 可以協助整理，但方向要有人的背景與意圖。\n- **帶入方式：** 保留傳統／Agent 對照與人提供背景、目標、優先序。\n- **帶走重點：** Agent 整理 Goal 與票面；人確認方向。\n- **圖面／示範：** 沿用原對照\n\n畫面主句：\n\n- 人提供背景與目標\n- Agent 整理問題與範圍\n- 決議可對回原意圖\n講者轉場：Refinement 裡的 Example Mapping 又怎麼用 AI？\n\n- **2026-10-09 Editorial Review 修正：** 同一個 Agent 可以協助規劃等職能，不把 PM 與 PO 當成兩隻 Agent 的硬性配置。\n\n- **2026-10-11 G4 projector review：**人先說清 Matching #3 要解決的事，Agent 才整理工作票 Scope／AC／AT，方向和優先順序由人再次確認。 人定方向 → Agent 整理票 → 人確認才交 Dev 的三站流程，保留 Goal 成果，取消傳統／Agent 的並列長篇逐字稿。 原始文件、完整證據與英文技術名稱仍留講者筆記及原 Evidence，未增造測試結果。"
     },
     {
       "number": 86,
@@ -3417,8 +3417,8 @@
       "oldRev11Page": 66,
       "addedId": null,
       "rev10SourcePage": null,
-      "claim": "Given–When–Then（GWT）縮寫初見就提供白話。",
-      "visual": "同一 Example Mapping：左側已確認規則/例子，右側 AI 候選/問題，待決事項可見。",
+      "claim": "Example Mapping 中 AI 可提單向 Like 情境，人依規則判預期 0 筆，再讓 AI 將共識寫成 Given–When–Then；取消 Like 是待決事項，不自行加到 AC。",
+      "visual": "AI 提例子 → 人確定預期 → AI 記成 AT 的三站；未確認的取消 Like 獨立放在待決列，避免同時讀三段完整會議記錄。",
       "transition": "把已確認的工作變成一次有範圍、有停止點的單 Agent 委託。",
       "sourceIds": [
         "E02"
@@ -3440,7 +3440,7 @@
           "path": "docs/issue48-execution-storyboard.md"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 66；source ID：E02。 章節 C6。\n- **教學作用：**示範 AI 在 Example Mapping 的協助位置，保留人對需求的決定權。\n- **帶入方式：**左側為已確認的 #3 規則和例子；右側為 AI 提出的候選和疑問，未確認內容留待決區。\n- **帶走重點：**AI 可以提候選、轉寫與抓漏；只有人確認後才進 AC。\n- **圖面／示範：**同一場 Example Mapping 的前後兩欄。\n\n畫面主句：\n\n- AI 協助整理與提問，未確認的推測不會自動成為需求。\n講者轉場：把已確認的工作變成一次有範圍、有停止點的單 Agent 委託。\n\n- **2026-10-09 Editorial Review 修正：** Given–When–Then（GWT）縮寫初見就提供白話。"
+      "notes": "- **對應：**舊 rev11 頁 66；source ID：E02。 章節 C6。\n- **教學作用：**示範 AI 在 Example Mapping 的協助位置，保留人對需求的決定權。\n- **帶入方式：**左側為已確認的 #3 規則和例子；右側為 AI 提出的候選和疑問，未確認內容留待決區。\n- **帶走重點：**AI 可以提候選、轉寫與抓漏；只有人確認後才進 AC。\n- **圖面／示範：**同一場 Example Mapping 的前後兩欄。\n\n畫面主句：\n\n- AI 協助整理與提問，未確認的推測不會自動成為需求。\n講者轉場：把已確認的工作變成一次有範圍、有停止點的單 Agent 委託。\n\n- **2026-10-09 Editorial Review 修正：** Given–When–Then（GWT）縮寫初見就提供白話。\n\n- **2026-10-11 G4 projector review：**Example Mapping 中 AI 可提單向 Like 情境，人依規則判預期 0 筆，再讓 AI 將共識寫成 Given–When–Then；取消 Like 是待決事項，不自行加到 AC。 AI 提例子 → 人確定預期 → AI 記成 AT 的三站；未確認的取消 Like 獨立放在待決列，避免同時讀三段完整會議記錄。 原始文件、完整證據與英文技術名稱仍留講者筆記及原 Evidence，未增造測試結果。"
     },
     {
       "number": 87,
@@ -3497,8 +3497,8 @@
       "oldRev11Page": 69,
       "addedId": null,
       "rev10SourcePage": null,
-      "claim": "Agent 自述 PASS 不代表全過：B-pre 交付包包含原 AC、同一候選版本、已驗預期／實際與明列的 NOT RUN。",
-      "visual": "兩欄先展示真正的 B-pre 交付包，再由人按 AC 逐項對照決定；原始 B-pre 證據可從講者筆記開啟。",
+      "claim": "Agent 宣稱 #3 PASS，人的驗收需回到 Goal/AC、Version B、預期／實際證據與未測清單；補驗前重複 Like NOT RUN 應退回，UI 等也未完成。",
+      "visual": "放大 Agent 的宣稱，四項證據檢查改成簡短欄位，下方用補驗前 NOT RUN → 退回的具體決定作視覺主角。",
       "transition": "若交付包缺少重複情境證據，學員要怎樣明確要求補驗？",
       "sourceIds": [
         "N18"
@@ -3520,7 +3520,7 @@
           "path": "docs/issue48-execution-storyboard.md"
         }
       ],
-      "notes": "- **對應：**舊 rev11 頁 69；source ID：N18；章節 C6。\n- **原卡內容：**\n\n- **處理／來源：** 新增 · N18。\n- **教學作用：** 多 Agent 分工後，完成摘要可能很漂亮，但缺少關鍵證據或偏離原 Goal。\n- **帶入方式：** #3 交付包：原需求、版本、驗證結果、未解問題；人逐項對照後接受或退回並說明原因。\n- **帶走重點：** 把前面的驗收方法搬到 Agent 協作；不要求所有 PR 一律人工逐行重審，也不只信任 Agent 自評。\n- **圖面／示範：** 展示同一張 #3 的交付包與人的判定理由；不以 Agent 的 PASS 摘要取代前面學的驗收。\n\n畫面主句：\n\n- 原需求與交付版本是否對得上？\n- 每條 AC 有沒有實際結果與證據？\n- 還有哪些未解問題，現在接受、退回或暫停？\n講者轉場：若交付包缺少重複情境證據，學員要怎樣明確要求補驗？\n\n- **2026-10-09 G3 Blind Beginner Review 修正：** Agent 自述 PASS 不代表全過：B-pre 交付包包含原 AC、同一候選版本、已驗預期／實際與明列的 NOT RUN。 兩欄先展示真正的 B-pre 交付包，再由人按 AC 逐項對照決定；原始 B-pre 證據可從講者筆記開啟。"
+      "notes": "- **對應：**舊 rev11 頁 69；source ID：N18；章節 C6。\n- **原卡內容：**\n\n- **處理／來源：** 新增 · N18。\n- **教學作用：** 多 Agent 分工後，完成摘要可能很漂亮，但缺少關鍵證據或偏離原 Goal。\n- **帶入方式：** #3 交付包：原需求、版本、驗證結果、未解問題；人逐項對照後接受或退回並說明原因。\n- **帶走重點：** 把前面的驗收方法搬到 Agent 協作；不要求所有 PR 一律人工逐行重審，也不只信任 Agent 自評。\n- **圖面／示範：** 展示同一張 #3 的交付包與人的判定理由；不以 Agent 的 PASS 摘要取代前面學的驗收。\n\n畫面主句：\n\n- 原需求與交付版本是否對得上？\n- 每條 AC 有沒有實際結果與證據？\n- 還有哪些未解問題，現在接受、退回或暫停？\n講者轉場：若交付包缺少重複情境證據，學員要怎樣明確要求補驗？\n\n- **2026-10-09 G3 Blind Beginner Review 修正：** Agent 自述 PASS 不代表全過：B-pre 交付包包含原 AC、同一候選版本、已驗預期／實際與明列的 NOT RUN。 兩欄先展示真正的 B-pre 交付包，再由人按 AC 逐項對照決定；原始 B-pre 證據可從講者筆記開啟。\n\n- **2026-10-11 G4 projector review：**Agent 宣稱 #3 PASS，人的驗收需回到 Goal/AC、Version B、預期／實際證據與未測清單；補驗前重複 Like NOT RUN 應退回，UI 等也未完成。 放大 Agent 的宣稱，四項證據檢查改成簡短欄位，下方用補驗前 NOT RUN → 退回的具體決定作視覺主角。 原始文件、完整證據與英文技術名稱仍留講者筆記及原 Evidence，未增造測試結果。"
     },
     {
       "number": 89,

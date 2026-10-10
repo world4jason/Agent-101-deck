@@ -85,14 +85,16 @@ class Narrative(unittest.TestCase):
         self.assertIn("session",text(61).lower())
         self.assertIn("人",text(64))
         self.assertIn("Version B 補驗後",text(64))
-        self.assertIn("產出又自評",text(64))
+        self.assertIn("產出與自評",text(64))
 
     def test_same_matching_story_carries_into_workflow(self):
         self.assertEqual(len(slides[67].select(".r-multi-agent-compare article")),2)
         self.assertIn("#3",text(67))
         self.assertIn("#2",text(67))
         self.assertIn("漏",rows[68]["title"]+" "+text(69))
-        self.assertIn("看不到",text(70))
+        self.assertIn("教學假設",text(70))
+        self.assertIn("重複 Like NOT RUN",text(70))
+        self.assertIn("跳過重複 Like 補驗",text(70))
         self.assertIn("原始目標",text(71))
         self.assertEqual(len(slides[72].select(".r-flow > .r-card")),3)
         self.assertTrue(all(term in text(72) for term in ["不重複配對","已測／未測","Goal","Workflow"]))

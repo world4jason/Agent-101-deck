@@ -201,6 +201,8 @@
 
 **對應 Issue：**[#51 標題與畫面對齊](https://github.com/world4jason/Agent-101-deck/issues/51)、[#53 主畫面／Notes／Evidence 分層](https://github.com/world4jason/Agent-101-deck/issues/53)、[#54 演練與學習遷移](https://github.com/world4jason/Agent-101-deck/issues/54)、**[#55 G4／G5 視覺驗收](https://github.com/world4jason/Agent-101-deck/issues/55)**。此處是長期準則，執行狀態與未通過頁面追蹤在 #55。
 
+**G4 改版實例：**[2026-10-11｜八頁實際投影片 Before／After、全 107 頁總覽、獨立審查及 P1 修復](docs/reviews/issue57-fullvisual-20261011/README.md)。工程 PASS 與真正的授課理解仍分開判斷。
+
 ### 教材 PR 的五道必要 Quality Gates
 
 > 以下是 P1–P17 的**執行流程**，不是另一套彼此競爭的原則。每道關卡都要記錄審查版本、涵蓋範圍、結果與證據；未執行寫 **NOT RUN**，不能用其他關卡的 PASS 代替。

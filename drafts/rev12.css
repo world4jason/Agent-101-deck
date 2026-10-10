@@ -1329,3 +1329,251 @@
 .rev12-draft #page-67 .r-multi-agent-compare small {
   font:520 20px/1.35 system-ui;color:#adcadf;
 }
+
+/* Projector-first G4: replace mini-text walls with one learnable decision path.
+   Original artifacts and references stay in Storyboard/Notes/Evidence. */
+.rev12-draft #page-64 .r-review-timeline {
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px;
+  min-height:310px;flex:1 1 auto;align-items:stretch;
+}
+.rev12-draft #page-64 .r-review-timeline article {
+  display:flex;flex-direction:column;justify-content:center;
+  min-height:270px;gap:19px;padding:23px 20px;
+  border:1px solid #4e7090;border-top:5px solid #7ab9ee;
+  border-radius:12px;background:#13253a;
+}
+.rev12-draft #page-64 .r-review-timeline article.human {
+  border-top-color:#9bd6ab;background:#182e25;
+}
+.rev12-draft #page-64 .r-review-timeline article > span {
+  color:#accde9;font:750 20px/1.24 system-ui;
+}
+.rev12-draft #page-64 .r-review-timeline article > strong {
+  color:#fff;font:850 39px/1.12 system-ui;
+}
+.rev12-draft #page-64 .r-review-timeline article > p {
+  color:#daeafa;font:650 23px/1.35 system-ui;margin:0;
+}
+.rev12-draft #page-64 .r-review-timeline article > b {
+  color:#f8dc9c;font:740 21px/1.31 system-ui;
+}
+.rev12-draft #page-64 .r-review-timeline article.human > b {color:#beecd0;}
+.rev12-draft #page-64 .r-session-reference {
+  flex:0 0 auto;max-width:920px;align-self:center;font-size:17px;
+}
+.rev12-draft #page-64 .r-ribbon {font-size:19px;line-height:1.36;}
+
+/* Contract occupies the visual center of the multi-agent handoff. */
+.rev12-draft #page-68 .r-handoff-scene {
+  display:flex;flex-direction:column;justify-content:center;gap:25px;
+  width:100%;min-height:0;height:100%;
+}
+.rev12-draft #page-68 .r-handoff-goal {
+  padding:14px 20px;border-bottom:2px solid #6b9a78;
+  text-align:center;color:#d3f1da;font:770 29px/1.25 system-ui;margin:0;
+}
+.rev12-draft #page-68 .r-handoff-main {
+  display:grid;grid-template-columns:minmax(0,1fr) 33px minmax(0,1.34fr) 33px minmax(0,1fr);
+  gap:9px;align-items:center;min-height:300px;
+}
+.rev12-draft #page-68 .r-handoff-main section {
+  display:flex;flex-direction:column;justify-content:center;gap:20px;
+  min-height:290px;padding:23px 18px;
+  border:1px solid #496787;border-top:5px solid #81bafa;
+  border-radius:10px;background:#132439;
+}
+.rev12-draft #page-68 .r-handoff-contract {
+  border-top-color:#91dbaa!important;background:#192c25!important;
+}
+.rev12-draft #page-68 .r-handoff-main small {
+  color:#a9cbea;font:720 21px/1.28 system-ui;
+}
+.rev12-draft #page-68 .r-handoff-main strong {
+  color:#f2f9ff;font:790 28px/1.25 system-ui;
+}
+.rev12-draft #page-68 .r-handoff-main p {
+  color:#d0e2ef;font:600 21px/1.36 system-ui;margin:0;
+}
+.rev12-draft #page-68 .r-handoff-arrow {
+  color:#acd0f1;text-align:center;font:820 39px/1 system-ui;
+}
+.rev12-draft #page-68 .r-handoff-contract ul {
+  margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px;
+}
+.rev12-draft #page-68 .r-handoff-contract li {
+  display:grid;grid-template-columns:60px minmax(0,1fr);gap:10px;
+  align-items:start;
+  font:540 19px/1.33 system-ui;color:#dae9e0;
+}
+.rev12-draft #page-68 .r-handoff-contract li b {color:#aaedbf;font-weight:770;}
+.rev12-draft #page-68 .r-handoff-caution {
+  margin:0;padding:13px 16px;border-left:4px solid #e8c784;border-radius:6px;
+  background:#292519;color:#ffe4b1;font:650 21px/1.3 system-ui;
+}
+
+/* Five actionable risk→action pairs are a readable table, not ten cards. */
+.rev12-draft #page-76 .r-five-fixes {
+  display:flex;flex-direction:column;justify-content:center;gap:18px;
+  width:100%;height:100%;min-height:0;
+}
+.rev12-draft #page-76 .r-five-fixes-head {
+  display:grid;grid-template-columns:1fr 1fr;gap:55px;
+  color:#9cbddc;padding:2px 24px;
+  font:720 19px/1.25 system-ui;
+}
+.rev12-draft #page-76 .r-five-fixes-head strong {font-weight:720;}
+.rev12-draft #page-76 .r-five-fixes ol {
+  list-style:none;counter-reset:five;display:flex;flex-direction:column;
+  margin:0;padding:0;gap:7px;flex:1 1 auto;justify-content:center;
+}
+.rev12-draft #page-76 .r-five-fixes li {
+  display:grid;grid-template-columns:1fr 60px 1fr;
+  align-items:center;gap:15px;padding:15px 24px;
+  border-bottom:1px solid #3f5f7c;background:#142236;
+  min-height:71px;counter-increment:five;
+}
+.rev12-draft #page-76 .r-five-fixes li > span {
+  color:#e2eaf5;font:630 25px/1.2 system-ui;
+}
+.rev12-draft #page-76 .r-five-fixes li > i {
+  color:#86b9e9;text-align:center;font:760 27px/1 system-ui;font-style:normal;
+}
+.rev12-draft #page-76 .r-five-fixes li > strong {
+  color:#c7f1d5;font:760 26px/1.23 system-ui;
+}
+.rev12-draft #page-76 .r-five-fixes > p {
+  margin:0;color:#b3cddd;font:540 18px/1.3 system-ui;
+}
+
+/* Planning path: human direction → agent draft → human decision. */
+.rev12-draft #page-85 .r-planning-route {
+  display:flex;flex-direction:column;justify-content:center;gap:34px;
+  width:100%;height:100%;min-height:0;
+}
+.rev12-draft #page-85 .r-planning-goal {
+  margin:0;padding:19px;border-bottom:2px solid #7baa98;
+  font:760 28px/1.3 system-ui;color:#e0f5e7;text-align:center;
+}
+.rev12-draft #page-85 .r-planning-main {
+  display:grid;grid-template-columns:1fr 35px 1fr 35px 1fr;gap:9px;align-items:center;
+}
+.rev12-draft #page-85 .r-planning-main article {
+  display:flex;flex-direction:column;justify-content:center;gap:20px;
+  min-height:250px;padding:24px 18px;
+  border:1px solid #527291;border-top:5px solid #82b6ed;
+  border-radius:11px;background:#15263a;
+}
+.rev12-draft #page-85 .r-planning-main article.r-planning-agent {border-top-color:#e5cb88;background:#28271d;}
+.rev12-draft #page-85 .r-planning-main article.r-planning-human {border-top-color:#91d4aa;background:#182e25;}
+.rev12-draft #page-85 .r-planning-main small {font:750 21px/1.2 system-ui;color:#aecfe8;}
+.rev12-draft #page-85 .r-planning-main strong {font:810 29px/1.22 system-ui;color:#fff;}
+.rev12-draft #page-85 .r-planning-main p {font:550 21px/1.34 system-ui;color:#d2e4f2;margin:0;}
+.rev12-draft #page-85 .r-planning-main i {color:#a2c9ed;text-align:center;font:780 35px/1 system-ui;font-style:normal;}
+.rev12-draft #page-85 .r-planning-note {
+  margin:0;color:#c3dcee;font:610 21px/1.35 system-ui;
+  padding:14px 17px;background:#142638;border-left:4px solid #8abdf0;border-radius:6px;
+}
+
+/* Example Mapping: the AI proposes, the human settles the behavior. */
+.rev12-draft #page-86 .r-example-lane {
+  display:flex;flex-direction:column;justify-content:center;gap:28px;
+  flex:1 1 auto;min-height:0;
+}
+.rev12-draft #page-86 .r-example-context {
+  color:#d0eeda;text-align:center;font:740 26px/1.3 system-ui;
+  padding:15px;border-bottom:2px solid #719c83;
+}
+.rev12-draft #page-86 .r-example-steps {
+  display:grid;grid-template-columns:1fr 32px 1fr 32px 1fr;gap:10px;align-items:center;
+}
+.rev12-draft #page-86 .r-example-steps article {
+  display:flex;flex-direction:column;justify-content:center;gap:19px;
+  min-height:235px;padding:24px;border:1px solid #4b6b8b;
+  border-top:5px solid #81b9ed;border-radius:9px;background:#14273b;
+}
+.rev12-draft #page-86 .r-example-steps article.r-example-human {
+  background:#182e24;border-top-color:#92dba9;
+}
+.rev12-draft #page-86 .r-example-steps small {color:#add2ef;font:720 21px/1.23 system-ui;}
+.rev12-draft #page-86 .r-example-steps strong {color:#f0f8ff;font:800 28px/1.25 system-ui;}
+.rev12-draft #page-86 .r-example-steps > i {font:800 34px/1 system-ui;color:#a2cbea;font-style:normal;text-align:center;}
+.rev12-draft #page-86 .r-example-pending {
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:18px;border-radius:7px;border-left:4px solid #edd192;background:#282519;
+}
+.rev12-draft #page-86 .r-example-pending > span {font:600 21px/1.28 system-ui;color:#f0ddbb;}
+.rev12-draft #page-86 .r-example-pending > strong {font:770 21px/1.28 system-ui;color:#f5e1ac;}
+
+/* Human acceptance: let the missing test dominate, not a long policy memo. */
+.rev12-draft #page-88 .r-human-decision {
+  display:flex;flex-direction:column;justify-content:center;
+  gap:28px;flex:1 1 auto;min-height:0;
+}
+.rev12-draft #page-88 .r-human-claim {
+  background:#142a40;border:1px solid #456b8f;
+  padding:20px 25px;border-radius:9px;
+  font:720 25px/1.3 system-ui;color:#c9e4f8;
+}
+.rev12-draft #page-88 .r-human-claim strong {font:800 33px/1.22 system-ui;color:#f5faff;}
+.rev12-draft #page-88 .r-human-checks {
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;
+}
+.rev12-draft #page-88 .r-human-checks > span {
+  display:flex;flex-direction:column;justify-content:center;gap:12px;
+  min-height:115px;padding:19px 16px;
+  border:1px solid #496985;border-top:4px solid #89b8ef;
+  border-radius:7px;background:#15263a;
+  font:650 19px/1.31 system-ui;color:#cee2f5;
+}
+.rev12-draft #page-88 .r-human-checks b {font:770 24px/1.18 system-ui;color:#f1f8ff;}
+.rev12-draft #page-88 .r-human-result {
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  padding:21px 25px;border-radius:10px;background:#31261f;border:1px solid #b68a64;
+}
+.rev12-draft #page-88 .r-human-result > span {font:630 23px/1.3 system-ui;color:#f7e5d1;}
+.rev12-draft #page-88 .r-human-result > span strong {color:#fbd795;}
+.rev12-draft #page-88 .r-human-result i {font:780 32px/1 system-ui;color:#f2c59a;font-style:normal;}
+.rev12-draft #page-88 .r-human-result > b {font:790 31px/1.3 system-ui;color:#ffe2bd;}
+.rev12-draft #page-88 .r-ribbon {font-size:19px;}
+
+/* P69/70 form a deliberate pair: one missing rule, then one missing status.
+   P71 adds goal drift and P72 maps each problem to a workflow action. */
+.rev12-draft #page-69 .r-risk-scene,
+.rev12-draft #page-70 .r-risk-scene {
+  display:flex;flex-direction:column;justify-content:center;gap:30px;
+  width:100%;height:100%;min-height:0;
+}
+.rev12-draft .r-risk-case {
+  padding:12px 19px;margin:0;text-align:center;color:#d2edda;
+  border-bottom:2px solid #608b78;font:700 26px/1.31 system-ui;
+}
+.rev12-draft .r-risk-track {
+  display:grid;grid-template-columns:minmax(0,1fr) 32px minmax(0,1fr) 32px minmax(0,1fr);
+  gap:10px;align-items:center;width:100%;
+}
+.rev12-draft .r-risk-track section {
+  display:flex;flex-direction:column;justify-content:center;
+  gap:25px;min-height:264px;padding:26px 21px;
+  background:#15263a;border:1px solid #4a6e92;
+  border-top:5px solid #82bbeb;border-radius:11px;
+}
+.rev12-draft .r-risk-track section.r-risk-missing {
+  background:#2a251b;border-top-color:#e9cd8e;
+}
+.rev12-draft .r-risk-track section.r-risk-consequence {
+  background:#32201f;border-top-color:#f4aaa1;
+}
+.rev12-draft .r-risk-track section small {
+  color:#b3cde3;font:740 21px/1.28 system-ui;
+}
+.rev12-draft .r-risk-track section strong {
+  color:#f3f9ff;font:790 33px/1.28 system-ui;
+}
+.rev12-draft .r-risk-track > i {
+  color:#aed3ef;font:820 34px/1 system-ui;
+  font-style:normal;text-align:center;
+}
+.rev12-draft .r-risk-note {
+  margin:0;padding:15px 19px;border-left:4px solid #91c7ed;border-radius:6px;
+  background:#172c40;color:#d8eafa;font:620 23px/1.37 system-ui;
+}
