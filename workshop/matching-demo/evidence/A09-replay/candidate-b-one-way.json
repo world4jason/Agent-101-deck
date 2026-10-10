@@ -1,0 +1,64 @@
+{
+  "actions": [
+    {
+      "actor": "an",
+      "target": "qing"
+    }
+  ],
+  "actual": {
+    "before_match_count": 0,
+    "before_match_records": [],
+    "likes": [
+      [
+        "an",
+        "qing"
+      ]
+    ],
+    "match_count": 0,
+    "match_records": []
+  },
+  "artifact": "evidence/A09-replay/working/matching.py",
+  "artifact_sha256": "0415bddc460265e1ef7c91fe96859b3a507cb345d2edd25ddccf6f061fbfc682",
+  "before": {
+    "likes": [],
+    "matches": [],
+    "users": [
+      {
+        "id": "an",
+        "name": "小安"
+      },
+      {
+        "id": "qing",
+        "name": "小晴"
+      }
+    ]
+  },
+  "candidate_id": "B",
+  "case": "one-way",
+  "expected": {
+    "before_match_count": 0,
+    "before_match_records": [],
+    "match_count": 0,
+    "match_records": []
+  },
+  "fixture": "fixtures/users.json",
+  "reset_state": {
+    "likes": [],
+    "matches": [],
+    "users": [
+      {
+        "id": "an",
+        "name": "小安"
+      },
+      {
+        "id": "qing",
+        "name": "小晴"
+      }
+    ]
+  },
+  "setup_actions": [],
+  "status": "PASS",
+  "teaching_environment": true,
+  "ui_and_product_integration": "NOT RUN",
+  "validation_layer": "Matching #3 rules and records"
+}

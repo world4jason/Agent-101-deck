@@ -2,7 +2,8 @@
   "name": "agent-101-deck",
   "private": true,
   "scripts": {
-    "check:rev11": "node scripts/check_rev11.cjs"
+    "check:rev11": "node scripts/check_rev11.cjs",
+    "check:rev12": "node scripts/check_rev12.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

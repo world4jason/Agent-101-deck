@@ -1,0 +1,840 @@
+.rev12-draft .r-worktable {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  width: min(100%, 1180px);
+  margin: auto;
+}
+.rev12-draft .r-worktable section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 23px 25px;
+  border: 1px solid #3b5674;
+  border-top: 4px solid #83bcff;
+  border-radius: 12px;
+  background: #121c28;
+}
+.rev12-draft .r-worktable section.not-on-desk {
+  border-color: #6b5c3d;
+  border-top-color: #f2cf76;
+  background: #201d15;
+}
+.rev12-draft .r-worktable b { color: #c8e2ff; font-size: 23px; }
+.rev12-draft .r-worktable .not-on-desk b { color: #f2cf76; }
+.rev12-draft .r-worktable span {
+  display: block;
+  padding: 10px 13px;
+  border: 1px solid #2b3a4c;
+  border-radius: 8px;
+  background: #0e161f;
+  color: #e4ebf3;
+  font-size: 21px;
+  line-height: 1.4;
+}
+.rev12-draft .r-worktable .not-on-desk span { border-color: #574b34; background: #19170f; }
+.rev12-draft .r-note-prerequisite {
+  margin: 12px 0;
+  padding: 12px 15px;
+  border-left: 3px solid #83bcff;
+  background: #152334;
+  color: #d6e8fc;
+  white-space: pre-wrap;
+}
+.rev12-draft .r-process-stepper,
+.rev12-draft .r-wip-trigger,
+.rev12-draft .r-wip-sequence button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border: 1px solid #476486;
+  border-radius: 8px;
+  background: #172a3d;
+  color: #d8eaff;
+  font: 700 17px/1.4 system-ui, sans-serif;
+  padding: 9px 14px;
+}
+.rev12-draft .r-process-stepper { flex: 0 0 auto; margin: 0; }
+.rev12-draft .r-process-stepper [data-process-note] { color: #d6e8fc; }
+.rev12-draft .r-process-stepper button,
+.rev12-draft .r-wip-sequence button,
+.rev12-draft .r-wip-trigger { cursor: pointer; }
+.rev12-draft .r-process-stepper button:disabled { opacity: .65; cursor: default; }
+.rev12-draft .slide[data-process-stage="0"] .flow-lane:not(:last-of-type),
+.rev12-draft .slide[data-process-stage="1"] .flow-lane:not(:last-of-type),
+.rev12-draft .slide[data-process-stage="0"] .flow-path:not([d*="510"]),
+.rev12-draft .slide[data-process-stage="1"] .flow-path:not([d*="510"]),
+.rev12-draft .slide[data-process-stage="0"] .flow-branch:not([d*="510"]),
+.rev12-draft .slide[data-process-stage="1"] .flow-branch:not([d*="510"]) { display: none; }
+.rev12-draft .slide[data-process-stage="0"] .flow-return-step { opacity: 0 !important; visibility: hidden !important; }
+.rev12-draft .slide[data-process-stage="0"] .flow-reanchor,
+.rev12-draft .slide[data-process-stage="0"] .flow-reanchor-label,
+.rev12-draft .slide[data-process-stage="1"] .flow-reanchor:not([d*="528"]):not([d*="1280"]) { display: none; }
+.rev12-draft .slide[data-process-stage="1"] .flow-return-step { opacity: 1 !important; visibility: visible !important; }
+.rev12-draft .slide[data-wip-stage="compare"] > .visual,
+.rev12-draft .slide[data-wip-stage="compare"] > .draft-source,
+.rev12-draft .slide[data-wip-stage="compare"] > .r-revision,
+.rev12-draft .slide[data-wip-stage="compare"] > .r-wip-trigger { display: none; }
+.rev12-draft .slide[data-added-id="A13"][data-wip-stage="compare"] > .r-content { display: none; }
+
+/* Candidate P99 keeps Human Gate on the Product Check → Done transition. */
+.rev12-draft .recap-board { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.rev12-draft .recap-board > .board-parent { flex-wrap: wrap; gap: 4px 12px; }
+.rev12-draft .recap-board .human-gate-transition { color: var(--muted); font-size: 14px; font-weight: 700; text-align: right; }
+.rev12-draft .recap-board:has(.move-6.visible) .human-gate-transition { color: var(--yellow); font-weight: 900; }
+.rev12-draft .recap-board:has(.move-7.visible) .human-gate-transition { color: var(--green); font-weight: 900; }
+.rev12-draft .recap-board:has(.move-6.visible) .moving-ticket { grid-column: 6; }
+.rev12-draft .recap-board:has(.move-7.visible) .moving-ticket { grid-column: 7; }
+.rev12-draft .recap-board:has(.move-6.visible):not(:has(.move-7.visible)) > div:nth-of-type(2),
+.rev12-draft .recap-board:has(.move-6.visible):not(:has(.move-7.visible)) > div:nth-of-type(3),
+.rev12-draft .recap-board:has(.move-6.visible):not(:has(.move-7.visible)) > div:nth-of-type(4),
+.rev12-draft .recap-board:has(.move-6.visible):not(:has(.move-7.visible)) > div:nth-of-type(5),
+.rev12-draft .recap-board:has(.move-6.visible):not(:has(.move-7.visible)) > div:nth-of-type(6),
+.rev12-draft .recap-board:has(.move-6.visible):not(:has(.move-7.visible)) > div:nth-of-type(8),
+.rev12-draft .recap-board:has(.move-7.visible) > div:nth-of-type(2),
+.rev12-draft .recap-board:has(.move-7.visible) > div:nth-of-type(3),
+.rev12-draft .recap-board:has(.move-7.visible) > div:nth-of-type(4),
+.rev12-draft .recap-board:has(.move-7.visible) > div:nth-of-type(5),
+.rev12-draft .recap-board:has(.move-7.visible) > div:nth-of-type(6),
+.rev12-draft .recap-board:has(.move-7.visible) > div:nth-of-type(7) {
+  border-color: var(--line);
+  background: #101923;
+  box-shadow: none;
+}
+.rev12-draft .recap-board:has(.move-6.visible):not(:has(.move-7.visible)) > div:nth-of-type(7),
+.rev12-draft .recap-board:has(.move-7.visible) > div:nth-of-type(8) {
+  border-color: var(--blue);
+  background: #172b3e;
+  box-shadow: 0 0 0 1px #83bcff55;
+}
+@media (max-width: 950px) {
+  .rev12-draft .recap-board:has(.move-6.visible) .moving-ticket { order: 13; }
+  .rev12-draft .recap-board:has(.move-7.visible) .moving-ticket { order: 15; }
+}
+.rev12-draft .r-wip-sequence[hidden] { display: none !important; }
+.rev12-draft .slide[data-wip-stage="compare"] .r-wip-sequence { display: flex; }
+.rev12-draft .r-wip-sequence {
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+}
+.rev12-draft .r-wip-sequence .r-kicker { font-size: 22px; }
+.rev12-draft .r-wip-sequence .r-grid4 { gap: 14px; }
+.rev12-draft .r-wip-sequence .r-card { padding: 18px 22px; }
+.rev12-draft .r-wip-sequence .r-card h2 { font-size: 24px; margin-bottom: 10px; }
+.rev12-draft .r-wip-sequence .r-body { font-size: 19px; line-height: 1.45; }
+.rev12-draft .r-wip-sequence button { align-self: flex-end; }
+.rev12-draft .r-loop-back {
+  align-self: center;
+  width: max-content;
+  max-width: 100%;
+  margin: -8px 0 0;
+  color: #f2cf76;
+  font-size: 21px;
+}
+.rev12-draft .r-loop-back b { font-size: 32px; padding-right: 9px; }
+.rev12-draft .slide[data-added-id="A09"] .r-card { padding: 19px 20px; }
+.rev12-draft .slide[data-added-id="A09"] .r-card h2 { font-size: 23px; margin-bottom: 11px; }
+.rev12-draft .slide[data-added-id="A09"] .r-body { font-size: 18px; line-height: 1.42; }
+.rev12-draft .slide[data-added-id="A09"] .r-body code { font-size: 17px; }
+.rev12-draft .slide[data-added-id="A09"] .r-ribbon { font-size: 20px; padding: 13px 16px; }
+.rev12-draft .slide[data-added-id="A06"] .r-card { padding: 22px 24px; }
+.rev12-draft .slide[data-added-id="A06"] .r-body { font-size: 21px; }
+.rev12-draft .slide[data-added-id="A07"] .r-meta { font-size: 16px; line-height: 1.38; }
+.rev12-draft .slide[data-added-id="A11"] .r-worktable span { font-size: 18px; }
+@media print {
+  .rev12-draft .slide[data-process-stage] .flow-lane,
+  .rev12-draft .slide[data-process-stage] .flow-path,
+  .rev12-draft .slide[data-process-stage] .flow-step,
+  .rev12-draft .slide[data-process-stage] .flow-focus { opacity: 1 !important; visibility: visible !important; }
+  .rev12-draft .slide[data-process-stage] .flow-lane,
+  .rev12-draft .slide[data-process-stage] .flow-path,
+  .rev12-draft .slide[data-process-stage] .flow-reanchor,
+  .rev12-draft .slide[data-process-stage] .flow-branch,
+  .rev12-draft .slide[data-process-stage] .flow-mobile-lane,
+  .rev12-draft .slide[data-process-stage] .flow-mobile-returns { display: initial !important; }
+  .rev12-draft .slide[data-process-stage] .flow-step + .flow-step { opacity: 1 !important; visibility: visible !important; }
+}
+@media print {
+  .rev12-draft .r-process-stepper,
+  .rev12-draft .r-wip-trigger,
+  .rev12-draft .slide[data-wip-stage="compare"] > .r-wip-sequence button { display: none !important; }
+  .rev12-draft .slide[data-wip-stage] > .visual,
+  .rev12-draft .slide[data-wip-stage] > .draft-source,
+  .rev12-draft .slide[data-wip-stage] > .r-revision { display: initial !important; }
+  .rev12-draft .slide[data-wip-stage] > .r-wip-sequence { display: none !important; }
+  .rev12-draft .slide[data-added-id="A13"][data-wip-stage="compare"] > .r-content { display: block !important; }
+}
+.rev12-draft .slide[data-page="28"] .r-table th,
+.rev12-draft .slide[data-page="29"] .r-table th { font-size: 20px; padding: 11px 13px; }
+.rev12-draft .slide[data-page="28"] .r-table td,
+.rev12-draft .slide[data-page="29"] .r-table td { font-size: 19px; padding: 12px 13px; }
+.rev12-draft .slide[data-page="42"] .r-table th,
+.rev12-draft .slide[data-page="42"] .r-table td { font-size: 17px; padding: 10px 12px; }
+.rev12-draft .slide[data-page="53"] .r-body,
+.rev12-draft .slide[data-page="54"] .r-body { font-size: 21px; }
+.rev12-draft .slide[data-page="82"] .r-cols { gap: 14px; }
+.rev12-draft .slide[data-page="83"] .r-card { padding: 21px 23px; }
+.rev12-draft .slide[data-page="84"] .r-card { padding: 20px 21px; }
+.rev12-draft .slide[data-page="95"] .r-table th { width: 25%; }
+@media (max-width: 767px) {
+  .rev12-draft .r-process-stepper { font-size: 15px; }
+  .rev12-draft .r-process-stepper button,
+  .rev12-draft .r-wip-sequence button,
+  .rev12-draft .r-wip-trigger { font-size: 15px; }
+  .rev12-draft .r-worktable { gap: 14px; }
+  .rev12-draft .r-worktable section { gap: 8px; padding: 16px; }
+  .rev12-draft .r-worktable b { font-size: 19px; }
+  .rev12-draft .r-worktable span { padding: 8px; font-size: 16px; }
+  .rev12-draft .slide[data-process-stage="0"] .flow-mobile-lane:not(.flow-mobile-focus),
+  .rev12-draft .slide[data-process-stage="1"] .flow-mobile-lane:not(.flow-mobile-focus) { display: none !important; }
+  .rev12-draft .slide[data-process-stage="0"] .flow-mobile-returns { display: none !important; }
+}
+
+
+/* Chapter Exit Check: three readable, progressively revealed assessment cards. */
+.rev12-draft .r-exit-head {display:flex;flex-direction:column;gap:8px;max-width:1280px;margin:0 auto 6px;}
+.rev12-draft .r-exit-head .r-kicker {margin:0;color:#b7cee5;font-size:21px;}
+.rev12-draft .r-exit-outcome {margin:0;font:750 26px/1.35 system-ui;color:#f3f6fa;}
+.rev12-draft .r-exit-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;flex:1;align-items:stretch;min-height:0;width:100%;}
+.rev12-draft .r-exit-card {display:flex;min-width:0;min-height:0;flex-direction:column;gap:19px;padding:23px 23px 21px;border:1px solid #3f6080;border-top:4px solid #83bcff;border-radius:12px;background:#111d2b;}
+.rev12-draft .r-exit-question {display:flex;flex-direction:column;gap:17px;align-items:flex-start;}
+.rev12-draft .r-exit-marker {display:inline-block;padding:5px 13px;border-radius:7px;background:#223b54;color:#bedef9;font:800 21px/1.3 system-ui;}
+.rev12-draft .r-exit-card h2 {margin:0;font:750 27px/1.37 system-ui;letter-spacing:-.02em;color:#f4f7fb;}
+.rev12-draft .r-exit-answer {margin-top:auto;flex:0 0 auto;border:1px solid #416486;border-radius:9px;background:#172c3e;padding:12px 13px;max-height:260px;overflow:auto;}
+.rev12-draft .r-exit-answer summary {font:700 18px/1.4 system-ui;color:#c6e6ff;cursor:pointer;list-style-position:inside;}
+.rev12-draft .r-exit-answer[open] {background:#17352f;border-color:#569581;}
+.rev12-draft .r-exit-answer[open] summary {color:#b2f0d9;}
+.rev12-draft .r-exit-answer p {margin:11px 0 0;font:500 20px/1.5 system-ui;color:#eef7f5;}
+.rev12-draft .r-exit-answer summary:focus-visible {outline:3px solid #f2cf76;outline-offset:5px;}
+.rev12-draft .r-exit-card ~ .r-exit-card {box-shadow:none;}
+.rev12-draft .r-exit-head + .r-exit-grid + .r-ribbon {font-size:18px;line-height:1.4;}
+
+/* Owner-approved first-page viewing scope: desktop is supported; mobile is under development. */
+.rev12-draft .slide[data-page="1"] .r-desktop-reading-notice {
+  display: inline-block;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 32px 0 0;
+  padding: 14px 22px;
+  border: 1px solid #537ca6;
+  border-left: 5px solid #83bcff;
+  border-radius: 10px;
+  background: #17283a;
+  color: #f3f6fa;
+  font: 700 26px/1.45 system-ui, sans-serif;
+  letter-spacing: .015em;
+}
+
+/* Mobile site visitor notice, shown only on the opening page and outside the scaled deck canvas. */
+@media (max-width: 767px) {
+  body.rev12-draft:has(#page-1.active)::before {
+    content: "請用電腦版閱讀｜手機版開發中";
+    position: fixed;
+    z-index: 999;
+    top: 18px;
+    left: 14px;
+    right: 14px;
+    box-sizing: border-box;
+    padding: 14px 16px;
+    border: 1px solid #83bcff;
+    border-left-width: 5px;
+    border-radius: 10px;
+    background: #17283a;
+    color: #f3f6fa;
+    font: 700 18px/1.5 system-ui, sans-serif;
+    text-align: center;
+    pointer-events: none;
+  }
+}
+
+/* Explain demo vs. measured result inside the projected learner-facing slide. */
+.rev12-draft #page-41 .r-scenario-note {
+  margin: 0 0 10px;
+  color: #f5d69e;
+  font: 650 19px/1.4 system-ui,sans-serif;
+  text-align: center;
+}
+/* P93's flow shares the canonical seven columns with the final recap page. */
+.rev12-draft #page-93 .recap-columns {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  --recap-gap: 20px;
+  gap: var(--recap-gap);
+}
+.rev12-draft #page-93 .recap-columns article {
+  min-width: 0;
+  padding-inline: 7px;
+}
+.rev12-draft #page-93 .recap-columns :is(h2,strong) {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+.rev12-draft #page-93 .r-recap-gate-note {
+  flex: 0 0 auto;
+  margin: 5px 0 0;
+  padding: 8px 13px;
+  color: #e6dbb9;
+  background: #241f17;
+  border-left: 4px solid #f2cf76;
+  border-radius: 5px;
+  font: 640 19px/1.3 system-ui,sans-serif;
+  text-align: center;
+}
+
+/* Beginner-friendly progressive disclosure for optional engineering evidence. */
+.rev12-draft .r-tech-reveal {
+  margin-top: 14px;
+  max-height: 260px;
+  overflow: auto;
+  border: 1px solid #4b7196;
+  border-radius: 9px;
+  background: #152a40;
+  padding: 12px 15px;
+}
+.rev12-draft .r-tech-reveal summary {
+  cursor: pointer;
+  font: 700 19px/1.45 system-ui,sans-serif;
+  color: #cbe8ff;
+}
+.rev12-draft .r-tech-reveal[open] { border-color: #86c3fc; }
+.rev12-draft .r-tech-reveal :is(p,code) {
+  overflow-wrap: anywhere;
+  word-break: normal;
+  font-size: 16px;
+  line-height: 1.4;
+}
+.rev12-draft .r-tech-reveal summary:focus-visible {outline:3px solid #f2cf76;outline-offset:4px;}
+
+/* Learner-operated Human Gate stage controls. */
+.rev12-draft #page-106 .r-gate-controls {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  border: 1px solid #385c77;
+  border-radius: 8px;
+  background: #132436;
+  padding: 8px 12px;
+}
+.rev12-draft #page-106 .r-gate-controls [data-gate-message] {
+  flex: 1 1 auto;
+  color: #d9eaf8;
+  font: 650 19px/1.3 system-ui,sans-serif;
+}
+.rev12-draft #page-106 .r-gate-controls button {
+  flex: 0 0 auto;
+  background: #19344e;
+  border: 1px solid #6392b4;
+  border-radius: 6px;
+  color: #e7f6ff;
+  cursor: pointer;
+  padding: 8px 12px;
+  font: 650 17px/1.3 system-ui,sans-serif;
+}
+.rev12-draft #page-106 .r-gate-controls button:disabled {opacity:.45;cursor:default;}
+.rev12-draft #page-106 .r-gate-controls button:focus-visible {outline:3px solid #f2cf76;outline-offset:3px;}
+
+/* First example prompt for non-technical learners. */
+.rev12-draft .r-assignment-line {
+  display: block;
+  margin: 0 0 12px;
+  padding: 13px 16px;
+  border-left: 4px solid #82baeb;
+  border-radius: 7px;
+  background: #162b3c;
+  color: #ecf4fb;
+  font: 630 20px/1.42 system-ui,sans-serif;
+}
+
+/* Keep the seven-state recap's header and ticket text within their own cells. */
+.rev12-draft #page-106 .recap-board > .board-parent {
+  min-height: 39px;
+  padding: 7px 12px;
+  box-sizing: border-box;
+  align-items: center;
+}
+.rev12-draft #page-106 .recap-board > .board-parent :is(b,span) {
+  line-height: 1.2;
+}
+.rev12-draft #page-106 .recap-board .moving-ticket {
+  min-height: 0;
+  padding: 11px 9px;
+  gap: 3px;
+}
+.rev12-draft #page-106 .recap-board .moving-ticket small {
+  display: block;
+  font-size: 14px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+/* Phase-led instructional design: roles travel on one continuous human workflow.
+   Keep the audience-facing copy sparse; detailed inputs/outputs live in notes. */
+.rev12-draft .r-human-flow {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: minmax(0,1fr) 27px minmax(0,1fr) 27px minmax(0,1fr) 27px minmax(0,1fr);
+  gap: 8px;
+  align-items: stretch;
+  min-height: 0;
+  width: 100%;
+}
+.rev12-draft .r-human-step {
+  min-width: 0;
+  min-height: 286px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 17px;
+  padding: 22px 20px;
+  background: #14202e;
+  border: 1px solid #375677;
+  border-top: 4px solid #88bcfc;
+  border-radius: 14px;
+  overflow-wrap: anywhere;
+}
+.rev12-draft .r-human-step.good { border-top-color: #86d6ad; }
+.rev12-draft .r-human-step.human {
+  background: #1b211d;
+  border-color: #4d7763;
+  border-top-color: #f0d27b;
+}
+.rev12-draft .r-human-step.problem { border-top-color: #bbdaff; }
+.rev12-draft .r-human-step h2 {
+  margin: 0;
+  color: #f4f8fc;
+  font: 750 31px/1.22 system-ui, sans-serif;
+  letter-spacing: -.025em;
+}
+.rev12-draft .r-human-step .r-human-role {
+  display: block;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: #20344a;
+  color: #badaff;
+  font: 700 19px/1.3 system-ui, sans-serif;
+}
+.rev12-draft .r-human-step.human .r-human-role { background: #313025; color: #f9df99; }
+.rev12-draft .r-human-step .r-human-action {
+  margin: 1px 0 0;
+  color: #f1f6fc;
+  font: 660 22px/1.4 system-ui, sans-serif;
+}
+.rev12-draft .r-human-step .r-human-example {
+  margin: 0;
+  color: #aac0d4;
+  font: 520 18px/1.4 system-ui, sans-serif;
+}
+.rev12-draft .r-human-arrow {
+  align-self: center;
+  justify-self: center;
+  color: #91c8ff;
+  font: 700 26px/1 system-ui, sans-serif;
+}
+.rev12-draft .r-human-flow + .r-ribbon {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  padding: 12px 18px;
+  font-size: 21px;
+  line-height: 1.35;
+}
+.rev12-draft .slide[data-page="2"] .r-human-step { min-height: 260px; }
+.rev12-draft .r-storyline-phase {
+  max-width: 1050px;
+  margin: 24px auto 0;
+  color: #c1dfff;
+  font: 620 23px/1.4 system-ui, sans-serif;
+  letter-spacing: .015em;
+}
+
+/* Use compact four-card rows rather than full-height panels on teaching overview pages. */
+.rev12-draft .r-human-flow {
+  flex: 0 0 auto;
+  height: 292px;
+  margin: auto 0;
+}
+.rev12-draft .r-human-step {
+  min-height: 0;
+  height: 292px;
+  gap: 13px;
+}
+.rev12-draft .slide[data-page="2"] .r-human-flow { height: 276px; }
+.rev12-draft .slide[data-page="2"] .r-human-step { min-height: 0; height: 276px; }
+
+/* Whole-picture course map — chapter count comes from the SSOT, not a fixed
+   number of teaching phases. The current eight short chapters fit 4 × 2. */
+.rev12-draft #page-2 .r-content { gap: 13px; }
+.rev12-draft #page-2 .r-kicker {
+  font: 600 21px/1.4 system-ui,sans-serif;
+  margin: 0;
+}
+.rev12-draft .r-course-map {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  grid-template-rows: repeat(2,minmax(0,1fr));
+  gap: 14px;
+  min-height: 0;
+  width: 100%;
+}
+.rev12-draft .r-course-map-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 9px;
+  min-width: 0;
+  min-height: 0;
+  padding: 17px 18px;
+  border-radius: 11px;
+  background: #111f2d;
+  border: 1px solid #3d6081;
+  border-top: 3px solid #88bcfc;
+  color: #eaf2fb;
+  text-decoration: none;
+}
+.rev12-draft .r-course-map-card:is(:hover,:focus-visible) {
+  background: #20344a;
+  border-color: #83bcff;
+}
+.rev12-draft .r-course-map-card:focus-visible {
+  outline: 3px solid #f2cf76;
+  outline-offset: 2px;
+}
+.rev12-draft .r-course-map-no {
+  color: #9ebddc;
+  font: 700 14px/1.2 system-ui,sans-serif;
+}
+.rev12-draft .r-course-map-title {
+  color: #eff7ff;
+  font: 740 23px/1.28 system-ui,sans-serif;
+  margin: 0;
+  letter-spacing: -.02em;
+}
+.rev12-draft .r-course-map-purpose {
+  color: #bfdaed;
+  font: 600 18px/1.3 system-ui,sans-serif;
+  margin: 0;
+}
+.rev12-draft .r-course-map-question {
+  color: #adbfcc;
+  font: 490 16px/1.3 system-ui,sans-serif;
+  margin: 0;
+}
+.rev12-draft .r-course-reference {
+  background: #1b211f;
+  border-color: #476c5e;
+  border-top-color: #f2cf76;
+}
+.rev12-draft .r-course-reference .r-course-map-title { color: #f5dfaa; }
+.rev12-draft #page-2 .r-course-map + .r-ribbon {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 10px 15px;
+  font: 590 18px/1.36 system-ui,sans-serif;
+}
+.rev12-draft .r-back-to-outline {
+  display: inline-flex;
+  margin: 20px auto 0;
+  padding: 8px 15px;
+  border: 1px solid #496f99;
+  border-radius: 8px;
+  color: #cce7ff;
+  background: #1d3248;
+  font: 680 19px/1.4 system-ui,sans-serif;
+  text-decoration: none;
+}
+.rev12-draft .r-back-to-outline:is(:hover,:focus-visible) { background: #2b4a65; }
+.rev12-draft .r-back-to-outline:focus-visible {outline:3px solid #f2cf76;outline-offset:3px;}
+
+/* Full-outline modal: same eight sections as the existing navigation,
+   initially collapsed so a beginner sees the big picture first. */
+#review-dialog .r-toc-course-context {
+  margin: 5px 0 16px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  color: #daecfc;
+  background: #1a2c40;
+  font: 570 17px/1.45 system-ui,sans-serif;
+}
+#review-dialog details.r-toc-group {
+  display: block;
+  margin: 8px 0;
+  border: 1px solid #364d64;
+  border-radius: 9px;
+  padding: 0 12px;
+  background: #132130;
+}
+#review-dialog details.r-toc-reference {border-color:#776849;background:#211e19;}
+#review-dialog .r-toc-group summary {
+  padding: 12px 7px;
+  cursor: pointer;
+  color: #cde6ff;
+  font: 680 18px/1.35 system-ui,sans-serif;
+}
+#review-dialog .r-toc-group summary:is(:hover,:focus-visible) {
+  color: white;
+  background: #233a50;
+}
+#review-dialog .r-toc-page-links { padding: 1px 5px 12px 16px; }
+#review-dialog .r-toc-page-links a {
+  display: block;
+  color: #c9d9e9;
+  padding: 6px 9px;
+  border-radius: 5px;
+  font: 530 15px/1.36 system-ui,sans-serif;
+  text-decoration: none;
+}
+#review-dialog .r-toc-page-links a:hover {background:#30475f;color:#f4f9ff;}
+
+/* Optional session CLI reference, not a prerequisite for the one-Agent loop. */
+.rev12-draft #page-64 .r-one-agent-cycle {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+  flex:1 1 auto;
+  min-height:0;
+  width:100%;
+}
+.rev12-draft #page-64 .r-one-agent-cycle article {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:14px;
+  min-width:0;
+  min-height:0;
+  padding:17px;
+  border:1px solid #3d5e7d;
+  border-top:4px solid #83bcff;
+  border-radius:11px;
+  background:#142232;
+}
+.rev12-draft #page-64 .r-one-agent-cycle article:nth-child(4) {border-top-color:#f2cf76;}
+.rev12-draft #page-64 .r-one-agent-cycle b {font:760 23px/1.3 system-ui;color:#e6f2ff;}
+.rev12-draft #page-64 .r-one-agent-cycle p {font:620 19px/1.4 system-ui;color:#f0f6ff;margin:0;}
+.rev12-draft #page-64 .r-one-agent-cycle small {font:520 16px/1.35 system-ui;color:#b9d1e6;}
+.rev12-draft #page-64 .r-session-reference {
+  flex:0 0 auto;
+  margin-top:5px;
+  padding:9px 12px;
+  border:1px solid #405979;
+  border-radius:8px;
+  background:#17283a;
+  max-height:200px;
+  overflow:auto;
+}
+.rev12-draft #page-64 .r-session-reference summary {cursor:pointer;color:#c6dfff;font:660 17px/1.35 system-ui;}
+.rev12-draft #page-64 .r-session-reference .r-cols {margin:12px 0 0;}
+.rev12-draft #page-64 .r-session-reference .r-card {padding:10px 13px;}
+.rev12-draft #page-64 .r-session-reference .r-card h2 {font-size:18px;}
+.rev12-draft #page-64 .r-session-reference .r-body {font-size:16px;}
+
+/* Editorial revision: leave the detailed artifact in notes, put the taught
+   relationship and evidence into the learner-facing frame. */
+.rev12-draft #page-22 .mini-board { flex: 0 0 auto; min-height: 0; }
+.rev12-draft #page-22 .refinement-ticket {
+  display: flex; flex-direction: column; gap: 18px;
+  padding: 18px 22px;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+.rev12-draft #page-22 .r-ac-short {
+  display: grid; grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 15px; min-height: 0; flex: 1 1 auto;
+}
+.rev12-draft #page-22 .r-ac-row {
+  display: flex; flex-direction: column; justify-content: center;
+  align-items: flex-start; gap: 14px;
+  min-width: 0; padding: 18px;
+  border: 1px solid #365a7a; border-radius: 10px;
+  background: #132438;
+}
+.rev12-draft #page-22 .r-ac-row span {font: 650 22px/1.35 system-ui; color: #bfdbf6;}
+.rev12-draft #page-22 .r-ac-row strong {font: 760 26px/1.35 system-ui; color: #f0f7fc;}
+.rev12-draft #page-22 .r-ac-row:nth-child(2) strong {color:#a8e5bf;}
+.rev12-draft #page-22 .ticket-rule-note {font-size:19px; line-height:1.35;}
+
+/* PR Review: only one time-point is shown at once, with explicit learner steps. */
+.rev12-draft #page-41 .r-pr-story {
+  display: flex; flex-direction: column;
+  gap: 18px; flex: 1 1 auto; min-height: 0;
+  width: 100%; margin: 0;
+}
+.rev12-draft #page-41 .r-scenario-note {
+  text-align:left; margin:0; font:600 20px/1.35 system-ui;
+  color: #cce1f3;
+}
+.rev12-draft #page-41 .r-pr-sequence {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 11px; padding: 11px 13px;
+  border:1px solid #3b5571; border-radius:10px;
+  background:#111e2c;
+}
+.rev12-draft #page-41 .r-pr-sequence > span {
+  flex: 1 1 0; text-align:center; padding:12px 9px;
+  border-radius:8px; background:#172a3c;
+  font:710 22px/1.3 system-ui; color:#aec5d9;
+}
+.rev12-draft #page-41 .r-pr-sequence > span.active {
+  background:#284465; color:#f3f9ff;
+  outline:2px solid #83bcff; outline-offset:0;
+}
+.rev12-draft #page-41 .r-pr-sequence i {color:#89b7dc;font:780 25px/1 system-ui;font-style:normal;}
+.rev12-draft #page-41 .r-pr-frame {
+  flex:1 1 auto; min-height:0; display:grid;
+  place-items:stretch; max-height:380px;
+}
+.rev12-draft #page-41 .r-pr-frame article {
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:center; gap:22px; min-height:0;
+  border:1px solid #416184; border-top:4px solid #84bafa;
+  border-radius:13px; background:#152436; padding:30px;
+}
+.rev12-draft #page-41 .r-pr-frame article[hidden] {display:none;}
+.rev12-draft #page-41 .r-pr-step {color:#bdd5ee;font:700 21px/1.3 system-ui;}
+.rev12-draft #page-41 .r-pr-frame h2 {color:#f6faff;font:760 38px/1.25 system-ui;margin:0;}
+.rev12-draft #page-41 .r-pr-frame p {color:#dbe7f3;font:560 26px/1.3 system-ui;margin:0;}
+.rev12-draft #page-41 .r-pr-frame b {
+  padding:10px 25px;border-radius:9px;font:740 24px/1.3 system-ui;
+}
+.rev12-draft #page-41 .r-pr-request {background:#45221d;color:#ffb6ae;}
+.rev12-draft #page-41 .r-pr-okay {background:#1b3e35;color:#c0f4d4;}
+.rev12-draft #page-41 .r-pr-controls {
+  display:flex; align-items:center; justify-content:center;
+  gap:35px; min-height:50px;
+}
+.rev12-draft #page-41 .r-pr-controls button {
+  cursor:pointer; border:1px solid #537fa6; border-radius:8px;
+  color:#e3f0fd;background:#213b56;
+  font:710 20px/1.3 system-ui;padding:9px 18px;
+}
+.rev12-draft #page-41 .r-pr-controls button:disabled {opacity:.5;cursor:default;}
+.rev12-draft #page-41 .r-pr-controls button:focus-visible {outline:3px solid #f2cf76;outline-offset:4px;}
+.rev12-draft #page-41 [data-pr-counter] {font:700 19px/1.3 system-ui;color:#c1d7ed;}
+
+/* Product Check: one question and three outcomes, not a full Kanban + memo. */
+.rev12-draft #page-48 .r-product-story {
+  display:flex; flex-direction:column; align-items:stretch;
+  gap:18px; width:100%; flex:1 1 auto; min-height:0;
+}
+.rev12-draft #page-48 .r-product-position {
+  margin:0; font:650 20px/1.35 system-ui;color:#d8e5f4;
+  background:#17283c;border-left:4px solid #80b4ef;
+  border-radius:7px;padding:10px 17px;
+}
+.rev12-draft #page-48 .r-product-question {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:11px; background:#173024;border:1px solid #528467;
+  border-radius:12px; flex:1 1 auto; min-height:160px;padding:22px;
+}
+.rev12-draft #page-48 .r-product-question span {color:#a9d3bd;font:660 21px/1.3 system-ui;}
+.rev12-draft #page-48 .r-product-question h2 {color:#f2faf6;font:780 36px/1.24 system-ui;margin:0;}
+.rev12-draft #page-48 .r-product-question p {color:#c1e6ce;font:560 21px/1.32 system-ui;margin:0;}
+.rev12-draft #page-48 .r-product-routes {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
+.rev12-draft #page-48 .r-product-routes article {
+  display:flex;flex-direction:column;gap:10px;padding:17px 18px;
+  border:1px solid #435f7e;border-radius:10px;background:#122237;
+}
+.rev12-draft #page-48 .r-product-accept {border-top:4px solid #86d6ad!important;}
+.rev12-draft #page-48 .r-product-return {border-top:4px solid #f2cf76!important;}
+.rev12-draft #page-48 .r-product-routes span {font:680 20px/1.25 system-ui;color:#d4e5f5;}
+.rev12-draft #page-48 .r-product-routes b {font:780 25px/1.27 system-ui;color:#fbfdff;}
+.rev12-draft #page-48 .r-product-routes small {font:490 17px/1.35 system-ui;color:#b9cbdb;}
+.rev12-draft #page-48 .r-product-boundary {
+  margin:0; padding:10px 15px;border-left:4px solid #86d6ad;
+  background:#14241d;color:#cee8d6;font:620 19px/1.3 system-ui;
+}
+
+/* Contrast a completed ticket with an incomplete user journey. */
+.rev12-draft #page-52 .r-done-journey {
+  display:flex; flex-direction:column; justify-content:center;
+  gap:25px; flex:1 1 auto; min-height:0;width:100%;
+}
+.rev12-draft #page-52 .r-done-goal {
+  margin:auto 0 0; padding:21px;
+  border:1px solid #50755d;border-radius:10px;background:#172b21;
+  color:#d2ebd7;text-align:center;font:740 25px/1.3 system-ui;
+}
+.rev12-draft #page-52 .r-done-steps {
+  display:grid;grid-template-columns:minmax(0,1fr) 48px minmax(0,1fr) 48px minmax(0,1fr);
+  gap:12px;align-items:center;width:100%;
+}
+.rev12-draft #page-52 .r-done-steps article {
+  display:flex;flex-direction:column;justify-content:center;
+  min-height:174px;gap:18px;padding:23px;
+  border:1px solid #4a6482;border-top:5px solid #839db9;
+  border-radius:11px;background:#132538;text-align:center;
+}
+.rev12-draft #page-52 .r-done-steps article.r-done-if {border-top-color:#8bdcb1;background:#172c25;}
+.rev12-draft #page-52 .r-done-steps article b {font:760 27px/1.28 system-ui;color:#eff8ff;}
+.rev12-draft #page-52 .r-done-steps article span {font:690 23px/1.3 system-ui;color:#d5e7f8;}
+.rev12-draft #page-52 .r-done-steps .r-done-if span {color:#b4edcc;}
+.rev12-draft #page-52 .r-done-steps i {font:770 36px/1 system-ui;color:#8fb8dc;font-style:normal;text-align:center;}
+.rev12-draft #page-52 .r-done-gap {
+  margin:0;padding:15px 18px;border:1px solid #9f8949;
+  border-radius:8px;color:#ffe4ac;background:#2b251b;
+  font:760 25px/1.35 system-ui;text-align:center;
+}
+.rev12-draft #page-52 .r-done-evidence {
+  margin:0 auto auto;max-width:1120px;
+  color:#bed0df;font:500 18px/1.5 system-ui;text-align:center;
+}
+
+/* B-pre/B-post: one candidate program, two verification checkpoints. */
+.rev12-draft #page-46 .r-evidence-timeline {
+  display:grid;grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr);
+  gap:13px;flex:1 1 auto;min-height:0;align-items:stretch;width:100%;
+}
+.rev12-draft #page-46 .r-evidence-checkpoint {
+  display:flex; flex-direction:column;justify-content:center;
+  gap:21px;padding:24px 31px;
+  border:1px solid #4e7091;border-top:5px solid #88bcfc;
+  border-radius:12px;background:#132336;
+}
+.rev12-draft #page-46 .r-evidence-checkpoint.after {border-top-color:#91ddb2;background:#152c26;}
+.rev12-draft #page-46 .r-evidence-label {font:780 29px/1.3 system-ui;color:#dbeaff;}
+.rev12-draft #page-46 .r-evidence-checkpoint p {margin:0;font:680 24px/1.4 system-ui;color:#e9f4fc;}
+.rev12-draft #page-46 .r-evidence-checkpoint .r-evidence-new {font-size:25px;}
+.rev12-draft #page-46 .r-evidence-pending {color:#ffe1a2!important;}
+.rev12-draft #page-46 .r-evidence-forward {align-self:center;text-align:center;color:#a4d7ff;font:760 47px/1 system-ui;}
+.rev12-draft #page-46 .r-evidence-timeline + .r-ribbon {font-size:20px;line-height:1.35;}
+.rev12-draft #page-46 .r-content > .r-meta {margin:0;}
+
+/* Human Gate: show review configurations converging on a human decision. */
+.rev12-draft #page-91 .visual {display:flex;flex-direction:column;justify-content:center;}
+.rev12-draft #page-91 .gate-routing {flex:1 1 auto;max-height:660px;min-height:0;}
+.rev12-draft #page-91 .r-gate-takeup {
+  margin:9px 0 0;padding:12px 16px;color:#d9e9f4;
+  border-left:4px solid #f2cf76;background:#241f17;
+  font:630 19px/1.35 system-ui;text-align:center;
+}
+.rev12-draft #page-91 .cadence-card {min-height:170px;padding:18px 20px;}
+.rev12-draft #page-91 .cadence-card h2 {font-size:25px;}
+.rev12-draft #page-91 .gate-pr span {font-size:16px;}
+
+/* The Product Check return map has two real destinations. */
+.rev12-draft #page-93 .return-routes .return-product-dev-path {
+  stroke:#f2cf76;stroke-dasharray:9 7;stroke-width:3.4;
+}
+
+
+/* Follow-up G4 check: keep the three acceptance rules visually dominant. */
+.rev12-draft #page-22 .mini-board-columns {
+  min-height: 176px;
+  height: 176px;
+}
+
+/* P22: status context is short; make the AC examples the main visual. */
+.rev12-draft #page-22 .r-ticket-place {
+  display:flex;align-items:center;gap:20px;min-height:93px;
+  padding:16px 23px;border:1px solid #446480;border-left:5px solid #80b9f4;
+  border-radius:10px;background:#14263a;flex:0 0 auto;
+}
+.rev12-draft #page-22 .r-ticket-place span {font:740 24px/1.25 system-ui;color:#bedcf7;}
+.rev12-draft #page-22 .r-ticket-place strong {font:760 28px/1.25 system-ui;color:#f0f7ff;}
+.rev12-draft #page-22 .r-ticket-place small {font:580 20px/1.25 system-ui;color:#b3c9de;margin-left:auto;}

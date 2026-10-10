@@ -1,0 +1,20 @@
+{
+  "snapshot_id": "A",
+  "teaching_environment": true,
+  "ticket": "ticket.md",
+  "candidate_id": "A",
+  "artifact_path": "versions/A/matching.py",
+  "artifact_sha256": "ce09ee4c8091325bb40c71d7b5e74114af77b05be7457110a6274e5ea91e22b4",
+  "fixture": "fixtures/users.json",
+  "validation_layer": "Matching #3 rules and records",
+  "cases": {
+    "one-way": {"status": "FAIL", "evidence": "evidence/A/one-way.json"},
+    "two-way": {"status": "PASS", "evidence": "evidence/A/two-way.json"},
+    "duplicate": {"status": "NOT RUN", "reason": "Not part of the Version A teaching check."}
+  },
+  "ui_and_product_integration": "NOT RUN",
+  "delivery_wip": {"current": 1, "limit": 1},
+  "ticket_state": "rework_required",
+  "human_acceptance": "PENDING",
+  "merge_release_authorized": false
+}

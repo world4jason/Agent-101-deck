@@ -1,0 +1,126 @@
+{
+  "actions": [
+    {
+      "actor": "an",
+      "target": "qing"
+    }
+  ],
+  "actual": {
+    "before_match_count": 1,
+    "before_match_records": [
+      {
+        "id": "M01",
+        "users": [
+          "an",
+          "qing"
+        ]
+      }
+    ],
+    "likes": [
+      [
+        "an",
+        "qing"
+      ],
+      [
+        "qing",
+        "an"
+      ]
+    ],
+    "match_count": 1,
+    "match_records": [
+      {
+        "id": "M01",
+        "users": [
+          "an",
+          "qing"
+        ]
+      }
+    ]
+  },
+  "artifact": "versions/B/matching.py",
+  "artifact_sha256": "0415bddc460265e1ef7c91fe96859b3a507cb345d2edd25ddccf6f061fbfc682",
+  "before": {
+    "likes": [
+      [
+        "an",
+        "qing"
+      ],
+      [
+        "qing",
+        "an"
+      ]
+    ],
+    "matches": [
+      {
+        "id": "M01",
+        "users": [
+          "an",
+          "qing"
+        ]
+      }
+    ],
+    "users": [
+      {
+        "id": "an",
+        "name": "小安"
+      },
+      {
+        "id": "qing",
+        "name": "小晴"
+      }
+    ]
+  },
+  "candidate_id": "B",
+  "case": "duplicate",
+  "expected": {
+    "before_match_count": 1,
+    "before_match_records": [
+      {
+        "id": "M01",
+        "users": [
+          "an",
+          "qing"
+        ]
+      }
+    ],
+    "match_count": 1,
+    "match_records": [
+      {
+        "id": "M01",
+        "users": [
+          "an",
+          "qing"
+        ]
+      }
+    ]
+  },
+  "fixture": "fixtures/users.json",
+  "reset_state": {
+    "likes": [],
+    "matches": [],
+    "users": [
+      {
+        "id": "an",
+        "name": "小安"
+      },
+      {
+        "id": "qing",
+        "name": "小晴"
+      }
+    ]
+  },
+  "setup_actions": [
+    {
+      "actor": "an",
+      "target": "qing"
+    },
+    {
+      "actor": "qing",
+      "target": "an"
+    }
+  ],
+  "status": "PASS",
+  "teaching_environment": true,
+  "ui_and_product_integration": "NOT RUN",
+  "validation_layer": "Matching #3 rules and records"
+}

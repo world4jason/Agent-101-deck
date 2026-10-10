@@ -1,0 +1,8 @@
+test_one_way_like_does_not_create_a_match (test_matching_demo.MatchingDemoTests) ... ok
+test_repeated_like_keeps_one_match_record (test_matching_demo.MatchingDemoTests) ... ok
+test_two_way_like_creates_one_match (test_matching_demo.MatchingDemoTests) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.074s
+
+OK

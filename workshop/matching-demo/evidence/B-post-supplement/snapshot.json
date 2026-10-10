@@ -1,0 +1,20 @@
+{
+  "snapshot_id": "B-post-supplement",
+  "teaching_environment": true,
+  "ticket": "ticket.md",
+  "candidate_id": "B",
+  "artifact_path": "versions/B/matching.py",
+  "artifact_sha256": "0415bddc460265e1ef7c91fe96859b3a507cb345d2edd25ddccf6f061fbfc682",
+  "fixture": "fixtures/users.json",
+  "validation_layer": "Matching #3 rules and records",
+  "cases": {
+    "one-way": {"status": "PASS", "evidence": "evidence/B-post-supplement/one-way.json"},
+    "two-way": {"status": "PASS", "evidence": "evidence/B-post-supplement/two-way.json"},
+    "duplicate": {"status": "PASS", "evidence": "evidence/B-post-supplement/duplicate.json"}
+  },
+  "ui_and_product_integration": "NOT RUN",
+  "delivery_wip": {"current": 1, "limit": 1},
+  "ticket_state": "awaiting_human_acceptance",
+  "human_acceptance": "PENDING",
+  "merge_release_authorized": false
+}

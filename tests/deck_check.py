@@ -88,14 +88,20 @@ def check_fragments_walk(browser):
         page.keyboard.press("ArrowRight")
     s = state(page)
     check(s["active"] == n - 1, f"fragment walk: ended at {s['active']} not {n - 1}")
+    # rev12 uses learner-controlled steps for the closing Human Gate recap.
+    # Two post-decision fragments intentionally remain hidden at stage 0;
+    # this is not a slide-navigation regression.
+    progressive_gate = page.locator('.slide[data-page="106"] [data-gate-next]').count() > 0
+    expected_hidden = 2 if progressive_gate else 0
     hidden = page.evaluate("[...document.querySelectorAll('.fragment')].filter(f => !f.classList.contains('visible')).length")
-    check(hidden == 0, f"fragment walk: {hidden} fragments still hidden")
+    check(hidden == expected_hidden, f"fragment walk: {hidden} hidden, expected {expected_hidden}")
     for _ in range(n + total_frags - 1):
         page.keyboard.press("ArrowLeft")
     expect_slide(page, 0, "fragment walk back")
     visible = page.evaluate("[...document.querySelectorAll('.fragment')].filter(f => f.classList.contains('visible')).length")
     full = page.locator("body").get_attribute("data-review-mode") == "full"
-    check(visible == (total_frags if full else 0), f"fragment walk back: unexpected visible count {visible}")
+    expected_visible = (total_frags - expected_hidden) if full else 0
+    check(visible == expected_visible, f"fragment walk back: unexpected visible count {visible}; expected {expected_visible}")
     check(not errors, f"fragment walk: page errors {errors}")
     page.close()
 
@@ -117,6 +123,19 @@ def check_fragment_opacity(browser):
     selector = ".slide.active .fragment"
     count = page.locator(selector).count()
     if page.locator("body").get_attribute("data-review-mode") == "full":
+        local_stepper = page.locator(".slide.active [data-process-next]")
+        if local_stepper.count():
+            # P06 keeps its original three-ticket diagram but teaches it in
+            # three local stages; reach the complete state before checking
+            # full-page visibility rather than treating stage one as a bug.
+            local_stepper.click()
+            local_stepper.click()
+            page.wait_for_function(
+                """() => [...document.querySelectorAll('.slide.active .fragment')]
+                  .every(f => getComputedStyle(f).opacity === '1')""",
+                timeout=5000,
+            )
+            check(page.locator(".slide.active").get_attribute("data-process-stage") == "2", "full-page mode: local process stepper reaches the complete diagram")
         check(page.locator(selector).evaluate_all("fs => fs.every(f => getComputedStyle(f).opacity === '1')"), "full-page mode: fragments must be visible")
         page.close()
         return

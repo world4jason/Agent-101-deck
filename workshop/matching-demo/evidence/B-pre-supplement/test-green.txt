@@ -1,0 +1,7 @@
+test_one_way_like_does_not_create_a_match (test_matching_demo.MatchingDemoTests) ... ok
+test_two_way_like_creates_one_match (test_matching_demo.MatchingDemoTests) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.046s
+
+OK
