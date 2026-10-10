@@ -1,6 +1,6 @@
 {
   "ssot": "docs/issue48-execution-storyboard.md",
-  "ssotSha256": "931c8c40ead1eea11d340482ef24d654f60dff06b366fbf855e9fca3149b9de8",
+  "ssotSha256": "42af481696a7c56bea5016b39541252ff5f6ba61dc932d5c96f5b9a06815be2d",
   "baseline": {
     "path": "slides/rev11.html",
     "pages": 82,
@@ -1939,7 +1939,7 @@
       "ids": [
         "N19"
       ],
-      "title": "同樣驗收通過，放到不同環境，風險一樣嗎？",
+      "title": "假設驗收通過，換環境還有風險嗎？",
       "oldRev11Page": 39,
       "addedId": null,
       "rev10SourcePage": null,
@@ -2533,7 +2533,7 @@
       "chapter": "C5",
       "kind": "新增",
       "ids": [],
-      "title": "電腦上的 Agent，要怎麼接續？",
+      "title": "一個 Agent，如何交接、補驗與驗收？",
       "oldRev11Page": null,
       "addedId": "A17",
       "rev10SourcePage": null,
@@ -3531,8 +3531,8 @@
       "oldRev11Page": null,
       "addedId": "A13",
       "rev10SourcePage": null,
-      "claim": "先根據 B-pre 的真實已測／未測情況寫補驗要求，完成後才揭露參考要求與 B-post 結果。",
-      "visual": "主畫面只留題目與證據；刪除提前公開的完整解題要點。",
+      "claim": "學員先讀 B-pre：單向／雙向 PASS，重複 NOT RUN；先用白話寫補驗要求，再顯示同一 B 版的 B-post 真實結果。",
+      "visual": "先顯示缺口與問題，回答後才揭露白話補驗要求、實際 B-post 與原始紀錄；可點開 exercise.md 複製精確命令，主畫面不放 CLI。",
       "transition": "為練換 session，明示倒回未補驗時點；不把這當主線新結果。",
       "sourceIds": [],
       "prerequisite": "若交付包缺少重複情境證據，學員要怎樣明確要求補驗？",
@@ -3568,7 +3568,7 @@
           "path": "workshop/matching-demo/evidence/B-post-supplement/duplicate.json"
         }
       ],
-      "notes": "- **對應：**新增頁 A13；舊 rev11 頁：無；章節 C6。\n- **教學作用：**缺少證據代表未驗，不等於已證實行為錯誤。\n- **帶走重點：**補驗期間同一票仍在 WIP；版本未變，更新證據即可。\n- **圖面／示範：**學員寫具體指令：已配對前後筆數/紀錄；再 Like；更新狀態和證據。\n- **主畫面訊息：**先展示 B-pre 的已知／未測狀態，讓學員寫出同一 B 版的白話補驗要求，再揭露 B-post 實際結果；精確命令放在連結的練習材料中。\n講者轉場：時間倒回 B-pre 的未補驗時點；讓接手者先核對票、版本、未測事項，再回到 B-post 主線。\n- **規格來源：**Issue comments 5 A13, 8 §4.3"
+      "notes": "- **對應：**新增頁 A13；舊 rev11 頁：無；章節 C6。\n- **教學作用：**缺少證據代表未驗，不等於已證實行為錯誤。\n- **帶走重點：**補驗期間同一票仍在 WIP；版本未變，更新證據即可。\n- **圖面／示範：**先顯示 B-pre 缺口與作答提示；學員自行寫下補驗要求後，才揭露參考要求、B-post 實際結果與原始紀錄。精確命令可由 exercise.md 另行查看；主畫面不放 CLI。\n- **主畫面訊息：**先展示 B-pre 的已知／未測狀態，讓學員寫出同一 B 版的白話補驗要求，再揭露 B-post 實際結果；精確命令放在連結的練習材料中。\n講者轉場：時間倒回 B-pre 的未補驗時點；讓接手者先核對票、版本、未測事項，再回到 B-post 主線。\n- **規格來源：**Issue comments 5 A13, 8 §4.3"
     },
     {
       "number": 90,
@@ -3579,8 +3579,8 @@
       "oldRev11Page": null,
       "addedId": "A14",
       "rev10SourcePage": null,
-      "claim": "沿同一 B 版交接，學員先寫核對方法，再揭露 B-post 原始結果與剩餘 NOT RUN。",
-      "visual": "問學員如何核對證據，避免把學過的 B-post 再當未知結果猜測。",
+      "claim": "只補驗 duplicate PASS 並未關閉其他條件組合；僅晴→安、雙方都未 Like 和 UI／整合仍 NOT RUN，接受／發布權仍由人判斷。",
+      "visual": "原交接卡＋隱藏參考指令／結果保留；新增未測清單與受限接受範圍的提醒，不提前揭露答案。",
       "transition": "接手演練結束；明示恢復到補驗完成的 B-post 主線，核對更新證據，再進 Human Gate。",
       "sourceIds": [],
       "prerequisite": "為練換 session，明示倒回未補驗時點；不把這當主線新結果。",
