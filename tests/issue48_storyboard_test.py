@@ -235,12 +235,12 @@ def main():
     a10_text = candidate.select_one('.slide[data-page="59"]').get_text()
     for text in (a09_text, a10_text):
         assert not any(token in text for token in ["A09-replay", "byte-identical", "SHA-256", "raw JSON", "replay path"])
-    assert "B-pre" in a10_text and "補驗前" in a10_text
+    assert "Version B 補驗前" in a10_text and "補驗前" in a10_text
     qa_evidence = candidate.select_one('.slide[data-page="46"]').get_text()
-    assert all(word in qa_evidence for word in ["B-pre", "B-post", "單向", "雙向", "重複", "NOT RUN", "PASS", "UI"])
+    assert all(word in qa_evidence for word in ["Version B 補驗前", "Version B 補驗後", "單向", "雙向", "重複", "NOT RUN", "PASS", "UI"])
     assert "快轉" in qa_evidence
     canonical_result = candidate.select_one('.slide[data-page="47"]').get_text()
-    assert all(word in canonical_result for word in ["B-pre", "B-post", "Version B", "NOT RUN", "PASS"])
+    assert all(word in canonical_result for word in ["Version B 補驗前", "Version B 補驗後", "Version B", "NOT RUN", "PASS"])
     assert "Arrange：準備已配對狀態" not in canonical_result
     assert "UI" not in canonical_result or "NOT RUN" in canonical_result
     wip_page = candidate.select_one('.slide[data-page="73"]')

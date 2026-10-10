@@ -85,7 +85,7 @@ class EducationalContract(unittest.TestCase):
         self.assertIn("接受",page(6).get_text())
         self.assertIn("候選做法",page(10).get_text())
         self.assertIn("待確認",page(10).get_text())
-        self.assertIn("觀測到的錯配事件",page(11).get_text())
+        self.assertIn("不希望發生：錯誤配對",page(11).get_text())
         self.assertNotIn("錯誤配對率＝0",page(11).get_text())
         self.assertIn("本課",page(14).h1.get_text())
         self.assertIn("本課 WIP 政策",page(28).get_text())
@@ -95,12 +95,13 @@ class EducationalContract(unittest.TestCase):
 
     def test_kanban_and_release_are_taught_consistently(self):
         expected=["Backlog","Ready","Dev","Review","QA","Product Check","Done"]
-        for n in (15,24):
-            selector=".full-board-columns" if n==15 else ".mini-board-columns"
-            x=page(n).select_one(selector)
-            self.assertIsNotNone(x,f"Missing board at {n}")
-            actual=[h.get_text(" ",strip=True) for h in x.select("h3" if n==15 else ".mini-column-head")]
-            self.assertEqual(actual,expected,f"Board at {n}")
+        board=page(15).select_one(".full-board-columns")
+        self.assertIsNotNone(board,"Missing seven-column canonical board at P15")
+        self.assertEqual([h.get_text(" ",strip=True) for h in board.select("h3")],expected)
+        ready=page(24)
+        self.assertEqual(len(ready.select(".r-ready-questions article")),3)
+        self.assertIn("目前：0/1",ready.get_text())
+        self.assertIn("Backlog → Ready",ready.get_text())
         # Tutorial slides deliberately use focused diagrams in place of
         # repeating the full seven-column board on every page.
         assert len(page(41).select('.r-pr-frame > article'))==3
@@ -169,7 +170,7 @@ class EducationalContract(unittest.TestCase):
         cycle=page(64).select('.r-one-agent-cycle > article')
         self.assertEqual(len(cycle),4)
         sequence=' '.join(c.get_text(' ',strip=True) for c in cycle)
-        for claim in ('B-pre','人依 AC 退回補驗','B-post','NOT RUN','不發布'):
+        for claim in ('Version B 補驗前','人依 AC 退回補驗','Version B 補驗後','NOT RUN','不發布'):
             self.assertIn(claim,sequence)
         acceptance=page(88).get_text(' ',strip=True)
         for claim in ('Version B','預期','實際','NOT RUN','僅晴→安','UI'):
@@ -208,7 +209,7 @@ class EducationalContract(unittest.TestCase):
         self.assertIn("Reviewer 看改動",p41.get_text())
         self.assertIn("QA 依 AC",p41.get_text())
         p45=page(45)
-        self.assertIn("B-pre 的「重複 Like」是 NOT RUN",p45.get_text())
+        self.assertIn("重複 Like：NOT RUN",p45.get_text())
         self.assertEqual(len(p45.select(".r-table tbody tr")),4)
         self.assertTrue(any("① 操作步驟" in link.get_text()
                             for link in p45.select(".r-content > .r-meta a")))
@@ -242,7 +243,7 @@ class EducationalContract(unittest.TestCase):
         self.assertIn("還沒執行",question.get_text())
         self.assertIn("候選版本＝無",answer.get_text())
         self.assertIn("未測＝全部 AC",answer.get_text())
-        self.assertIn("B-pre 補驗前",p95.select(".r-exit-card")[1].h2.get_text())
+        self.assertIn("Version B 補驗前",p95.select(".r-exit-card")[1].h2.get_text())
 
     def test_novice_prerequisites_and_human_gate_boundaries(self):
         self.assertIn("先學人怎麼交接與驗收",page(2).get_text())
@@ -280,9 +281,9 @@ class EducationalContract(unittest.TestCase):
         hidden=p89.select_one("[data-wip-sequence]")
         self.assertIsNotNone(hidden)
         self.assertTrue(hidden.has_attr("hidden"))
-        self.assertIn("B-post",hidden.get_text())
+        self.assertIn("Version B 補驗後",hidden.get_text())
         p90=page(90)
-        self.assertIn("B-post 結果（先核對）",p90.get_text())
+        self.assertIn("Version B 補驗後 結果（先核對）",p90.get_text())
         self.assertFalse(any(x.has_attr("open") for x in p90.select("details.r-tech-reveal")))
 
     def test_progressive_disclosure_not_mandatory_cli(self):
@@ -299,6 +300,91 @@ class EducationalContract(unittest.TestCase):
         self.assertIn("活動報名",page(94).get_text())
         self.assertIn("六層如何接力",page(105).h1.get_text())
         self.assertIn("驗收與放行",page(105).h1.get_text())
+
+    def test_all_chapters_open_with_a_teachable_overview(self):
+        starts={5:"C0",9:"C2",31:"C1",39:"C3",50:"C4",55:"C5",83:"C6",96:"APP"}
+        for number,chapter in starts.items():
+            slide=page(number)
+            overview=slide.select_one(".r-chapter-overview")
+            self.assertIsNotNone(overview, f"chapter overview missing at {number}")
+            self.assertEqual(overview.get("data-overview-chapter"),chapter)
+            self.assertTrue(overview.select_one(".r-overview-bridge"))
+            agenda=overview.select(".r-overview-agenda li")
+            self.assertIn(len(agenda),(2,3),f"overview at {number} needs 2–3 topics")
+            self.assertTrue(overview.select_one(".r-overview-outcome"))
+            if number in (39,50):
+                content=slide.select_one(".r-content")
+                self.assertIs(content.find(recursive=False),overview)
+        self.assertIn("Ready",page(39).get_text())
+        self.assertIn("Dev",page(39).get_text())
+        self.assertIn("假資料環境",page(50).get_text())
+        self.assertIn("真實使用者環境",page(50).get_text())
+
+    def test_goal_signal_does_not_claim_unobserved_zero_events(self):
+        signal=page(11).get_text(" ",strip=True)
+        self.assertNotIn("護欄訊號",signal)
+        self.assertIn("不希望發生：錯誤配對",signal)
+        self.assertNotIn("錯配率",signal)
+        self.assertRegex(signal,r"須有監測或回報資料")
+
+    def test_good_ticket_links_ac_to_at_and_actual_evidence(self):
+        ticket=page(23)
+        self.assertIn("AC",ticket.get_text())
+        self.assertIn("AT",ticket.get_text())
+        test=ticket.select_one(".r-ticket-at")
+        self.assertIsNotNone(test)
+        for term in ("前提", "操作", "預期結果"):
+            self.assertIn(term,test.get_text())
+        evidence=ticket.select_one(".r-ticket-evidence")
+        self.assertIsNotNone(evidence)
+        self.assertIn("NOT RUN",evidence.get_text())
+        self.assertIn("PASS",evidence.get_text())
+        self.assertIn("DoD",ticket.get_text())
+
+    def test_refinement_is_ongoing_and_ready_is_a_three_question_check(self):
+        ready=page(24).get_text(" ",strip=True)
+        for question in ("做得到嗎", "驗得出嗎", "缺資料嗎"):
+            self.assertIn(question,ready)
+        self.assertIn("持續",ready)
+        self.assertIn("Backlog",ready)
+        self.assertNotIn("所有欄位都要",ready)
+        self.assertNotIn("新增欄位",ready)
+
+    def test_page_75_compares_human_led_grill_me_with_gated_superpowers(self):
+        choices=page(75)
+        self.assertEqual(len(choices.select(".r-collaboration-choice article")),2)
+        grill=choices.select_one(".r-grill-me")
+        powers=choices.select_one(".r-superpowers")
+        self.assertIsNotNone(grill)
+        self.assertIsNotNone(powers)
+        for term in ("Grill Me", "本人確認", "不執行", "#3"):
+            self.assertIn(term,grill.get_text())
+        for term in ("Superpowers", "人工設計核准", "計畫", "實作", "Review", "人"):
+            self.assertIn(term,powers.get_text())
+        self.assertIn("五項協作原則",page(76).h1.get_text())
+
+    def test_b_version_timeline_labels_explain_the_internal_aliases(self):
+        before=page(45).select_one(".r-version-time-label")
+        after=page(46).select_one(".r-version-time-label")
+        self.assertIsNotNone(before)
+        self.assertIsNotNone(after)
+        self.assertIn("Version B 補驗前",before.get_text())
+        self.assertIn("B-pre",before.get_text())
+        self.assertIn("Version B 補驗後",after.get_text())
+        self.assertIn("B-post",after.get_text())
+        for number in (47,59,63,64,88,89,90):
+            visible=page(number).get_text(" ",strip=True)
+            self.assertNotRegex(visible,r"(?<!Version B 補驗前（)B-pre")
+            self.assertNotRegex(visible,r"(?<!Version B 補驗後（)B-post")
+        self.assertIn("時間倒回",page(58).get_text())
+        self.assertIn("Version B 補驗前",page(59).get_text())
+        self.assertIn("Version B 補驗後",page(64).get_text())
+        self.assertIn("Version B 補驗前",page(88).get_text())
+        self.assertIn("Version B 補驗後",page(89).get_text())
+        # The raw evidence paths remain canonical technical references.
+        refs=MANIFEST["pages"][45-1]["materialRefs"]
+        self.assertTrue(any("B-pre-supplement" in ref["path"] for ref in refs))
+        self.assertTrue(any("B-post-supplement" in ref["path"] for ref in MANIFEST["pages"][89-1]["materialRefs"]))
 
 
 if __name__ == "__main__":

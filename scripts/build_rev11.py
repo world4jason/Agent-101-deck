@@ -325,7 +325,7 @@ panel('人交代目標',para('指定 #3、AC 與範圍。','說明停止條件�
 panel('Agent 判斷下一步',para('先讀票與候選檔。','檢查能用的工具。')),
 panel('實際使用工具',para('讀檔、修改、執行。','工具有真實回傳。'),'rule'),
 panel('觀察後續',para('依回傳繼續、調整、詢問或停止。','回交結果與未測事項。'),'human'))+'<p class="r-loop-back"><b aria-hidden="true">↶</b> 結果未符合預期或需要補資料時，回到判斷，重新選擇下一步。</p>'+ribbon('不是只回答一句話：要觀察工具回傳，才知道接著該做什麼。')
-added['A09']=kicker('教學重演｜回到 Version A，先看交辦、計畫與首測')+cols(
+added['A09']=kicker('教學重演｜時間倒回 Version A，先看交辦、計畫與首測')+cols(
 panel('交辦｜只處理 #3 單向 Like',para('預期：0 筆配對。','只驗規則，不驗 UI／完整產品。')),
 panel('計畫｜先讀票與候選版本',para('執行單向情境並對照接受條件。','失敗才修正，再用同一情境重驗。'),'good'),
 panel('結果｜Version A 單向 Like',para('<b>預期：</b>0 筆。','<b>實際：</b>1 筆 M01。','<b class="r-red">FAIL</b>','交回修正。'),'problem'))+ribbon('獨立教學重演。命令、SHA、原始輸出與 replay 材料留在講者筆記。')
@@ -578,6 +578,42 @@ demo_refs={
 }
 
 chapter_labels={'C0':'人類合作','C2':'想法到 Ready','C1':'版本協作','C3':'實作與驗收','C4':'放行與完成','C5':'Agent 演進','C6':'Agent 交付','APP':'附錄'}
+# Three small prompts per actual chapter, authored from the learner's journey.
+chapter_intros={
+  'C0':('已看過 Matching App 的三張功能票。',
+        ['誰把問題整理成需求與設計？','誰負責改動、Review 與 QA？','誰根據結果接受或退回？'],
+        '能說出一張票如何在人類職能之間交接。'),
+  'C2':('知道人類的職責後，要把「做配對」整理成可交辦的工作。',
+        ['從問題寫出 Goal。','將 Goal 拆成 #1、#3、#2，訂 AC／AT。','持續釐清需求，確認能進 Ready。'],
+        '能交出一張範圍清楚、做得到、驗得出的工作票。'),
+  'C1':('#3 已準備好，接著學多人修改怎麼留下可靠版本。',
+        ['Commit 留下可回查的版本。','Branch 讓改動各自進行。','PR 讓別人看改動與證據。'],
+        '能選對版本，知道怎麼交給下一位檢查。'),
+  'C3':('#3 已在 Ready；現在要讓修改經得起檢查。',
+        ['Dev 實作並自測。','Reviewer 看差異，QA 根據預期驗行為。','依版本與證據判斷 PASS／FAIL／未測。'],
+        '能指出哪個行為失敗、該退給誰，以及缺什麼測試。'),
+  'C4':('QA 留下證據後，還需要判斷能否交付給真實使用者。',
+        ['同一結果在測試帳號與真實使用者間有不同風險。','人決定補驗、暫停或核准發布。','分清單票 Done、完整路徑與 Goal 成效。'],
+        '能說明何時不能發布，以及 Done 和 Goal 的差別。'),
+  'C5':('人類工作流程已學會；現在把 #3 的一部分交給 Agent。',
+        ['Agent 怎樣拿資訊、使用工具、回報結果？','單 Agent 怎樣接手，何時需要分工？','Workflow、共同紀錄與授權如何協作？'],
+        '能指認 Agent 的責任與人需要核對的交接內容。'),
+  'C6':('Agent 已能處理任務；人的工作改成明確交辦與驗收。',
+        ['怎樣交待範圍、AT、版本與停止條件？','證據不足時怎麼要求補驗？','人如何決定接受、暫停或放行？'],
+        '能寫一段交辦指令，核對真實證據並要求補驗。'),
+  'APP':('主線已走完；遇到具體問題時再查適合的工具。',
+        ['規則格式、測試方法與練習。','工作受阻與上線後問題。','六層架構與看板回顧。'],
+        '遇到問題能找到相關方法，不必一次記住所有術語。'),
+}
+def chapter_overview_markup(chapter):
+    before,agenda,outcome=chapter_intros[chapter]
+    assert len(agenda)==3
+    return ('<div class="r-chapter-overview" data-overview-chapter="'+chapter+'">'
+      '<p class="r-overview-bridge">接著前面｜'+e(before)+'</p>'
+      '<div class="r-overview-main"><p>這章會學</p><ul class="r-overview-agenda">'
+      +''.join('<li>'+e(item)+'</li>' for item in agenda)+'</ul></div>'
+      '<p class="r-overview-outcome">學完要能｜'+e(outcome)+'</p>'
+      '</div>')
 chapter_order=[]
 for p in pages:
     if p['chapter'] not in chapter_order:chapter_order.append(p['chapter'])
@@ -773,7 +809,14 @@ for i,p in enumerate(pages):
         wall[2].small.string="提議：雙方 Like 才配對（待確認）"
         node.select_one(".brainstorming-visual > .r-meta").string="Brainstorming 先釐清為誰解決什麼問題，再形成 Goal；方案在後續和 PO／Dev／QA 確認。"
     if n==11:
-        replace_text(node,"錯誤配對率＝0（核對錯配紀錄）。","觀測到的錯配事件＝0（須有監測或回報資料）。")
+        for cell in node.select('.goal-example-grid > div'):
+            b=cell.select_one('b')
+            if b and '護欄訊號' in b.get_text():
+                b.string='不希望發生：錯誤配對'
+                cell.select_one('p').string='須有監測或回報資料，才能知道是否發生錯配。'
+                break
+        else:raise AssertionError('Expected unsupported goal metric label')
+
     if n==14:
         replace_text(node,"Parent issue 記錄大需求；sub-issue 拆成能分別處理的子工作。","本課用 parent issue 記共同 Goal；sub-issue 分成可交付工作。這是一種安排，不是每個團隊的硬規則。")
     if n==13:
@@ -821,6 +864,12 @@ for i,p in enumerate(pages):
         ribbon_node=node.select_one('.r-ribbon')
         assert ribbon_node
         ribbon_node.string='Version B 的 B-pre：單向／雙向 PASS，重複 Like NOT RUN。接著查看 Agent 這輪實際讀到了什麼，能否知道哪些事項尚未驗。'
+    if n==60:
+        kicker_note=node.select_one('.r-kicker')
+        assert kicker_note
+        kicker_note.insert_after(BeautifulSoup(
+            '<p class="r-agent-context-contrast"><b>Agent</b>：依工作票決定下一步、使用工具執行的 AI。　<b>Context</b>：它這一輪拿到、可以使用的資料。</p>',
+            'html.parser').p)
     if n==62:
         kicker_note=node.select_one('.r-kicker')
         assert kicker_note
@@ -1015,8 +1064,51 @@ for i,p in enumerate(pages):
         note=node.select_one('.ticket-rule-note')
         assert note
         note.string='目前 #3 留在 Backlog，把三條 AC 整理清楚；完整工作票下一頁再看。'
+    if n==24:
+        # A single decision: can #3 move to Ready? The full seven-column
+        # Kanban is taught on P26 and P93, not repeated behind a long checklist.
+        visual=node.select_one('.visual.step-visual')
+        assert visual
+        visual.clear()
+        append_html(visual, """<div class="r-ready-flow" aria-label="工作票 #3 進入 Ready 的檢查">
+          <div class="r-ready-status"><span>#3｜Backlog → Ready</span><b>本課 WIP 上限：1｜目前：0/1</b></div>
+          <div class="r-ready-questions">
+            <article><h2>做得到嗎？</h2><p>Dev 有需要的資料、依賴與可執行的 #3 範圍</p></article>
+            <article><h2>驗得出嗎？</h2><p>三條 AC 和 AT 能判定預期／實際的差異</p></article>
+            <article><h2>缺資料嗎？</h2><p>有未決問題，就先標明負責人與下一步</p></article>
+          </div>
+          <p class="r-ready-refinement">Refinement 是 Backlog 的持續釐清。Dev／Review／QA 遇到需求不清或無法驗證，帶問題回票面確認；已開始的工作仍計入 WIP。</p>
+          <p class="r-ready-outcome">三問已回答，#3 才進 Ready；Ready 尚未開工，目前 WIP 0/1。</p>
+        </div>""")
     if n==23:
-        replace_text(node,'A 喜歡 B：不配對','只有 A 喜歡 B、B 尚未 Like：不配對')
+        # The long ticket template lives in the original v10 source and
+        # Storyboard. Show scope, AC, AT & future evidence at readable sizes.
+        visual=node.select_one('.visual')
+        assert visual
+        visual.clear()
+        append_html(visual, """<div class="r-ticket-three">
+          <article class="r-ticket-scope">
+            <h2>工作票 #3｜做什麼？</h2>
+            <p>Goal：互相喜歡才能確認配對。</p>
+            <p>Scope：建立一筆配對紀錄。</p>
+            <small>這次不做聊天、推薦或解除配對</small>
+          </article>
+          <article class="r-ticket-criteria">
+            <h2>AC｜怎樣算對？</h2>
+            <p>單向喜歡：0 筆</p>
+            <p>雙向喜歡：1 筆</p>
+            <p>已配對再 Like：仍 1 筆</p>
+          </article>
+          <article class="r-ticket-at">
+            <h2>AT｜怎樣驗？</h2>
+            <p>前提：已有一筆配對</p>
+            <p>操作：再次 Like</p>
+            <p>預期結果：仍只有原本一筆</p>
+            <small class="r-ticket-evidence">Evidence：尚未執行（NOT RUN）。執行後附版本、實際結果；證據支持才填 PASS／FAIL</small>
+          </article>
+        </div>
+        <p class="r-ticket-conclusion">AC 寫接受條件；AT 用實際情境驗。DoD 是共用完工要求，詳細票面可放在 Issue。</p>""")
+
     if n==41:
         # The PR Review teaching example is imaginary and must not be
         # confused with the following real Version A/B rule-level replay.
@@ -1067,7 +1159,7 @@ for i,p in enumerate(pages):
         intro.string='每個已執行情境都重置同一份假帳號資料，再比對預期／實際；完整操作與執行命令在 Evidence。'
         r=node.select_one('.r-ribbon')
         assert r
-        r.string='B-pre 的「重複 Like」是 NOT RUN。下一頁才補驗；僅晴→安、雙方都未 Like、UI／整合等仍缺獨立實測紀錄。'
+        r.string='這份紀錄的重複 Like：NOT RUN。反向單向、雙方未 Like、UI／整合也未驗。'
     if n==45:
         # Keep the evidence links visible above the table. The reproduction
         # command and fixtures live in the linked Runbook, not the slide.
@@ -1159,6 +1251,69 @@ for i,p in enumerate(pages):
             x=x.replace("錯誤配對率＝0","觀測到的錯配事件＝0")
             if x!=str(t):t.replace_with(x)
 
+    if n==39:
+        body=chapter_overview_markup('C3')
+        body+='<div class="r-chapter-start-proof"><span>#3 Ready → Dev</span><b>#3 已開始｜目前 WIP 1／上限 1</b><small>以 #3 的工作分支實作、留下 commit；PR 再交 Review。</small></div>'
+        node=BeautifulSoup('<section class="slide rev10-slide r-chapter-start"><h1>'+e(p['title'])+'</h1><div class="r-content">'+body+'</div></section>','html.parser').section
+    if n==50:
+        body=chapter_overview_markup('C4')
+        body+='<div class="r-chapter-start-proof r-env-contrast"><span>假資料環境：測試帳號可重建</span><b>真實使用者環境：錯配可能影響既有資料</b><small>驗收證據相同，放行仍要評估影響範圍與回復方式。</small></div>'
+        node=BeautifulSoup('<section class="slide rev10-slide r-chapter-start"><h1>'+e(p['title'])+'</h1><div class="r-content">'+body+'</div></section>','html.parser').section
+    if n==67:
+        # This former empty subchapter cover now bridges multi-chat handoffs
+        # to multi-Agent collaboration using the same Matching work tickets.
+        panel_html='''<div class="r-content">
+          <p class="r-kicker">前一頁：分成三個 Chat，人還在搬需求、版本與證據。換成兩個 Agent 前先決定怎麼交接。</p>
+          <div class="r-multi-agent-compare">
+            <article><h2>一個 Agent 接手 #3</h2><p>交接較少，工作與檢查集中。</p><small>產出者不能只靠自述判斷自己完成。</small></article>
+            <article><h2>兩個 Agent 接力 #3 → #2</h2><p>可分開準備配對規則與列表。</p><small>先確認 #3 交出的紀錄格式、版本、已測與未測。</small></article>
+          </div>
+          <p class="r-ribbon">分工需要有可接手的交付物；下一頁看 #3 的交接卡該交給 #2 什麼。</p>
+        </div>'''
+        node=BeautifulSoup('<section class="slide rev10-slide r-new r-multi-agent-bridge"><h1>'+e(p['title'])+'</h1>'+panel_html+'</section>','html.parser').section
+    if n==75:
+        # Use this formerly decorative subchapter break to teach the actual
+        # choice of who controls the process, grounded in source workflows.
+        comparison='''<div class="r-content"><p class="r-kicker">同一張 #3 工作票：你想親自決定每一步，或交給有核准點的工作流程？</p>
+        <div class="r-collaboration-choice">
+          <article class="r-grill-me"><span>人帶方向</span><h2>Grill Me｜逐題釐清</h2>
+          <p>AI 一題一題追問 #3 的目標、範圍與 AC。</p>
+          <p>本人確認設計與決策；訪談階段不執行程式任務。</p>
+          <small>適合需求還不確定，要親自回答取捨的時候</small></article>
+          <article class="r-superpowers"><span>有核准點的流程</span><h2>Superpowers｜流程化協作</h2>
+          <p>人先人工設計核准，再安排計畫、Agent 實作與 Review。</p>
+          <p>遇到需要確認的方向，仍交由人決定。</p>
+          <small>適合需求已釐清，想讓多個步驟照計畫推進的時候</small></article>
+        </div>
+        <p class="r-ribbon">兩種做法可搭配：先用問答定清楚 #3，再交給 Agent 執行；核對版本、AC 與證據的責任仍在。</p>
+        <p class="r-meta">參考：stevegsax/grill-me 的訪談工作流；obra/superpowers 的設計核准、計畫、實作與審查。</p></div>'''
+        node=BeautifulSoup('<section class="slide rev10-slide r-new r-collaboration-slide"><h1>'+e(p['title'])+'</h1>'+comparison+'</section>','html.parser').section
+    # All public language follows one time axis: Version B code is unchanged;
+    # a later evidence record only adds previously missing scenario coverage.
+    if n in (45,46):
+        label='Version B 補驗前（B-pre）｜這份紀錄還缺重複 Like' if n==45 else 'Version B 補驗後（B-post）｜同一份程式，增加重複 Like 測試'
+        marker=BeautifulSoup('<p class="r-version-time-label">'+label+'</p>','html.parser').p
+        kicker=node.select_one('.r-kicker')
+        assert kicker
+        kicker.insert_after(marker)
+    if n in (45,46,47,59,63,64,88,89,90,91,92,95):
+        # Keep evidence references and raw fixture names untouched. Only
+        # learner-visible strings are converted to meaningful Chinese.
+        for original in list(node.find_all(string=True)):
+            value=str(original)
+            changed=(value.replace('B-pre','Version B 補驗前').replace('B-post','Version B 補驗後')
+                .replace('Version B 補驗前 補驗前','Version B 補驗前')
+                .replace('Version B 補驗後 補驗後','Version B 補驗後')
+                .replace('Version B 補驗前｜補驗前','Version B 補驗前')
+                .replace('Version B 補驗後｜同一版，補驗後','Version B 補驗後｜同一版')
+                .replace('Version B 補驗後｜補驗後','Version B 補驗後')
+                .replace('Version B 補驗前 的','Version B 補驗前的'))
+            if changed!=value:original.replace_with(changed)
+        # The two first-use labels remain accurate to the technical sources.
+        if n in (45,46):
+            marker=node.select_one('.r-version-time-label')
+            assert marker
+            marker.string='Version B 補驗前（B-pre）｜這份紀錄還缺重複 Like' if n==45 else 'Version B 補驗後（B-post）｜同一份程式，增加重複 Like 測試'
     node['data-section']=p['chapter'];node['data-page']=str(p['number']);node['data-source']=' '.join(p['ids']);node['id']=f'page-{p["number"]}'
     if p['addedId']:node['data-added-id']=p['addedId']
     if p['oldRev11Page']==7:node['data-process-stage']='0'
@@ -1177,6 +1332,9 @@ for i,p in enumerate(pages):
             cover_copy.select_one('.r-storyline-phase').string='模型設定能調整執行；前面 #3 的交接漏規則、進度不明、偏離 Goal，仍需共同約定處理。'
         if p['number']==96:
             cover_copy.select_one('.r-storyline-phase').string='以下依問題選讀：P97–102 規則、測試與共識；P103–104 阻礙與事故；P105–106 架構與看板。'
+        if p['number'] in (5,9,31,55,83,96):
+            append_html(cover_copy,chapter_overview_markup(p['chapter']))
+
     out.append(str(node))
     p['notes']=cards[p['number']].replace('新標題為提案，未修改 HTML。','本草稿採用此標題。')
     manifest.append(p)

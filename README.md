@@ -72,6 +72,20 @@
 | P16 | Preserve scope intentionally | 重排是為了解決敘事，不是順手刪章節或擴 scope。延伸議題應另列 Issue，不偷塞進當前 PR。 |
 | P17 | Different gates prove different things | Content correctness、Evidence correctness、Narrative QA、Desktop/Mobile QA、真人小白試教、Release 是不同 gate；一個 gate 通過不代表其他 gate 通過。 |
 
+### 初學者術語與教學例子
+
+- **Agent：**按照工作票決定下一步、使用工具、讀取結果並繼續工作的 AI。
+- **Context：**Agent 這一輪已取得且可以使用的資料，例如 Ticket、AC、已測紀錄。資料存在專案中，不代表本輪已讀到。
+- **AC（Acceptance Criteria）：**怎樣的結果能接受。配對例：單向 0 筆，雙向 1 筆，重複 Like 不新增。
+- **AT（Acceptance Test）：**怎樣驗證 AC。例：先有一筆配對，再次 Like，預期仍只有一筆；執行前是預期，執行後才有實際 Evidence。
+- **Refinement：**持續釐清工作票的活動，通常讓 Backlog 漸漸可進 Ready；開發或測試遇到需求不清楚、無法執行或無法驗證，也要把問題記回票面討論。七欄看板不為它另增欄位。
+- **Version B 補驗前／補驗後：**同一份 Version B 程式，原 Evidence 資料夾名稱為 B-pre 與 B-post；前者重複 Like 尚未執行，後者新增重複 Like 的結果。沒有新增 UI 整合／部署證據。
+- **兩種 Agent 工作安排：**Grill Me 協助人逐題澄清、由本人確認；Superpowers 有人核准設計後才建立計畫、實作和 Review。兩者都需依工作範圍核對成果。參考 [Grill Me](https://github.com/stevegsax/grill-me) 與 [Superpowers](https://github.com/obra/superpowers)。
+
+用語原則：在主畫面以「不希望發生的錯誤配對」「怎樣驗」「哪些未測」這類自然語句描述任務。避免將尚無觀測的錯配事件寫成 0；不得靠模糊的工程名詞替代明確的測試前提與資料來源。
+
+參考：[Agile Alliance Acceptance Testing](https://agilealliance.org/glossary/acceptance-testing/)；[Scrum.org Product Backlog Refinement](https://www.scrum.org/resources/product-backlog-refinement)；[OpenAI Agents SDK Agents](https://openai.github.io/openai-agents-python/agents/) 與 [Context](https://openai.github.io/openai-agents-python/context/)。
+
 ### 本課的唯一看板模型（Canonical Workflow）
 
 - **七個看板狀態欄**：Backlog → Ready → Dev → Review → QA → Product Check → Done。
