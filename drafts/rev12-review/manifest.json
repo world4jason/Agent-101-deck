@@ -1,6 +1,6 @@
 {
   "ssot": "docs/issue48-execution-storyboard.md",
-  "ssotSha256": "9449b0f71f16219c23968e227687503b806409ab01abbd8104f6d4c55d8bb1e1",
+  "ssotSha256": "2c6d45a9b6ab0bbc96e45c52320b22717cc8f660f5fb2e4407027f32b699f5fb",
   "baseline": {
     "path": "slides/rev11.html",
     "pages": 82,
@@ -3061,7 +3061,7 @@
       "ids": [
         "P43"
       ],
-      "title": "External task state：工作狀態留在可查的紀錄",
+      "title": "把工作狀態記在共用紀錄裡",
       "oldRev11Page": 59,
       "addedId": null,
       "rev10SourcePage": 43,
@@ -3101,7 +3101,7 @@
       "ids": [
         "P44"
       ],
-      "title": "Bounded execution：超出核准範圍就先停下",
+      "title": "只做核准的範圍，超出就先停下",
       "oldRev11Page": 60,
       "addedId": null,
       "rev10SourcePage": 44,
@@ -3141,7 +3141,7 @@
       "ids": [
         "P45"
       ],
-      "title": "Role separation：職能是責任，不等於 Agent 數",
+      "title": "分清各項責任，不必每項都用一個 Agent",
       "oldRev11Page": 61,
       "addedId": null,
       "rev10SourcePage": 45,
@@ -3181,7 +3181,7 @@
       "ids": [
         "P46"
       ],
-      "title": "Independent verification：依 AC 和原始證據驗收",
+      "title": "驗收時對照核准條件與原始證據",
       "oldRev11Page": 62,
       "addedId": null,
       "rev10SourcePage": 46,
@@ -3221,7 +3221,7 @@
       "ids": [
         "P47"
       ],
-      "title": "Goal re-anchoring：回到 parent Goal",
+      "title": "每項工作都要對回整體目標",
       "oldRev11Page": 63,
       "addedId": null,
       "rev10SourcePage": 47,
