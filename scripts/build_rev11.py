@@ -263,9 +263,9 @@ added={}
 # Questions motivate the work, rather than ask novices to recognize unfamiliar jargon.
 outline_prompts = {
     'C0':('人類怎麼交接？','職能與接受責任','先知道誰負責'),
-    'C2':('需求怎麼變成票？','Goal、AC／AT、Ready','把工作寫清楚'),
-    'C1':('多人如何改版本？','Commit、Branch、PR','能找到改動'),
-    'C3':('成果如何驗證？','Dev、Review、QA','能看證據'),
+    'C2':('需求怎麼變成票？','寫出能開工、能驗收的票','把工作寫清楚'),
+    'C1':('多人如何改版本？','留下版本、分開改、送人審查','能找到改動'),
+    'C3':('成果如何驗證？','實作、審查、驗證結果','能看證據'),
     'C4':('何時可以放行？','未測、Done 與 Goal','由人決定'),
     'C5':('Agent 如何接手？','工具、資訊與分工','懂得交接'),
     'C6':('人怎麼驗收？','交辦、補驗、接受','依證據決定'),
@@ -341,7 +341,7 @@ panel('補驗前｜B-pre',para('單向：PASS，預期／實際 0 筆。','雙�
 added['A14']=kicker('用未補驗的 B-pre 練交接，再恢復補驗完成主線')+cols(
 panel('交接卡｜B-pre',para('Ticket：#3 雙向才配對。','版本：B · '+hash_b[:12]+'…','已驗：單向、雙向 PASS。','未驗：重複 Like；UI NOT RUN。','停點：不合併、不發布。'),'rule'),
 panel('練習｜寫下一句交辦',para('請寫給接手者：','先讀 #3 ticket，核對 B artifact hash。','重置後建立 M01，再只重複 Like 一次。','提供前後筆數、紀錄與執行結果。'),'human'),
-panel('回到主線｜B-post',para('恢復同一 B hash 的補驗後證據。','duplicate 實際 PASS，仍只有 M01。','下一頁：人依 Goal、AC 與證據作 Human Gate。'),'good'))+ribbon('接手演練結束；回到補驗完成的主線，核對更新證據，再進入 Human Gate。')+'<p class="r-meta"><a href="../workshop/matching-demo/evidence/B-pre-supplement/README.md" target="_blank" rel="noopener">開啟補驗前交接材料 ↗</a>　<a href="../workshop/matching-demo/evidence/B-post-supplement/README.md" target="_blank" rel="noopener">開啟補驗後證據 ↗</a></p>'
+panel('回到主線｜B-post',para('恢復同一 B hash 的補驗後證據。','重複 Like 規則層補驗：PASS，實際仍只有 1 筆 M01。','UI／整合：NOT RUN。','下一頁：人依 Goal、AC 與證據作 Human Gate。'),'good'))+ribbon('接手演練結束；回到補驗完成的主線，核對更新證據，再進入 Human Gate。')+'<p class="r-meta"><a href="../workshop/matching-demo/evidence/B-pre-supplement/README.md" target="_blank" rel="noopener">開啟補驗前交接材料 ↗</a>　<a href="../workshop/matching-demo/evidence/B-post-supplement/README.md" target="_blank" rel="noopener">開啟補驗後證據 ↗</a></p>'
 added['A15']=kicker('把方法轉用到你熟悉的小工具：只寫第一張有邊界的票')+table(['票上要有','請寫清楚'],[
  ['使用者與問題','誰需要它？要改善哪件事？'],
  ['第一個交付','這一輪只做哪個最小結果？'],
@@ -701,7 +701,7 @@ for i,p in enumerate(pages):
         assert gate_column, 'The preserved rev11 source must still contain its original Human Gate column.'
         gate_column.decompose()
         parent=board.select_one(':scope > .board-parent')
-        append_html(parent,'<span class="human-gate-transition">Product Check → Human Gate（人決定放行／暫停）→ Done</span>')
+        append_html(parent,'<span class="human-gate-transition">Product Check／Done 間的欄外決策｜Human Gate：人決定放行／暫停</span>')
         replace_text(node,'Human Gate 由產品負責人（人類流程中的 PO／PM 本人）決定，核准後 #3 才進 Done（目前 WIP 回到 0/1）。','Human Gate 是 Product Check 與 Done 之間的人類決策點；產品負責人核對後放行，#3 才進 Done（目前 WIP 回到 0/1）。Gate 不另增看板狀態。')
     if old_candidate_number(p)==22:
         replace_text(node,'三種情境的測試結果；確認雙方看到 Match，且只建立一次。','三種情境的測試結果；預期配對紀錄符合筆數與成員。')
@@ -709,7 +709,7 @@ for i,p in enumerate(pages):
         node['data-wip-stage']='workflow'
         append_html(node,'<button class="r-wip-trigger" type="button" data-wip-reveal aria-expanded="false">顯示補驗要求與 B-post 結果 →</button><section class="r-wip-sequence" data-wip-sequence hidden><p class="r-kicker">同一個 B artifact；補驗前後狀態逐項對照</p><div class="r-cols r-cols-2">'+
             panel('補驗要求｜沿用 B 版',para('請用同一個 B 版與原有假資料。','先確認已有一筆 M01，再讓小安重複 Like 一次。','交回補驗前後的筆數、紀錄與結果；不要改規則。'))+
-            panel('B-post｜實際補驗紀錄',para(f'補驗前：{b_duplicate["actual"]["before_match_count"]} 筆 M01。',f'補驗後：預期 {b_duplicate["expected"]["match_count"]} 筆；實際 {b_duplicate_actual}。',f'工具結果：<b class="r-green">{b_duplicate["status"]}</b>。','UI／產品串接仍 NOT RUN。'),'good')+
+            panel('B-post｜實際補驗紀錄',para(f'補驗前：{b_duplicate["actual"]["before_match_count"]} 筆 M01。',f'補驗後：預期 {b_duplicate["expected"]["match_count"]} 筆；實際 {b_duplicate_actual}。',f'重複 Like 規則層補驗：<b class="r-green">{b_duplicate["status"]}</b>。','UI／整合：NOT RUN。'),'good')+
             '</div><p class="r-meta"><a href="../workshop/matching-demo/exercise.md" target="_blank" rel="noopener">開啟 A13 練習與可複製命令 ↗</a>　<a href="../workshop/matching-demo/evidence/B-post-supplement/duplicate.json" target="_blank" rel="noopener">開啟 B-post 重複情境原始結果 ↗</a></p><button type="button" data-wip-return>返回補驗問題</button></section>')
     if p['number']==1:
         cover_copy=node.select_one('.cover-copy')
@@ -846,6 +846,23 @@ for i,p in enumerate(pages):
         x=node.select_one(".r-kicker")
         assert x
         x.string="本課 WIP 政策：開始且未完成的票才計入；上限由團隊決定。"
+    if n==15:
+        foot=node.select_one('.full-board-foot > span')
+        assert foot
+        foot.string='下一步先整理 #3 的 AC／AT；確認能進 Ready 後才開始實作。#1／#2 等依賴確認後再排。'
+    if n==27:
+        # User Story history is useful presenter context, but unrelated to
+        # the Sprint vs Kanban visual contrast on this page.
+        note=node.select_one('.compare-note')
+        if note:note.decompose()
+    if n==40:
+        ribbon=node.select_one('.r-ribbon')
+        assert ribbon
+        ribbon.string='自測、CI、Review／QA 可依團隊設定交錯執行；它們驗的問題不同，不保證一項通過就全部通過。'
+    if n==47:
+        ribbon=node.select_one('.r-ribbon')
+        assert ribbon
+        ribbon.string='畫面顯示同一 B 版的短指紋；完整 SHA 請查原始紀錄。新增的是重複 Like 補驗證據；UI／整合仍 NOT RUN。'
     if n==33:
         replace_text(node,"共享資料夾＋審查室","託管 Git 歷史、PR 與協作討論")
         visual=node.select_one('.visual')
@@ -858,14 +875,26 @@ for i,p in enumerate(pages):
         assert desc
         desc.string='概念預演｜Merge 更新共同版本；Release 才讓使用者取得新版；Goal 成效另待觀察。Human Gate 由人放行。'
 
+    if n==28:
+        content=node.select_one('.r-content')
+        assert content and content.select_one('.r-table')
+        content.select_one('.r-table').replace_with(BeautifulSoup('''<div class="r-wip-comparison" aria-label="WIP 目前張數和上限比較">
+          <article><small>尚未開始｜#3 在 Ready</small><strong>0/1</strong><span>進行中 0／上限 1</span></article>
+          <article><small>已開始｜#3 在 Dev</small><strong>1/1</strong><span>進行中 1／上限 1</span></article>
+          <article><small>比較情境｜上限明定為 2</small><strong>2/2</strong><span>#1 在 Dev ＋ #2 在 QA</span></article>
+        </div>''','html.parser').div)
+        content.select_one('.r-ribbon').string='等待驗收、Blocked、退回修正：已開工仍計入。Done 才不計；上限是團隊政策，不是產量目標。'
     if n==40:
         note=node.select_one('.r-meta')
         assert note
         note.string='CI（Continuous Integration，持續整合）＝依 PR 設定自動重跑檢查；此頁是審查流程示意，不聲稱已搭建真實 CI。'
     if n==59:
+        note=node.select_one('.r-kicker')
+        assert note
+        note.string='時間回到 Version B 的第一份交件紀錄：重複 Like 尚未測。'
         ribbon_node=node.select_one('.r-ribbon')
         assert ribbon_node
-        ribbon_node.string='Version B 的 B-pre：單向／雙向 PASS，重複 Like NOT RUN。接著查看 Agent 這輪實際讀到了什麼，能否知道哪些事項尚未驗。'
+        ribbon_node.string='本輪單向／雙向 PASS，重複 Like NOT RUN；下一頁查看 Agent 這輪讀到了哪些資料。'
     if n==60:
         kicker_note=node.select_one('.r-kicker')
         assert kicker_note
@@ -898,8 +927,12 @@ for i,p in enumerate(pages):
     if n==74:
         x=node.select_one(".term-note")
         assert x
-        x.string="model：選擇使用的 AI 模型。effort：產品提供的推理強度／資源設定，延遲、成本與結果可能不同；支援方式依模型而異。"
+        x.string='model＝選哪個 AI 模型；effort＝可用的推理強度選項（依產品與模型而異）。'
         replace_text(node,'#3 雙向喜歡才配對｜難度不同','同一 App 的不同工作')
+        node.select_one('.model-problem-chat > small').string='教學假設：全部使用同一設定'
+        node.select_one('.model-problem-chat > span').string='這只是比較情境，不代表建議固定設定'
+        node.select_one('.model-problem-preview').string='選擇要看時間、成本與實際測試結果；沒有依難度就一定要換模型的固定規則。'
+
         replace_text(node,'改按鈕文字','#1 改按鈕文字')
         replace_text(node,'判斷雙向配對規則','#3 判斷雙向配對規則')
     if n==76:
@@ -920,6 +953,7 @@ for i,p in enumerate(pages):
             row.select_one('.principle-side small').string='做法 '+str(i)
             row.select_one('.principle-name strong').string=action
             row.select_one('.principle-name span').string=term
+
     if n==77:
         replace_text(node,"Chat-driven｜靠對話推進","只靠 Chat 紀錄工作")
     if n==78:
@@ -1020,6 +1054,10 @@ for i,p in enumerate(pages):
         strong.string='Merge＋上線檢查＋DoD 後關票'
     if n==94:
         node.select_one(".r-kicker").string="從活動報名、課程作業、行銷素材審核、行政申請或小工具，選一件真正熟悉的工作。"
+    if n==97:
+        gwt=node.select_one('.r-cols > .r-card:nth-child(2) h2')
+        assert gwt
+        gwt.string='Given–When–Then｜前提・操作・預期'
     if n==105:
         last=node.select('.visual.architecture > .layer')[-1]
         assert last.select_one('span')
@@ -1222,6 +1260,11 @@ for i,p in enumerate(pages):
         extra=BeautifulSoup('<p class="r-gate-takeup">審查可由人或 Agent 協助；人仍須依風險、授權與證據作放行決定。上線後再評估 Goal 成效。</p>','html.parser').p
         node.select_one('.visual').append(extra)
     if n==93:
+        note=node.select_one('.r-recap-gate-note')
+        assert note
+        note.clear()
+        note.append(BeautifulSoup('Human Gate＝<strong>欄外的人類決策</strong>；#3 等待時仍在 Product Check。後續完成 Merge／Release／檢查與 DoD 才能進 Done。','html.parser'))
+    if n==93:
         # Two destinations were named but only the Backlog path was drawn.
         svg=node.select_one('.return-routes .return-desktop')
         assert svg
@@ -1351,7 +1394,7 @@ for i,p in enumerate(pages):
             <li><span>Agent 自己說完成</span><i aria-hidden="true">→</i><strong>獨立核對證據</strong></li>
             <li><span>越做越偏離 Goal</span><i aria-hidden="true">→</i><strong>每輪核對目標</strong></li>
           </ol>
-          <p>下一段用 #3 的交付示範這些做法；英文名稱及詳細說明保留在後續頁。</p>
+          <p>接下來依序學：P77 狀態、P78 停點、P79 職責、P80 證據、P81 Goal。</p>
         </div>''')
     if n==85:
         visual=node.select_one('.visual')

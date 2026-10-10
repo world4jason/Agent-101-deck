@@ -1577,3 +1577,46 @@
   margin:0;padding:15px 19px;border-left:4px solid #91c7ed;border-radius:6px;
   background:#172c40;color:#d8eafa;font:620 23px/1.37 system-ui;
 }
+
+/* WIP is a count over work states, not another dense policy spreadsheet.
+   Detailed policy and edge cases remain in Storyboard/Notes. */
+.rev12-draft #page-28 .r-wip-comparison {
+  flex:1 1 auto;min-height:0;
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:20px;width:100%;align-items:stretch;
+}
+.rev12-draft #page-28 .r-wip-comparison article {
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  min-width:0;min-height:260px;gap:18px;
+  padding:20px;
+  border:1px solid #466889;border-top:5px solid #8cbef0;
+  border-radius:11px;background:#14263a;
+}
+.rev12-draft #page-28 .r-wip-comparison article:nth-child(2) {
+  border-top-color:#91dbae;background:#182e24;
+}
+.rev12-draft #page-28 .r-wip-comparison article:nth-child(3) {
+  border-top-color:#e5ca85;background:#292719;
+}
+.rev12-draft #page-28 .r-wip-comparison small {
+  color:#b4d4ed;text-align:center;font:690 22px/1.28 system-ui;
+}
+.rev12-draft #page-28 .r-wip-comparison strong {
+  color:#eff9ff;text-align:center;font:850 74px/1.06 system-ui;
+}
+.rev12-draft #page-28 .r-wip-comparison span {
+  color:#c9dbed;text-align:center;font:560 21px/1.35 system-ui;
+}
+.rev12-draft #page-28 .r-ribbon {font:590 19px/1.37 system-ui;}
+/* Flow remains a teaching comparison; don't hide model/effort caveat. */
+.rev12-draft #page-74 .term-note {font-size:19px;line-height:1.37;color:#c6dcf0;}
+.rev12-draft #page-74 .model-problem-preview {
+  color:#cfe7f5;font:650 20px/1.34 system-ui;
+}
+/* The Gate belongs BETWEEN columns but is not an eighth board state. */
+.rev12-draft #page-106 .human-gate-transition {
+  display:inline-block;padding:6px 10px;
+  background:#192d22;border:1px solid #598e6c;border-radius:7px;
+  font-size:15px;font-weight:760;color:#b8e6c7;text-align:right;
+}
+.rev12-draft #page-93 .r-recap-gate-note {font-size:20px;line-height:1.37;}
