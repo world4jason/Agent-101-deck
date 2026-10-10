@@ -116,7 +116,7 @@ new[26]=kicker('Example Mapping｜把討論分清楚，才知道能不能進 Rea
  panel('尚待確認',para('例如：取消 Like 怎麼處理？','本輪不納入，不自行補功能。','若問題影響既定 AC，就先釐清。'),'problem'))+ribbon('確認的規則與範例回到票面；未解問題要有負責人、處置與下一步。')
 new[27]=kicker('先問：這些範例有沒有解決我們的分歧？')+cols(
  panel('為了共同理解',para('用能區分單向、雙向與重複結果的例子，','讓大家對規則得出同一個答案。','未解問題要有處置。'),'good'),
- panel('為了驗證系統',para('再依風險展開重要條件組合。','不只測成功，也測禁止與重複。','AI 產生更多，不代表已經窮舉。')))+ribbon('「寫了幾個」不是完成依據；下一步把 Like 的四種組合攤成決策表。')+'<p class="r-meta">測試設計還可用等價分割、邊界值、決策表、Use Case；依問題選方法。</p>'
+ panel('為了驗證系統',para('再依風險展開重要條件組合。','不只測成功，也測禁止與重複。','AI 產生更多，不代表已經窮舉。')))+ribbon('「寫了幾個」不是完成依據；後面驗收時再用決策表檢查四種 Like 組合。')+'<p class="r-meta">測試設計還可用等價分割、邊界值、決策表、Use Case；依問題選方法。</p>'
 new[28]=kicker('同一個例子，把「接受什麼」接到「如何證明」')+cols(
  panel('AC｜接受條件',para('<b>同一對不重複配對。</b>','描述必須成立的行為。'),'rule'),
  panel('AT｜驗收測試',para('<b>Given</b> 小安與小晴已配對','<b>When</b> 小安再次 Like','<b>Then</b> 仍只有原本一筆'),'good'),
@@ -274,7 +274,7 @@ for idx,chapter in enumerate(chapter_order_at_outline,1):
 added['A01']=(kicker('一個配對 App，帶我們認識人類分工、工作交付、Agent 協作與人的驗收。')
     +'<div class="r-course-map" aria-label="整堂課章節 Outline：從人類合作到 Agent 與驗收">'
     +''.join(outline_items)+'</div>'
-    +ribbon('先看整張地圖，再逐章走同一個 App；Agent 是能用工具推進任務的 AI；課程後段會練習交辦並由人驗收。'))
+    +ribbon('Agent 是可用工具推進任務的 AI。先學人怎麼交接與驗收，才知道如何交辦、核對 Agent 的成果。'))
 added['A02']=kicker('聚焦交付後的接力：Dev 說做好了，誰能判定真的可以接受？')+four_step_flow(
  ('交付','Dev（實作）','交回 #3 規則版本','附上自我測試',''),
  ('審查','Reviewer（看改動）','有沒有超出工作範圍？','交回改動意見',''),
@@ -321,7 +321,7 @@ added['A12']=kicker('交辦一項有邊界、能驗證、知道何時停的工�
  panel('指定材料',para('ticket：`workshop/matching-demo/ticket.md`','程式：`workshop/matching-demo/versions/B/matching.py`','假資料：`workshop/matching-demo/fixtures/users.json`','執行入口：`workshop/matching-demo/run_case.py`')),
  panel('從專案根目錄執行',para('<code>python3 workshop/matching-demo/run_case.py --artifact workshop/matching-demo/versions/B/matching.py --candidate-id B --case one-way</code>','回報預期／實際紀錄、筆數與結果。','只驗 #3 規則；UI／產品串接不在此範圍。'),'good'))+ribbon('若票、B 程式、假資料或 runner 不可取得，停止並回報；不要改 AC 或宣稱產品驗收。')
 added['A13']=kicker('B-pre 有一個缺口：重複情境尚未跑；你會怎麼要求補驗？')+cols(
-panel('補驗前｜B-pre',para('單向：PASS，預期／實際 0 筆。','雙向：PASS，預期／實際 1 筆 M01。','重複 Like：NOT RUN。','先寫下一句補驗指令。'),'problem'))+ribbon('請在揭露前說清楚：核對同一個 B artifact、不可改規則、重置資料後只補跑重複 Like，並交回前後紀錄。')
+panel('補驗前｜B-pre',para('單向：PASS，預期／實際 0 筆。','雙向：PASS，預期／實際 1 筆 M01。','重複 Like：NOT RUN。','先寫下一句補驗指令。'),'problem'))+ribbon('先自己寫一句補驗要求；寫好再按「顯示補驗要求」核對。')
 added['A14']=kicker('用未補驗的 B-pre 練交接，再恢復補驗完成主線')+cols(
 panel('交接卡｜B-pre',para('Ticket：#3 雙向才配對。','版本：B · '+hash_b[:12]+'…','已驗：單向、雙向 PASS。','未驗：重複 Like；UI NOT RUN。','停點：不合併、不發布。'),'rule'),
 panel('練習｜寫下一句交辦',para('請寫給接手者：','先讀 #3 ticket，核對 B artifact hash。','重置後建立 M01，再只重複 Like 一次。','提供前後筆數、紀錄與執行結果。'),'human'),
@@ -346,7 +346,7 @@ exit_check_data = {'A18': {'label': '人類合作',
  'A19': {'label': '想法到 Ready',
          'outcome': '能把模糊要求寫成有邊界、有 AC、有證據的可交辦 Ticket。',
          'questions': [('只有一句「支援配對」，你會先問什麼？', '先釐清誰需要、Goal 是什麼；用單向、雙向、重複 Like 的具體情境確認共同理解。'),
-                       ('老師已確認「文字非空才能提交、空白不得送」，但自動評分未決。你會怎麼寫第一張 Ticket？',
+                       ('遷移練習｜課程作業提交：老師已確認「文字非空才能提交、空白不得送」，但自動評分未決。你會怎麼寫第一張 Ticket？',
                         '範圍：文字提交；AC：非空新增一筆、空白不能提交；評分先列待確認，不擅自加入 AC 或宣布不做；驗證：兩種前提的預期／實際提交紀錄。'),
                        ('#3 在 Ready 尚未開始時，WIP 是 0/1 還是 1/1？', '0/1。Ready 代表可開工，尚未開始；進入 Dev 才計入進行中的 WIP。')]},
  'A20': {'label': '版本協作',
@@ -371,7 +371,7 @@ exit_check_data = {'A18': {'label': '人類合作',
          'outcome': '能分辨 Agent、Workflow、Session、WIP，判斷何時需要多 Agent。',
          'questions': [('比較情境：已核准把 WIP 上限調為 2；同一個 Agent 開始 #1／#2，均未完成。Agent 數和 WIP 各多少？',
                         'Agent 1 位、WIP 2 張。因已明示調整上限，此情境不違反上限；Agent 數量與 WIP 是兩種獨立尺度。'),
-                       ('按本課已定流程，QA 不通過便退回 Dev。這條路由誰定？是否一定要增加 Agent？',
+                       ('QA 不通過退回 Dev，是人事先約定的流程，還是 Agent 可自行更改？是否需要增加 Agent？',
                         '由人核准的 Workflow／看板規則決定退回路徑，可由系統或獲授權者執行；工作者人數不因此增加，多 Agent 另看隔離、專責或並行效益。'),
                        ('換 Session 或 Compact 後，要優先核對哪幾項？', '共同 Ticket／AC、候選版本、已測／未測與授權狀態；Memory 不是最新工作狀態的證據。')]},
  'A24': {'label': 'Agent 交付',
@@ -780,6 +780,16 @@ for i,p in enumerate(pages):
         x.string="本課 WIP 政策：開始且未完成的票才計入；上限由團隊決定。"
     if n==33:
         replace_text(node,"共享資料夾＋審查室","託管 Git 歷史、PR 與協作討論")
+        visual=node.select_one('.visual')
+        assert visual
+        glossary=BeautifulSoup('<p class="r-pr-glossary">PR＝把一組修改交給別人審查；diff＝這次改了哪些內容。</p>','html.parser').p
+        visual.insert_after(glossary)
+    if n==37:
+        # This whole page is a concept preview, not a real deployment event.
+        desc=node.select_one('.r-revision')
+        assert desc
+        desc.string='概念預演｜Merge 更新共同版本；Release 才讓使用者取得新版；Goal 成效另待觀察。Human Gate 由人放行。'
+
     if n==40:
         note=node.select_one('.r-meta')
         assert note
@@ -800,16 +810,45 @@ for i,p in enumerate(pages):
         citation=node.select_one(".draft-source")
         assert citation
         citation.insert(0,"配對 App 情境為教材改編，非研究原案例｜")
+    if n==73:
+        note=node.select_one('.two-axis-note')
+        assert note
+        note.string='QA 退回 Dev 由人先約定；Agent 在授權內決定執行方式。Workflow 和 Agent 可以一起使用；人數、WIP 另計。'
     if n==74:
         x=node.select_one(".term-note")
         assert x
         x.string="model：選擇使用的 AI 模型。effort：產品提供的推理強度／資源設定，延遲、成本與結果可能不同；支援方式依模型而異。"
+        replace_text(node,'#3 雙向喜歡才配對｜難度不同','同一 App 的不同工作')
+        replace_text(node,'改按鈕文字','#1 改按鈕文字')
+        replace_text(node,'判斷雙向配對規則','#3 判斷雙向配對規則')
+    if n==76:
+        # Pages 77–81 explain the English labels in detail. This overview
+        # is a 5-second risk → action map, not a second taxonomy lecture.
+        pairs=[
+          ('資訊只留聊天','狀態記在票上','External task state'),
+          ('任務沒有停點','只做核准範圍','Bounded execution'),
+          ('職責混在一起','依責任分工','Role separation'),
+          ('自己說已完成','獨立核對證據','Independent verification'),
+          ('偏離共同 Goal','每輪回對目標','Goal re-anchoring'),
+        ]
+        rows=node.select('.principle-overview > .principle-row')
+        assert len(rows)==5
+        for i,(row,(risk,action,term)) in enumerate(zip(rows,pairs),1):
+            row.select_one('.problem-side small').string='風險 '+str(i)
+            row.select_one('.problem-side strong').string=risk
+            row.select_one('.principle-side small').string='做法 '+str(i)
+            row.select_one('.principle-name strong').string=action
+            row.select_one('.principle-name span').string=term
     if n==77:
         replace_text(node,"Chat-driven｜靠對話推進","只靠 Chat 紀錄工作")
     if n==78:
         replace_text(node,"WIP=1","本課 WIP 上限 1")
     if n==80:
         add_note(node,"另一隻 Agent 不代表已獨立驗證：先由原 AC 確定預期，再核對特定版本與原始結果；人也可以獨立核驗。")
+    if n==81:
+        route_note=node.select_one('.visual > p:last-child')
+        assert route_note and '目標漂移' in route_note.get_text(), 'P81 goal note changed'
+        route_note.string='方向偏離 → 由人重新確認 Goal，需要時退回 Backlog。Human Gate 只處理發布前放行。'
     if n==85:
         replace_text(node,"現在：PM Agent＋PO Agent｜#3 雙向喜歡才配對","現在：Agent 協助規劃職能｜#3 雙向喜歡才配對")
         tasks=node.select(".agent-responsibilities span")
@@ -862,7 +901,7 @@ for i,p in enumerate(pages):
             body.append(details)
             title=card.select_one("h2")
             assert title
-            title.string="參考補驗指令（先作答）" if i==1 else "B-post 結果（先推測）"
+            title.string="參考補驗指令（先作答）" if i==1 else "B-post 結果（先核對）"
     if n==64:
         # Put the complete human + one Agent return loop BEFORE multi-Agent.
         # CLI-specific session/resume instructions remain in the storyboard notes.
@@ -1022,7 +1061,7 @@ for i,p in enumerate(pages):
         section=node.select_one('.visual.step-visual')
         assert section
         decision=BeautifulSoup('''<div class="r-product-story" aria-label="Product Check 判斷與退回方向">
-          <p class="r-product-position">#3 在 Product Check｜已見規則層證據；UI／整合仍 NOT RUN</p>
+          <p class="r-product-position">Product Check 流程示意｜#3 還有 NOT RUN，未完整通過 QA／放行。</p>
           <div class="r-product-question">
             <span>核對 #3 的配對規則</span>
             <h2>互相喜歡才能建立配對</h2>

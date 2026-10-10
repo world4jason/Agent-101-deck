@@ -844,3 +844,37 @@
 .rev12-draft #page-22 .r-ticket-place span {font:740 24px/1.25 system-ui;color:#bedcf7;}
 .rev12-draft #page-22 .r-ticket-place strong {font:760 28px/1.25 system-ui;color:#f0f7ff;}
 .rev12-draft #page-22 .r-ticket-place small {font:580 20px/1.25 system-ui;color:#b3c9de;margin-left:auto;}
+
+/* G4 projection scan: teach the five risk/action pairs; details are on P77–81. */
+.rev12-draft #page-76 .problem-side strong {
+  font-size: 25px;
+  line-height: 1.3;
+}
+.rev12-draft #page-76 .principle-name strong {
+  font-size: 25px;
+  line-height: 1.3;
+  color: #e5f1ff;
+}
+.rev12-draft #page-76 .principle-name span {
+  font-size: 15px;
+  color: #92adc8;
+}
+
+/* A PR/diff definition applies to both cards, so display it beneath their
+   comparison rather than squeezing it into a third tiny column. */
+.rev12-draft #page-33 .r-pr-glossary {
+  width: 100%;
+  margin: 8px 0 0;
+  padding: 13px 20px;
+  border-left: 5px solid #80b4ef;
+  border-radius: 8px;
+  background: #192c40;
+  color: #e8f2fc;
+  font: 660 22px/1.4 system-ui,sans-serif;
+  text-align: center;
+}
+
+/* P81: visible direction returns from Product Check to Goal. */
+.rev12-draft #page-81 .reanchor-path > .diagram-arrow.back-arrow {
+  transform: rotate(180deg) !important;
+}
