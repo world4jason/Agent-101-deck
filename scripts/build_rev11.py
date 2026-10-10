@@ -89,7 +89,7 @@ new[5]=kicker('PO（Product Owner）整理產品需求；Goal＝目標；AC＝�
  ('問題','需求方／PO（需求）','先釐清要解決什麼','互相喜歡才算配對','problem'),
  ('輸入','UI／UX（畫面設計）','把需求交成可實作的設計','#1 Like／Pass、#2 配對列表',''),
  ('交付','Dev（實作）→ 審查／驗證','依設計實作 #1／#2／#3','交程式版本＋驗證證據','good'),
- ('接受','需求方（人）','對照 Goal／AC 接受或退回','最後是否放行由人決定','human')
+ ('接受','需求方（人）','對照 Goal／AC 接受或退回','放行由人依 Goal／AC 決定','human')
 )+ribbon('一條工作流、不同職能接力；這些是責任，不一定需要六個人。')
 new[6]=kicker('同一張 #3｜單向 Like 不得配對：看見退回與同案重驗')+cols(
  panel('1｜第一次驗收',para('初始 0 筆；只有安 Like 晴。','預期：0 筆。','Version A 實際 1 筆 M01。','工具回傳：<b class="r-red">FAIL</b>。'),'problem'),
@@ -115,7 +115,7 @@ new[26]=kicker('Example Mapping｜把討論分清楚，才知道能不能進 Rea
  panel('具體範例',para('單向 Like → 不配對','雙向 Like → 建立配對','已配對再 Like → 不增筆'),'good'),
  panel('尚待確認',para('例如：取消 Like 怎麼處理？','本輪不納入，不自行補功能。','若問題影響既定 AC，就先釐清。'),'problem'))+ribbon('確認的規則與範例回到票面；未解問題要有負責人、處置與下一步。')
 new[27]=kicker('先問：這些範例有沒有解決我們的分歧？')+cols(
- panel('為了共同理解',para('用單向、雙向、重複的關鍵例子，','讓大家對規則得出同一個答案。','未解問題要有處置。'),'good'),
+ panel('為了共同理解',para('用能區分單向、雙向與重複結果的例子，','讓大家對規則得出同一個答案。','未解問題要有處置。'),'good'),
  panel('為了驗證系統',para('再依風險展開重要條件組合。','不只測成功，也測禁止與重複。','AI 產生更多，不代表已經窮舉。')))+ribbon('「寫了幾個」不是完成依據；下一步把 Like 的四種組合攤成決策表。')+'<p class="r-meta">測試設計還可用等價分割、邊界值、決策表、Use Case；依問題選方法。</p>'
 new[28]=kicker('同一個例子，把「接受什麼」接到「如何證明」')+cols(
  panel('AC｜接受條件',para('<b>同一對不重複配對。</b>','描述必須成立的行為。'),'rule'),
@@ -123,14 +123,14 @@ new[28]=kicker('同一個例子，把「接受什麼」接到「如何證明」'
  panel('DoD｜共用完成要求',para('改動有人審查、沒有超出範圍','既有功能沒壞、上線後檢查','本課所有票共同遵守。')))+ribbon('一張票的特定行為用 AC 判斷；AT 驗證它；完成還要滿足團隊共用 DoD。')
 new[32]=kicker('#3 單向不得配對：不同檢查回答不同問題')+flow(
  panel('Dev ↔ 自測',para('邊改邊測，快速修正。','PR 帶著改動與自測紀錄。')),
- panel('PR／CI',para('PR 是送審與討論位置。','CI 依設定重複執行 checks。')),
+ panel('PR／CI',para('PR 是送審與討論位置。','CI 依設定重複執行檢查。')),
  panel('Reviewer／QA',para('Review：範圍與改動合理嗎？','QA：行為符合 AC 嗎？')))+ribbon('自測過了，仍可能誤解需求或漏情境；審查與獨立驗證各有責任。')+'<p class="r-meta">本課以這條路徑示範；草稿 PR 可以提早開，測試也會在開發中反覆執行。</p>'
 new[34]=kicker('把 #3 視為黑箱：先約定輸入與可觀察結果')+table(['輸入／前提','執行','應觀察到的結果'],[
  ['尚未配對；只有小安 Like','執行配對判斷','<b class="r-red">不得建立配對</b>'],
  ['尚未配對；雙方都 Like','執行配對判斷','<b class="r-green">建立配對</b>'],
  ['兩人已配對','再次 Like','<b>仍只有原本那一筆</b>']])+ribbon('驗收包含應有、禁止與重複情境；不能只看一個成功畫面。')+'<p class="r-meta">這裡是驗證設計示意。畫面正常，不能單獨證明所有內部資料都正確。</p>'
 new[35]=kicker('前提固定：這兩人起初尚未配對')+table(['小安 Like 小晴','小晴 Like 小安','預期結果'],[
- ['否','否','不建立配對'],['是','否','不建立配對'],['否','是','不建立配對'],['是','是','<b class="r-green">建立配對</b>']])+ribbon('只有最後一列成功還不夠；另外三列也必須不配對。')+'<p class="r-meta">決策表描述四種預期，不代表四列全都已實測；重複 Like 是另一種初始狀態。</p>'
+ ['否','否','不建立配對'],['是','否','不建立配對'],['否','是','不建立配對'],['是','是','<b class="r-green">建立配對</b>']])+ribbon('只看雙方都 Like 的結果不夠；其餘三種組合的預期也都不得配對。')+'<p class="r-meta">決策表描述四種預期，不代表四列全都已實測；重複 Like 是另一種初始狀態。</p>'
 new[39]=kicker('同一張 #3、同樣的驗收結果，放到不同地方')+cols(
  panel('假資料環境',para('錯配影響的是測試帳號。','可以重建測試資料，再驗一次。','確認隔離與回復方式。')),
  panel('真實使用者環境',para('錯配可能影響使用者與既有資料。','退回程式版本，未必消除既有後果。','需要知道曝光範圍與處理能力。'),'human'))+ribbon('驗收通過仍有剩餘不確定性；放行還要看影響範圍、資料與可逆性。')
@@ -156,12 +156,12 @@ new[66]=kicker('已確認：雙向才配對、不重複；未確認的推測仍�
  panel('會後｜轉寫',para('把確認結果整理成票與 GWT。','核對前提、事件、結果，','沒有在轉寫時偷偷改規則。')),
  panel('抓漏｜提疑問',para('AI 問：取消 Like 要怎麼辦？','先標成疑問，不加入 AC。','人決定是否另列後續工作。'),'human'))+ribbon('AI 幫忙準備、整理與找漏洞；需求的意思和取捨仍由人確認。')
 responsibility=json.loads((ROOT/'drafts/rev11-responsibility.json').read_text())
-new[67]=kicker('人類的責任不會消失：把可交辦的工作交給 Agent，最後仍由人驗收。')+four_step_flow(
+new[67]=kicker('人類的責任不會消失：把可交辦的工作交給 Agent，仍由人依 Goal／AC 核對並決定接受或退回。')+four_step_flow(
  ('需求與設計','PO／UI／UX 職能','Agent 可整理需求、草擬畫面','Goal／AC、設計仍由人確認',''),
  ('實作交付','Dev 職能','Agent 可寫程式與自測','交回版本與改動記錄',''),
  ('審查驗證','Reviewer／QA 職能','Agent 可依 AC 核對','要獨立證據，不信自述','good'),
  ('接受放行','需求方（人）','對照條件決定接受或退回','Human Gate 仍由人決定','human')
-)+ribbon('職能是責任，不等於 Agent 數量；委託工作 ≠ 委託最後的接受與放行權。')
+)+ribbon('職能是責任，不等於 Agent 數量；委託工作不等於把接受與放行權交給 Agent。')
 
 new[69]=kicker('Agent 回報「#3 完成，測試 PASS」；人還要打開交付包')+cols(
  panel('應能對上的材料',para('原 Issue／Goal 與每條 AC','PR、交付版本與變更範圍','測試前提、實際結果、證據','未跑情境、失敗與未解問題')),
@@ -176,7 +176,7 @@ new[74]=kicker('教學偽碼｜假設錯誤實作在單向 Like 時也產生配�
 new[75]=kicker('教學示意｜已確認的 AC：只有單向 Like，不得配對')+flow(
  panel('Red',para('先寫單向情境的測試。','錯誤配對行為使它失敗。','不是因為環境或語法壞掉。'),'problem'),
  panel('Green',para('實作雙向判斷。','讓這條測試通過。','保留其他已確認規則。'),'good'),
- panel('Refactor',para('整理程式結構。','行為不改，測試仍通過。','再進下一個小循環。')))+ribbon('叫 Agent 用 TDD，也要看它是否真的經過有意義的紅燈，而不是只有最後一張綠燈。')
+ panel('Refactor',para('整理程式結構。','行為不改，測試仍通過。','再進下一個小循環。')))+ribbon('叫 Agent 用 TDD，要核對有意義的紅燈，以及實作和整理後仍通過。')
 new[76]=kicker('同一個重複配對範例，從共識到可重複驗證')+flow(
  panel('Discovery',para('PO／Dev／QA 討論：','已配對再 Like，應怎樣？','找出假設、規則與疑問。')),
  panel('Formulation',para('寫成精確的共同描述：','已配對 → 再 Like → 原一筆','用 GWT 或合適的格式。')),
@@ -190,9 +190,9 @@ new[78]=kicker('票填滿了，仍可能沒有人知道下一步怎麼做')+tabl
  ['解除負責人／條件','環境負責人協助恢復存取；Dev 確認可以執行。'],
  ['下一步','沿原 AC 重跑、連結結果，解除阻礙標記並更新票。']])+ribbon('Blocked 仍是已開始、未完成的票；它持續計入目前 WIP。阻礙解除後沿原工作接續。')
 new[79]=kicker('Specification by Example｜讓共同理解跨過人員與版本')+flow(
- panel('討論時',para('共同確認：','同一對不重複配對。','用關鍵範例找出歧義。')),
+ panel('討論時',para('共同確認：','同一對不重複配對。','用具體範例找出歧義。')),
  panel('票與規格',para('保存規則與例子：','已配對 → 再 Like → 原一筆','讓下一位接手者讀得到。')),
- panel('驗證與維護',para('用同一例子核對行為。','規則變動時一起更新。','避免文件與測試各自漂移。')))+ribbon('共同探索 → 用範例保存理解 → 持續驗證與維護；不只留下會議紀錄。')
+ panel('驗證與維護',para('用同一例子核對行為。','規則變動時一起更新。','避免文件與測試各自漂移。')))+ribbon('共同探索 → 用可核對範例保存共同理解 → 持續驗證與維護；不只留下會議紀錄。')
 new[80]=kicker('處理路徑示意｜不宣稱本 App 已具備以下機制')+cols(
  panel('發現與停止',para('偵測到錯配，確認影響範圍。','先停止擴大影響。','依現有能力關閉或限制功能。'),'problem'),
  panel('回復與資料處理',para('確認版本，按能力回復。','找出受影響的配對資料。','另行處理已發生的後果。')),
@@ -274,7 +274,7 @@ for idx,chapter in enumerate(chapter_order_at_outline,1):
 added['A01']=(kicker('一個配對 App，帶我們認識人類分工、工作交付、Agent 協作與人的驗收。')
     +'<div class="r-course-map" aria-label="整堂課章節 Outline：從人類合作到 Agent 與驗收">'
     +''.join(outline_items)+'</div>'
-    +ribbon('先看整張地圖，再逐章走同一個 App；Agent 是能用工具推進任務的 AI，後面才深入；最後要學會交辦與驗收。'))
+    +ribbon('先看整張地圖，再逐章走同一個 App；Agent 是能用工具推進任務的 AI；課程後段會練習交辦並由人驗收。'))
 added['A02']=kicker('聚焦交付後的接力：Dev 說做好了，誰能判定真的可以接受？')+four_step_flow(
  ('交付','Dev（實作）','交回 #3 規則版本','附上自我測試',''),
  ('審查','Reviewer（看改動）','有沒有超出工作範圍？','交回改動意見',''),
@@ -308,14 +308,14 @@ panel('人交代目標',para('指定 #3、AC 與範圍。','說明停止條件�
 panel('Agent 判斷下一步',para('先讀票與候選檔。','檢查能用的工具。')),
 panel('實際使用工具',para('讀檔、修改、執行。','工具有真實回傳。'),'rule'),
 panel('觀察後續',para('依回傳繼續、調整、詢問或停止。','回交結果與未測事項。'),'human'))+'<p class="r-loop-back"><b aria-hidden="true">↶</b> 結果未符合預期或需要補資料時，回到判斷，重新選擇下一步。</p>'+ribbon('不是只回答一句話：要觀察工具回傳，才知道接著該做什麼。')
-added['A09']=kicker('時間倒回至獨立教學重演的起點：先看交辦、計畫與實際結果')+cols(
-panel('交辦｜範圍先說清楚',para('只處理 #3 單向 Like。','預期：尚未互相喜歡時，不建立配對。','保留既有案例；不測 UI 或完整產品。')),
-panel('計畫｜執行前先安排',para('讀票與候選版本。','執行一次單向情境，再對照 AC。','若不符合，才修正並用同一情境重驗。'),'good'),
-panel('工具實際回傳｜Version A',para('<b>預期：</b>0 筆。','<b>實際：</b>1 筆 M01。','<b class="r-red">FAIL</b>','把錯誤結果交回修正。'),'problem'))+ribbon('這是獨立教學重演：主畫面呈現決策與結果；命令、檔案指紋、完整輸出與 replay 材料留在筆記。')
-added['A10']=kicker('時間倒回 B-pre｜看同一單向情境如何由 FAIL 修正為 PASS')+cols(
-panel('修正｜只改判斷條件',para('依 Version A 的失敗結果修正。','只有反向 Like 也存在時才配對。','接著重跑原本的單向情境。'),'problem'),
-panel('重測｜Version B 單向 Like',para('<b>預期：</b>0 筆。','<b>實際：</b>0 筆。','<b class="r-green">PASS</b>','同一規則情境已通過。'),'good'),
-panel('當時仍未知',para('B-pre 的雙向情境：PASS。','重複 Like：NOT RUN。','UI／產品串接：NOT RUN。','後面的 B-post 才補上重複情境。')))+ribbon('這裡明確回到重複情境補驗前的 B-pre；不把後來的 B-post 結果提前。')
+added['A09']=kicker('教學重演｜回到 Version A，先看交辦、計畫與首測')+cols(
+panel('交辦｜只處理 #3 單向 Like',para('預期：0 筆配對。','只驗規則，不驗 UI／完整產品。')),
+panel('計畫｜先讀票與候選版本',para('執行單向情境並對照接受條件。','失敗才修正，再用同一情境重驗。'),'good'),
+panel('結果｜Version A 單向 Like',para('<b>預期：</b>0 筆。','<b>實際：</b>1 筆 M01。','<b class="r-red">FAIL</b>','交回修正。'),'problem'))+ribbon('獨立教學重演。命令、SHA、原始輸出與 replay 材料留在講者筆記。')
+added['A10']=kicker('時間回到 B-pre｜重複 Like 補驗前，核對同一單向案例')+cols(
+panel('修正｜補上反向 Like 條件',para('依 Version A 單向 FAIL 修正。','只有對方也 Like 時才建立配對。','再跑一次相同單向情境。'),'problem'),
+panel('重測｜Version B 單向 Like',para('<b>預期：</b>0 筆。','<b>實際：</b>0 筆。','<b class="r-green">PASS</b>'),'good'),
+panel('交付狀態｜B-pre',para('同一個 Version B 候選。')+'<dl class="r-status-list"><div><dt>單向 Like</dt><dd class="pass">PASS</dd></div><div><dt>雙向 Like</dt><dd class="pass">PASS</dd></div><div><dt>重複 Like</dt><dd class="pending">NOT RUN</dd></div><div><dt>UI／產品整合</dt><dd class="pending">NOT RUN</dd></div></dl>'))+ribbon('本頁停在 B-pre；完整 hash、diff、byte 比對與原始輸出留在講者筆記。')
 added['A11']=kicker('Context 是 AI 這一輪實際取得並可使用的工作材料')+'<div class="r-worktable"><section><b>桌面｜本輪已取得</b><span>#3 ticket／AC 與 Version A</span><span>單向 FAIL → 修正 → 同案 PASS</span><span>Version B：單向／雙向 PASS</span><span>未完成：重複 NOT RUN；UI NOT RUN</span><span>授權：尚未批准 merge／發布</span></section><section class="not-on-desk"><b>桌邊｜文件已存在但本輪未讀</b><span>workshop/matching-demo/exercise.md</span><span>講師練習說明；使用前須先開啟並核對內容。</span></section></div>'+ribbon('本輪可用材料有上限；專案中存在的資料，不代表這一輪已讀取。')
 added['A12']=kicker('交辦一項有邊界、能驗證、知道何時停的工作')+cols(
  panel('指定材料',para('ticket：`workshop/matching-demo/ticket.md`','程式：`workshop/matching-demo/versions/B/matching.py`','假資料：`workshop/matching-demo/fixtures/users.json`','執行入口：`workshop/matching-demo/run_case.py`')),
@@ -339,7 +339,7 @@ panel('Claude Code',para('在目前目錄接續最近的工作對話，或從選
 
 # Eight chapter exits: one learning objective and three learner questions each.
 exit_check_data = {'A18': {'label': '人類合作',
-         'outcome': '能辨認職能、交付物與最後的接受責任。',
+         'outcome': '能辨認職能、交付物與需求方的接受責任。',
          'questions': [('沿著問題 → 輸入 → 交付 → 接受，說出做 Matching App 的職能和交接物。', 'PO 交 Goal／AC → UI／UX 交設計 → Dev 交三張票的版本 → Reviewer 交意見、QA 交證據 → 需求方接受／退回。'),
                        ('Reviewer、QA 和需求方各自要回答什麼？', 'Reviewer 看修改是否合理且未超出範圍；QA 對照 AC 與證據；需求方作接受、退回或暫停決定。'),
                        ('需要六種工作責任，就一定要六個人嗎？', '不一定。職能代表責任，不代表人數；同一個人可以承擔多項工作，仍應分清審查與接受責任。')]},
@@ -1024,9 +1024,8 @@ for i,p in enumerate(pages):
         decision=BeautifulSoup('''<div class="r-product-story" aria-label="Product Check 判斷與退回方向">
           <p class="r-product-position">#3 在 Product Check｜已見規則層證據；UI／整合仍 NOT RUN</p>
           <div class="r-product-question">
-            <span>Product Check 問的是</span>
-            <h2>這張 #3 工作票仍有助於 Goal 嗎？</h2>
-            <p>讓互相喜歡的兩人建立配對。</p>
+            <span>核對 #3 的配對規則</span>
+            <h2>互相喜歡才能建立配對</h2>
           </div>
           <div class="r-product-routes">
             <article class="r-product-accept"><span>方向正確</span><b>交由人類判斷接受</b>
