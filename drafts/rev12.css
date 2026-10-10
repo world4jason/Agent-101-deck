@@ -878,3 +878,72 @@
 .rev12-draft #page-81 .reanchor-path > .diagram-arrow.back-arrow {
   transform: rotate(180deg) !important;
 }
+
+/* Narrative repair: P47 adds version identity after the B-pre/B-post count
+   comparison. The same hash is the new fact; avoid retelling A/B once more. */
+.rev12-draft #page-47 .r-same-version-proof {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 56px minmax(0,1fr);
+  gap: 16px;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  align-items: stretch;
+}
+.rev12-draft #page-47 .r-same-version-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px 30px;
+  min-width: 0;
+  border: 1px solid #557593;
+  border-top: 5px solid #83bcff;
+  border-radius: 12px;
+  background: #132338;
+}
+.rev12-draft #page-47 .r-same-version-side.right {
+  border-top-color: #91ddb2;
+  background: #162d26;
+}
+.rev12-draft #page-47 .r-same-version-side b {
+  color: #f0f8ff;
+  font: 770 30px/1.25 system-ui;
+}
+.rev12-draft #page-47 .r-same-version-side span {
+  color: #d0e1f5;
+  font: 700 22px/1.25 system-ui;
+}
+.rev12-draft #page-47 .r-same-version-side code {
+  display: inline-flex;
+  align-self: start;
+  padding: 9px 17px;
+  border-radius: 7px;
+  color: #e8f4fe;
+  background: #0d1b2b;
+  border: 1px solid #48688a;
+  font: 740 25px/1.3 monospace;
+}
+.rev12-draft #page-47 .r-same-version-side p {
+  color: #e4ebf4;
+  font: 600 23px/1.4 system-ui;
+  margin: 0;
+}
+.rev12-draft #page-47 .r-same-version-side strong {color:#ffe19a;}
+.rev12-draft #page-47 .r-same-version-side.right strong {color:#b6f0d0;}
+.rev12-draft #page-47 .r-same-version-arrow {
+  color: #a4d5f5;
+  align-self: center;
+  text-align: center;
+  font: 770 46px/1 system-ui;
+}
+/* Only scene/time shifts get a preview, with less emphasis than the evidence. */
+.rev12-draft #page-57 .r-narrative-step {
+  margin: 6px 0 0;
+  padding: 10px 16px;
+  border-left: 3px solid #83bcff;
+  border-radius: 6px;
+  background: #142538;
+  color: #c9e0f5;
+  font: 570 18px/1.35 system-ui;
+}

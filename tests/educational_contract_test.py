@@ -126,8 +126,8 @@ class EducationalContract(unittest.TestCase):
         self.assertIn("教學示意",review)
         self.assertIn("Reviewer 看",review)
         self.assertIn("QA 依 AC",review)
-        for n in (42,45,46,47,52,53):
-            if n in (42,45,46,47):
+        for n in (44,45,46,47,52,53):
+            if n in (44,45,46,47):
                 self.assertTrue(any(x in page(n).get_text() for x in ["規則層","NOT RUN"]))
             else:
                 self.assertIn("NOT RUN",page(n).get_text())

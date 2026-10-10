@@ -209,7 +209,7 @@ def main():
     assert refinement and "工作票整理" in refinement.h1.get_text() and len(refinement.select(".r-ac-row")) == 3 and "完整工作票下一頁" in refinement.get_text()
     chapter_cover = candidate.select_one('.slide[data-page="9"]')
     assert chapter_cover and chapter_cover.get("data-section") == "C2"
-    qa_return = candidate.select_one('.slide[data-page="42"]')
+    qa_return = candidate.select_one('.slide[data-page="44"]')
     assert qa_return and all(word in qa_return.get_text() for word in ["Version A", "1 筆 M01", "FAIL", "退回", "Version B", "0 筆", "PASS"])
     assert "重複 Like" not in qa_return.get_text()
 
@@ -240,7 +240,7 @@ def main():
     assert all(word in qa_evidence for word in ["B-pre", "B-post", "單向", "雙向", "重複", "NOT RUN", "PASS", "UI"])
     assert "快轉" in qa_evidence
     canonical_result = candidate.select_one('.slide[data-page="47"]').get_text()
-    assert all(word in canonical_result for word in ["單向", "Version A", "FAIL", "Version B", "PASS"])
+    assert all(word in canonical_result for word in ["B-pre", "B-post", "Version B", "NOT RUN", "PASS"])
     assert "Arrange：準備已配對狀態" not in canonical_result
     assert "UI" not in canonical_result or "NOT RUN" in canonical_result
     wip_page = candidate.select_one('.slide[data-page="73"]')

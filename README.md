@@ -266,6 +266,7 @@ python3 -m http.server 4318 --bind 127.0.0.1
 npm run check:rev11
 npm run check:rev12
 python3 tests/deck_check.py
+python3 tests/narrative_progression_test.py  # G1：檢查跨頁新增資訊與案例／證據時間線
 ```
 
 `npm run check:rev11` 可回歸保留的舊版；`npm run check:rev12` 檢查 107 頁候選的載入、導覽、講者筆記連結與畫布邊界。`DECK_URL` 可指定入口；`BROWSER_CHANNEL=chrome` 可使用已安裝的Chrome。逐頁截圖與驗證結果輸出到 `drafts/rev12-review/`，由Git忽略；候選 manifest 保留頁序、來源、材料和 SSOT 雜湊。
