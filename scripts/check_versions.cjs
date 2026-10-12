@@ -6,9 +6,9 @@ const {pathToFileURL}=require('url');
 const {chromium}=require('playwright');
 const root=path.resolve(__dirname,'..');
 const versions=[
- {id:'v7',html:'versions/v7/index.html',count:44,file:'agent101-v7.pptx'},
- {id:'v10',html:'drafts/rev10.html',count:55,file:'agent101-v10.pptx'},
- {id:'current',html:'slides/index.html',count:107,file:'agent101-current.pptx'}
+ {id:'v7',html:'versions/v7/index.html',count:44,file:'agent101-v7-editable.pptx'},
+ {id:'v10',html:'drafts/rev10.html',count:55,file:'agent101-v10-editable.pptx'},
+ {id:'current',html:'slides/index.html',count:107,file:'agent101-current-editable.pptx'}
 ];
 (async()=>{
 const browser=await chromium.launch({headless:true,channel:'chrome'});

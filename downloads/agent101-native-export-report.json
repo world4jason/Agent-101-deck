@@ -1,0 +1,203 @@
+{
+  "pipeline": "HTML/CSS/SVG -> editable DrawingML, not screenshots",
+  "results": [
+    {
+      "slides": 44,
+      "text_shapes": 796,
+      "other_shapes": 934,
+      "pictures": 4,
+      "text_chars": 8835,
+      "slides_without_editable_text": [],
+      "full_slide_pictures": [],
+      "text_recall": {
+        "minimum": 0.8356,
+        "mean": 0.9963,
+        "worst_pages": [
+          {
+            "page": 5,
+            "html_chars": 148,
+            "pptx_chars": 126,
+            "trigram_recall": 0.8356
+          },
+          {
+            "page": 1,
+            "html_chars": 36,
+            "pptx_chars": 36,
+            "trigram_recall": 1.0
+          },
+          {
+            "page": 2,
+            "html_chars": 52,
+            "pptx_chars": 52,
+            "trigram_recall": 1.0
+          },
+          {
+            "page": 3,
+            "html_chars": 284,
+            "pptx_chars": 284,
+            "trigram_recall": 1.0
+          },
+          {
+            "page": 4,
+            "html_chars": 136,
+            "pptx_chars": 136,
+            "trigram_recall": 1.0
+          },
+          {
+            "page": 6,
+            "html_chars": 94,
+            "pptx_chars": 94,
+            "trigram_recall": 1.0
+          },
+          {
+            "page": 7,
+            "html_chars": 286,
+            "pptx_chars": 286,
+            "trigram_recall": 1.0
+          },
+          {
+            "page": 8,
+            "html_chars": 379,
+            "pptx_chars": 379,
+            "trigram_recall": 1.0
+          }
+        ]
+      },
+      "version": "v7",
+      "file": "agent101-v7-editable.pptx",
+      "bytes": 664480
+    },
+    {
+      "slides": 55,
+      "text_shapes": 1056,
+      "other_shapes": 860,
+      "pictures": 0,
+      "text_chars": 12586,
+      "slides_without_editable_text": [],
+      "full_slide_pictures": [],
+      "text_recall": {
+        "minimum": 0.8519,
+        "mean": 0.9973,
+        "worst_pages": [
+          {
+            "page": 19,
+            "html_chars": 164,
+            "pptx_chars": 142,
+            "trigram_recall": 0.8519
+          },
+          {
+            "page": 1,
+            "html_chars": 21,
+            "pptx_chars": 21,
+            "trigram_recall": 1.0
+          },
+          {
+            "page": 2,
+            "html_chars": 50,
+            "pptx_chars": 50,
+            "trigram_recall": 1.0
+          },
+          {
+            "page": 3,
+            "html_chars": 159,
+            "pptx_chars": 159,
+            "trigram_recall": 1.0
+          },
+          {
+            "page": 4,
+            "html_chars": 26,
+            "pptx_chars": 26,
+            "trigram_recall": 1.0
+          },
+          {
+            "page": 5,
+            "html_chars": 153,
+            "pptx_chars": 153,
+            "trigram_recall": 1.0
+          },
+          {
+            "page": 6,
+            "html_chars": 195,
+            "pptx_chars": 195,
+            "trigram_recall": 1.0
+          },
+          {
+            "page": 7,
+            "html_chars": 18,
+            "pptx_chars": 18,
+            "trigram_recall": 1.0
+          }
+        ]
+      },
+      "version": "v10",
+      "file": "agent101-v10-editable.pptx",
+      "bytes": 243584
+    },
+    {
+      "slides": 107,
+      "text_shapes": 1682,
+      "other_shapes": 2000,
+      "pictures": 0,
+      "text_chars": 22805,
+      "slides_without_editable_text": [],
+      "full_slide_pictures": [],
+      "text_recall": {
+        "minimum": 0.8812,
+        "mean": 0.9988,
+        "worst_pages": [
+          {
+            "page": 15,
+            "html_chars": 204,
+            "pptx_chars": 182,
+            "trigram_recall": 0.8812
+          },
+          {
+            "page": 26,
+            "html_chars": 262,
+            "pptx_chars": 311,
+            "trigram_recall": 0.9923
+          },
+          {
+            "page": 1,
+            "html_chars": 33,
+            "pptx_chars": 33,
+            "trigram_recall": 1.0
+          },
+          {
+            "page": 2,
+            "html_chars": 209,
+            "pptx_chars": 209,
+            "trigram_recall": 1.0
+          },
+          {
+            "page": 3,
+            "html_chars": 50,
+            "pptx_chars": 50,
+            "trigram_recall": 1.0
+          },
+          {
+            "page": 4,
+            "html_chars": 145,
+            "pptx_chars": 145,
+            "trigram_recall": 1.0
+          },
+          {
+            "page": 5,
+            "html_chars": 71,
+            "pptx_chars": 71,
+            "trigram_recall": 1.0
+          },
+          {
+            "page": 6,
+            "html_chars": 197,
+            "pptx_chars": 197,
+            "trigram_recall": 1.0
+          }
+        ]
+      },
+      "version": "current",
+      "file": "agent101-current-editable.pptx",
+      "bytes": 538862
+    }
+  ]
+}

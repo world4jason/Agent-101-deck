@@ -6,9 +6,9 @@
   const selected = path.includes("/versions/v7/") ? "v7"
     : path.includes("/drafts/rev10.html") ? "v10" : "current";
   const versions = [
-    { id:"v7", text:"v7", pages:44, url:"versions/v7/", file:"downloads/agent101-v7.pptx" },
-    { id:"v10", text:"v10", pages:55, url:"drafts/rev10.html", file:"downloads/agent101-v10.pptx" },
-    { id:"current", text:"最新版", pages:107, url:"slides/", file:"downloads/agent101-current.pptx" }
+    { id:"v7", text:"v7", pages:44, url:"versions/v7/", file:"downloads/agent101-v7-editable.pptx" },
+    { id:"v10", text:"v10", pages:55, url:"drafts/rev10.html", file:"downloads/agent101-v10-editable.pptx" },
+    { id:"current", text:"最新版", pages:107, url:"slides/", file:"downloads/agent101-current-editable.pptx" }
   ];
   const current = versions.find(v => v.id === selected);
   const bar = document.querySelector("footer.controls");
@@ -44,9 +44,9 @@
   download.className = "deck-pptx-export";
   download.href = new URL(current.file,siteRoot).href;
   download.setAttribute("download", current.file.split("/").pop());
-  download.textContent = "匯出 PPTX ↓";
-  download.title = "下載 "+current.text+" 的 PPTX。每頁為保留版面的靜態圖片；互動與動畫請使用網頁版。";
-  download.setAttribute("aria-label","匯出 "+current.text+" PowerPoint；圖片版，不含網頁互動");
+  download.textContent = "下載可編輯 PPTX ↓";
+  download.title = "下載 "+current.text+" 的原生可編輯 PPTX（文字、卡片、流程圖為物件；網頁互動不包含）。";
+  download.setAttribute("aria-label","下載 "+current.text+" 的原生可編輯 PowerPoint");
   group.append(nav,download);
   bar.append(group);
 })();

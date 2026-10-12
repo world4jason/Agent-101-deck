@@ -12,8 +12,8 @@
 - [版本總覽｜v7、v10、最新版及 PPTX 下載](versions/)
 - [v7 存檔｜44 頁](versions/v7/)（來源：2026-10-01 合併版本 e33e696）
 - [v10 草稿｜55 頁](drafts/rev10.html)
-- [最新版 PPTX｜107 頁](downloads/agent101-current.pptx)
-- [v10 PPTX](downloads/agent101-v10.pptx) · [v7 PPTX](downloads/agent101-v7.pptx)
+- [最新版 PPTX｜107 頁](downloads/agent101-current-editable.pptx)
+- [v10 PPTX](downloads/agent101-v10-editable.pptx) · [v7 PPTX](downloads/agent101-v7-editable.pptx)
 - [rev12 執行故事板與頁面對照](docs/issue48-execution-storyboard.md)
 - [Issue #49 review 修正的 G1 頁序與先備檢查](docs/issue49-review-fixes.md)
 - [Issue #48 交付與檢查紀錄](docs/issue48-delivery.md)
@@ -252,17 +252,24 @@ rev10保留原內容與原fragment操作；`drafts/rev11-base.css` 固定它依�
 
 歷史版本都有固定網址。v7 擷取自 Git commit e33e696 的 HTML、CSS、JS 與圖片；v10 使用 drafts/rev10.html，兩者不受 rev12 產生器改寫。
 
-三份 PowerPoint 存在 downloads/。匯出使用 Playwright 擷取投影片畫面，透過 PptxGenJS 放入 16:9 PowerPoint。每張投影片以圖片呈現，保留字型、色彩與位置；文字和圖形不可直接編輯，按鈕與逐步揭露請使用網頁版。最新版的講者筆記及 Exit Check 參考答案保留在 PowerPoint 備忘稿。
+三份**原生可編輯 PowerPoint** 為下載頁的預設檔案：\`downloads/agent101-{v7,v10,current}-editable.pptx\`。文字、卡片、主要流程圖／箭頭輸出成 PowerPoint 原生 DrawingML 物件，可獨立修改、拖動或換色。真實照片與 GitHub 截圖維持圖片物件。SVG/CSS 的某些特殊視覺效果和網站的互動、動畫不保證在 PPTX 還原。
 
-匯出指令：
+原先三份 \`downloads/agent101-{v7,v10,current}.pptx\` 是**每頁一張圖片的靜態版**，為投影視覺備份保留，不應誤稱可編輯。最新版的講者筆記及 Exit Check 參考答案從靜態版轉存至可編輯版；每次匯出都須檢查 Notes。
 
+原生轉換管線：HTML/DOM/CSS 與內嵌 SVG → Chrome 實際排版 → 可編輯 SVG primitive → PPTX DrawingML。採用並修改 [GX-Alex/html2pptx](https://github.com/GX-Alex/html2pptx) 的 MIT 授權轉換器，保留於 \`scripts/vendor/html2pptx/\` 與 LICENSE。**匯出並非 HTML 整頁截圖、也不是在圖片上覆蓋透明文字。**
+
+建置需求：Python 3.10+、Node.js 18+、Chrome/Chromium、Python 套件見 \`requirements-dev.txt\`。指令：
+
+    python3 -m venv .venv
+    .venv/bin/python -m pip install -r requirements-dev.txt  # Windows: .venv\\Scripts\\python
     npm ci
-    npm run export:pptx             # 重建三個版本
-    npm run export:pptx:current     # 只更新最新版
-    npm run check:versions          # 檢查版本切換、連結及下載路徑
-    npm run check:exports           # 檢查 PPTX 格式、頁數、圖片、備忘稿
+    npm run export:pptx                 # 原生可編輯三版本（預設）
+    npm run export:pptx:current         # 只重建 Current
+    npm run export:pptx:static          # 可選：另外重建圖片備份
+    npm run check:versions             # 版本切換與可編輯下載連結
+    npm run check:exports              # 頁數、原生元件、圖片禁止鋪滿、Notes
 
-更新網頁版後需要重建對應 PPTX，連同下載檔一起提交。若要讓文字與圖形在 PowerPoint 中可編輯，須另行建立原生元件的轉換流程。
+調整網站內容時，必須重建對應的可編輯 PPTX 和靜態備份（如果仍須同步備份），比對 HTML 與 PPTX 的投影片文字及圖形。每版需人工在 PowerPoint 或 Keynote 開檔測試文字修改、圖形拖曳、存檔；自動測試通過**不等同**人工視覺驗收。參見 [Issue #58](https://github.com/world4jason/Agent-101-deck/issues/58)。
 
 ## 修改與重建
 
