@@ -1,5 +1,7 @@
 # Rev13 Content Refinement v4 — 四大要素 → Agent 五大要素；保留五項 Agent 協作原則
 
+> **CURRENT WHOLE-DECK STRUCTURE IS v5**：[兩部分課程](rev13-two-part-learning-architecture-v5.md) 為目前唯一整份投影片頁序；本 v4 保留為 **Part 2 原始案例與唯一規則層證據時間線**，只用 O03–X01 的 40 Scenes。O01/O02 已放在 Part 1，不能在 Part 2 再重複。完整 Agent A05–A11 保留核心。不要從本頁直接把 42 Scene 當整份 Rev13 新投影片。
+
 > **狀態：Refinement / G1 Ready Review 待驗。這是新版內容與分鏡，不是完成的投影片或可合併實作。**
 >
 > **Parent GitHub issue：[AgentDeck #60](https://github.com/world4jason/Agent-101-deck/issues/60)**　｜　**Planning PR：[Draft #61](https://github.com/world4jason/Agent-101-deck/pull/61)**  
