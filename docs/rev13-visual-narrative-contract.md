@@ -16,7 +16,7 @@
 | **P20** | **Focus + Context / Progressive Disclosure** | 聚焦當前階段、真正 co-work 的角色、Ticket 工作；不相關資訊以遮罩／弱化／局部定位器退到背景但不抹除脈絡。Overview → Spotlight → Work/Artifact → Updated Overview 為每個工作階段必有的敘事步驟，不強制四張實體投影片。 |
 | **P21** | **Make Work & Relationships Visible / Relate** | 觀眾能看到 **人 ↔ 流程 ↔ 文件／Ticket／AC／Evidence ↔ 版本管理／GitHub** 的關係；知道當前誰 co-work、目前修改哪份工作契約、哪個 Branch／Commit／PR 與本次結果相連，不是互不相干的卡片。 |
 | **P22** | **State Delta / History / Extract / Closure** | 每次回 Overview 可辨認文件、Ticket、看板、版本、已完成與 NOT RUN 的 before → after；留下可追溯的 Ticket／決議／PR／Evidence 與下一步。只重貼無變化全貌不合格。 |
-| **P23** | **Four Foundations First, Agent Fifth** | **最前面兩個主要畫面先建立傳統四要素「人、流程、文件、版本管理」，再在**同一畫面**加上 Agent 作第五項。**後續沿同一流程逐站教四要素如何合作，Agent 只改變執行與協調者；不取代既有文件、版本或 Human Gate。Documents 與 Version Control 的職責不同，兩者可以透過 Git/GitHub 相連。 |
+| **P23** | **Four Foundations First, Agent Fifth** | 最前面兩個主要畫面，先建立傳統四要素「人、流程、文件、版本管理」，再於**同一母圖**加上 Agent 作第五項。後續沿同一流程逐站教四要素如何合作，Agent 只改變執行與協調者；不取代既有文件、版本或 Human Gate。Documents 與 Version Control 的職責不同，兩者可以透過 Git/GitHub 相連。 |
 
 **審查強制問題**：
 1. **P18**：能說出這張 Scene 的學習任務，以及何者是 Data、Insight、Go？（可以隱含在敘事設計，不必畫三張 DIG 卡片。）
