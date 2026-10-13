@@ -36,6 +36,16 @@
 
 這五項是「Agent 協作的教學內容」，**不同於 P18–P23 簡報製作 Principles**。缺一項或只剩五個詞、沒有案例與下一步，是 **Content P1**，不可過 G1。為避免又在重排時遺失，`tests/rev13_contract_check.py` 與 `docs/rev13-scene-manifest.json` 明確核對五項 source、核心 Scene、角色、文件、證據與狀態。自動 PASS 不等於視覺、真人或 release PASS；詳見 [Rev13 Gates](rev13-gates.md)。
 
+## v5 內容結構（P18／P19／P20／P23 的強制執行口徑）
+
+**目前唯一課程組織方式：[v5 Two-Part Architecture](rev13-two-part-learning-architecture-v5.md)**（Stage / Role / Document / GitHub 對照：[v5 manifest](rev13-two-part-manifest-v5.json)）。
+
+- **Part 1 — 認識**：開場 O01 人／流程／文件／版本管理、O02 原母圖新增 Agent。接著學 Stage Card（產品 Goal vs Stage Target、Input、Activities、Output、Exit Criteria、People、GitHub）、Roles×Stages、Documents Lifecycle、Git/GitHub 物件與 Agent。概念頁是**定義／預訓練**，不應虛構 Ticket 已開、PR 已合併或 A/B 已測的狀態差異；以同一張母圖作定位、Zoom 與按需展開。
+- **Part 2 — 應用**：依原 [v4 Storyboard](rev13-workflow-first-content-refinement-v4.md) 的 O03–X01 40 Scene 走完整 Matching App。真正發生教學事件的階段才要求完整 **Overview → Spotlight → Work/Artifact → Updated Overview** 四個語義步驟。Part 1 學過的名詞只用 locator 提醒，不原封重講一輪。
+- **全程保留**：四大要素母圖、欄外 Human Gate、A FAIL/B-pre partial PASS + duplicate NOT RUN/B-post same-B supplemental PASS 的真實範圍，Rev12 五項 Agent 工作原則在 Part 2 主線。
+- **禁止重複母圖敘事**：Part 2 不重複 O01/O02；上一站 Updated Overview 可直接兼下一站 Overview。Concept Slides 不必假裝有 before/after；真實教學事件有進度變更時才顯示 delta。
+- **Actions freeze**：Owner 明確要求暫不觸碰 `.github/workflows/`，即使現有 CI 失敗也不在教材改版 PR 中處理。結構檢查可本機執行，但 G1／G4 必須另做。
+
 ## 1. 核心敘事法：Overview → Spotlight → Work / Artifact → Updated Overview
 
 每一個主要工作階段必須遵守同一個循環：
