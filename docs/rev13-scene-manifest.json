@@ -1,0 +1,1000 @@
+{
+  "schema_version": 1,
+  "release": "rev13",
+  "development_phase": "refinement",
+  "visual_contract": "docs/rev13-visual-narrative-contract.md",
+  "content_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+  "agent_principles": "docs/rev13-agent-five-principles-preservation.md",
+  "rule_level_evidence_source": "workshop/matching-demo/evidence/",
+  "global_principles": [
+    "P18",
+    "P19",
+    "P20",
+    "P21",
+    "P22",
+    "P23"
+  ],
+  "opening_sequence": [
+    "O01",
+    "O02",
+    "O03"
+  ],
+  "expected_core_agent_principles": [
+    "External Task State",
+    "Bounded Execution",
+    "Role Separation",
+    "Independent Verification",
+    "Goal Re-anchoring"
+  ],
+  "scenes": [
+    {
+      "id": "O01",
+      "phase": "opening",
+      "beat": [
+        "overview"
+      ],
+      "kanban_state": "pre_backlog",
+      "focus_roles": [
+        "Owner",
+        "PM",
+        "PO",
+        "UI/UX",
+        "Dev",
+        "Reviewer",
+        "QA"
+      ],
+      "document_object": "Goal／Ticket／AC／設計決議／測試證據的文件示意",
+      "version_github_relation": "四要素首次建立，沒有任何已完成 Git/PR 的虛構狀態",
+      "github_objects": [],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "O02",
+      "phase": "opening",
+      "beat": [
+        "updated_overview"
+      ],
+      "kanban_state": "pre_backlog",
+      "focus_roles": [
+        "Owner",
+        "PM",
+        "PO",
+        "UI/UX",
+        "Dev",
+        "Reviewer",
+        "QA",
+        "Agent"
+      ],
+      "document_object": "原文件與工作契約不變；Agent 可以受委派讀寫",
+      "version_github_relation": "Before：四要素 → After：四要素 + Agent；沒有替代 Human Gate",
+      "github_objects": [],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "O03",
+      "phase": "opening",
+      "beat": [
+        "overview"
+      ],
+      "kanban_state": "pre_backlog",
+      "focus_roles": [
+        "Owner",
+        "PM",
+        "PO"
+      ],
+      "document_object": "模糊「配對功能正常」的需求草案，尚待決定",
+      "version_github_relation": "進入 Brainstorming，沒有假裝 Goal Issue 已建立",
+      "github_objects": [],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "B01",
+      "phase": "brainstorming",
+      "beat": [
+        "spotlight"
+      ],
+      "kanban_state": "backlog",
+      "focus_roles": [
+        "Owner",
+        "PM",
+        "PO"
+      ],
+      "document_object": "問題清單、選項和不確定性",
+      "version_github_relation": "先討論成功體驗與待確認假設",
+      "github_objects": [],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "B02",
+      "phase": "brainstorming",
+      "beat": [
+        "work"
+      ],
+      "kanban_state": "backlog",
+      "focus_roles": [
+        "Owner",
+        "PM",
+        "PO"
+      ],
+      "document_object": "Outcome Goal、成功訊號及決議",
+      "version_github_relation": "需求／候選方案 → Outcome Goal＋觀察指標",
+      "github_objects": [],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "B03",
+      "phase": "brainstorming",
+      "beat": [
+        "work"
+      ],
+      "kanban_state": "backlog",
+      "focus_roles": [
+        "Owner",
+        "PM",
+        "PO"
+      ],
+      "document_object": "Goal／Proposal Issue（教學示意）",
+      "version_github_relation": "建立 Goal/Proposal Issue（教學示意），不能跳叫 Ready",
+      "github_objects": [
+        "issue"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "B04",
+      "phase": "brainstorming",
+      "beat": [
+        "updated_overview"
+      ],
+      "kanban_state": "backlog",
+      "focus_roles": [
+        "Owner",
+        "PM",
+        "PO"
+      ],
+      "document_object": "Goal Issue 已建立，待 Refinement",
+      "version_github_relation": "無正式票 → Goal Issue 已建立；待 Refinement",
+      "github_objects": [
+        "issue"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "R01",
+      "phase": "refinement",
+      "beat": [
+        "spotlight"
+      ],
+      "kanban_state": "backlog",
+      "focus_roles": [
+        "Owner",
+        "PM",
+        "PO",
+        "Dev",
+        "QA"
+      ],
+      "document_object": "Goal Issue 的 feasibility / scope / risks 欄位",
+      "version_github_relation": "從同一 Goal Issue 開始 feasibility / scope / risks",
+      "github_objects": [
+        "issue"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "R02",
+      "phase": "refinement",
+      "beat": [
+        "work"
+      ],
+      "kanban_state": "backlog",
+      "focus_roles": [
+        "Owner",
+        "PM",
+        "PO",
+        "Dev",
+        "QA"
+      ],
+      "document_object": "Parent Goal 與 #1/#3/#2 子票草案、相依",
+      "version_github_relation": "Goal → #1 Like/Pass、#3 規則、#2 列表；標示依賴及順序",
+      "github_objects": [
+        "issue"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "R03",
+      "phase": "refinement",
+      "beat": [
+        "work"
+      ],
+      "kanban_state": "backlog",
+      "focus_roles": [
+        "PO",
+        "Dev",
+        "QA"
+      ],
+      "document_object": "Ticket #3 的 Scope／Out-of-scope／AC／AT／DoD／Evidence",
+      "version_github_relation": "壞票 → Scope / Out-of-scope / AC / Expected Evidence / AT / DoD",
+      "github_objects": [
+        "issue"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "R04",
+      "phase": "refinement",
+      "beat": [
+        "work"
+      ],
+      "kanban_state": "backlog",
+      "focus_roles": [
+        "Owner",
+        "PM",
+        "PO",
+        "Dev",
+        "QA"
+      ],
+      "document_object": "已更新的 Parent/Child Issues",
+      "version_github_relation": "更新 Parent，連結 child Issues、依賴及狀態；不是另建不相關 Goal",
+      "github_objects": [
+        "issue",
+        "project"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "R05",
+      "phase": "refinement",
+      "beat": [
+        "updated_overview"
+      ],
+      "kanban_state": "backlog",
+      "focus_roles": [
+        "Owner",
+        "PM",
+        "PO",
+        "Dev",
+        "QA"
+      ],
+      "document_object": "三張子票與待補的 Ready 條件",
+      "version_github_relation": "Goal Issue → 3 張子票 + #3 待 Ready Check；仍 Backlog",
+      "github_objects": [
+        "issue",
+        "project"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "RD01",
+      "phase": "ready",
+      "beat": [
+        "spotlight",
+        "work"
+      ],
+      "kanban_state": "ready",
+      "focus_roles": [
+        "PO",
+        "Dev",
+        "QA"
+      ],
+      "document_object": "#3 的 Scope／AC／依賴／可測性檢核",
+      "version_github_relation": "#3 的 scope、依賴、AC / testability 確認",
+      "github_objects": [
+        "issue",
+        "project"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "RD02",
+      "phase": "ready",
+      "beat": [
+        "updated_overview"
+      ],
+      "kanban_state": "ready",
+      "focus_roles": [
+        "PO",
+        "Dev",
+        "QA"
+      ],
+      "document_object": "確認可接手的 #3 工作契約",
+      "version_github_relation": "#3 Backlog → Ready，WIP 仍 0/1；Project Status 更新",
+      "github_objects": [
+        "project"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "D01",
+      "phase": "dev",
+      "beat": [
+        "spotlight"
+      ],
+      "kanban_state": "dev",
+      "focus_roles": [
+        "Dev"
+      ],
+      "document_object": "Ticket #3 的工作紀錄及已知限制",
+      "version_github_relation": "#3 從 Ready → Dev，WIP 1/1，還不能宣稱有 PASS",
+      "github_objects": [
+        "issue",
+        "project"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "D02",
+      "phase": "dev",
+      "beat": [
+        "work"
+      ],
+      "kanban_state": "dev",
+      "focus_roles": [
+        "Dev"
+      ],
+      "document_object": "Ticket／規格與版本註記的連結",
+      "version_github_relation": "第一次Just-in-time 教 Git ≠ GitHub：branch、commit、push，連回 Ticket",
+      "github_objects": [
+        "branch",
+        "commit"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "D03",
+      "phase": "dev",
+      "beat": [
+        "work"
+      ],
+      "kanban_state": "dev",
+      "focus_roles": [
+        "Dev"
+      ],
+      "document_object": "候選 A 的修改摘要、自測結果、未完成項",
+      "version_github_relation": "候選 A／修改內容／自測／已知缺口，PR 不等於 Issue",
+      "github_objects": [
+        "branch",
+        "commit"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "D04",
+      "phase": "dev",
+      "beat": [
+        "updated_overview"
+      ],
+      "kanban_state": "dev",
+      "focus_roles": [
+        "Dev"
+      ],
+      "document_object": "候選版本與交付摘要",
+      "version_github_relation": "Ready → Dev；候選 A、Branch/Commit 教學示意可追",
+      "github_objects": [
+        "branch",
+        "commit"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "RV01",
+      "phase": "review",
+      "beat": [
+        "spotlight",
+        "work"
+      ],
+      "kanban_state": "review",
+      "focus_roles": [
+        "Dev",
+        "Reviewer"
+      ],
+      "document_object": "PR 描述／修改摘要／風險／測試摘要",
+      "version_github_relation": "GitHub PR 關聯 Issue，審查改動與越界，不取代 AC 實測",
+      "github_objects": [
+        "pull_request"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "RV02",
+      "phase": "review",
+      "beat": [
+        "work"
+      ],
+      "kanban_state": "review",
+      "focus_roles": [
+        "Dev",
+        "Reviewer"
+      ],
+      "document_object": "Review findings／退回理由／修正要求",
+      "version_github_relation": "例如新增聊天室屬 out-of-scope；退 Dev 修正再審",
+      "github_objects": [
+        "pull_request"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "RV03",
+      "phase": "review",
+      "beat": [
+        "updated_overview"
+      ],
+      "kanban_state": "review",
+      "focus_roles": [
+        "Dev",
+        "Reviewer"
+      ],
+      "document_object": "PR Review 意見與未處理事項",
+      "version_github_relation": "Review request / changes requested / needs QA（非 merge）；顯示分支尚未合併",
+      "github_objects": [
+        "pull_request"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "Q01",
+      "phase": "qa",
+      "beat": [
+        "spotlight",
+        "work"
+      ],
+      "kanban_state": "qa",
+      "focus_roles": [
+        "QA",
+        "Dev"
+      ],
+      "document_object": "AC／測試案例／預期與實際的證據格式",
+      "version_github_relation": "測同一候選與 AC；引出預期／實際／NOT RUN",
+      "github_objects": [
+        "pull_request"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "Q02",
+      "phase": "qa",
+      "beat": [
+        "work"
+      ],
+      "kanban_state": "qa",
+      "focus_roles": [
+        "QA",
+        "Dev"
+      ],
+      "document_object": "Version A 單向 LIKE 的 FAIL 測試紀錄",
+      "version_github_relation": "Version A：預期 0，實際 1，FAIL；QA → Dev",
+      "github_objects": [
+        "test_evidence"
+      ],
+      "evidence_scope": "verified_rule_level",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "Q03",
+      "phase": "qa",
+      "beat": [
+        "work"
+      ],
+      "kanban_state": "qa",
+      "focus_roles": [
+        "Dev",
+        "QA"
+      ],
+      "document_object": "Version B-pre 的 PASS 與 duplicate NOT RUN 紀錄",
+      "version_github_relation": "B-pre 單向／雙向 PASS；duplicate NOT RUN；不能宣稱完成",
+      "github_objects": [
+        "test_evidence"
+      ],
+      "evidence_scope": "verified_rule_level",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "Q04",
+      "phase": "qa",
+      "beat": [
+        "work"
+      ],
+      "kanban_state": "qa",
+      "focus_roles": [
+        "QA",
+        "Dev"
+      ],
+      "document_object": "Version B-post 的補驗結果與測試紀錄",
+      "version_github_relation": "先讓學員提補驗要求；B-post 同一 B 候選 duplicate PASS",
+      "github_objects": [
+        "test_evidence"
+      ],
+      "evidence_scope": "verified_rule_level",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "Q05",
+      "phase": "qa",
+      "beat": [
+        "updated_overview"
+      ],
+      "kanban_state": "qa",
+      "focus_roles": [
+        "QA",
+        "Dev"
+      ],
+      "document_object": "A → B-pre → B-post 證據歷史、仍未測清單",
+      "version_github_relation": "A FAIL → B-pre partial → B-post duplicate PASS；UI/E2E 仍 NOT RUN",
+      "github_objects": [
+        "test_evidence"
+      ],
+      "evidence_scope": "mixed",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null,
+      "unverified_scopes": [
+        "ui",
+        "end_to_end",
+        "release",
+        "product_goal"
+      ]
+    },
+    {
+      "id": "PC01",
+      "phase": "product_check",
+      "beat": [
+        "spotlight",
+        "work"
+      ],
+      "kanban_state": "product_check",
+      "focus_roles": [
+        "PO",
+        "Owner",
+        "Dev"
+      ],
+      "document_object": "#3 Ticket 與整體 Goal 的符合度紀錄",
+      "version_github_relation": "核對 #3 的 Scope/AC、#1/#2 及整體 UI/E2E 缺口",
+      "github_objects": [
+        "issue",
+        "test_evidence"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "PC02",
+      "phase": "product_check",
+      "beat": [
+        "updated_overview"
+      ],
+      "kanban_state": "product_check",
+      "focus_roles": [
+        "PO",
+        "Owner",
+        "Dev"
+      ],
+      "document_object": "可接受範圍／仍待驗證工作清單",
+      "version_github_relation": "Ticket 規則層證據可審、Goal 全路徑尚待驗，列待決事項",
+      "github_objects": [
+        "issue",
+        "test_evidence"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "HG01",
+      "phase": "human_gate",
+      "beat": [
+        "spotlight",
+        "work"
+      ],
+      "kanban_state": "product_check",
+      "focus_roles": [
+        "Owner"
+      ],
+      "document_object": "Go／No-go 決策清單、剩餘風險、Release Checklist",
+      "version_github_relation": "展示 evidence、風險、尚未跑的 QA、release checklist",
+      "github_objects": [
+        "issue",
+        "pull_request"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "HG02",
+      "phase": "human_gate",
+      "beat": [
+        "updated_overview"
+      ],
+      "kanban_state": "product_check",
+      "focus_roles": [
+        "Owner"
+      ],
+      "document_object": "Human Gate 記錄／未實行的 Release 項目",
+      "version_github_relation": "現有事實不能宣稱 Release/Done；若要示意成功路徑，必須清楚標 假設 Gate 放行且後續 DoD 成立",
+      "github_objects": [
+        "issue"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "A01",
+      "phase": "agent_collaboration",
+      "beat": [
+        "overview"
+      ],
+      "kanban_state": "product_check",
+      "focus_roles": [
+        "Human",
+        "Agent"
+      ],
+      "document_object": "沿用同一張 #3 Ticket／AC／Evidence",
+      "version_github_relation": "回到明示的 Matching #3 snapshot；只替換 executor／coordinator",
+      "github_objects": [
+        "issue"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "A02",
+      "phase": "agent_collaboration",
+      "beat": [
+        "spotlight",
+        "work"
+      ],
+      "kanban_state": "product_check",
+      "focus_roles": [
+        "Human",
+        "Agent"
+      ],
+      "document_object": "單 Agent 交付報告／驗證紀錄",
+      "version_github_relation": "同票、同 AC、同 evidence 和 Human Gate；有既有單 Agent demo",
+      "github_objects": [
+        "issue",
+        "test_evidence"
+      ],
+      "evidence_scope": "mixed",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null,
+      "unverified_scopes": [
+        "ui",
+        "end_to_end",
+        "release",
+        "product_goal"
+      ]
+    },
+    {
+      "id": "A03",
+      "phase": "agent_collaboration",
+      "beat": [
+        "spotlight",
+        "work"
+      ],
+      "kanban_state": "product_check",
+      "focus_roles": [
+        "Human",
+        "Agent"
+      ],
+      "document_object": "跨 Chat 的 Ticket handoff 與證據摘要",
+      "version_github_relation": "人決定每站交接與證據來源",
+      "github_objects": [
+        "issue"
+      ],
+      "evidence_scope": "architecture_illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "A04",
+      "phase": "agent_collaboration",
+      "beat": [
+        "spotlight",
+        "work"
+      ],
+      "kanban_state": "product_check",
+      "focus_roles": [
+        "Human",
+        "Orchestrator",
+        "Sub-agent"
+      ],
+      "document_object": "Orchestrator／Sub-agent 工作分派及彙整記錄",
+      "version_github_relation": "主 Agent 在授權內分工、彙整；Human Gate 不變",
+      "github_objects": [
+        "issue"
+      ],
+      "evidence_scope": "architecture_illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "A05",
+      "phase": "agent_collaboration",
+      "beat": [
+        "overview"
+      ],
+      "kanban_state": "product_check",
+      "focus_roles": [
+        "Human",
+        "Agent",
+        "Orchestrator",
+        "Reviewer",
+        "QA"
+      ],
+      "document_object": "同一張教學 #3 Ticket、原 AC、B-pre duplicate NOT RUN；五張問題→原則卡片",
+      "version_github_relation": "版本仍是 B-pre，未測事項仍未測；預告逐一處理，不能把五個原則當成已通過的實測",
+      "github_objects": [
+        "issue"
+      ],
+      "evidence_scope": "framework",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    },
+    {
+      "id": "A06",
+      "phase": "agent_collaboration",
+      "beat": [
+        "spotlight",
+        "work"
+      ],
+      "kanban_state": "product_check",
+      "focus_roles": [
+        "Human",
+        "Agent"
+      ],
+      "document_object": "共享 Issue/Ticket 的 Scope、AC、Owner、WIP、B-pre 與 duplicate NOT RUN、下一步補驗要求",
+      "version_github_relation": "共用工作紀錄連到版本與 Evidence，新 Session 先核對；示意，非已執行的跨 Agent QA",
+      "github_objects": [
+        "issue",
+        "test_evidence"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": "P43",
+      "old_rev12_page": 77,
+      "agent_principle": "External Task State"
+    },
+    {
+      "id": "A07",
+      "phase": "agent_collaboration",
+      "beat": [
+        "spotlight",
+        "work"
+      ],
+      "kanban_state": "product_check",
+      "focus_roles": [
+        "Owner",
+        "PO",
+        "Dev",
+        "Agent"
+      ],
+      "document_object": "Ticket #3 的 Scope、Out-of-scope（聊天室）、AC、Stop Rule／WIP=1",
+      "version_github_relation": "超出核准範圍就停下，在 Issue 記變更請求並退回人類 Refinement；不自行加功能",
+      "github_objects": [
+        "issue"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": "P44",
+      "old_rev12_page": 78,
+      "agent_principle": "Bounded Execution"
+    },
+    {
+      "id": "A08",
+      "phase": "agent_collaboration",
+      "beat": [
+        "spotlight",
+        "work"
+      ],
+      "kanban_state": "product_check",
+      "focus_roles": [
+        "PO",
+        "Dev",
+        "Reviewer",
+        "QA",
+        "Owner",
+        "Agent"
+      ],
+      "document_object": "Ticket/PR 實作摘要、Reviewer 意見、QA 接受判準與 Owner 放行責任",
+      "version_github_relation": "PR／Review／Test Evidence 分開記；Human Gate 保留真人授權，不能只靠 Dev 自評",
+      "github_objects": [
+        "pull_request"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": "P45",
+      "old_rev12_page": 79,
+      "agent_principle": "Role Separation"
+    },
+    {
+      "id": "A09",
+      "phase": "agent_collaboration",
+      "beat": [
+        "spotlight",
+        "work"
+      ],
+      "kanban_state": "product_check",
+      "focus_roles": [
+        "QA",
+        "Owner",
+        "Agent"
+      ],
+      "document_object": "#3 原 AC、B-pre 單向／雙向 PASS、duplicate NOT RUN；B-post 同一 B 補驗 duplicate PASS",
+      "version_github_relation": "Evidence 對上版本、輸入、預期、實際；獨立核對，不能把未知改寫 PASS",
+      "github_objects": [
+        "issue",
+        "test_evidence"
+      ],
+      "evidence_scope": "mixed",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": "P46",
+      "old_rev12_page": 80,
+      "unverified_scopes": [
+        "ui",
+        "end_to_end",
+        "release",
+        "product_goal"
+      ],
+      "agent_principle": "Independent Verification"
+    },
+    {
+      "id": "A10",
+      "phase": "agent_collaboration",
+      "beat": [
+        "spotlight",
+        "work"
+      ],
+      "kanban_state": "product_check",
+      "focus_roles": [
+        "PO",
+        "Owner",
+        "Dev",
+        "QA",
+        "Agent"
+      ],
+      "document_object": "#3 子票對 Parent Goal、#1/#2 的整體依賴、風險與未驗證 UI/E2E",
+      "version_github_relation": "目標問題退 Backlog／Refinement；實作問題退 Dev；Parent Goal 決定優先級，不能宣稱 Goal 完成",
+      "github_objects": [
+        "issue"
+      ],
+      "evidence_scope": "illustration",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": "P47",
+      "old_rev12_page": 81,
+      "agent_principle": "Goal Re-anchoring"
+    },
+    {
+      "id": "A11",
+      "phase": "agent_collaboration",
+      "beat": [
+        "updated_overview"
+      ],
+      "kanban_state": "product_check",
+      "focus_roles": [
+        "Human",
+        "Agent",
+        "Owner"
+      ],
+      "document_object": "五項分別對到 Issue、Scope/Stop Rule、Roles、QA Evidence、Parent Goal",
+      "version_github_relation": "回看 B-pre → B-post 的真實證據界線；未跑 Multi-agent／Release 持續標『示意／NOT RUN』",
+      "github_objects": [
+        "issue",
+        "test_evidence"
+      ],
+      "evidence_scope": "mixed",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null,
+      "unverified_scopes": [
+        "ui",
+        "end_to_end",
+        "release",
+        "product_goal"
+      ]
+    },
+    {
+      "id": "X01",
+      "phase": "exercise",
+      "beat": [
+        "exercise"
+      ],
+      "kanban_state": "not_applicable",
+      "focus_roles": [
+        "Human"
+      ],
+      "document_object": "學員自己寫的 Ticket／AC／補驗請求",
+      "version_github_relation": "寫 Ticket、選協作模式、決定是否補驗；先答再揭露",
+      "github_objects": [
+        "issue"
+      ],
+      "evidence_scope": "exercise",
+      "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+      "source_id": null,
+      "old_rev12_page": null
+    }
+  ]
+}
