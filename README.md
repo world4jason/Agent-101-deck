@@ -8,7 +8,10 @@
 >
 > - [Rev13 父 Issue #60](https://github.com/world4jason/Agent-101-deck/issues/60)
 > - **[Rev13 全域分鏡契約（所有投影片必遵守）](docs/rev13-visual-narrative-contract.md) — Mandatory / Blocking P1**
-> - **[Rev13 Workflow-first 內容 Refinement v3（目前唯一內容頁序）](docs/rev13-workflow-first-content-refinement-v3.md)**
+> - **[Rev13 Workflow-first v4（目前唯一內容分鏡：42 scenes）](docs/rev13-workflow-first-content-refinement-v4.md)**
+> - **[Rev12 五項 Agent 協作原則保留契約](docs/rev13-agent-five-principles-preservation.md)**（A05–A11 在主線，不得刪除）
+> - [Rev13 檢查及 Merge Gates](docs/rev13-gates.md)／[Scene Manifest](docs/rev13-scene-manifest.json)／[契約檢查器](tests/rev13_contract_check.py)
+> - [Rev13 v3（歷史規劃）](docs/rev13-workflow-first-content-refinement-v3.md)
 > - [Refinement v2（歷史三軸版本）](docs/rev13-workflow-first-content-refinement-v2.md)
 > - [Rev13 Storyboard v1](docs/rev13-reorg-storyboard-v1.md)（歷史提案，概念來源；**新頁序以 v3 為準**）
 > - [Rev13 107 頁逐頁遷移矩陣 v1](docs/rev13-migration-matrix-v1.md)
@@ -19,7 +22,7 @@
 
 ## Rev13 — 必須遵守的全域教學畫面規則（先於逐頁內容）
 
-**目前 Refinement v3 內容順序（Owner 最新決議）**：第一張固定母圖介紹 **人 People／流程 Process／文件 Documents／版本管理 Version Control** 四個要素；第二張保留原位置，**新增 Agent 第五要素**；第三張才引入 Matching App。後續依 Brainstorming → Refinement → Ready → Dev → PR Review → QA → Product Check → Human Gate 的時間線逐站敘述，每站仍保留四個要素：co-workers、流程位置、正在建立／執行的 Goal／Ticket／AC／DoD／Evidence 文件，以及 Git 分支／版本／GitHub Issue/PR 的映射。文件回答『做什麼、為何、如何驗』；版本管理回答『哪版、誰改、如何合併回復』；兩者可透過 GitHub 相連但不可混同。v1、v2 是歷史方案，**不再當作製作順序**。
+**目前 Refinement v4 內容順序（最新）**：第一張固定母圖介紹 **人 People／流程 Process／文件 Documents／版本管理 Version Control** 四個要素；第二張保留原位置，**新增 Agent 第五要素**；第三張才引入 Matching App。後續依 Brainstorming → Refinement → Ready → Dev → PR Review → QA → Product Check → Human Gate 的時間線逐站敘述，每站仍保留四個要素：co-workers、流程位置、正在建立／執行的 Goal／Ticket／AC／DoD／Evidence 文件，以及 Git 分支／版本／GitHub Issue/PR 的映射。文件回答『做什麼、為何、如何驗』；版本管理回答『哪版、誰改、如何合併回復』；兩者可透過 GitHub 相連但不可混同。v1、v2、v3 是歷史方案，**不再當作製作順序**。
 
 
 
@@ -30,6 +33,8 @@
 - **共用母圖**：開場先顯示 People／Process／Documents／Version Control 四大要素（含完整 Workflow 和所有主要職能），再用同畫面加入 Agent 第五要素。後續各階段都能定位『誰、哪一步、哪份文件／Ticket／AC、哪個版本／GitHub、什麼狀態』。
 - **固定循環**：Overview → Spotlight（半透明遮罩保留全貌、僅高亮目前階段＋co-work 人員）→ Work / Output（正在開票／拆票／修改 AC／執行／驗證，及相應 GitHub Issue/Project/Branch/PR）→ **Updated Overview（真的更新狀態後再前往下一階段）**。這是四個**敘事步驟**，不強迫四張實體投影片。
 - **Blocking AC / P1**：缺聚焦人員／當前 Ticket 動作／GitHub 對應／可辨認的 Updated Overview，不能視為該階段完成，也不能只因畫面漂亮或測試通過而 Merge。G1、G3、G4、G5 分別依契約檢查；未驗收標記 NOT RUN。
+- **Rev12 原五項 Agent 內容是核心教材硬規則**：External Task State、Bounded Execution、Role Separation、Independent Verification、Goal Re-anchoring 必須完整用同一張 #3 Ticket 示範（v4 A05–A11）；來源為 Rev12 第 76–81 頁。這五項不是新增 P24–P28，也不可以藏進附錄。CI 檢查 Scene、Source、角色、文件／版本與證據；G1/G4 檢查是否真能理解，未完成 Gate 不得宣稱 Ready。
+- **嚴格執行**：[Rev13 分層 Gate](docs/rev13-gates.md) 說明機器能驗到什麼、人需看什麼、GitHub Required Check 尚未啟用的限制；不能把 planning CI PASS 等同可 Merge 的人類授權。
 - **例子**：Brainstorming 由 Owner/PM/PO 決定方向並建立 Goal Issue；Refinement 由相應 Owner/PM/PO/Dev/QA 釐清可行性、Scope/AC/AT/DoD，更新 Parent/Child Issues；之後全章照同文法。與 Rev12 七欄看板／欄外 Human Gate 規則一致。
 
 > 以下 P1–P17、G1–G5 為既有 Rev12 教材品質規範；**Rev13 額外必須符合上面的全域分鏡契約**。這一改動不會追溯修改 archived rev12 投影片。
