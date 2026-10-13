@@ -83,6 +83,14 @@ def violations(doc: dict, base: dict, story: str, readme: str,
         fail("Part 2 must preserve O03–X01 original 40-scene order from v4")
     if len(all_ids) != 62 or len(set(all_ids)) != 62:
         fail("two-part scene coverage/uniqueness 22+40 violated")
+    expected_primers = [
+        "roles","roles-matrix","documents","documents-lifecycle",
+        "documents-boundary","version-github","version-history","agent-intro",
+    ]
+    if [x.get("kind") for x in part1[4:12]] != expected_primers:
+        fail("Part 1 prerequisites: teach People/Documents/Git/Agent vocabulary before Stage Cards")
+    if [x.get("kind") for x in part1[12:21]] != ["stage"] * 9:
+        fail("Part 1 must teach all nine Stage Cards only after prerequisite vocabulary")
     for scene in part1:
         ident = scene.get("id", "unknown")
         if scene.get("kind") not in SCENE_KINDS:
