@@ -53,9 +53,16 @@ class Rev13GateTests(unittest.TestCase):
         self.assertTrue(any("R03" in text and "document" in text for text in self.errors(manifest=broken)))
 
     def test_missing_not_run_fails(self):
-        broken = self.story.replace("B-pre 單向／雙向 PASS；duplicate NOT RUN",
-                                    "B-pre 單向／雙向 PASS；duplicate PASS")
-        self.assertNotEqual(broken, self.story)
+        changed = False
+        lines = []
+        for line in self.story.splitlines():
+            if line.startswith("| Q03 |"):
+                self.assertIn("NOT RUN", line)
+                line = line.replace("NOT RUN", "PASS")
+                changed = True
+            lines.append(line)
+        self.assertTrue(changed)
+        broken = "\n".join(lines) + "\n"
         self.assertTrue(any("Q03" in text for text in self.errors(story=broken)))
 
     def test_false_stable_overview_fails(self):
