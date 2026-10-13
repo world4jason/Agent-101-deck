@@ -115,113 +115,6 @@
     },
     {
       "id": "C03",
-      "kind": "stage",
-      "stage_key": "brainstorming",
-      "focus": "Brainstorming Stage Contract",
-      "rev12_pages": [
-        10,
-        11
-      ],
-      "cue": "先介紹工作站，不提前展示 Matching 的決議結果"
-    },
-    {
-      "id": "C04",
-      "kind": "stage",
-      "stage_key": "refinement",
-      "focus": "Refinement/Planning Stage Contract",
-      "rev12_pages": [
-        12,
-        14,
-        18,
-        19,
-        21,
-        23
-      ],
-      "cue": "可以拆票且可行，不等於可直接進 Ready"
-    },
-    {
-      "id": "C05",
-      "kind": "stage",
-      "stage_key": "ready",
-      "focus": "Ready Stage Contract",
-      "rev12_pages": [
-        15,
-        24
-      ],
-      "cue": "Ready 前確認清楚可開工，不代表已開始"
-    },
-    {
-      "id": "C06",
-      "kind": "stage",
-      "stage_key": "dev",
-      "focus": "Dev Stage Contract",
-      "rev12_pages": [
-        39,
-        40
-      ],
-      "cue": "開發與自測不等於獨立 QA"
-    },
-    {
-      "id": "C07",
-      "kind": "stage",
-      "stage_key": "review",
-      "focus": "PR Review Stage Contract",
-      "rev12_pages": [
-        36,
-        37,
-        41
-      ],
-      "cue": "Concept example only, no pretend real PR history"
-    },
-    {
-      "id": "C08",
-      "kind": "stage",
-      "stage_key": "qa",
-      "focus": "QA/Verification Stage Contract",
-      "rev12_pages": [
-        42,
-        43,
-        45,
-        47
-      ],
-      "cue": "只介紹預期/實際/PASS/FAIL/NOT RUN，A/B 實測留 Part2"
-    },
-    {
-      "id": "C09",
-      "kind": "stage",
-      "stage_key": "product_check",
-      "focus": "Product Check Stage Contract",
-      "rev12_pages": [
-        48
-      ],
-      "cue": "本票符合需求與 Goal 方向，不等於已達成產品成效"
-    },
-    {
-      "id": "C10",
-      "kind": "stage",
-      "stage_key": "human_gate",
-      "focus": "Human Gate Stage Contract",
-      "rev12_pages": [
-        50,
-        51,
-        91
-      ],
-      "cue": "欄外決策，不是第八個 Kanban state"
-    },
-    {
-      "id": "C11",
-      "kind": "stage",
-      "stage_key": "release_done",
-      "focus": "Merge/Release/Done Stage Contract",
-      "rev12_pages": [
-        52,
-        53,
-        93
-      ],
-      "cue": "需核對 DoD 和 release evidence，不能用 QA PASS 自動替代"
-    },
-    {
-      "id": "C12",
       "kind": "roles",
       "focus": "職能總覽：Owner、PM、PO、UI/UX、Dev、Reviewer、QA",
       "rev12_pages": [
@@ -234,7 +127,7 @@
       "cue": "Role ≠ 人數 ≠ Agent 數；一人可多職能"
     },
     {
-      "id": "C13",
+      "id": "C04",
       "kind": "roles-matrix",
       "focus": "Roles × Stages 主責、協作、決策矩陣",
       "rev12_pages": [
@@ -246,7 +139,7 @@
       "cue": "全流程一次看懂誰在哪段 co-work；不是固定組織編制"
     },
     {
-      "id": "C14",
+      "id": "C05",
       "kind": "documents",
       "focus": "文件種類：Goal／Proposal、Epic、Story、Task、Ticket、AC、AT、DoD",
       "rev12_pages": [
@@ -259,7 +152,7 @@
       "cue": "一次認識文件層次；不做完整 Matching AC 示範"
     },
     {
-      "id": "C15",
+      "id": "C06",
       "kind": "documents-lifecycle",
       "focus": "文件生命週期：需求→拆票→交付→Review→Evidence→放行記錄",
       "rev12_pages": [
@@ -273,7 +166,7 @@
       "cue": "同一文件可以被更新，Issue/PR 不等於 Git commit"
     },
     {
-      "id": "C16",
+      "id": "C07",
       "kind": "documents-boundary",
       "focus": "Goal vs Stage Objective、AC vs AT vs DoD、Exit Criteria、Evidence",
       "rev12_pages": [
@@ -286,7 +179,7 @@
       "cue": "幫學生辨認各類判準的適用層級"
     },
     {
-      "id": "C17",
+      "id": "C08",
       "kind": "version-github",
       "focus": "Git 與 GitHub：Issue、Project、Repo、Branch、Commit、PR、Merge",
       "rev12_pages": [
@@ -302,7 +195,7 @@
       "cue": "版控和文件分兩軌，用連線表達交會"
     },
     {
-      "id": "C18",
+      "id": "C09",
       "kind": "version-history",
       "focus": "版本歷史與工作票連結：Branch→Commit→PR→Merge／回復",
       "rev12_pages": [
@@ -316,7 +209,7 @@
       "cue": "抽象版本路徑示意，Part2 才揭露 Matching Version A/B"
     },
     {
-      "id": "C19",
+      "id": "C10",
       "kind": "agent-intro",
       "focus": "Agent 能接什麼工作？Chat／Session／Agent／Workflow 與五項工作守則的預告",
       "rev12_pages": [
@@ -329,6 +222,113 @@
         76
       ],
       "cue": "可執行／協調，不授權自己放行；五原則完整示範仍在 Part2"
+    },
+    {
+      "id": "C11",
+      "kind": "stage",
+      "stage_key": "brainstorming",
+      "focus": "Brainstorming Stage Contract",
+      "rev12_pages": [
+        10,
+        11
+      ],
+      "cue": "先介紹工作站，不提前展示 Matching 的決議結果"
+    },
+    {
+      "id": "C12",
+      "kind": "stage",
+      "stage_key": "refinement",
+      "focus": "Refinement/Planning Stage Contract",
+      "rev12_pages": [
+        12,
+        14,
+        18,
+        19,
+        21,
+        23
+      ],
+      "cue": "可以拆票且可行，不等於可直接進 Ready"
+    },
+    {
+      "id": "C13",
+      "kind": "stage",
+      "stage_key": "ready",
+      "focus": "Ready Stage Contract",
+      "rev12_pages": [
+        15,
+        24
+      ],
+      "cue": "Ready 前確認清楚可開工，不代表已開始"
+    },
+    {
+      "id": "C14",
+      "kind": "stage",
+      "stage_key": "dev",
+      "focus": "Dev Stage Contract",
+      "rev12_pages": [
+        39,
+        40
+      ],
+      "cue": "開發與自測不等於獨立 QA"
+    },
+    {
+      "id": "C15",
+      "kind": "stage",
+      "stage_key": "review",
+      "focus": "PR Review Stage Contract",
+      "rev12_pages": [
+        36,
+        37,
+        41
+      ],
+      "cue": "Concept example only, no pretend real PR history"
+    },
+    {
+      "id": "C16",
+      "kind": "stage",
+      "stage_key": "qa",
+      "focus": "QA/Verification Stage Contract",
+      "rev12_pages": [
+        42,
+        43,
+        45,
+        47
+      ],
+      "cue": "只介紹預期/實際/PASS/FAIL/NOT RUN，A/B 實測留 Part2"
+    },
+    {
+      "id": "C17",
+      "kind": "stage",
+      "stage_key": "product_check",
+      "focus": "Product Check Stage Contract",
+      "rev12_pages": [
+        48
+      ],
+      "cue": "本票符合需求與 Goal 方向，不等於已達成產品成效"
+    },
+    {
+      "id": "C18",
+      "kind": "stage",
+      "stage_key": "human_gate",
+      "focus": "Human Gate Stage Contract",
+      "rev12_pages": [
+        50,
+        51,
+        91
+      ],
+      "cue": "欄外決策，不是第八個 Kanban state"
+    },
+    {
+      "id": "C19",
+      "kind": "stage",
+      "stage_key": "release_done",
+      "focus": "Merge/Release/Done Stage Contract",
+      "rev12_pages": [
+        52,
+        53,
+        93
+      ],
+      "cue": "需核對 DoD 和 release evidence，不能用 QA PASS 自動替代"
     },
     {
       "id": "C20",
@@ -795,5 +795,7 @@
     "G3": "not_run",
     "G4": "not_run",
     "G5": "not_run"
-  }
+  },
+  "part1_learning_sequence": "O01 four foundations → O02 add Agent → C01/C02 workflow and Stage Card fields → C03–C10 People, Documents and Git/GitHub prerequisites → C11–C19 nine Stage Cards → C20 Exit Check",
+  "part1_prerequisite_policy": "define roles, document types and GitHub vocabulary before nine detailed Stage Cards; Part2 Matching worked example comes after all Part1 foundations"
 }
