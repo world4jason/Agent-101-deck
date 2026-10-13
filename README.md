@@ -8,7 +8,9 @@
 >
 > - [Rev13 父 Issue #60](https://github.com/world4jason/Agent-101-deck/issues/60)
 > - **[Rev13 全域分鏡契約（所有投影片必遵守）](docs/rev13-visual-narrative-contract.md) — Mandatory / Blocking P1**
-> - **[Rev13 Workflow-first v4（目前唯一內容分鏡：42 scenes）](docs/rev13-workflow-first-content-refinement-v4.md)**
+> - **[Rev13 v5：Part 1 認識 → Part 2 串成完整流程（現行規劃）](docs/rev13-two-part-learning-architecture-v5.md)**
+> - [v5 可機讀 Stage／Roles／Documents／GitHub 規格](docs/rev13-two-part-manifest-v5.json)／[本機驗證](tests/rev13_v5_two_part_check.py)
+> - [Rev13 v4：Part 2 案例來源（42 個舊 Scene 含 O01/O02）](docs/rev13-workflow-first-content-refinement-v4.md)
 > - **[Rev12 五項 Agent 協作原則保留契約](docs/rev13-agent-five-principles-preservation.md)**（A05–A11 在主線，不得刪除）
 > - [Rev13 檢查及 Merge Gates](docs/rev13-gates.md)／[Scene Manifest](docs/rev13-scene-manifest.json)／[契約檢查器](tests/rev13_contract_check.py)
 > - [Rev13 v3（歷史規劃）](docs/rev13-workflow-first-content-refinement-v3.md)
@@ -22,7 +24,12 @@
 
 ## Rev13 — 必須遵守的全域教學畫面規則（先於逐頁內容）
 
-**目前 Refinement v4 內容順序（最新）**：第一張固定母圖介紹 **人 People／流程 Process／文件 Documents／版本管理 Version Control** 四個要素；第二張保留原位置，**新增 Agent 第五要素**；第三張才引入 Matching App。後續依 Brainstorming → Refinement → Ready → Dev → PR Review → QA → Product Check → Human Gate 的時間線逐站敘述，每站仍保留四個要素：co-workers、流程位置、正在建立／執行的 Goal／Ticket／AC／DoD／Evidence 文件，以及 Git 分支／版本／GitHub Issue/PR 的映射。文件回答『做什麼、為何、如何驗』；版本管理回答『哪版、誰改、如何合併回復』；兩者可透過 GitHub 相連但不可混同。v1、v2、v3 是歷史方案，**不再當作製作順序**。
+**Current v5 教學順序：先 Pre-training，再 Lead by Example。** Part 1 先用 O01 四要素與 O02 加 Agent，再以統一 Stage Card 建立每站 **Goal reference／Target／Input／Activity／Output／Exit Criteria／People／GitHub mapping** 的基本認知；補 Roles×Stages、Documents Lifecycle、Git/GitHub 關係與 Agent 入門。Part 2 才由 O03 Matching App 完整跑 O03–X01 原 v4 的 40 個場景，沿同一母圖做 Overview→Spotlight→Work→Updated Overview，Rev12 五項 Agent 原則仍在核心 A05–A11。
+
+**執行限制：GitHub Actions/Workflow 目前停用，不再調整 `.github/workflows/`，不把遠端 CI 當這輪內容工作的通過條件。** 新增的 [v5 本機靜態檢查](tests/rev13_v5_two_part_check.py) 只證明 Scene、Stage 定義、Sources 與不遺漏原五原則；不等於 G1/G4、投影片可讀性或 Owner 放行。相關歷史及 Gate 說明：[Rev13 Gates](docs/rev13-gates.md)。
+
+
+**舊 v4 基準（已被 v5 兩部分架構覆蓋，但仍是 Part 2 素材來源）**：第一張固定母圖介紹 **人 People／流程 Process／文件 Documents／版本管理 Version Control** 四個要素；第二張保留原位置，**新增 Agent 第五要素**；第三張才引入 Matching App。後續依 Brainstorming → Refinement → Ready → Dev → PR Review → QA → Product Check → Human Gate 的時間線逐站敘述，每站仍保留四個要素：co-workers、流程位置、正在建立／執行的 Goal／Ticket／AC／DoD／Evidence 文件，以及 Git 分支／版本／GitHub Issue/PR 的映射。文件回答『做什麼、為何、如何驗』；版本管理回答『哪版、誰改、如何合併回復』；兩者可透過 GitHub 相連但不可混同。v1、v2、v3 是歷史方案，**不再當作製作順序**。
 
 
 
