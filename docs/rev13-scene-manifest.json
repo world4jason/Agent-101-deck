@@ -74,7 +74,11 @@
       "evidence_scope": "illustration",
       "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
       "source_id": null,
-      "old_rev12_page": null
+      "old_rev12_page": null,
+      "state_delta": {
+        "before": "Only People, Process, Documents, Version Control visible",
+        "after": "Same four foundations plus Agent as fifth"
+      }
     },
     {
       "id": "O03",
@@ -178,7 +182,11 @@
       "evidence_scope": "illustration",
       "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
       "source_id": null,
-      "old_rev12_page": null
+      "old_rev12_page": null,
+      "state_delta": {
+        "before": "No Goal/Proposal Issue",
+        "after": "Goal Issue recorded; still needs Refinement"
+      }
     },
     {
       "id": "R01",
@@ -298,7 +306,11 @@
       "evidence_scope": "illustration",
       "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
       "source_id": null,
-      "old_rev12_page": null
+      "old_rev12_page": null,
+      "state_delta": {
+        "before": "Unrefined Goal Issue",
+        "after": "Parent Issue and three child tickets; Ready check still pending"
+      }
     },
     {
       "id": "RD01",
@@ -344,7 +356,11 @@
       "evidence_scope": "illustration",
       "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
       "source_id": null,
-      "old_rev12_page": null
+      "old_rev12_page": null,
+      "state_delta": {
+        "before": "Ticket #3 in Backlog, WIP 0/1",
+        "after": "Ticket #3 in Ready, WIP 0/1"
+      }
     },
     {
       "id": "D01",
@@ -428,7 +444,11 @@
       "evidence_scope": "illustration",
       "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
       "source_id": null,
-      "old_rev12_page": null
+      "old_rev12_page": null,
+      "state_delta": {
+        "before": "Ticket #3 Ready, no candidate",
+        "after": "Ticket #3 Dev, WIP 1/1, candidate A, branch history illustrative"
+      }
     },
     {
       "id": "RV01",
@@ -492,7 +512,11 @@
       "evidence_scope": "illustration",
       "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
       "source_id": null,
-      "old_rev12_page": null
+      "old_rev12_page": null,
+      "state_delta": {
+        "before": "PR submitted for review",
+        "after": "Review findings returned or ready for QA; PR not merged"
+      }
     },
     {
       "id": "Q01",
@@ -604,7 +628,11 @@
         "end_to_end",
         "release",
         "product_goal"
-      ]
+      ],
+      "state_delta": {
+        "before": "Version A single-like FAIL; B-pre duplicate NOT RUN",
+        "after": "Same B candidate B-post duplicate PASS; UI/E2E still NOT RUN"
+      }
     },
     {
       "id": "PC01",
@@ -651,7 +679,11 @@
       "evidence_scope": "illustration",
       "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
       "source_id": null,
-      "old_rev12_page": null
+      "old_rev12_page": null,
+      "state_delta": {
+        "before": "Only #3 rule-level test results known",
+        "after": "Product Check records accepted scope and remaining Goal / UI/E2E gaps"
+      }
     },
     {
       "id": "HG01",
@@ -693,7 +725,11 @@
       "evidence_scope": "illustration",
       "source_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
       "source_id": null,
-      "old_rev12_page": null
+      "old_rev12_page": null,
+      "state_delta": {
+        "before": "Human Gate still pending, no Release evidence",
+        "after": "Decision documented; release/Done remain hypothetical unless separately verified"
+      }
     },
     {
       "id": "A01",
@@ -974,7 +1010,11 @@
         "end_to_end",
         "release",
         "product_goal"
-      ]
+      ],
+      "state_delta": {
+        "before": "Agent five risks named but not mapped to work",
+        "after": "External state, bounds, roles, independent evidence and Parent Goal tied to same Ticket and visible progress"
+      }
     },
     {
       "id": "X01",
@@ -996,5 +1036,22 @@
       "source_id": null,
       "old_rev12_page": null
     }
+  ],
+  "workflow_states": [
+    "Backlog",
+    "Ready",
+    "Dev",
+    "Review",
+    "QA",
+    "Product Check",
+    "Done"
+  ],
+  "require_full_human_qa_before_release": true,
+  "required_human_gates": [
+    "G1",
+    "G2",
+    "G3",
+    "G4",
+    "G5"
   ]
 }
