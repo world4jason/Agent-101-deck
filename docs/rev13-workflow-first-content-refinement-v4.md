@@ -3,6 +3,7 @@
 > **狀態：Refinement / G1 Ready Review 待驗。這是新版內容與分鏡，不是完成的投影片或可合併實作。**
 >
 > **Parent GitHub issue：[AgentDeck #60](https://github.com/world4jason/Agent-101-deck/issues/60)**　｜　**Planning PR：[Draft #61](https://github.com/world4jason/Agent-101-deck/pull/61)**  
+> **本版必須通過 [Rev13 Scene Manifest](rev13-scene-manifest.json) 的 [自動契約檢查](../tests/rev13_contract_check.py) 與 [G1–G5 Gate](rev13-gates.md)，且 [Rev12 五項 Agent 原則](rev13-agent-five-principles-preservation.md) 不能挪到附錄。當前是規劃與 Refinement，不宣稱實際投影片已完成。**
 > 依據：[P1–P23 與全域分鏡契約](rev13-visual-narrative-contract.md)；舊 [Storyboard v1](rev13-reorg-storyboard-v1.md) 和 [107 頁遷移矩陣 v1](rev13-migration-matrix-v1.md) 是來源／歷史候選，不可直接當新版頁序執行。
 
 ## 0. Owner 決議：先建立四大要素，再加入 Agent，第 3 張才進案例
