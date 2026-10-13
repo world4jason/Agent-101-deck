@@ -8,6 +8,8 @@
 
 ## 0. Rev13 全域分鏡契約（Mandatory / Blocking P1）
 
+**P18–P22 Global Principles**：Audience-led DIG/FIG、固定母圖／Overview First、Spotlight/Focus+Context、可看見階段↔Roles↔Ticket↔GitHub 關係、Updated Overview 的 State Delta／History／Extract／Closure。這些原則要先套到每個 scene 的 metadata 和 Review，**不是一章選修內容**；定義與阻擋條件依 [全域分鏡契約](rev13-visual-narrative-contract.md)。
+
 **所有章節與所有教學分鏡，都必須依照唯一 SSOT：[全域投影片分鏡契約](rev13-visual-narrative-contract.md)**。這是講述與畫面的共通文法，比本 Storyboard 原先按 S0–S6 切的章節更優先：
 
 **固定母圖（完整 Workflow＋全部主要職能＋相關 GitHub 工作鏈） → Spotlight（半透明遮罩只凸顯當前階段／co-work 人員） → Work/Artifact（Goal、Ticket 哪個欄位／項目、產物和 GitHub Issue/Project/Branch/PR） → Updated Overview（真的顯示狀態差異並指向下一站）。**
