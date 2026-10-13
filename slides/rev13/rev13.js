@@ -36,6 +36,18 @@
     { key: 'done', label: 'Done' },
   ];
 
+  const STAGE_KANBAN = {
+    brainstorming: ['backlog'],
+    refinement: ['backlog'],
+    ready: ['backlog', 'ready'],
+    dev: ['dev'],
+    review: ['review'],
+    qa: ['qa'],
+    product_check: ['product-check'],
+    human_gate: ['product-check'],
+    release_done: ['product-check', 'done'],
+  };
+
   const STAGES = {
     brainstorming: {
       label: 'Brainstorming',
@@ -46,6 +58,8 @@
       input: '問題、觀察、機會與限制',
       activities: '探索選項、定義 Outcome Goal 與成功訊號',
       output: 'Goal／Proposal 與未決假設',
+      stateChange: '問題待釐清 → Goal／Proposal 待確認',
+      handoff: '方向確認後交 PO 進入 Backlog Refinement',
       exit: '需求方確認方向，並留下共同可追溯的 Goal 紀錄。',
       lead: ['Owner', 'PM', 'PO'],
       co: [],
@@ -59,7 +73,9 @@
       target: '確認可行性，把需求拆成可交辦工作',
       input: 'Goal／Proposal、限制、依賴與未決疑問',
       activities: '界定範圍、拆票、釐清 AC／AT、證據、風險與負責角色',
-      output: 'Parent／Child Tickets、Scope、AC／AT 與未決清單',
+      output: 'Parent／Child Tickets、Scope、AC／AT、各 AC 的預期 Evidence、未決清單',
+      stateChange: 'Goal → 已界定範圍與驗收契約的 Tickets；仍在 Backlog',
+      handoff: 'PO／Dev／QA 進行 Ready Check',
       exit: '票可估算與驗證；阻礙已處置或有明確處置方式。',
       lead: ['PO', 'PM'],
       co: ['Owner', 'Dev', 'QA', 'UI/UX'],
@@ -74,6 +90,8 @@
       input: '已釐清的票、AC／AT、依賴與責任',
       activities: 'PO／Dev／QA 檢查範圍、可測性與依賴',
       output: 'Ready Ticket 與明確接手者；尚未開工',
+      stateChange: 'Backlog → Ready；接手者已明確',
+      handoff: '條件成立後交指定 Dev；尚未開工',
       exit: '本課 Required Ready 條件滿足，才允許拉進 Dev。',
       lead: ['PO', 'Dev'],
       co: ['QA'],
@@ -88,6 +106,8 @@
       input: 'Ready Ticket、設計／AC、共同 Repo 與 Stop Rules',
       activities: '開 Branch、修改、Commit、自測並記錄未完成項',
       output: '候選版本、修改摘要、自測紀錄與未驗清單',
+      stateChange: 'Ready → Dev；形成候選版本',
+      handoff: '候選版本與自測紀錄交 Reviewer',
       exit: '候選變更與自測可供審查；自測不等於 QA 完成。',
       lead: ['Dev'],
       co: ['PO', 'UI/UX'],
@@ -102,6 +122,9 @@
       input: 'PR 差異、Ticket／AC、版本與自測摘要',
       activities: '比對差異、提出意見、處置重大問題',
       output: 'Review findings、approved 或 changes requested',
+      stateChange: 'Dev → Review；重大 findings 須有處置',
+      handoff: '重大問題已處置才交 QA；否則回 Dev',
+      outputNote: '概念示意；不代表真實 PR 或 Review 紀錄',
       exit: '重大問題已有處置，候選變更可交付 QA；PR 尚不必然 Merge。',
       lead: ['Reviewer'],
       co: ['Dev', 'PO'],
@@ -116,6 +139,9 @@
       input: '可識別候選版、AC／AT、測試資料與環境',
       activities: '記錄預期與實際，標示 PASS／FAIL／NOT RUN',
       output: '測試紀錄、發現／缺漏與補驗請求',
+      stateChange: 'Review → QA；留下實際結果與未測項',
+      handoff: '證據與未測項交 PO 作 Product Check',
+      outputNote: '概念示意；未執行項維持 NOT RUN',
       exit: '交付明確證據與剩餘未驗項；未執行不改成 PASS。',
       lead: ['QA'],
       co: ['Dev'],
@@ -130,6 +156,9 @@
       input: 'Ticket／AC、Review／QA Evidence、Parent Goal 與風險',
       activities: '核對產品結果、需求變更與實作缺口',
       output: '接受範圍、退回理由或未完成路徑',
+      stateChange: 'QA → Product Check；保留接受範圍或未完成路徑',
+      handoff: '交授權者作 Human Gate；退回時保留處置路徑',
+      outputNote: '概念示意；未測量整體 Goal 成效',
       exit: '產品責任方留下明確接受或退回建議，並保留風險。',
       lead: ['PO'],
       co: ['Owner', 'Dev', 'QA'],
@@ -144,6 +173,9 @@
       input: '候選版、Review／QA Evidence、剩餘風險與發布計畫',
       activities: '作 Go／No-Go、暫停或退回決定',
       output: '可回查的授權、暫停或退回紀錄',
+      stateChange: 'Product Check → 欄外授權、暫停或退回',
+      handoff: '授權後才進 Merge／Release；No-Go 則暫停或補驗',
+      outputNote: '條件式輸出；沒有真實授權紀錄',
       exit: '明確授權且後續 Release／DoD 條件可檢查；不自動 Done。',
       lead: ['Owner'],
       co: ['PO', 'QA', 'Dev'],
@@ -158,21 +190,15 @@
       input: '已獲 Human Gate 授權的候選版與 Release／DoD Checklist',
       activities: 'Merge、Release、部署檢查與回報',
       output: 'Merged Commit、Release 記錄、檢查結果與 Ticket Done（有證據時）',
+      stateChange: 'Product Check → Done（授權與 DoD 證據成立後）',
+      handoff: '僅在 Merge、Release 與 DoD 實證齊備時標記 Done',
+      outputNote: '條件式輸出；未證明 Merge、Release 或 Done 檢查',
       exit: '本課 DoD 與上線檢查具備實證，才可 Done；整體 Goal 另行衡量。',
       lead: ['Dev'],
       co: ['Owner', 'PO', 'QA'],
       github: 'PR Merge、Commit、Release 與 Issue／Project Done',
     },
   };
-
-  const DOC_FLOW = [
-    { stage: 'Brainstorming', title: 'Problem／Goal／Proposal', place: 'Issue／決議紀錄' },
-    { stage: 'Refinement', title: 'Epic／Story／Task／Ticket', place: 'Parent／Sub-issues／Project' },
-    { stage: 'Refinement', title: 'Scope／AC／AT／DoD', place: 'Issue／Repo 規格／測試' },
-    { stage: 'Dev', title: 'Design & Dev Notes', place: 'Repo 文件／Issue／PR body' },
-    { stage: 'Review／QA', title: 'Review／Test Evidence', place: 'PR review／Evidence／Issue' },
-    { stage: 'Human Gate', title: 'Go／No-Go／Release record', place: 'PR／Release／外部紀錄' },
-  ];
 
   const ROLE_STAGE_MAP = {
     Owner: { primary: ['brainstorming', 'human_gate'], collaborate: ['refinement', 'product_check', 'release_done'] },
@@ -200,10 +226,6 @@
     return String(value).replace(/[&<>"']/g, character => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
     })[character]);
-  }
-
-  function labels(values = []) {
-    return values.map(value => `<span class="term-chip">${esc(value)}</span>`).join('');
   }
 
   function renderMapOptions(slide) {
@@ -235,9 +257,11 @@
         <strong>${esc(role.name)}</strong><span class="role-desc">${esc(role.short)}</span>
       </div>`).join('');
 
-    const statuses = KANBAN.map(item => {
-      const active = stateSet.has(item.key) || (stage === item.key);
-      return `<div class="map-status${active ? ' is-current' : ''}" data-state="${item.key}"><span>${esc(item.label)}</span></div>`;
+    const stageStates = new Set(STAGE_KANBAN[stage] || []);
+    const statuses = KANBAN.map((item, index) => {
+      const active = stateSet.has(item.key) || stageStates.has(item.key);
+      const accessibleLabel = `${item.label}${active ? '，本頁流程焦點' : ''}`;
+      return `<div class="map-status${active ? ' is-current' : ''}" data-state="${item.key}" data-step="${index + 1}"${active ? ' data-stage-focus="true"' : ''} role="listitem" aria-label="${esc(accessibleLabel)}"><span>${esc(item.label)}</span></div>`;
     }).join('');
 
     const activities = `
@@ -250,7 +274,7 @@
 
     let agentMarkup = '';
     if (agent) {
-      agentMarkup = `<div class="agent-layer${revealAgent ? ' fragment' : ''}"${revealAgent ? ' data-fragment-order="1"' : ''}>
+      agentMarkup = `<div class="agent-layer${revealAgent ? ' fragment' : ''}" role="group" aria-label="Agent：受委派執行／協調；範圍、責任與 Human Gate 仍連回原四區"${revealAgent ? ' data-fragment-order="1"' : ''}>
         <span class="agent-mark" aria-hidden="true">A</span>
         <strong>Agent</strong>
         <span>受委派執行／協調；範圍、責任與 Human Gate 仍連回原四區</span>
@@ -263,21 +287,21 @@
       <div class="${mapClass}" data-mother-map-id="rev13-four-foundations" data-stage="${esc(stage)}">
         <div class="map-grid">
           <section class="${zoneClass('people')} zone-people" data-zone="people" aria-label="People 人">
-            <header class="zone-heading"><span class="zone-symbol">P</span><h2>People <em>人</em></h2></header>
-            <div class="role-cloud">${roleMarkup}</div>
+            <header class="zone-heading"><span class="zone-symbol">P</span><h2><span class="zone-name-full">People</span><em>人</em></h2></header>
+            <div class="role-cloud" role="group" aria-label="角色：Owner、PM、PO、UI/UX、Dev、Reviewer、QA">${roleMarkup}</div>
           </section>
           <section class="${zoneClass('process')} zone-process" data-zone="process" aria-label="Process 流程">
-            <header class="zone-heading"><span class="zone-symbol">→</span><h2>Process <em>流程</em></h2></header>
-            <div class="activity-rail">${activities}</div>
-            <div class="kanban-row" aria-label="七個 Kanban 狀態">${statuses}</div>
-            <div class="gate-rail${stage === 'human_gate' ? ' is-current' : ''}">
+            <header class="zone-heading"><span class="zone-symbol">→</span><h2><span class="zone-name-full">Process</span><em>流程</em></h2></header>
+            <div class="activity-rail" role="group" aria-label="活動：Brainstorming；Refinement 在 Backlog 進行">${activities}</div>
+            <div class="kanban-row" role="list" aria-label="七個 Kanban 狀態">${statuses}</div>
+            <div class="gate-rail${stage === 'human_gate' ? ' is-current' : ''}" role="group" aria-label="Human Gate：Product Check 後、Done 前的欄外人類決策">
               <span class="gate-line" aria-hidden="true"></span><strong>Human Gate</strong>
               <span>欄外決策：Product Check 後、Done 前</span><span class="gate-line" aria-hidden="true"></span>
             </div>
           </section>
           <section class="${zoneClass('documents')} zone-documents" data-zone="documents" aria-label="Documents 文件">
-            <header class="zone-heading"><span class="zone-symbol">▤</span><h2>Documents <em>文件</em></h2></header>
-            <div class="doc-stack">
+            <header class="zone-heading"><span class="zone-symbol">▤</span><h2><span class="zone-name-full">Documents</span><em>文件</em></h2></header>
+            <div class="doc-stack" role="group" aria-label="文件：Goal／Proposal、Epic／Story／Task、Scope／AC／AT／DoD、Review／Evidence">
               <div class="doc-piece"><b>Goal／Proposal</b><span>為什麼做</span></div>
               <div class="doc-piece"><b>Epic · Story · Task</b><span>如何拆成工作</span></div>
               <div class="doc-piece"><b>Scope · AC · AT · DoD</b><span>做什麼、如何驗</span></div>
@@ -285,21 +309,20 @@
             </div>
           </section>
           <section class="${zoneClass('version')} zone-version" data-zone="version" aria-label="Version Control 版本管理">
-            <header class="zone-heading"><span class="zone-symbol">⎇</span><h2>Version Control <em>版本管理</em></h2></header>
-            <div class="version-path">
-              <div class="version-node"><b>Git</b><span>歷史</span></div><i>→</i>
-              <div class="version-node"><b>Branch</b><span>隔離修改</span></div><i>→</i>
-              <div class="version-node"><b>Commit</b><span>記下節點</span></div><i>→</i>
-              <div class="version-node"><b>PR</b><span>送審差異</span></div><i>→</i>
-              <div class="version-node"><b>Merge</b><span>整合變更</span></div>
+            <header class="zone-heading"><span class="zone-symbol">⎇</span><h2><span class="zone-name-full">Version Control</span><em>版本管理</em></h2></header>
+            <div class="version-path" role="group" aria-label="版本路徑：Git、Branch、Commit、PR、Merge">
+              <div class="version-node"><b>Git</b></div><i>→</i>
+              <div class="version-node"><b>Branch</b></div><i>→</i>
+              <div class="version-node"><b>Commit</b></div><i>→</i>
+              <div class="version-node"><b>PR</b></div><i>→</i>
+              <div class="version-node"><b>Merge</b></div>
             </div>
-            <div class="version-foot">Branch／Commit／Merge 是 Git 版本歷史；GitHub 提供協作介面。</div>
           </section>
         </div>
-        <div class="github-bridge" aria-label="GitHub 橫跨文件協作與版本審查">
-          <span class="bridge-end">Issues／Project<br><small>工作與狀態</small></span>
-          <span class="bridge-track"><i></i><b>GitHub 協作層</b><i></i></span>
-          <span class="bridge-end">PR／Review<br><small>變更與審查</small></span>
+        <div class="github-bridge" role="group" aria-label="GitHub 橫跨文件協作與版本審查">
+          <span class="bridge-end">Issues／Project</span>
+          <span class="bridge-track"><i></i><b><span class="bridge-name-full">GitHub 協作</span><span class="bridge-name-compact" aria-hidden="true">GitHub</span></b><i></i></span>
+          <span class="bridge-end">PR／Review</span>
         </div>
         ${agentMarkup}
       </div>`;
@@ -367,7 +390,7 @@
         <div class="workflow-anchor"><span>一張工作票</span><strong>目標 → 工作 → 證據 → 人的決策</strong></div>
         <div class="role-constellation">
           <svg class="role-spokes" viewBox="0 0 1100 330" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M550 0 V55 M80 55 H1020 M80 55 V100 M235 55 V100 M390 55 V100 M550 55 V100 M710 55 V100 M865 55 V100 M1020 55 V100" />
+          <path d="M550 0 V12 M137 12 H962 M137 12 V18 M412 12 V18 M687 12 V18 M962 12 V18" />
           </svg>
           ${cards}
         </div>
@@ -377,21 +400,30 @@
   }
 
   function renderRolesStages(slide) {
-    const width = 1320;
-    const height = 500;
+    const width = 1440;
+    const height = 520;
     const left = 210;
-    const gap = 134;
-    const topY = 62;
-    const rowStart = 146;
-    const rowGap = 49;
+    const gap = 132;
+    const topY = 68;
+    const rowStart = 150;
+    const rowGap = 53;
     const stageLabels = [
       'Brainstorm', 'Refinement', 'Ready', 'Dev', 'Review', 'QA', 'Product Check', 'Human Gate', 'Release / Done',
     ];
+    const stageLabelLines = {
+      'Product Check': ['Product', 'Check'],
+      'Human Gate': ['Human', 'Gate'],
+      'Release / Done': ['Release', 'Done'],
+    };
     const stageNodes = stageLabels.map((label, i) => {
       const x = left + i * gap;
+      const lines = stageLabelLines[label] || [label];
+      const labelMarkup = lines.length === 1
+        ? `<text x="${x}" y="39" text-anchor="middle">${esc(lines[0])}</text>`
+        : `<text text-anchor="middle"><tspan x="${x}" y="27">${esc(lines[0])}</tspan><tspan x="${x}" y="47">${esc(lines[1])}</tspan></text>`;
       return `<g class="matrix-stage" data-stage="${STAGE_ORDER[i]}">
-        <circle cx="${x}" cy="${topY}" r="10" />
-        <text x="${x}" y="34" text-anchor="middle">${esc(label)}</text>
+        <circle cx="${x}" cy="${topY}" r="15" />
+        ${labelMarkup}
       </g>`;
     }).join('');
     const stageLine = `<path class="matrix-timeline" d="M${left} ${topY} H${left + (stageLabels.length - 1) * gap}" />`;
@@ -402,12 +434,13 @@
         const x = left + i * gap;
         const primary = mapping.primary.includes(stageKey);
         const co = mapping.collaborate.includes(stageKey);
-        if (!primary && !co) return `<line class="matrix-guide" x1="${x}" y1="${y}" x2="${x}" y2="${y + 12}" />`;
-        return `<path class="matrix-link ${primary ? 'is-lead' : 'is-co'}" d="M${x} ${topY + 12} V${y - 7}" />
-          <circle class="matrix-role-dot ${primary ? 'is-lead' : 'is-co'}" cx="${x}" cy="${y}" r="${primary ? 11 : 8}" />`;
+        if (!primary && !co) return '';
+        return `<path class="matrix-link ${primary ? 'is-lead' : 'is-co'}" d="M${x} ${topY + 12} V${y - 9}" />
+          <circle class="matrix-role-dot ${primary ? 'is-lead' : 'is-co'}" cx="${x}" cy="${y}" r="${primary ? 18 : 13}" />`;
       }).join('');
       return `<g class="matrix-row" data-role="${esc(role.name)}">
-        <text class="matrix-role-label" x="12" y="${y + 6}">${esc(role.name)}</text>${cells}
+        <path class="matrix-rowline" d="M${left} ${y} H${left + (stageLabels.length - 1) * gap}" />
+        <text class="matrix-role-label" x="12" y="${y + 7}">${esc(role.name)}</text>${cells}
       </g>`;
     }).join('');
     return `<div class="focus-compose">${locator(slide)}
@@ -445,21 +478,26 @@
   }
 
   function renderDocumentLifecycle(slide) {
-    const items = DOC_FLOW.map((item, index) => `
-      <article class="lifecycle-node" data-step="${index + 1}">
-        <span class="lifecycle-stage">${esc(item.stage)}</span>
-        <strong>${esc(item.title)}</strong>
-        <small>${esc(item.place)}</small>
-      </article>`).join('');
     return `<div class="focus-compose">${locator(slide)}
       <div class="diagram-field lifecycle-field">
-        <div class="lifecycle-route">${items}</div>
-        <div class="lifecycle-link-band">
-          <span class="link-port">文件更新</span><i></i>
-          <strong>GitHub 工作紀錄與版本審查的連接點</strong><i></i>
-          <span class="link-port">版本歷史</span>
+        <div class="lifecycle-heading"><strong>同一張教學示意 Ticket</strong><span>Refinement → Review／QA</span></div>
+        <div class="lifecycle-compare">
+          <article class="lifecycle-snapshot lifecycle-before">
+            <header><span>BEFORE · Refinement</span><strong>工作契約形成</strong></header>
+            <div><b>Ticket 內容</b><span>Parent Goal、Scope、AC／AT、依賴</span></div>
+            <div><b>可追溯位置</b><span>Issue 描述；Project 狀態為 Backlog</span></div>
+          </article>
+          <span class="lifecycle-change" aria-hidden="true">→</span>
+          <article class="lifecycle-snapshot lifecycle-after">
+            <header><span>AFTER · Review／QA</span><strong>原契約保留，補上版本與檢查指向</strong></header>
+            <div><b>Ticket 內容</b><span>原 AC／範圍可回查；實際 findings 與 Evidence 依執行補記</span></div>
+            <div><b>可追溯位置</b><span>Project：Backlog → Review／QA；Issue ↔ PR 差異與 Review ↔ 候選 Commit／Evidence</span></div>
+          </article>
         </div>
-        <div class="lifecycle-note"><b>讀／寫／審／留存</b><span>同一工作契約沿流程演進，Issue／PR 不等於 Git Commit。</span></div>
+        <div class="lifecycle-trace" aria-label="工作紀錄與版本的追溯位置">
+          <span>Issue · 契約</span><i>↔</i><span>Project · 狀態</span><i>→</i><span>PR · 差異／Review</span><i>→</i><span>Commit · 版本</span><i>＋</i><span>Evidence · 實際檢查</span>
+        </div>
+        <div class="lifecycle-note"><b>示意流程</b><span>只記錄實際發生的 Review、測試與 Evidence；Issue／PR 不等於 Git Commit。</span></div>
       </div>
     </div>`;
   }
@@ -475,11 +513,11 @@
           <article class="criteria-level ticket-level"><span>單張工作票</span><strong>Scope → AC</strong><small>範圍內要呈現什麼行為？</small></article>
         </div>
         <div class="criteria-checks">
-          <article><span>驗證情境</span><strong>AT</strong><small>如何檢查 AC</small></article>
-          <i aria-hidden="true">↓</i>
-          <article><span>交付共識</span><strong>DoD</strong><small>共同完成條件</small></article>
-          <i aria-hidden="true">↓</i>
-          <article class="evidence-node"><span>實際觀察</span><strong>Evidence</strong><small>對上候選版本與測試範圍</small></article>
+          <article class="criteria-card"><span>驗證情境</span><strong>AT</strong><small>如何檢查 AC</small></article>
+          <i class="criteria-link" aria-hidden="true">↓</i>
+          <article class="criteria-card"><span>跨階段共識</span><strong>DoD</strong><small>適用各相關階段，不聚焦單一工作站</small></article>
+          <i class="criteria-link" aria-hidden="true">↓</i>
+          <article class="criteria-card evidence-node"><span>實際觀察</span><strong>Evidence</strong><small>對上候選版本與測試範圍</small></article>
         </div>
       </div>
     </div>`;
@@ -510,21 +548,24 @@
   function renderVersionHistory(slide) {
     return `<div class="focus-compose">${locator(slide)}
       <div class="diagram-field version-history-field">
-        <div class="concept-label">版本路徑示意</div>
-        <svg class="git-history" viewBox="0 0 1000 380" role="img" aria-label="Branch、Commit、PR、Merge 與回復的版本關係">
-          <defs><marker id="arrow-version" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" /></marker></defs>
-          <path class="git-track main-track" d="M76 250 H900" />
-          <path class="git-track branch-track" d="M260 250 C330 250 330 116 420 116 H640 C720 116 720 250 802 250" />
-          <path class="git-track review-track" d="M650 116 C730 116 740 166 740 218" marker-end="url(#arrow-version)" />
-          <circle class="git-dot" cx="110" cy="250" r="13" /><circle class="git-dot" cx="260" cy="250" r="13" />
-          <circle class="git-dot branch-dot" cx="420" cy="116" r="13" /><circle class="git-dot branch-dot" cx="560" cy="116" r="13" />
-          <circle class="git-dot pr-dot" cx="650" cy="116" r="15" /><circle class="git-dot merge-dot" cx="802" cy="250" r="15" />
-          <text x="110" y="302" text-anchor="middle">Repo 主線</text><text x="260" y="302" text-anchor="middle">Branch</text>
-          <text x="420" y="82" text-anchor="middle">Commit</text><text x="560" y="82" text-anchor="middle">更多修改</text>
-          <text x="650" y="164" text-anchor="middle">PR／Review</text><text x="802" y="302" text-anchor="middle">Merge</text>
-          <text class="recovery-label" x="885" y="188" text-anchor="middle">需要時可回查／回復</text>
+        <svg class="git-history" viewBox="0 0 1000 450" role="img" aria-label="Branch、Commit、PR、Merge 與回復路徑的版本關係">
+          <defs>
+            <marker id="arrow-version" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" /></marker>
+            <marker id="arrow-rollback" markerWidth="10" markerHeight="10" refX="2" refY="5" orient="auto"><path d="M10,0 L0,5 L10,10 Z" /></marker>
+          </defs>
+          <path class="git-track main-track" d="M76 290 H930" />
+          <path class="git-track branch-track" d="M250 290 C320 290 330 150 420 150 H675 C745 150 745 290 820 290" />
+          <path class="git-track review-track" d="M675 150 C730 158 782 218 820 280" marker-end="url(#arrow-version)" />
+          <path class="git-track rollback-track" d="M820 310 C820 360 760 390 690 390 H145 C108 390 96 350 96 316" marker-end="url(#arrow-rollback)" />
+          <circle class="git-dot" cx="110" cy="290" r="13" /><circle class="git-dot" cx="250" cy="290" r="13" />
+          <circle class="git-dot branch-dot" cx="420" cy="150" r="13" /><circle class="git-dot branch-dot" cx="560" cy="150" r="13" />
+          <circle class="git-dot pr-dot" cx="675" cy="150" r="15" /><circle class="git-dot merge-dot" cx="820" cy="290" r="15" />
+          <text x="110" y="335" text-anchor="middle">Repo 主線</text><text x="250" y="335" text-anchor="middle">Branch</text>
+          <text x="420" y="111" text-anchor="middle">Commit</text><text x="560" y="111" text-anchor="middle">更多修改</text>
+          <text x="675" y="111" text-anchor="middle">PR／Review</text><text x="820" y="335" text-anchor="middle">Merge</text>
+          <text class="recovery-label" x="480" y="366" text-anchor="middle">需要時回查／回復至已知版本</text>
         </svg>
-        <div class="history-legend"><span><i class="legend-main"></i>既有版本</span><span><i class="legend-branch"></i>候選分支</span><span><i class="legend-pr"></i>審查連結</span></div>
+        <div class="history-legend"><span><i class="legend-main"></i>既有版本</span><span><i class="legend-branch"></i>候選分支</span><span><i class="legend-pr"></i>PR／Review</span><span><i class="legend-recovery"></i>回復路徑</span></div>
       </div>
     </div>`;
   }
@@ -540,7 +581,7 @@
     const principles = [
       'External Task State', 'Bounded Execution', 'Role Separation',
       'Independent Verification', 'Goal Re-anchoring',
-    ].map(name => `<span>${name}</span>`).join('');
+    ].map((name, index) => `<li><b>${index + 1}</b><span>${name}</span></li>`).join('');
     return `<div class="focus-compose">${locator(slide)}
       <div class="diagram-field agent-primer-field">
         <div class="agent-work-path">
@@ -549,7 +590,7 @@
           <i aria-hidden="true">→</i><article><span>人類判斷</span><strong>審查、驗證與放行</strong></article>
         </div>
         <div class="agent-terms" aria-label="四個不同概念">${termCards}</div>
-        <div class="principle-preview"><span>五項守則，後半完整示範</span><div>${principles}</div></div>
+        <div class="principle-preview"><strong>五項守則，後半完整示範</strong><ol>${principles}</ol></div>
         <div class="matching-preview">有人想做配對</div>
       </div>
     </div>`;
@@ -558,15 +599,11 @@
   function renderStageCard(slide, stageKey) {
     const data = STAGES[stageKey];
     if (!data) return '<p class="render-error">Stage data unavailable.</p>';
-    const roleChips = [
-      ...data.lead.map(role => `<span class="role-label lead">${esc(role)}<small>主責</small></span>`),
-      ...data.co.map(role => `<span class="role-label co">${esc(role)}<small>協作</small></span>`),
-    ].join('');
+    const people = `<p><strong>主責</strong><span>${data.lead.map(esc).join(' · ')}</span></p>${data.co.length ? `<p><strong>協作</strong><span>${data.co.map(esc).join(' · ')}</span></p>` : ''}`;
     return `<div class="focus-compose stage-compose">${locator(slide)}
       <div class="diagram-field stage-panel">
         <div class="stage-heading">
-          <div><span class="stage-category">${esc(data.activity)}</span><h2>${esc(data.label)}</h2></div>
-          <div class="stage-state"><span>Current State</span><strong>${esc(data.kanban)}</strong></div>
+          <div class="stage-state" data-kanban-state="${esc(data.kanban)}"><strong>${esc(data.kanban)}</strong></div>
         </div>
         <div class="stage-goal-target">
           <article><span>Product Goal reference</span><strong>${esc(data.goal)}</strong></article>
@@ -575,11 +612,11 @@
         <div class="stage-work-chain" aria-label="Input、Activities、Output 的工作流">
           <article class="stage-work-node fragment" data-fragment-order="1"><span>Input</span><strong>${esc(data.input)}</strong></article>
           <span class="chain-arrow fragment" data-fragment-order="1" aria-hidden="true">→</span>
-          <article class="stage-work-node activity fragment" data-fragment-order="2"><span>Activities</span><strong>${esc(data.activities)}</strong></article>
+          <article class="stage-work-node activity fragment" data-fragment-order="2"><span>Activities · state change</span><strong>${esc(data.activities)}</strong><small class="stage-state-delta">${esc(data.stateChange)}</small></article>
           <span class="chain-arrow fragment" data-fragment-order="2" aria-hidden="true">→</span>
-          <article class="stage-work-node output fragment" data-fragment-order="3"><span>Output</span><strong>${esc(data.output)}</strong></article>
+          <article class="stage-work-node output${data.outputNote ? ' has-output-note' : ''} fragment" data-fragment-order="3"><span>Output · handoff</span><strong>${esc(data.output)}</strong>${data.outputNote ? `<small class="stage-output-note">${esc(data.outputNote)}</small>` : ''}<small class="stage-handoff">${esc(data.handoff)}</small></article>
         </div>
-        <div class="stage-collaborators fragment" data-fragment-order="3"><span>People · 主責／協作</span><div>${roleChips}</div></div>
+        <div class="stage-collaborators fragment" data-fragment-order="3"><span>People · 主責／協作</span><div>${people}</div></div>
         <div class="stage-footer fragment" data-fragment-order="4">
           <article class="stage-exit"><span>Exit Criteria</span><strong>${esc(data.exit)}</strong></article>
           <article class="stage-github"><span>GitHub mapping</span><strong>${esc(data.github)}</strong></article>
@@ -591,16 +628,27 @@
   function renderExitCheck(slide) {
     return `<div class="focus-compose">${locator(slide)}
       <div class="diagram-field exercise-field">
-        <div class="exercise-label">教學示意 · Ready Check</div>
         <div class="exercise-card">
-          <div class="exercise-goal"><span>Stage Target</span><strong>確認這張工作票具備開工條件</strong></div>
+          <div class="exercise-goal">
+            <article><span>Product Goal</span><strong>回指這張票的 Parent Goal</strong></article>
+            <article><span>Stage Target</span><strong>確認工作票具備開工條件</strong></article>
+          </div>
           <div class="exercise-flow">
             <article><span>Input</span><strong>已釐清工作契約、AC 與依賴</strong></article><i>→</i>
-            <article><span>Output</span><strong>Ready Ticket 與明確接手者</strong></article>
+            <article><span>Exit Criteria / Output</span><strong>Ready 條件成立，且有明確接手者</strong></article>
           </div>
-          <div class="exercise-question"><b>先回答</b><span>誰主責與協作？條件成立後，狀態和工作紀錄下一步怎麼變？</span></div>
+          <div class="exercise-context">
+            <div><b>People</b><span>Owner 未具名 · PO／Dev 主責 · QA 協作 · 接手 Dev 待指定</span></div>
+            <div><b>GitHub</b><span>Issue：工作契約 · Project：Backlog · Branch／Commit／PR：尚無</span></div>
+          </div>
+          <div class="exercise-question" aria-label="作答問題">
+            <p><b>Goal／Stage Target</b><span>這張票連到哪個產品 Goal？本站要完成什麼？</span></p>
+            <p><b>Exit Criteria</b><span>交接前要滿足哪些條件？</span></p>
+            <p><b>Owner／協作者</b><span>誰主責、誰協作，接手 Dev 是否已指定？</span></p>
+            <p><b>GitHub／下一步</b><span>Issue、Project、PR 各記錄什麼？條件成立後狀態如何變、交給誰？</span></p>
+          </div>
           <div class="exercise-answer fragment" data-fragment-order="1">
-            <span>參考判斷</span><strong>PO／Dev 主責、QA 協作；符合條件後由 Backlog 進 Ready，Issue／Project 記錄狀態，再交給 Dev。</strong>
+            <span>參考判斷</span><strong>Product Goal 回指 Parent Goal；Target 是確認票可開工，Exit 是 Required Ready 條件滿足且接手者明確。工作 Owner 與接手 Dev 尚未具名；PO／Dev 主責、QA 協作。Issue 保留工作契約、Project 記錄 Backlog → Ready；尚無 Branch／Commit／PR，符合條件後再交指定 Dev。</strong>
           </div>
         </div>
       </div>
