@@ -223,6 +223,8 @@ def check_contract(root: Path, data: dict, story: str, readme: str,
     stage = data.get("development_phase")
     if stage not in {"refinement","ready","implementation","review","released"}:
         add(f"unknown delivery stage {stage}")
+    if stage == "refinement" and (root / "slides/rev13/index.html").exists():
+        add("Refinement cannot include Rev13 built slides while still claiming planning-only PASS")
     if stage in {"ready","implementation","review","released"}:
         path = root / "docs/reviews/rev13-gates.json"
         if not path.exists():
@@ -234,6 +236,7 @@ def check_contract(root: Path, data: dict, story: str, readme: str,
     if stage in {"implementation","review","released"}:
         check_rendered(root, actual, errors)
     if stage in {"review","released"}:
+        check_editable_pptx(root, errors)
         path = root / "docs/reviews/rev13-gates.json"
         if path.exists():
             gate_data = json.loads(path.read_text())
@@ -243,6 +246,44 @@ def check_contract(root: Path, data: dict, story: str, readme: str,
                     add(f"{stage} cannot declare {gate} PASS without evidence")
     return errors
 
+
+
+
+def check_editable_pptx(root: Path, errors: list[str]):
+    """Minimum native-object precondition, not a substitute for PowerPoint UI QA."""
+    import re as _re
+    import zipfile
+    from xml.etree import ElementTree as ET
+
+    artifact = root / "downloads/agent101-rev13-editable.pptx"
+    if not artifact.exists():
+        errors.append("review/release requires native editable downloads/agent101-rev13-editable.pptx")
+        return
+    try:
+        with zipfile.ZipFile(artifact) as ppt:
+            slides = sorted(
+                (x for x in ppt.namelist()
+                 if _re.fullmatch(r"ppt/slides/slide\d+\.xml", x)),
+                key=lambda p: int(_re.search(r"slide(\d+)\.xml", p).group(1)),
+            )
+            if not slides:
+                errors.append("PPTX contains no slide XML")
+                return
+            p = "{http://schemas.openxmlformats.org/presentationml/2006/main}"
+            a = "{http://schemas.openxmlformats.org/drawingml/2006/main}"
+            for page in slides:
+                root_xml = ET.fromstring(ppt.read(page))
+                shapes = root_xml.findall(f".//{p}sp")
+                editable_text = any(
+                    node.text and node.text.strip()
+                    for shape in shapes for node in shape.findall(f".//{a}t")
+                )
+                if not editable_text:
+                    errors.append(f"{page}: no native editable text shape")
+                # Pixel parity, selectable shapes and full-slide-image audit
+                # still require separate actual UI / rendered QA.
+    except (OSError, zipfile.BadZipFile, ET.ParseError) as exc:
+        errors.append(f"invalid editable PPTX: {exc}")
 
 class SlideParser(HTMLParser):
     def __init__(self):
