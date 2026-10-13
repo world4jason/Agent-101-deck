@@ -1,6 +1,6 @@
 # Rev13 — Rev12 107 頁逐頁遷移矩陣 v1
 
-> **v3 演進註記**：本 107/107 原頁對照只用於來源追蹤、避免漏掉教材證據；S0–S6 目標章仍來自已被覆蓋的 v1 三要素候選，**不是新版頁序**。目前請依 **[v3 Content Refinement](rev13-workflow-first-content-refinement-v3.md)** 的前兩張「人／流程／文件／版本管理 → 加 Agent 第五項」與 **35 Scenes 的 Workflow-first 順序**重新組織內容；從此表只擷取相關頁面來源與 evidence。舊 v2 也是歷史規劃。
+> **v3 演進註記**：本 107/107 原頁對照只用於來源追蹤、避免漏掉教材證據；S0–S6 目標章仍來自已被覆蓋的 v1 三要素候選，**不是新版頁序**。目前請依 **[v4 Content Refinement](rev13-workflow-first-content-refinement-v4.md)** 的前兩張「人／流程／文件／版本管理 → 加 Agent 第五項」與 **42 Scenes 的 Workflow-first 順序**重新組織內容；從此表只擷取相關頁面來源與 evidence。舊 v2 也是歷史規劃。
 
 > **這是 G1 Review 前的編輯規劃稿，並未搬動任何投影片。**
 > 來源：[rev12-demo-107](https://github.com/world4jason/Agent-101-deck/releases/tag/rev12-demo-107) frozen commit 5eb43fe9efb031ad7fb0582270a75df1c312a6ae、[原 107 頁 Storyboard](issue48-execution-storyboard.md)。新說明見 [Rev13 Storyboard v1](rev13-reorg-storyboard-v1.md)，父 Issue [#60](https://github.com/world4jason/Agent-101-deck/issues/60)。
@@ -14,6 +14,8 @@
 **此 107/107 表僅盤點 Rev12 內容的去向，不能直接拿去逐頁換序當新投影片。** 每一張未來 Rev13 教學 scene 都須先遵守 [全域投影片分鏡契約](rev13-visual-narrative-contract.md) 的母圖與四個敘事步驟：**Overview → Spotlight（只凸顯工作階段＋co-work 人員）→ Work/Artifact（Ticket、GitHub 動作／產出）→ Updated Overview（可見狀態變化）**。
 
 **下一輪逐頁設計才會決定新 scene_id、四步驟對應、當前階段、focus 角色、Ticket 欄位／AC、GitHub Issue/Project/Branch/PR 對應、輸出與 state delta、Evidence 的真實或示意範圍。** 原頁內容的 Keep/Move/Condense/Appendix 分類不能豁免這些欄位；不允許保留成孤立的知識頁。封面／附錄／練習仍須能回到同一母圖定位。
+
+**五項原則不可因 Appendix／Condense 而消失：** Rev12 頁 76–81（P42–P47）原本分散的五張 Agent 原則頁，在 v4 的 **A05–A11** 完整保留在 CORE；本舊頁盤點分類不是刪除許可。見 [五原則保留契約](rev13-agent-five-principles-preservation.md)。
 
 ## 處置標籤
 
