@@ -1,0 +1,26 @@
+name: Rev13 Contract
+
+# This job is intentionally not path-filtered: a required check must always
+# report on the latest PR head. Planning PASS is NOT a visual or human PASS.
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'rev13/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  rev13-contract:
+    name: rev13-contract
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Check Rev13 scene schema, evidence and five Agent principles
+        run: python3 tests/rev13_contract_check.py
+      - name: Prove the gate rejects invalid inputs
+        run: python3 -m unittest discover -s tests -p 'test_rev13_contract_check.py' -v
