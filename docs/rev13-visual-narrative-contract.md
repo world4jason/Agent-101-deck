@@ -3,31 +3,32 @@
 > **Status: REQUIRED for every Rev13 teaching scene; planning contract, not an assertion that Rev13 slides exist.**
 > Canonical design source for Rev13 Storyboard, slide authoring, speaker notes, HTML, native-editable PPTX and PR reviews. Parent: [Issue #60](https://github.com/world4jason/Agent-101-deck/issues/60); initial Draft PR: [#61](https://github.com/world4jason/Agent-101-deck/pull/61).
 >
-> **One sentence:** 學員從畫面就能辨認「現在流程哪裡、哪些人 co-work、正對哪張 Ticket 做什麼、最新狀態／產出是什麼、與 GitHub 的關係」。
+> **One sentence:** 前兩個畫面先建立「人／流程／文件／版本管理 → 再加 Agent」的 **四＋一教學模型**；往後每個工作階段看得出誰做、流程哪裡、依哪份文件／Ticket／AC 工作、對應哪個版本與 GitHub 物件，以及狀態如何改變。
 
-## Global Principles P18–P22（Rev13 起強制遵守）
+## Global Principles P18–P23（Rev13 起強制遵守）
 
 **這些是正式 Principles，不是可選的視覺技巧、研究附件或某一張 Ticket 的需求。** 對 Rev13 及後續所有 AgentDeck 新版內容皆有效：Outline、Storyboard、每個主線 Scene、Demo、練習、Speaker Notes、HTML、PPTX、Review。已封存的 Rev12 不追溯改動。既有 P1–P17 與 G1–G5 仍有效；沒有證據不能宣稱 PASS／Done。完整來源及作者歸屬在 [研究筆記](rev13-presentation-research-lin-shneiderman.md)。
 
 | ID | Principle | Mandatory interpretation / reviewer check |
 |---|---|---|
 | **P18** | **Audience-led Structure / DIG / FIG** | 先決定每張分鏡的受眾學習任務與 Data → Insight → Go，再用 Font／Ink／Grid 安排視覺主次；避免為了炫技、減字或裝飾而失去訊息。 | 
-| **P19** | **One Mother Map / Overview First** | 整份教材共享完整 Workflow＋所有主要 Roles＋GitHub 工作鏈的同一張母圖；階段、人物、票與視覺方位一致，任何細節頁都能回到全貌定位。 |
+| **P19** | **One Mother Map / Overview First** | 母圖以 **人 People／流程 Process／文件 Documents／版本管理 Version Control** 四個穩定視覺座標構成；GitHub 橫跨文件協作與版本變更，後半 Agent 為第五層；任何細節頁能回到相同座標。 |
 | **P20** | **Focus + Context / Progressive Disclosure** | 聚焦當前階段、真正 co-work 的角色、Ticket 工作；不相關資訊以遮罩／弱化／局部定位器退到背景但不抹除脈絡。Overview → Spotlight → Work/Artifact → Updated Overview 為每個工作階段必有的敘事步驟，不強制四張實體投影片。 |
-| **P21** | **Make Work & Relationships Visible / Relate** | 學員從畫面要能回答「在哪個階段、誰共同處理、正在建立／拆分／執行 Ticket 的哪一項、GitHub 哪個 Issue／Project／Branch／PR 受影響」；階段 ↔ 人 ↔ Ticket ↔ GitHub 的關係必須可視，不是互不相連的卡片。 |
-| **P22** | **State Delta / History / Extract / Closure** | 每次回到 Overview 必須可見 before → after：狀態、版本、已完成與 NOT RUN 的差異；指出產物和可回查的 Ticket／PR／Evidence，交代下一步。保持可回頭、清楚回饋和階段完成感；只重貼不變全貌不合格。 |
+| **P21** | **Make Work & Relationships Visible / Relate** | 觀眾能看到 **人 ↔ 流程 ↔ 文件／Ticket／AC／Evidence ↔ 版本管理／GitHub** 的關係；知道當前誰 co-work、目前修改哪份工作契約、哪個 Branch／Commit／PR 與本次結果相連，不是互不相干的卡片。 |
+| **P22** | **State Delta / History / Extract / Closure** | 每次回 Overview 可辨認文件、Ticket、看板、版本、已完成與 NOT RUN 的 before → after；留下可追溯的 Ticket／決議／PR／Evidence 與下一步。只重貼無變化全貌不合格。 |
+| **P23** | **Four Foundations First, Agent Fifth** | **最前面兩個主要畫面先建立傳統四要素「人、流程、文件、版本管理」，再在**同一畫面**加上 Agent 作第五項。**後續沿同一流程逐站教四要素如何合作，Agent 只改變執行與協調者；不取代既有文件、版本或 Human Gate。Documents 與 Version Control 的職責不同，兩者可以透過 Git/GitHub 相連。 |
 
 **審查強制問題**：
 1. **P18**：能說出這張 Scene 的學習任務，以及何者是 Data、Insight、Go？（可以隱含在敘事設計，不必畫三張 DIG 卡片。）
-2. **P19–P20**：仍看得出它在母圖哪個位置、此刻焦點是誰／哪一步嗎？重要的全貌有被保留嗎？
-3. **P21**：Workflow、co-workers、Ticket/AC 以及 GitHub 產物是否真的有可見關係？
-4. **P22**：回到全貌後狀態**真的改變**了什麼？能追溯舊狀態／證據、交付產物與下一步嗎？
+2. **P19–P20／P23**：開場是否先正確建立四項→五項的共同母圖？後面能否辨認同一四大要素的方位、當前焦點與背景？
+3. **P21**：People、Process、Documents（Ticket／AC／Evidence）及 Version Control（Commit／Branch／PR），有沒有看得出的關係與交接？
+4. **P22**：回到全貌後哪份文件／哪個版本／哪個狀態**真的改變**了？能追溯舊狀態、證據、產物及下一步嗎？
 
-**Blocking P1**：核心工作階段若缺必要的 Overview/Focus、可辨認的當前 Role/Ticket/GitHub 關係，或完成階段卻沒有更新狀態，就不符合本設計契約。非工作型教學頁（封面、附錄、練習）可用小型 locator／回到母圖入口，不強迫每頁都有五張卡。P18–P22 不要求每張都硬塞七種 Shneiderman 任務或所有交付細節；以學員實際能辨認並追查為準。
+**Blocking P1**：核心工作階段若缺必要的 Overview/Focus、可辨認的當前 Role/Ticket/GitHub 關係，或完成階段卻沒有更新狀態，就不符合本設計契約。非工作型教學頁（封面、附錄、練習）可用小型 locator／回到母圖入口，不強迫每頁都有五張卡。P18–P23 不要求每張都硬塞七種 Shneiderman 任務或所有交付細節；以學員實際能辨認並追查為準。
 
 ---
 
-**內容組織方式：Workflow-first。** Rev13 的[現行 v2 Content Refinement](rev13-workflow-first-content-refinement-v2.md) 已決定以 Brainstorming → Refinement → Ready → Dev → PR Review → QA → Product Check → Human Gate 等**工作事件依序**推進；Process、Git/GitHub、People 是母圖的固定三軌／視角，隨遇到的問題引出細節，**不是須各自講完才能整合的三個長篇課程章節**。Agent 疊加在同一張母圖上，以已知同一 Ticket 比較不同協作控制方式。這是全域 P18–P22 在**內容順序**上的具體執行決策，並非新 Principle。
+**內容組織方式：先四要素 → 加 Agent 變五要素，再 Workflow-first。** 現行 [v3 Content Refinement](rev13-workflow-first-content-refinement-v3.md) 強制開場 **O01 四個基礎／O02 原圖加 Agent／O03 引入 Matching App**；之後沿 Brainstorming → Refinement → Ready → Dev → PR Review → QA → Product Check → Human Gate 的時間線，讓 People、Process、Documents、Version Control 四個固定座標一起往前推。文件包含 Goal／Ticket／AC／DoD／Review／Evidence，版本管理包含 Git commit／branch／PR／merge；GitHub 是連接兩者的平台，不能把文件直接當成版控。Agent 不重畫原本流程，只疊加第五要素的執行／協調。這是 P19–P23 的實作，不另創第六個要素。
 
 ## 1. 核心敘事法：Overview → Spotlight → Work / Artifact → Updated Overview
 
@@ -46,20 +47,23 @@
 
 ## 2. 固定母圖與視覺規則（跨章不漂移）
 
-母圖至少有五個明確區域；**元素位置、箭頭方向、色彩語義、角色與工作標籤跨頁固定**：
+母圖以**四個永久位置的要素**及**第五個 Agent 疊層**構成；跨頁保持元素位置、箭頭、色彩、狀態標籤穩定。所有內容出現在需要時才展開，不在第一張塞完整命令或 Ticket 全文：
 
-| 區域 | 學員要一眼看到 | 固定規則 |
+| 視覺位置 | 學員現在要看到 | 概念／GitHub 正確對應 |
 |---|---|---|
-| **Workflow** | 當前活動與狀態在哪裡、下一步往哪裡走 | 全貌保留完整流程；Spotlight 壓暗其餘。活動不等於 Kanban 欄 |
-| **People / Roles** | 哪些職能 co-work、目前誰決策／誰執行 | 全貌顯示所有主要人類職能；Spotlight 高亮本階段。Role ≠ person ≠ agent |
-| **Current Work** | 正在處理哪個 Goal、Epic / Story / Task、Ticket 哪個欄位／哪條 AC | 只放當前要操作的票與具體動作，不塞完整規格書 |
-| **Output / State Delta** | 這一步新產出什麼、完成了什麼、未完成什麼 | 前後狀態必須區分；資料未知用 Unknown / NOT RUN，不自動標 PASS |
-| **GitHub** | Issue / Project / Branch / Commit / PR 的哪個物件受到影響 | 沒發生的動作標「尚未」或 N/A；Issue ≠ PR；Git ≠ GitHub |
+| **People 人** | 全角色位置；此站真正 co-work／決策的人 | 職能 ≠ 人數，Owner、PM、PO、Dev、Reviewer、QA |
+| **Process 流程** | 當前活動、七欄 Kanban State、Gate／退回路線 | Brainstorming／Refinement 是活動，Human Gate 是欄外決策 |
+| **Documents 文件** | 正在建立、修改、審查哪份共識或證據 | Goal／Proposal、Epic/Story/Task Ticket、AC/AT、DoD、設計決議、Review 意見、QA Evidence；Issues/Projects 可承載工作記錄 |
+| **Version Control 版本管理** | 當前工作分支／候選版本／Commit／PR／Merge | Git 管版本歷史；GitHub 承載 Repo、PR 與協作審查，PR 可同時引用文件和版本 |
+| **Agent 第五層** | 到 Agent 章才顯示受委派的執行者或 Orchestrator | 不自動取代人類決策、不宣稱另一條 Workflow |
+| **當前工作／State Delta（跨區圖層）** | 正在操作哪張 Ticket 哪條 AC、前後變化與下一步 | 不屬於第六要素；是以上四／五要素的當前切片 |
+
+**Documents 與 Version Control 的明確界線**：文件回答「依據什麼需求、決策、驗收規格和證據」，版本管理回答「哪個版本、由誰修改、怎麼對照、合併或回復」。文件可以被 Git 版控；GitHub Issue/Project 不是 Git Commit，PR 連接版本審查與文字討論。
 
 **投影片畫面優先級**：當前 Spotlight > 人物＋工作關係 > 具體產物 > 其他背景。使用可辨認的半透明遮罩、局部亮度／對比或描邊；非焦點仍看得出原位置。不可只靠顏色區分；重要狀態需有文字。
 
 **出場與回場**：
-- Opening Overview 必須同時看得到整體流程與所有主要職能；GitHub 物件可先以白話「待辦／修改紀錄／送審」標示，首次介紹 GitHub 再展開術語。
+- **開場至少兩個連續場景：O01 四要素 → O02 同圖新增 Agent 第五層**。二者共用相同位置與符號；O03 才聚焦 Matching App。全貌必須看得到 People、Process、Documents、Version Control 及完整流程／主要職能，Agent 新增時不得替換它們。GitHub 初見可先以「共同工作紀錄／修改歷史／送審」白話標示，再展開術語。
 - 各工作階段 Focus 頁維持全貌作為背景（可為縮圖或簡化定位器），但不得替換成互不一致的新流程圖。
 - 工作細節／練習／附錄／章封面可使用母圖的**小型定位器或明確回到母圖的入口**；仍要能回答現在屬於哪個階段，不能成為沒有時空座標的孤立知識頁。
 - Agent 出場時**不重畫流程**：原本的流程、GitHub 物件、責任及 Human Gate 不變，只在母圖上新增 Agent / Orchestrator / Sub-agent 的執行者／協調者層。
@@ -75,14 +79,16 @@
 | \`phase_activity\` | Brainstorming、Refinement、Dev、PR Review、QA、Product Check、Human Gate…目前做什麼？ |
 | \`kanban_state\` | 目前七欄哪一欄？或 \`pre-backlog\`／\`not-applicable\`；活動／人類關卡不得冒充看板狀態 |
 | \`focus_roles\` | Owner、PM、PO、Dev、QA、Reviewer 或 Agent 等哪些參與者在 co-work；此步誰負責 |
-| \`goal_and_work_ref\` | Goal、哪張 Ticket、Story / Task / Epic 分解關係；哪個欄位／哪條 AC 正在處理 |
+| `goal_and_work_ref` | Goal、哪張 Ticket、Story / Task / Epic 分解關係；哪個欄位／哪條 AC 正在處理 |
+| `document_artifact` | 目前正在建立／讀取／修正哪份 Goal、Ticket、AC、DoD、PR 描述、Review 或 Evidence；存放何處？ |
+| `version_control_ref` | Branch／Commit／候選版／PR／Merge 是否存在，是否與當前測試或文件版本相符？ |
 | \`inputs_and_action\` | 從哪個決定／票／證據開始？現在做什麼？ |
 | \`outputs_and_delta\` | 本步新增／更新什麼？與上一張 Overview 的狀態差在哪裡？ |
 | \`github_mapping\` | GitHub Issue / Project / Branch / Commit / PR 中哪個物件？新建／更新／送審／無變更？ |
 | \`evidence_scope\` | 真實實測、純教學示意、條件推演、PASS / FAIL / NOT RUN 及證據來源 |
 | \`next_focus\` | 下一個階段與下一張應聚焦的人／工作 |
 
-**最低畫面驗收：五秒掃讀後**，學員應能說：現在在哪裡、誰在做、針對哪張票做什麼、剛變了什麼、GitHub 哪裡記錄。若資訊不適合全放主畫面，保留最小可讀 locator，細節放 Notes / Evidence。
+**最低畫面驗收：五秒掃讀後**，開場學員能辨認四要素與新增 Agent 的第五項；進到工作階段後能說：現在在哪裡、誰在做、目前用／改哪份文件或票、對應哪個版本與 GitHub 物件、剛變了什麼。若資訊不適合全放主畫面，保留最小可讀 locator，細節放 Notes / Evidence。
 
 ## 4. 第一個循環：Brainstorming（示範契約）
 
@@ -118,12 +124,12 @@
 
 ## 7. 所有章節、Slide、PR 都必須通過的 Review Gate
 
-- [ ] **Global context**：第一個 Overview 有完整流程＋全部職能；之後每個場景都維持相同母圖／定位器。
+- [ ] **Global context / P23**：開場 O01 四要素、O02 同圖加 Agent 的第五項，後續母圖四軸與附加 Agent 層固定、可回到全貌定位。
 - [ ] **Scene grammar**：每個工作階段有 Overview → Spotlight → Work / Artifact → Updated Overview 四個**語義步驟**；合併／拆分實體投影片可以，但不得缺。
 - [ ] **Mask/focus**：只突出當前活動、真正 co-work 的人及相關 Ticket；其餘淡化且保留上下文，不造成焦點競爭。
 - [ ] **State delta**：每次回 Overview 都要反映剛剛產生的變更，不得回到相同無進展的畫面。
-- [ ] **Ticket progress**：能看到當前是**開 Ticket、修改哪個欄位／AC、拆票、執行或驗收哪個項目**；不能只有抽象流程箭頭。
-- [ ] **GitHub truth**：Issue / Project / Branch / Commit / PR 用法正確，未建立與未執行不可寫成已完成；不得把 Epic / Story / Task 誤稱 GitHub 所有 repo 的預設類型。
+- [ ] **Documents + Ticket progress**：能看到目前**讀／寫哪份文件、開 Ticket、修改哪條 AC、拆票、執行或驗收哪個項目**；不是把所有文件默認成 GitHub 或版本管理。
+- [ ] **Version / GitHub truth**：Documents（Goal／AC／DoD／Evidence）和 Version Control（Git branch／commit／PR／merge）分得清，並正確映射 GitHub Issues／Project／PR；未建立／未執行不可寫成完成，Epic/Story/Task 不當作每個 repo 預設分類。
 - [ ] **Role / decision**：現在誰參與、誰做事、誰有最後放行權都看得出；Agent 加入不消除人類決策。
 - [ ] **Evidence truth**：Matching #3 Version A、B-pre、B-post 的 PASS / FAIL / NOT RUN 必須與現有 SSOT 完全對應；示意不可冒充實測。
 - [ ] **Cross-format**：HTML／PPTX／講者筆記沿同一狀態與畫面語法；PPTX 可編輯元素，不能用整頁圖片當交付。
