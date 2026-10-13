@@ -8,7 +8,8 @@
 >
 > - [Rev13 父 Issue #60](https://github.com/world4jason/Agent-101-deck/issues/60)
 > - **[Rev13 全域分鏡契約（所有投影片必遵守）](docs/rev13-visual-narrative-contract.md) — Mandatory / Blocking P1**
-> - [Rev13 Storyboard v1](docs/rev13-reorg-storyboard-v1.md)
+> - **[Rev13 Workflow-first 內容 Refinement v2（目前內容頁序準則）](docs/rev13-workflow-first-content-refinement-v2.md)**
+> - [Rev13 Storyboard v1](docs/rev13-reorg-storyboard-v1.md)（歷史提案，概念來源；**新頁序以 v2 為準**）
 > - [Rev13 107 頁逐頁遷移矩陣 v1](docs/rev13-migration-matrix-v1.md)
 > - [Rev12 Demo 107 頁 Git Tag / Pre-release](https://github.com/world4jason/Agent-101-deck/releases/tag/rev12-demo-107)（固定於 5eb43fe；不含未合併的 PR #57/#59）
 >
@@ -16,6 +17,10 @@
 
 
 ## Rev13 — 必須遵守的全域教學畫面規則（先於逐頁內容）
+
+**目前的內容安排已經在 Refinement 階段從 v1 修正到 v2**：先用同一張 Overview 建立 Process / Git & GitHub / People 三個鏡頭，再依 Brainstorming → Refinement → Ready → Dev → PR Review → QA → Product Check → Human Gate 的**時間順序**逐站講，每站高亮同階段的人、Ticket／AC 和 GitHub 物件；首次有需要才教 commit/branch/PR 與正式職能名詞。Agent 以相同母圖作第二輪執行／協調模式對照。**這個決議 supersedes v1「三大獨立長章→整合」的候選章序，不更改 P18–P22 原則。** 
+
+
 
 **研究出處補充：**[Lin/BFA × Shneiderman 研究筆記](docs/rev13-presentation-research-lin-shneiderman.md)；DIG/FIG 用於判斷與呈現重點，Shneiderman 七項資訊任務增加 Relate／History／Extract，一律由全域契約轉譯成可驗收的設計規則。BFA 的「分鏡溝通法」應正確署名魯蓓蓓；不要誤當林大班的專有命名。
 
