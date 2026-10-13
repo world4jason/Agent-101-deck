@@ -1,5 +1,19 @@
 # Agent 101 Deck
 
+
+> [!NOTE]
+> **Rev13 Reorg｜規劃分支（非正式版，尚未更動投影片）**
+>
+> 這個 branch 只先規劃「流程 × 版控 × 人 → Agent」的新版教學敘事。下方 rev12 的 107 頁說明仍是 frozen source 的現況，不代表 Rev13 slides 已建置或通過 QA。
+>
+> - [Rev13 父 Issue #60](https://github.com/world4jason/Agent-101-deck/issues/60)
+> - [Rev13 Storyboard v1](docs/rev13-reorg-storyboard-v1.md)
+> - [Rev13 107 頁逐頁遷移矩陣 v1](docs/rev13-migration-matrix-v1.md)
+> - [Rev12 Demo 107 頁 Git Tag / Pre-release](https://github.com/world4jason/Agent-101-deck/releases/tag/rev12-demo-107)（固定於 5eb43fe；不含未合併的 PR #57/#59）
+>
+> **請勿直接修改 main、現有 Pages 入口或舊版本檔案。** Rev13 的 HTML/PPTX 實作須等 Storyboard G1 Review 後在獨立 PR 進行。
+
+
 **rev12 候選：107頁（主線95頁、附錄12頁）；原99頁全數保留、各章新增一張 Exit Check（A18–A25），rev11 82頁基線保留。**
 
 **閱讀提醒：請用電腦版閱讀；手機版開發中。** 本版以電腦／投影為正式閱讀環境，手機截圖只用於技術回歸，不視為手機直向閱讀可用性驗收。
