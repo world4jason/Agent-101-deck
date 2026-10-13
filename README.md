@@ -7,12 +7,24 @@
 > 這個 branch 只先規劃「流程 × 版控 × 人 → Agent」的新版教學敘事。下方 rev12 的 107 頁說明仍是 frozen source 的現況，不代表 Rev13 slides 已建置或通過 QA。
 >
 > - [Rev13 父 Issue #60](https://github.com/world4jason/Agent-101-deck/issues/60)
+> - **[Rev13 全域分鏡契約（所有投影片必遵守）](docs/rev13-visual-narrative-contract.md) — Mandatory / Blocking P1**
 > - [Rev13 Storyboard v1](docs/rev13-reorg-storyboard-v1.md)
 > - [Rev13 107 頁逐頁遷移矩陣 v1](docs/rev13-migration-matrix-v1.md)
 > - [Rev12 Demo 107 頁 Git Tag / Pre-release](https://github.com/world4jason/Agent-101-deck/releases/tag/rev12-demo-107)（固定於 5eb43fe；不含未合併的 PR #57/#59）
 >
 > **請勿直接修改 main、現有 Pages 入口或舊版本檔案。** Rev13 的 HTML/PPTX 實作須等 Storyboard G1 Review 後在獨立 PR 進行。
 
+
+## Rev13 — 必須遵守的全域教學畫面規則（先於逐頁內容）
+
+**單一 SSOT：[Rev13 全域投影片分鏡契約](docs/rev13-visual-narrative-contract.md)。** 所有 Rev13 Outline、Storyboard、主線投影片、Demo、練習、Notes、HTML、PPTX、PR Review **都必須套用**；開發 Agent 另由根目錄 [AGENTS.md](AGENTS.md) 導向該規則。
+
+- **共用母圖**：Overview 先顯示完整 Workflow + 所有主要職能；後續章節、頁面仍須能定位「階段、人、正在做的 Ticket、狀態、GitHub」。
+- **固定循環**：Overview → Spotlight（半透明遮罩保留全貌、僅高亮目前階段＋co-work 人員）→ Work / Output（正在開票／拆票／修改 AC／執行／驗證，及相應 GitHub Issue/Project/Branch/PR）→ **Updated Overview（真的更新狀態後再前往下一階段）**。這是四個**敘事步驟**，不強迫四張實體投影片。
+- **Blocking AC / P1**：缺聚焦人員／當前 Ticket 動作／GitHub 對應／可辨認的 Updated Overview，不能視為該階段完成，也不能只因畫面漂亮或測試通過而 Merge。G1、G3、G4、G5 分別依契約檢查；未驗收標記 NOT RUN。
+- **例子**：Brainstorming 由 Owner/PM/PO 決定方向並建立 Goal Issue；Refinement 由相應 Owner/PM/PO/Dev/QA 釐清可行性、Scope/AC/AT/DoD，更新 Parent/Child Issues；之後全章照同文法。與 Rev12 七欄看板／欄外 Human Gate 規則一致。
+
+> 以下 P1–P17、G1–G5 為既有 Rev12 教材品質規範；**Rev13 額外必須符合上面的全域分鏡契約**。這一改動不會追溯修改 archived rev12 投影片。
 
 **rev12 候選：107頁（主線95頁、附錄12頁）；原99頁全數保留、各章新增一張 Exit Check（A18–A25），rev11 82頁基線保留。**
 
