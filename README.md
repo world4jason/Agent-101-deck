@@ -19,7 +19,7 @@
 
 **研究出處補充：**[Lin/BFA × Shneiderman 研究筆記](docs/rev13-presentation-research-lin-shneiderman.md)；DIG/FIG 用於判斷與呈現重點，Shneiderman 七項資訊任務增加 Relate／History／Extract，一律由全域契約轉譯成可驗收的設計規則。BFA 的「分鏡溝通法」應正確署名魯蓓蓓；不要誤當林大班的專有命名。
 
-**單一 SSOT：[Rev13 全域投影片分鏡契約](docs/rev13-visual-narrative-contract.md)。** 所有 Rev13 Outline、Storyboard、主線投影片、Demo、練習、Notes、HTML、PPTX、PR Review **都必須套用**；開發 Agent 另由根目錄 [AGENTS.md](AGENTS.md) 導向該規則。
+**正式設計 Principles：Rev13 新增 P18–P22（Audience/DIG/FIG、Mother Map、Focus+Context、Relate、History/Extract/Closure），已登錄下方教材製作原則表。單一 SSOT：[Rev13 全域投影片分鏡契約](docs/rev13-visual-narrative-contract.md)。** 所有 Rev13 Outline、Storyboard、主線投影片、Demo、練習、Notes、HTML、PPTX、PR Review **都必須套用**；開發 Agent 另由根目錄 [AGENTS.md](AGENTS.md) 導向該規則。
 
 - **共用母圖**：Overview 先顯示完整 Workflow + 所有主要職能；後續章節、頁面仍須能定位「階段、人、正在做的 Ticket、狀態、GitHub」。
 - **固定循環**：Overview → Spotlight（半透明遮罩保留全貌、僅高亮目前階段＋co-work 人員）→ Work / Output（正在開票／拆票／修改 AC／執行／驗證，及相應 GitHub Issue/Project/Branch/PR）→ **Updated Overview（真的更新狀態後再前往下一階段）**。這是四個**敘事步驟**，不強迫四張實體投影片。
@@ -73,7 +73,7 @@
 >
 > **Correct locally is not enough.** A slide is correct only when its prerequisite, terminology, running example, version, evidence, state, and downstream conclusion are all consistent.
 
-這份 deck 的預設受眾是第一次接觸軟體工程、專案管理與 Agent 工作流程的人。任何新增、重排或修改都必須遵守以下原則；PR review 也應依同一套規則驗收。
+這份 deck 的預設受眾是第一次接觸軟體工程、專案管理與 Agent 工作流程的人。任何新增、重排或修改都必須遵守以下原則；PR review 也應依同一套規則驗收。**P1–P17 是既有原則；P18–P22 為 Rev13 起新增的全域設計 Principles，不追溯改寫封存 Rev12。規範詳見全域分鏡契約，不能視作可選研究建議。**
 
 | # | Principle | 固定規則 |
 |---|---|---|
@@ -94,6 +94,11 @@
 | P15 | Every instruction must be executable | Deck、exercise、README 出現的命令、prompt、操作步驟，都必須由 reviewer 原樣 copy-paste 實跑一次。 |
 | P16 | Preserve scope intentionally | 重排是為了解決敘事，不是順手刪章節或擴 scope。延伸議題應另列 Issue，不偷塞進當前 PR。 |
 | P17 | Different gates prove different things | Content correctness、Evidence correctness、Narrative QA、Desktop/Mobile QA、真人小白試教、Release 是不同 gate；一個 gate 通過不代表其他 gate 通過。 |
+| **P18** | **Audience-led Structure / DIG / FIG** | 先決定每張分鏡的受眾學習任務與 Data → Insight → Go，再用 Font／Ink／Grid 安排視覺主次；避免為了炫技、減字或裝飾而失去訊息。 | 
+| **P19** | **One Mother Map / Overview First** | 整份教材共享完整 Workflow＋所有主要 Roles＋GitHub 工作鏈的同一張母圖；階段、人物、票與視覺方位一致，任何細節頁都能回到全貌定位。 |
+| **P20** | **Focus + Context / Progressive Disclosure** | 聚焦當前階段、真正 co-work 的角色、Ticket 工作；不相關資訊以遮罩／弱化／局部定位器退到背景但不抹除脈絡。Overview → Spotlight → Work/Artifact → Updated Overview 為每個工作階段必有的敘事步驟，不強制四張實體投影片。 |
+| **P21** | **Make Work & Relationships Visible / Relate** | 學員從畫面要能回答「在哪個階段、誰共同處理、正在建立／拆分／執行 Ticket 的哪一項、GitHub 哪個 Issue／Project／Branch／PR 受影響」；階段 ↔ 人 ↔ Ticket ↔ GitHub 的關係必須可視，不是互不相連的卡片。 |
+| **P22** | **State Delta / History / Extract / Closure** | 每次回到 Overview 必須可見 before → after：狀態、版本、已完成與 NOT RUN 的差異；指出產物和可回查的 Ticket／PR／Evidence，交代下一步。保持可回頭、清楚回饋和階段完成感；只重貼不變全貌不合格。 |
 
 ### 本課的唯一看板模型（Canonical Workflow）
 
