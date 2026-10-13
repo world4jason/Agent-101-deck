@@ -1,5 +1,7 @@
 # Rev13 Content Refinement v2 — 讓學員沿著工作流程前進
 
+> **SUPERSEDED BY v3 — HISTORICAL PLAN ONLY**：Owner 已改為 **第一張人／流程／文件／版本管理四要素，第二張同圖加入 Agent 第五要素**。請依 [現行 v3 Storyboard（35 Scenes）](rev13-workflow-first-content-refinement-v3.md) 製作；以下三要素／34 Scenes 僅用於追溯 v2 討論，**禁止當成 Rev13 現行頁序**。
+
 > **狀態：Refinement / G1 Ready Review 待驗。這是新版內容與分鏡，不是完成的投影片或可合併實作。**
 >
 > **Parent GitHub issue：[AgentDeck #60](https://github.com/world4jason/Agent-101-deck/issues/60)**　｜　**Planning PR：[Draft #61](https://github.com/world4jason/Agent-101-deck/pull/61)**  
