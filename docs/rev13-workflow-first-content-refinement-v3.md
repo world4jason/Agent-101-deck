@@ -7,7 +7,7 @@
 
 ## 0. Owner 決議：先建立四大要素，再加入 Agent，第 3 張才進案例
 
-**最新版（v3）取代 v2 的「四要素開場」**。開場按順序讓學員清楚看見：
+**最新版（v3）取代 v2 的「三要素開場」**。開場按順序讓學員清楚看見：
 
 1. **傳統軟體開發的四個教學要素**（不是產業唯一或完整分類）：
    - **人 People**：誰決策、誰執行、誰 co-work、誰驗收？（Owner / PM / PO / Dev / Reviewer / QA）
@@ -20,7 +20,7 @@
 **Documents ≠ Version Control**：文件／紀錄說明「要做什麼、為什麼、驗收憑據」；版本管理說明「是哪個版本、誰變更、如何整合／回復」。文件也可以用 Git 版控，GitHub Issues/Projects 可以承載工作記錄，PR 同時是版本變更送審與其說明／審查記錄的交會點。**不能把 Documents 簡化成 GitHub 或 Ticket，也不能把 GitHub 混同 Git**。
 
 **v1（歷史）**：Process、Git、People 三個獨立長章 → 合流 → Agent。  
-**v2（歷史）**：先看四要素，再隨 Workflow 逐站教工具與角色。  
+**v2（歷史）**：先看三要素，再隨 Workflow 逐站教工具與角色。  
 **v3（現行）**：**第一張四要素；第二張原畫面增加 Agent 變五要素；第三張同一母圖進案例**。之後沿 Workflow 往前；四要素作為四條橫貫所有階段的視覺線索，逐步展開當下必要細節。
 
 **三個不同的事實層仍須分清**：投影片內的 Matching #3 教學案例／實跑規則 fixture、真正 AgentDeck repo 的 Issue #60 與 Draft PR #61、一般 Git/GitHub 操作示意；不得互相冒充真實完成狀態。
@@ -102,7 +102,7 @@ Problem（模糊需求） → Outcome Goal（記成 Goal Issue） → Refinement
 | PC02 | 全圖：可以接受哪部分？ | 更新母圖 | 可接受範圍／仍待驗證工作清單 | Ticket 規則層證據可審、Goal 全路徑尚待驗，列待決事項 | 條件性判斷 |
 | HG01 | 誰可以決定放行／暫停？ | Human Gate（欄外）；Owner / authorized human | Go／No-go 決策清單、剩餘風險、Release Checklist | 展示 evidence、風險、尚未跑的 QA、release checklist | 示意 |
 | HG02 | 全圖：要不要進 Done？ | 更新母圖 | Human Gate 記錄／未實行的 Release 項目 | 現有事實不能宣稱 Release/Done；若要示意成功路徑，必須清楚標 **假設 Gate 放行且後續 DoD 成立** | 實測界線／條件推演 |
-| A01 | 第四要素加入，原流程會改變嗎？ | Agent 全貌疊層（流程、人、Git 不動） | 沿用同一張 #3 Ticket／AC／Evidence | 回到明示的 Matching #3 snapshot；只替換 executor／coordinator | 模式比較 |
+| A01 | Agent 作為第五要素加入，原流程會改變嗎？ | Agent 全貌疊層（流程、人、Git 不動） | 沿用同一張 #3 Ticket／AC／Evidence | 回到明示的 Matching #3 snapshot；只替換 executor／coordinator | 模式比較 |
 | A02 | 模式一：一人＋一個 Agent 如何完成一輪？ | Human／Single Agent | 單 Agent 交付報告／驗證紀錄 | 同票、同 AC、同 evidence 和 Human Gate；有既有單 Agent demo | 部分實測＋敘事回放 |
 | A03 | 模式二：開多 Chat 後，誰搬 Ticket／版本？ | Human 協調 Dev／Reviewer／QA Chats | 跨 Chat 的 Ticket handoff 與證據摘要 | 人決定每站交接與證據來源 | **架構示意，非真實 multi-agent run** |
 | A04 | 模式三：Orchestrator 能取代人類放行嗎？ | Orchestrator＋Sub-agents／Human Gate | Orchestrator／Sub-agent 工作分派及彙整記錄 | 主 Agent 在授權內分工、彙整；Human Gate 不變 | **架構示意，非真實 multi-agent run** |
@@ -117,7 +117,7 @@ Problem（模糊需求） → Outcome Goal（記成 Goal Issue） → Refinement
 | 本 repo 工作階段 | 狀態 | GitHub／可查產物 | 前進條件 |
 |---|---|---|---|
 | **Brainstorming / Goal** | 已形成方向 | Issue [#60](https://github.com/world4jason/Agent-101-deck/issues/60)：四要素→Agent，P1–P22 principles | 已有可檢查 Goal |
-| **Refinement / Planning** | **現在進行中** | Draft PR [#61](https://github.com/world4jason/Agent-101-deck/pull/61)：規範、歷史 107 頁矩陣、**本 v2 工作流優先分鏡** | 將內容拆成可操作 Scenes、補 AC 與 G1 review |
+| **Refinement / Planning** | **現在進行中** | Draft PR [#61](https://github.com/world4jason/Agent-101-deck/pull/61)：規範、歷史 107 頁矩陣、**本 v3「四要素 + Agent」工作流優先分鏡** | 將內容拆成可操作 Scenes、補 AC 與 G1 review |
 | **Ready** | **未通過** | Storyboard 的 G1 先備／時間線獨立審查尚未有 PASS | 逐個 scene 通過 P18–P22 與 G1，Owner 接受新敘事 |
 | **Dev** | 未開始 | Rev13 新版 Slides HTML／Generator 尚未建立 | Ready 與分支／依賴策略明確 |
 | **PR Review / QA** | 尚未對新版投影片執行 | 當前 #61 只做 docs 規劃；不是實作完成的 PR | 真正版面、產出、內容與證據逐 Gate 驗證 |
@@ -128,7 +128,7 @@ Problem（模糊需求） → Outcome Goal（記成 Goal Issue） → Refinement
 ## 5. Refinement 的 Acceptance Criteria / Definition of Ready
 
 - [x] **R1 One timeline**：只有一個持續前進的 Matching #3 故事；QA A/B-pre/B-post 的教學倒帶／重演都明示。
-- [x] **R2 Three lenses, one journey**：Process、Git/GitHub、People 保留作母圖四要素，不再切割成三大互不相干段落。
+- [x] **R2 Four foundations, one journey**：People、Process、Documents、Version Control 保留為母圖四大要素，文件與版本管理不得混為一談，Agent 作為第五要素再出場；不拆成四個互不相干的長章。
 - [x] **R3 Sequence & ownership**：上面逐 stage 有 Spotlight 角色、Document/AC 產物、當前 Ticket 項目、Version/GitHub 對應、before→after。
 - [x] **R4 Four-beat semantics**：各階段有 Overview / Spotlight / Work / Updated Overview，可合併頁面，但不可漏掉狀態 delta。
 - [x] **R5 Agent overlay**：第五個要素只增加執行與協調層，三種配置與 Human Gate 相容，不造假 run。
