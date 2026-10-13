@@ -75,6 +75,18 @@ class Rev13GateTests(unittest.TestCase):
         broken = self.readme.replace("| **P23** |", "| **PXX** |")
         self.assertTrue(any("P23" in text for text in self.errors(readme=broken)))
 
+    def test_five_principle_wrong_source_fails(self):
+        broken = copy.deepcopy(self.manifest)
+        item = next(s for s in broken["scenes"] if s["id"] == "A10")
+        item["old_rev12_page"] = 80
+        self.assertTrue(any("A10" in text and "source mapping" in text
+                            for text in self.errors(manifest=broken)))
+
+    def test_review_without_native_powerpoint_fails(self):
+        broken = copy.deepcopy(self.manifest)
+        broken["development_phase"] = "review"
+        self.assertTrue(any("native editable" in text for text in self.errors(manifest=broken)))
+
     def test_premature_implementation_without_render_fails(self):
         broken = copy.deepcopy(self.manifest)
         broken["development_phase"] = "implementation"
