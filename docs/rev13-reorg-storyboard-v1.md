@@ -1,6 +1,6 @@
 # Rev13 Reorg Storyboard v1 — 流程 × 版控 × 人 → Agent
 
-> **內容頁序已由 v2 覆蓋**：[Workflow-first Content Refinement v2](rev13-workflow-first-content-refinement-v2.md) 為目前建議的實作敘事順序。v1 中 S1=Process、S2=Git、S3=People 的**獨立長章**安排已不再作為新版製作順序；其概念／注意事項保留作參考。新版逐站依流程前進，三鏡頭同時存在、在需要時加深。
+> **HISTORICAL / SUPERSEDED**：本 v1 的「流程／版控／人 → Agent」三＋一模型及 S1/S2/S3 獨立長章已被 Owner 覆蓋。最新 **[v3：四大要素（人／流程／文件／版本管理）→ 同圖加入 Agent 第五項 → 同一條 Workflow](rev13-workflow-first-content-refinement-v3.md)** 才是目前製作依據。以下舊章節僅保留討論脈絡，**不可用來產生 Rev13 當前投影片**。
 
 > **狀態：規劃稿 / G1 待審（非實作完成）**。2026-10-13 建立。這份文件定義教學故事與依賴順序，不代表新投影片已製作或已通過 QA。
 >
