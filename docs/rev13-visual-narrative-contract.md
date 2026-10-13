@@ -5,6 +5,28 @@
 >
 > **One sentence:** 學員從畫面就能辨認「現在流程哪裡、哪些人 co-work、正對哪張 Ticket 做什麼、最新狀態／產出是什麼、與 GitHub 的關係」。
 
+## Global Principles P18–P22（Rev13 起強制遵守）
+
+**這些是正式 Principles，不是可選的視覺技巧、研究附件或某一張 Ticket 的需求。** 對 Rev13 及後續所有 AgentDeck 新版內容皆有效：Outline、Storyboard、每個主線 Scene、Demo、練習、Speaker Notes、HTML、PPTX、Review。已封存的 Rev12 不追溯改動。既有 P1–P17 與 G1–G5 仍有效；沒有證據不能宣稱 PASS／Done。完整來源及作者歸屬在 [研究筆記](rev13-presentation-research-lin-shneiderman.md)。
+
+| ID | Principle | Mandatory interpretation / reviewer check |
+|---|---|---|
+| **P18** | **Audience-led Structure / DIG / FIG** | 先決定每張分鏡的受眾學習任務與 Data → Insight → Go，再用 Font／Ink／Grid 安排視覺主次；避免為了炫技、減字或裝飾而失去訊息。 | 
+| **P19** | **One Mother Map / Overview First** | 整份教材共享完整 Workflow＋所有主要 Roles＋GitHub 工作鏈的同一張母圖；階段、人物、票與視覺方位一致，任何細節頁都能回到全貌定位。 |
+| **P20** | **Focus + Context / Progressive Disclosure** | 聚焦當前階段、真正 co-work 的角色、Ticket 工作；不相關資訊以遮罩／弱化／局部定位器退到背景但不抹除脈絡。Overview → Spotlight → Work/Artifact → Updated Overview 為每個工作階段必有的敘事步驟，不強制四張實體投影片。 |
+| **P21** | **Make Work & Relationships Visible / Relate** | 學員從畫面要能回答「在哪個階段、誰共同處理、正在建立／拆分／執行 Ticket 的哪一項、GitHub 哪個 Issue／Project／Branch／PR 受影響」；階段 ↔ 人 ↔ Ticket ↔ GitHub 的關係必須可視，不是互不相連的卡片。 |
+| **P22** | **State Delta / History / Extract / Closure** | 每次回到 Overview 必須可見 before → after：狀態、版本、已完成與 NOT RUN 的差異；指出產物和可回查的 Ticket／PR／Evidence，交代下一步。保持可回頭、清楚回饋和階段完成感；只重貼不變全貌不合格。 |
+
+**審查強制問題**：
+1. **P18**：能說出這張 Scene 的學習任務，以及何者是 Data、Insight、Go？（可以隱含在敘事設計，不必畫三張 DIG 卡片。）
+2. **P19–P20**：仍看得出它在母圖哪個位置、此刻焦點是誰／哪一步嗎？重要的全貌有被保留嗎？
+3. **P21**：Workflow、co-workers、Ticket/AC 以及 GitHub 產物是否真的有可見關係？
+4. **P22**：回到全貌後狀態**真的改變**了什麼？能追溯舊狀態／證據、交付產物與下一步嗎？
+
+**Blocking P1**：核心工作階段若缺必要的 Overview/Focus、可辨認的當前 Role/Ticket/GitHub 關係，或完成階段卻沒有更新狀態，就不符合本設計契約。非工作型教學頁（封面、附錄、練習）可用小型 locator／回到母圖入口，不強迫每頁都有五張卡。P18–P22 不要求每張都硬塞七種 Shneiderman 任務或所有交付細節；以學員實際能辨認並追查為準。
+
+---
+
 ## 1. 核心敘事法：Overview → Spotlight → Work / Artifact → Updated Overview
 
 每一個主要工作階段必須遵守同一個循環：
