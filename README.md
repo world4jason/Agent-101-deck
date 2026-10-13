@@ -4,12 +4,13 @@
 > [!NOTE]
 > **Rev13 Reorg｜規劃分支（非正式版，尚未更動投影片）**
 >
-> 這個 branch 只先規劃「流程 × 版控 × 人 → Agent」的新版教學敘事。下方 rev12 的 107 頁說明仍是 frozen source 的現況，不代表 Rev13 slides 已建置或通過 QA。
+> 這個 branch 的最新版敘事為：開場**人／流程／文件／版本管理四要素 → 同圖加入 Agent 第五要素**，再沿同一開發流程逐站講述。下方 rev12 的 107 頁說明仍是 frozen source 的現況，不代表 Rev13 slides 已建置或通過 QA。
 >
 > - [Rev13 父 Issue #60](https://github.com/world4jason/Agent-101-deck/issues/60)
 > - **[Rev13 全域分鏡契約（所有投影片必遵守）](docs/rev13-visual-narrative-contract.md) — Mandatory / Blocking P1**
-> - **[Rev13 Workflow-first 內容 Refinement v2（目前內容頁序準則）](docs/rev13-workflow-first-content-refinement-v2.md)**
-> - [Rev13 Storyboard v1](docs/rev13-reorg-storyboard-v1.md)（歷史提案，概念來源；**新頁序以 v2 為準**）
+> - **[Rev13 Workflow-first 內容 Refinement v3（目前唯一內容頁序）](docs/rev13-workflow-first-content-refinement-v3.md)**
+> - [Refinement v2（歷史三軸版本）](docs/rev13-workflow-first-content-refinement-v2.md)
+> - [Rev13 Storyboard v1](docs/rev13-reorg-storyboard-v1.md)（歷史提案，概念來源；**新頁序以 v3 為準**）
 > - [Rev13 107 頁逐頁遷移矩陣 v1](docs/rev13-migration-matrix-v1.md)
 > - [Rev12 Demo 107 頁 Git Tag / Pre-release](https://github.com/world4jason/Agent-101-deck/releases/tag/rev12-demo-107)（固定於 5eb43fe；不含未合併的 PR #57/#59）
 >
@@ -18,15 +19,15 @@
 
 ## Rev13 — 必須遵守的全域教學畫面規則（先於逐頁內容）
 
-**目前的內容安排已經在 Refinement 階段從 v1 修正到 v2**：先用同一張 Overview 建立 Process / Git & GitHub / People 三個鏡頭，再依 Brainstorming → Refinement → Ready → Dev → PR Review → QA → Product Check → Human Gate 的**時間順序**逐站講，每站高亮同階段的人、Ticket／AC 和 GitHub 物件；首次有需要才教 commit/branch/PR 與正式職能名詞。Agent 以相同母圖作第二輪執行／協調模式對照。**這個決議 supersedes v1「三大獨立長章→整合」的候選章序，不更改 P18–P22 原則。** 
+**目前 Refinement v3 內容順序（Owner 最新決議）**：第一張固定母圖介紹 **人 People／流程 Process／文件 Documents／版本管理 Version Control** 四個要素；第二張保留原位置，**新增 Agent 第五要素**；第三張才引入 Matching App。後續依 Brainstorming → Refinement → Ready → Dev → PR Review → QA → Product Check → Human Gate 的時間線逐站敘述，每站仍保留四個要素：co-workers、流程位置、正在建立／執行的 Goal／Ticket／AC／DoD／Evidence 文件，以及 Git 分支／版本／GitHub Issue/PR 的映射。文件回答『做什麼、為何、如何驗』；版本管理回答『哪版、誰改、如何合併回復』；兩者可透過 GitHub 相連但不可混同。v1、v2 是歷史方案，**不再當作製作順序**。
 
 
 
 **研究出處補充：**[Lin/BFA × Shneiderman 研究筆記](docs/rev13-presentation-research-lin-shneiderman.md)；DIG/FIG 用於判斷與呈現重點，Shneiderman 七項資訊任務增加 Relate／History／Extract，一律由全域契約轉譯成可驗收的設計規則。BFA 的「分鏡溝通法」應正確署名魯蓓蓓；不要誤當林大班的專有命名。
 
-**正式設計 Principles：Rev13 新增 P18–P22（Audience/DIG/FIG、Mother Map、Focus+Context、Relate、History/Extract/Closure），已登錄下方教材製作原則表。單一 SSOT：[Rev13 全域投影片分鏡契約](docs/rev13-visual-narrative-contract.md)。** 所有 Rev13 Outline、Storyboard、主線投影片、Demo、練習、Notes、HTML、PPTX、PR Review **都必須套用**；開發 Agent 另由根目錄 [AGENTS.md](AGENTS.md) 導向該規則。
+**正式設計 Principles：Rev13 新增 P18–P23（Audience/DIG/FIG、四軸 Mother Map、Focus+Context、Relate、History/Extract/Closure、Four Foundations First），已登錄下方教材製作原則表。單一 SSOT：[Rev13 全域投影片分鏡契約](docs/rev13-visual-narrative-contract.md)。** 所有 Rev13 Outline、Storyboard、主線投影片、Demo、練習、Notes、HTML、PPTX、PR Review **都必須套用**；開發 Agent 另由根目錄 [AGENTS.md](AGENTS.md) 導向該規則。
 
-- **共用母圖**：Overview 先顯示完整 Workflow + 所有主要職能；後續章節、頁面仍須能定位「階段、人、正在做的 Ticket、狀態、GitHub」。
+- **共用母圖**：開場先顯示 People／Process／Documents／Version Control 四大要素（含完整 Workflow 和所有主要職能），再用同畫面加入 Agent 第五要素。後續各階段都能定位『誰、哪一步、哪份文件／Ticket／AC、哪個版本／GitHub、什麼狀態』。
 - **固定循環**：Overview → Spotlight（半透明遮罩保留全貌、僅高亮目前階段＋co-work 人員）→ Work / Output（正在開票／拆票／修改 AC／執行／驗證，及相應 GitHub Issue/Project/Branch/PR）→ **Updated Overview（真的更新狀態後再前往下一階段）**。這是四個**敘事步驟**，不強迫四張實體投影片。
 - **Blocking AC / P1**：缺聚焦人員／當前 Ticket 動作／GitHub 對應／可辨認的 Updated Overview，不能視為該階段完成，也不能只因畫面漂亮或測試通過而 Merge。G1、G3、G4、G5 分別依契約檢查；未驗收標記 NOT RUN。
 - **例子**：Brainstorming 由 Owner/PM/PO 決定方向並建立 Goal Issue；Refinement 由相應 Owner/PM/PO/Dev/QA 釐清可行性、Scope/AC/AT/DoD，更新 Parent/Child Issues；之後全章照同文法。與 Rev12 七欄看板／欄外 Human Gate 規則一致。
@@ -78,7 +79,7 @@
 >
 > **Correct locally is not enough.** A slide is correct only when its prerequisite, terminology, running example, version, evidence, state, and downstream conclusion are all consistent.
 
-這份 deck 的預設受眾是第一次接觸軟體工程、專案管理與 Agent 工作流程的人。任何新增、重排或修改都必須遵守以下原則；PR review 也應依同一套規則驗收。**P1–P17 是既有原則；P18–P22 為 Rev13 起新增的全域設計 Principles，不追溯改寫封存 Rev12。規範詳見全域分鏡契約，不能視作可選研究建議。**
+這份 deck 的預設受眾是第一次接觸軟體工程、專案管理與 Agent 工作流程的人。任何新增、重排或修改都必須遵守以下原則；PR review 也應依同一套規則驗收。**P1–P17 是既有原則；P18–P23 為 Rev13 起新增的全域設計 Principles，不追溯改寫封存 Rev12。規範詳見全域分鏡契約，不能視作可選研究建議。**
 
 | # | Principle | 固定規則 |
 |---|---|---|
@@ -100,10 +101,11 @@
 | P16 | Preserve scope intentionally | 重排是為了解決敘事，不是順手刪章節或擴 scope。延伸議題應另列 Issue，不偷塞進當前 PR。 |
 | P17 | Different gates prove different things | Content correctness、Evidence correctness、Narrative QA、Desktop/Mobile QA、真人小白試教、Release 是不同 gate；一個 gate 通過不代表其他 gate 通過。 |
 | **P18** | **Audience-led Structure / DIG / FIG** | 先決定每張分鏡的受眾學習任務與 Data → Insight → Go，再用 Font／Ink／Grid 安排視覺主次；避免為了炫技、減字或裝飾而失去訊息。 | 
-| **P19** | **One Mother Map / Overview First** | 整份教材共享完整 Workflow＋所有主要 Roles＋GitHub 工作鏈的同一張母圖；階段、人物、票與視覺方位一致，任何細節頁都能回到全貌定位。 |
+| **P19** | **One Mother Map / Overview First** | 母圖固定呈現 **人／流程／文件／版本管理** 四個基礎視覺位置；GitHub 連接文件與版本，Agent 是第五層；所有階段可從同一位置定位，不另畫互不一致的地圖。 |
 | **P20** | **Focus + Context / Progressive Disclosure** | 聚焦當前階段、真正 co-work 的角色、Ticket 工作；不相關資訊以遮罩／弱化／局部定位器退到背景但不抹除脈絡。Overview → Spotlight → Work/Artifact → Updated Overview 為每個工作階段必有的敘事步驟，不強制四張實體投影片。 |
-| **P21** | **Make Work & Relationships Visible / Relate** | 學員從畫面要能回答「在哪個階段、誰共同處理、正在建立／拆分／執行 Ticket 的哪一項、GitHub 哪個 Issue／Project／Branch／PR 受影響」；階段 ↔ 人 ↔ Ticket ↔ GitHub 的關係必須可視，不是互不相連的卡片。 |
-| **P22** | **State Delta / History / Extract / Closure** | 每次回到 Overview 必須可見 before → after：狀態、版本、已完成與 NOT RUN 的差異；指出產物和可回查的 Ticket／PR／Evidence，交代下一步。保持可回頭、清楚回饋和階段完成感；只重貼不變全貌不合格。 |
+| **P21** | **Make Work & Relationships Visible / Relate** | 觀眾能看到 **人 ↔ 流程 ↔ 文件／Ticket／AC／Evidence ↔ 版本管理／GitHub** 的關係；清楚知道目前誰在協作、正在做哪份文件與工作、哪個版本受到影響。 |
+| **P22** | **State Delta / History / Extract / Closure** | 每次回到 Overview 必須呈現文件、Ticket／AC、流程狀態、版本、PASS／FAIL／NOT RUN 的 before → after，留有產物及可回查位置；只重貼不變的全貌不合格。 |
+| **P23** | **Four Foundations First, Agent Fifth** | **開場第一張先定義人／流程／文件／版本管理，第二張以相同視覺新增 Agent 第五要素**。文件（Goal、Ticket、AC、DoD、設計／驗證記錄）與版本管理（Git Branch、Commit、Merge／GitHub PR）必須分清；Agent 參與執行／協調，不取代原四要素或 Human Gate。 |
 
 ### 本課的唯一看板模型（Canonical Workflow）
 
