@@ -1,6 +1,6 @@
 # Rev13 — Rev12 107 頁逐頁遷移矩陣 v1
 
-> **v2 演進註記**：本 107/107 原頁對照只用於**來源追蹤與沒有漏掉教材證據**，它的 S0–S6 目的章仍來自 v1 提案，**不是最後 Rev13 的頁序或場景數**。請優先使用 [Workflow-first Content Refinement v2](rev13-workflow-first-content-refinement-v2.md)（按真實階段前進）決定每個 scene 的內容與位置，再從此表移入所需來源和 evidence。
+> **v3 演進註記**：本 107/107 原頁對照只用於來源追蹤、避免漏掉教材證據；S0–S6 目標章仍來自已被覆蓋的 v1 三要素候選，**不是新版頁序**。目前請依 **[v3 Content Refinement](rev13-workflow-first-content-refinement-v3.md)** 的前兩張「人／流程／文件／版本管理 → 加 Agent 第五項」與 **35 Scenes 的 Workflow-first 順序**重新組織內容；從此表只擷取相關頁面來源與 evidence。舊 v2 也是歷史規劃。
 
 > **這是 G1 Review 前的編輯規劃稿，並未搬動任何投影片。**
 > 來源：[rev12-demo-107](https://github.com/world4jason/Agent-101-deck/releases/tag/rev12-demo-107) frozen commit 5eb43fe9efb031ad7fb0582270a75df1c312a6ae、[原 107 頁 Storyboard](issue48-execution-storyboard.md)。新說明見 [Rev13 Storyboard v1](rev13-reorg-storyboard-v1.md)，父 Issue [#60](https://github.com/world4jason/Agent-101-deck/issues/60)。
