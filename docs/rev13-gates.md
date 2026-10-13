@@ -21,7 +21,7 @@ A text guideline cannot stop a generator from omitting a role, changing a versio
 
 ### CI that is implementable now
 
-- `.github/workflows/rev13-contract.yml` runs Python standard-library validator + its **negative regression tests** on every PR/push (no skipped path filters).
+- `.github/workflows/rev13-contract.yml` runs Python standard-library validator + its **nine negative regression tests** on every PR/push (no skipped path filters).
 - In Refinement the check validates **42/42 scene metadata, the five Rev12 Agent principles (Rev12 pp. 76–81, P42–P47), four foundations + fifth Agent, mandatory P18–P23, consistent scene sequence and A/B-pre/B-post evidence scopes**.
 - A CI PASS is labeled **“refinement contract only”**. It does **not** verify accessibility, actual visual spotlight, human comprehension, factual UI tests, PowerPoint editability, or the efficacy of independent reviewers.
 - Source of truth for semantics: v4 markdown table + JSON metadata. Validator compares **identical scene IDs and order** and enforces fields, so conflicting documents cannot silently diverge.
@@ -35,6 +35,14 @@ Each actual Rev13 rendered scene element must expose attributes:
 `data-mother-map-id="rev13-four-foundations"`.
 
 A passing DOM check only confirms declared structure, **not what eyes actually see**. G4 still requires final screenshots at supported viewport/projector size, mask focus legibility, correct relationships, state transitions and human review. Also compare text/shape editability in native PPTX: whole-page PNG must fail.
+
+### 2026-10-13 實際執行結果與遠端 CI 阻礙
+
+- **Local execution on a fresh clone at `rev13/reorg`: PASS** — 42-scene refinement contract checked and **9/9 negative regression tests PASS**. This is *structural QA only*.
+- **GitHub Actions: FAIL / JOB NOT STARTED** — [Actions run #38405484691](https://github.com/world4jason/Agent-101-deck/actions/runs/38405484691) 及其 Check Run annotation 說明：`The job was not started because your account is locked due to a billing issue.`。該 Job 沒有任何實際 steps，所以不能把遠端紅燈當 Python 斷言失敗，也不能把本機 PASS 當 GitHub CI PASS。
+- Workflow 已改為 `pull_request` + `push main`（避免對同一 PR 的 branch push 重複消耗 runner），Job name 為 `rev13-contract`；**帳務鎖定未解除前，這項 CI 無法真正執行**。
+- **main branch 仍未設定 required checks / protection**（2026-10-13 查詢 `protected=false`）。將它設成必需通過前，GitHub 不會因本腳本自動擋下所有 Merge。
+- 若解決計費問題，再驗證最新 HEAD 的遠端 `rev13-contract` PASS，並由 Repo 管理者評估既有 PR #57/#59 的影響後啟用 required status checks／非作者審查。**此規劃 PR 不擅自更改 main 的分支保護規則。**
 
 ### Branch protection: important limitation and remaining step
 
@@ -66,4 +74,4 @@ python3 tests/rev13_contract_check.py
 python3 -m unittest discover -s tests -p 'test_rev13_contract_check.py' -v
 ```
 
-**Status**: Gate code exists on planning branch and can validate the written plan. Full graphical enforcement, branch protection, G1 independent approval, PowerPoint UI check and new Rev13 artifact **have not been completed**.
+**Status**: Local structural contract + 9 regression tests PASS; **GitHub Actions FAIL (billing lock / steps not started)**. Main branch protection, independent G1, graphical G4, PowerPoint GUI QA, native Rev13 artifact and Human Gate **have not been completed**.
