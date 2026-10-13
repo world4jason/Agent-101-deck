@@ -1,5 +1,7 @@
 # Rev13 Reorg Storyboard v1 — 流程 × 版控 × 人 → Agent
 
+> **內容頁序已由 v2 覆蓋**：[Workflow-first Content Refinement v2](rev13-workflow-first-content-refinement-v2.md) 為目前建議的實作敘事順序。v1 中 S1=Process、S2=Git、S3=People 的**獨立長章**安排已不再作為新版製作順序；其概念／注意事項保留作參考。新版逐站依流程前進，三鏡頭同時存在、在需要時加深。
+
 > **狀態：規劃稿 / G1 待審（非實作完成）**。2026-10-13 建立。這份文件定義教學故事與依賴順序，不代表新投影片已製作或已通過 QA。
 >
 > 父追蹤：[Issue #60](https://github.com/world4jason/Agent-101-deck/issues/60)；工作分支：**rev13/reorg**。凍結來源：[rev12-demo-107 pre-release](https://github.com/world4jason/Agent-101-deck/releases/tag/rev12-demo-107)（commit **5eb43fe9efb031ad7fb0582270a75df1c312a6ae**）。
