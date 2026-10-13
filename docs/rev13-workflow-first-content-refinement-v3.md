@@ -3,7 +3,7 @@
 > **狀態：Refinement / G1 Ready Review 待驗。這是新版內容與分鏡，不是完成的投影片或可合併實作。**
 >
 > **Parent GitHub issue：[AgentDeck #60](https://github.com/world4jason/Agent-101-deck/issues/60)**　｜　**Planning PR：[Draft #61](https://github.com/world4jason/Agent-101-deck/pull/61)**  
-> 依據：[P1–P22 與全域分鏡契約](rev13-visual-narrative-contract.md)；舊 [Storyboard v1](rev13-reorg-storyboard-v1.md) 和 [107 頁遷移矩陣 v1](rev13-migration-matrix-v1.md) 是來源／歷史候選，不可直接當新版頁序執行。
+> 依據：[P1–P23 與全域分鏡契約](rev13-visual-narrative-contract.md)；舊 [Storyboard v1](rev13-reorg-storyboard-v1.md) 和 [107 頁遷移矩陣 v1](rev13-migration-matrix-v1.md) 是來源／歷史候選，不可直接當新版頁序執行。
 
 ## 0. Owner 決議：先建立四大要素，再加入 Agent，第 3 張才進案例
 
@@ -118,7 +118,7 @@ Problem（模糊需求） → Outcome Goal（記成 Goal Issue） → Refinement
 |---|---|---|---|
 | **Brainstorming / Goal** | 已形成方向 | Issue [#60](https://github.com/world4jason/Agent-101-deck/issues/60)：四要素→Agent，P1–P22 principles | 已有可檢查 Goal |
 | **Refinement / Planning** | **現在進行中** | Draft PR [#61](https://github.com/world4jason/Agent-101-deck/pull/61)：規範、歷史 107 頁矩陣、**本 v3「四要素 + Agent」工作流優先分鏡** | 將內容拆成可操作 Scenes、補 AC 與 G1 review |
-| **Ready** | **未通過** | Storyboard 的 G1 先備／時間線獨立審查尚未有 PASS | 逐個 scene 通過 P18–P22 與 G1，Owner 接受新敘事 |
+| **Ready** | **未通過** | Storyboard 的 G1 先備／時間線獨立審查尚未有 PASS | 逐個 scene 通過 P18–P23 與 G1，Owner 接受新敘事 |
 | **Dev** | 未開始 | Rev13 新版 Slides HTML／Generator 尚未建立 | Ready 與分支／依賴策略明確 |
 | **PR Review / QA** | 尚未對新版投影片執行 | 當前 #61 只做 docs 規劃；不是實作完成的 PR | 真正版面、產出、內容與證據逐 Gate 驗證 |
 | **Human Gate / Done** | 未放行 | 既有 Rev12 [tag](https://github.com/world4jason/Agent-101-deck/releases/tag/rev12-demo-107) 保持不變 | Owner 決定 Merge／Release；任何 NOT RUN 都明記 |
@@ -127,6 +127,7 @@ Problem（模糊需求） → Outcome Goal（記成 Goal Issue） → Refinement
 
 ## 5. Refinement 的 Acceptance Criteria / Definition of Ready
 
+- [x] **R0 Opening P23**：第一個場景 People／Process／Documents／Version Control 四要素，第二個場景同圖添加 Agent 第五項；文件與版控界線明確。
 - [x] **R1 One timeline**：只有一個持續前進的 Matching #3 故事；QA A/B-pre/B-post 的教學倒帶／重演都明示。
 - [x] **R2 Four foundations, one journey**：People、Process、Documents、Version Control 保留為母圖四大要素，文件與版本管理不得混為一談，Agent 作為第五要素再出場；不拆成四個互不相干的長章。
 - [x] **R3 Sequence & ownership**：上面逐 stage 有 Spotlight 角色、Document/AC 產物、當前 Ticket 項目、Version/GitHub 對應、before→after。
