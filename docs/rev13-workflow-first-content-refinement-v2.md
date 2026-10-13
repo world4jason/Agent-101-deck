@@ -29,6 +29,7 @@ GIT/GITHUB       Issues / Project            → Branch / Commit → PR      →
 
 - **全貌頁**先展示所有角色與完整大方向，非焦點淡化；當前活動、Kanban 位置、共同職能、當前 Ticket／正在操作哪個欄位、GitHub 物件與**前後狀態變化**是最少五個座標。
 - **每一階段語義循環**：Overview → Spotlight（遮罩聚焦人與流程）→ Work / Artifact（此刻正在做什麼）→ Updated Overview（前→後、成果進到哪、下一站）；可以合併或拆開，**不是每個階段硬塞 4 頁**。
+- **前一站的 Updated Overview 可以同時是下一站的 Overview**：這是同一張母圖的連續狀態，不必在兩站中間複製一張毫無變化的全貌圖；但下一站 Spotlight 仍要有可見的人員／Ticket 焦點。若翻頁或跳章，locator 須能重新定位。
 - **活動 ≠ Kanban 狀態**：Brainstorming 先形成 Goal；Refinement 在 Backlog 上完成票；Human Gate 是 Product Check 後**欄外**決策；真正的 Merge / Release / DoD 條件需完成才 Done。
 - **角色 ≠ 人數**，Agent 是執行／協調的另一層而不重畫 Workflow。
 - **本課 Matching #3（教學工作票）**不應在教材中顯示為 AgentDeck 這個 Repo 的真實 GitHub \`#3\` 連結。示意 GitHub 內容應清楚標「教學示意」；真實 evidence 連至現有 fixture / replay。
