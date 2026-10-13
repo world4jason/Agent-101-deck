@@ -28,7 +28,13 @@
 
 ---
 
-**內容組織方式：先四要素 → 加 Agent 變五要素，再 Workflow-first。** 現行 [v3 Content Refinement](rev13-workflow-first-content-refinement-v3.md) 強制開場 **O01 四個基礎／O02 原圖加 Agent／O03 引入 Matching App**；之後沿 Brainstorming → Refinement → Ready → Dev → PR Review → QA → Product Check → Human Gate 的時間線，讓 People、Process、Documents、Version Control 四個固定座標一起往前推。文件包含 Goal／Ticket／AC／DoD／Review／Evidence，版本管理包含 Git commit／branch／PR／merge；GitHub 是連接兩者的平台，不能把文件直接當成版控。Agent 不重畫原本流程，只疊加第五要素的執行／協調。這是 P19–P23 的實作，不另創第六個要素。
+**內容組織方式：先四要素 → 加 Agent 變五要素，再 Workflow-first。** 現行 [v4 Content Refinement](rev13-workflow-first-content-refinement-v4.md) 強制開場 **O01 四個基礎／O02 原圖加 Agent／O03 引入 Matching App**；之後沿 Brainstorming → Refinement → Ready → Dev → PR Review → QA → Product Check → Human Gate 的時間線，讓 People、Process、Documents、Version Control 四個固定座標一起往前推。文件包含 Goal／Ticket／AC／DoD／Review／Evidence，版本管理包含 Git commit／branch／PR／merge；GitHub 是連接兩者的平台，不能把文件直接當成版控。Agent 不重畫原本流程，只疊加第五要素的執行／協調。這是 P19–P23 的實作，不另創第六個要素。
+
+## Five Rev12 Agent Principles — CORE Content Invariant（非附錄）
+
+**Rev12 第 76–81 頁 P42–P47** 是必保留的教學知識：**External Task State、Bounded Execution、Role Separation、Independent Verification、Goal Re-anchoring**。新版 **[v4 42-scene storyboard](rev13-workflow-first-content-refinement-v4.md) 的 A05–A11** 分別示範五項問題、處理決策、文件／版本／GitHub 產物，以及合回 Overview 的狀態。具體原版頁／source mapping 和情境見 [五項保留契約](rev13-agent-five-principles-preservation.md)。
+
+這五項是「Agent 協作的教學內容」，**不同於 P18–P23 簡報製作 Principles**。缺一項或只剩五個詞、沒有案例與下一步，是 **Content P1**，不可過 G1。為避免又在重排時遺失，`tests/rev13_contract_check.py` 與 `docs/rev13-scene-manifest.json` 明確核對五項 source、核心 Scene、角色、文件、證據與狀態。自動 PASS 不等於視覺、真人或 release PASS；詳見 [Rev13 Gates](rev13-gates.md)。
 
 ## 1. 核心敘事法：Overview → Spotlight → Work / Artifact → Updated Overview
 
@@ -130,6 +136,7 @@
 - [ ] **State delta**：每次回 Overview 都要反映剛剛產生的變更，不得回到相同無進展的畫面。
 - [ ] **Documents + Ticket progress**：能看到目前**讀／寫哪份文件、開 Ticket、修改哪條 AC、拆票、執行或驗收哪個項目**；不是把所有文件默認成 GitHub 或版本管理。
 - [ ] **Version / GitHub truth**：Documents（Goal／AC／DoD／Evidence）和 Version Control（Git branch／commit／PR／merge）分得清，並正確映射 GitHub Issues／Project／PR；未建立／未執行不可寫成完成，Epic/Story/Task 不當作每個 repo 預設分類。
+- [ ] **Rev12 五項核心原則**：A05–A11 是否包含五項可見的風險、行動、產物與決策？每項是否能對回原頁 76–81 和 Rev13 [Preservation Contract](rev13-agent-five-principles-preservation.md)？
 - [ ] **Role / decision**：現在誰參與、誰做事、誰有最後放行權都看得出；Agent 加入不消除人類決策。
 - [ ] **Evidence truth**：Matching #3 Version A、B-pre、B-post 的 PASS / FAIL / NOT RUN 必須與現有 SSOT 完全對應；示意不可冒充實測。
 - [ ] **Cross-format**：HTML／PPTX／講者筆記沿同一狀態與畫面語法；PPTX 可編輯元素，不能用整頁圖片當交付。
