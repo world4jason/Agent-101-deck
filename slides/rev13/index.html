@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Agent 101｜Rev13 Part 1</title>
+  <link rel="stylesheet" href="rev13.css">
+  <script src="rev13.js" defer></script>
+</head>
+<body>
+  <div class="player">
+    <header class="player-head">
+      <a class="brand" href="#1" aria-label="Agent 101，回到第一張">Agent 101</a>
+      <nav class="chapter-rail" aria-label="章節">
+        <a href="#1" data-start="1">四要素地圖</a>
+        <a href="#3" data-start="3">流程與階段</a>
+        <a href="#5" data-start="5">角色與文件</a>
+        <a href="#10" data-start="10">版本與 Agent</a>
+        <a href="#13" data-start="13">Stage Cards</a>
+        <a href="#22" data-start="22">出口練習</a>
+      </nav>
+      <div class="counter" aria-live="polite"><span id="current-page">1</span><span class="counter-sep">/</span><span id="total-pages">22</span></div>
+    </header>
+
+    <main class="viewport" aria-label="簡報畫布">
+      <div class="canvas" id="canvas">
+        <section class="slide" data-page="1" id="page-1" data-rev13-scene-id="O01" data-phase="orientation" data-focus-roles="Owner, PM, PO, UI/UX, Dev, Reviewer, QA" data-doc-ref="Goal · Ticket · AC · DoD · Evidence" data-version-ref="尚無開發候選版本" data-github-ref="Issues · Projects · PR 協作鏈" data-beat="overview" data-mother-map-id="rev13-four-foundations" data-art="mother-map" data-agent="false">
+          <h1>軟體專案靠人、流程、文件與版本管理一起推進。</h1>
+          <figure class="artwork" aria-label="人、流程、文件與版本管理的共用母圖"></figure>
+          <p class="caption">四個位置各自負責不同工作，GitHub 把工作紀錄和版本審查連起來。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>同一個工作會經過多種職能與階段，並留下文件和版本紀錄。</p>
+            <p><strong>Insight：</strong>文件說明做什麼、為什麼與如何驗；版本管理回答哪一版、由誰改及如何整合。</p>
+            <p><strong>Go：</strong>先請學員指出四個固定區域，再帶到下一張同一張圖的變化。</p>
+            <p><strong>Evidence scope：</strong>課程概念圖；沒有宣稱任何票、分支或版本已建立。</p>
+            <p><strong>下一站：</strong>在相同座標加入 Agent 第五層，原四區不移動。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="2" id="page-2" data-rev13-scene-id="O02" data-phase="orientation" data-focus-roles="Owner, PM, PO, UI/UX, Dev, Reviewer, QA, Agent" data-doc-ref="既有工作契約不變" data-version-ref="Agent 不代表另一條版本線" data-github-ref="原有 Issue · Project · PR 關係不變" data-beat="updated-overview" data-mother-map-id="rev13-four-foundations" data-art="mother-map" data-agent="true">
+          <h1>加入 Agent 後，四個基礎與人的決策責任仍在。</h1>
+          <figure class="artwork" aria-label="同一張四要素母圖新增 Agent 第五層"></figure>
+          <p class="caption">Agent 可以受委派執行或協調工作；範圍與最後決策仍由人負責。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>四個基礎區域、角色、流程位置與文件／版本關係和前一張一致；只揭露 Agent 層。</p>
+            <p><strong>Insight：</strong>Agent 改變執行或協調者，不取代文件、版本管理、授權邊界或 Human Gate。</p>
+            <p><strong>Go：</strong>用方向鍵揭露第五層，請學員確認原四區仍在原位。</p>
+            <p><strong>Evidence scope：</strong>教學模型，不代表已執行 Agent 工作。</p>
+            <p><strong>下一站：</strong>沿同一張 Process 區分七個看板狀態、活動與欄外決策。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="3" id="page-3" data-rev13-scene-id="C01" data-phase="workflow-map" data-focus-roles="Owner, PM, PO, Dev, Reviewer, QA" data-doc-ref="工作票與狀態紀錄" data-version-ref="Branch · Commit · PR · Merge 位於相應工作站" data-github-ref="Project 狀態 · Issues · PR" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="workflow-map" data-agent="true" data-focus-zones="process" data-focus-stage="refinement" data-focus-roles-map="PO, PM, Owner, Dev, QA">
+          <h1>工作流程有七個看板狀態，活動與欄外決策各有位置。</h1>
+          <figure class="artwork" aria-label="七欄 Kanban、活動與 Human Gate 的流程圖"></figure>
+          <p class="caption">Brainstorming 與 Refinement 是活動，Human Gate 是 Product Check 後的欄外決策。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>看板依序是 Backlog、Ready、Dev、Review、QA、Product Check、Done。</p>
+            <p><strong>Insight：</strong>Refinement 在 Backlog 進行；Human Gate 是 Product Check 後的授權決策，不是第八欄。</p>
+            <p><strong>Go：</strong>沿七欄讀一次，再指出活動帶與欄外 Gate。</p>
+            <p><strong>Evidence scope：</strong>概念流程圖；沒有表示任何票實際移欄。</p>
+            <p><strong>下一站：</strong>學會讀一張 Stage Card 的欄位。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="4" id="page-4" data-rev13-scene-id="C02" data-phase="pretraining" data-focus-roles="Owner, PM, PO, Dev, QA" data-doc-ref="Product Goal · Stage Card" data-version-ref="依階段再連到 Branch · Commit · PR" data-github-ref="Issue · Project · PR 對應不同階段" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card-anatomy" data-agent="true" data-focus-zones="process,documents" data-focus-stage="ready" data-focus-roles-map="PO, Dev, QA">
+          <h1>Stage Card 分開說明產品目標、本站任務和接手條件。</h1>
+          <figure class="artwork" aria-label="Stage Card 的目標、輸入、活動、產出與交接關係圖"></figure>
+          <p class="caption">產品 Goal 描述結果，Stage Target 描述本站任務，Exit Criteria 決定是否能交棒。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>Stage Card 會交代 Product Goal reference、Target、Input、Activities、Output、Exit、People、Current State 與 GitHub mapping。</p>
+            <p><strong>Insight：</strong>Goal 是產品結果；Target 是本階段工作；Exit Criteria 是下一站能否接手的條件。</p>
+            <p><strong>Go：</strong>請學員從 Input 沿活動與 Output 讀到 Exit，再看角色和 GitHub 對應。</p>
+            <p><strong>Evidence scope：</strong>欄位解說，非實際票面或流程進度。</p>
+            <p><strong>下一站：</strong>認識角色是責任，不是人數。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="5" id="page-5" data-rev13-scene-id="C03" data-phase="people" data-focus-roles="Owner, PM, PO, UI/UX, Dev, Reviewer, QA" data-doc-ref="角色責任說明" data-version-ref="不由角色數推導 Agent 或版本數" data-github-ref="協作職能可出現在 Issue · Project · PR" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="roles-overview" data-agent="true" data-focus-zones="people" data-focus-roles-map="Owner, PM, PO, UI/UX, Dev, Reviewer, QA">
+          <h1>角色代表責任，一個人可以承擔多個角色。</h1>
+          <figure class="artwork" aria-label="七種職能在同一工作流程中的責任關係"></figure>
+          <p class="caption">Role 是工作責任，角色數不等於團隊人數或 Agent 數量。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>Owner、PM、PO、UI/UX、Dev、Reviewer、QA 是本課使用的職能。</p>
+            <p><strong>Insight：</strong>職能描述誰承擔決策或工作，不規定團隊必須有幾個人或 Agent。</p>
+            <p><strong>Go：</strong>請學員挑一個角色，說出它負責的工作，不先推定人數。</p>
+            <p><strong>Evidence scope：</strong>角色模型；不代表固定組織編制。</p>
+            <p><strong>下一站：</strong>把主責與協作角色放到各工作階段。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="6" id="page-6" data-rev13-scene-id="C04" data-phase="people" data-focus-roles="Owner, PM, PO, UI/UX, Dev, Reviewer, QA" data-doc-ref="Roles × Stages responsibility map" data-version-ref="各站版本物件依流程位置對應" data-github-ref="Issue · Project · PR 的責任交接" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="roles-stages" data-agent="true" data-focus-zones="people,process" data-focus-stage="refinement" data-focus-roles-map="PO, PM, Owner, Dev, QA, UI/UX">
+          <h1>每個階段都有主責、協作與決策角色。</h1>
+          <figure class="artwork" aria-label="角色與九個工作階段相連的責任矩陣"></figure>
+          <p class="caption">主責者承擔本站結果，協作角色按需要加入；責任不代表固定人頭編制。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>Owner 主責方向與 Human Gate；PM 主責 Brainstorming／Refinement；PO 主責 Refinement、Ready 與 Product Check；UI/UX 視需要協作；Dev、Reviewer、QA 各有實作、審查與驗證責任。</p>
+            <p><strong>Insight：</strong>矩陣表達本課示範的責任分布，不是固定人員配置；Developer 自述不取代獨立 QA 證據。</p>
+            <p><strong>Go：</strong>沿一個階段追到主責角色，再辨認其協作者。</p>
+            <p><strong>Evidence scope：</strong>課程責任模型。</p>
+            <p><strong>下一站：</strong>看工作文件如何從 Goal 分解並留下驗收契約。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="7" id="page-7" data-rev13-scene-id="C05" data-phase="documents" data-focus-roles="Owner, PM, PO, Dev, QA" data-doc-ref="Goal · Proposal · Epic · Story · Task · Ticket · AC · AT · DoD" data-version-ref="文件可由 Git 追蹤，版本物件另有職責" data-github-ref="Goal Issue · Parent/Sub-issue · Project" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="document-types" data-agent="true" data-focus-zones="documents,process" data-focus-stage="refinement" data-focus-roles-map="PO, PM, Owner, Dev, QA">
+          <h1>工作文件從 Goal 延伸到票、驗收條件與完成定義。</h1>
+          <figure class="artwork" aria-label="Goal、工作票與驗收文件的分解和關聯圖"></figure>
+          <p class="caption">Epic、Story、Task 是團隊可選的工作分類；GitHub Issue 承載工作紀錄。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>Goal／Proposal 說明為何做；Epic、Story、Task／Ticket 將工作切成可交辦範圍；Scope、AC、AT、DoD 說明要做什麼、怎麼驗與共同完成條件。</p>
+            <p><strong>Insight：</strong>Epic／Story／Task 是課程採用的分類方式，不是每個 GitHub repo 的內建固定類型。</p>
+            <p><strong>Go：</strong>從 Goal 沿分解關係讀到工作票，再追到 AC 與驗收材料。</p>
+            <p><strong>Evidence scope：</strong>文件概念圖，沒有建立任何 Matching Issue 或 AC。</p>
+            <p><strong>下一站：</strong>追同一份文件如何跨工作階段更新。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="8" id="page-8" data-rev13-scene-id="C06" data-phase="documents" data-focus-roles="Owner, PM, PO, Dev, Reviewer, QA" data-doc-ref="Goal · Tickets · AC/AT/DoD · Review · Evidence · Release record" data-version-ref="同一文件的修改可被 Git 記錄" data-github-ref="Issues · Project · PR 連接文件更新與版本審查" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="document-lifecycle" data-agent="true" data-focus-zones="documents,version" data-focus-stage="review" data-focus-roles-map="PO, PM, Dev, Reviewer, QA, Owner">
+          <h1>同一份文件會沿流程更新，GitHub 串接文件與版本。</h1>
+          <figure class="artwork" aria-label="文件從需求到交付證據的生命週期與版本連結"></figure>
+          <p class="caption">文件可在 Issue、Repo 或 PR 更新；每次變更仍可連回版本歷史。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>Goal／Proposal 在 Brainstorming 開始；Parent／Child Ticket 與 AC、AT、DoD 在 Refinement 形成並在後續站點使用；Review／Test Evidence 連到候選版本；Go/No-Go 與 Release 記錄由授權流程形成。</p>
+            <p><strong>Insight：</strong>Issue、Project、PR 可承載協作內容，但不是 Git Commit；GitHub 連接工作紀錄和版本審查。</p>
+            <p><strong>Go：</strong>沿文件連線找建立、更新、審查與留存位置。</p>
+            <p><strong>Evidence scope：</strong>生命週期示意，不代表文件已建立或已更新。</p>
+            <p><strong>下一站：</strong>分清各種目標、條件與證據的適用層級。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="9" id="page-9" data-rev13-scene-id="C07" data-phase="documents" data-focus-roles="PO, Dev, QA, Owner" data-doc-ref="Goal · Stage Target · AC · AT · Exit · DoD · Evidence" data-version-ref="Evidence 必須對應可識別候選版本" data-github-ref="Ticket · test record · decision log" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="criteria-boundaries" data-agent="true" data-focus-zones="documents,process,version" data-focus-stage="qa" data-focus-roles-map="QA, Dev, PO, Owner">
+          <h1>Goal、Stage Target、AC、AT、DoD 與 Exit 各自回答不同問題。</h1>
+          <figure class="artwork" aria-label="產品目標、階段目標、驗收條件與證據的層級圖"></figure>
+          <p class="caption">Goal、Stage Target、AC、AT、DoD、Exit Criteria 與 Evidence 分別約束不同範圍。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>Goal 是產品 Outcome；Stage Target 是本站工作；AC 描述工作範圍內的行為；AT 是檢查情境；Exit 決定交棒；DoD 是共用完成條件；Evidence 記錄實際觀察。</p>
+            <p><strong>Insight：</strong>一個層級的 PASS 不會自動證明其他層級完成。</p>
+            <p><strong>Go：</strong>請學員把一個問題放到能回答它的層級。</p>
+            <p><strong>Evidence scope：</strong>術語邊界概念圖；未展示 Matching 測試結果。</p>
+            <p><strong>下一站：</strong>辨認 Git、GitHub 與各協作物件。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="10" id="page-10" data-rev13-scene-id="C08" data-phase="version-control" data-focus-roles="PO, Dev, Reviewer, QA" data-doc-ref="Issue · Project · PR description · test evidence" data-version-ref="Git · Repo · Branch · Commit · Pull Request · Merge" data-github-ref="GitHub Issue/Project/PR 與 Repo 協作" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="git-github-map" data-agent="true" data-focus-zones="documents,version" data-focus-stage="dev" data-focus-roles-map="Dev, PO, Reviewer, QA">
+          <h1>Git 保存版本歷史，GitHub 連接工作票與程式送審。</h1>
+          <figure class="artwork" aria-label="文件軌、GitHub 協作層與 Git 版本軌的關係圖"></figure>
+          <p class="caption">Git 管版本歷史；Issue 與 Project 管工作和狀態，PR 連起票與版本差異。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>Git 管版本歷史；Repo 容納受版本控制的檔案；Branch／Commit 表示隔離修改與歷史節點；Issue／Project 記工作與狀態；PR 承載版本送審、討論與 Checks；Merge 整合獲准變更。</p>
+            <p><strong>Insight：</strong>GitHub Issue 不是 Git Commit，PR 也不是 Ticket；PR 是文件討論與版本差異交會的位置。</p>
+            <p><strong>Go：</strong>請學員沿工作紀錄軌和版本軌，指出兩軌在哪個協作物件相連。</p>
+            <p><strong>Evidence scope：</strong>物件關係概念圖，沒有建立真實 Repo、Branch 或 PR。</p>
+            <p><strong>下一站：</strong>把版本變更讀成可回查的分支路徑。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="11" id="page-11" data-rev13-scene-id="C09" data-phase="version-control" data-focus-roles="Dev, Reviewer, Owner" data-doc-ref="工作票 · PR description · review record" data-version-ref="Branch → Commit → Pull Request → Merge／回復" data-github-ref="Issue reference · Pull Request · review" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="version-history" data-agent="true" data-focus-zones="documents,version" data-focus-stage="review" data-focus-roles-map="Dev, Reviewer, Owner">
+          <h1>分支、提交、PR 與 Merge 留下可回查的版本路徑。</h1>
+          <figure class="artwork" aria-label="版本分支、Commit、Pull Request、Merge 與回復關係圖"></figure>
+          <p class="caption">Branch 隔離修改、Commit 留下節點、PR 請人審查，Merge 才整合變更。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>一條抽象版本路徑從 Repo 的既有版本分出 Branch，Commit 記下修改，PR 呈交差異供審查，經授權後才 Merge。</p>
+            <p><strong>Insight：</strong>版本路徑可以比較、回查與回復；PR 開啟或審查通過都不等於已 Merge。</p>
+            <p><strong>Go：</strong>沿路徑指出哪些物件代表隔離、記錄、審查與整合。</p>
+            <p><strong>Evidence scope：</strong>版本歷史示意，不對應 Matching Version A/B 或真實 PR。</p>
+            <p><strong>下一站：</strong>認識 Agent、Session、Chat 與 Workflow 的差別。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="12" id="page-12" data-rev13-scene-id="C10" data-phase="agent-primer" data-focus-roles="Owner, PO, Dev, Reviewer, QA, Agent" data-doc-ref="工作票 · AC · 任務交接紀錄" data-version-ref="受委託工作仍須對應核准版本" data-github-ref="Issue · Project · PR 工作鏈維持一致" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="agent-primer" data-agent="true" data-focus-zones="people,process,documents,version" data-focus-stage="dev" data-focus-roles-map="Owner, PO, Dev, Reviewer, QA, Agent">
+          <h1>Agent 能在受委託範圍內執行，但不能替人決定放行。</h1>
+          <figure class="artwork" aria-label="Chat、Session、Agent、Workflow 與受委託工作關係圖"></figure>
+          <p class="caption">本頁只預告工作情境；五項守則會在後半的實作案例中完整示範。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>Chat 是互動介面；Session 是一次工作脈絡；Agent 是能依指示使用工具的執行者；Workflow 是多步工作流程。</p>
+            <p><strong>Insight：</strong>這些名詞不互相等同。Agent 可讀取指定工作契約、在授權範圍內執行並回報；範圍改變與最後放行仍由人決定。</p>
+            <p><strong>Go：</strong>指出一個可能受委託的工作，並追問其工作票、驗收條件與停止點。</p>
+            <p><strong>Evidence scope：</strong>概念預告；不表示已執行單 Agent／多 Agent 工作，也不展示測試結果。畫面只留一行情境預告：「有人想做配對」。</p>
+            <p><strong>下一站：</strong>使用已學的角色、文件與 GitHub 名詞讀 Brainstorming Stage Contract。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="13" id="page-13" data-rev13-scene-id="C11" data-phase="brainstorming" data-focus-roles="Owner, PM, PO" data-doc-ref="Goal · Proposal · unresolved assumptions" data-version-ref="尚無開發 Branch 或 PR" data-github-ref="建立／更新 Goal 或 Proposal Issue" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card" data-stage-key="brainstorming" data-agent="true" data-focus-zones="people,process,documents" data-focus-stage="brainstorming" data-focus-roles-map="Owner, PM, PO" data-state-markers="pre-backlog,backlog">
+          <h1>Brainstorming 先把問題整理成共同方向。</h1>
+          <figure class="artwork" aria-label="Brainstorming Stage Card 與母圖定位器"></figure>
+          <p class="caption">本站結束要留下可回查的 Goal／Proposal，方向仍由人確認。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>Target 是決定下一個要處理的使用者問題與方向；Input 是問題、觀察、機會與限制；活動包含探索選項和成功訊號；Output 是 Goal／Proposal 與未決假設。</p>
+            <p><strong>Insight：</strong>產品 Goal 尚待形成；沒有方向確認與共同紀錄，就不能假設工作已 Ready。</p>
+            <p><strong>Go：</strong>先找出誰確認方向，再追到 Goal 或 Proposal Issue 的記錄位置。</p>
+            <p><strong>Evidence scope：</strong>Stage 定義；沒有 Matching 決議或 Issue 建立事件。</p>
+            <p><strong>下一站：</strong>在 Backlog 的 Refinement 把方向變成可交辦工作。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="14" id="page-14" data-rev13-scene-id="C12" data-phase="refinement" data-focus-roles="PO, PM, Owner, Dev, QA, UI/UX" data-doc-ref="Parent／Child Tickets · Scope · AC · AT · expected evidence" data-version-ref="尚未開發；票與規格仍待釐清" data-github-ref="更新 Parent Issue／Sub-issues／Project 欄位" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card" data-stage-key="refinement" data-agent="true" data-focus-zones="people,process,documents" data-focus-stage="refinement" data-focus-roles-map="PO, PM, Owner, Dev, QA, UI/UX" data-state-markers="backlog">
+          <h1>Refinement 把 Goal 拆成可估算、可驗證的工作。</h1>
+          <figure class="artwork" aria-label="Refinement Stage Card 與母圖定位器"></figure>
+          <p class="caption">票可以拆分並釐清，仍要符合 Ready 條件才可接手。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>Input 是已決定的 Goal、限制、依賴和未決問題；活動包括界定範圍、拆 Epic／Story／Task、釐清 AC／AT、證據、風險與負責角色；Output 是 Parent／Child Tickets 及未決清單。</p>
+            <p><strong>Insight：</strong>Refinement 在 Backlog 進行，拆票完成不會自動把票移到 Ready。</p>
+            <p><strong>Go：</strong>檢查是否仍有阻礙；處置未決項後，再由 Ready Check 判定能否接手。</p>
+            <p><strong>Evidence scope：</strong>Stage 定義；沒有宣稱 Matching 子票或 Project 欄位已建立。</p>
+            <p><strong>下一站：</strong>Ready Check 確認這張票是否具備開工條件。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="15" id="page-15" data-rev13-scene-id="C13" data-phase="ready" data-focus-roles="PO, Dev, QA" data-doc-ref="Refined Ticket · AC／AT · dependencies" data-version-ref="尚未開工；WIP 0/1 的概念定義" data-github-ref="Issue／Project：Backlog → Ready" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card" data-stage-key="ready" data-agent="true" data-focus-zones="people,process,documents" data-focus-stage="ready" data-focus-roles-map="PO, Dev, QA" data-state-markers="backlog,ready">
+          <h1>Ready 確認工作契約可接手，仍然尚未開工。</h1>
+          <figure class="artwork" aria-label="Ready Check Stage Card 與母圖定位器"></figure>
+          <p class="caption">符合本課 Ready 條件後才能拉進 Dev，開工前 WIP 仍為零。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>PO／Dev 主責確認；QA 協作檢查範圍、AC、可測性、依賴與責任；Output 是可接手的 Ready Ticket 與明確接手者。</p>
+            <p><strong>Insight：</strong>Ready 是允許開始工作的條件，不代表已經開始或已完成測試。</p>
+            <p><strong>Go：</strong>逐項核對 Required Ready 條件，再判斷是否允許拉進 Dev。</p>
+            <p><strong>Evidence scope：</strong>Stage 定義；畫面上的 Backlog／Ready 是流程說明，不是某張真實票的狀態。</p>
+            <p><strong>下一站：</strong>Dev 在核准範圍內產生候選版本與自測紀錄。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="16" id="page-16" data-rev13-scene-id="C14" data-phase="dev" data-focus-roles="Dev, PO, UI/UX" data-doc-ref="Ready Ticket · design · AC · self-test record" data-version-ref="Branch · Commit · candidate version" data-github-ref="Issue → Branch／Commit；需要時連 PR" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card" data-stage-key="dev" data-agent="true" data-focus-zones="people,process,documents,version" data-focus-stage="dev" data-focus-roles-map="Dev, PO, UI/UX" data-state-markers="dev">
+          <h1>Dev 在核准範圍內實作並交出候選版本與自測紀錄。</h1>
+          <figure class="artwork" aria-label="Dev Stage Card 與母圖定位器"></figure>
+          <p class="caption">自測紀錄能交給審查者參考，但不等於獨立 QA 完成。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>Input 是 Ready Ticket、設計／AC、共同 Repo 與 Stop Rules；Dev 建 Branch、修改、Commit、自測並記錄未完成項；Output 是候選版本、修改摘要與自測紀錄。</p>
+            <p><strong>Insight：</strong>候選版本需能對回核准票；Developer 自測不替代 Reviewer 或 QA 的獨立責任。</p>
+            <p><strong>Go：</strong>確認交接內容包含修改版本、自測範圍與未驗項，再進 PR Review。</p>
+            <p><strong>Evidence scope：</strong>Stage 定義；沒有展示實際 Matching 版本或測試結果。</p>
+            <p><strong>下一站：</strong>Reviewer 比對 PR 差異與工作契約。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="17" id="page-17" data-rev13-scene-id="C15" data-phase="review" data-focus-roles="Reviewer, Dev, PO" data-doc-ref="PR diff · Ticket／AC · review findings" data-version-ref="PR 對應的 Branch／Commit candidate" data-github-ref="Pull Request · Review comments · checks" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card" data-stage-key="review" data-agent="true" data-focus-zones="people,process,documents,version" data-focus-stage="review" data-focus-roles-map="Reviewer, Dev, PO" data-state-markers="review">
+          <h1>PR Review 檢查程式差異是否符合票與範圍。</h1>
+          <figure class="artwork" aria-label="PR Review Stage Card 與母圖定位器"></figure>
+          <p class="caption">Reviewer 的意見要有處置，PR 尚未合併時仍是候選變更。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>Reviewer 讀 PR diff、Ticket／AC、版本與自測摘要，留下 findings、approved 或 changes requested。</p>
+            <p><strong>Insight：</strong>PR Review 查改動、範圍與風險；它不取代依 AC 執行的 QA，也不表示已 Merge。</p>
+            <p><strong>Go：</strong>先處置重大意見，確認候選變更可交付 QA，再交接測試證據。</p>
+            <p><strong>Evidence scope：</strong>Review 站定義；沒有虛構任何真實 PR 歷史。</p>
+            <p><strong>下一站：</strong>QA 用可重跑的方式核對候選版行為。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="18" id="page-18" data-rev13-scene-id="C16" data-phase="qa" data-focus-roles="QA, Dev" data-doc-ref="AC／AT · test evidence · NOT RUN items" data-version-ref="可識別的候選版本與證據一致" data-github-ref="Evidence · PR test results · Issue comments" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card" data-stage-key="qa" data-agent="true" data-focus-zones="people,process,documents,version" data-focus-stage="qa" data-focus-roles-map="QA, Dev" data-state-markers="qa">
+          <h1>QA 對照可識別的候選版本與 AC，留下測試證據。</h1>
+          <figure class="artwork" aria-label="QA Stage Card 與母圖定位器"></figure>
+          <p class="caption">每個結果都要連到實際執行的案例、預期、觀察與候選版本。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>Input 是候選版本、AC／AT、測試資料與環境；QA 記錄預期與實際，標示 PASS、FAIL 或 NOT RUN；Output 是可追溯的測試紀錄與補驗請求。</p>
+            <p><strong>Insight：</strong>沒有執行的案例保持 NOT RUN；結果只支持它實際檢查的版本與範圍。</p>
+            <p><strong>Go：</strong>核對結果是否可重跑、版本是否一致、未測項是否清楚，再交給 Product Check。</p>
+            <p><strong>Evidence scope：</strong>QA 方法概念；不展示 Matching A/B 結果，UI、E2E、Release 與 Goal 測試若被提及皆為 NOT RUN。</p>
+            <p><strong>下一站：</strong>PO 對回 Parent Goal，判斷單票和產品方向。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="19" id="page-19" data-rev13-scene-id="C17" data-phase="product_check" data-focus-roles="PO, Owner, Dev, QA" data-doc-ref="Ticket／AC · Review／QA evidence · Parent Goal" data-version-ref="核對受審查與驗證的候選版本" data-github-ref="更新 Issue／Project 的產品判斷紀錄" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card" data-stage-key="product_check" data-agent="true" data-focus-zones="people,process,documents" data-focus-stage="product_check" data-focus-roles-map="PO, Owner, Dev, QA" data-state-markers="product-check">
+          <h1>Product Check 核對這張票是否仍推進產品目標。</h1>
+          <figure class="artwork" aria-label="Product Check Stage Card 與母圖定位器"></figure>
+          <p class="caption">接受或退回的是目前這張票的範圍與證據，不是整體 Goal 成效。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>PO 主責，Owner、Dev、QA 視需要協作；依 Ticket／AC、Review／QA Evidence、Parent Goal 與風險，記錄接受範圍、退回理由或未完成產品路徑。</p>
+            <p><strong>Insight：</strong>單票符合需求不等於整體產品 Goal 已達成；保留未解風險與相關票的依賴。</p>
+            <p><strong>Go：</strong>把結果對回 Parent Goal，決定接受、退回或需要人類授權。</p>
+            <p><strong>Evidence scope：</strong>Stage 定義；沒有宣稱產品成效已測量。</p>
+            <p><strong>下一站：</strong>授權者在看板欄外作 Human Gate 決策。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="20" id="page-20" data-rev13-scene-id="C18" data-phase="human_gate" data-focus-roles="Owner, PO, QA, Dev" data-doc-ref="Go／No-Go decision · remaining risks · Release checklist" data-version-ref="候選版本待授權；尚不等於 Merge" data-github-ref="PR／Issue decision log" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card" data-stage-key="human_gate" data-agent="true" data-focus-zones="people,process,documents,version" data-focus-stage="human_gate" data-focus-roles-map="Owner, PO, QA, Dev" data-state-markers="product-check,human-gate">
+          <h1>Human Gate 是欄外的人類授權，不是第八個看板欄。</h1>
+          <figure class="artwork" aria-label="Human Gate Stage Card 與欄外決策定位器"></figure>
+          <p class="caption">授權、暫停或退回都要留下紀錄；授權本身不會自動完成 Merge 或 Release。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>Owner 或有權決策者主責；輸入是候選版、Review／QA Evidence、剩餘風險與發布計畫；輸出是可回查的授權、暫停或退回決策。</p>
+            <p><strong>Insight：</strong>Human Gate 位於 Product Check 後、Done 前的看板欄外；Agent 不自行取得放行權。</p>
+            <p><strong>Go：</strong>先檢查證據與風險，再辨認決策人和後續 DoD 條件。</p>
+            <p><strong>Evidence scope：</strong>授權流程定義；沒有任何真實放行決議或 Merge。</p>
+            <p><strong>下一站：</strong>確認 Merge／Release／Done 各自需要哪些實證條件。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="21" id="page-21" data-rev13-scene-id="C19" data-phase="release_done" data-focus-roles="Dev, Owner, PO, QA" data-doc-ref="DoD · Release checklist · deployment evidence" data-version-ref="Merged Commit · Release record · post-release checks" data-github-ref="PR Merge · Commit · Release · Issue／Project Done" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card" data-stage-key="release_done" data-agent="true" data-focus-zones="people,process,documents,version" data-focus-stage="release_done" data-focus-roles-map="Dev, Owner, PO, QA" data-state-markers="product-check,done">
+          <h1>Merge、Release 與 DoD 證據齊備後，票才可標記 Done。</h1>
+          <figure class="artwork" aria-label="Merge、Release、DoD 與 Done 條件的 Stage Card"></figure>
+          <p class="caption">規則層測試通過不能替代整合、上線檢查或整體 Goal 衡量。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>Dev 依已授權候選與 Release／DoD Checklist 整合、發布並留下交付證據；Output 包括 Merged Commit、Release 記錄與 Issue／Project Done（僅在證據成立時）。</p>
+            <p><strong>Insight：</strong>QA PASS 不能自動替代 Human Gate、Merge、Release 或 DoD；單票完成和整體 Goal 成效分開衡量。</p>
+            <p><strong>Go：</strong>逐項確認是否真有授權、Merge、Release 與可檢查的 DoD 證據。</p>
+            <p><strong>Evidence scope：</strong>條件式 Stage 定義；本課 Matching UI／E2E／Release／Goal 測試未執行時必須標示 NOT RUN。</p>
+            <p><strong>下一站：</strong>以一張教學示意卡進行 Part 1 Exit Check。</p>
+          </aside>
+        </section>
+
+        <section class="slide" data-page="22" id="page-22" data-rev13-scene-id="C20" data-phase="exit-check" data-focus-roles="Learner, PO, Dev, QA" data-doc-ref="Stage Card · Ticket · AC · Evidence" data-version-ref="辨認 Candidate 與證據對應方式" data-github-ref="辨認 Issue · Project · PR 的用途" data-beat="exercise" data-mother-map-id="rev13-four-foundations" data-art="exit-check" data-agent="true" data-focus-zones="people,process,documents,version" data-focus-stage="ready" data-focus-roles-map="PO, Dev, QA" data-state-markers="backlog,ready">
+          <h1>面對一張陌生工作票，你能指出誰接手與下一步嗎？</h1>
+          <figure class="artwork" aria-label="先回答 Stage Card 問題，再逐步揭露參考判斷"></figure>
+          <p class="caption">這張 Stage Card 是教學示意，先作答再展開參考判斷；不是 Matching 測試結果。</p>
+          <aside class="notes" hidden aria-label="講者筆記">
+            <h2>講者筆記</h2>
+            <p><strong>Data：</strong>學員需從 Stage Card 找出目前階段、Product Goal 與 Target 的差別、Input、Output、主責／協作角色、Exit Criteria 與 GitHub 物件。</p>
+            <p><strong>Insight：</strong>能讀出一個欄位還不夠；要能把票、負責人、候選版本、Evidence 與下一站連起來。</p>
+            <p><strong>Go：</strong>先讓學員口頭或筆記作答，再按一次方向鍵揭露參考判斷。</p>
+            <p><strong>Evidence scope：</strong>概念練習；Stage Card 明示為教學示意，不展示 Matching A/B 實測結果。真人學員試教尚未執行。</p>
+            <p><strong>參考答案：</strong>Ready Check 由 PO／Dev 主責、QA 協作；核對工作契約與依賴，確認後才可由 Backlog 進 Ready，再由 Dev 接手。對應工作紀錄是 Issue／Project；尚無已開工版本，WIP 仍為 0/1 的概念狀態。</p>
+            <p><strong>下一站：</strong>Part 2 從 O03 引入 Matching 案例，使用同一母圖走真實工作時間線。</p>
+          </aside>
+        </section>
+      </div>
+    </main>
+
+    <footer class="player-controls" aria-label="播放控制">
+      <button id="previous" type="button" aria-label="上一頁">← <span>上一頁</span></button>
+      <div class="control-center">
+        <button id="notes-button" type="button" aria-label="顯示或隱藏講者筆記">講者筆記 <kbd>N</kbd></button>
+        <div class="progress-track" role="progressbar" aria-label="簡報進度" aria-valuemin="1" aria-valuemax="22" aria-valuenow="1">
+          <div id="progress-fill"></div>
+        </div>
+      </div>
+      <button id="next" type="button" aria-label="下一頁"><span>下一頁</span> →</button>
+    </footer>
+  </div>
+</body>
+</html>
