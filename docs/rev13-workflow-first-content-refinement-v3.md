@@ -1,5 +1,7 @@
 # Rev13 Content Refinement v3 — 四大要素 → Agent 五大要素；以 Workflow 推進
 
+> **SUPERSEDED BY v4 — HISTORICAL PLAN**：保留四要素→Agent 第五要素，但原 35 scenes 未完整教出 Rev12 的 External Task State、Bounded Execution、Role Separation、Independent Verification、Goal Re-anchoring。**目前只依 [v4（42 scenes）](rev13-workflow-first-content-refinement-v4.md) 製作**，五原則詳見 [Preservation Contract](rev13-agent-five-principles-preservation.md)。
+
 > **狀態：Refinement / G1 Ready Review 待驗。這是新版內容與分鏡，不是完成的投影片或可合併實作。**
 >
 > **Parent GitHub issue：[AgentDeck #60](https://github.com/world4jason/Agent-101-deck/issues/60)**　｜　**Planning PR：[Draft #61](https://github.com/world4jason/Agent-101-deck/pull/61)**  
