@@ -57,6 +57,11 @@ class TwoPartContractTests(unittest.TestCase):
             x["foundations"]=["People","Process","Git"]
         self.assertTrue(any("four foundations" in msg for msg in self.errors(mutate)))
 
+    def test_cannot_teach_stage_details_before_roles_and_documents(self):
+        def mutate(x):
+            x["part1_scenes"][4],x["part1_scenes"][12] = x["part1_scenes"][12],x["part1_scenes"][4]
+        self.assertTrue(any("prerequisites" in m or "Stage Cards" in m for m in self.errors(mutate)))
+
     def test_cannot_erase_part1_focus(self):
         def mutate(x):
             next(s for s in x["part1_scenes"] if s["id"]=="C08")["focus"]=""
