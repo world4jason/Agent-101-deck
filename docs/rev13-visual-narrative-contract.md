@@ -27,6 +27,8 @@
 
 ---
 
+**內容組織方式：Workflow-first。** Rev13 的[現行 v2 Content Refinement](rev13-workflow-first-content-refinement-v2.md) 已決定以 Brainstorming → Refinement → Ready → Dev → PR Review → QA → Product Check → Human Gate 等**工作事件依序**推進；Process、Git/GitHub、People 是母圖的固定三軌／視角，隨遇到的問題引出細節，**不是須各自講完才能整合的三個長篇課程章節**。Agent 疊加在同一張母圖上，以已知同一 Ticket 比較不同協作控制方式。這是全域 P18–P22 在**內容順序**上的具體執行決策，並非新 Principle。
+
 ## 1. 核心敘事法：Overview → Spotlight → Work / Artifact → Updated Overview
 
 每一個主要工作階段必須遵守同一個循環：
