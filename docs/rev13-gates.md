@@ -4,6 +4,16 @@
 >
 > **Never call a planning CI PASS the same thing as a rendered slide QA PASS.** These are different scopes.
 
+## Owner workflow freeze / Rev13 v5 two-part scope
+
+**目前 Github Actions 因 account billing lock 不可用。Owner 要求本次停止動到 GitHub Workflow。** 不更新、不觸發、不調校 `.github/workflows/`；不把紅燈當教材錯誤，也不把本機 PASS 宣稱成 Required CI 或正式 Merge Gate。
+
+- 現行全課是 [v5 Two-Part Architecture](rev13-two-part-learning-architecture-v5.md)，機讀資料 [v5 manifest](rev13-two-part-manifest-v5.json)。
+- Part 1 認識：22 個 Scene、9 Stage Contracts（含 Stage Goal/Target、Input、Output、Exit、People、GitHub），7 個職能與 Documents / GitHub 物件關係。
+- Part 2 應用：v4 的 O03–X01 原 40 Scene，唯一 Matching #3 Evidence Timeline，五項 Rev12 Agent 原則保持在 A05–A11。
+- 本機獨立檢查：`python3 tests/rev13_v5_two_part_check.py` 和 `python3 -m unittest discover -s tests -p 'test_rev13_v5_two_part_check.py' -v`。
+- 此檢查只保證**規格與來源沒遺失**；Part 1 避免過載、Part 2 能真正 Lead by Example、母圖可讀性及 PowerPoint 物件能編輯，仍需 G1／G4／Human Gate。
+
 ## Why README and AGENTS.md alone are insufficient
 
 A text guideline cannot stop a generator from omitting a role, changing a version, flattening a PPTX, skipping a five-principle lesson, or merging unchecked visual defects. Enforcement needs separate **traceable input spec → automatic rejection → rendered QA → independent human gate → merge protection**.
