@@ -17,6 +17,8 @@
 
 ## Rev13 — 必須遵守的全域教學畫面規則（先於逐頁內容）
 
+**研究出處補充：**[Lin/BFA × Shneiderman 研究筆記](docs/rev13-presentation-research-lin-shneiderman.md)；DIG/FIG 用於判斷與呈現重點，Shneiderman 七項資訊任務增加 Relate／History／Extract，一律由全域契約轉譯成可驗收的設計規則。BFA 的「分鏡溝通法」應正確署名魯蓓蓓；不要誤當林大班的專有命名。
+
 **單一 SSOT：[Rev13 全域投影片分鏡契約](docs/rev13-visual-narrative-contract.md)。** 所有 Rev13 Outline、Storyboard、主線投影片、Demo、練習、Notes、HTML、PPTX、PR Review **都必須套用**；開發 Agent 另由根目錄 [AGENTS.md](AGENTS.md) 導向該規則。
 
 - **共用母圖**：Overview 先顯示完整 Workflow + 所有主要職能；後續章節、頁面仍須能定位「階段、人、正在做的 Ticket、狀態、GitHub」。
