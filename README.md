@@ -15,7 +15,7 @@
 > - [Rev13 檢查及 Merge Gates](docs/rev13-gates.md)／[Scene Manifest](docs/rev13-scene-manifest.json)／[契約檢查器](tests/rev13_contract_check.py)
 > - [Rev13 v3（歷史規劃）](docs/rev13-workflow-first-content-refinement-v3.md)
 > - [Refinement v2（歷史三軸版本）](docs/rev13-workflow-first-content-refinement-v2.md)
-> - [Rev13 Storyboard v1](docs/rev13-reorg-storyboard-v1.md)（歷史提案，概念來源；**新頁序以 v3 為準**）
+> - [Rev13 Storyboard v1](docs/rev13-reorg-storyboard-v1.md)（歷史提案，概念來源；**現行頁序以 v5 為準**）
 > - [Rev13 107 頁逐頁遷移矩陣 v1](docs/rev13-migration-matrix-v1.md)
 > - [Rev12 Demo 107 頁 Git Tag / Pre-release](https://github.com/world4jason/Agent-101-deck/releases/tag/rev12-demo-107)（固定於 5eb43fe；不含未合併的 PR #57/#59）
 >
@@ -40,7 +40,7 @@
 - **共用母圖**：開場先顯示 People／Process／Documents／Version Control 四大要素（含完整 Workflow 和所有主要職能），再用同畫面加入 Agent 第五要素。後續各階段都能定位『誰、哪一步、哪份文件／Ticket／AC、哪個版本／GitHub、什麼狀態』。
 - **固定循環**：Overview → Spotlight（半透明遮罩保留全貌、僅高亮目前階段＋co-work 人員）→ Work / Output（正在開票／拆票／修改 AC／執行／驗證，及相應 GitHub Issue/Project/Branch/PR）→ **Updated Overview（真的更新狀態後再前往下一階段）**。這是四個**敘事步驟**，不強迫四張實體投影片。
 - **Blocking AC / P1**：缺聚焦人員／當前 Ticket 動作／GitHub 對應／可辨認的 Updated Overview，不能視為該階段完成，也不能只因畫面漂亮或測試通過而 Merge。G1、G3、G4、G5 分別依契約檢查；未驗收標記 NOT RUN。
-- **Rev12 原五項 Agent 內容是核心教材硬規則**：External Task State、Bounded Execution、Role Separation、Independent Verification、Goal Re-anchoring 必須完整用同一張 #3 Ticket 示範（v4 A05–A11）；來源為 Rev12 第 76–81 頁。這五項不是新增 P24–P28，也不可以藏進附錄。CI 檢查 Scene、Source、角色、文件／版本與證據；G1/G4 檢查是否真能理解，未完成 Gate 不得宣稱 Ready。
+- **Rev12 原五項 Agent 內容是核心教材硬規則**：External Task State、Bounded Execution、Role Separation、Independent Verification、Goal Re-anchoring 必須完整用同一張 #3 Ticket 示範（**v5 Part 2 沿用 v4 A05–A11**）；來源為 Rev12 第 76–81 頁。這五項不是新增 P24–P28，也不可以藏進附錄。**本機規格檢查**核對 Scene、Source、角色、文件／版本與證據；G1/G4 才檢查實際理解與畫面，未完成 Gate 不得宣稱 Ready。
 - **嚴格執行**：[Rev13 分層 Gate](docs/rev13-gates.md) 說明機器能驗到什麼、人需看什麼、GitHub Required Check 尚未啟用的限制；不能把 planning CI PASS 等同可 Merge 的人類授權。
 - **例子**：Brainstorming 由 Owner/PM/PO 決定方向並建立 Goal Issue；Refinement 由相應 Owner/PM/PO/Dev/QA 釐清可行性、Scope/AC/AT/DoD，更新 Parent/Child Issues；之後全章照同文法。與 Rev12 七欄看板／欄外 Human Gate 規則一致。
 
