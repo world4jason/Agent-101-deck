@@ -1,5 +1,7 @@
 # Rev13 Reorg Storyboard v1 — 流程 × 版控 × 人 → Agent
 
+> **CURRENT: v5 two-part**：[正式規劃結構](rev13-two-part-learning-architecture-v5.md)；本文僅作早期歷史概念及 Rev12 來源追蹤，不能作目前製作頁序。
+
 > **HISTORICAL / SUPERSEDED**：本 v1 的「流程／版控／人 → Agent」三＋一模型及 S1/S2/S3 獨立長章已被 Owner 覆蓋。最新 **[v4：四大要素（人／流程／文件／版本管理）→ 加 Agent 第五項 → 沿 Workflow → 五項 Agent 協作原則](rev13-workflow-first-content-refinement-v4.md)** 才是目前製作依據。以下舊章節僅保留討論脈絡，**不可用來產生 Rev13 當前投影片**。
 
 > **狀態：規劃稿 / G1 待審（非實作完成）**。2026-10-13 建立。這份文件定義教學故事與依賴順序，不代表新投影片已製作或已通過 QA。
