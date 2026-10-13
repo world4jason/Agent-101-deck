@@ -21,30 +21,33 @@
 
 第一張 O01：完整流程和所有主要職能＋**人、流程、文件、版本管理**四個固定位置。第二張 O02：**相同畫面**只新增 Agent 為第五層，Human Gate 不消失。接著 C01–C20 逐項學會辨認，不塞滿同一頁。
 
+**先備順序（P2）**：C01–C02 先教 Workflow 地圖和 Stage Card 用語 → **C03–C10 先教角色／文件／GitHub／Agent 的名稱與特徵** → **C11–C19 才逐站使用這些術語介紹 9 個 Stage Contract** → C20 檢核。避免小白尚不懂 PO、AC、PR，就被要求讀懂 Stage Card。
+
 | 順序 | Scene | 當頁唯一主要學習任務 | 視覺聚焦與轉場 | Rev12 可用素材 |
 |---:|---|---|---|---|
 | 01 | O01 | 傳統軟體開發四大要素：人、流程、文件、版本管理 | Overview 全貌，所有主要角色和流程同時可見 | p.5、p.26、p.31 |
 | 02 | O02 | 同一張母圖加入 Agent 第五要素，原四大要素不移位 | Before/After，Human Gate 保留 | p.56、p.84 |
 | 03 | C01 | 完整工作流程和七個 Kanban 狀態的區分 | 活動、欄位、欄外 Human Gate 分層顯示 | p.26、p.93 |
 | 04 | C02 | Stage Card 怎樣讀：Product Goal、Stage Target、Input、Action、Output、Exit Criteria、Roles、GitHub | 定義 Goal 與階段目的、產出、完成條件的差別 | p.25、p.26 |
-| 05 | C03 | Brainstorming Stage Contract | 先介紹工作站，不提前展示 Matching 的決議結果 | p.10、p.11 |
-| 06 | C04 | Refinement/Planning Stage Contract | 可以拆票且可行，不等於可直接進 Ready | p.12、p.14、p.18、p.19、p.21、p.23 |
-| 07 | C05 | Ready Stage Contract | Ready 前確認清楚可開工，不代表已開始 | p.15、p.24 |
-| 08 | C06 | Dev Stage Contract | 開發與自測不等於獨立 QA | p.39、p.40 |
-| 09 | C07 | PR Review Stage Contract | Concept example only, no pretend real PR history | p.36、p.37、p.41 |
-| 10 | C08 | QA/Verification Stage Contract | 只介紹預期/實際/PASS/FAIL/NOT RUN，A/B 實測留 Part2 | p.42、p.43、p.45、p.47 |
-| 11 | C09 | Product Check Stage Contract | 本票符合需求與 Goal 方向，不等於已達成產品成效 | p.48 |
-| 12 | C10 | Human Gate Stage Contract | 欄外決策，不是第八個 Kanban state | p.50、p.51、p.91 |
-| 13 | C11 | Merge/Release/Done Stage Contract | 需核對 DoD 和 release evidence，不能用 QA PASS 自動替代 | p.52、p.53、p.93 |
-| 14 | C12 | 職能總覽：Owner、PM、PO、UI/UX、Dev、Reviewer、QA | Role ≠ 人數 ≠ Agent 數；一人可多職能 | p.5、p.6、p.7、p.25、p.84 |
-| 15 | C13 | Roles × Stages 主責、協作、決策矩陣 | 全流程一次看懂誰在哪段 co-work；不是固定組織編制 | p.6、p.7、p.18、p.91 |
-| 16 | C14 | 文件種類：Goal／Proposal、Epic、Story、Task、Ticket、AC、AT、DoD | 一次認識文件層次；不做完整 Matching AC 示範 | p.14、p.16、p.21、p.22、p.23 |
-| 17 | C15 | 文件生命週期：需求→拆票→交付→Review→Evidence→放行記錄 | 同一文件可以被更新，Issue/PR 不等於 Git commit | p.14、p.21、p.23、p.45、p.47、p.51 |
-| 18 | C16 | Goal vs Stage Objective、AC vs AT vs DoD、Exit Criteria、Evidence | 幫學生辨認各類判準的適用層級 | p.11、p.21、p.23、p.24、p.47 |
-| 19 | C17 | Git 與 GitHub：Issue、Project、Repo、Branch、Commit、PR、Merge | 版控和文件分兩軌，用連線表達交會 | p.14、p.31、p.32、p.33、p.34、p.35、p.36、p.37 |
-| 20 | C18 | 版本歷史與工作票連結：Branch→Commit→PR→Merge／回復 | 抽象版本路徑示意，Part2 才揭露 Matching Version A/B | p.32、p.33、p.34、p.35、p.36、p.37 |
-| 21 | C19 | Agent 能接什麼工作？Chat／Session／Agent／Workflow 與五項工作守則的預告 | 可執行／協調，不授權自己放行；五原則完整示範仍在 Part2 | p.56、p.57、p.61、p.65、p.66、p.73、p.76 |
+| 05 | C03 | 職能總覽：Owner、PM、PO、UI/UX、Dev、Reviewer、QA | Role ≠ 人數 ≠ Agent 數；一人可多職能 | p.5、p.6、p.7、p.25、p.84 |
+| 06 | C04 | Roles × Stages 主責、協作、決策矩陣 | 全流程一次看懂誰在哪段 co-work；不是固定組織編制 | p.6、p.7、p.18、p.91 |
+| 07 | C05 | 文件種類：Goal／Proposal、Epic、Story、Task、Ticket、AC、AT、DoD | 一次認識文件層次；不做完整 Matching AC 示範 | p.14、p.16、p.21、p.22、p.23 |
+| 08 | C06 | 文件生命週期：需求→拆票→交付→Review→Evidence→放行記錄 | 同一文件可以被更新，Issue/PR 不等於 Git commit | p.14、p.21、p.23、p.45、p.47、p.51 |
+| 09 | C07 | Goal vs Stage Objective、AC vs AT vs DoD、Exit Criteria、Evidence | 幫學生辨認各類判準的適用層級 | p.11、p.21、p.23、p.24、p.47 |
+| 10 | C08 | Git 與 GitHub：Issue、Project、Repo、Branch、Commit、PR、Merge | 版控和文件分兩軌，用連線表達交會 | p.14、p.31、p.32、p.33、p.34、p.35、p.36、p.37 |
+| 11 | C09 | 版本歷史與工作票連結：Branch→Commit→PR→Merge／回復 | 抽象版本路徑示意，Part2 才揭露 Matching Version A/B | p.32、p.33、p.34、p.35、p.36、p.37 |
+| 12 | C10 | Agent 能接什麼工作？Chat／Session／Agent／Workflow 與五項工作守則的預告 | 可執行／協調，不授權自己放行；五原則完整示範仍在 Part2 | p.56、p.57、p.61、p.65、p.66、p.73、p.76 |
+| 13 | C11 | Brainstorming Stage Contract | 先介紹工作站，不提前展示 Matching 的決議結果 | p.10、p.11 |
+| 14 | C12 | Refinement/Planning Stage Contract | 可以拆票且可行，不等於可直接進 Ready | p.12、p.14、p.18、p.19、p.21、p.23 |
+| 15 | C13 | Ready Stage Contract | Ready 前確認清楚可開工，不代表已開始 | p.15、p.24 |
+| 16 | C14 | Dev Stage Contract | 開發與自測不等於獨立 QA | p.39、p.40 |
+| 17 | C15 | PR Review Stage Contract | Concept example only, no pretend real PR history | p.36、p.37、p.41 |
+| 18 | C16 | QA/Verification Stage Contract | 只介紹預期/實際/PASS/FAIL/NOT RUN，A/B 實測留 Part2 | p.42、p.43、p.45、p.47 |
+| 19 | C17 | Product Check Stage Contract | 本票符合需求與 Goal 方向，不等於已達成產品成效 | p.48 |
+| 20 | C18 | Human Gate Stage Contract | 欄外決策，不是第八個 Kanban state | p.50、p.51、p.91 |
+| 21 | C19 | Merge/Release/Done Stage Contract | 需核對 DoD 和 release evidence，不能用 QA PASS 自動替代 | p.52、p.53、p.93 |
 | 22 | C20 | Part 1 Exit Check：看母圖辨認 Stage、Roles、Documents、GitHub、下一步 | 先作答再揭露；不提前暴露 Matching 的 QA 答案 | p.8、p.30、p.38、p.49、p.54 |
+
 
 ### Stage Card 的共同資料結構
 
