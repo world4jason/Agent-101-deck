@@ -107,8 +107,39 @@
 
 **Blocking rule:** 若任一核心工作階段沒辦法指出現在活動、co-work 角色、Ticket 狀態變更、GitHub 物件、Updated Overview 的差異，應視為 **P1 未達標**，不能因為單頁好看或測試無 overflow 就 merge。Storyboard、generator、Notes、QA／issue 全部要用本契約 Review；例外必須在該頁註明為何、如何保持導航／再錨定。
 
-## 8. 研究出處（設計參考，非此教材已驗收之證據）
+## 8. 研究補充：林大班／BFA × Shneiderman（對既有規則的解釋）
 
-- [BFA 分鏡溝通法與半透明遮罩](https://www.bfa.com.tw/blog/bfaevent-live-streaming-4) — 局部逐頁聚焦的演示案例。
-- [Shneiderman, The Eyes Have It (1996)](https://doi.org/10.1109/VL.1996.545307) — overview first / zoom and filter / details-on-demand；本課加上 **updated overview** 的工作狀態回報，是專案自己的敘事規則。
+完整有來源的研究、作者歸屬與非原作者原意之專案轉譯見 [林大班 × Shneiderman 設計研究筆記](rev13-presentation-research-lin-shneiderman.md)。
+
+**(A) 結構／重點先於遮罩（林大班）**
+
+- 先確定當下對零基礎受眾的**學習任務、事實／輸入、關鍵差異、下一步能做什麼**，再挑選畫面焦點；不要把 FIG 做成純美化或把 DIG 做成每頁三張裝飾卡。
+- 用 **DIG（Data／Insight／Go）** 判斷要呈現什麼；再用 **FIG（Font／Ink／Grid）** 排定主次、降低雜訊、固定視覺位置。**文字多寡不是品質標準，重點有沒有被看懂才是。**
+- **分鏡溝通法**在 BFA 公開文章中由**魯蓓蓓**介紹／撰寫；與林大班的目標／閱聽人／一致性原則相容，但不得標成林大班本人獨創。
+
+**(B) Shneiderman 不止三步：七項任務與本專案轉譯**
+
+- **Overview／Zoom／Filter／Details-on-demand**：已對應此契約母圖、聚焦、逐段揭露與必要時的證據細節。
+- **Relate（關聯）**：**除了五個資訊區塊，還須讓人看得出階段 ↔ 共同職能 ↔ 工作票／AC ↔ GitHub Issue／PR 是如何互相連接**。同色／箭頭／連線／同位映射可用，不得要求學員自行腦補五張卡的關係。
+- **History（歷史）**：Updated Overview 不只有「現在」；須顯示**由什麼變成什麼**、何時從 A → B-pre → B-post、哪個未測項尚在、退回後去哪裡；必要時可回查舊版本。
+- **Extract（擷取）**：原論文指可擷取資料與查詢參數；本課**借用**成「觀眾能找到這一步真正產出的 Ticket、PR、決議或 Evidence」。不代表每張投影片要有下載按鈕／實際 GitHub 自動化。
+- **不要機械地把七項任務變成七張幻燈片或每張七個框。** 整個階段能完成相應信息任務即可。此研究原是互動介面，不保證投影片教學效果。
+
+**(C) Shneiderman Eight Golden Rules 對 HTML 播放器的延伸**
+
+同一視覺與語義 **Consistency**；每次操作、票的狀態變化有 **Informative feedback**；章節完成有 **Closure**；能返回、回查版本（**Reversal / History**）；不強制動畫、講者能控制進度（**User control**）；跨頁不靠人腦記住此前所有版本／AC（**Reduce memory load**）。這些用於設計與 QA；不用在主線硬教完整 HCI 術語。
+
+**(D) Focus+Context 的手段可選擇**
+
+研究另外區分 **Overview+Detail、Zooming、Focus+Context、Cue-based highlighting**；半透明遮罩屬於可行的選擇性聚焦方式，而非唯一形式。對於需要詳細閱讀的 Ticket / GitHub 圖，可用「小母圖 locator + 大細節 + 高亮連線」，比整張畫面重複灰霧遮罩更易讀；無論何種手段都需保留空間方向。
+
+**加進原 G1/G3/G4 檢查**：這頁觀眾應看到的 Data／Insight／Go 是什麼？焦點層級清楚嗎？人／流程／票／GitHub 有視覺關係嗎？狀態歷史、能否回查與本步產物都看得到嗎？違反已定可定位／關係／證據契約時仍是 Blocking P1；但**不能把 DIG、FIG、七項任務本身機械計數當獨立 Gate**。
+
+## 9. 研究出處（設計參考，非此教材已驗收之證據）
+
+- [BFA／魯蓓蓓：分鏡溝通法與半透明遮罩](https://www.bfa.com.tw/blog/the-myth-of-presentation-animation) — 局部逐頁聚焦的演示案例（勿誤認林大班獨創）。
+- [林大班：BFA 視覺降噪／分類／重點／一致性](https://www.bfa.com.tw/blog/bfa-event-60-featured-speaker-ben)；[PBS 官方課綱](https://www.pbs.school/course/business-presentation) — 先有目標與受眾，再用 DIG／視覺設計呈現重點。
+- [Shneiderman, The Eyes Have It (1996)](https://drum.lib.umd.edu/items/155a868e-fb83-4115-9899-9187ea8c0498) — **七項任務**：overview、zoom、filter、details-on-demand、relate、history、extract；本課加上 **Updated Overview** 是專案自己的教學節奏。
+- [Shneiderman：Eight Golden Rules](https://www.cs.umd.edu/users/ben/goldenrules.html) — 一致性、回饋、完成感、可回頭、控制感、降低跨頁記憶負荷。
+- [Cockburn et al.：Overview+Detail／Focus+Context／Cue-based](https://www.microsoft.com/en-us/research/publication/a-review-of-overviewdetail-zooming-and-focuscontext-interfaces/) — 遮罩是眾多焦點手段之一。
 - [Microsoft PowerPoint Morph 說明](https://support.microsoft.com/en-us/powerpoint/morph-transition-tips-and-tricks) — 相同元素跨頁的可選視覺轉場；不能依賴 Morph 才看得懂。
