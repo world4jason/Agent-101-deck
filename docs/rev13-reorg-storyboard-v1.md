@@ -6,6 +6,18 @@
 >
 > **目前 HTML /slides/ 跟 main 走，不是 tag 的永久回放網址；不要改目前展示入口。** PR #57、#59 尚未合併，內容與可編輯 PPTX 後續應獨立 review/reconcile。
 
+## 0. Rev13 全域分鏡契約（Mandatory / Blocking P1）
+
+**所有章節與所有教學分鏡，都必須依照唯一 SSOT：[全域投影片分鏡契約](rev13-visual-narrative-contract.md)**。這是講述與畫面的共通文法，比本 Storyboard 原先按 S0–S6 切的章節更優先：
+
+**固定母圖（完整 Workflow＋全部主要職能＋相關 GitHub 工作鏈） → Spotlight（半透明遮罩只凸顯當前階段／co-work 人員） → Work/Artifact（Goal、Ticket 哪個欄位／項目、產物和 GitHub Issue/Project/Branch/PR） → Updated Overview（真的顯示狀態差異並指向下一站）。**
+
+這是四個**語義步驟**，可以用多頁細講或同頁組合，不強制四頁；每次畫面必須讓學員辨認 **目前階段、參與職能、正在操作哪張票／哪項需求、最新狀態／產出、GitHub 哪個物件**。章封面、練習與附錄至少保留定位器或明確回到母圖入口。不要把每個工作階段變成獨立的文字章節。
+
+**第一段具體分鏡：** Overview（完整流程／職能）→ Brainstorming Spotlight（Owner、PM、PO）→ 確認 Outcome Goal 並開／更新 GitHub Goal Issue → Updated Overview（顯示 Issue created）；再 Overview → Refinement Spotlight（Owner、PM、PO、Dev、QA／必要時 UIUX）→ 檢查可行性／將 Epic・Story 分解成可交辦子票，補 Scope/AC/AT/DoD → Updated Overview（Parent/Child Issues、依賴、尚待 Ready 的狀態）。GitHub Issue Type 依專案設定，不預設 Epic/Story/Task 一定是 GitHub 原生可用選項。
+
+Reviewer 在 G1 檢查每個 scene 的角色／票／狀態／GitHub mapping 與 Overview delta；G3 用五秒掃讀確認方向感；G4 看真實畫面而非只看文字；G5 對最新 HEAD 重查。少任何關鍵資訊視為 P1，不得合併。
+
 ## 1. 一句話目標與教學模型
 
 完全沒寫過軟體的學員，能用 **流程（怎麼推進）／版控（怎麼追蹤變更）／人（誰負責）** 理解一張軟體工作票的生命週期，接著比較 Agent 的三種協作方式，知道 **要交給誰、交付哪個版本、證據夠不夠、何時要由人介入**。
@@ -134,6 +146,8 @@
 **終點練習**：學員先自己把壞 Ticket 變成好 Ticket，選 A/B/C 協作配置，看到 B-pre 的 NOT RUN 後寫退回要求，再查 B-post 與其他未驗項，判斷是否可進下一 Gate；揭露參考答案前不可顯示正解。
 
 ## 4. 全頁共用導航：「我在哪裡？」
+
+> 本節是[全域分鏡契約](rev13-visual-narrative-contract.md)在資訊精簡上的**補充**，不是以一個小型 locator 取代完整的 Overview → Spotlight → Work/Artifact → Updated Overview 流程。
 
 在案例與 Dev／Agent Demo 頁只顯示一組**輕量雙軌資訊**，不是每頁放完整看板和完整 commit history：
 
