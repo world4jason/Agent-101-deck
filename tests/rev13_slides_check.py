@@ -32,6 +32,284 @@ ALLOWED_BEATS = {
     "exercise",
 }
 MOTHER_MAP_ID = "rev13-four-foundations"
+BANNED_LEARNER_TERMS = (
+    "B-pre",
+    "B-post",
+    "candidate",
+    "supplement",
+    "duplicate",
+    "snapshot",
+    "artifact",
+    "fixture",
+    "SHA-256",
+    "SHA256",
+)
+
+
+class LearnerTextParser(HTMLParser):
+    """Collect rendered text nodes while excluding notes and markup attributes."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.text_chunks: list[tuple[str | None, int, str]] = []
+        self.stack: list[tuple[str, bool, bool, str | None]] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        values = dict(attrs)
+        classes = set((values.get("class") or "").split())
+        parent_notes = self.stack[-1][1] if self.stack else False
+        parent_skipped = self.stack[-1][2] if self.stack else False
+        parent_page = self.stack[-1][3] if self.stack else None
+        in_notes = parent_notes or (tag == "aside" and "notes" in classes)
+        skipped = parent_skipped or tag in {"script", "style"}
+        page = values.get("data-page") if tag == "section" and "slide" in classes else parent_page
+        self.stack.append((tag, in_notes, skipped, page))
+
+    def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        self.handle_starttag(tag, attrs)
+        self.handle_endtag(tag)
+
+    def handle_endtag(self, tag: str) -> None:
+        for index in range(len(self.stack) - 1, -1, -1):
+            if self.stack[index][0] == tag:
+                del self.stack[index:]
+                break
+
+    def handle_data(self, data: str) -> None:
+        if not data.strip():
+            return
+        in_notes = self.stack[-1][1] if self.stack else False
+        skipped = self.stack[-1][2] if self.stack else False
+        page = self.stack[-1][3] if self.stack else None
+        if not in_notes and not skipped:
+            self.text_chunks.append((page, self.getpos()[0], data))
+
+
+def banned_terms_in(text: str) -> list[str]:
+    """Return banned learner-facing terms found in text, ignoring case."""
+    lowered = text.casefold()
+    return [term for term in BANNED_LEARNER_TERMS if term.casefold() in lowered]
+
+
+def visible_text_from_markup(markup: str) -> str:
+    """Extract text nodes from an HTML fragment, excluding notes and attributes."""
+    parser = LearnerTextParser()
+    parser.feed(markup)
+    parser.close()
+    return " ".join(chunk[2] for chunk in parser.text_chunks)
+
+
+def _decode_js_escapes(value: str) -> str:
+    """Decode common JavaScript string escapes before parsing HTML fragments."""
+    output: list[str] = []
+    index = 0
+    simple_escapes = {
+        "b": "\b",
+        "f": "\f",
+        "n": "\n",
+        "r": "\r",
+        "t": "\t",
+        "v": "\v",
+        "0": "\0",
+        "\\": "\\",
+        "'": "'",
+        '"': '"',
+        "`": "`",
+        "$": "$",
+    }
+    while index < len(value):
+        if value[index] != "\\" or index + 1 >= len(value):
+            output.append(value[index])
+            index += 1
+            continue
+        escaped = value[index + 1]
+        if escaped in simple_escapes:
+            output.append(simple_escapes[escaped])
+            index += 2
+        elif escaped in {"\n", "\r"}:
+            index += 2
+            if escaped == "\r" and index < len(value) and value[index] == "\n":
+                index += 1
+        elif escaped == "x" and index + 3 < len(value):
+            try:
+                output.append(chr(int(value[index + 2:index + 4], 16)))
+                index += 4
+            except ValueError:
+                output.extend(value[index:index + 2])
+                index += 2
+        elif escaped == "u":
+            if index + 2 < len(value) and value[index + 2] == "{":
+                end = value.find("}", index + 3)
+                if end != -1:
+                    try:
+                        output.append(chr(int(value[index + 3:end], 16)))
+                        index = end + 1
+                        continue
+                    except (ValueError, OverflowError):
+                        pass
+            if index + 5 < len(value):
+                try:
+                    output.append(chr(int(value[index + 2:index + 6], 16)))
+                    index += 6
+                except ValueError:
+                    output.extend(value[index:index + 2])
+                    index += 2
+            else:
+                output.extend(value[index:index + 2])
+                index += 2
+        else:
+            # JavaScript treats an unrecognised non-octal escape as the character itself.
+            output.append(escaped)
+            index += 2
+    return "".join(output)
+
+
+def _read_js_string(source: str, start: int) -> tuple[str, int]:
+    quote = source[start]
+    index = start + 1
+    while index < len(source):
+        if source[index] == "\\":
+            index += 2
+        elif source[index] == quote:
+            return _decode_js_escapes(source[start + 1:index]), index + 1
+        else:
+            index += 1
+    return _decode_js_escapes(source[start + 1:]), len(source)
+
+
+def _read_js_template(source: str, start: int) -> tuple[list[tuple[int, str]], int]:
+    """Read a template and its expressions, preserving markup around interpolations."""
+    index = start + 1
+    chunk_start = index
+    static_parts: list[str] = []
+    expression_literals: list[tuple[int, str]] = []
+    while index < len(source):
+        if source[index] == "\\":
+            index += 2
+        elif source.startswith("${", index):
+            static_parts.append(_decode_js_escapes(source[chunk_start:index]))
+            static_parts.append("__REV13_TEMPLATE_VALUE__")
+            expression_literals.append((index, "__REV13_TEMPLATE_VALUE__"))
+            nested, index = _scan_js_code(source, index + 2, stop_at_brace=True)
+            expression_literals.extend(nested)
+            chunk_start = index
+        elif source[index] == "`":
+            static_parts.append(_decode_js_escapes(source[chunk_start:index]))
+            template_literal = (start, "".join(static_parts))
+            return [template_literal, *expression_literals], index + 1
+        else:
+            index += 1
+    static_parts.append(_decode_js_escapes(source[chunk_start:]))
+    return [(start, "".join(static_parts)), *expression_literals], len(source)
+
+
+def _starts_js_regex(source: str, index: int) -> bool:
+    prefix = source[:index].rstrip()
+    if not prefix:
+        return True
+    if prefix[-1] in "([{=,:;!&|?+-*%^~<>":
+        return True
+    return bool(
+        re.search(
+            r"\b(?:return|case|throw|delete|void|typeof|instanceof|in|of|yield|await|else|do)\s*$",
+            prefix,
+        )
+    )
+
+
+def _skip_js_regex(source: str, start: int) -> int:
+    """Skip a regex literal so quotes in its character class are not read as strings."""
+    index = start + 1
+    in_character_class = False
+    while index < len(source):
+        char = source[index]
+        if char == "\\":
+            index += 2
+        elif char in "\r\n":
+            return start + 1
+        elif char == "[":
+            in_character_class = True
+            index += 1
+        elif char == "]":
+            in_character_class = False
+            index += 1
+        elif char == "/" and not in_character_class:
+            index += 1
+            while index < len(source) and source[index].isalpha():
+                index += 1
+            return index
+        else:
+            index += 1
+    return start + 1
+
+
+def _scan_js_code(
+    source: str, start: int = 0, *, stop_at_brace: bool = False
+) -> tuple[list[tuple[int, str]], int]:
+    """Collect JavaScript string literals, skipping comments and code identifiers."""
+    literals: list[tuple[int, str]] = []
+    index = start
+    brace_depth = 1 if stop_at_brace else 0
+    while index < len(source):
+        if source.startswith("//", index):
+            newline = source.find("\n", index + 2)
+            index = len(source) if newline == -1 else newline + 1
+        elif source.startswith("/*", index):
+            end = source.find("*/", index + 2)
+            index = len(source) if end == -1 else end + 2
+        elif source[index] == "/" and _starts_js_regex(source, index):
+            index = _skip_js_regex(source, index)
+        elif source[index] in {"'", '"'}:
+            literal_start = index
+            value, index = _read_js_string(source, index)
+            literals.append((literal_start, value))
+        elif source[index] == "`":
+            nested, index = _read_js_template(source, index)
+            literals.extend(nested)
+        elif stop_at_brace and source[index] == "{":
+            brace_depth += 1
+            index += 1
+        elif stop_at_brace and source[index] == "}":
+            brace_depth -= 1
+            index += 1
+            if brace_depth == 0:
+                return literals, index
+        else:
+            index += 1
+    return literals, index
+
+
+def javascript_visible_text(source: str) -> list[tuple[int, str]]:
+    """Extract text nodes from JS strings/templates with their source line numbers."""
+    literals, _ = _scan_js_code(source)
+    visible: list[tuple[int, str]] = []
+    for offset, literal in sorted(literals):
+        parser = LearnerTextParser()
+        parser.feed(literal)
+        parser.close()
+        line = source.count("\n", 0, offset) + 1
+        visible.extend((line, chunk[2]) for chunk in parser.text_chunks)
+    return visible
+
+
+def append_banned_text_errors(
+    errors: list[str], chunks: list[tuple[str | None, int, str]], source_name: str
+) -> None:
+    findings: set[str] = set()
+    for page, line, text in chunks:
+        location = f"{source_name} page {page}" if page else f"{source_name} line {line}"
+        for term in banned_terms_in(text):
+            findings.add(f"{location}: learner-facing text contains banned term {term!r}")
+    errors.extend(sorted(findings))
+
+
+def append_banned_js_errors(errors: list[str], source: str, source_name: str) -> None:
+    findings = {
+        f"{source_name} line {line}: learner-facing text contains banned term {term!r}"
+        for line, text in javascript_visible_text(source)
+        for term in banned_terms_in(text)
+    }
+    errors.extend(sorted(findings))
 
 
 class SlideParser(HTMLParser):
@@ -115,13 +393,20 @@ def main() -> int:
     try:
         manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
         renderer_source = JS_PATH.read_text(encoding="utf-8")
+        html_source = HTML_PATH.read_text(encoding="utf-8")
         parser = SlideParser()
-        parser.feed(HTML_PATH.read_text(encoding="utf-8"))
+        parser.feed(html_source)
         parser.close()
     except (OSError, json.JSONDecodeError) as exc:
         print(f"ERROR: unable to read Rev13 input: {exc}")
         print("REV13 SLIDES: FAIL (1)")
         return 1
+
+    learner_html = LearnerTextParser()
+    learner_html.feed(html_source)
+    learner_html.close()
+    append_banned_text_errors(errors, learner_html.text_chunks, "index.html")
+    append_banned_js_errors(errors, renderer_source, "rev13.js")
 
     slides = parser.slides
     expected = manifest.get("core_part1", []) + manifest.get("core_part2", [])
