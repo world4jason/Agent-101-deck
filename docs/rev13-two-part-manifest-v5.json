@@ -796,6 +796,335 @@
     "G4": "not_run",
     "G5": "not_run"
   },
-  "part1_learning_sequence": "O01 four foundations → O02 add Agent → C01/C02 workflow and Stage Card fields → C03–C10 People, Documents and Git/GitHub prerequisites → C11–C19 nine Stage Cards → C20 Exit Check",
-  "part1_prerequisite_policy": "define roles, document types and GitHub vocabulary before nine detailed Stage Cards; Part2 Matching worked example comes after all Part1 foundations"
+  "part1_learning_sequence": "O01 four foundations skeleton → O02 add Agent → C01 workflow → C03 people → C05 documents → C08 version track → C02 card reading → C07 judgments and returns with C01 continuation → detailed C02/C04/C06/C07/C08/C09/C10 → C11–C19 nine Stage Cards → C20 Exit Check",
+  "part1_prerequisite_policy": "define roles, document types and GitHub vocabulary before nine detailed Stage Cards; Part2 Matching worked example comes after all Part1 foundations",
+  "implementation_slide_map": [
+    {
+      "page": 1,
+      "scene_id": "O01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 2,
+      "scene_id": "O02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 3,
+      "scene_id": "C01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 4,
+      "scene_id": "C03",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 5,
+      "scene_id": "C05",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 6,
+      "scene_id": "C08",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 7,
+      "scene_id": "C02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 8,
+      "scene_id": "C07",
+      "merged_scene_ids": [
+        "C01"
+      ]
+    },
+    {
+      "page": 9,
+      "scene_id": "C02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 10,
+      "scene_id": "C04",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 11,
+      "scene_id": "C06",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 12,
+      "scene_id": "C07",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 13,
+      "scene_id": "C08",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 14,
+      "scene_id": "C09",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 15,
+      "scene_id": "C10",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 16,
+      "scene_id": "C11",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 17,
+      "scene_id": "C12",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 18,
+      "scene_id": "C13",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 19,
+      "scene_id": "C14",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 20,
+      "scene_id": "C15",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 21,
+      "scene_id": "C16",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 22,
+      "scene_id": "C17",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 23,
+      "scene_id": "C18",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 24,
+      "scene_id": "C19",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 25,
+      "scene_id": "C20",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 26,
+      "scene_id": "O03",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 27,
+      "scene_id": "B01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 28,
+      "scene_id": "B02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 29,
+      "scene_id": "B03",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 30,
+      "scene_id": "B04",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 31,
+      "scene_id": "R01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 32,
+      "scene_id": "R02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 33,
+      "scene_id": "R03",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 34,
+      "scene_id": "R04",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 35,
+      "scene_id": "R05",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 36,
+      "scene_id": "RD01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 37,
+      "scene_id": "RD02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 38,
+      "scene_id": "D01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 39,
+      "scene_id": "D02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 40,
+      "scene_id": "D03",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 41,
+      "scene_id": "D04",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 42,
+      "scene_id": "RV01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 43,
+      "scene_id": "RV02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 44,
+      "scene_id": "RV03",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 45,
+      "scene_id": "Q01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 46,
+      "scene_id": "Q02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 47,
+      "scene_id": "Q03",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 48,
+      "scene_id": "Q04",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 49,
+      "scene_id": "Q05",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 50,
+      "scene_id": "PC01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 51,
+      "scene_id": "PC02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 52,
+      "scene_id": "HG01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 53,
+      "scene_id": "HG02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 54,
+      "scene_id": "A01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 55,
+      "scene_id": "A02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 56,
+      "scene_id": "A03",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 57,
+      "scene_id": "A04",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 58,
+      "scene_id": "A05",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 59,
+      "scene_id": "A06",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 60,
+      "scene_id": "A07",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 61,
+      "scene_id": "A08",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 62,
+      "scene_id": "A09",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 63,
+      "scene_id": "A10",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 64,
+      "scene_id": "A11",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 65,
+      "scene_id": "X01",
+      "merged_scene_ids": []
+    }
+  ]
 }

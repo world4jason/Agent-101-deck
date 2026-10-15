@@ -300,16 +300,16 @@
     const reveal = order => revealFoundations ? ` fragment" data-fragment-order="${order}` : '';
     const dimZone = zone => focusedZones.size && !focusedZones.has(zone) ? ' is-dim' : '';
     const stageFill = key => key === stageKey || stateMarkers.has(key) ? ' is-focus' : stageKey ? ' is-dim' : '';
-    const stageHeaders = SWIMLANE_LAYOUT.stages.map((column, index) => {
+    const boardStages = SWIMLANE_LAYOUT.stages.filter(column => !column.outside);
+    const stageHeaders = boardStages.map((column, index) => {
       const center = column.x + column.width / 2;
-      const classes = `swimlane-stage${column.outside ? ' is-outside' : ''}${stageFill(column.key)}`;
-      const header = column.outside
-        ? `<polygon class="swimlane-gate" points="1130,54 1146,75 1130,96 1114,75"/><text x="1152" y="72" class="swimlane-stage-label swimlane-gate-label" text-anchor="start">Human Gate</text><text x="1152" y="93" class="swimlane-stage-note" text-anchor="start">欄外決策</text>`
-        : `${svgRect(column.x + 4, 50, column.width - 8, 53, '#172325', '#3c5550', 4, 'swimlane-stage-box')}<text x="${center}" y="72" class="swimlane-stage-label" text-anchor="middle">${esc(column.label)}</text><text x="${center}" y="94" class="swimlane-stage-note" text-anchor="middle">${esc(column.subLabel)}</text>`;
-      const next = SWIMLANE_LAYOUT.stages[index + 1];
+      const classes = `swimlane-stage${stageFill(column.key)}`;
+      const header = `${svgRect(column.x + 4, 50, column.width - 8, 53, '#172325', '#3c5550', 4, 'swimlane-stage-box')}<text x="${center}" y="72" class="swimlane-stage-label" text-anchor="middle">${esc(column.label)}</text><text x="${center}" y="94" class="swimlane-stage-note" text-anchor="middle">${esc(column.subLabel)}</text>`;
+      const next = boardStages[index + 1];
       const arrow = next ? `<path class="swimlane-forward" d="M${column.x + column.width} 106 H${next.x - 4}" marker-end="url(#swimlane-arrow-${uid})"/>` : '';
       return `<g class="${classes}" data-state="${column.key}">${header}${arrow}</g>`;
     }).join('');
+    const gateHeader = `<g class="swimlane-outside-gate${stageKey === 'human_gate' ? ' is-focus' : ''}" data-state="human_gate"><polygon class="swimlane-gate" points="1175,119 1187,132 1175,145 1163,132"/><text x="1194" y="137" class="swimlane-stage-label swimlane-gate-label" text-anchor="start">Human Gate · 欄外授權</text></g>`;
 
     const activities = `<g class="swimlane-activity"><rect x="190" y="15" width="290" height="30" rx="4"/><text x="335" y="36" text-anchor="middle">問題釐清／拆分工作（活動）</text></g>`;
     const roleGuides = SWIMLANE_LAYOUT.roles.map(({ name, label, y }) => {
@@ -400,14 +400,78 @@
     }).join('');
     const legend = `<g class="swimlane-legend"><path d="M18 696 H1582" class="swimlane-legend-rule"/><rect x="26" y="708" width="44" height="24" rx="12" class="swimlane-legend-endpoint"/><text x="80" y="727">起點／終點</text><rect x="250" y="708" width="42" height="24" rx="4" class="swimlane-legend-lead"/><text x="302" y="727">主責</text><rect x="410" y="708" width="42" height="24" rx="4" class="swimlane-legend-co"/><text x="462" y="727">協作</text><polygon points="575,708 590,720 575,732 560,720" class="swimlane-legend-decision"/><text x="602" y="727">判斷</text><path d="M700 720 H754" class="swimlane-legend-forward" marker-end="url(#swimlane-arrow-${uid})"/><text x="764" y="727">前進</text><path d="M870 720 H924" class="swimlane-legend-return" marker-end="url(#swimlane-arrow-return-${uid})"/><text x="934" y="727">退回</text></g>`;
 
-    return `<div class="mother-map" data-mother-map-id="rev13-four-foundations" data-stage="${esc(stage)}"><svg class="swimlane-svg" viewBox="0 0 1600 780" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="swimlane-title-${uid} swimlane-desc-${uid}"><title id="swimlane-title-${uid}">人、流程、文件與版本管理泳道圖</title><desc id="swimlane-desc-${uid}">流程沿橫向七個看板狀態前進；人依責任分泳道，下方依序記錄文件與版本管理。人類授權位於 Product Check 與 Done 之間，三條虛線表示主要退回方向。</desc><defs><marker id="swimlane-arrow-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#8faaa1"/></marker><marker id="swimlane-arrow-return-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#85918a"/></marker><marker id="swimlane-arrow-agent-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#d78d78"/></marker></defs><g class="swimlane-process"><text class="swimlane-axis-label" x="18" y="82">流程（X 軸）</text>${activities}${stageHeaders}<g class="swimlane-axis-line">${SWIMLANE_LAYOUT.stages.filter(item => !item.outside).map(item => `<line x1="${item.x}" y1="110" x2="${item.x + item.width}" y2="110"/>`).join('')}</g></g><g class="swimlane-people${dimZone('people')}${reveal(1)}"><text class="swimlane-group-label" x="18" y="136">人（Y 軸）</text>${roleGuides}${roleContent}${returnPaths}</g><g class="swimlane-documents${dimZone('documents')}${reveal(2)}"><path class="swimlane-section-rule" d="M170 532 H1550"/><text class="swimlane-group-label" x="18" y="562">文件</text>${docNodes}</g><g class="swimlane-version${dimZone('version')}${reveal(3)}"><path class="swimlane-section-rule is-heavy" d="M170 596 H1550"/><text class="swimlane-group-label" x="18" y="632">版本管理</text>${versionLinks}${versionNodes}</g>${legend}</svg></div>`;
+    return `<div class="mother-map" data-mother-map-id="rev13-four-foundations" data-stage="${esc(stage)}"><svg class="swimlane-svg" viewBox="0 0 1600 780" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="swimlane-title-${uid} swimlane-desc-${uid}"><title id="swimlane-title-${uid}">人、流程、文件與版本管理泳道圖</title><desc id="swimlane-desc-${uid}">流程沿橫向七個看板狀態前進；人依責任分泳道，下方依序記錄文件與版本管理。人類授權以欄外菱形表示，三條虛線表示主要退回方向。</desc><defs><marker id="swimlane-arrow-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#8faaa1"/></marker><marker id="swimlane-arrow-return-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#85918a"/></marker><marker id="swimlane-arrow-agent-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#d78d78"/></marker></defs><g class="swimlane-process"><text class="swimlane-axis-label" x="18" y="82">流程（X 軸）</text>${activities}${stageHeaders}${gateHeader}<g class="swimlane-axis-line">${SWIMLANE_LAYOUT.stages.filter(item => !item.outside).map(item => `<line x1="${item.x}" y1="110" x2="${item.x + item.width}" y2="110"/>`).join('')}</g></g><g class="swimlane-people${dimZone('people')}${reveal(1)}"><text class="swimlane-group-label" x="18" y="136">人（Y 軸）</text>${roleGuides}${roleContent}${returnPaths}</g><g class="swimlane-documents${dimZone('documents')}${reveal(2)}"><path class="swimlane-section-rule" d="M170 532 H1550"/><text class="swimlane-group-label" x="18" y="562">文件</text>${docNodes}</g><g class="swimlane-version${dimZone('version')}${reveal(3)}"><path class="swimlane-section-rule is-heavy" d="M170 596 H1550"/><text class="swimlane-group-label" x="18" y="632">版本管理</text>${versionLinks}${versionNodes}</g>${legend}</svg></div>`;
+  }
+
+  function renderOpeningMap(slide) {
+    const step = Number(slide.dataset.openingStep || 1);
+    const uid = `opening-${slide.dataset.page}`;
+    const showProcess = step >= 3;
+    const showPeople = step >= 4;
+    const showDocuments = step >= 5;
+    const showVersions = step >= 6;
+    const showCard = step >= 7;
+    const showReturns = step >= 8;
+    const dim = zone => {
+      if (step === 3 && zone !== 'process') return ' is-dim';
+      if (step === 4 && zone !== 'people') return ' is-dim';
+      if (step === 5 && zone !== 'documents') return ' is-dim';
+      if (step === 6 && zone !== 'version') return ' is-dim';
+      return '';
+    };
+    const roleRows = SWIMLANE_LAYOUT.roles
+      .filter(({ name }) => step >= 2 || name !== 'Agent')
+      .map(({ name, y }) => {
+      const isAgent = name === 'Agent';
+      const highlightedAgent = step === 2 && isAgent;
+      const label = showPeople
+        ? ({ Owner: '定方向與正式授權', PM: '安排節奏並協調', PO: '決定需求和驗收', 'UI/UX': '設計介面', Dev: '修改程式', Reviewer: '審查修改', QA: '獨立驗證行為', Agent: '依交辦範圍執行' }[name])
+        : (isAgent && step >= 2 ? 'Agent' : '');
+      return `<g class="opening-role${highlightedAgent ? ' is-new' : ''}" data-role="${esc(name)}"><path d="M170 ${y + 25} H1550"/><text class="opening-role-name" x="18" y="${y - 3}">${showPeople ? esc(name) : (isAgent && step >= 2 ? 'Agent' : '')}</text>${showPeople ? `<text class="opening-role-duty" x="18" y="${y + 17}">${esc(label)}</text>` : ''}</g>`;
+    }).join('');
+    const processStages = SWIMLANE_LAYOUT.stages.filter(item => !item.outside);
+    const stageHeaders = showProcess ? processStages.map((column, index) => {
+      const center = column.x + column.width / 2;
+      const next = processStages[index + 1];
+      const arrow = next ? `<path class="opening-forward" d="M${column.x + column.width} 109 H${next.x - 5}" marker-end="url(#opening-arrow-${uid})"/>` : '';
+      return `<g class="opening-stage" data-state="${column.key}"><rect x="${column.x + 4}" y="53" width="${column.width - 8}" height="49" rx="4"/><text x="${center}" y="76" text-anchor="middle">${esc(column.label)}</text><text class="opening-stage-note" x="${center}" y="96" text-anchor="middle">${esc(column.subLabel)}</text>${arrow}</g>`;
+    }).join('') : '';
+    const activity = showProcess ? `<g class="opening-activity"><rect x="190" y="15" width="430" height="30" rx="4"/><text x="405" y="36" text-anchor="middle">Brainstorming／Refinement 活動</text></g>` : '';
+    const outsideGate = showProcess ? `<g class="opening-gate"><polygon points="1175,119 1187,132 1175,145 1163,132"/><text x="1195" y="138">Human Gate · 欄外授權</text></g>` : '';
+    const docs = [
+      { x: SWIMLANE_X.backlog, label: 'Goal Issue', purpose: '記產品目標' },
+      { x: SWIMLANE_X.dev, label: '工作票＋AC', purpose: '交辦工作與驗收' },
+      { x: SWIMLANE_X.qa, label: '測試紀錄', purpose: '留實測結果' },
+      { x: SWIMLANE_X.done, label: '放行紀錄', purpose: '記授權與交付' },
+    ];
+    const docNodes = showDocuments ? docs.map(({ x, label, purpose }) => {
+      const width = 148, left = x - width / 2, right = x + width / 2;
+      const highlight = showCard && x === SWIMLANE_X.dev ? ' is-highlighted' : '';
+      return `<g class="opening-doc${highlight}"><path d="M${left} 540 H${right - 13} L${right} 553 V587 H${left} Z"/><path d="M${right - 13} 540 V553 H${right}"/><text x="${x}" y="560" text-anchor="middle">${esc(label)}</text><text class="opening-doc-purpose" x="${x}" y="580" text-anchor="middle">${esc(purpose)}</text></g>`;
+    }).join('') : '';
+    const versionData = [
+      { x: SWIMLANE_X.dev, label: 'Branch', purpose: '隔離修改' },
+      { x: 655, label: 'Commit', purpose: '記錄變更' },
+      { x: 760, label: 'PR', purpose: '送審比較' },
+      { x: SWIMLANE_X.done, label: 'Merge', purpose: '整合核准修改' },
+    ];
+    const versionLinks = showVersions ? versionData.slice(0, -1).map((node, index) => `<path class="opening-version-link" d="M${node.x + 10} 625 H${versionData[index + 1].x - 12}" marker-end="url(#opening-arrow-version-${uid})"/>`).join('') : '';
+    const versions = showVersions ? versionData.map(({ x, label, purpose }) => `<g class="opening-version-node${showCard && label === 'Branch' ? ' is-highlighted' : ''}"><circle cx="${x}" cy="625" r="10"/><text class="opening-version-name" x="${x}" y="654" text-anchor="middle">${esc(label)}</text><text class="opening-version-purpose" x="${x}" y="678" text-anchor="middle">${esc(purpose)}</text></g>`).join('') : '';
+    const card = showCard ? `<g class="opening-work-card"><rect x="${SWIMLANE_X.dev - 72}" y="329" width="144" height="34" rx="4"/><text x="${SWIMLANE_X.dev}" y="351" text-anchor="middle">Dev｜修改配對規則</text></g>` : '';
+    const decisions = showReturns ? `<g class="opening-decision"><polygon points="${SWIMLANE_X.review},383 ${SWIMLANE_X.review + 20},403 ${SWIMLANE_X.review},423 ${SWIMLANE_X.review - 20},403"/><text x="${SWIMLANE_X.review}" y="408" text-anchor="middle">修改？</text></g><g class="opening-decision"><polygon points="${SWIMLANE_X.qa},433 ${SWIMLANE_X.qa + 20},453 ${SWIMLANE_X.qa},473 ${SWIMLANE_X.qa - 20},453"/><text x="${SWIMLANE_X.qa}" y="458" text-anchor="middle">FAIL？</text></g><g class="opening-decision"><polygon points="${SWIMLANE_X['product-check']},233 ${SWIMLANE_X['product-check'] + 20},253 ${SWIMLANE_X['product-check']},273 ${SWIMLANE_X['product-check'] - 20},253"/><text x="${SWIMLANE_X['product-check']}" y="258" text-anchor="middle">Goal？</text></g>` : '';
+    const returns = showReturns ? `<g class="opening-return"><path d="M860 477 V490 H560 V371" marker-end="url(#opening-return-arrow-${uid})"/><rect x="752" y="478" width="128" height="23" rx="3"/><text x="816" y="495" text-anchor="middle">測試 FAIL → Dev</text><path d="M710 427 V438 H560 V371" marker-end="url(#opening-return-arrow-${uid})"/><rect x="595" y="426" width="145" height="23" rx="3"/><text x="667" y="443" text-anchor="middle">Review 要修改 → Dev</text><path d="M1020 277 V289 H340 V253" marker-end="url(#opening-return-arrow-${uid})"/><rect x="513" y="276" width="180" height="23" rx="3"/><text x="603" y="293" text-anchor="middle">不符合 Goal → Refinement</text></g>` : '';
+    const personLane = `<g class="opening-map-zone opening-people${dim('people')}"><text class="opening-zone-label" x="18" y="136">人（泳道）</text>${roleRows}${card}${decisions}${returns}</g>`;
+    const processLane = `<g class="opening-map-zone opening-process${dim('process')}"><text class="opening-zone-label" x="18" y="82">流程（X 軸）</text>${activity}${stageHeaders}${outsideGate}<g class="opening-axis-guides">${processStages.map(item => `<line x1="${item.x}" y1="112" x2="${item.x + item.width}" y2="112"/>`).join('')}</g></g>`;
+    const documentsLane = `<g class="opening-map-zone opening-documents${dim('documents')}"><path class="opening-divider" d="M170 532 H1550"/><text class="opening-zone-label" x="18" y="562">文件</text>${docNodes}</g>`;
+    const versionLane = `<g class="opening-map-zone opening-version${dim('version')}"><path class="opening-divider is-strong" d="M170 596 H1550"/><text class="opening-zone-label" x="18" y="632">版本管理</text>${versionLinks}${versions}</g>`;
+    return `<div class="full-map-wrap opening-map"><svg class="swimlane-svg" viewBox="0 0 1600 780" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="${uid}-title ${uid}-desc"><title id="${uid}-title">同一張泳道骨架逐步展開</title><desc id="${uid}-desc">流程、人、文件和版本管理依序加入；卡片與下方文件、版本節點對齊，判斷以欄外菱形和退回路徑表示。</desc><defs><marker id="opening-arrow-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#8ba69c"/></marker><marker id="opening-return-arrow-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#e6aa8f"/></marker><marker id="opening-arrow-version-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#92a9d4"/></marker></defs><rect class="opening-panel" x="170" y="15" width="1380" height="105" rx="5"/><rect class="opening-panel" x="170" y="130" width="1380" height="393" rx="5"/><rect class="opening-panel" x="170" y="540" width="1380" height="48" rx="3"/><rect class="opening-panel opening-panel-version" x="170" y="600" width="1380" height="95" rx="3"/>${processLane}${personLane}${documentsLane}${versionLane}</svg></div>`;
   }
 
   function locator(slide) {
     let stage = slide.dataset.focusStage || '';
     const page = Number(slide.dataset.page);
-    if (page >= 51 && page <= 60) stage = 'qa';
-    const rewindSegment = page >= 51 && page <= 60;
+    if (page >= 54 && page <= 63) stage = 'qa';
+    const rewindSegment = page >= 54 && page <= 63;
     const roleNames = (slide.dataset.focusRolesMap || slide.dataset.focusRoles || '').split(',').map(role => role.trim()).filter(Boolean).map(role => role === 'Human' ? 'Owner' : role);
     const roleSummary = rewindSegment ? 'QA · Agent' : roleNames.length > 4 ? '全部角色' : (roleNames.length ? roleNames.join(' · ') : '所有泳道');
     const selected = new Set(STAGE_KANBAN[stage] || []);
@@ -877,7 +941,7 @@
         body = `<div class="qa-evidence-shell qa-method-shell"><header><span>規則層實測步驟</span><strong>先取得可重跑的觀察，再記錄結果</strong><em>步驟示意</em></header><div class="qa-method-steps"><article><b>1 · 準備</b><span>重置假資料</span></article><i>→</i><article><b>2 · 執行</b><span>小安按讚小晴</span></article><i>→</i><article><b>3 · 看結果</b><span>查配對紀錄數</span></article><i>→</i><article><b>4 · 對照預期</b><span>預期 0 筆</span></article></div>${qaTable([['版本','AC 對應案例','規則預期','實際觀察','PASS／FAIL／未測']])}<p>本頁只說明取得規則層觀察的方法；沒有新增測試結果。</p></div>`;
         break;
       case 'Q02':
-        body = `<div class="qa-evidence-shell actual-evidence qa-failure-evidence"><header><span>規則層實測</span><strong>第一版 · 單向 Like</strong><em>FAIL</em></header>${evidenceReference('第一版', '單向 Like 測試紀錄')}${qaTable([['第一版','小安 Like 小晴；尚未互相 Like','0 筆配對','1 筆配對紀錄','FAIL']])}<div class="qa-fail-detail"><article><span>工作票 AC1 · 單向按讚</span><strong>預期 0 筆；實際 1 筆</strong><small>FAIL：第一版沒有符合 AC1</small></article><div class="qa-return-path"><b>QA</b><i>→</i><b>Dev</b><span>依 AC1 退回修正</span></div></div><p>第一版規則測試失敗；退回線表示修正流程，測試紀錄只保留實際觀察。</p></div>`;
+        body = `<div class="qa-evidence-shell actual-evidence qa-failure-evidence"><header><span>規則層實測</span><strong>第一版 · 單向 Like</strong><em>FAIL</em></header>${evidenceReference('第一版', '單向 Like 測試紀錄')}${qaTable([['第一版','小安 Like 小晴；尚未互相 Like','0 筆配對','1 筆配對紀錄','FAIL']])}<div class="qa-fail-detail"><article><span>工作票 #3 · AC1 · 單向按讚</span><strong>預期 0 筆；實際 1 筆</strong><small>FAIL：第一版沒有符合 AC1</small></article><div class="qa-return-path"><b>QA</b><i>→</i><b>Dev</b><span>依 AC1 退回修正</span></div></div><p>第一版規則測試失敗；退回線表示修正流程，測試紀錄只保留實際觀察。</p></div>`;
         break;
       case 'Q03':
         body = `<div class="qa-evidence-shell actual-evidence"><header><span>規則層實測</span><strong>修正版・第一次測</strong><em>部分通過</em></header>${evidenceReference('修正版', '單向與雙向測試紀錄')}${qaTable([['修正版・第一次測','單向 Like','0 筆','0 筆','PASS'],['修正版・第一次測','雙向 Like','1 筆','1 筆','PASS'],['修正版・第一次測','重複按讚','仍 1 筆','未執行','未測']])}<p>AC1／AC2 有規則證據；重複按讚尚未驗證。</p></div>`;
@@ -907,11 +971,11 @@
 
   function renderPrincipleArtifact(id) {
     const artifacts = {
-      A06: `<div class="principle-output-sheet"><header><b>工作票 #3 · 配對規則</b><span>交接紀錄 · 示意</span></header><ul><li>第一次測：AC1／AC2 PASS</li><li>重複按讚：未測</li><li>下一步：提出補測要求</li></ul></div>`,
-      A07: `<div class="principle-output-sheet"><header><b>工作票 #3 · 配對規則</b><span>變更請求 · 示意</span></header><ul><li>聊天室：範圍外</li><li>停止條件：先停止執行</li><li>由人決定是否重排</li></ul></div>`,
-      A08: `<div class="principle-output-records" aria-label="不同角色的 Issue、PR、Review 與 QA 測試紀錄"><article><b>PR</b><span>修改摘要</span></article><article><b>Review</b><span>審查意見</span></article><article><b>QA</b><span>AC 測試結果</span></article><article><b>Owner</b><span>Human Gate 授權</span></article></div><small class="principle-output-note">四種紀錄分開保存；此處為格式示意。</small>`,
+      A06: `<div class="principle-output-sheet"><header><b>Issue #3 · 配對規則</b><span>工作進度</span></header><ul><li>AC1／AC2：第一次測 PASS</li><li>重複按讚：未測</li><li>下一步：提出補測要求</li></ul></div>`,
+      A07: `<div class="principle-output-sheet"><header><b>Issue #3 · 變更請求</b><span>情境示意</span></header><ul><li>聊天室功能：範圍外</li><li>停止條件：先停止執行</li><li>由人決定是否重排</li></ul></div>`,
+      A08: `<div class="principle-output-records" aria-label="Issue、Pull Request、Review、Evidence 和授權紀錄卡"><article><b>Issue #3</b><span>核准範圍與 AC</span></article><article><b>Pull Request</b><span>程式修改摘要</span></article><article><b>Review</b><span>審查意見與處置</span></article><article><b>Evidence</b><span>QA 結果與未測項</span></article></div><small class="principle-output-note">分開保存不同紀錄；此處為格式示意。</small>`,
       A09: `<div class="principle-output-timeline" aria-label="修正版兩個測試時點的紀錄"><article><span>修正版・第一次測</span><strong>單向／雙向 PASS<br>重複按讚未測</strong></article><i aria-hidden="true">→</i><article><span>修正版・補測，同一程式</span><strong>重複按讚 PASS</strong></article></div><small class="principle-output-note">介面、完整流程、上線與產品目標仍未測</small>`,
-      A10: `<div class="principle-output-sheet"><header><b>Parent Goal Issue</b><span>決策紀錄 · 示意</span></header><ul><li>回查 #1／#2 依賴與優先級</li><li>目標問題 → Backlog／Refinement</li><li>實作問題 → Dev；介面與完整流程仍未測</li></ul></div>`,
+      A10: `<div class="principle-output-sheet"><header><b>目標與工作票</b><span>關聯示意</span></header><ul><li>產品目標：互相按讚後找到對方</li><li>規則工作票 #3：AC1／AC2 有紀錄</li><li>介面、完整流程與整體成效：未測</li></ul></div>`,
     };
     return artifacts[id] || '';
   }
@@ -945,6 +1009,10 @@
   function renderArtwork(slide) {
     const art = slide.querySelector('.artwork');
     const key = slide.dataset.art;
+    if (key === 'mother-map' && slide.dataset.openingStep) {
+      art.innerHTML = renderOpeningMap(slide);
+      return;
+    }
     if (key === 'mother-map') {
       const agent = slide.dataset.agent === 'true';
       art.innerHTML = `<div class="full-map-wrap">${renderMotherMap({

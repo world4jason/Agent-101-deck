@@ -102,9 +102,34 @@ def violations(doc: dict, base: dict, story: str, readme: str,
         parser = ImplementedSlideParser()
         parser.feed(slides_html)
         parser.close()
-        rendered_ids = [item.get("data-rev13-scene-id") for item in parser.slides]
-        if rendered_ids != all_ids:
-            fail("implementation requires all 62 slide sections in exact v5 scene order")
+        expected_map = doc.get("implementation_slide_map", [])
+        rendered_map = []
+        for item in parser.slides:
+            merged = [value.strip() for value in (item.get("data-rev13-merged-scenes") or "").split(",") if value.strip()]
+            try:
+                page = int(item.get("data-page") or "")
+            except ValueError:
+                page = -1
+            rendered_map.append({
+                "page": page,
+                "scene_id": item.get("data-rev13-scene-id"),
+                "merged_scene_ids": merged,
+            })
+        if not expected_map or rendered_map != expected_map:
+            fail("implementation slide map must match the manifest")
+        mapped_ids = [
+            scene_id
+            for item in rendered_map
+            for scene_id in [item.get("scene_id"), *item.get("merged_scene_ids", [])]
+            if scene_id
+        ]
+        if set(mapped_ids) != set(all_ids):
+            fail("implementation must trace all 62 scenes across mapped slide sections")
+        opening_ids = [item.get("data-rev13-scene-id") for item in parser.slides[:8]]
+        if opening_ids != ["O01", "O02", "C01", "C03", "C05", "C08", "C02", "C07"]:
+            fail("implementation opening must follow the eight-step reveal scene map")
+        if len(parser.slides) != len(expected_map):
+            fail("implementation must contain every slide listed in the scene map")
         required = {
             "data-page", "data-rev13-scene-id", "data-phase", "data-focus-roles",
             "data-doc-ref", "data-version-ref", "data-github-ref", "data-beat",

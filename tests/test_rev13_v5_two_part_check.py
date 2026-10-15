@@ -37,7 +37,7 @@ class TwoPartContractTests(unittest.TestCase):
         slides_html = slides_html[:slides_html.index('data-rev13-scene-id="X01"')]
         problems = gate.violations(broken, base, source, readme, agents, preserved,
                                    slides_html)
-        self.assertTrue(any("all 62 slide sections" in message for message in problems))
+        self.assertTrue(any("all 62 scenes" in message for message in problems))
 
     def test_cannot_erase_stage_output(self):
         def mutate(x):

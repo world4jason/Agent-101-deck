@@ -19,22 +19,24 @@
 
 ## 1. Part 1｜認識系統（22 個候選 Scene）
 
-第一張 O01：完整流程和所有主要職能＋**人、流程、文件、版本管理**四個固定位置。第二張 O02：**相同畫面**只新增 Agent 為第五層，Human Gate 不消失。接著 C01–C20 逐項學會辨認，不塞滿同一頁。
+開場投影片 1–8 使用同一張泳道骨架逐步揭露：O01 先呈現人、流程、文件、版本管理四個空區域；O02 只新增 Agent 泳道；接著依序展開流程（C01）、人員（C03）、文件（C05）、版本管理（C08）、工作卡（C02），最後用 C07 展示判斷與退回路徑，並以 `data-rev13-merged-scenes` 追溯同頁承接的 C01。第 9 頁後再接 Stage Card、角色×階段、文件生命週期、判準、Git/GitHub、版本歷史、Agent、九張階段卡與練習。
+
+O01 改為四大重點空骨架，**依 design-principles 第 4 條漸進式揭露，覆蓋原「第一張即完整母圖」**；七欄、角色、卡片與退回線分頁展開。
 
 **先備順序（P2）**：C01–C02 先教 Workflow 地圖和 Stage Card 用語 → **C03–C10 先教角色／文件／GitHub／Agent 的名稱與特徵** → **C11–C19 才逐站使用這些術語介紹 9 個 Stage Contract** → C20 檢核。避免小白尚不懂 PO、AC、PR，就被要求讀懂 Stage Card。
 
 | 順序 | Scene | 當頁唯一主要學習任務 | 視覺聚焦與轉場 | Rev12 可用素材 |
 |---:|---|---|---|---|
-| 01 | O01 | 傳統軟體開發四大要素：人、流程、文件、版本管理 | Overview 全貌，所有主要角色和流程同時可見 | p.5、p.26、p.31 |
+| 01 | O01 | 四大重點骨架：人、流程、文件、版本管理 | 依 design-principles 第 4 條漸進式揭露；覆蓋原「第一張即完整母圖」 | p.5、p.26、p.31 |
 | 02 | O02 | 同一張母圖加入 Agent 第五要素，原四大要素不移位 | Before/After，Human Gate 保留 | p.56、p.84 |
-| 03 | C01 | 完整工作流程和七個 Kanban 狀態的區分 | 活動、欄位、欄外 Human Gate 分層顯示 | p.26、p.93 |
-| 04 | C02 | Stage Card 怎樣讀：Product Goal、Stage Target、Input、Action、Output、Exit Criteria、Roles、GitHub | 定義 Goal 與階段目的、產出、完成條件的差別 | p.25、p.26 |
-| 05 | C03 | 職能總覽：Owner、PM、PO、UI/UX、Dev、Reviewer、QA | Role ≠ 人數 ≠ Agent 數；一人可多職能 | p.5、p.6、p.7、p.25、p.84 |
+| 03 | C01 | 展開工作流程和七個 Kanban 狀態 | 先揭露活動、欄位與欄外 Human Gate；主要退回路徑由 C07 開場頁接續 | p.26、p.93 |
+| 04 | C02 | 工作卡怎樣讀：誰、在哪一站、做什麼；再展開 Stage Card 欄位 | 先用一張卡定位工作，再補 Goal、Input、Output 與 Exit | p.25、p.26 |
+| 05 | C03 | 職能總覽：Owner、PM、PO、UI/UX、Dev、Reviewer、QA | 逐一說明責任，再於 Roles × Stages 詳頁看站點關係 | p.5、p.6、p.7、p.25、p.84 |
 | 06 | C04 | Roles × Stages 主責、協作、決策矩陣 | 全流程一次看懂誰在哪段 co-work；不是固定組織編制 | p.6、p.7、p.18、p.91 |
-| 07 | C05 | 文件種類：Goal／Proposal、Epic、Story、Task、Ticket、AC、AT、DoD | 一次認識文件層次；不做完整 Matching AC 示範 | p.14、p.16、p.21、p.22、p.23 |
+| 07 | C05 | 文件軌：Goal Issue、工作票與 AC、測試紀錄、放行紀錄 | 每項先用短名稱和用途定位；生命週期與判準另頁展開 | p.14、p.16、p.21、p.22、p.23 |
 | 08 | C06 | 文件生命週期：需求→拆票→交付→Review→Evidence→放行記錄 | 同一文件可以被更新，Issue/PR 不等於 Git commit | p.14、p.21、p.23、p.45、p.47、p.51 |
 | 09 | C07 | Goal vs Stage Objective、AC vs AT vs DoD、Exit Criteria、Evidence | 幫學生辨認各類判準的適用層級 | p.11、p.21、p.23、p.24、p.47 |
-| 10 | C08 | Git 與 GitHub：Issue、Project、Repo、Branch、Commit、PR、Merge | 版控和文件分兩軌，用連線表達交會 | p.14、p.31、p.32、p.33、p.34、p.35、p.36、p.37 |
+| 10 | C08 | 版本管理軌：Branch、Commit、PR、Merge；再展開 Git/GitHub 物件關係 | 先看版本節點順序，再以細節頁分辨 Issue、Project、Repo 與 PR | p.14、p.31、p.32、p.33、p.34、p.35、p.36、p.37 |
 | 11 | C09 | 版本歷史與工作票連結：Branch→Commit→PR→Merge／回復 | 抽象版本路徑示意，Part2 才揭露 Matching Version A/B | p.32、p.33、p.34、p.35、p.36、p.37 |
 | 12 | C10 | Agent 能接什麼工作？Chat／Session／Agent／Workflow 與五項工作守則的預告 | 可執行／協調，不授權自己放行；五原則完整示範仍在 Part2 | p.56、p.57、p.61、p.65、p.66、p.73、p.76 |
 | 13 | C11 | Brainstorming Stage Contract | 先介紹工作站，不提前展示 Matching 的決議結果 | p.10、p.11 |

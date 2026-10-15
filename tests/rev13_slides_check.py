@@ -465,16 +465,47 @@ def main() -> int:
         fail(errors, "v5 manifest must declare implementation after all 62 scenes are present")
     if len(expected) != 62 or len(set(expected)) != 62:
         fail(errors, "v5 manifest must define 62 unique scenes")
-    implemented_ids = [
-        slide["attrs"].get("data-rev13-scene-id") for slide in slides
-    ]
-
     if not slides:
         fail(errors, "no .slide sections were found")
-    if len(slides) != 62:
-        fail(errors, f"expected all 62 scenes, found {len(slides)}")
-    if implemented_ids != expected:
-        fail(errors, "scene IDs do not match the complete v5 scene order")
+    expected_slide_map = manifest.get("implementation_slide_map", [])
+    if not isinstance(expected_slide_map, list) or not expected_slide_map:
+        fail(errors, "v5 manifest must map implementation slides to scene IDs")
+        expected_slide_map = []
+    if len(slides) != len(expected_slide_map):
+        fail(errors, f"expected {len(expected_slide_map)} mapped slides, found {len(slides)}")
+    actual_slide_map = []
+    for slide in slides:
+        attrs = slide["attrs"]
+        try:
+            page_number = int(attrs.get("data-page") or "")
+        except ValueError:
+            page_number = -1
+        merged = [item.strip() for item in (attrs.get("data-rev13-merged-scenes") or "").split(",") if item.strip()]
+        actual_slide_map.append({
+            "page": page_number,
+            "scene_id": attrs.get("data-rev13-scene-id"),
+            "merged_scene_ids": merged,
+        })
+    if actual_slide_map != expected_slide_map:
+        fail(errors, "slide scene mapping does not match the v5 manifest")
+    mapped_ids = [
+        scene_id
+        for item in actual_slide_map
+        for scene_id in [item.get("scene_id"), *item.get("merged_scene_ids", [])]
+        if scene_id
+    ]
+    if set(mapped_ids) != set(expected):
+        missing = sorted(set(expected) - set(mapped_ids))
+        unknown = sorted(set(mapped_ids) - set(expected))
+        fail(errors, f"slide mapping must trace all 62 scenes (missing={missing}, unknown={unknown})")
+    opening = slides[:8]
+    opening_scenes = [slide["attrs"].get("data-rev13-scene-id") for slide in opening]
+    if opening_scenes != ["O01", "O02", "C01", "C03", "C05", "C08", "C02", "C07"]:
+        fail(errors, "opening slide scene map must follow the eight-step reveal sequence")
+    if [slide["attrs"].get("data-opening-step") for slide in opening] != [str(step) for step in range(1, 9)]:
+        fail(errors, "opening slides must reveal exactly one map step at a time")
+    if opening and opening[-1]["attrs"].get("data-rev13-merged-scenes") != "C01":
+        fail(errors, "the return-path opening slide must preserve its C01 scene link")
 
     for number, slide in enumerate(slides, start=1):
         attrs = slide["attrs"]
@@ -552,7 +583,7 @@ def main() -> int:
         if "→" not in caption:
             fail(errors, f"{scene_id}: updated overview must show a visible before-to-after delta")
 
-    print(f"Checked {len(slides)} slides against all {len(expected)} v5 scenes.")
+    print(f"Checked {len(slides)} slides against all {len(expected)} mapped v5 scenes.")
     if errors:
         for error in errors:
             print(f"ERROR: {error}")
