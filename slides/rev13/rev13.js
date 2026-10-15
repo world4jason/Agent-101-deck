@@ -238,7 +238,7 @@
     const {
       spotlightZones = [], roles = [], stage = '', states = [],
       agent = true, compact = false, revealAgent = false,
-      agentMode = '', mapFooter = '',
+      agentMode = '', mapFooter = '', versionEvidence = '',
     } = options;
     const zoneSet = new Set(spotlightZones);
     const roleSet = new Set(roles);
@@ -270,13 +270,13 @@
 
     const agentRoutes = {
       delegate: '<span class="agent-route"><b>executor</b><i>→</i><strong>Dev</strong></span><span class="agent-route human-route"><b>Human</b><i>→</i><strong>範圍／Gate</strong></span>',
-      single: '<span class="agent-route"><b>Agent executor</b><i>→</i><strong>Dev 工作</strong></span><span class="agent-route human-route"><b>QA／Owner</b><i>→</i><strong>驗證／授權</strong></span>',
-      'multi-chat': '<span class="agent-route"><b>Dev Chat</b><i>→</i><strong>Ticket handoff</strong><i>→</i><b>Reviewer／QA Chat</b></span><span class="agent-route human-route"><b>Human</b><i>→</i><strong>交接決定</strong></span>',
-      orchestrator: '<span class="agent-route"><b>Orchestrator</b><i>→</i><strong>Dev · Reviewer · QA</strong></span><span class="agent-route human-route"><b>Human Owner</b><i>→</i><strong>Human Gate</strong></span>',
+      single: '<article class="agent-step"><b>Human</b><span>Issue #3 · Scope／AC</span></article><i>→</i><article class="agent-step agent-executor"><b>Agent executor</b><span>Dev · 候選／交付摘要</span></article><i>→</i><article class="agent-step agent-check"><b>QA／Owner</b><span>Evidence · Human Gate</span></article>',
+      'multi-chat': '<article class="agent-step"><b>Dev Chat</b><span>Issue #3 · Scope／AC</span></article><i>→</i><article class="agent-step handoff-packet"><b>外部 handoff</b><span>Ticket state · version ID · Evidence ref</span></article><i>→</i><article class="agent-step agent-check"><b>Reviewer／QA Chat</b><span>核對來源 · 回寫結果</span></article>',
+      orchestrator: '<article class="agent-step"><b>Orchestrator</b><span>讀取 #3 核准範圍</span></article><i>→</i><article class="agent-step agent-dispatch"><b>分派工作</b><span>Dev · Reviewer · QA</span></article><i>→</i><article class="agent-step agent-check"><b>彙整至 #3</b><span>PR · Review · Evidence</span></article>',
     };
     let agentMarkup = '';
     if (agent) {
-      agentMarkup = `<div class="agent-layer${revealAgent ? ' fragment' : ''}${agentMode ? ' has-routing' : ''}" role="group" aria-label="Agent：受委派執行／協調；範圍、責任與 Human Gate 仍連回原四區"${revealAgent ? ' data-fragment-order="1"' : ''}>
+      agentMarkup = `<div class="agent-layer${revealAgent ? ' fragment' : ''}${agentMode ? ` has-routing mode-${esc(agentMode)}` : ''}" role="group" aria-label="Agent：受委派執行／協調；範圍、責任與 Human Gate 仍連回原四區"${revealAgent ? ' data-fragment-order="1"' : ''}>
         <span class="agent-identity"><span class="agent-mark" aria-hidden="true">A</span><strong>Agent</strong></span>
         ${agentMode ? `<div class="agent-routing">${agentRoutes[agentMode] || agentRoutes.delegate}</div>` : '<span>受委派執行／協調；人決定範圍與放行</span>'}
       </div>`;
@@ -318,6 +318,7 @@
               <div class="version-node"><b>PR</b></div><i>→</i>
               <div class="version-node"><b>Merge</b></div>
             </div>
+            ${versionEvidence}
           </section>
         </div>
         <div class="github-bridge" role="group" aria-label="GitHub 橫跨文件協作與版本審查">
@@ -477,10 +478,15 @@
     const gateX = columnX(6);
     const doneX = columnX(7);
     const stageLine = `<path class="matrix-timeline" d="M${left} ${topY} H${checkX} M${gateX + 22} ${topY} H${doneX}" />`;
-    const rows = ROLE_DATA.map((role, r) => {
+    const rowGuides = ROLE_DATA.map((role, r) => {
       const y = rowStart + r * rowGap;
-      const cells = columns.map((column, i) => {
-        const x = columnX(i);
+      const rowLine = `<path class="matrix-rowline" d="M${left} ${y} H${gateX - 19} M${gateX + 19} ${y} H${doneX}" />`;
+      return `${rowLine}<text class="matrix-role-label" x="12" y="${y + 7}">${esc(role.name)}</text>`;
+    }).join('');
+    const columnRows = columns.map((column, i) => {
+      const x = columnX(i);
+      const cells = ROLE_DATA.map((role, r) => {
+        const y = rowStart + r * rowGap;
         const primary = column.stageKeys.some(stageKey => STAGES[stageKey].lead.includes(role.name));
         const co = !primary && column.stageKeys.some(stageKey => STAGES[stageKey].co.includes(role.name));
         if (!primary && !co) return '';
@@ -490,15 +496,12 @@
           : `<circle class="${className}" cx="${x}" cy="${y}" r="${primary ? 18 : 13}" />`;
         return `<path class="matrix-link ${primary ? 'is-lead' : 'is-co'}" d="M${x} ${topY + 17} V${y - 9}" />${mark}`;
       }).join('');
-      const rowLine = `<path class="matrix-rowline" d="M${left} ${y} H${gateX - 19} M${gateX + 19} ${y} H${doneX}" />`;
-      return `<g class="matrix-row" data-role="${esc(role.name)}">
-        ${rowLine}<text class="matrix-role-label" x="12" y="${y + 7}">${esc(role.name)}</text>${cells}
-      </g>`;
+      return `<g class="matrix-column" data-stage="${column.key}">${cells}</g>`;
     }).join('');
     return `<div class="focus-compose">${locator(slide)}
       <div class="diagram-field matrix-field">
         <svg class="roles-matrix" viewBox="0 0 ${width} ${height}" role="img" aria-label="七種角色連到各階段的主責與協作矩陣">
-          ${stageLine}${stageNodes}${rows}
+          ${stageLine}${stageNodes}${rowGuides}${columnRows}
         </svg>
         <div class="matrix-legend"><span><i class="legend-lead"></i>主責</span><span><i class="legend-co"></i>協作</span><span><i class="legend-gate"></i>欄外決策</span></div>
       </div>
@@ -606,7 +609,7 @@
           <path class="git-track main-track" d="M76 290 H930" />
           <path class="git-track branch-track" d="M250 290 C320 290 330 150 420 150 H650 C710 150 710 290 735 290" />
           <path class="git-track review-track" d="M650 150 C690 170 718 225 730 278" marker-end="url(#arrow-version)" />
-          <path class="git-track rollback-track" d="M744 304 C770 350 820 350 855 304" marker-end="url(#arrow-rollback)" />
+          <path class="git-track rollback-track" d="M748 301 H780 C796 365 833 365 855 304" marker-end="url(#arrow-rollback)" />
           <circle class="git-dot" cx="110" cy="290" r="13" /><circle class="git-dot" cx="250" cy="290" r="13" />
           <circle class="git-dot branch-dot" cx="420" cy="150" r="13" /><circle class="git-dot branch-dot" cx="540" cy="150" r="13" />
           <circle class="git-dot pr-dot" cx="650" cy="150" r="15" /><circle class="git-dot merge-dot" cx="735" cy="290" r="15" />
@@ -754,6 +757,7 @@
     const scene = slide.dataset.rev13SceneId;
     const delta = B2_MAP_STATE[scene];
     const footer = delta?.footer ? `<div class="map-delta${scene === 'A11' ? ' principle-pin-row' : ''}" aria-label="本頁狀態差">${delta.footer}</div>` : '';
+    const versionEvidence = scene === 'A11' ? `<div class="a11-evidence-strip" aria-label="同一 Candidate B 的補驗變化與未測範圍"><div><b>B-pre</b><span>AC1／AC2 PASS · AC3 duplicate NOT RUN</span></div><i aria-hidden="true">→</i><div><b>B-post</b><span>同一 Candidate B · AC3 duplicate PASS</span></div><strong>UI／E2E／Release／Goal · NOT RUN</strong></div>` : '';
     const zones = (slide.dataset.focusZones || '').split(',').filter(Boolean);
     const roles = (slide.dataset.focusRolesMap || '').split(',').map(role => role.trim()).filter(Boolean);
     const map = renderMotherMap({
@@ -764,6 +768,7 @@
       agent: true,
       agentMode: slide.dataset.agentMode || '',
       mapFooter: footer,
+      versionEvidence,
     });
     return `<div class="full-map-wrap b2-full-map">${addMapMarkers(map, delta, slide)}</div>`;
   }
