@@ -2377,9 +2377,26 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .ticket-pair article b { font-size: 20px; white-space: nowrap; }
 .ticket-pair article p { font-size: 21px; }
 .slide[data-page="7"] .good-ticket-grid {
-  grid-template-rows: minmax(0, .5fr) minmax(0, .5fr) minmax(180px, 1.55fr) minmax(120px, 1.15fr) minmax(0, .5fr);
-  gap: 8px;
+  grid-template-rows: minmax(94px, .8fr) minmax(64px, .55fr) minmax(210px, 2fr) minmax(88px, .85fr) minmax(48px, .45fr);
+  align-content: start;
+  gap: 7px;
 }
+
+/* Keep all six orchestration steps on one line and leave room below the diagram. */
+.slide[data-page="58"] .agent-mode-step > strong { font-size: 21px; line-height: 1.1; white-space: nowrap; }
+.slide[data-page="58"] .caption { padding-bottom: 9px; }
+
+/* Stack all three real rule-test events in their actual order. */
+.slide[data-page="63"] .principle-output-timeline {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4px;
+}
+.slide[data-page="63"] .principle-output-timeline article {
+  min-height: 0;
+  gap: 5px;
+  padding: 10px 12px;
+}
+.slide[data-page="63"] .principle-output-timeline i { font-size: 19px; line-height: .8; }
 
 /* Keep each station's three reading areas compact, with the work in larger type. */
 .stage-intro-card { justify-content: center; gap: 13px; padding: 17px 20px; }

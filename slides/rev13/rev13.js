@@ -1003,8 +1003,50 @@
       versionStage: 'human_gate', versionStatus: '已授權・未執行', ticket: 'product-check',
       versionStates: { qa: { status: '已授權，待合併' } },
     },
-    A01: { docStage: 'human_gate', docLabel: '授權決定', docStatus: '已授權・未執行', ticket: 'product-check' },
-    A11: { docStage: 'product-check', docLabel: '目標對照', docStatus: '體驗未測', versionStage: 'qa', versionStatus: '紀錄可回查' },
+  };
+
+  const AGENT_TIMELINE_START = {
+    docStage: 'ready', docLabel: '工作票', docStatus: '配對規則票已交辦',
+    ticket: 'dev', previous: 'ready',
+    docStates: {
+      backlog: { label: '產品目標', status: '沿用既有目標' },
+      ready: { label: '工作票', status: '配對規則票已交辦' },
+      dev: { label: '工作紀錄', status: '尚未產生' },
+      review: { label: '審查意見', status: '尚未產生' },
+      qa: { label: '測試紀錄', status: '尚未產生' },
+      'product-check': { label: '目標對照', status: '尚未核對' },
+      human_gate: { label: '授權決定', status: '尚未決定' },
+      done: { label: '交付紀錄', status: '尚未產生' },
+    },
+    versionStage: 'dev', versionStatus: '尚未開分支',
+    versionStates: {
+      dev: { status: '尚未開分支' },
+      review: { status: '尚無修改紀錄' },
+      qa: { status: '尚未送審' },
+      human_gate: { status: '尚未授權' },
+    },
+  };
+
+  const AGENT_TIMELINE_AFTER_QA = {
+    docStage: 'product-check', docLabel: '目標對照', docStatus: '整體目標仍未測',
+    ticket: 'product-check',
+    docStates: {
+      backlog: { label: '產品目標', status: '沿用既有目標' },
+      ready: { label: '工作票', status: '同一張票已交辦' },
+      dev: { label: '工作紀錄', status: 'Agent 修改為教學示意' },
+      review: { label: '審查意見', status: '審查流程為教學示意' },
+      qa: { label: '測試紀錄', status: '三次規則實測可回查' },
+      'product-check': { label: '目標對照', status: '介面與完整流程未測' },
+      human_gate: { label: '授權決定', status: '尚未決定' },
+      done: { label: '交付紀錄', status: '尚未產生' },
+    },
+    versionStage: 'qa', versionStatus: '規則測試紀錄可回查',
+    versionStates: {
+      dev: { status: 'Agent 修改：教學示意' },
+      review: { status: '審查：教學示意' },
+      qa: { status: '測試對應修正版' },
+      human_gate: { status: '尚未授權' },
+    },
   };
 
   function cumulativeB2Delta(scene) {
@@ -1022,6 +1064,12 @@
       if (item.versionStage) versionStates[item.versionStage] = { label: item.versionLabel, status: item.versionStatus };
     });
     return { ...(current || {}), docStates, versionStates };
+  }
+
+  function agentTimelineDelta(scene, slide) {
+    if (scene === 'A11') return AGENT_TIMELINE_AFTER_QA;
+    if (scene === 'O02' || scene === 'A01' || slide.dataset.roleCapability) return AGENT_TIMELINE_START;
+    return cumulativeB2Delta(scene);
   }
 
   const QA_STATUS = {
@@ -1060,7 +1108,7 @@
 
   function renderPart2Map(slide) {
     const scene = slide.dataset.rev13SceneId || slide.dataset.rev13MergedScenes?.split(',')[0];
-    const delta = cumulativeB2Delta(scene);
+    const delta = agentTimelineDelta(scene, slide);
     const spotlightZones = ['O03', 'A01', 'A11'].includes(scene)
       ? [] : (slide.dataset.focusZones || '').split(',').filter(Boolean);
     const roles = ['O03', 'A01', 'A11'].includes(scene)
@@ -1108,8 +1156,8 @@
         ],
         routes: [[[1, 0], [2, 1], [3, 1], [4, 0]]],
         artifacts: [
-          '回報示意：改互按才配對；單向／雙向 PASS；重複按讚未測',
-          '同一張票：續記改動摘要、版本來源與未測項',
+          '回報示意：已依交辦修改配對規則；測試紀錄尚未產生',
+          '同一張票：續記修改摘要；正式授權尚未決定',
         ],
       },
       'multi-chat': {
@@ -1129,7 +1177,7 @@
       orchestrator: {
         title: '協調 Agent 分派工作，人保留正式放行',
         note: '架構示意，不代表實際多 Agent 協作；協調 Agent 收整回報，讓人集中核對。',
-        columns: ['人核准', 'Agent 分派', '開發 Agent 修改', '審查／品質驗證', 'Agent 彙整', '人決定放行'],
+        columns: ['人核准', 'Agent 分派', 'Agent 開發修改', '人審查／驗證', 'Agent 彙整', '人決定放行'],
         lanes: [
           ['授權人', 'human', [[1, '核准範圍與停止條件', 'human'], [6, '看證據，決定是否正式放行', 'human']]],
           ['協調 Agent', 'agent', [[2, '依工作邊界分派', 'agent'], [5, '彙整回報並附來源', 'agent']]],
@@ -1298,10 +1346,10 @@
   }
 
   const PRINCIPLE_CASES = {
-    A06: { risk: '接手者只看到聊天摘要，不知道這張票在哪一站、重複按讚是否測過。', decision: '先讀共享工作票，確認負責人、AC、目前進度、已測與未測，再接著做。' },
+    A06: { risk: '接手者只看到聊天摘要，不知道這張票的範圍、負責人、AC 和目前位置。', decision: '先讀工作票確認目標、範圍、AC 與接手位置；此時修改、測試與授權紀錄尚未產生。' },
     A07: { risk: 'Agent 想順手加聊天室，超出配對規則票的核准範圍。', decision: '超出本票就依停止條件停下，記下變更請求，交給人決定是否另排工作。' },
     A08: { risk: 'Agent 說「我做完了，可以放行」，執行者可能把實作、審查、驗證和決策混在一起。', decision: '做的人交出修改；Reviewer 審查、QA 獨立驗證，授權人最後決定是否放行。' },
-    A09: { risk: 'Agent 回報單向、雙向 PASS，但真實紀錄中重複按讚仍未測。', decision: 'QA 對照 AC、版本、輸入、預期和實際，要求補測；修正版補測才證明重複按讚 PASS。' },
+    A09: { risk: 'Agent 回報單向、雙向 PASS；仍要逐項核對第一版與修正版的真實測試紀錄。', decision: '核對第一版單向 FAIL、修正版第一次測的單向／雙向 PASS 與重複按讚未測，再核對同一份修正版程式的補測 PASS。' },
     A10: { risk: '配對規則三項測試都有結果，使用者是否能在配對清單找到對方仍未驗。', decision: '回到 Parent Goal 判斷；規則票 PASS 不等於介面、完整流程或產品目標 PASS。' },
   };
 
@@ -1315,10 +1363,10 @@
 
   function renderPrincipleArtifact(id) {
     const artifacts = {
-      A06: `<div class="principle-output-sheet"><header><b>Issue #3 · 配對規則</b><span>共享工作狀態</span></header><ul><li>修正版第一次測：AC1／AC2 PASS</li><li>重複按讚：未測</li><li>下一步：要求補測</li></ul></div>`,
-      A07: `<div class="principle-output-sheet"><header><b>Issue #3 · 變更請求</b><span>工作紀錄示意</span></header><ul><li>聊天室：超出本票範圍</li><li>停止條件：先停下</li><li>由人決定是否另排</li></ul></div>`,
-      A08: `<div class="principle-output-records" aria-label="工作票、PR、審查、驗證和授權紀錄卡"><article><b>Issue #3</b><span>核准範圍與 AC</span></article><article><b>PR</b><span>修改摘要與版本</span></article><article><b>Review</b><span>審查意見與處置</span></article><article><b>QA Evidence</b><span>結果與未測項</span></article></div><small class="principle-output-note">授權由人決定；紀錄格式為示意。</small>`,
-      A09: `<div class="principle-output-timeline" aria-label="修正版第一次測與補測的真實規則紀錄"><article><span>修正版第一次測</span><strong>單向／雙向 PASS<br>重複按讚未測</strong></article><i aria-hidden="true">→</i><article><span>修正版補測・同一程式</span><strong>重複按讚 PASS</strong></article></div><small class="principle-output-note">QA 要求補測；Agent 版本身仍是教學示意</small>`,
+      A06: `<div class="principle-output-sheet"><header><b>Issue #3 · 配對規則</b><span>交辦時的工作狀態</span></header><ul><li>目前位置：待接手</li><li>測試紀錄：尚未產生</li><li>授權決定：尚未決定</li></ul></div>`,
+      A07: `<div class="principle-output-sheet"><header><b>Issue #3 · 變更請求</b><span>工作紀錄示意</span></header><ul><li>聊天室：超出本票範圍</li><li>停止條件：先停下</li><li>測試紀錄與授權：尚未產生／決定</li></ul></div>`,
+      A08: `<div class="principle-output-records" aria-label="工作票、PR、審查、驗證和授權紀錄卡"><article><b>Issue #3</b><span>核准範圍與 AC</span></article><article><b>PR</b><span>修改摘要與版本</span></article><article><b>Review</b><span>審查意見與處置</span></article><article><b>QA Evidence</b><span>尚未產生</span></article></div><small class="principle-output-note">現在尚無測試結果；授權尚未決定。紀錄格式為示意。</small>`,
+      A09: `<div class="principle-output-timeline" aria-label="三次真實規則測試紀錄"><article><span>第一版</span><strong>單向按讚：預期 0 筆，實際 1 筆，FAIL</strong></article><i aria-hidden="true">↓</i><article><span>修正版・第一次測</span><strong>回報示意：改互按才配對；單向／雙向 PASS；重複按讚未測</strong></article><i aria-hidden="true">↓</i><article><span>修正版・補測</span><strong>重複按讚 PASS；沿用同一份程式</strong></article></div><small class="principle-output-note">規則測試有真實紀錄；Agent 工作仍為教學示意。</small>`,
       A10: `<div class="principle-output-sheet"><header><b>產品目標 · 配對體驗</b><span>產品核對</span></header><ul><li>規則票：單向、雙向、重複按讚均有測試紀錄</li><li>目標：互相按讚後，在配對清單找到對方</li><li>配對清單、介面與完整流程：未測</li></ul></div>`,
     };
     return artifacts[id] || '';
@@ -1347,12 +1395,12 @@
 
   function renderPart2Exercise(slide) {
     const questions = [
-      ['完成條件', '現在可以把這張票標成完成嗎？', '還不可以：合併雖已獲授權，本課沒有實際執行合併。介面、完整流程與產品目標仍未測。'],
+      ['完成條件', '現在可以把這張票標成完成嗎？', '還不可以：授權合併是教學示意；本課沒有實際執行合併與上線。介面、完整流程與產品目標仍未測。'],
       ['已測範圍', '哪些規則情境已有實測？', '第一版單向按讚 FAIL；修正版第一次測的單向、雙向 PASS。修正版補測的重複按讚 PASS，三項結果都在規則層。'],
       ['產品結果', '功能現在可以宣稱上線嗎？', '不能這樣宣稱：介面、完整配對流程與產品目標尚未測。上線還要另外檢查和決定。'],
     ];
-    const context = `<div class="exercise-state-context"><article><b>目前</b><strong>合併已獲授權，尚未執行</strong></article><article><b>已測</b><strong>第一版單向 FAIL；修正版單向、雙向 PASS；補測重複按讚 PASS</strong></article><article><b>未測</b><strong>介面、完整流程、產品目標</strong></article></div>`;
-    return `<div class="focus-compose b2-focus-compose">${locator(slide)}<section class="diagram-field b2-artifact exercise-part2"><header><strong>同一張配對規則票的目前狀態</strong><span>先作答，再看判斷</span></header>${context}<ol>${questions.map(([label, question, answer], index) => `<li data-exercise-card="${index}" class="${index === 0 ? 'is-current' : ''}"><div class="exercise-step exercise-prompt fragment${index === 0 ? ' visible revealed-once is-current' : ''}" data-exercise-order="${index * 2}"><b>${esc(label)}</b><span>${esc(question)}</span></div><p class="exercise-step exercise-answer fragment" data-exercise-order="${index * 2 + 1}"><strong>參考判斷</strong>：${esc(answer)}</p></li>`).join('')}</ol><footer>教學練習；Agent 協作、審查和放行均未實際執行。</footer></section></div>`;
+    const context = `<div class="exercise-state-context"><article><b>目前</b><strong>授權合併（教學示意，未實際執行合併）</strong></article><article><b>已測</b><strong>第一版單向 FAIL；修正版單向、雙向 PASS；補測重複按讚 PASS</strong></article><article><b>未測</b><strong>介面、完整流程、產品目標</strong></article></div>`;
+    return `<div class="focus-compose b2-focus-compose">${locator(slide)}<section class="diagram-field b2-artifact exercise-part2"><header><strong>同一張配對規則票的目前狀態</strong><span>先作答，再看判斷</span></header>${context}<ol>${questions.map(([label, question, answer], index) => `<li data-exercise-card="${index}" class="${index === 0 ? 'is-current' : ''}"><div class="exercise-step exercise-prompt fragment${index === 0 ? ' visible revealed-once is-current' : ''}" data-exercise-order="${index * 2}"><b>${esc(label)}</b><span>${esc(question)}</span></div><p class="exercise-step exercise-answer fragment" data-exercise-order="${index * 2 + 1}"><strong>參考判斷</strong>：${esc(answer)}</p></li>`).join('')}</ol><footer>教學練習；本課沒有實際執行合併與上線。</footer></section></div>`;
   }
 
   function renderArtwork(slide) {
