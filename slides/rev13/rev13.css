@@ -2349,3 +2349,107 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .slide[data-page="30"] .swimlane-doc-name { font-size: 18px; }
 .slide[data-page="30"] .swimlane-doc-status { font-size: 16px; }
 .git-history .recovery-trigger-label { fill: #f1d27e; font-size: 18px; font-weight: 800; }
+
+/* Keep the shared map's labels clear of the document row and return paths. */
+.swimlane-card-title { font-size: 19px; }
+.swimlane-node.decision-node .swimlane-card-title { font-size: 19px; }
+.swimlane-node.work-card.is-context { opacity: .5 !important; }
+.swimlane-section-rule { stroke-width: 1.5; }
+.swimlane-workload rect { fill: #202a39; stroke: #879dc9; stroke-width: 1.5; }
+.swimlane-workload text { fill: #e0e8fb; font-size: 18px; font-weight: 800; }
+.slide[data-page="17"] .swimlane-return text { font-size: 18px; }
+.slide[data-page="17"] .swimlane-return rect { height: 24px; }
+
+/* Fit the ticket fields to their content so validation never spills into completion. */
+.good-ticket-grid {
+  grid-template-rows: repeat(var(--ticket-step), minmax(0, auto));
+  align-content: center;
+  gap: 10px;
+}
+.good-ticket-part { min-height: 0; padding: 9px 13px; }
+.good-ticket-part > header { font-size: 20px; }
+.good-ticket-part > p,
+.good-ticket-part > div { font-size: 21px; line-height: 1.25; }
+.ticket-goal-copy { display: grid; gap: 6px; }
+.ticket-goal-copy p { margin: 0; font-size: 23px; line-height: 1.25; }
+.ticket-goal-copy .ticket-parent-goal { color: #d4e0d7; font-size: 19px; }
+.good-ticket-part[data-ticket-key="criteria"] { min-height: 180px; }
+.ticket-pair article b { font-size: 20px; white-space: nowrap; }
+.ticket-pair article p { font-size: 21px; }
+.slide[data-page="7"] .good-ticket-grid {
+  grid-template-rows: minmax(0, .5fr) minmax(0, .5fr) minmax(180px, 1.55fr) minmax(120px, 1.15fr) minmax(0, .5fr);
+  gap: 8px;
+}
+
+/* Keep each station's three reading areas compact, with the work in larger type. */
+.stage-intro-card { justify-content: center; gap: 13px; padding: 17px 20px; }
+.stage-intro-flow { flex: 0 1 350px; min-height: 280px; max-height: 350px; gap: 7px; }
+.stage-intro-flow article { gap: 9px; padding: 15px; }
+.stage-intro-flow article > span { font-size: 19px; }
+.stage-intro-flow article > strong { font-size: 25px; line-height: 1.22; }
+.stage-intro-flow > i { font-size: 27px; }
+.stage-intro-records article { min-height: 60px; grid-template-columns: 122px minmax(0, 1fr); }
+.stage-intro-records b,
+.stage-intro-records span { font-size: 19px; }
+
+/* Give the role names room before the routing lines and decision cards. */
+.agent-mode-axis,
+.agent-mode-lane { grid-template-columns: 18% repeat(var(--mode-columns), minmax(0, 1fr)); }
+.agent-mode-lane-name { padding-right: 14px; font-size: 18px; }
+.agent-mode-cell { position: relative; z-index: 1; }
+
+/* Show the evidence history on every QA and decision page from 41 through 49. */
+.qa-status-ribbon {
+  display: grid;
+  flex: 0 0 auto;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  min-width: 0;
+  padding: 8px;
+  border: 1px solid #586a7d;
+  border-left: 4px solid var(--version);
+  border-radius: 5px;
+  background: #202a39;
+}
+.qa-status-ribbon > div {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  padding: 4px 9px;
+  border-right: 1px solid #4d5e70;
+}
+.qa-status-ribbon > div:last-child { border-right: 0; }
+.qa-status-ribbon b { color: #c5d3f1; font-size: 16px; white-space: nowrap; }
+.qa-status-ribbon strong { color: #f0f2fa; font-size: 18px; line-height: 1.18; overflow-wrap: anywhere; }
+.qa-status-ribbon > div:last-child strong { color: #f1d89b; }
+.b2-artifact.has-qa-status { justify-content: flex-start; gap: 9px; padding: 14px 17px; }
+.b2-full-map.has-qa-status { grid-template-rows: auto minmax(0, 1fr); gap: 7px; }
+
+/* Give the final practice enough context to answer before the first reveal. */
+.exercise-state-context {
+  display: grid;
+  flex: 0 0 auto;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 8px;
+}
+.exercise-state-context article {
+  display: grid;
+  min-width: 0;
+  align-content: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 1px solid #52657d;
+  border-top: 3px solid var(--version);
+  border-radius: 4px;
+  background: #202a39;
+}
+.exercise-state-context article:nth-child(2) { border-top-color: var(--good); }
+.exercise-state-context article:nth-child(3) { border-top-color: var(--gate); }
+.exercise-state-context b { color: #cbd8f1; font-size: 16px; }
+.exercise-state-context strong { color: #f0f2fa; font-size: 18px; line-height: 1.2; }
+.exercise-state-context article:nth-child(3) strong { color: #f3dfa7; }
+.exercise-part2 { gap: 9px !important; }
+.exercise-part2 ol { min-height: 0; }
+.exercise-part2 li.is-current { border-color: #d8bd74; background: #302a1c; }
