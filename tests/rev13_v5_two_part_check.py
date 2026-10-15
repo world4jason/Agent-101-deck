@@ -27,7 +27,7 @@ FIVE = [
     "External Task State", "Bounded Execution", "Role Separation",
     "Independent Verification", "Goal Re-anchoring",
 ]
-EXPECTED_FIRST = ["O01", "C01"]
+EXPECTED_FIRST = ["O01", "C05"]
 PRINCIPLE_IDS = ["A05", "A06", "A07", "A08", "A09", "A10", "A11"]
 SCENE_KINDS = {
     "foundation-overview", "foundation-overlay", "map", "template", "stage",
@@ -90,18 +90,20 @@ def violations(doc: dict, base: dict, story: str, readme: str,
     ids1 = [x.get("id") for x in part1]
     ids2 = doc.get("core_part2", [])
     all_ids = ids1 + ids2
-    expected_part1 = ["O01", "C01", "C03", "C05", "C08", "C02", "C07", "C04", "C06", "C09"] + [f"C{n:02}" for n in range(11, 21)]
+    expected_part1 = ["O01", "C05", "C02", "C07", "C06"] + [f"C{n:02}" for n in range(11, 20)] + ["C01", "C03", "C04", "C20"]
     expected_part2 = [x["id"] for x in base.get("scenes", [])[2:]]
+    expected_part2.insert(expected_part2.index("D02") + 1, "C08")
+    expected_part2.insert(expected_part2.index("D02") + 2, "C09")
     agent_start = expected_part2.index("A01")
     expected_part2 = expected_part2[:agent_start] + ["O02", "C10"] + expected_part2[agent_start:]
     if doc.get("core_part1") != ids1 or ids1[:2] != EXPECTED_FIRST:
-        fail("Part 1 must open with O01 four foundations → C01 human workflow")
+        fail("Part 1 must open with O01 and the shared pairing-rule ticket")
     if ids1 != expected_part1:
-        fail("Part 1 must contain 20 scenes and move O02/C10 after the human workflow")
+        fail("Part 1 must teach the ticket, then stages, roles, role-stage map, and practice")
     if ids2 != expected_part2:
-        fail("Part 2 must preserve the original O03–X01 order and place O02/C10 after HG02")
-    if len(ids1) != 20 or len(ids2) != 42 or len(all_ids) != 62 or len(set(all_ids)) != 62:
-        fail("two-part scene coverage/uniqueness 20+42 violated")
+        fail("Part 2 must place Git/GitHub after Dev starts and O02/C10 after HG02")
+    if len(ids1) != 18 or len(ids2) != 44 or len(all_ids) != 62 or len(set(all_ids)) != 62:
+        fail("two-part scene coverage/uniqueness 18+44 violated")
     if development_phase == "implementation":
         parser = ImplementedSlideParser()
         parser.feed(slides_html)
@@ -129,21 +131,27 @@ def violations(doc: dict, base: dict, story: str, readme: str,
         ]
         if set(mapped_ids) != set(all_ids):
             fail("implementation must trace all 62 scenes across mapped slide sections")
-        opening_ids = [item.get("data-rev13-scene-id") for item in parser.slides[:7]]
-        if opening_ids != ["O01", "C01", "C03", "C05", "C08", "C02", "C07"]:
-            fail("implementation opening must reveal the four foundations without Agent")
-        if [item.get("data-opening-step") for item in parser.slides[:7]] != [str(step) for step in range(1, 8)]:
-            fail("implementation opening must use seven progressive reveal steps")
-        if any(item.get("data-agent") != "false" for item in parser.slides[:51]):
+        if parser.slides[0].get("data-rev13-scene-id") != "O01" or parser.slides[1].get("data-rev13-merged-scenes") != "O01":
+            fail("implementation must open with the four foundations and shared course outline")
+        if [item.get("data-ticket-step") for item in parser.slides[2:7]] != [str(step) for step in range(1, 6)]:
+            fail("implementation must reveal the five parts of one ticket in order")
+        if [item.get("data-rev13-scene-id") for item in parser.slides[7:16]] != [f"C{n:02}" for n in range(11, 20)]:
+            fail("implementation must introduce all nine stages before the roles")
+        if [item.get("data-rev13-scene-id") for item in parser.slides[16:20]] != ["C01", "C03", "C04", "C20"]:
+            fail("implementation must follow stages with the process map, roles, role-stage map, and practice")
+        if any(item.get("data-agent") != "false" for item in parser.slides[:49]):
             fail("the human-only section must not render an Agent row")
+        if parser.slides[49].get("data-rev13-scene-id") != "O02" or parser.slides[49].get("data-agent") != "true":
+            fail("the Agent chapter must start after the human flow")
         post_human_scenes = []
-        for item in parser.slides[23:]:
-            scene_id = item.get("data-rev13-scene-id")
-            if scene_id and scene_id not in post_human_scenes:
-                post_human_scenes.append(scene_id)
+        for item in parser.slides[20:]:
+            linked = [item.get("data-rev13-scene-id"), *(item.get("data-rev13-merged-scenes") or "").split(",")]
+            for scene_id in (value.strip() for value in linked if value):
+                if scene_id and scene_id not in post_human_scenes:
+                    post_human_scenes.append(scene_id)
         if post_human_scenes != ids2:
             fail("implementation must place O02/C10 after the human flow and before A01")
-        if parser.slides[51].get("data-rev13-scene-id") != "O02" or parser.slides[52].get("data-rev13-scene-id") != "C10":
+        if parser.slides[50].get("data-rev13-scene-id") != "C10":
             fail("the Agent chapter must open with O02 followed by the C10 definition")
         if len(parser.slides) != len(expected_map):
             fail("implementation must contain every slide listed in the scene map")
@@ -162,15 +170,11 @@ def violations(doc: dict, base: dict, story: str, readme: str,
                 fail(f"slide {page}: implementation slide must link a scene through its primary or merged scene metadata")
             if attrs.get("data-mother-map-id") != "rev13-four-foundations":
                 fail(f"slide {page}: implementation changed the shared mother map ID")
-    expected_kinds = [
-        "foundation-overview", "map", "roles", "documents", "version-github",
-        "template", "documents-boundary", "roles-matrix", "documents-lifecycle",
-        "version-history",
-    ] + ["stage"] * 9 + ["exit-check"]
+    expected_kinds = ["foundation-overview", "documents", "template", "documents-boundary", "documents-lifecycle"] + ["stage"] * 9 + ["map", "roles", "roles-matrix", "exit-check"]
     if [x.get("kind") for x in part1] != expected_kinds:
-        fail("Part 1 prerequisite order and Stage Cards must follow the human-only reveal")
-    if [x.get("kind") for x in part1[10:19]] != ["stage"] * 9:
-        fail("Part 1 must teach all nine Stage Cards only after prerequisite vocabulary")
+        fail("Part 1 must teach the ticket, stages, roles, role-stage map, and practice in order")
+    if [x.get("kind") for x in part1[5:14]] != ["stage"] * 9:
+        fail("Part 1 must teach all nine Stage Cards before roles and the role-stage map")
     for scene in part1:
         ident = scene.get("id", "unknown")
         if scene.get("kind") not in SCENE_KINDS:
@@ -257,7 +261,7 @@ def main() -> int:
             print(" - "+p,file=sys.stderr)
         return 1
     phase = json.loads((args.root / MANIFEST).read_text(encoding="utf-8"))["development_phase"]
-    print(f"PASS [Rev13 v5 {phase} content]: 20 Part 1 + 42 Part 2 scenes, "
+    print(f"PASS [Rev13 v5 {phase} content]: 18 Part 1 + 44 Part 2 scenes, "
           "nine Stage Contracts, People/Documents/GitHub matrix, "
           "five Rev12 Agent principles retained.")
     print("NOTE: local structural PASS is NOT visual/learning QA, Ready, "

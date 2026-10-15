@@ -75,18 +75,25 @@ class TwoPartContractTests(unittest.TestCase):
         self.assertNotIn("C10", data["core_part1"])
         self.assertLess(data["core_part2"].index("HG02"), data["core_part2"].index("O02"))
         self.assertEqual(data["core_part2"][data["core_part2"].index("O02"):][:3], ["O02", "C10", "A01"])
-        self.assertEqual(len(data["implementation_slide_map"]), 68)
+        self.assertEqual(len(data["implementation_slide_map"]), 66)
         self.assertIn('data-rev13-merged-scenes="C10,A01"', slides_html)
+        self.assertEqual(data["core_part1"][5:14], [f"C{number:02}" for number in range(11, 20)])
 
     def test_expanded_slides_keep_scene_traceability_in_merged_metadata(self):
         data, _, _, _, _, _, slides_html = self.original
-        expected = {8: "C02", 11: "C07", 12: "C08", 54: "C10", 55: "C10", 56: "C10,A01"}
-        for page, linked in expected.items():
+        expected = {
+            2: (None, ["O01"]), 5: (None, ["C07"]), 7: (None, ["C02"]),
+            17: ("C01", []), 19: ("C04", []), 34: ("D02", ["C08"]),
+            35: ("C09", []), 52: (None, ["C10"]), 53: (None, ["C10"]),
+            54: (None, ["C10", "A01"]),
+        }
+        for page, (scene_id, merged_scene_ids) in expected.items():
             mapping = next(item for item in data["implementation_slide_map"] if item["page"] == page)
-            self.assertIsNone(mapping["scene_id"])
-            self.assertEqual(mapping["merged_scene_ids"], linked.split(","))
+            self.assertEqual(mapping["scene_id"], scene_id)
+            self.assertEqual(mapping["merged_scene_ids"], merged_scene_ids)
             self.assertIn(f'data-page="{page}"', slides_html)
-            self.assertIn(f'data-rev13-merged-scenes="{linked}"', slides_html)
+            if merged_scene_ids:
+                self.assertIn(f'data-rev13-merged-scenes="{",".join(merged_scene_ids)}"', slides_html)
 
     def test_cannot_move_agent_chapter_before_human_gate(self):
         def mutate(x):
@@ -97,12 +104,12 @@ class TwoPartContractTests(unittest.TestCase):
     def test_cannot_teach_stage_details_before_roles_and_documents(self):
         def mutate(x):
             x["part1_scenes"][4],x["part1_scenes"][12] = x["part1_scenes"][12],x["part1_scenes"][4]
-        self.assertTrue(any("prerequisites" in m or "Stage Cards" in m for m in self.errors(mutate)))
+        self.assertTrue(any("Part 1" in m or "Stage Cards" in m for m in self.errors(mutate)))
 
     def test_cannot_erase_part1_focus(self):
         def mutate(x):
-            next(s for s in x["part1_scenes"] if s["id"]=="C08")["focus"]=""
-        self.assertTrue(any("C08" in msg for msg in self.errors(mutate)))
+            next(s for s in x["part1_scenes"] if s["id"]=="C05")["focus"]=""
+        self.assertTrue(any("C05" in msg for msg in self.errors(mutate)))
 
 
 if __name__=="__main__":

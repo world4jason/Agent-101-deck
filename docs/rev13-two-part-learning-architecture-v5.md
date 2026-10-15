@@ -7,7 +7,7 @@
 
 ## 0. 設計決議
 
-**Part 1 — Recognize / Pre-training**：先建立「人／流程／文件／版本管理」四要素，介紹每個 Stage 的 Target、Input、Actions、Output、Exit Criteria、職能／參與時點，以及相關 GitHub 物件。這一段不顯示 Agent 工作列，也不先教 Agent 概念。第 1 頁的學習目標依 Owner 決定寫為：「先看懂一個純人類團隊怎麼把一張工作票從想法走到可以合併，再看 Agent 加入後哪些工作可以交給它。」
+**Part 1 — Recognize / Pre-training**：先用人、流程、文件、版本管理四個問題帶入。第 1 頁交代兩段安排；第 2 頁列四段大綱並標示目前進度。接著用第二段會沿用的配對規則票，逐步看 Goal、範圍、AC／AT、DoD、負責人與目前站點；再逐站介紹九個階段、介紹角色、合看角色×階段圖，最後練習辨認工作票還缺什麼。這一段不顯示 Agent 工作列，也不先教 Agent 概念。版本管理在此只用一句話定位：「Git 記錄程式的每次修改；GitHub 讓團隊共用並互相檢查」，並舉多人同時修改時如何查明改動與退回的情境。第 1 頁同時說明：「上半場：一個純人類團隊把一張工作票從想法走到可以合併；下半場：Agent 加入後，看哪些工作能交給它。」
 
 **Part 2 — Apply / Lead by Example**：先以純人類團隊沿同一張配對規則工作票走過 Brainstorming → Refinement → Ready → Dev → PR Review → QA → Product Check → Human Gate。人類流程結束後才開始 Agent 段：同一張圖新增 Agent 工作列，接著說明 Agent、角色可委派的工作與人類責任，再把同一張票交給 Agent 從交辦往前走；之後保留三種協作方式、五項原則及練習。Owner 決定（2026-10-15）：Agent 版在測試站遇到重複按讚未測，引用修正版第一次測與修正版補測的真實紀錄；Agent 版的交辦與執行都是教學示意，不是真實 Agent 執行紀錄。
 
@@ -17,36 +17,25 @@
 
 這是本教材教學模型，不代表業界軟體開發只有四種元素。Part 1 與 Part 2 是同一份簡報，不另外發明第二條工作／Git 時間線。
 
-## 1. Part 1｜認識系統（20 個 Scene）
+## 1. Part 1｜認識系統（18 個 Scene ID，20 頁）
 
-開場投影片 1–7 逐步揭露四要素：O01 先呈現四個區域；之後依序展開流程（C01）、人員（C03）、文件（C05）、版本管理（C08）、工作卡（C02）、判斷與退回路徑（C07）。C07 同頁承接 C01，使用 `data-rev13-merged-scenes` 保留追溯。這七頁都沒有 Agent 工作列。第 8 頁後再接 Stage Card、角色×階段、文件生命週期、判準、Git/GitHub、版本歷史、九張階段卡與練習；Agent 概念頁移到人類流程之後。
+第 1 頁說明純人類團隊與 Agent 兩段安排，並在四個區域框內保留問題：流程「做到哪？」、人「誰做？」、文件「根據什麼、怎麼驗？」、版本管理「改的是哪一版？」。第 2 頁呈現四段課程大綱，標示目前在第一段。第 3–7 頁固定顯示同一張配對規則票，一次亮一處：Goal、範圍／不做、AC 對 AT、DoD、負責人與目前站點；這段不揭露測試結果。接著第 8–16 頁逐站介紹九個階段，第 17 頁展示七個看板狀態與三條分開的退回方向，第 18 頁介紹角色，第 19 頁合看角色×階段分工，第 20 頁用三題練習辨認站點、下一位接手者及尚缺條件。
 
-O01 改為四大重點空骨架，**依 design-principles 第 4 條漸進式揭露，覆蓋原「第一張即完整母圖」**；七欄、角色、卡片與退回線分頁展開。
+O01 連到第 1 頁四要素畫面及第 2 頁大綱。工作票內容依序由 C05、C02、C07、C06 保留追溯；第二張 C02 頁補充負責人與目前站點。九站為 C11、C12、C13、C14、C15、C16、C17、C18、C19，其後依序是 C01（流程）、C03（角色）、C04（角色×階段）及 C20（練習）。共 18 個唯一 Scene ID，實作為 20 頁。所有 Part 1 頁面都不顯示 Agent 工作列。
 
-**先備順序（P2）**：先認識工作流程、人類職能、文件與版本管理，再讀工作卡與判斷路徑；接著深入角色矩陣、文件生命週期、版本歷史，最後讀九張 Stage Card 與出口練習。Agent 定義不列入 Part 1。
+| 頁碼 | 主要內容 | Scene ID |
+|---:|---|---|
+| 1–2 | 四要素與四段課程大綱；第 2 頁標示第一段 | O01 |
+| 3–7 | 同一張票逐步揭露 Goal、範圍、AC／AT、DoD、主責與站點 | C05、C02、C07、C06（C02 第二頁） |
+| 8–16 | 由整理問題、拆分工作到本票完成，逐站介紹九階段 | C11–C19 |
+| 17 | 七個看板狀態、欄外授權與退回方向 | C01 |
+| 18 | 角色職責與配對 App 例子 | C03 |
+| 19 | 主責、協作、決策的角色×階段總覽 | C04 |
+| 20 | 配對案例三題練習 | C20 |
 
-| 順序 | Scene | 當頁唯一主要學習任務 | 視覺聚焦與轉場 | Rev12 可用素材 |
-|---:|---|---|---|---|
-| 01 | O01 | 只呈現人、流程、文件、版本管理四個區域 | 先建立位置，再逐步補上內容 | p.5、p.26、p.31 |
-| 02 | C01 | 展開工作流程和七個 Kanban 狀態 | 先揭露活動、欄位與欄外 Human Gate；退回路徑在 C07 接續 | p.26、p.93 |
-| 03 | C03 | 職能總覽：Owner、PM、PO、UI/UX、Dev、Reviewer、QA | 先說明人類職能與責任 | p.5、p.6、p.7、p.25、p.84 |
-| 04 | C05 | 文件種類：Goal Issue、工作票與 AC、測試紀錄、放行紀錄 | 名稱和用途先簡短定位 | p.14、p.16、p.21、p.22、p.23 |
-| 05 | C08 | 版本管理：Branch、Commit、PR、Merge | 先看版本節點順序，再認識 Git/GitHub 物件 | p.14、p.31、p.32、p.33、p.34、p.35、p.36、p.37 |
-| 06 | C02 | 工作卡怎樣讀：誰、在哪一站、做什麼 | 再展開 Goal、Input、Output 與 Exit | p.25、p.26 |
-| 07 | C07 | 判斷與退回路徑，以及 Goal、AC、AT、DoD 的差別 | 同頁承接 C01，退回位置回到對應工作 | p.11、p.21、p.23、p.24、p.47 |
-| 08 | C04 | Roles × Stages 主責、協作、決策矩陣 | 全流程看誰在哪段協作；不是固定組織編制 | p.6、p.7、p.18、p.91 |
-| 09 | C06 | 文件生命週期：需求→拆票→交付→Review→Evidence→放行記錄 | 同一文件可以更新；Issue/PR 不等於 Git commit | p.14、p.21、p.23、p.45、p.47、p.51 |
-| 10 | C09 | 版本歷史與工作票連結：Branch→Commit→PR→Merge／回復 | 用抽象路徑說明追查與回復 | p.32、p.33、p.34、p.35、p.36、p.37 |
-| 11 | C11 | Brainstorming Stage Contract | 先介紹工作站，不提前展示 Matching 決議 | p.10、p.11 |
-| 12 | C12 | Refinement/Planning Stage Contract | 拆票和可行性確認不等於可直接進 Ready | p.12、p.14、p.18、p.19、p.21、p.23 |
-| 13 | C13 | Ready Stage Contract | Ready 前確認可開工條件，不代表已開始 | p.15、p.24 |
-| 14 | C14 | Dev Stage Contract | 開發與自測不等於獨立 QA | p.39、p.40 |
-| 15 | C15 | PR Review Stage Contract | 只說明概念，不捏造真實 PR 歷史 | p.36、p.37、p.41 |
-| 16 | C16 | QA/Verification Stage Contract | 只介紹預期、實際、PASS、FAIL、未測；配對測試留在人類案例 | p.42、p.43、p.45、p.47 |
-| 17 | C17 | Product Check Stage Contract | 本票符合需求不等於產品目標已達成 | p.48 |
-| 18 | C18 | Human Gate Stage Contract | 欄外決策，不是第八個 Kanban state | p.50、p.51、p.91 |
-| 19 | C19 | Merge/Release/Done Stage Contract | 需有 DoD 和交付證據，不能用 QA PASS 自動替代 | p.52、p.53、p.93 |
-| 20 | C20 | Part 1 Exit Check：看母圖辨認 Stage、Roles、Documents、GitHub、下一步 | 先作答再揭露，不提前展示配對測試答案 | p.8、p.30、p.38、p.49、p.54 |
+**Git／GitHub 的實作時機**：Part 1 只在開場說明 Git 記錄每次程式修改、GitHub 供團隊共用與互相檢查，並用多人同時修改的情境定位用途。Branch、Commit、PR、Merge 與具體回復方式移至 Part 2 的 Dev 接手處，對著同一張配對規則票說明。
+
+**先備順序（P2）**：工作票 → 九個階段 → 流程總覽 → 人類角色 → 角色×階段 → 練習。Agent 定義不列入 Part 1。
 
 
 ### Stage Card 的共同資料結構
@@ -115,16 +104,16 @@ GitHub Issue 可以追需求／決議／工作票，Project 看狀態，PR 是�
 
 給學員一張陌生的 Stage Card，請他指出 **在哪一站、Goal vs Target、有誰參與、拿到什麼 Input、交出什麼 Output、誰允許往下、產物在哪種 GitHub 物件**。先作答，再揭露；不能只考名詞縮寫。
 
-## 2. Part 2｜組合成完整過程（40 個原有 Scene ＋移入的 O02/C10）
+## 2. Part 2｜組合成完整過程（44 個 Scene ID）
 
-**O03 才開始 Matching App。** Part 2 先用純人類團隊走完整個流程：全程追同一 Goal 和三張票 #1（Like/Pass）、#3（雙向配對規則）、#2（配對列表），主實證僅 #3 規則層。到 HG02 人類流程結束後，才顯示 O02，再接 C10 Agent 概念與角色分工；Part 2 共 42 個 Scene（原有 40 個加上移入的 O02/C10）。
+**O03 才開始 Matching App。** Part 2 先用純人類團隊走完整個流程：全程追同一 Goal 和三張票 #1（Like/Pass）、#3（雙向配對規則）、#2（配對列表），主實證僅 #3 規則層。Dev 接手時先介紹 Git、GitHub 與程式版本路徑（D02+C08，接著 C09），再進入修改、審查與測試。到 HG02 人類流程結束後，才顯示 O02，再接 C10 Agent 概念與角色分工；Part 2 共 44 個 Scene ID：原有 40 個加上 O02/C10 與移到 Dev 的 C08/C09。
 
 | 工作階段 | v4 Scene IDs | 此段發生的變化 | 真實／示意界線 |
 |---|---|---|---|
 | brainstorming | B01、B02、B03、B04 | Goal 成形並建立 Proposal Issue | 尚無真實候選 |
 | refinement | R01、R02、R03、R04、R05 | 拆 #1／#3／#2，明確 Scope／AC／依賴 | 仍 Backlog |
 | ready | RD01、RD02 | 通過 Ready 條件才移欄 | WIP = 0/1 |
-| dev | D01、D02、D03、D04 | Branch／Commit／候選 A，更新 Ticket | WIP = 1/1 |
+| dev | D01、D02＋C08、C09、D03、D04 | 對著 #3 介紹 Git／GitHub、Branch→Commit→PR→Merge 與回復，再更新工作票 | WIP = 1/1 |
 | review | RV01、RV02、RV03 | PR／Review／越界退回 | 僅教學 PR 示意 |
 | qa | Q01、Q02、Q03、Q04、Q05 | A FAIL → B-pre PASS+NOT RUN → B-post duplicate PASS | 僅規則層有真實證據 |
 | product check | PC01、PC02 | Ticket 對回 Parent Goal | UI/E2E/Goal 未驗證 |
@@ -132,7 +121,7 @@ GitHub Issue 可以追需求／決議／工作票，Project 看狀態，PR 是�
 | agent collaboration | A01、A02、A03、A04、A05、A06、A07、A08、A09、A10、A11 | 完整交辦範例後比較三種協作方式；同一張票由交辦往前走，五項原則依序落在工作站 | 測試站說明重複按讚未測並要求補測；Agent 版為教學示意，實測只引用規則測試紀錄 |
 | exercise | X01 | 學員寫 Ticket、補驗要求和決策 | 先答後揭露 |
 
-**HG02 後的 Agent 段頁序**：第 52 頁「加入第五個要素：Agent」先在同一張圖新增 Agent；第 53 頁「Agent 是能接一張工作票、自己動手做的 AI 助手」說明 Chat、Session、Agent、Workflow；第 54–56 頁逐列標出開發可交給 Agent、審查與測試可由 Agent 協助但要由人核對、介面設計視情況協助但本課不示範，以及產品、專案、授權和最後決定仍由人負責；第 57 頁起，同一張配對規則票交給 Agent 從交辦往前走。三張角色說明頁以 C10 延伸內容呈現，最後一頁用 `data-rev13-merged-scenes` 連到 A01；不增加原有 62 個 Scene ID。
+**HG02 後的 Agent 段頁序**：第 50 頁以同一份課程大綱標出第二段，並在同一張工作圖新增 Agent；第 51 頁說明「Agent 是能接一張工作票、自己動手做的 AI 助手」；第 52–54 頁分別標出可交給 Agent、Agent 協助而由人核對、仍由人負責的工作，延伸 C10。第 55 頁以同一份大綱標出第三段，將同一張配對規則票交給 Agent 往前走；第 56–58 頁說明一人＋一個 Agent、多個對話及協調 Agent。第 59 頁以同一份大綱標出第四段，開始五項原則。五項原則的真實測試證據只引用規則層三次實測，Agent 工作仍標示為示意。
 
 每一站用同一張母圖 **Overview → Spotlight（階段＋參與者）→ Work/Artifact（哪張票／哪條 AC／哪份文件）→ Updated Overview（前後狀態／版本／下一站）**。在只需局部知識的投影片使用小定位器，別讓整張灰色遮罩搶過核心內容。
 
@@ -140,9 +129,9 @@ GitHub Issue 可以追需求／決議／工作票，Project 看狀態，PR 是�
 
 ## 3. 內容與實作的 Gate
 
-- [x] v5 概念上定義兩部分及同一張工作圖、20 + 42 個 Scene ID、九份 Stage Contract、七種職能與文件／GitHub 對應。
-- [x] Part 2 保留 v4 原 40 Scene ID 順序，並在 HG02 後插入 O02/C10；規則層實測界線不變，上線／產品目標／UI/E2E 仍 NOT RUN。
-- [ ] **G1 Blind Beginner Review**：依 O01→C01→C03→C05→C08→C02→C07→其餘 Part 1 概念頁→O03..HG02→O02→C10→Agent 角色分工→A01..X01 檢查先備知識、密度與轉場。
+- [x] v5 概念上定義兩部分及同一張工作圖、18 + 44 個 Scene ID、九份 Stage Contract、七種職能與文件／GitHub 對應。
+- [x] Part 2 保留 v4 原 40 Scene ID 的相對順序，將 C08/C09 移至 Dev、O02/C10 移至 HG02 後；規則層實測界線不變，上線／產品目標／UI/E2E 仍 NOT RUN。
+- [ ] **G1 Blind Beginner Review**：依 O01→票面 C05/C02/C07/C06→C11..C19→C01→C03→C04→C20→O03..HG02→O02/C10→A01..X01 檢查先備知識、密度與轉場。
 - [ ] **Visual POC / G4**：實際 Stage Card、Roles × Stages、Documents Lifecycle、Git/GitHub Map 與 Part 2 Spotlights，在投影尺寸檢查可讀性；不是有表格就算完工。
 - [ ] **Evidence/Note mapping & native editable PPTX strategy**：來源素材、同一條時間線、編輯物件、測試來源待實作。
 - [ ] **Owner Ready Gate**：獨立 G1 finding 收斂、具體母圖 POC 後才進 Ready，不把計畫 PASS 當作品完成。
