@@ -203,15 +203,15 @@
     },
     release_done: {
       label: 'Done',
-      activity: '核對本票條件並完成核准交付',
+      activity: '本票交付完成後，才標 Done',
       kanban: '本票條件 → 授權 → 合併 → 完成交付',
       goal: 'Parent Goal Issue（連回原始產品結果）',
-      target: '確認本票承諾的工作與 DoD 都成立',
+      target: '核對本票 DoD，再分清授權、合併與交付',
       input: '工作票上寫明的 DoD、交付範圍與證據要求',
-      activities: ['核對本票完成條件與證據', '由授權人決定是否合併', '實際交付後才更新狀態'],
+      activities: ['AC／AT 全符合並留獨立驗證紀錄', '授權人決定是否合併', '實際合併並記交付後才標 Done'],
       output: '完成交付的紀錄與狀態',
       stateChange: '符合本票條件 → 授權 → 合併並完成交付 → Done',
-      handoff: '符合完成條件不代表已獲授權；票完成也不等於功能上線',
+      handoff: '符合 DoD 才能申請合併；實際合併並完成交付後才標本票 Done。功能上線另行判斷。',
       outputNote: '其他工作票完成後，仍要由授權人決定是否讓功能上線',
       exit: '完成本票交付並留下證據後，才可標 Done；功能是否上線另由授權人決定。',
       lead: ['Dev'],
@@ -355,7 +355,7 @@
       ...(showOverviewReturns || actualReturn === 'review' ? [`<g class="swimlane-return${actualReturn === 'review' ? ' is-active' : ''}"><path d="M710 427 V438 H478 V371 H492" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="571" y="428" width="92" height="22" rx="3"/><text x="617" y="444" text-anchor="middle">Review 要修改</text></g>`] : []),
       ...(showOverviewReturns || actualReturn === 'qa' ? [`<g class="swimlane-return${actualReturn === 'qa' ? ' is-active' : ''}"><path d="M860 477 V488 H642 V371 H628" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="754" y="478" width="66" height="22" rx="3"/><text x="787" y="494" text-anchor="middle">FAIL</text></g>`] : []),
       ...(showOverviewReturns || actualReturn === 'goal' ? [`<g class="swimlane-return${actualReturn === 'goal' ? ' is-active' : ''}"><path d="M1020 277 V286 H344 V253 H328" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="610" y="275" width="92" height="22" rx="3"/><text x="656" y="291" text-anchor="middle">不符合目標</text></g>`] : []),
-      ...(actualReturn === 'gate' ? [`<g class="swimlane-return is-active is-human-return"><path d="M1233 153 H1290 V233 H1088" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="1300" y="170" width="145" height="24" rx="3"/><text x="1372" y="187" text-anchor="middle">指定補做者</text></g>`] : []),
+      ...(actualReturn === 'gate' ? [`<g class="swimlane-return is-active is-human-return"><path d="M1233 153 H1260 V236 H1088" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="1274" y="166" width="158" height="28" rx="3"/><text x="1353" y="185" text-anchor="middle">指定補做者</text></g>`] : []),
     ].join('');
 
     const docs = [
@@ -370,6 +370,11 @@
     ];
     const docStage = delta?.docStage || '';
     const docNodes = docs.map(({ key, label, status }) => {
+      if (delta?.docTree && ['backlog', 'ready', 'dev'].includes(key)) {
+        if (key !== 'backlog') return '';
+        const left = 190, right = 685, x = (left + right) / 2;
+        return `<g class="swimlane-doc-node is-changed is-focus is-ticket-tree" data-state="backlog"><path class="swimlane-doc-card" d="M${left} 540 H${right - 14} L${right} 554 V584 H${left} Z"/><path class="swimlane-doc-fold" d="M${right - 14} 540 V554 H${right} Z"/><text class="swimlane-doc-name" x="${x}" y="559" text-anchor="middle">產品目標 → #1按讚 · #3配對 · #2清單</text><text class="swimlane-doc-status" x="${x}" y="578" text-anchor="middle">三張工作票都在待整理</text></g>`;
+      }
       const x = SWIMLANE_X[key];
       const isChanged = key === docStage;
       const currentLabel = isChanged ? (delta.docLabel || label) : label;
@@ -381,11 +386,10 @@
       return `<g class="swimlane-doc-node${isChanged ? ' is-changed' : ''}${stageClass}" data-state="${key}"><path class="swimlane-doc-card" d="M${left} 540 H${right - 14} L${right} 554 V584 H${left} Z"/><path class="swimlane-doc-fold" d="M${right - 14} 540 V554 H${right}"/><text class="swimlane-doc-name" x="${x}" y="559" text-anchor="middle">${esc(currentLabel)}</text><text class="swimlane-doc-status" x="${x}" y="578" text-anchor="middle">${esc(currentStatus)}</text></g>`;
     }).join('');
     const versions = [
-      { key: 'dev', label: '分支', status: '隔離修改' },
-      { key: 'review', label: '提交記錄', status: '保留版本' },
-      { key: 'qa', label: '送審版本', status: '等待核對' },
-      { key: 'human_gate', label: '合併', status: '需授權' },
-      { key: 'done', label: '交付版本', status: '本票完成' },
+      { key: 'dev', label: 'Branch', status: '隔離修改' },
+      { key: 'review', label: 'Commit', status: '記錄變更' },
+      { key: 'qa', label: 'PR', status: '待審／核對' },
+      { key: 'human_gate', label: 'Merge', status: '需授權' },
     ];
     const versionStage = delta?.versionStage || '';
     const versionXs = versions.map(item => SWIMLANE_X[item.key]);
@@ -400,17 +404,17 @@
     }).join('');
     const legend = `<g class="swimlane-legend"><path d="M18 696 H1582" class="swimlane-legend-rule"/><rect x="26" y="708" width="44" height="24" rx="12" class="swimlane-legend-endpoint"/><text x="80" y="727">起點／終點</text><rect x="250" y="708" width="42" height="24" rx="4" class="swimlane-legend-lead"/><text x="302" y="727">主責</text><rect x="410" y="708" width="42" height="24" rx="4" class="swimlane-legend-co"/><text x="462" y="727">協作</text><polygon points="575,708 590,720 575,732 560,720" class="swimlane-legend-decision"/><text x="602" y="727">判斷</text><path d="M700 720 H754" class="swimlane-legend-forward" marker-end="url(#swimlane-arrow-${uid})"/><text x="764" y="727">前進</text><path d="M870 720 H924" class="swimlane-legend-return" marker-end="url(#swimlane-arrow-return-${uid})"/><text x="934" y="727">退回</text></g>`;
     const principleMarkers = String(page) === '64' ? `<g class="principle-map-markers" aria-label="五項協作原則在母圖上的對應位置">
-      <g transform="translate(560 522)"><circle r="13"/><text y="6">1</text></g>
-      <g transform="translate(560 136)"><circle r="13"/><text y="6">2</text></g>
-      <g transform="translate(710 136)"><circle r="13"/><text y="6">3</text></g>
-      <g transform="translate(860 522)"><circle r="13"/><text y="6">4</text></g>
-      <g transform="translate(260 522)"><circle r="13"/><text y="6">5</text></g>
+      <g class="fragment" data-fragment-order="1" transform="translate(410 522)"><circle r="16"/><text y="6">1</text></g>
+      <g class="fragment" data-fragment-order="2" transform="translate(560 465)"><circle r="16"/><text y="6">2</text></g>
+      <g class="fragment" data-fragment-order="3" transform="translate(140 153)"><circle r="16"/><text y="6">3</text></g>
+      <g class="fragment" data-fragment-order="4" transform="translate(860 522)"><circle r="16"/><text y="6">4</text></g>
+      <g class="fragment" data-fragment-order="5" transform="translate(260 522)"><circle r="16"/><text y="6">5</text></g>
       <path d="M18 742 H1582" class="principle-map-rule"/>
-      <g class="principle-map-key" transform="translate(190 764)"><circle r="12"/><text y="5">1</text><text x="20" y="6">票上留工作狀態</text></g>
-      <g class="principle-map-key" transform="translate(490 764)"><circle r="12"/><text y="5">2</text><text x="20" y="6">只做核准範圍</text></g>
-      <g class="principle-map-key" transform="translate(790 764)"><circle r="12"/><text y="5">3</text><text x="20" y="6">角色各自負責</text></g>
-      <g class="principle-map-key" transform="translate(1090 764)"><circle r="12"/><text y="5">4</text><text x="20" y="6">QA 另行核對</text></g>
-      <g class="principle-map-key" transform="translate(1370 764)"><circle r="12"/><text y="5">5</text><text x="20" y="6">回看產品目標</text></g>
+      <g class="principle-map-key fragment" data-fragment-order="1" transform="translate(190 764)"><circle r="15"/><text y="5">1</text><text x="21" y="7">工作狀態寫回票</text></g>
+      <g class="principle-map-key fragment" data-fragment-order="2" transform="translate(490 764)"><circle r="15"/><text y="5">2</text><text x="21" y="7">只做核准範圍</text></g>
+      <g class="principle-map-key fragment" data-fragment-order="3" transform="translate(790 764)"><circle r="15"/><text y="5">3</text><text x="21" y="7">角色各自負責</text></g>
+      <g class="principle-map-key fragment" data-fragment-order="4" transform="translate(1090 764)"><circle r="15"/><text y="5">4</text><text x="21" y="7">QA 獨立核對</text></g>
+      <g class="principle-map-key fragment" data-fragment-order="5" transform="translate(1370 764)"><circle r="15"/><text y="5">5</text><text x="21" y="7">回看產品目標</text></g>
     </g>` : '';
 
     return `<div class="mother-map" data-mother-map-id="rev13-four-foundations" data-stage="${esc(stage)}"><svg class="swimlane-svg" viewBox="0 0 1600 780" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="swimlane-title-${uid} swimlane-desc-${uid}"><title id="swimlane-title-${uid}">人、流程、文件與版本管理泳道圖</title><desc id="swimlane-desc-${uid}">流程沿橫向七個看板狀態前進；人依責任分泳道，下方依序記錄文件與版本管理。人類授權以欄外菱形表示，三條虛線表示主要退回方向。</desc><defs><marker id="swimlane-arrow-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#8faaa1"/></marker><marker id="swimlane-arrow-return-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#85918a"/></marker><marker id="swimlane-arrow-agent-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#d78d78"/></marker></defs><g class="swimlane-process"><text class="swimlane-axis-label" x="18" y="82">流程（X 軸）</text>${activities}${stageHeaders}${gateHeader}<g class="swimlane-axis-line">${SWIMLANE_LAYOUT.stages.filter(item => !item.outside).map(item => `<line x1="${item.x}" y1="110" x2="${item.x + item.width}" y2="110"/>`).join('')}</g></g><g class="swimlane-people${dimZone('people')}${reveal(1)}"><text class="swimlane-group-label" x="18" y="136">人（Y 軸）</text>${roleGuides}${roleContent}${returnPaths}</g><g class="swimlane-documents${dimZone('documents')}${reveal(2)}"><path class="swimlane-section-rule" d="M170 532 H1550"/><text class="swimlane-group-label" x="18" y="562">文件</text>${docNodes}</g><g class="swimlane-version${dimZone('version')}${reveal(3)}"><path class="swimlane-section-rule is-heavy" d="M170 596 H1550"/><text class="swimlane-group-label" x="18" y="632">版本管理</text>${versionLinks}${versionNodes}</g>${legend}${principleMarkers}</svg></div>`;
@@ -440,10 +444,11 @@
       const label = showPeople
         ? ({ Owner: '定方向、授權', PM: '協調節奏', PO: '定需求與驗收', 'UI/UX': '設計介面', Dev: '修改程式', Reviewer: '審查修改', QA: '獨立驗證', Agent: '依交辦執行' }[name])
         : (isAgent && step >= 2 ? 'Agent' : '');
+      const roleLabel = { Owner: '授權人', PM: '專案經理', PO: '產品負責人', 'UI/UX': '介面設計', Dev: '開發者', Reviewer: '程式審查', QA: '品質驗證', Agent: 'Agent' }[name];
       const dutyX = { Owner: 1175, PM: 405, PO: 405, 'UI/UX': 260, Dev: 560, Reviewer: 710, QA: 860, Agent: 560 }[name];
       const duty = showPeople && step === 4 ? `<text class="opening-role-duty" x="${dutyX}" y="${y + 6}" text-anchor="middle">${esc(label)}</text>` : '';
-      const agentPurpose = highlightedAgent ? `<g class="opening-agent-purpose"><rect x="470" y="${y - 17}" width="180" height="34" rx="4"/><text x="560" y="${y + 6}" text-anchor="middle">依交辦執行工作</text></g>` : '';
-      return `<g class="opening-role${highlightedAgent ? ' is-new' : ''}" data-role="${esc(name)}"><path d="M170 ${y + 25} H1550"/><text class="opening-role-name" x="18" y="${y + 6}">${showPeople ? esc(name) : (isAgent && step >= 2 ? 'Agent' : '')}</text>${duty}${agentPurpose}</g>`;
+      const agentPurpose = highlightedAgent ? `<g class="opening-agent-purpose"><rect x="425" y="${y - 25}" width="270" height="50" rx="5"/><text x="560" y="${y + 7}" text-anchor="middle">接工作票，依交辦執行</text></g>` : '';
+      return `<g class="opening-role${highlightedAgent ? ' is-new' : ''}" data-role="${esc(name)}"><path d="M170 ${y + 25} H1550"/><text class="opening-role-name" x="18" y="${y + 6}">${showPeople ? esc(roleLabel) : (isAgent && step >= 2 ? 'Agent' : '')}</text>${duty}${agentPurpose}</g>`;
     }).join('');
     const processStages = SWIMLANE_LAYOUT.stages.filter(item => !item.outside);
     const stageHeaders = showProcess ? processStages.map((column, index) => {
@@ -476,12 +481,16 @@
     const card = showCard ? `<g class="opening-work-card"><rect x="${SWIMLANE_X.dev - 72}" y="329" width="144" height="34" rx="4"/><text x="${SWIMLANE_X.dev}" y="351" text-anchor="middle">Dev｜修改配對規則</text></g>` : '';
     const decisions = showReturns ? `<g class="opening-decision"><polygon points="${SWIMLANE_X.review},383 ${SWIMLANE_X.review + 20},403 ${SWIMLANE_X.review},423 ${SWIMLANE_X.review - 20},403"/><text x="${SWIMLANE_X.review}" y="408" text-anchor="middle">修改？</text></g><g class="opening-decision"><polygon points="${SWIMLANE_X.qa},433 ${SWIMLANE_X.qa + 20},453 ${SWIMLANE_X.qa},473 ${SWIMLANE_X.qa - 20},453"/><text x="${SWIMLANE_X.qa}" y="458" text-anchor="middle">FAIL？</text></g><g class="opening-decision"><polygon points="${SWIMLANE_X['product-check']},233 ${SWIMLANE_X['product-check'] + 20},253 ${SWIMLANE_X['product-check']},273 ${SWIMLANE_X['product-check'] - 20},253"/><text x="${SWIMLANE_X['product-check']}" y="258" text-anchor="middle">Goal？</text></g>` : '';
     const workLinks = showCard && !showReturns ? `<g class="opening-work-link"><path d="M${SWIMLANE_X.dev} 363 V532" marker-end="url(#opening-arrow-${uid})"/><path d="M${SWIMLANE_X.dev} 587 V615" marker-end="url(#opening-arrow-version-${uid})"/></g>` : '';
-    const returns = showReturns ? `<g class="opening-return"><path d="M1020 233 V290 H850"/><path d="M540 290 H170 V253" marker-end="url(#opening-return-arrow-${uid})"/><rect x="550" y="298" width="280" height="24" rx="3"/><text x="690" y="315" text-anchor="middle">不符合目標 → Refinement</text><path d="M710 423 V439 H560 V371" marker-end="url(#opening-return-arrow-${uid})"/><rect x="740" y="397" width="145" height="24" rx="3"/><text x="812" y="414" text-anchor="middle">Review 要修改 → Dev</text><path d="M860 473 V505 H560 V371" marker-end="url(#opening-return-arrow-${uid})"/><rect x="895" y="478" width="130" height="24" rx="3"/><text x="960" y="495" text-anchor="middle">測試 FAIL → Dev</text></g>` : '';
+    const returns = showReturns ? `<g class="opening-return">
+      <g class="fragment" data-fragment-order="1"><path d="M1020 233 V286 H170 V253" marker-end="url(#opening-return-arrow-${uid})"/><rect x="570" y="296" width="200" height="24" rx="3"/><text x="670" y="313" text-anchor="middle">目標未符合 → 需求釐清</text></g>
+      <g class="fragment" data-fragment-order="2"><path d="M710 423 V442 H478 V371 H492" marker-end="url(#opening-return-arrow-${uid})"/><rect x="505" y="412" width="156" height="24" rx="3"/><text x="583" y="429" text-anchor="middle">審查要求修改 → 開發</text></g>
+      <g class="fragment" data-fragment-order="3"><path d="M860 473 V505 H640 V371 H628" marker-end="url(#opening-return-arrow-${uid})"/><rect x="660" y="476" width="160" height="24" rx="3"/><text x="740" y="493" text-anchor="middle">測試未通過 → 開發</text></g>
+    </g>` : '';
     const skeletonPrompts = step <= 2 ? `<g class="opening-skeleton-prompts" aria-label="四個區域各自回答的問題">
-      <g class="opening-prompt-process"><text class="opening-prompt-name" x="860" y="51" text-anchor="middle">流程</text><text class="opening-prompt-question" x="860" y="84" text-anchor="middle">做到哪？</text></g>
-      <g class="opening-prompt-people"><text class="opening-prompt-name" x="860" y="300" text-anchor="middle">人</text><text class="opening-prompt-question" x="860" y="322" text-anchor="middle">誰做？</text></g>
-      <g class="opening-prompt-documents"><text class="opening-prompt-name" x="860" y="558" text-anchor="middle">文件</text><text class="opening-prompt-question" x="860" y="581" text-anchor="middle">根據什麼、怎麼驗？</text></g>
-      <g class="opening-prompt-version"><text class="opening-prompt-name" x="860" y="635" text-anchor="middle">版本管理</text><text class="opening-prompt-question" x="860" y="669" text-anchor="middle">改的是哪一版？</text></g>
+      <g class="opening-prompt-process"><text class="opening-prompt-name" x="220" y="84">流程</text><text class="opening-prompt-question" x="345" y="84">做到哪？</text></g>
+      <g class="opening-prompt-people"><text class="opening-prompt-name" x="220" y="180">人</text><text class="opening-prompt-question" x="275" y="180">誰做？</text></g>
+      <g class="opening-prompt-documents"><text class="opening-prompt-name" x="220" y="571">文件</text><text class="opening-prompt-question" x="345" y="571">根據什麼、怎麼驗？</text></g>
+      <g class="opening-prompt-version"><text class="opening-prompt-name" x="220" y="655">版本管理</text><text class="opening-prompt-question" x="400" y="655">改的是哪一版？</text></g>
     </g>` : '';
     const personLane = `<g class="opening-map-zone opening-people${dim('people')}"><text class="opening-zone-label" x="18" y="136">人（泳道）</text>${roleRows}${card}${workLinks}${decisions}${returns}</g>`;
     const processLane = `<g class="opening-map-zone opening-process${dim('process')}"><text class="opening-zone-label" x="18" y="82">流程（X 軸）</text>${activity}${stageHeaders}${outsideGate}<g class="opening-axis-guides">${processStages.map(item => `<line x1="${item.x}" y1="112" x2="${item.x + item.width}" y2="112"/>`).join('')}</g></g>`;
@@ -619,7 +628,7 @@
           </section>
           <section class="criteria-step fragment" data-fragment-order="3">
             <h2>最後交接與留證</h2>
-            <article><b>Definition of Done（DoD）</b><p>本票修改與檢查紀錄完成；是否合併仍需授權。</p></article>
+            <article><b>Definition of Done（DoD）</b><p>AC／AT 全符合並留獨立核對紀錄；合併需人授權，交付後才標 Done。功能上線另判。</p></article>
             <article><b>Exit · 交接條件</b><p>交出結果和仍未測項。</p></article>
             <article><b>Evidence · 實際紀錄</b><p>版本、輸入、預期、實際與結果。</p></article>
           </section>
@@ -769,15 +778,15 @@
   const B2_MAP_STATE = {
     O03: { docStage: 'backlog', docLabel: '需求草案', docStatus: '待確認' },
     B04: { docStage: 'backlog', docLabel: '產品目標', docStatus: '已建立' },
-    R05: { docStage: 'backlog', docLabel: '工作票', docStatus: '已拆分' },
+    R05: { docStage: 'backlog', docLabel: '目標→子票 #1／#3／#2', docStatus: '三票皆待整理', docTree: true },
     RD02: { docStage: 'ready', docLabel: '工作票', docStatus: '已備妥', ticket: 'ready', previous: 'backlog' },
-    D04: { docStage: 'dev', docLabel: '工作紀錄', docStatus: '實作摘要', versionStage: 'dev', versionLabel: '分支', versionStatus: '修改已提交', ticket: 'dev', previous: 'ready' },
-    RV03: { docStage: 'review', docLabel: '審查意見', docStatus: '要求修改', versionStage: 'review', versionLabel: '送審版本', versionStatus: '尚未合併', ticket: 'dev', previous: 'review', actualReturn: 'review' },
-    Q05: { docStage: 'qa', docLabel: '測試紀錄', docStatus: '三次已記錄', versionStage: 'qa', versionLabel: '測試版本', versionStatus: '結果可回查', ticket: 'qa', previous: 'dev', actualReturn: 'qa' },
-    PC02: { docStage: 'product-check', docLabel: '目標對照', docStatus: '規則範圍可審', versionStage: 'qa', versionLabel: '測試版本', versionStatus: '目標仍未驗' },
-    HG02: { docStage: 'human_gate', docLabel: '放行決定', docStatus: '功能暫不上線', versionStage: 'human_gate', versionLabel: '合併授權', versionStatus: '已授權・未執行', ticket: 'product-check', actualReturn: 'gate' },
-    A01: { docStage: 'qa', docLabel: '第一次測', docStatus: 'AC1／2通過', versionStage: 'qa', versionLabel: '修正版', versionStatus: '沿用同一程式', ticket: 'qa' },
-    A11: { docStage: 'product-check', docLabel: '跨票關聯', docStatus: '未測已保留', versionStage: 'qa', versionLabel: '測試歷史', versionStatus: '第一次測 → 補測' },
+    D04: { docStage: 'dev', docLabel: '工作紀錄', docStatus: '實作摘要', versionStage: 'dev', versionLabel: 'Branch', versionStatus: '修改已提交', ticket: 'dev', previous: 'ready' },
+    RV03: { docStage: 'review', docLabel: '審查意見', docStatus: '要求修改', versionStage: 'review', versionLabel: 'PR', versionStatus: '尚未合併', ticket: 'dev', previous: 'review', actualReturn: 'review' },
+    Q05: { docStage: 'qa', docLabel: '測試紀錄', docStatus: '三次已記錄', versionStage: 'qa', versionLabel: 'PR', versionStatus: '結果可回查', ticket: 'qa', previous: 'dev', actualReturn: 'qa' },
+    PC02: { docStage: 'product-check', docLabel: '目標對照', docStatus: '規則範圍可審', versionStage: 'qa', versionLabel: 'PR', versionStatus: '目標仍未驗' },
+    HG02: { docStage: 'human_gate', docLabel: '放行決定', docStatus: '功能暫不上線', versionStage: 'human_gate', versionLabel: 'Merge', versionStatus: '已授權・未執行', ticket: 'product-check', actualReturn: 'gate' },
+    A01: { docStage: 'qa', docLabel: '第一次測', docStatus: 'AC1／2通過', versionStage: 'qa', versionLabel: 'PR', versionStatus: '沿用同一程式', ticket: 'qa' },
+    A11: { docStage: 'product-check', docLabel: '跨票關聯', docStatus: '未測已保留', versionStage: 'qa', versionLabel: 'PR', versionStatus: '第一次測 → 補測' },
   };
 
   function renderPart2Map(slide) {
@@ -807,57 +816,58 @@
     const configurations = {
       single: {
         title: '一個 Agent 依票工作，人另行核對',
-        note: '示意：同一人可承擔 Owner 與 QA；QA 不由實作者自評。',
-        columns: ['人交辦', 'Agent 執行', 'QA 核對', 'Human Gate'],
+        note: '教學示意：不代表 Agent 曾實際修改或測試。',
+        columns: ['人交辦', 'Agent 修改', 'Agent 回報', 'QA 核對', '人檢查'],
         lanes: [
-          ['Owner', '人', [[1, '交付工作票、驗收條件與停止範圍', 'human'], [4, '檢查證據並決定放行', 'human']]],
-          ['Agent', 'agent', [[2, '依核准範圍修改並交版本摘要', 'agent']]],
-          ['QA', 'review', [[3, '依條件獨立核對版本與結果', 'review']]],
+          ['授權人', 'human', [[1, 'Issue #3：只改配對規則；列 AC1–AC3 與停止條件', 'human'], [5, '核對三件：範圍、證據對版、未測仍明列', 'human']]],
+          ['Agent', 'agent', [[2, '依核准範圍修改配對規則，摘要改動', 'agent'], [3, '逐條 AC 列輸入、預期、實際與結果；未測另列', 'agent']]],
+          ['QA', 'review', [[4, '獨立對照工作票、版本與測試紀錄', 'review']]],
         ],
-        routes: [[[1, 0], [2, 1], [3, 2], [4, 0]]],
-        artifacts: ['Issue：範圍 · AC · 停止條件', '版本：Branch → Commit → PR', '證據：測試紀錄連回工作票'],
+        routes: [[[1, 0], [2, 1], [3, 1], [4, 2], [5, 0]]],
+        artifacts: ['Issue：#3 配對規則 · AC1–AC3', 'PR：修改摘要與版本連結（示意）', 'Evidence：預期、實際、結果與未測項'],
       },
       'multi-chat': {
         title: '多個工作對話之間，由人帶著紀錄交接',
         note: '架構示意，不代表實際多 Agent 協作。',
         columns: ['共用工作票', 'Dev 對話', '人帶紀錄', 'Reviewer／QA', 'Human Gate'],
         lanes: [
-          ['Dev Agent', 'agent', [[2, '依工作票修改，交版本摘要', 'agent']]],
-          ['人', 'human', [[1, '提供工作票與驗收條件', 'human'], [3, '帶上版本與未測項', 'relay']]],
-          ['Reviewer Agent', 'review', [[4, '審查修改與範圍', 'review']]],
-          ['QA Agent', 'review', [[4, '依條件核對行為與證據', 'review']]],
-          ['Owner', 'human', [[5, '看完紀錄，決定是否放行', 'human']]],
+          ['開發 Agent', 'agent', [[2, '依工作票修改，交版本摘要', 'agent']]],
+          ['人', 'human', [[1, '提供同一張票與驗收條件', 'human'], [3, '帶版本、審查意見與未測項', 'relay']]],
+          ['審查者', 'review', [[4, '核對改動與核准範圍', 'review']]],
+          ['QA', 'review', [[4, '逐條驗收，分開記結果與未測', 'review']]],
+          ['授權人', 'human', [[5, '查看共用紀錄，再決定放行', 'human']]],
         ],
         routes: [[[1, 1], [2, 0], [3, 1], [4, 2], [5, 4]], [[3, 1], [4, 3], [5, 4]]],
-        artifacts: ['文件：Issue 保留範圍與 AC', '版本：Branch／Commit／PR', '證據：Review 與 QA 分開回寫'],
+        artifacts: ['Issue：範圍與 AC 留在同一張票', 'PR：改動摘要帶到下一段對話', 'Evidence：審查與 QA 分開記'],
       },
       orchestrator: {
         title: '協調 Agent 分派工作，人保留正式放行',
         note: '架構示意，不代表實際多 Agent 協作。',
-        columns: ['人核准', '主 Agent 分派', 'Dev 修改', 'Reviewer／QA 核對', '主 Agent 彙整', '人決定放行'],
+        columns: ['人核准', 'Agent 分派', 'Dev 修改', '審查／QA', 'Agent 彙整', '人決定放行'],
         lanes: [
-          ['Owner', 'human', [[1, '核准範圍與停止條件', 'human'], [6, '獨立核對並決定放行', 'human']]],
-          ['協調 Agent', 'agent', [[2, '依工作邊界分派', 'agent'], [5, '收回報並附上來源', 'agent']]],
+          ['授權人', 'human', [[1, '核准範圍與停止條件', 'human'], [6, '看證據，決定是否正式放行', 'human']]],
+          ['協調 Agent', 'agent', [[2, '依工作邊界分派', 'agent'], [5, '彙整回報並附來源', 'agent']]],
           ['Dev Agent', 'agent', [[3, '修改並交版本摘要', 'agent']]],
-          ['Reviewer Agent', 'review', [[4, '審查修改與範圍', 'review']]],
-          ['QA Agent', 'review', [[4, '依條件核對並記錄結果', 'review']]],
+          ['審查者', 'review', [[4, '檢查改動與核准範圍', 'review']]],
+          ['QA', 'review', [[4, '依條件獨立核對並記錄', 'review']]],
         ],
         routes: [[[1, 0], [2, 1]], [[2, 1], [3, 2]], [[3, 2], [4, 3]], [[3, 2], [4, 4]], [[4, 3], [5, 1]], [[4, 4], [5, 1]], [[5, 1], [6, 0]]],
-        artifacts: ['文件：同一張 Issue 與驗收條件', '版本：工作成果回到 Branch／PR', '證據：分工結果附來源與範圍'],
+        artifacts: ['Issue：一張票記分工與範圍', 'PR：改動與審查結果連回版本', 'Evidence：各項回報附來源'],
       },
     };
     const config = configurations[mode] || configurations.single;
-    const axis = config.columns.map((label, index) => `<div class="agent-mode-step fragment" data-fragment-order="${index + 1}"><span>${index === 0 ? '起點' : `第 ${index + 1} 步`}</span><strong>${esc(label)}</strong></div>`).join('<i aria-hidden="true">→</i>');
+    const axis = `<span class="agent-mode-axis-spacer" aria-hidden="true"></span>${config.columns.map((label, index) => `<div class="agent-mode-step fragment" data-fragment-order="${index + 1}"><span>${index === 0 ? '起點' : `第 ${index + 1} 步`}</span><strong>${esc(label)}</strong></div>`).join('')}`;
     const lanes = config.lanes.map(([name, kind, cells]) => {
       const firstStep = Math.min(...cells.map(([column]) => column));
       return `<div class="agent-mode-lane lane-${kind} fragment" data-fragment-order="${firstStep}"><strong class="agent-mode-lane-name">${esc(name)}</strong>${cells.map(([column, text, type]) => `<article class="agent-mode-cell mode-${type} fragment" data-fragment-order="${column}" style="grid-column:${column + 1}"><b>${esc(text)}</b></article>`).join('')}</div>`;
     }).join('');
-    const laneHeight = config.lanes.length > 3 ? 72 : 90;
-    const laneGap = 6;
-    const labelWidth = 132;
+    const laneHeight = config.lanes.length > 3 ? 64 : 90;
+    const laneGap = config.lanes.length > 3 ? 6 : 10;
+    const labelWidth = 120;
+    const columnGap = 6;
     const routeId = `agent-route-arrow-${slide.dataset.page}`;
-    const cellWidth = (1000 - labelWidth - config.columns.length * 7) / config.columns.length;
-    const cellLeft = column => labelWidth + 7 + (column - 1) * (cellWidth + 7);
+    const cellWidth = (1000 - labelWidth - config.columns.length * columnGap) / config.columns.length;
+    const cellLeft = column => labelWidth + columnGap + (column - 1) * (cellWidth + columnGap);
     const cellRight = column => cellLeft(column) + cellWidth;
     const rowCenter = row => row * (laneHeight + laneGap) + laneHeight / 2;
     const routeEdges = (config.routes || []).flatMap(route => route.slice(1).map((point, index) => ({
@@ -891,12 +901,13 @@
       feeders.push(`<path class="fragment" data-fragment-order="${toColumn}" d="M${channelX} ${endY} H${endX}" marker-end="url(#${routeId})"/>`);
       return feeders;
     }).join('');
-    const routes = `<svg class="agent-mode-routes mode-${mode}" viewBox="0 0 1000 ${config.lanes.length * laneHeight + (config.lanes.length - 1) * laneGap}" preserveAspectRatio="none" aria-hidden="true"><defs><marker id="${routeId}" markerWidth="9" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L9 4 L0 8 Z"/></marker></defs>${routePaths}</svg>`;
+    const lanesHeight = config.lanes.length * laneHeight + (config.lanes.length - 1) * laneGap;
+    const routes = `<svg class="agent-mode-routes mode-${mode}" viewBox="0 0 1000 ${lanesHeight}" preserveAspectRatio="none" aria-hidden="true"><defs><marker id="${routeId}" markerWidth="9" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L9 4 L0 8 Z"/></marker></defs>${routePaths}</svg>`;
     const artifacts = config.artifacts.map(text => {
       const [label, ...detail] = text.split('：');
       return `<article><b>${esc(label)}</b><span>${esc(detail.join('：'))}</span></article>`;
     }).join('');
-    return `<div class="focus-compose agent-mode-compose">${locator(slide)}<section class="diagram-field agent-mode-field" style="--mode-columns:${config.columns.length};--mode-rows:${config.lanes.length};--mode-lane-height:${laneHeight}px;--mode-lane-gap:${laneGap}px"><p class="agent-mode-note">${esc(config.note)}</p><div class="agent-mode-axis" style="--mode-columns:${config.columns.length}">${axis}</div><div class="agent-mode-lanes" style="--mode-columns:${config.columns.length};--mode-rows:${config.lanes.length}">${routes}${lanes}</div><div class="agent-mode-artifacts fragment" data-fragment-order="${config.columns.length + 1}">${artifacts}</div></section></div>`;
+    return `<div class="focus-compose agent-mode-compose">${locator(slide)}<section class="diagram-field agent-mode-field" style="--mode-columns:${config.columns.length};--mode-rows:${config.lanes.length};--mode-lane-height:${laneHeight}px;--mode-lane-gap:${laneGap}px;--mode-lanes-height:${lanesHeight}px"><p class="agent-mode-note">${esc(config.note)}</p><div class="agent-mode-axis" style="--mode-columns:${config.columns.length}">${axis}</div><div class="agent-mode-lanes" style="--mode-columns:${config.columns.length};--mode-rows:${config.lanes.length}">${routes}${lanes}</div><div class="agent-mode-artifacts fragment" data-fragment-order="${config.columns.length + 1}">${artifacts}</div></section></div>`;
   }
 
   function artifactCard(label, title, content, className = '') {
@@ -925,7 +936,7 @@
         ['範圍外', '<p>UI、登入、網路服務、資料庫、完整產品串接。</p>'],
         ['Acceptance Criteria', '<ul><li>AC1：單向 Like，配對紀錄數為 0。</li><li>AC2：互相 Like，只建立一筆配對紀錄。</li><li>AC3：已有一筆配對紀錄再 Like，仍只有一筆。</li></ul>', 'ac'],
         ['Acceptance Tests', '<ul><li>單向 Like → 預期 0 筆。</li><li>雙向 Like → 預期 1 筆。</li><li>重複 Like → 預期仍為 1 筆。</li><li>每個案例用同一份假資料重置。</li></ul>'],
-        ['Definition of Done', '<p>規則測試全 PASS 並留紀錄後，才可申請合併授權；授權、實際合併與完成交付分別記錄。</p>'],
+        ['Definition of Done', '<p>AC／AT 全符合，並留獨立驗證紀錄。符合 DoD 才能申請合併；人授權、實際合併並完成交付後，才標本票 Done。功能上線另行判斷。</p>'],
       ],
     });
   }
@@ -978,7 +989,7 @@
         body = `<div class="git-flow"><span>Git／GitHub 關係 · 示意</span><div class="git-chain"><article class="git-ticket"><span>工作契約</span><strong>Issue #3</strong><small>Scope · AC · AT</small></article><i>→</i><article><span>隔離修改</span><strong>Branch</strong><small>同一 Repo</small></article><i>→</i><article><span>版本節點</span><strong>Commit</strong><small>記錄變更</small></article><i>→</i><article class="git-pr"><span>協作送審</span><strong>GitHub PR</strong><small>差異連回 Issue</small></article></div></div>`;
         break;
       case 'D03':
-        body = `<div class="candidate-card"><header><span>程式修改摘要</span><strong>配對規則 · 教學示意</strong><em>未宣稱實測</em></header><div><article><b>Dev 自查步驟</b><span>重設資料 → 單向按讚 → 查配對紀錄數</span></article><article><b>交接內容</b><span>記錄輸入、預期與待 QA 核對項</span></article><article><b>未完成項</b><span>逐條 AC 交 QA 獨立驗證</span></article></div><footer>Dev 自查提供線索；QA 另行驗證，結果依證據記錄。</footer></div>`;
+        body = `<div class="candidate-card"><header><span>Dev 交接摘要</span><strong>Issue #3 · 雙向按讚規則</strong><em>教學示意</em></header><div><article><b>自測線索</b><span>重設假資料 → 單向按讚 → 查紀錄數</span></article><article><b>版本與修改</b><span>Branch、Commit、PR 連結修改摘要</span></article><article><b>待 QA</b><span>AC1–AC3 逐條記預期、實際與結果；未測保持未測</span></article></div><footer>交接格式示意；不表示本頁有 Matching 實測或真實版本紀錄。</footer></div>`;
         break;
       case 'RV01':
       case 'RV02':
@@ -1048,7 +1059,7 @@
     const questions = [
       ['Ticket／AC', '你會把哪個範圍、AC 與停止條件寫進 Issue？', '寫清楚單向 0、雙向 1 筆、重複仍 1 筆；介面／登入／服務／資料庫排除，超範圍需求先停並交人決定。'],
       ['協作方式', '什麼時候需要協調 Agent？', '按任務邊界選方式；每站都回寫 Issue、版本與證據，角色仍分開，Human Gate 仍由人負責。'],
-      ['補測與完成', '第一次測還有未測案例時，要補哪些證據？', '同一修正版重測：已有 1 筆，再 Like 後仍 1 筆。所有 AC／DoD 有證據、未測仍標未測；人授權、實際合併並記錄交付後，才標 Done。本票完成不等於功能上線。'],
+      ['補測與完成', '什麼時候才算完成？', 'DoD 全部滿足，並留獨立驗證紀錄；未測仍標未測。人授權、實際合併並完成交付後，才標本票 Done。本課未執行合併，也不代表功能已上線。'],
     ];
     return `<div class="focus-compose b2-focus-compose">${locator(slide)}<section class="diagram-field b2-artifact exercise-part2"><header><strong>同一張 Ticket #3 · 修正版・第一次測 → 修正版・補測</strong><span>先寫下你的答案</span></header><ol>${questions.map(([label, question, answer], index) => `<li><b>${esc(label)}</b><span>${esc(question)}</span><p class="exercise-answer fragment" data-fragment-order="${index+1}"><strong>參考</strong>：${esc(answer)}</p></li>`).join('')}</ol><footer>參考答案依序揭露；不是新測試，也不表示 上線／產品目標完成。</footer></section></div>`;
   }

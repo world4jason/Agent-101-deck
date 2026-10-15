@@ -1636,3 +1636,88 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .slide[data-page="55"] .agent-mode-step > strong,
 .slide[data-page="56"] .agent-mode-step > strong,
 .slide[data-page="57"] .agent-mode-step > strong { font-size: 30px; line-height: 1.05; }
+
+/* Keep the one-row locator while emphasizing only the current workflow state. */
+.locator-state.is-current { font-size: 17px; }
+.locator-gate { font-size: 16px; }
+.locator-focus b { font-size: 13px; }
+.locator-focus > span { font-size: 16px; }
+
+/* The opening questions sit inside their four colored foundation areas. */
+.opening-prompt-name { font-size: 32px; }
+.opening-prompt-question { font-size: 28px; }
+.opening-prompt-people .opening-prompt-name { font-size: 32px; }
+.opening-prompt-people .opening-prompt-question { font-size: 28px; }
+.opening-agent-purpose text { font-size: 20px; }
+.opening-role-name { font-size: 23px; white-space: nowrap; }
+.opening-role-duty { font-size: 20px; }
+.opening-decision text { font-size: 18px; font-weight: 850; }
+.swimlane-role-label { font-size: 24px; }
+.swimlane-node.decision-node text { font-size: 18px; }
+.swimlane-return text { font-size: 18px; }
+
+/* Share a left label gutter and fixed row centers between the step line and lanes. */
+.agent-mode-field {
+  grid-template-rows: auto auto auto auto;
+  align-content: space-between;
+}
+.agent-mode-axis {
+  display: grid;
+  grid-template-columns: 12% repeat(var(--mode-columns), minmax(0, 1fr));
+  column-gap: .6%;
+  gap: 0 .6%;
+}
+.agent-mode-axis-spacer { min-width: 0; }
+.agent-mode-step { position: relative; }
+.agent-mode-step:not(:last-child)::after {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: -9px;
+  width: 18px;
+  content: "→";
+  transform: translateY(-50%);
+  color: var(--process);
+  font: 800 20px/1 var(--font-data);
+  text-align: center;
+}
+.agent-mode-lanes {
+  align-self: start;
+  height: var(--mode-lanes-height);
+  grid-template-rows: repeat(var(--mode-rows), var(--mode-lane-height));
+  row-gap: var(--mode-lane-gap);
+}
+.agent-mode-routes { height: var(--mode-lanes-height); }
+.agent-mode-lane {
+  height: var(--mode-lane-height);
+  grid-template-columns: 12% repeat(var(--mode-columns), minmax(0, 1fr));
+  column-gap: .6%;
+  row-gap: 0;
+}
+.agent-mode-lane-name { justify-content: flex-end; white-space: nowrap; }
+.agent-mode-cell { padding: 3px 6px; }
+.agent-mode-artifacts b { font-size: 19px; }
+.agent-mode-artifacts span { font-size: 19px; line-height: 1.18; }
+
+/* Keep the linked tickets on the refinement map short and legible. */
+.slide[data-page="35"] .swimlane-doc-name { font-size: 25px; }
+.slide[data-page="35"] .swimlane-doc-status { font-size: 23px; }
+.swimlane-doc-node.is-ticket-tree .swimlane-doc-name { font-size: 23px; }
+
+/* Put the Dev handoff evidence in the available space without implying a real run. */
+.slide[data-page="40"] .candidate-card > div {
+  flex: 1 1 auto;
+  align-items: stretch;
+}
+.slide[data-page="40"] .candidate-card > div article {
+  justify-content: space-evenly;
+  padding: 20px;
+}
+.slide[data-page="40"] .candidate-card article b { font-size: 22px; }
+.slide[data-page="40"] .candidate-card article span { font-size: 22px; line-height: 1.25; }
+
+/* Reveal the five map links one at a time and make their labels readable. */
+.principle-map-markers > g:not(.principle-map-key) circle { r: 16px; }
+.principle-map-key circle { r: 15px; }
+.principle-map-key > text:first-of-type { font-size: 18px; }
+.principle-map-key > text:nth-of-type(2) { font-size: 21px; }
