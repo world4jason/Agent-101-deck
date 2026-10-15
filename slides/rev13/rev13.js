@@ -259,7 +259,7 @@
     const roleMarkup = ROLE_DATA.map(role => `
       <div class="${roleClass(role.name)}" data-role="${esc(role.name)}">
         <span class="role-dot" aria-hidden="true"></span>
-        <strong>${esc(role.name)}</strong><span class="role-desc">${esc(role.short)}</span>
+        <strong>${esc(role.name)}</strong>
       </div>`).join('');
 
     const stageStates = new Set(STAGE_KANBAN[stage] || []);
@@ -280,8 +280,7 @@
     let agentMarkup = '';
     if (agent) {
       agentMarkup = `<div class="agent-layer${revealAgent ? ' fragment' : ''}" role="group" aria-label="Agent：受委派執行／協調；範圍、責任與 Human Gate 仍連回原四區"${revealAgent ? ' data-fragment-order="1"' : ''}>
-        <span class="agent-mark" aria-hidden="true">A</span>
-        <strong>Agent</strong>
+        <span class="agent-identity"><span class="agent-mark" aria-hidden="true">A</span><strong>Agent</strong></span>
         <span>受委派執行／協調；範圍、責任與 Human Gate 仍連回原四區</span>
       </div>`;
     } else {
@@ -307,10 +306,10 @@
           <section class="${zoneClass('documents')} zone-documents" data-zone="documents" aria-label="Documents 文件">
             <header class="zone-heading"><span class="zone-symbol">▤</span><h2><span class="zone-name-full">Documents</span><em>文件</em></h2></header>
             <div class="doc-stack" role="group" aria-label="文件：Goal／Proposal、Epic／Story／Task、Scope／AC／AT／DoD、Review／Evidence">
-              <div class="doc-piece"><b>Goal／Proposal</b><span>為什麼做</span></div>
-              <div class="doc-piece"><b>Epic · Story · Task</b><span>如何拆成工作</span></div>
-              <div class="doc-piece"><b>Scope · AC · AT · DoD</b><span>做什麼、如何驗</span></div>
-              <div class="doc-piece"><b>Review · Evidence</b><span>改動與驗證紀錄</span></div>
+              <div class="doc-piece"><b>Goal／Proposal</b><span>為何做</span></div>
+              <div class="doc-piece"><b>Epic · Story · Task</b><span>拆分工作</span></div>
+              <div class="doc-piece"><b>Scope · AC · AT · DoD</b><span>做與驗</span></div>
+              <div class="doc-piece"><b>Review · Evidence</b><span>審查與證據</span></div>
             </div>
           </section>
           <section class="${zoneClass('version')} zone-version" data-zone="version" aria-label="Version Control 版本管理">
@@ -445,9 +444,9 @@
     const height = 520;
     const left = 210;
     const gap = 144;
-    const topY = 82;
-    const rowStart = 158;
-    const rowGap = 53;
+    const topY = 105;
+    const rowStart = 166;
+    const rowGap = 50;
     const columns = [
       { key: 'backlog', label: 'Backlog', stageKeys: ['brainstorming', 'refinement'], activity: true },
       { key: 'ready', label: 'Ready', stageKeys: ['ready'] },
@@ -463,13 +462,13 @@
       const x = columnX(index);
       let labelMarkup;
       if (column.activity) {
-        labelMarkup = `<text class="matrix-activity" x="${x}" y="21" text-anchor="middle">Brainstorming</text><text class="matrix-activity" x="${x}" y="39" text-anchor="middle">Refinement</text><text x="${x}" y="59" text-anchor="middle">Backlog</text>`;
+        labelMarkup = `<rect class="matrix-activity-pill" x="${x - 94}" y="6" width="188" height="27" rx="5" /><text class="matrix-activity" x="${x}" y="25" text-anchor="middle">↗ Brainstorming</text><rect class="matrix-activity-pill" x="${x - 94}" y="37" width="188" height="27" rx="5" /><text class="matrix-activity" x="${x}" y="56" text-anchor="middle">↔ Refinement</text><text class="matrix-backlog-label" x="${x}" y="88" text-anchor="middle">Backlog</text>`;
       } else if (column.label === 'Product Check') {
-        labelMarkup = `<text text-anchor="middle"><tspan x="${x}" y="42">Product</tspan><tspan x="${x}" y="62">Check</tspan></text>`;
+        labelMarkup = `<text text-anchor="middle"><tspan x="${x}" y="50">Product</tspan><tspan x="${x}" y="72">Check</tspan></text>`;
       } else if (column.outside) {
-        labelMarkup = `<text x="${x}" y="51" text-anchor="middle">Human Gate</text><text class="matrix-outside-note" x="${x}" y="108" text-anchor="middle">欄外決策</text>`;
+        labelMarkup = `<text x="${x}" y="78" text-anchor="middle">Human Gate</text>`;
       } else {
-        labelMarkup = `<text x="${x}" y="55" text-anchor="middle">${esc(column.label)}</text>`;
+        labelMarkup = `<text x="${x}" y="64" text-anchor="middle">${esc(column.label)}</text>`;
       }
       const shape = column.outside
         ? `<polygon class="matrix-gate-diamond" points="${x},${topY - 17} ${x + 17},${topY} ${x},${topY + 17} ${x - 17},${topY}" />`
@@ -504,7 +503,7 @@
         <svg class="roles-matrix" viewBox="0 0 ${width} ${height}" role="img" aria-label="七種角色連到各階段的主責與協作矩陣">
           ${stageLine}${stageNodes}${rows}
         </svg>
-        <div class="matrix-legend"><span><i class="legend-lead"></i>主責</span><span><i class="legend-co"></i>協作</span><span>Human Gate 菱形為欄外決策</span></div>
+        <div class="matrix-legend"><span><i class="legend-lead"></i>主責</span><span><i class="legend-co"></i>協作</span><span><i class="legend-gate"></i>欄外決策</span></div>
       </div>
     </div>`;
   }
@@ -514,14 +513,16 @@
       <div class="diagram-field doc-type-field">
         <div class="doc-tree-root"><span>為什麼做</span><strong>Goal／Proposal</strong></div>
         <div class="tree-trunk" aria-hidden="true"></div>
-        <div class="ticket-tree">
-          <div class="ticket-node epic"><strong>Epic</strong><span>一組相關工作</span></div>
-          <span class="tree-arrow" aria-hidden="true">→</span>
-          <div class="ticket-node story"><strong>Story</strong><span>可驗收的使用者結果</span></div>
-          <span class="tree-arrow" aria-hidden="true">→</span>
-          <div class="ticket-node task"><strong>Task</strong><span>可交辦的工作</span></div>
+        <section class="ticket-cluster" aria-label="Ticket／工作票可依團隊分類為 Epic、Story 或 Task">
+          <header><strong>Ticket／工作票</strong><span>承載工作契約；分類依團隊設定</span></header>
+          <div class="ticket-tree">
+            <div class="ticket-node epic"><strong>Epic</strong><span>一組相關工作</span></div>
+            <span class="tree-arrow" aria-hidden="true">→</span>
+            <div class="ticket-node story"><strong>Story</strong><span>可驗收的使用者結果</span></div>
+            <span class="tree-arrow" aria-hidden="true">→</span>
+            <div class="ticket-node task"><strong>Task</strong><span>可交辦的工作</span></div>
+          </div>
         </div>
-        <div class="ticket-caption">Ticket 是追蹤工作契約的紀錄；Epic／Story／Task 分類依團隊設定。</div>
         <div class="doc-branch-line" aria-hidden="true"></div>
         <div class="contract-artifacts">
           <article><b>Scope</b><span>界定做與不做</span></article>
@@ -536,24 +537,17 @@
   function renderDocumentLifecycle(slide) {
     return `<div class="focus-compose">${locator(slide)}
       <div class="diagram-field lifecycle-field">
-        <div class="lifecycle-heading"><strong>同一張教學示意 Issue 的工作契約</strong><span>Backlog → Ready → Dev → Review → QA → Product Check → Done</span></div>
-        <div class="lifecycle-compare">
-          <article class="lifecycle-snapshot lifecycle-before">
-            <header><span>BEFORE · Backlog</span><strong>工作契約形成</strong></header>
-            <div><b>Ticket 內容</b><span>Parent Goal、Scope、AC／AT、依賴</span></div>
-            <div><b>可追溯位置</b><span>Issue 描述；Project 狀態為 Backlog</span></div>
-          </article>
-          <span class="lifecycle-change" aria-hidden="true">→</span>
-          <article class="lifecycle-snapshot lifecycle-after">
-            <header><span>AFTER · QA／Product Check</span><strong>原契約保留，補上版本與檢查指向</strong></header>
-            <div><b>Ticket 內容</b><span>原 AC／範圍可回查；實際 findings 與 Evidence 依執行補記</span></div>
-            <div><b>可追溯位置</b><span>Project 記錄各站狀態；Issue ↔ PR 差異與 Review ↔ 候選 Commit／Evidence</span></div>
-          </article>
+        <div class="lifecycle-heading"><strong>同一張示意 Issue，沿流程逐步補記</strong><span>原工作契約持續保留</span></div>
+        <div class="lifecycle-contract"><b>Issue：</b>Parent Goal · Scope · AC／AT · 依賴</div>
+        <div class="lifecycle-flow" aria-label="需求拆票、交付、Review、Evidence 與放行記錄的六步生命週期">
+          <article class="lifecycle-step" data-step="1"><span>Backlog · 需求／拆票</span><strong>把工作變成可交辦契約</strong><small>Parent Goal、Scope、AC／AT</small></article>
+          <article class="lifecycle-step" data-step="2"><span>Ready · 交接條件</span><strong>確認責任與可驗證性</strong><small>接手者、依賴、Exit 條件</small></article>
+          <article class="lifecycle-step" data-step="3"><span>Dev · 交付候選版</span><strong>連結程式修改</strong><small>Branch、Commit、PR 差異</small></article>
+          <article class="lifecycle-step" data-step="4"><span>Review · 審查更新</span><strong>保留發現與處置</strong><small>PR Review findings；未處置項回到 Dev</small></article>
+          <article class="lifecycle-step" data-step="5"><span>QA／Product Check · Evidence</span><strong>把結果對回 AC 與版本</strong><small>實際結果連到候選 Commit；未執行維持 NOT RUN</small></article>
+          <article class="lifecycle-step" data-step="6"><span>Human Gate · 放行記錄</span><strong>留下 Go／No-Go 與理由</strong><small>只在授權後進入後續 Merge／Release</small></article>
         </div>
-        <div class="lifecycle-trace" aria-label="工作紀錄與版本的追溯位置">
-          <span>Issue · 契約</span><i>↔</i><span>Project · 狀態</span><i>→</i><span>PR · 差異／Review</span><i>→</i><span>Commit · 版本</span><i>＋</i><span>Evidence · 實際檢查</span>
-        </div>
-        <div class="lifecycle-note"><b>示意流程</b><span>只記錄實際發生的 Review、測試與 Evidence；Issue／PR 不等於 Git Commit。</span></div>
+        <div class="lifecycle-note"><b>示意流程</b><span>Review、測試、Evidence 與放行只在實際發生時補記；本圖不代表 Matching 文件已建立。</span></div>
       </div>
     </div>`;
   }
@@ -582,21 +576,23 @@
   function renderGitGithub(slide) {
     return `<div class="focus-compose">${locator(slide)}
       <div class="diagram-field git-github-field">
-        <div class="relation-lane document-lane">
-          <span class="lane-label">工作紀錄／文件</span>
+        <div class="relation-lane github-collab-lane">
+          <span class="lane-label">GitHub 協作軌</span>
           <article><b>Issue</b><small>需求、決議、工作票</small></article>
-          <article><b>Project</b><small>跨工作項目狀態</small></article>
-          <article><b>Repo docs</b><small>規格與設計文件</small></article>
+          <article><b>Project</b><small>看板欄位與工作狀態</small></article>
+          <article class="pr-bridge"><b>Pull Request</b><small>版本差異、Review、Checks</small></article>
+          <article><b>Review</b><small>審查意見與處置</small></article>
         </div>
-        <div class="github-spine"><span></span><strong>GitHub</strong><span></span><small>協作平台，連接工作與版本審查</small></div>
-        <div class="relation-lane version-lane">
-          <span class="lane-label">程式版本／審查</span>
-          <article><b>Git Repo</b><small>受追蹤的檔案歷史</small></article>
+        <div class="track-intersection" aria-label="Pull Request 對照 Git 候選版本差異">
+          <span class="track-join"><b>Pull Request</b><i aria-hidden="true">↕</i><b>Commit</b></span>
+        </div>
+        <div class="relation-lane git-version-lane">
+          <span class="lane-label">Git 版本軌</span>
+          <article><b>Git Repo</b><small>檔案版本歷史</small></article>
           <article><b>Branch</b><small>隔離候選修改</small></article>
-          <article class="pr-bridge"><b>Pull Request</b><small>版本差異＋文字討論</small></article>
-          <article><b>Commit／Merge</b><small>節點與整合</small></article>
+          <article><b>Commit</b><small>保存修改節點</small></article>
+          <article><b>Merge</b><small>整合核准變更</small></article>
         </div>
-        <div class="cross-relation"><span>工作契約引用版本差異</span><i aria-hidden="true">↕</i><span>PR 連回 Issue 與候選 Commit</span></div>
       </div>
     </div>`;
   }
@@ -607,20 +603,21 @@
         <svg class="git-history" viewBox="0 0 1000 450" role="img" aria-label="Branch、Commit、PR、Merge 與回復路徑的版本關係">
           <defs>
             <marker id="arrow-version" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" /></marker>
-            <marker id="arrow-rollback" markerWidth="10" markerHeight="10" refX="2" refY="5" orient="auto"><path d="M10,0 L0,5 L10,10 Z" /></marker>
+            <marker id="arrow-rollback" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" /></marker>
           </defs>
           <path class="git-track main-track" d="M76 290 H930" />
-          <path class="git-track branch-track" d="M250 290 C320 290 330 150 420 150 H675 C745 150 745 290 820 290" />
-          <path class="git-track review-track" d="M675 150 C730 158 782 218 820 280" marker-end="url(#arrow-version)" />
-          <path class="git-track rollback-track" d="M820 310 C850 340 850 385 790 385 H430 C398 385 390 354 390 310" marker-end="url(#arrow-rollback)" />
-          <circle class="git-dot" cx="110" cy="290" r="13" /><circle class="git-dot" cx="250" cy="290" r="13" /><circle class="git-dot recovery-dot" cx="390" cy="290" r="13" />
-          <circle class="git-dot branch-dot" cx="420" cy="150" r="13" /><circle class="git-dot branch-dot" cx="560" cy="150" r="13" />
-          <circle class="git-dot pr-dot" cx="675" cy="150" r="15" /><circle class="git-dot merge-dot" cx="820" cy="290" r="15" />
+          <path class="git-track branch-track" d="M250 290 C320 290 330 150 420 150 H650 C710 150 710 290 735 290" />
+          <path class="git-track review-track" d="M650 150 C690 170 718 225 730 278" marker-end="url(#arrow-version)" />
+          <path class="git-track rollback-track" d="M744 304 C770 350 820 350 855 304" marker-end="url(#arrow-rollback)" />
+          <circle class="git-dot" cx="110" cy="290" r="13" /><circle class="git-dot" cx="250" cy="290" r="13" />
+          <circle class="git-dot branch-dot" cx="420" cy="150" r="13" /><circle class="git-dot branch-dot" cx="540" cy="150" r="13" />
+          <circle class="git-dot pr-dot" cx="650" cy="150" r="15" /><circle class="git-dot merge-dot" cx="735" cy="290" r="15" />
+          <circle class="git-dot recovery-dot" cx="870" cy="290" r="13" />
           <text x="110" y="335" text-anchor="middle">Repo 主線</text><text x="250" y="335" text-anchor="middle">Branch</text>
-          <text class="recovery-node-label" x="390" y="250" text-anchor="middle">Revert Commit</text>
-          <text x="420" y="111" text-anchor="middle">Commit</text><text x="560" y="111" text-anchor="middle">更多修改</text>
-          <text x="675" y="111" text-anchor="middle">PR／Review</text><text x="820" y="250" text-anchor="middle">Merge</text>
-          <text class="recovery-label" x="590" y="356" text-anchor="middle">回復以新增 Revert Commit，保留既有歷史</text>
+          <text x="420" y="111" text-anchor="middle">Commit</text><text x="540" y="111" text-anchor="middle">更多修改</text>
+          <text x="650" y="111" text-anchor="middle">PR／Review</text><text x="758" y="280" text-anchor="start">Merge</text>
+          <text class="recovery-node-label" x="870" y="255" text-anchor="middle">Revert Commit</text>
+          <text class="recovery-label" x="802" y="390" text-anchor="middle">回復以新增 Revert Commit，保留既有歷史</text>
         </svg>
         <div class="history-legend"><span><i class="legend-main"></i>既有版本</span><span><i class="legend-branch"></i>候選分支</span><span><i class="legend-pr"></i>PR／Review</span><span><i class="legend-recovery"></i>回復路徑</span></div>
       </div>
@@ -694,20 +691,13 @@
             <section class="ticket-column"><b>目前看板欄</b><strong>Backlog</strong></section>
             <section><b>留言</b><ul><li>小螢幕上也要能看到更新日期；詳細頁目前沒有相關修改。</li><li>如果資料沒有更新時間，畫面要顯示什麼？</li></ul></section>
           </article>
-          <ol class="exercise-question" aria-label="作答問題">
-            <li><b>Goal</b><span>從票面能否找到它要推進的產品結果？還缺哪些連結或背景？</span></li>
-            <li><b>Stage Target</b><span>目前有哪些工作已明確，哪些仍待界定？</span></li>
-            <li><b>AC／留言</b><span>現有 AC 可如何檢查？兩則留言帶來哪些範圍或例外問題？</span></li>
-            <li><b>People／Exit</b><span>下一站前要確認哪些責任與交接條件？</span></li>
-            <li><b>GitHub／版本</b><span>哪些資訊更新在 Issue 或 Project？何時才需要連結 PR 與版本？</span></li>
+          <ol class="exercise-question" aria-label="作答問題與逐題參考判斷">
+            <li><b>Goal</b><span>從票面能否找到它要推進的產品結果？還缺哪些連結或背景？</span><p class="exercise-answer fragment" data-fragment-order="1"><b>參考：</b>未連 Parent Goal，先補連結或確認；目前在 Backlog。</p></li>
+            <li><b>Stage Target</b><span>目前有哪些工作已明確，哪些仍待界定？</span><p class="exercise-answer fragment" data-fragment-order="2"><b>參考：</b>釐清範圍、例外行為與依賴，整理成可交接工作票。</p></li>
+            <li><b>AC／留言</b><span>現有 AC 可如何檢查？兩則留言帶來哪些範圍或例外問題？</span><p class="exercise-answer fragment" data-fragment-order="3"><b>參考：</b>主路徑可檢查；小螢幕呈現與缺少更新時間的結果待定。</p></li>
+            <li><b>People／Exit</b><span>下一站前要確認哪些責任與交接條件？</span><p class="exercise-answer fragment" data-fragment-order="4"><b>參考：</b>PO／Dev 主責 Ready Check、QA 協作；接手者、範圍、可測性與依賴需有結論。</p></li>
+            <li><b>GitHub／版本</b><span>哪些資訊更新在 Issue 或 Project？何時才需要連結 PR 與版本？</span><p class="exercise-answer fragment" data-fragment-order="5"><b>參考：</b>Issue 留契約、Project 記狀態；有程式修改時才連 Branch／Commit／PR，不推定票面未提供的版本。</p></li>
           </ol>
-          <div class="exercise-answer fragment" data-fragment-order="1">
-            <h2>參考判斷</h2>
-            <p><b>Goal／Target：</b>票面沒有 Parent Goal 連結，需先補上或確認；目前在 Backlog，本站釐清範圍、AC、例外行為與依賴，整理成可交接的票。</p>
-            <p><b>AC／留言：</b>AC 有可檢查的主路徑，仍需定義小螢幕呈現與缺少更新時間時的結果。</p>
-            <p><b>People／Exit：</b>由 PO 與 Dev 主責 Ready Check、QA 協作；責任人與接手 Dev 需明確，範圍、可測性與依賴需有結論後才交接。</p>
-            <p><b>GitHub／版本：</b>Issue 保留工作契約，Project 記錄看板狀態；有候選程式修改時再連 Branch／Commit／PR。票面尚未提供版本資訊，不據此推定其狀態。</p>
-          </div>
         </div>
       </div>
     </div>`;
