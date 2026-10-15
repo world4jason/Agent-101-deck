@@ -355,7 +355,7 @@
       ...(showOverviewReturns || actualReturn === 'review' ? [`<g class="swimlane-return${actualReturn === 'review' ? ' is-active' : ''}"><path d="M710 427 V438 H478 V371 H492" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="571" y="428" width="92" height="22" rx="3"/><text x="617" y="444" text-anchor="middle">Review 要修改</text></g>`] : []),
       ...(showOverviewReturns || actualReturn === 'qa' ? [`<g class="swimlane-return${actualReturn === 'qa' ? ' is-active' : ''}"><path d="M860 477 V488 H642 V371 H628" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="754" y="478" width="66" height="22" rx="3"/><text x="787" y="494" text-anchor="middle">FAIL</text></g>`] : []),
       ...(showOverviewReturns || actualReturn === 'goal' ? [`<g class="swimlane-return${actualReturn === 'goal' ? ' is-active' : ''}"><path d="M1020 277 V286 H344 V253 H328" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="610" y="275" width="92" height="22" rx="3"/><text x="656" y="291" text-anchor="middle">不符合目標</text></g>`] : []),
-      ...(actualReturn === 'gate' ? [`<g class="swimlane-return is-active is-human-return"><path d="M1233 153 H1242 V203 H1088" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="1147" y="176" width="100" height="22" rx="3"/><text x="1197" y="192" text-anchor="middle">指定補做者</text></g>`] : []),
+      ...(actualReturn === 'gate' ? [`<g class="swimlane-return is-active is-human-return"><path d="M1233 153 H1290 V233 H1088" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="1300" y="170" width="145" height="24" rx="3"/><text x="1372" y="187" text-anchor="middle">指定補做者</text></g>`] : []),
     ].join('');
 
     const docs = [
@@ -399,8 +399,21 @@
       return `<g class="swimlane-version-node${isChanged ? ' is-changed' : ''}${stageClass}" data-state="${key}"><circle class="swimlane-version-dot" cx="${x}" cy="624" r="9"/><text class="swimlane-version-name" x="${x}" y="654" text-anchor="middle">${esc(currentLabel)}</text><text class="swimlane-version-status" x="${x}" y="675" text-anchor="middle">${esc(currentStatus)}</text></g>`;
     }).join('');
     const legend = `<g class="swimlane-legend"><path d="M18 696 H1582" class="swimlane-legend-rule"/><rect x="26" y="708" width="44" height="24" rx="12" class="swimlane-legend-endpoint"/><text x="80" y="727">起點／終點</text><rect x="250" y="708" width="42" height="24" rx="4" class="swimlane-legend-lead"/><text x="302" y="727">主責</text><rect x="410" y="708" width="42" height="24" rx="4" class="swimlane-legend-co"/><text x="462" y="727">協作</text><polygon points="575,708 590,720 575,732 560,720" class="swimlane-legend-decision"/><text x="602" y="727">判斷</text><path d="M700 720 H754" class="swimlane-legend-forward" marker-end="url(#swimlane-arrow-${uid})"/><text x="764" y="727">前進</text><path d="M870 720 H924" class="swimlane-legend-return" marker-end="url(#swimlane-arrow-return-${uid})"/><text x="934" y="727">退回</text></g>`;
+    const principleMarkers = String(page) === '64' ? `<g class="principle-map-markers" aria-label="五項協作原則在母圖上的對應位置">
+      <g transform="translate(560 522)"><circle r="13"/><text y="6">1</text></g>
+      <g transform="translate(560 136)"><circle r="13"/><text y="6">2</text></g>
+      <g transform="translate(710 136)"><circle r="13"/><text y="6">3</text></g>
+      <g transform="translate(860 522)"><circle r="13"/><text y="6">4</text></g>
+      <g transform="translate(260 522)"><circle r="13"/><text y="6">5</text></g>
+      <path d="M18 742 H1582" class="principle-map-rule"/>
+      <g class="principle-map-key" transform="translate(190 764)"><circle r="12"/><text y="5">1</text><text x="20" y="6">票上留工作狀態</text></g>
+      <g class="principle-map-key" transform="translate(490 764)"><circle r="12"/><text y="5">2</text><text x="20" y="6">只做核准範圍</text></g>
+      <g class="principle-map-key" transform="translate(790 764)"><circle r="12"/><text y="5">3</text><text x="20" y="6">角色各自負責</text></g>
+      <g class="principle-map-key" transform="translate(1090 764)"><circle r="12"/><text y="5">4</text><text x="20" y="6">QA 另行核對</text></g>
+      <g class="principle-map-key" transform="translate(1370 764)"><circle r="12"/><text y="5">5</text><text x="20" y="6">回看產品目標</text></g>
+    </g>` : '';
 
-    return `<div class="mother-map" data-mother-map-id="rev13-four-foundations" data-stage="${esc(stage)}"><svg class="swimlane-svg" viewBox="0 0 1600 780" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="swimlane-title-${uid} swimlane-desc-${uid}"><title id="swimlane-title-${uid}">人、流程、文件與版本管理泳道圖</title><desc id="swimlane-desc-${uid}">流程沿橫向七個看板狀態前進；人依責任分泳道，下方依序記錄文件與版本管理。人類授權以欄外菱形表示，三條虛線表示主要退回方向。</desc><defs><marker id="swimlane-arrow-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#8faaa1"/></marker><marker id="swimlane-arrow-return-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#85918a"/></marker><marker id="swimlane-arrow-agent-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#d78d78"/></marker></defs><g class="swimlane-process"><text class="swimlane-axis-label" x="18" y="82">流程（X 軸）</text>${activities}${stageHeaders}${gateHeader}<g class="swimlane-axis-line">${SWIMLANE_LAYOUT.stages.filter(item => !item.outside).map(item => `<line x1="${item.x}" y1="110" x2="${item.x + item.width}" y2="110"/>`).join('')}</g></g><g class="swimlane-people${dimZone('people')}${reveal(1)}"><text class="swimlane-group-label" x="18" y="136">人（Y 軸）</text>${roleGuides}${roleContent}${returnPaths}</g><g class="swimlane-documents${dimZone('documents')}${reveal(2)}"><path class="swimlane-section-rule" d="M170 532 H1550"/><text class="swimlane-group-label" x="18" y="562">文件</text>${docNodes}</g><g class="swimlane-version${dimZone('version')}${reveal(3)}"><path class="swimlane-section-rule is-heavy" d="M170 596 H1550"/><text class="swimlane-group-label" x="18" y="632">版本管理</text>${versionLinks}${versionNodes}</g>${legend}</svg></div>`;
+    return `<div class="mother-map" data-mother-map-id="rev13-four-foundations" data-stage="${esc(stage)}"><svg class="swimlane-svg" viewBox="0 0 1600 780" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="swimlane-title-${uid} swimlane-desc-${uid}"><title id="swimlane-title-${uid}">人、流程、文件與版本管理泳道圖</title><desc id="swimlane-desc-${uid}">流程沿橫向七個看板狀態前進；人依責任分泳道，下方依序記錄文件與版本管理。人類授權以欄外菱形表示，三條虛線表示主要退回方向。</desc><defs><marker id="swimlane-arrow-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#8faaa1"/></marker><marker id="swimlane-arrow-return-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#85918a"/></marker><marker id="swimlane-arrow-agent-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#d78d78"/></marker></defs><g class="swimlane-process"><text class="swimlane-axis-label" x="18" y="82">流程（X 軸）</text>${activities}${stageHeaders}${gateHeader}<g class="swimlane-axis-line">${SWIMLANE_LAYOUT.stages.filter(item => !item.outside).map(item => `<line x1="${item.x}" y1="110" x2="${item.x + item.width}" y2="110"/>`).join('')}</g></g><g class="swimlane-people${dimZone('people')}${reveal(1)}"><text class="swimlane-group-label" x="18" y="136">人（Y 軸）</text>${roleGuides}${roleContent}${returnPaths}</g><g class="swimlane-documents${dimZone('documents')}${reveal(2)}"><path class="swimlane-section-rule" d="M170 532 H1550"/><text class="swimlane-group-label" x="18" y="562">文件</text>${docNodes}</g><g class="swimlane-version${dimZone('version')}${reveal(3)}"><path class="swimlane-section-rule is-heavy" d="M170 596 H1550"/><text class="swimlane-group-label" x="18" y="632">版本管理</text>${versionLinks}${versionNodes}</g>${legend}${principleMarkers}</svg></div>`;
   }
 
   function renderOpeningMap(slide) {
@@ -425,9 +438,12 @@
       const isAgent = name === 'Agent';
       const highlightedAgent = step === 2 && isAgent;
       const label = showPeople
-        ? ({ Owner: '定方向與正式授權', PM: '安排節奏並協調', PO: '決定需求和驗收', 'UI/UX': '設計介面', Dev: '修改程式', Reviewer: '審查修改', QA: '獨立驗證行為', Agent: '依交辦範圍執行' }[name])
+        ? ({ Owner: '定方向、授權', PM: '協調節奏', PO: '定需求與驗收', 'UI/UX': '設計介面', Dev: '修改程式', Reviewer: '審查修改', QA: '獨立驗證', Agent: '依交辦執行' }[name])
         : (isAgent && step >= 2 ? 'Agent' : '');
-      return `<g class="opening-role${highlightedAgent ? ' is-new' : ''}" data-role="${esc(name)}"><path d="M170 ${y + 25} H1550"/><text class="opening-role-name" x="18" y="${y - 3}">${showPeople ? esc(name) : (isAgent && step >= 2 ? 'Agent' : '')}</text>${showPeople ? `<text class="opening-role-duty" x="18" y="${y + 17}">${esc(label)}</text>` : ''}</g>`;
+      const dutyX = { Owner: 1175, PM: 405, PO: 405, 'UI/UX': 260, Dev: 560, Reviewer: 710, QA: 860, Agent: 560 }[name];
+      const duty = showPeople && step === 4 ? `<text class="opening-role-duty" x="${dutyX}" y="${y + 6}" text-anchor="middle">${esc(label)}</text>` : '';
+      const agentPurpose = highlightedAgent ? `<g class="opening-agent-purpose"><rect x="470" y="${y - 17}" width="180" height="34" rx="4"/><text x="560" y="${y + 6}" text-anchor="middle">依交辦執行工作</text></g>` : '';
+      return `<g class="opening-role${highlightedAgent ? ' is-new' : ''}" data-role="${esc(name)}"><path d="M170 ${y + 25} H1550"/><text class="opening-role-name" x="18" y="${y + 6}">${showPeople ? esc(name) : (isAgent && step >= 2 ? 'Agent' : '')}</text>${duty}${agentPurpose}</g>`;
     }).join('');
     const processStages = SWIMLANE_LAYOUT.stages.filter(item => !item.outside);
     const stageHeaders = showProcess ? processStages.map((column, index) => {
@@ -439,10 +455,10 @@
     const activity = showProcess ? `<g class="opening-activity"><rect x="190" y="15" width="430" height="30" rx="4"/><text x="405" y="36" text-anchor="middle">Brainstorming／Refinement 活動</text></g>` : '';
     const outsideGate = showProcess ? `<g class="opening-gate"><polygon points="1175,119 1187,132 1175,145 1163,132"/><text x="1195" y="138">Human Gate · 欄外授權</text></g>` : '';
     const docs = [
-      { x: SWIMLANE_X.backlog, label: 'Goal Issue', purpose: '記產品目標' },
-      { x: SWIMLANE_X.dev, label: '工作票＋AC', purpose: '交辦工作與驗收' },
-      { x: SWIMLANE_X.qa, label: '測試紀錄', purpose: '留實測結果' },
-      { x: SWIMLANE_X.done, label: '放行紀錄', purpose: '記授權與交付' },
+      { x: SWIMLANE_X.backlog, label: 'Goal Issue', purpose: '待建立' },
+      { x: SWIMLANE_X.dev, label: '工作票＋驗收', purpose: '待交接' },
+      { x: SWIMLANE_X.qa, label: '測試紀錄', purpose: '待驗證' },
+      { x: SWIMLANE_X.done, label: '放行紀錄', purpose: '待決定' },
     ];
     const docNodes = showDocuments ? docs.map(({ x, label, purpose }) => {
       const width = 148, left = x - width / 2, right = x + width / 2;
@@ -451,20 +467,27 @@
     }).join('') : '';
     const versionData = [
       { x: SWIMLANE_X.dev, label: 'Branch', purpose: '隔離修改' },
-      { x: 655, label: 'Commit', purpose: '記錄變更' },
-      { x: 760, label: 'PR', purpose: '送審比較' },
-      { x: SWIMLANE_X.done, label: 'Merge', purpose: '整合核准修改' },
+      { x: 655, label: 'Commit', purpose: '已記變更' },
+      { x: 760, label: 'PR', purpose: '待審查' },
+      { x: SWIMLANE_X.done, label: 'Merge', purpose: '待授權' },
     ];
     const versionLinks = showVersions ? versionData.slice(0, -1).map((node, index) => `<path class="opening-version-link" d="M${node.x + 10} 625 H${versionData[index + 1].x - 12}" marker-end="url(#opening-arrow-version-${uid})"/>`).join('') : '';
     const versions = showVersions ? versionData.map(({ x, label, purpose }) => `<g class="opening-version-node${showCard && label === 'Branch' ? ' is-highlighted' : ''}"><circle cx="${x}" cy="625" r="10"/><text class="opening-version-name" x="${x}" y="654" text-anchor="middle">${esc(label)}</text><text class="opening-version-purpose" x="${x}" y="678" text-anchor="middle">${esc(purpose)}</text></g>`).join('') : '';
     const card = showCard ? `<g class="opening-work-card"><rect x="${SWIMLANE_X.dev - 72}" y="329" width="144" height="34" rx="4"/><text x="${SWIMLANE_X.dev}" y="351" text-anchor="middle">Dev｜修改配對規則</text></g>` : '';
     const decisions = showReturns ? `<g class="opening-decision"><polygon points="${SWIMLANE_X.review},383 ${SWIMLANE_X.review + 20},403 ${SWIMLANE_X.review},423 ${SWIMLANE_X.review - 20},403"/><text x="${SWIMLANE_X.review}" y="408" text-anchor="middle">修改？</text></g><g class="opening-decision"><polygon points="${SWIMLANE_X.qa},433 ${SWIMLANE_X.qa + 20},453 ${SWIMLANE_X.qa},473 ${SWIMLANE_X.qa - 20},453"/><text x="${SWIMLANE_X.qa}" y="458" text-anchor="middle">FAIL？</text></g><g class="opening-decision"><polygon points="${SWIMLANE_X['product-check']},233 ${SWIMLANE_X['product-check'] + 20},253 ${SWIMLANE_X['product-check']},273 ${SWIMLANE_X['product-check'] - 20},253"/><text x="${SWIMLANE_X['product-check']}" y="258" text-anchor="middle">Goal？</text></g>` : '';
-    const returns = showReturns ? `<g class="opening-return"><path d="M860 477 V490 H560 V371" marker-end="url(#opening-return-arrow-${uid})"/><rect x="752" y="478" width="128" height="23" rx="3"/><text x="816" y="495" text-anchor="middle">測試 FAIL → Dev</text><path d="M710 427 V438 H560 V371" marker-end="url(#opening-return-arrow-${uid})"/><rect x="595" y="426" width="145" height="23" rx="3"/><text x="667" y="443" text-anchor="middle">Review 要修改 → Dev</text><path d="M1020 277 V289 H340 V253" marker-end="url(#opening-return-arrow-${uid})"/><rect x="513" y="276" width="180" height="23" rx="3"/><text x="603" y="293" text-anchor="middle">不符合 Goal → Refinement</text></g>` : '';
-    const personLane = `<g class="opening-map-zone opening-people${dim('people')}"><text class="opening-zone-label" x="18" y="136">人（泳道）</text>${roleRows}${card}${decisions}${returns}</g>`;
+    const workLinks = showCard && !showReturns ? `<g class="opening-work-link"><path d="M${SWIMLANE_X.dev} 363 V532" marker-end="url(#opening-arrow-${uid})"/><path d="M${SWIMLANE_X.dev} 587 V615" marker-end="url(#opening-arrow-version-${uid})"/></g>` : '';
+    const returns = showReturns ? `<g class="opening-return"><path d="M1020 233 V290 H850"/><path d="M540 290 H170 V253" marker-end="url(#opening-return-arrow-${uid})"/><rect x="550" y="298" width="280" height="24" rx="3"/><text x="690" y="315" text-anchor="middle">不符合目標 → Refinement</text><path d="M710 423 V439 H560 V371" marker-end="url(#opening-return-arrow-${uid})"/><rect x="740" y="397" width="145" height="24" rx="3"/><text x="812" y="414" text-anchor="middle">Review 要修改 → Dev</text><path d="M860 473 V505 H560 V371" marker-end="url(#opening-return-arrow-${uid})"/><rect x="895" y="478" width="130" height="24" rx="3"/><text x="960" y="495" text-anchor="middle">測試 FAIL → Dev</text></g>` : '';
+    const skeletonPrompts = step <= 2 ? `<g class="opening-skeleton-prompts" aria-label="四個區域各自回答的問題">
+      <g class="opening-prompt-process"><text class="opening-prompt-name" x="860" y="51" text-anchor="middle">流程</text><text class="opening-prompt-question" x="860" y="84" text-anchor="middle">做到哪？</text></g>
+      <g class="opening-prompt-people"><text class="opening-prompt-name" x="860" y="300" text-anchor="middle">人</text><text class="opening-prompt-question" x="860" y="322" text-anchor="middle">誰做？</text></g>
+      <g class="opening-prompt-documents"><text class="opening-prompt-name" x="860" y="558" text-anchor="middle">文件</text><text class="opening-prompt-question" x="860" y="581" text-anchor="middle">根據什麼、怎麼驗？</text></g>
+      <g class="opening-prompt-version"><text class="opening-prompt-name" x="860" y="635" text-anchor="middle">版本管理</text><text class="opening-prompt-question" x="860" y="669" text-anchor="middle">改的是哪一版？</text></g>
+    </g>` : '';
+    const personLane = `<g class="opening-map-zone opening-people${dim('people')}"><text class="opening-zone-label" x="18" y="136">人（泳道）</text>${roleRows}${card}${workLinks}${decisions}${returns}</g>`;
     const processLane = `<g class="opening-map-zone opening-process${dim('process')}"><text class="opening-zone-label" x="18" y="82">流程（X 軸）</text>${activity}${stageHeaders}${outsideGate}<g class="opening-axis-guides">${processStages.map(item => `<line x1="${item.x}" y1="112" x2="${item.x + item.width}" y2="112"/>`).join('')}</g></g>`;
     const documentsLane = `<g class="opening-map-zone opening-documents${dim('documents')}"><path class="opening-divider" d="M170 532 H1550"/><text class="opening-zone-label" x="18" y="562">文件</text>${docNodes}</g>`;
     const versionLane = `<g class="opening-map-zone opening-version${dim('version')}"><path class="opening-divider is-strong" d="M170 596 H1550"/><text class="opening-zone-label" x="18" y="632">版本管理</text>${versionLinks}${versions}</g>`;
-    return `<div class="full-map-wrap opening-map"><svg class="swimlane-svg" viewBox="0 0 1600 780" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="${uid}-title ${uid}-desc"><title id="${uid}-title">同一張泳道骨架逐步展開</title><desc id="${uid}-desc">流程、人、文件和版本管理依序加入；卡片與下方文件、版本節點對齊，判斷以欄外菱形和退回路徑表示。</desc><defs><marker id="opening-arrow-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#8ba69c"/></marker><marker id="opening-return-arrow-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#e6aa8f"/></marker><marker id="opening-arrow-version-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#92a9d4"/></marker></defs><rect class="opening-panel" x="170" y="15" width="1380" height="105" rx="5"/><rect class="opening-panel" x="170" y="130" width="1380" height="393" rx="5"/><rect class="opening-panel" x="170" y="540" width="1380" height="48" rx="3"/><rect class="opening-panel opening-panel-version" x="170" y="600" width="1380" height="95" rx="3"/>${processLane}${personLane}${documentsLane}${versionLane}</svg></div>`;
+    return `<div class="full-map-wrap opening-map"><svg class="swimlane-svg" viewBox="0 0 1600 780" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="${uid}-title ${uid}-desc"><title id="${uid}-title">同一張泳道骨架逐步展開</title><desc id="${uid}-desc">流程、人、文件和版本管理依序加入；卡片與下方文件、版本節點對齊，判斷以欄外菱形和退回路徑表示。</desc><defs><marker id="opening-arrow-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#8ba69c"/></marker><marker id="opening-return-arrow-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#e6aa8f"/></marker><marker id="opening-arrow-version-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#92a9d4"/></marker></defs><rect class="opening-panel opening-panel-process" x="170" y="15" width="1380" height="105" rx="5"/><rect class="opening-panel opening-panel-people" x="170" y="130" width="1380" height="393" rx="5"/><rect class="opening-panel opening-panel-documents" x="170" y="540" width="1380" height="48" rx="3"/><rect class="opening-panel opening-panel-version" x="170" y="600" width="1380" height="95" rx="3"/>${processLane}${personLane}${documentsLane}${versionLane}${skeletonPrompts}</svg></div>`;
   }
 
   function locator(slide) {
@@ -536,6 +559,7 @@
 
   function renderRolesStages(slide) {
     return `<div class="full-map-wrap">${renderMotherMap({
+      spotlightZones: (slide.dataset.focusZones || '').split(',').filter(Boolean),
       stage: slide.dataset.focusStage || 'refinement',
       roles: (slide.dataset.focusRolesMap || '').split(',').map(role => role.trim()).filter(Boolean),
       page: slide.dataset.page,
@@ -783,12 +807,12 @@
     const configurations = {
       single: {
         title: '一個 Agent 依票工作，人另行核對',
-        note: '單 Agent 協作示意；測試結果仍看 QA 紀錄。',
+        note: '示意：同一人可承擔 Owner 與 QA；QA 不由實作者自評。',
         columns: ['人交辦', 'Agent 執行', 'QA 核對', 'Human Gate'],
         lanes: [
-          ['Owner', '人', [[1, '交付 Issue、AC 與停止條件', 'human'], [4, '檢查證據並決定放行', 'human']]],
-          ['Agent', 'agent', [[2, '依核准範圍修改並回報版本', 'agent']]],
-          ['QA', 'review', [[3, '獨立比對 AC、版本與結果', 'review']]],
+          ['Owner', '人', [[1, '交付工作票、驗收條件與停止範圍', 'human'], [4, '檢查證據並決定放行', 'human']]],
+          ['Agent', 'agent', [[2, '依核准範圍修改並交版本摘要', 'agent']]],
+          ['QA', 'review', [[3, '依條件獨立核對版本與結果', 'review']]],
         ],
         routes: [[[1, 0], [2, 1], [3, 2], [4, 0]]],
         artifacts: ['Issue：範圍 · AC · 停止條件', '版本：Branch → Commit → PR', '證據：測試紀錄連回工作票'],
@@ -798,11 +822,11 @@
         note: '架構示意，不代表實際多 Agent 協作。',
         columns: ['共用工作票', 'Dev 對話', '人帶紀錄', 'Reviewer／QA', 'Human Gate'],
         lanes: [
-          ['Dev Agent', 'agent', [[2, '依 Issue 修改並交版本摘要', 'agent']]],
-          ['人', 'human', [[1, '先提供同一張 Issue 與 AC', 'human'], [3, '帶上 Issue、版本與未測項', 'relay']]],
-          ['Reviewer Agent', 'review', [[4, '檢查修改與範圍', 'review']]],
-          ['QA Agent', 'review', [[4, '依 AC 核對行為與證據', 'review']]],
-          ['Owner', 'human', [[5, '檢查後決定是否放行', 'human']]],
+          ['Dev Agent', 'agent', [[2, '依工作票修改，交版本摘要', 'agent']]],
+          ['人', 'human', [[1, '提供工作票與驗收條件', 'human'], [3, '帶上版本與未測項', 'relay']]],
+          ['Reviewer Agent', 'review', [[4, '審查修改與範圍', 'review']]],
+          ['QA Agent', 'review', [[4, '依條件核對行為與證據', 'review']]],
+          ['Owner', 'human', [[5, '看完紀錄，決定是否放行', 'human']]],
         ],
         routes: [[[1, 1], [2, 0], [3, 1], [4, 2], [5, 4]], [[3, 1], [4, 3], [5, 4]]],
         artifacts: ['文件：Issue 保留範圍與 AC', '版本：Branch／Commit／PR', '證據：Review 與 QA 分開回寫'],
@@ -810,15 +834,15 @@
       orchestrator: {
         title: '協調 Agent 分派工作，人保留正式放行',
         note: '架構示意，不代表實際多 Agent 協作。',
-        columns: ['人核准', '協調 Agent 分派', '分工 Agent', '協調 Agent 彙整', 'Human Gate'],
+        columns: ['人核准', '主 Agent 分派', 'Dev 修改', 'Reviewer／QA 核對', '主 Agent 彙整', '人決定放行'],
         lanes: [
-          ['Owner', 'human', [[1, '核准範圍與停止條件', 'human'], [5, '獨立核對並決定放行', 'human']]],
-          ['協調 Agent', 'agent', [[2, '按工作邊界分派', 'agent'], [4, '收回報並附上來源', 'agent']]],
-          ['Dev Agent', 'agent', [[3, '修改並回報版本', 'agent']]],
-          ['Reviewer Agent', 'review', [[3, '審查差異與範圍', 'review']]],
-          ['QA Agent', 'review', [[3, '核對 AC 並記錄結果', 'review']]],
+          ['Owner', 'human', [[1, '核准範圍與停止條件', 'human'], [6, '獨立核對並決定放行', 'human']]],
+          ['協調 Agent', 'agent', [[2, '依工作邊界分派', 'agent'], [5, '收回報並附上來源', 'agent']]],
+          ['Dev Agent', 'agent', [[3, '修改並交版本摘要', 'agent']]],
+          ['Reviewer Agent', 'review', [[4, '審查修改與範圍', 'review']]],
+          ['QA Agent', 'review', [[4, '依條件核對並記錄結果', 'review']]],
         ],
-        routes: [[[1, 0], [2, 1]], [[2, 1], [3, 2]], [[2, 1], [3, 3]], [[2, 1], [3, 4]], [[3, 2], [4, 1]], [[3, 3], [4, 1]], [[3, 4], [4, 1]], [[4, 1], [5, 0]]],
+        routes: [[[1, 0], [2, 1]], [[2, 1], [3, 2]], [[3, 2], [4, 3]], [[3, 2], [4, 4]], [[4, 3], [5, 1]], [[4, 4], [5, 1]], [[5, 1], [6, 0]]],
         artifacts: ['文件：同一張 Issue 與驗收條件', '版本：工作成果回到 Branch／PR', '證據：分工結果附來源與範圍'],
       },
     };
@@ -828,22 +852,45 @@
       const firstStep = Math.min(...cells.map(([column]) => column));
       return `<div class="agent-mode-lane lane-${kind} fragment" data-fragment-order="${firstStep}"><strong class="agent-mode-lane-name">${esc(name)}</strong>${cells.map(([column, text, type]) => `<article class="agent-mode-cell mode-${type} fragment" data-fragment-order="${column}" style="grid-column:${column + 1}"><b>${esc(text)}</b></article>`).join('')}</div>`;
     }).join('');
-    const laneHeight = config.lanes.length > 3 ? 56 : 82;
+    const laneHeight = config.lanes.length > 3 ? 72 : 90;
     const laneGap = 6;
     const labelWidth = 132;
     const routeId = `agent-route-arrow-${slide.dataset.page}`;
-    const columnWidth = (1000 - labelWidth) / config.columns.length;
-    const routePaths = (config.routes || []).flatMap(route => route.slice(1).map((point, index) => {
-      const previous = route[index];
-      const [fromColumn, fromRow] = previous;
-      const [toColumn, toRow] = point;
-      const startX = labelWidth + (fromColumn - 0.5) * columnWidth + Math.min(56, columnWidth * 0.34);
-      const endX = labelWidth + (toColumn - 0.5) * columnWidth - Math.min(56, columnWidth * 0.34);
-      const startY = fromRow * (laneHeight + laneGap) + laneHeight / 2;
-      const endY = toRow * (laneHeight + laneGap) + laneHeight / 2;
-      const midX = (startX + endX) / 2;
-      return `<path class="fragment" data-fragment-order="${toColumn}" d="M${startX} ${startY} H${midX} V${endY} H${endX}" marker-end="url(#${routeId})"/>`;
-    })).join('');
+    const cellWidth = (1000 - labelWidth - config.columns.length * 7) / config.columns.length;
+    const cellLeft = column => labelWidth + 7 + (column - 1) * (cellWidth + 7);
+    const cellRight = column => cellLeft(column) + cellWidth;
+    const rowCenter = row => row * (laneHeight + laneGap) + laneHeight / 2;
+    const routeEdges = (config.routes || []).flatMap(route => route.slice(1).map((point, index) => ({
+      from: route[index],
+      to: point,
+    })));
+    const routeGroups = new Map();
+    routeEdges.forEach(edge => {
+      const key = `${edge.to[0]}:${edge.to[1]}`;
+      routeGroups.set(key, [...(routeGroups.get(key) || []), edge]);
+    });
+    const routePaths = [...routeGroups.values()].flatMap(edges => {
+      const [toColumn, toRow] = edges[0].to;
+      const endX = cellLeft(toColumn) - 3;
+      const endY = rowCenter(toRow);
+      if (edges.length === 1 || !edges.every(edge => edge.from[0] === edges[0].from[0])) {
+        return edges.map(({ from: [fromColumn, fromRow] }) => {
+          const startX = cellRight(fromColumn) + 3;
+          const startY = rowCenter(fromRow);
+          const channelX = (startX + endX) / 2;
+          return `<path class="fragment" data-fragment-order="${toColumn}" d="M${startX} ${startY} H${channelX} V${endY} H${endX}" marker-end="url(#${routeId})"/>`;
+        });
+      }
+      const fromColumn = edges[0].from[0];
+      const channelX = (cellRight(fromColumn) + cellLeft(toColumn)) / 2;
+      const feeders = edges.map(({ from: [, fromRow] }) => {
+        const startX = cellRight(fromColumn) + 3;
+        const startY = rowCenter(fromRow);
+        return `<path class="fragment" data-fragment-order="${toColumn}" d="M${startX} ${startY} H${channelX} V${endY}"/>`;
+      });
+      feeders.push(`<path class="fragment" data-fragment-order="${toColumn}" d="M${channelX} ${endY} H${endX}" marker-end="url(#${routeId})"/>`);
+      return feeders;
+    }).join('');
     const routes = `<svg class="agent-mode-routes mode-${mode}" viewBox="0 0 1000 ${config.lanes.length * laneHeight + (config.lanes.length - 1) * laneGap}" preserveAspectRatio="none" aria-hidden="true"><defs><marker id="${routeId}" markerWidth="9" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L9 4 L0 8 Z"/></marker></defs>${routePaths}</svg>`;
     const artifacts = config.artifacts.map(text => {
       const [label, ...detail] = text.split('：');
@@ -1001,7 +1048,7 @@
     const questions = [
       ['Ticket／AC', '你會把哪個範圍、AC 與停止條件寫進 Issue？', '寫清楚單向 0、雙向 1 筆、重複仍 1 筆；介面／登入／服務／資料庫排除，超範圍需求先停並交人決定。'],
       ['協作方式', '什麼時候需要協調 Agent？', '按任務邊界選方式；每站都回寫 Issue、版本與證據，角色仍分開，Human Gate 仍由人負責。'],
-      ['補測要求', '第一次測還有未測案例時，要補哪些證據？', '對同一份修正版程式重測重複按讚：已有 1 筆配對紀錄，再 Like 後仍為 1 筆；介面／完整流程／上線／產品目標仍未測。'],
+      ['補測與完成', '第一次測還有未測案例時，要補哪些證據？', '同一修正版重測：已有 1 筆，再 Like 後仍 1 筆。所有 AC／DoD 有證據、未測仍標未測；人授權、實際合併並記錄交付後，才標 Done。本票完成不等於功能上線。'],
     ];
     return `<div class="focus-compose b2-focus-compose">${locator(slide)}<section class="diagram-field b2-artifact exercise-part2"><header><strong>同一張 Ticket #3 · 修正版・第一次測 → 修正版・補測</strong><span>先寫下你的答案</span></header><ol>${questions.map(([label, question, answer], index) => `<li><b>${esc(label)}</b><span>${esc(question)}</span><p class="exercise-answer fragment" data-fragment-order="${index+1}"><strong>參考</strong>：${esc(answer)}</p></li>`).join('')}</ol><footer>參考答案依序揭露；不是新測試，也不表示 上線／產品目標完成。</footer></section></div>`;
   }
@@ -1063,7 +1110,7 @@
   }
 
   function hasNextFragment(slide) {
-    const selector = slide.dataset.art === 'exit-check'
+    const selector = ['exit-check', 'part2-exercise'].includes(slide.dataset.art)
       ? '.exercise-answer.fragment:not(.revealed-once)'
       : '.fragment:not(.visible)';
     return Boolean(slide.querySelector(selector));
@@ -1101,7 +1148,7 @@
 
   function nextFragment() {
     const slide = slides[pageIndex];
-    if (slide.dataset.art === 'exit-check') {
+    if (['exit-check', 'part2-exercise'].includes(slide.dataset.art)) {
       const next = slide.querySelector('.exercise-answer.fragment:not(.revealed-once)');
       if (!next) return false;
       slide.querySelectorAll('.exercise-answer.fragment.visible').forEach(answer => answer.classList.remove('visible'));
@@ -1119,7 +1166,7 @@
 
   function previousFragment() {
     const slide = slides[pageIndex];
-    if (slide.dataset.art === 'exit-check') {
+    if (['exit-check', 'part2-exercise'].includes(slide.dataset.art)) {
       const current = slide.querySelector('.exercise-answer.fragment.visible');
       if (!current) return false;
       current.classList.remove('visible', 'revealed-once');
