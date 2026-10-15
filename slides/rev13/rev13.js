@@ -199,20 +199,20 @@
     },
     release_done: {
       label: 'Done',
-      activity: '依本票條件完成交付',
-      kanban: '工作票符合 DoD → Done',
+      activity: '核對本票條件並完成核准交付',
+      kanban: '本票 DoD → 授權合併 → 完成交付',
       goal: 'Parent Goal Issue（連回原始產品結果）',
-      target: '完成這張票承諾的工作與 DoD',
+      target: '確認本票承諾的工作與 DoD 都成立',
       input: '工作票上寫明的 DoD、交付範圍與證據要求',
-      activities: ['逐項核對本票 DoD', '完成本票承諾的交付', '留下可回查的結果'],
-      output: '本票 DoD 全部滿足，且交付證據可查',
-      stateChange: '本票 DoD 全部滿足 → 工作票 Done',
-      handoff: '本票 DoD 每一項都滿足，才可標記 Done',
-      outputNote: '介面、完整流程或上線若不在本票範圍，不會變成本票門檻',
-      exit: '票上 DoD 全部滿足，且本票所需交付與證據可查，才可標記 Done；整體 Goal 另行衡量。',
+      activities: ['核對本票 DoD 與證據', '取得合併授權', '完成合併後才記交付狀態'],
+      output: '本課：已授權合併・未執行；不標 Done',
+      stateChange: '符合本票 DoD → 可合併；本課未執行合併',
+      handoff: '本票 DoD 決定能否合併；票 Done 不等於功能上線',
+      outputNote: '配對功能還需要 Like 與配對清單兩張票；產品決定先不上線',
+      exit: '只有實際完成本票交付並留證據，才可標 Done；配對功能是否上線另由 Owner 決定。',
       lead: ['Dev'],
       co: ['Owner', 'PO', 'QA'],
-      nextStage: 'Done · 本票完成',
+      nextStage: '合併後記錄本票交付',
       githubObjects: 'Issue · Project · 所需 PR／版本證據',
       github: '在 Issue／Project 留下 DoD 與交付完成紀錄',
     },
@@ -234,186 +234,209 @@
     })[character]);
   }
 
+  const SWIMLANE_LAYOUT = {
+    width: 1600,
+    height: 780,
+    roles: [
+      { name: 'Owner', y: 153 }, { name: 'PM', y: 203 }, { name: 'PO', y: 253 },
+      { name: 'UI/UX', y: 303 }, { name: 'Dev', y: 353 }, { name: 'Reviewer', y: 403 },
+      { name: 'QA', y: 453 }, { name: 'Agent', y: 503 },
+    ],
+    stages: [
+      { key: 'backlog', label: 'Backlog', x: 190, width: 140 },
+      { key: 'ready', label: 'Ready', x: 340, width: 140 },
+      { key: 'dev', label: 'Dev', x: 490, width: 140 },
+      { key: 'review', label: 'Review', x: 640, width: 140 },
+      { key: 'qa', label: 'QA', x: 790, width: 140 },
+      { key: 'product-check', label: 'Product Check', x: 940, width: 160 },
+      { key: 'human_gate', label: 'Human Gate', x: 1110, width: 130, outside: true },
+      { key: 'done', label: 'Done', x: 1250, width: 140 },
+    ],
+  };
+
+  const SWIMLANE_ROLE_TASKS = {
+    Owner: { 'human_gate': { decision: '放行？' }, 'product-check': { lines: ['確認剩餘風險'], co: true } },
+    PM: { backlog: { lines: ['整理問題與方向'] }, 'product-check': { lines: ['安排補做與交接'], co: true } },
+    PO: { backlog: { lines: ['釐清 Goal'], co: true }, ready: { decision: '可以開工？' }, refinement: { lines: ['拆票、寫 AC'] }, 'product-check': { decision: '符合 Goal？' } },
+    'UI/UX': { refinement: { lines: ['畫配對清單'], co: true }, dev: { lines: ['檢視互動'], co: true } },
+    Dev: { dev: { lines: ['實作配對規則'] }, review: { lines: ['依意見修正'], co: true }, qa: { lines: ['協助重現'], co: true } },
+    Reviewer: { review: { decision: '審查通過？' } },
+    QA: { qa: { decision: '測試 PASS？' }, 'product-check': { lines: ['對照紀錄與 AC'], co: true } },
+    Agent: { dev: { lines: ['受委派執行'], co: true } },
+  };
+
+  const SWIMLANE_X = Object.fromEntries(SWIMLANE_LAYOUT.stages.map(stage => [stage.key, stage.x + stage.width / 2]));
+  SWIMLANE_X.refinement = SWIMLANE_X.backlog;
+  SWIMLANE_X.end = 1480;
+  const SWIMLANE_Y = Object.fromEntries(SWIMLANE_LAYOUT.roles.map(role => [role.name, role.y]));
+
+  function svgLines(x, y, lines, className, fontSize = 18, color = '#e9eee8') {
+    const start = y - ((lines.length - 1) * 10);
+    return `<text class="${className}" x="${x}" y="${start}" fill="${color}" font-size="${fontSize}" text-anchor="middle">${lines.map((line, index) => `<tspan x="${x}" dy="${index ? 20 : 0}">${esc(line)}</tspan>`).join('')}</text>`;
+  }
+
+  function svgRect(x, y, width, height, fill, stroke, radius = 5, className = '') {
+    return `<rect class="${className}" x="${x}" y="${y}" width="${width}" height="${height}" rx="${radius}" fill="${fill}" stroke="${stroke}"/>`;
+  }
+
   function renderMotherMap(options = {}) {
     const {
-      spotlightZones = [], roles = [], stage = '', states = [],
-      agent = true, compact = false, revealAgent = false, revealFoundations = false,
-      agentMode = '', mapFooter = '', versionEvidence = '',
+      spotlightZones = [], roles = [], stage = '', states = [], agent = true,
+      revealFoundations = false, page = 'map', ticketPosition = '', ticketPrevious = '',
+      delta = null, actualReturn = '',
     } = options;
-    const zoneSet = new Set(spotlightZones);
-    const roleSet = new Set(roles);
-    const stateSet = new Set(states);
-    const mapClass = `mother-map${compact ? ' is-compact' : ''}`;
-    const foundation = order => revealFoundations ? ` fragment" data-fragment-order="${order}` : '';
-    const zoneClass = zone => spotlightZones.length && !zoneSet.has(zone) ? 'map-zone is-dim' : 'map-zone';
-    const roleClass = role => roles.length && !roleSet.has(role) ? 'role-node is-muted' : 'role-node';
-
-    const roleMarkup = ROLE_DATA.map(role => `
-      <div class="${roleClass(role.name)}" data-role="${esc(role.name)}">
-        <span class="role-dot" aria-hidden="true"></span>
-        <strong>${esc(role.name)}</strong>
-      </div>`).join('');
-
-    const stageStates = new Set(STAGE_KANBAN[stage] || []);
-    const statuses = KANBAN.map((item, index) => {
-      const active = stateSet.has(item.key) || stageStates.has(item.key);
-      const accessibleLabel = `${item.label}${active ? '，本頁流程焦點' : ''}`;
-      return `<div class="map-status${active ? ' is-current' : ''}" data-state="${item.key}" data-step="${index + 1}"${active ? ' data-stage-focus="true"' : ''} role="listitem" aria-label="${esc(accessibleLabel)}"><span>${esc(item.label)}</span></div>`;
+    const uid = String(page).replace(/[^A-Za-z0-9_-]/g, '');
+    const focusedRoles = new Set(roles.map(role => role === 'Human' ? 'Owner' : role));
+    const focusedZones = new Set(spotlightZones);
+    const stateMarkers = new Set(states);
+    const stageKey = stage === 'brainstorming' || stage === 'refinement' ? 'backlog'
+      : stage === 'release_done' ? 'done' : stage === 'human_gate' ? 'human_gate'
+        : stage.replaceAll('_', '-');
+    const reveal = order => revealFoundations ? ` fragment" data-fragment-order="${order}` : '';
+    const dimZone = zone => focusedZones.size && !focusedZones.has(zone) ? ' is-dim' : '';
+    const stageFill = key => key === stageKey || stateMarkers.has(key) ? ' is-focus' : stageKey ? ' is-dim' : '';
+    const stageHeaders = SWIMLANE_LAYOUT.stages.map((column, index) => {
+      const center = column.x + column.width / 2;
+      const classes = `swimlane-stage${column.outside ? ' is-outside' : ''}${stageFill(column.key)}`;
+      const header = column.outside
+        ? `<polygon class="swimlane-gate" points="${center},54 ${center + 16},75 ${center},96 ${center - 16},75"/><text x="${center}" y="116" class="swimlane-stage-label" text-anchor="middle">Human Gate</text><text x="${center}" y="132" class="swimlane-stage-note" text-anchor="middle">欄外決策</text>`
+        : `${svgRect(column.x + 4, 55, column.width - 8, 43, '#172325', '#3c5550', 4, 'swimlane-stage-box')}<text x="${center}" y="82" class="swimlane-stage-label" text-anchor="middle">${esc(column.label)}</text>`;
+      const next = SWIMLANE_LAYOUT.stages[index + 1];
+      const arrow = next ? `<path class="swimlane-forward" d="M${column.x + column.width} 106 H${next.x - 4}" marker-end="url(#swimlane-arrow-${uid})"/>` : '';
+      return `<g class="${classes}" data-state="${column.key}">${header}${arrow}</g>`;
     }).join('');
 
-    const activities = `
-      <div class="activity-node${stage === 'brainstorming' ? ' is-current' : ''}" data-stage="brainstorming">
-        <span class="activity-mark" aria-hidden="true">↗</span><strong>Brainstorming</strong><small>活動</small>
-      </div>
-      <div class="activity-node${stage === 'refinement' ? ' is-current' : ''}" data-stage="refinement">
-        <span class="activity-mark" aria-hidden="true">↔</span><strong>Refinement</strong><small>在 Backlog 進行</small>
-      </div>`;
+    const activities = `<g class="swimlane-activity"><rect x="190" y="18" width="140" height="30" rx="4"/><text x="260" y="30" text-anchor="middle">活動</text><text x="260" y="44" text-anchor="middle">Brainstorming · Refinement</text></g>`;
+    const roleGuides = SWIMLANE_LAYOUT.roles.map(({ name, y }) => {
+      if (name === 'Agent' && !agent) return `<g class="swimlane-lane is-reserved" aria-hidden="true"><path class="swimlane-row-line" d="M170 ${y + 25} H1550"/></g>`;
+      const isNew = name === 'Agent' && page === '2';
+      const label = isNew ? 'Agent（新增）' : name;
+      const roleDim = !!roles.length && !focusedRoles.has(name) && !(name === 'Agent' && focusedZones.has('agent'));
+      return `<g class="swimlane-lane lane-${name.replace(/[^A-Za-z0-9]/g, '').toLowerCase()}${roleDim ? ' is-dim' : ''}${isNew ? ' is-new' : ''}" data-role="${esc(name)}"><path class="swimlane-row-line" d="M170 ${y + 25} H1550"/><text class="swimlane-role-label" x="18" y="${y + 6}">${esc(label)}</text></g>`;
+    }).join('');
 
-    const agentRoutes = {
-      delegate: '<span class="agent-route"><b>Agent</b><i>→</i><strong>Dev</strong></span><span class="agent-route human-route"><b>人</b><i>→</i><strong>範圍／Human Gate</strong></span>',
-      single: '<div class="agent-mode-pair"><article class="agent-step"><b>人</b><span>交辦範圍與驗收條件</span><small>獨立核對紀錄並作放行決定</small></article><i aria-hidden="true">⇄</i><article class="agent-step agent-executor"><b>一個 Agent</b><span>依票實作並回報版本</span><small>不自行驗收或放行</small></article></div>',
-      'multi-chat': '<div class="agent-mode-pair multi-chat-pair"><article class="agent-step"><b>Dev Chat</b><span>依 Issue 修改並交出版本</span></article><i aria-hidden="true">⇄</i><article class="agent-step human-carrier"><b>人搬運紀錄</b><span>帶著工作票、版本與證據摘要</span><small>在不同對話間核對並回寫</small></article><i aria-hidden="true">⇄</i><article class="agent-step agent-check"><b>Reviewer／QA Chat</b><span>分別審查修改、驗證行為</span></article></div>',
-      orchestrator: '<div class="orchestration-tree"><article class="agent-step orchestration-root"><b>協調 Agent</b><span>讀票後分派、收回報</span></article><div class="orchestration-branches"><i></i><i></i><i></i></div><div class="orchestration-workers"><article class="agent-step"><b>Dev Agent</b><span>修改摘要</span></article><article class="agent-step"><b>Reviewer Agent</b><span>審查意見</span></article><article class="agent-step"><b>QA Agent</b><span>測試紀錄</span></article></div><div class="orchestration-return">各項結果回到同一張 Issue；人獨立核對並放行</div></div>',
-    };
-    let agentMarkup = '';
-    if (agent) {
-      agentMarkup = `<div class="agent-layer${revealAgent ? ' fragment' : ''}${agentMode ? ` has-routing mode-${esc(agentMode)}` : ''}" role="group" aria-label="Agent：受委派執行／協調；範圍、責任與 Human Gate 仍連回原四區"${revealAgent ? ' data-fragment-order="1"' : ''}>
-        <span class="agent-identity"><span class="agent-mark" aria-hidden="true">A</span><strong>Agent</strong></span>
-        ${agentMode ? `<div class="agent-routing">${agentRoutes[agentMode] || agentRoutes.delegate}</div>` : '<span>受委派執行／協調；人決定範圍與放行</span>'}
-      </div>`;
-    } else {
-      agentMarkup = '<div class="agent-layer is-empty" aria-hidden="true"></div>';
-    }
+    const roleContent = SWIMLANE_LAYOUT.roles.map(({ name, y }) => {
+      if (name === 'Agent' && !agent) return '';
+      const isNew = name === 'Agent' && page === '2';
+      const roleDim = !!roles.length && !focusedRoles.has(name) && !(name === 'Agent' && focusedZones.has('agent'));
+      const tasks = { ...(SWIMLANE_ROLE_TASKS[name] || {}) };
+      if (name === 'Owner') tasks.backlog = { start: ['有人想做配對'] };
+      if (name === 'Owner') tasks.done = { end: ['上線'] };
+      if (name === 'Agent' && stageKey === 'qa') tasks.qa = { lines: ['協助核對測試'], co: true };
+      if (name === 'Agent' && stageKey === 'review') tasks.review = { lines: ['整理審查回報'], co: true };
+      return Object.entries(tasks).map(([key, item]) => {
+        const x = item.start ? 190 : SWIMLANE_X[key];
+        if (!x) return '';
+        if (item.decision) {
+          const width = key === 'human_gate' ? 74 : 96;
+          const height = key === 'human_gate' ? 34 : 38;
+          return `<g class="swimlane-node decision-node${roleDim ? ' is-dim' : ''}${key === 'human_gate' ? ' is-human-gate' : ''}${key === stageKey ? ' is-focus' : ''}" data-role="${esc(name)}" data-decision="${esc(key)}"><polygon points="${x},${y - height / 2} ${x + width / 2},${y} ${x},${y + height / 2} ${x - width / 2},${y}"/><text x="${x}" y="${y + 6}" text-anchor="middle">${esc(item.decision)}</text></g>`;
+        }
+        if (item.start || item.end) {
+          const isEnd = Boolean(item.end);
+          const nodeX = isEnd ? x - 64 : x - 64;
+          const text = item.start || item.end;
+          return `<g class="swimlane-endpoint${roleDim ? ' is-dim' : ''}${isEnd ? ' is-end' : ''}"><rect x="${nodeX}" y="${y - 18}" width="128" height="36" rx="18"/><text x="${x}" y="${y + 5}" text-anchor="middle">${esc(text[0])}</text></g>`;
+        }
+        const width = 132;
+        const height = 34;
+        const lead = !item.co;
+        const agentArrow = name === 'Agent' && key === 'dev'
+          ? `<path class="swimlane-delegation" d="M${x} ${y - 25} V${SWIMLANE_Y.Dev + 25}" marker-end="url(#swimlane-arrow-agent-${uid})"/>`
+          : '';
+        return `${agentArrow}<g class="swimlane-node ${lead ? 'is-lead' : 'is-co'}${roleDim ? ' is-dim' : ''}${name === 'Agent' && isNew ? ' is-new' : ''}" data-role="${esc(name)}" data-state="${esc(key)}">${svgRect(x - width / 2, y - height / 2, width, height, lead ? '#2b3023' : '#172322', lead ? '#a28755' : '#59746a', 4, 'swimlane-card')}<text x="${x}" y="${y + 6}" text-anchor="middle">${esc(item.lines.join(' · '))}</text></g>`;
+      }).join('');
+    }).join('');
 
-    return `
-      <div class="${mapClass}" data-mother-map-id="rev13-four-foundations" data-stage="${esc(stage)}">
-        <div class="map-grid">
-          <section class="${zoneClass('people')} zone-people${foundation(1)}" data-zone="people" aria-label="People 人">
-            <header class="zone-heading"><span class="zone-symbol">P</span><h2><span class="zone-name-full">People</span><em>人</em></h2></header>
-            <div class="role-cloud" role="group" aria-label="角色：Owner、PM、PO、UI/UX、Dev、Reviewer、QA">${roleMarkup}</div>
-          </section>
-          <section class="${zoneClass('process')} zone-process${foundation(2)}" data-zone="process" aria-label="Process 流程">
-            <header class="zone-heading"><span class="zone-symbol">→</span><h2><span class="zone-name-full">Process</span><em>流程</em></h2></header>
-            <div class="activity-rail" role="group" aria-label="活動：Brainstorming；Refinement 在 Backlog 進行">${activities}</div>
-            <div class="kanban-row" role="list" aria-label="七個 Kanban 狀態">${statuses}</div>
-            <div class="gate-rail${stage === 'human_gate' ? ' is-current' : ''}" role="group" aria-label="Human Gate：Product Check 後、Done 前的欄外人類決策">
-              <span class="gate-line" aria-hidden="true"></span><strong>Human Gate</strong>
-              <span>Product Check 後的人類授權</span><span class="gate-line" aria-hidden="true"></span>
-            </div>
-          </section>
-          <section class="${zoneClass('documents')} zone-documents${foundation(3)}" data-zone="documents" aria-label="Documents 文件">
-            <header class="zone-heading"><span class="zone-symbol">▤</span><h2><span class="zone-name-full">Documents</span><em>文件</em></h2></header>
-            <div class="doc-stack" role="group" aria-label="文件：Goal／Proposal、Epic／Story／Task、範圍／AC／AT／DoD、Review／Evidence">
-              <div class="doc-piece"><b>Goal／Proposal</b><span>為何做</span></div>
-              <div class="doc-piece"><b>Epic · Story · Task</b><span>拆分工作</span></div>
-              <div class="doc-piece"><b>Scope · AC · AT · DoD</b><span>做與驗</span></div>
-              <div class="doc-piece"><b>Review · Evidence</b><span>審查與證據</span></div>
-            </div>
-          </section>
-          <section class="${zoneClass('version')} zone-version${foundation(4)}" data-zone="version" aria-label="Version Control 版本管理">
-            <header class="zone-heading"><span class="zone-symbol">⎇</span><h2><span class="zone-name-full">Version Control</span><em>版本管理</em></h2></header>
-            <div class="version-path" role="group" aria-label="版本路徑：Git、Branch、Commit、PR、Merge">
-              <div class="version-node"><b>Git</b></div><i>→</i>
-              <div class="version-node"><b>Branch</b></div><i>→</i>
-              <div class="version-node"><b>Commit</b></div><i>→</i>
-              <div class="version-node"><b>PR</b></div><i>→</i>
-              <div class="version-node"><b>Merge</b></div>
-            </div>
-            ${versionEvidence}
-          </section>
-        </div>
-        <div class="github-bridge" role="group" aria-label="GitHub 橫跨文件協作與版本審查">
-          <span class="bridge-end">Issues／Project</span>
-          <span class="bridge-track"><i></i><b><span class="bridge-name-full">GitHub 協作</span><span class="bridge-name-compact" aria-hidden="true">GitHub</span></b><i></i></span>
-          <span class="bridge-end">PR／Review</span>
-        </div>
-        ${agentMarkup}
-        ${mapFooter}
-      </div>`;
+    const returnPaths = [
+      `<g class="swimlane-return${actualReturn === 'review' ? ' is-active' : ''}"><path d="M710 425 V440 H154 V365 H484" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="264" y="404" width="78" height="20" rx="3"/><text x="303" y="419" text-anchor="middle">要修改</text></g>`,
+      `<g class="swimlane-return${actualReturn === 'qa' ? ' is-active' : ''}"><path d="M860 475 H174 V365 H484" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="266" y="482" width="62" height="20" rx="3"/><text x="297" y="497" text-anchor="middle">FAIL</text></g>`,
+      `<g class="swimlane-return${actualReturn === 'goal' ? ' is-active' : ''}"><path d="M1078 253 H1572 V192 Q1572 180 1560 180 H166 Q154 180 154 192 V236 H194" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="1335" y="185" width="114" height="20" rx="3"/><text x="1392" y="200" text-anchor="middle">回 Refinement</text></g>`,
+      `<g class="swimlane-return${actualReturn === 'gate' ? ' is-active' : ''}"><path d="M1175 171 V230 Q1175 242 1163 242 H1078" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="1210" y="207" width="92" height="20" rx="3"/><text x="1256" y="222" text-anchor="middle">指定補做者</text></g>`,
+    ].join('');
+
+    const docs = [
+      ['backlog', 'Goal Issue'], ['ready', '工作票 · AC'], ['dev', 'Issue 更新'],
+      ['review', '審查意見'], ['qa', '測試紀錄'], ['product-check', '對照 Goal'],
+      ['human_gate', '決策紀錄'], ['done', '交付紀錄'],
+    ];
+    const docStage = delta?.docStage || '';
+    const docNodes = docs.map(([key, label]) => {
+      const x = SWIMLANE_X[key];
+      const isChanged = key === docStage;
+      const currentLabel = isChanged ? delta.docText : label;
+      const stageClass = key === stageKey ? ' is-focus' : stageKey ? ' is-dim' : '';
+      const width = key === 'human_gate' ? 118 : key === 'product-check' ? 152 : 132;
+      return `<g class="swimlane-doc-node${isChanged ? ' is-changed' : ''}${stageClass}" data-state="${key}">${svgRect(x - width / 2, 550, width, 39, isChanged ? '#233326' : '#18221f', isChanged ? '#84b99b' : '#526b57', 4, 'swimlane-doc-card')}<text x="${x}" y="574" text-anchor="middle">${esc(currentLabel)}</text></g>`;
+    }).join('');
+    const versions = [
+      ['dev', 'Branch → Commit'], ['review', 'Pull Request'], ['qa', '測試版本'],
+      ['human_gate', 'Merge'], ['done', '放行紀錄'],
+    ];
+    const versionStage = delta?.versionStage || '';
+    const versionNodes = versions.map(([key, label]) => {
+      const x = SWIMLANE_X[key];
+      const isChanged = key === versionStage;
+      const currentLabel = isChanged ? delta.versionText : label;
+      const stageClass = key === stageKey ? ' is-focus' : stageKey ? ' is-dim' : '';
+      const width = key === 'human_gate' ? 154 : 132;
+      return `<g class="swimlane-version-node${isChanged ? ' is-changed' : ''}${stageClass}" data-state="${key}">${svgRect(x - width / 2, 612, width, 39, isChanged ? '#222c42' : '#1a2232', isChanged ? '#91a9d4' : '#53627e', 4, 'swimlane-version-card')}<text x="${x}" y="636" text-anchor="middle">${esc(currentLabel)}</text></g>`;
+    }).join('');
+
+    const activeTicket = ticketPosition || delta?.ticket || '';
+    const previousTicket = ticketPrevious || delta?.previous || '';
+    const ticketMarks = [
+      previousTicket && SWIMLANE_X[previousTicket] ? `<g class="swimlane-ticket is-ghost"><rect x="${SWIMLANE_X[previousTicket] - 24}" y="112" width="48" height="19" rx="3"/><text x="${SWIMLANE_X[previousTicket]}" y="126" text-anchor="middle">#3</text></g>` : '',
+      activeTicket && SWIMLANE_X[activeTicket] ? `<g class="swimlane-ticket is-current"><rect x="${SWIMLANE_X[activeTicket] - 24}" y="112" width="48" height="19" rx="3"/><text x="${SWIMLANE_X[activeTicket]}" y="126" text-anchor="middle">#3</text></g>` : '',
+    ].join('');
+
+    const legend = `<g class="swimlane-legend"><path d="M18 720 H1582" class="swimlane-legend-rule"/><rect x="26" y="735" width="44" height="24" rx="12" class="swimlane-legend-endpoint"/><text x="80" y="753">起點／終點</text><rect x="220" y="735" width="42" height="24" rx="4" class="swimlane-legend-lead"/><text x="272" y="753">主責</text><rect x="366" y="735" width="42" height="24" rx="4" class="swimlane-legend-co"/><text x="418" y="753">協作</text><polygon points="535,735 550,747 535,759 520,747" class="swimlane-legend-decision"/><text x="562" y="753">判斷</text><path d="M648 747 H702" class="swimlane-legend-forward" marker-end="url(#swimlane-arrow-${uid})"/><text x="712" y="753">前進</text><path d="M825 747 H879" class="swimlane-legend-return" marker-end="url(#swimlane-arrow-return-${uid})"/><text x="889" y="753">退回</text><text x="1035" y="753" class="swimlane-legend-note">是 → 下一站　·　否 → 虛線退回　·　accent 標示本頁焦點</text></g>`;
+
+    return `<div class="mother-map" data-mother-map-id="rev13-four-foundations" data-stage="${esc(stage)}"><svg class="swimlane-svg" viewBox="0 0 1600 780" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="swimlane-title-${uid} swimlane-desc-${uid}"><title id="swimlane-title-${uid}">人、流程、文件與版本管理泳道圖</title><desc id="swimlane-desc-${uid}">流程沿橫向七個看板狀態前進；人依角色分泳道，文件和版本管理位於下方。Human Gate 在 Product Check 與 Done 之間，虛線表示退回。</desc><defs><marker id="swimlane-arrow-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#8faaa1"/></marker><marker id="swimlane-arrow-return-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#85918a"/></marker><marker id="swimlane-arrow-agent-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#d78d78"/></marker></defs><g class="swimlane-process"><text class="swimlane-axis-label" x="18" y="82">流程（X 軸）</text>${activities}${stageHeaders}<g class="swimlane-axis-line">${SWIMLANE_LAYOUT.stages.filter(item => !item.outside).map(item => `<line x1="${item.x}" y1="110" x2="${item.x + item.width}" y2="110"/>`).join('')}</g><g class="swimlane-process-notes${dimZone('process')}"><text x="1410" y="25" text-anchor="end">活動不另算看板欄　·　Human Gate 是欄外決策</text></g></g><g class="swimlane-people${dimZone('people')}${reveal(1)}"><text class="swimlane-group-label" x="18" y="145">人（Y 軸）</text>${roleGuides}${roleContent}</g>${returnPaths}<g class="swimlane-documents${dimZone('documents')}${reveal(2)}"><path class="swimlane-section-rule" d="M170 526 H1550"/><text class="swimlane-group-label" x="18" y="566">文件</text><text class="swimlane-lane-note" x="18" y="587">Issue 在此</text>${docNodes}<text class="swimlane-github-note" x="815" y="605" text-anchor="middle">GitHub：Issue 在文件泳道　·　PR／Branch 在版本泳道</text></g><g class="swimlane-version${dimZone('version')}${reveal(3)}"><path class="swimlane-section-rule is-heavy" d="M170 600 H1550"/><text class="swimlane-group-label" x="18" y="628">版本管理</text><text class="swimlane-lane-note" x="18" y="649">版本變化</text>${versionNodes}</g>${ticketMarks}${legend}</svg></div>`;
   }
 
   function locator(slide) {
-    const focusZones = new Set((slide.dataset.focusZones || '').split(',').filter(Boolean));
-    const focusRoles = new Set((slide.dataset.focusRolesMap || '').split(',').filter(Boolean));
-    const scene = slide.dataset.rev13SceneId || '';
-    const conceptsWithoutStageFocus = /^C(?:0[3-9]|10)$/.test(scene);
-    const stage = conceptsWithoutStageFocus ? '' : (slide.dataset.focusStage || '');
-    const activeStates = new Set([
-      ...(STAGE_KANBAN[stage] || []),
-      ...(slide.dataset.stateMarkers || '').split(',').filter(Boolean),
-    ]);
-    const conditionalStates = new Set(stage === 'release_done' ? ['done'] : []);
-    const pillars = [
-      ['people', '人', 'people'],
-      ['process', '流程', 'process'],
-      ['documents', '文件', 'documents'],
-      ['version', '版本管理', 'version'],
-    ].map(([key, label, color]) => `<span class="locator-pillar pillar-${color}${focusZones.size && !focusZones.has(key) ? ' is-dim' : ' is-focused'}">${label}</span>`).join('');
-    const agentFocused = focusZones.has('agent') || focusRoles.has('Agent');
-    const board = KANBAN.map((item, index) => {
-      const active = activeStates.has(item.key);
-      const conditional = conditionalStates.has(item.key);
-      const label = esc(item.label);
-      return `<span class="locator-state${active ? ' is-current' : ''}${conditional ? ' is-conditional' : ''}" data-state="${item.key}"${active ? ' aria-current="step"' : ''}><span>${label}</span></span>`;
-    }).join('');
-    const activities = `<div class="locator-activity-stack">
-      <span class="locator-activity${stage === 'brainstorming' ? ' is-current' : ''}">Brainstorming</span>
-      <span class="locator-activity${stage === 'refinement' ? ' is-current' : ''}">Refinement</span>
-    </div>`;
-    return `<aside class="map-locator" aria-label="四要素與七欄流程定位">
-      <div class="locator-pillars" role="group" aria-label="People、Process、Documents、Version Control 與 Agent">
-        ${pillars}<span class="locator-pillar pillar-agent${agentFocused ? ' is-focused' : ' is-dim'}">+Agent</span>
-      </div>
-      <div class="locator-process" role="group" aria-label="七欄 Kanban 與欄外 Human Gate">
-        <div class="locator-activities">${activities}</div>
-        <div class="locator-board" role="list" aria-label="Backlog、Ready、Dev、Review、QA、Product Check、Done">${board}</div>
-        <span class="locator-gate${stage === 'human_gate' ? ' is-current' : ''}" aria-label="Human Gate，Product Check 與 Done 之間的欄外決策"${stage === 'human_gate' ? ' aria-current="step"' : ''}><i aria-hidden="true"></i><b>Human Gate</b></span>
-      </div>
-    </aside>`;
+    let stage = slide.dataset.focusStage || '';
+    const page = Number(slide.dataset.page);
+    if (page >= 51 && page <= 60) stage = 'qa';
+    const rewindSegment = page >= 51 && page <= 60;
+    const roleNames = (slide.dataset.focusRolesMap || slide.dataset.focusRoles || '').split(',').map(role => role.trim()).filter(Boolean).map(role => role === 'Human' ? 'Owner' : role);
+    const roleSummary = rewindSegment ? 'QA · Agent' : roleNames.length > 4 ? '全部角色' : (roleNames.length ? roleNames.join(' · ') : '所有泳道');
+    const selected = new Set(STAGE_KANBAN[stage] || []);
+    const markers = new Set((slide.dataset.stateMarkers || '').split(',').filter(Boolean));
+    const stateMarkup = item => {
+      const active = selected.has(item.key) || markers.has(item.key) || (stage === 'release_done' && item.key === 'done');
+      const previous = slide.dataset.ticketPrevious === item.key;
+      const currentTicket = slide.dataset.ticketPosition === item.key;
+      return `<span class="locator-state${active ? ' is-current' : ''}${previous ? ' is-ghost' : ''}${currentTicket ? ' has-ticket' : ''}" data-state="${item.key}"${active ? ' aria-current="step"' : ''}>${esc(item.label)}${currentTicket ? '<b>#3</b>' : ''}</span>`;
+    };
+    const stageStates = KANBAN.map((item, index) => `${index === 6 ? `<span class="locator-gate${stage === 'human_gate' ? ' is-current' : ''}" data-state="human_gate"><i aria-hidden="true"></i><b>Human Gate</b></span>` : ''}${stateMarkup(item)}`).join('');
+    const rewind = rewindSegment ? '<span class="locator-rewind">倒帶中 · QA</span>' : '';
+    return `<aside class="map-locator" aria-label="流程泳道定位" data-mother-map-id="rev13-four-foundations"><span class="locator-heading">流程</span><div class="locator-board" role="list" aria-label="七欄看板與欄外 Human Gate">${stageStates}</div><span class="locator-focus"><b>焦點泳道</b><span>${esc(roleSummary)}</span><i class="locator-focus-band" aria-hidden="true"></i>${rewind}</span></aside>`;
   }
 
   function renderKanbanDiagram(slide) {
-    const columns = KANBAN.map((column, index) => `
-      <div class="board-column" data-state="${column.key}">
-        <span class="board-index">${String(index + 1).padStart(2, '0')}</span>
-        <strong>${esc(column.label)}</strong>
-        <span class="board-rule">${[
-          '待釐清工作', '可接手', '正在實作', '檢查差異', '驗證行為', '核對需求', '符合 DoD',
-        ][index]}</span>
-      </div>`).join('');
-    return `<div class="focus-compose">${locator(slide)}
-      <div class="diagram-field workflow-field">
-        <div class="activity-strip">
-          <div><span>活動</span><strong>Brainstorming</strong><small>先整理問題與方向</small></div>
-          <div><span>活動</span><strong>Refinement</strong><small>在 Backlog 梳理與拆票</small></div>
-        </div>
-        <div class="board-sequence" aria-label="Backlog、Ready、Dev、Review、QA、Product Check、Done 七欄">${columns}</div>
-        <div class="gate-sequence">
-          <span class="gate-connector"></span><strong>Human Gate</strong>
-          <span>人類在 Product Check 後決定是否授權</span><span class="gate-connector"></span>
-        </div>
-      </div>
-    </div>`;
+    return `<div class="full-map-wrap">${renderMotherMap({ stage: slide.dataset.focusStage || 'refinement', roles: (slide.dataset.focusRolesMap || '').split(',').map(role => role.trim()).filter(Boolean), page: slide.dataset.page, agent: true })}</div>`;
   }
 
   function renderStageAnatomy(slide) {
     return `<div class="focus-compose">${locator(slide)}
       <div class="diagram-field anatomy-field">
         <div class="goal-target">
-          <article><span>Product Goal</span><strong>使用者要達成的產品結果</strong></article>
-          <span class="goal-target-separator" aria-hidden="true">≠</span>
-          <article><span>Stage Target</span><strong>這一站要完成的工作</strong></article>
+          <article class="fragment" data-fragment-order="1"><span>Goal · 配對 App 想達到什麼？</span><strong>互相按讚後，在配對清單找到對方。</strong></article>
+          <span class="goal-target-separator fragment" data-fragment-order="2" aria-hidden="true">≠</span>
+          <article class="fragment" data-fragment-order="2"><span>Stage Target · 本站要完成什麼？</span><strong>釐清單向按讚會不會建立配對。</strong></article>
         </div>
         <div class="contract-flow">
-          <article class="contract-node"><span>Input</span><strong>已有的工作依據</strong></article>
-          <span class="diagram-arrow" aria-hidden="true">→</span>
-          <article class="contract-node active"><span>Activities</span><strong>本站實際要做的事</strong></article>
-          <span class="diagram-arrow" aria-hidden="true">→</span>
-          <article class="contract-node"><span>Output</span><strong>交給下一站的產物</strong></article>
+          <article class="contract-node fragment" data-fragment-order="3"><span>Input · 已知什麼？</span><strong>小安按 Like，小晴尚未按。</strong></article>
+          <span class="diagram-arrow fragment" data-fragment-order="4" aria-hidden="true">→</span>
+          <article class="contract-node active fragment" data-fragment-order="4"><span>Activities · 要做什麼？</span><strong>比較單向、互按與重複按讚。</strong><div class="app-like-mock" aria-label="配對 App 按讚畫面示意"><span>小晴</span><b>♡ Like</b><em>尚未配對</em></div></article>
+          <span class="diagram-arrow fragment" data-fragment-order="5" aria-hidden="true">→</span>
+          <article class="contract-node fragment" data-fragment-order="5"><span>Output · 留下什麼？</span><strong>規則工作票、驗收條件與測法。</strong></article>
         </div>
         <div class="anatomy-bottom">
-          <article class="exit-node"><span>Exit Criteria</span><strong>條件成立，下一站才能接手</strong></article>
-          <article class="people-github-node"><span>People · GitHub mapping</span><strong>誰主責／協作？產物記在 Issue、Project、Branch 或 PR 的哪裡？</strong></article>
+          <article class="exit-node fragment" data-fragment-order="6"><span>Exit Criteria · 何時能交棒？</span><strong>PO 寫清工作與條件，Dev、QA 能接手。</strong></article>
+          <article class="people-github-node fragment" data-fragment-order="7"><span>People · 誰負責？</span><strong>PO 寫條件；產物留在 Issue，版本之後連到 Branch／PR。</strong></article>
         </div>
       </div>
     </div>`;
@@ -440,78 +463,25 @@
   }
 
   function renderRolesStages(slide) {
-    const width = 1440;
-    const height = 520;
-    const left = 230;
-    const gap = 165;
-    const topY = 126;
-    const rowStart = 184;
-    const rowGap = 46;
-    const columns = [
-      { key: 'backlog', label: 'Backlog', stageKeys: ['brainstorming', 'refinement'], activity: true },
-      { key: 'ready', label: 'Ready', stageKeys: ['ready'] },
-      { key: 'dev', label: 'Dev', stageKeys: ['dev'] },
-      { key: 'review', label: 'Review', stageKeys: ['review'] },
-      { key: 'qa', label: 'QA', stageKeys: ['qa'] },
-      { key: 'product-check', label: 'Product Check', stageKeys: ['product_check'] },
-      { key: 'done', label: 'Done', stageKeys: ['release_done'] },
-    ];
-    const columnX = index => left + index * gap;
-    const stageNodes = columns.map((column, index) => {
-      const x = columnX(index);
-      let labelMarkup;
-      if (column.activity) {
-        labelMarkup = `<rect class="matrix-activity-pill" x="${x - 94}" y="6" width="188" height="27" rx="5" /><text class="matrix-activity" x="${x}" y="25" text-anchor="middle">↗ Brainstorming</text><rect class="matrix-activity-pill" x="${x - 94}" y="37" width="188" height="27" rx="5" /><text class="matrix-activity" x="${x}" y="56" text-anchor="middle">↔ Refinement</text><text class="matrix-backlog-label" x="${x}" y="88" text-anchor="middle">Backlog</text>`;
-      } else if (column.label === 'Product Check') {
-        labelMarkup = `<text text-anchor="middle"><tspan x="${x}" y="50">Product</tspan><tspan x="${x}" y="72">Check</tspan></text>`;
-      } else {
-        labelMarkup = `<text x="${x}" y="64" text-anchor="middle">${esc(column.label)}</text>`;
-      }
-      return `<g class="matrix-stage" data-stage="${column.key}"><circle cx="${x}" cy="${topY}" r="15" />${labelMarkup}</g>`;
-    }).join('');
-    const checkX = columnX(5);
-    const doneX = columnX(6);
-    const gateX = (checkX + doneX) / 2;
-    const stageLine = `<path class="matrix-timeline" d="M${left} ${topY} H${doneX}" /><path class="matrix-gate-branch" d="M${gateX} ${topY} V101" /><polygon class="matrix-gate-diamond" points="${gateX},84 ${gateX + 16},100 ${gateX},116 ${gateX - 16},100" /><text class="matrix-gate-label" x="${gateX}" y="66" text-anchor="middle">Human Gate</text>`;
-    const rowGuides = ROLE_DATA.map((role, r) => {
-      const y = rowStart + r * rowGap;
-      const rowLine = `<path class="matrix-rowline" d="M${left} ${y} H${doneX}" />`;
-      return `${rowLine}<text class="matrix-role-label" x="12" y="${y + 7}">${esc(role.name)}</text>`;
-    }).join('');
-    const columnRows = columns.map((column, i) => {
-      const x = columnX(i);
-      const cells = ROLE_DATA.map((role, r) => {
-        const y = rowStart + r * rowGap;
-        const primary = column.stageKeys.some(stageKey => STAGES[stageKey].lead.includes(role.name));
-        const co = !primary && column.stageKeys.some(stageKey => STAGES[stageKey].co.includes(role.name));
-        if (!primary && !co) return '';
-        const className = `matrix-role-dot ${primary ? 'is-lead' : 'is-co'}`;
-        const mark = `<circle class="${className}" cx="${x}" cy="${y}" r="${primary ? 18 : 13}" />`;
-        return `<path class="matrix-link ${primary ? 'is-lead' : 'is-co'}" d="M${x} ${topY + 17} V${y - 9}" />${mark}`;
-      }).join('');
-      return `<g class="matrix-column" data-stage="${column.key}">${cells}</g>`;
-    }).join('');
-    return `<div class="focus-compose">${locator(slide)}
-      <div class="diagram-field matrix-field">
-        <svg class="roles-matrix" viewBox="0 0 ${width} ${height}" role="img" aria-label="七種角色連到各階段的主責與協作矩陣">
-          ${stageLine}${stageNodes}${rowGuides}${columnRows}
-        </svg>
-        <div class="matrix-legend"><span><i class="legend-lead"></i>主責</span><span><i class="legend-co"></i>協作</span><span><i class="legend-gate"></i>欄外授權由 Owner 決定</span></div>
-      </div>
-    </div>`;
+    return `<div class="full-map-wrap">${renderMotherMap({
+      stage: slide.dataset.focusStage || 'refinement',
+      roles: (slide.dataset.focusRolesMap || '').split(',').map(role => role.trim()).filter(Boolean),
+      page: slide.dataset.page,
+      agent: true,
+    })}</div>`;
   }
 
   function renderDocumentTypes(slide) {
     return `<div class="focus-compose">${locator(slide)}
       <div class="diagram-field doc-type-field">
-        <div class="doc-tree-root"><span>Parent · 為什麼做</span><strong>Goal：配對體驗</strong></div>
+        <div class="doc-tree-root"><span>Goal · 配對 App 想達到什麼？</span><strong>互相按讚後，在配對清單找到對方。</strong></div>
         <div class="tree-trunk" aria-hidden="true"></div>
-        <section class="ticket-cluster" aria-label="Goal 是 Parent；三張工作票是 Child，分類依團隊設定">
-          <header><strong>三張 Child 工作票</strong><span>Parent／Child 說明關係；Epic／Story／Task 是分類名稱</span></header>
+        <section class="ticket-cluster" aria-label="一個 Goal 分成三張配對 App 功能票">
+          <header><strong>Goal → 三張功能票</strong><span>Epic／Story／Task 是分類標籤；這三張都可叫 Story。</span></header>
           <div class="ticket-tree">
-            <div class="ticket-node epic"><strong>Epic · 配對體驗</strong><span>一組相關工作</span></div>
-            <div class="ticket-node story"><strong>Story · 雙向按讚後配對</strong><span>可驗收的使用者結果</span></div>
-            <div class="ticket-node task"><strong>Task · 建立配對紀錄</strong><span>可交辦的實作工作</span></div>
+            <article class="ticket-node feature-ticket"><span>功能票</span><strong>按讚</strong><div class="mini-app-screen"><b>小晴</b><span>♡ Like</span></div></article>
+            <article class="ticket-node feature-ticket"><span>功能票</span><strong>配對規則</strong><div class="mini-app-screen"><b>兩人互按</b><span>建立配對紀錄</span></div></article>
+            <article class="ticket-node feature-ticket"><span>功能票</span><strong>配對清單</strong><div class="mini-app-screen"><b>我的配對</b><span>小晴　●</span></div></article>
           </div>
         </div>
         <div class="doc-branch-line" aria-hidden="true"></div>
@@ -546,13 +516,15 @@
   function renderCriteria(slide) {
     return `<div class="focus-compose">${locator(slide)}
       <div class="diagram-field criteria-field criteria-example-field">
-        <header class="criteria-example-title"><span>同一件小事</span><strong>小安單向按讚小晴，但不配對</strong></header>
-        <div class="criteria-example-grid">
-          <article><b>AC · 要符合什麼？</b><p>單向按讚不能建立配對。</p></article>
-          <article><b>AT · 怎麼檢查？</b><p>小安按讚後看配對紀錄，預期 0 筆。</p></article>
-          <article class="dod-example"><b>DoD · 何時算完成？</b><p>規則測試全部 PASS 並留紀錄；上線、介面、完整流程不在本票，未測。</p></article>
-          <article><b>Exit Criteria · 何時交棒？</b><p>QA 已留下結果和仍未測的項目。</p></article>
-          <article><b>Evidence · 留下什麼？</b><p>同版程式、輸入、預期、實際觀察與結果。</p></article>
+        <header class="criteria-example-title"><span>同一件小事</span><strong>小安單向按讚小晴，沒有配對。</strong></header>
+        <div class="criteria-example-grid criteria-levels">
+          <article><b>Goal · 想達到什麼？</b><p>互相按讚後，能在配對清單找到對方。</p></article>
+          <article><b>Stage Target · 本站要做什麼？</b><p>確認單向按讚不會建立配對。</p></article>
+          <article><b>AC · 要符合什麼？</b><p>只一方按 Like 時，不建立配對。</p></article>
+          <article><b>AT · 怎麼檢查？</b><p>重設資料、小安按 Like、查配對紀錄；預期 0 筆。</p></article>
+          <article class="dod-example"><b>DoD · 這張票何時能合併？</b><p>票上規則測試都 PASS 並留紀錄後，可授權合併；本課未執行。</p></article>
+          <article><b>Exit · 何時交棒？</b><p>把結果和仍未測項交給下一站核對。</p></article>
+          <article class="evidence-example"><b>Evidence · 留下什麼？</b><p>若保留：記錄版本、輸入、預期、實際與結果。</p></article>
         </div>
       </div>
     </div>`;
@@ -653,7 +625,7 @@
     const nextStage = data.nextStage || 'Done';
     const conciseOutput = {
       refinement: 'Parent／Child Tickets、Scope、AC／AT、預期 Evidence',
-      release_done: '本票 DoD 全部滿足；所需交付與證據可回查',
+      release_done: '已授權合併・未執行；本課不標 Done',
     }[stageKey] || data.output;
     return `<div class="focus-compose stage-compose">${locator(slide)}
       <div class="diagram-field stage-panel">
@@ -703,59 +675,110 @@
   }
 
   const B2_MAP_STATE = {
-    O03: { footer: '<span class="delta-mark">需求草案</span><strong>「配對功能正常」</strong><span>Goal Issue 尚未建立</span>' },
-    B04: { badges: [['documents', 'Goal Issue · 示意', 'documents']], footer: '<span class="delta-mark">NEW</span><strong>Goal Issue 已建立</strong><span>仍在 Brainstorming／Backlog · 示意</span>' },
-    R05: { badges: [['documents', 'Parent · 3 子票', 'documents']], ticket: 'backlog', footer: '<span class="delta-mark">NEW</span><strong>Parent → #1／#3／#2</strong><span>#3 在 Backlog · 進行中 0／1 張 · 示意</span>' },
-    RD02: { ticket: 'ready', previous: 'backlog', footer: '<span class="delta-mark">MOVE</span><strong>Backlog (#3) → Ready (#3)</strong><span>進行中 0／1 張 · 教學流程示意</span>' },
-    D04: { ticket: 'dev', previous: 'ready', footer: '<span class="delta-mark">MOVE</span><strong>Ready → Dev</strong><span>進行中 0／1 張 → 1／1 張 · 第一版為示意</span>' },
-    RV03: { badges: [['version', 'PR · 要求修改 · 示意', 'agent'], ['process', '回 Dev 修正 · 示意', 'process']], ticket: 'dev', previous: 'review', footer: '<span class="delta-mark">RETURN</span><strong>Review → Dev</strong><span>PR 未 Merge；QA 尚未開始 · 示意</span>' },
-    Q05: { badges: [['documents', '第一版 → 修正版・第一次測 → 修正版・補測', 'documents'], ['version', '介面／完整流程 · 未測', 'gate']], ticket: 'qa', previous: 'dev', footer: '<span class="delta-mark">實測範圍</span><strong>規則層有實測紀錄</strong><span>介面、完整流程、上線與產品目標：未測</span>' },
-    PC02: { badges: [['documents', '#3 規則 Evidence', 'documents'], ['version', '介面／完整流程／產品目標 · 未測', 'gate']], ticket: 'product-check', footer: '<span class="delta-mark">SCOPE</span><strong>單票規則 Evidence 可審</strong><span>Product Check 流程示意；整體 Goal 未驗</span>' },
-    HG02: { badges: [['process', 'Human Gate · 暫停 · 示意', 'gate'], ['documents', '上線 · 未測', 'gate']], ticket: 'product-check', footer: '<span class="delta-mark is-hold">HOLD</span><strong>Product Check → Human Gate 暫停</strong><span>教學推演；無 Merge／上線／Done 證據</span>' },
-    A01: { footer: '<span class="delta-mark">倒帶中</span><strong>修正版第一次測的當下 · AC1／AC2 PASS</strong><span>QA · 同一工作票；重複按讚未測</span>' },
-    A02: { footer: '<span class="delta-mark">倒帶中</span><strong>人 ↔ 一個 Agent</strong><span>架構示意；人獨立核對並負責放行</span>' },
-    A03: { footer: '<span class="delta-mark">倒帶中</span><strong>多個 Chat · 人在中間搬運紀錄</strong><span>架構示意；Issue、版本與測試紀錄隨人交接</span>' },
-    A04: { footer: '<span class="delta-mark">倒帶中</span><strong>協調 Agent 樹狀分派與回報</strong><span>架構示意；正式放行仍由人負責</span>' },
-    A11: { badges: [['documents', '1／5 · Issue／Parent', 'documents'], ['process', '2 · 範圍', 'process'], ['people', '3 · 角色', 'people'], ['version', '4 · 證據', 'version']], footer: '<span class="principle-pin"><b>1</b> 工作狀態記在 Issue → Issue</span><span class="principle-pin"><b>2</b> 只在核准範圍內工作 → 範圍</span><span class="principle-pin"><b>3</b> 不同角色各負其責 → Human Gate</span><span class="principle-pin"><b>4</b> 另外核對測試結果 → 證據</span><span class="principle-pin"><b>5</b> 回頭核對產品目標 → Parent</span>' },
+    O03: { docStage: 'backlog', docText: '需求草案' },
+    B04: { docStage: 'backlog', docText: '新建 Goal Issue', ticket: 'backlog' },
+    R05: { docStage: 'backlog', docText: '三張功能票 · AC', ticket: 'backlog' },
+    RD02: { docStage: 'ready', docText: 'Ready 工作票', ticket: 'ready', previous: 'backlog' },
+    D04: { docStage: 'dev', docText: '實作摘要 · 教學示意', versionStage: 'dev', versionText: 'Branch · Commit', ticket: 'dev', previous: 'ready' },
+    RV03: { docStage: 'review', docText: '審查意見 · 要求修改', versionStage: 'review', versionText: 'PR 未合併', ticket: 'dev', previous: 'review', actualReturn: 'review' },
+    Q05: { docStage: 'qa', docText: '規則測試紀錄', versionStage: 'qa', versionText: '測試對應版本', ticket: 'qa', previous: 'dev', actualReturn: 'qa' },
+    PC02: { docStage: 'product-check', docText: '規則證據對照 Goal', versionStage: 'qa', versionText: '測試對應版本' },
+    HG02: { docStage: 'human_gate', docText: '功能暫不上線', versionStage: 'human_gate', versionText: '已授權合併・未執行', ticket: 'product-check', actualReturn: 'gate' },
+    A01: { docStage: 'qa', docText: '第一次測紀錄 · 部分 PASS', versionStage: 'qa', versionText: '同一份修正版', ticket: 'qa' },
+    A11: { docStage: 'product-check', docText: 'Issue／AC／Goal 關聯', versionStage: 'qa', versionText: '第一次測 → 補測' },
   };
-
-  function addMapMarkers(markup, delta, slide) {
-    let output = markup;
-    (delta?.badges || []).forEach(([zone, label, type]) => {
-      const heading = new RegExp(`(<section class="[^"]*zone-${zone}"[^>]*>\\s*<header class="zone-heading">)([\\s\\S]*?)(<\\/header>)`);
-      output = output.replace(heading, (_match, start, content, end) => `${start}${content}<span class="map-zone-badge badge-${type}">${esc(label)}</span>${end}`);
-    });
-    const position = slide.dataset.ticketPosition;
-    const previous = slide.dataset.ticketPrevious;
-    if (position) {
-      const target = new RegExp(`(data-state="${position}"[^>]*>\\s*<span>[^<]+<\\/span>)`);
-      output = output.replace(target, '$1<span class="map-ticket map-ticket-current">#3</span>');
-    }
-    if (previous) {
-      const source = new RegExp(`(data-state="${previous}"[^>]*>\\s*<span>[^<]+<\\/span>)`);
-      output = output.replace(source, '$1<span class="map-ticket map-ticket-ghost">#3</span>');
-    }
-    return output;
-  }
 
   function renderPart2Map(slide) {
     const scene = slide.dataset.rev13SceneId;
-    const delta = B2_MAP_STATE[scene];
-    const footer = delta?.footer ? `<div class="map-delta${scene === 'A11' ? ' principle-pin-row' : ''}" aria-label="本頁狀態差">${delta.footer}</div>` : '';
-    const versionEvidence = scene === 'A11' ? `<div class="a11-evidence-strip" aria-label="同一份修正版程式的兩次測試與未測範圍"><div><b>修正版・第一次測</b><span>AC1／AC2 PASS · 重複按讚未測</span></div><i aria-hidden="true">→</i><div><b>修正版・補測</b><span>同一份程式 · 重複按讚 PASS</span></div><strong>介面／完整流程／上線／產品目標 · 未測</strong></div>` : '';
-    const zones = (slide.dataset.focusZones || '').split(',').filter(Boolean);
-    const roles = (slide.dataset.focusRolesMap || '').split(',').map(role => role.trim()).filter(Boolean);
+    const delta = B2_MAP_STATE[scene] || null;
+    const spotlightZones = ['O03', 'A01', 'A11'].includes(scene)
+      ? [] : (slide.dataset.focusZones || '').split(',').filter(Boolean);
+    const roles = ['O03', 'A01', 'A11'].includes(scene)
+      ? [] : (slide.dataset.focusRolesMap || '').split(',').map(role => role.trim()).filter(Boolean);
     const map = renderMotherMap({
-      spotlightZones: ['O03', 'A01', 'A02', 'A03', 'A04', 'A11'].includes(scene) ? [] : zones,
-      roles: ['O03', 'A01', 'A02', 'A03', 'A04', 'A11'].includes(scene) ? [] : roles,
+      spotlightZones,
+      roles,
       stage: slide.dataset.focusStage || '',
       states: (slide.dataset.stateMarkers || '').split(',').filter(Boolean),
       agent: true,
-      agentMode: slide.dataset.agentMode || '',
-      mapFooter: footer,
-      versionEvidence,
+      page: slide.dataset.page,
+      ticketPosition: slide.dataset.ticketPosition || '',
+      ticketPrevious: slide.dataset.ticketPrevious || '',
+      delta,
+      actualReturn: delta?.actualReturn || '',
     });
-    return `<div class="full-map-wrap b2-full-map">${addMapMarkers(map, delta ? { ...delta, badges: [] } : delta, slide)}</div>`;
+    return `<div class="full-map-wrap b2-full-map">${map}</div>`;
+  }
+
+  function renderAgentMode(slide) {
+    const mode = slide.dataset.agentMode;
+    const configurations = {
+      single: {
+        title: '一個 Agent 依票工作，人另行核對',
+        note: '單 Agent 協作示意；測試結果仍看 QA 紀錄。',
+        columns: ['人交辦', 'Agent 執行', 'QA 核對', 'Human Gate'],
+        lanes: [
+          ['Owner', '人', [[1, '交付 Issue、AC 與停止條件', 'human'], [4, '檢查證據並決定放行', 'human']]],
+          ['Agent', 'agent', [[2, '依核准範圍修改並回報版本', 'agent']]],
+          ['QA', 'review', [[3, '獨立比對 AC、版本與結果', 'review']]],
+        ],
+        routes: [[[1, 0], [2, 1], [3, 2], [4, 0]]],
+        artifacts: ['Issue：範圍 · AC · 停止條件', '版本：Branch → Commit → PR', '證據：測試紀錄連回工作票'],
+      },
+      'multi-chat': {
+        title: '多個工作對話之間，由人帶著紀錄交接',
+        note: '架構示意，不代表實際多 Agent 協作。',
+        columns: ['共用工作票', 'Dev 對話', '人帶紀錄', 'Reviewer／QA', 'Human Gate'],
+        lanes: [
+          ['Dev Agent', 'agent', [[2, '依 Issue 修改並交版本摘要', 'agent']]],
+          ['人', 'human', [[1, '先提供同一張 Issue 與 AC', 'human'], [3, '帶上 Issue、版本與未測項', 'relay']]],
+          ['Reviewer Agent', 'review', [[4, '檢查修改與範圍', 'review']]],
+          ['QA Agent', 'review', [[4, '依 AC 核對行為與證據', 'review']]],
+          ['Owner', 'human', [[5, '檢查後決定是否放行', 'human']]],
+        ],
+        routes: [[[1, 1], [2, 0], [3, 1], [4, 2], [5, 4]], [[3, 1], [4, 3], [5, 4]]],
+        artifacts: ['文件：Issue 保留範圍與 AC', '版本：Branch／Commit／PR', '證據：Review 與 QA 分開回寫'],
+      },
+      orchestrator: {
+        title: '協調 Agent 分派工作，人保留正式放行',
+        note: '架構示意，不代表實際多 Agent 協作。',
+        columns: ['人核准', '協調 Agent 分派', '分工 Agent', '協調 Agent 彙整', 'Human Gate'],
+        lanes: [
+          ['Owner', 'human', [[1, '核准範圍與停止條件', 'human'], [5, '獨立核對並決定放行', 'human']]],
+          ['協調 Agent', 'agent', [[2, '按工作邊界分派', 'agent'], [4, '收回報並附上來源', 'agent']]],
+          ['Dev Agent', 'agent', [[3, '修改並回報版本', 'agent']]],
+          ['Reviewer Agent', 'review', [[3, '審查差異與範圍', 'review']]],
+          ['QA Agent', 'review', [[3, '核對 AC 並記錄結果', 'review']]],
+        ],
+        routes: [[[1, 0], [2, 1]], [[2, 1], [3, 2]], [[2, 1], [3, 3]], [[2, 1], [3, 4]], [[3, 2], [4, 1]], [[3, 3], [4, 1]], [[3, 4], [4, 1]], [[4, 1], [5, 0]]],
+        artifacts: ['文件：同一張 Issue 與驗收條件', '版本：工作成果回到 Branch／PR', '證據：分工結果附來源與範圍'],
+      },
+    };
+    const config = configurations[mode] || configurations.single;
+    const axis = config.columns.map((label, index) => `<div class="agent-mode-step"><span>${index === 0 ? '起點' : `第 ${index + 1} 步`}</span><strong>${esc(label)}</strong></div>`).join('<i aria-hidden="true">→</i>');
+    const lanes = config.lanes.map(([name, kind, cells]) => `<div class="agent-mode-lane lane-${kind}"><strong class="agent-mode-lane-name">${esc(name)}</strong>${cells.map(([column, text, type]) => `<article class="agent-mode-cell mode-${type}" style="grid-column:${column + 1}"><b>${esc(text)}</b></article>`).join('')}</div>`).join('');
+    const laneHeight = 88;
+    const laneGap = 8;
+    const labelWidth = 145;
+    const routeId = `agent-route-arrow-${slide.dataset.page}`;
+    const columnWidth = (1000 - labelWidth) / config.columns.length;
+    const routePaths = (config.routes || []).flatMap(route => route.slice(1).map((point, index) => {
+      const previous = route[index];
+      const [fromColumn, fromRow] = previous;
+      const [toColumn, toRow] = point;
+      const startX = labelWidth + (fromColumn - 0.5) * columnWidth + Math.min(56, columnWidth * 0.34);
+      const endX = labelWidth + (toColumn - 0.5) * columnWidth - Math.min(56, columnWidth * 0.34);
+      const startY = fromRow * (laneHeight + laneGap) + laneHeight / 2;
+      const endY = toRow * (laneHeight + laneGap) + laneHeight / 2;
+      const midX = (startX + endX) / 2;
+      return `<path d="M${startX} ${startY} H${midX} V${endY} H${endX}" marker-end="url(#${routeId})"/>`;
+    })).join('');
+    const routes = `<svg class="agent-mode-routes mode-${mode}" viewBox="0 0 1000 ${config.lanes.length * laneHeight + (config.lanes.length - 1) * laneGap}" preserveAspectRatio="none" aria-hidden="true"><defs><marker id="${routeId}" markerWidth="9" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L9 4 L0 8 Z"/></marker></defs>${routePaths}</svg>`;
+    const artifacts = config.artifacts.map(text => {
+      const [label, ...detail] = text.split('：');
+      return `<article><b>${esc(label)}</b><span>${esc(detail.join('：'))}</span></article>`;
+    }).join('');
+    return `<div class="focus-compose agent-mode-compose">${locator(slide)}<section class="diagram-field agent-mode-field" style="--mode-columns:${config.columns.length};--mode-rows:${config.lanes.length}"><header><strong>${esc(config.title)}</strong><span>${esc(config.note)}</span></header><div class="agent-mode-axis" style="--mode-columns:${config.columns.length}">${axis}</div><div class="agent-mode-lanes" style="--mode-columns:${config.columns.length};--mode-rows:${config.lanes.length}">${routes}${lanes}</div><div class="agent-mode-artifacts">${artifacts}</div></section></div>`;
   }
 
   function artifactCard(label, title, content, className = '') {
@@ -776,9 +799,9 @@
       sections: [
         ['Scope', '<p>只處理配對規則與配對紀錄。</p>'],
         ['範圍外', '<p>UI、登入、網路服務、資料庫、完整產品串接。</p>'],
-        ['Acceptance Criteria', '<ul><li>AC1：單向 Like，配對紀錄數為 0。</li><li>AC2：互相 Like，只建立一筆 M01，成員為兩人。</li><li>AC3：已有 M01 再 Like，仍只有一筆。</li></ul>', 'ac'],
-        ['Acceptance Tests', '<ul><li>單向 Like → 預期 0 筆。</li><li>雙向 Like → 預期 1 筆 M01。</li><li>重複 Like → 預期仍為 1 筆 M01。</li><li>每個案例用同一份假資料重置。</li></ul>'],
-        ['Definition of Done', '<p>本票 DoD：規則測試全部 PASS 並留紀錄；上線、介面、完整流程不在本票，未測。</p>'],
+        ['Acceptance Criteria', '<ul><li>AC1：單向 Like，配對紀錄數為 0。</li><li>AC2：互相 Like，只建立一筆配對紀錄。</li><li>AC3：已有一筆配對紀錄再 Like，仍只有一筆。</li></ul>', 'ac'],
+        ['Acceptance Tests', '<ul><li>單向 Like → 預期 0 筆。</li><li>雙向 Like → 預期 1 筆。</li><li>重複 Like → 預期仍為 1 筆。</li><li>每個案例用同一份假資料重置。</li></ul>'],
+        ['Definition of Done', '<p>規則測試全 PASS 並留紀錄後，可授權合併。本課：已授權合併・未執行。</p>'],
       ],
     });
   }
@@ -800,12 +823,12 @@
         body = `<div class="brainstorm-grid"><article><span>使用者問題</span><strong>「配對功能正常」還不夠明確</strong><p>誰遇到什麼困難？</p></article><article><span>要釐清的假設</span><strong>哪個 Like 情境才建立配對？</strong><p>單向、雙向與重複輸入</p></article><article><span>共同決定 · 示意</span><strong>Owner · PM · PO</strong><p>記下選項、未知與方向</p></article></div>`;
         break;
       case 'B02':
-        body = `<div class="goal-flow"><article><span>待釐清請求</span><strong>配對功能正常</strong><p>成功條件尚未定義</p></article><i>→</i><article class="goal-result"><span>Parent Goal · 示意</span><strong>使用者 Like 彼此後，能在配對清單找到對方</strong><p>成功訊號：雙向按讚後建立 1 筆配對紀錄；M01 是配對紀錄的編號。</p></article><article class="goal-open"><span>仍待決定</span><strong>整體產品成效與介面路徑</strong><p>本頁沒有測量這些結果</p></article></div>`;
+        body = `<div class="goal-flow"><article><span>待釐清請求</span><strong>配對功能正常</strong><p>成功條件尚未定義</p></article><i>→</i><article class="goal-result"><span>Parent Goal · 示意</span><strong>使用者 Like 彼此後，能在配對清單找到對方</strong><p>成功訊號：雙向按讚後預期建立一筆配對紀錄。</p></article><article class="goal-open"><span>仍待決定</span><strong>整體產品成效與介面路徑</strong><p>本頁沒有測量這些結果</p></article></div>`;
         break;
       case 'B03':
         body = issueSheet({ title: 'Goal／Proposal：配對體驗', workItem: 'Parent Goal · 配對體驗', sections: [
           ['Outcome Goal', '<p>使用者 Like 彼此後，能在配對清單找到對方。</p>'],
-          ['成功訊號', '<p>雙向 Like 預期只建立 1 筆 M01（配對紀錄的編號）。</p>'],
+          ['成功訊號', '<p>雙向 Like 預期只建立一筆配對紀錄。</p>'],
           ['待確認', '<p>整體產品範圍、介面與依賴留待 Refinement。</p>'],
         ] });
         break;
@@ -813,13 +836,13 @@
         body = `<div class="refinement-board"><div class="refinement-source"><span>輸入 · 教學示意</span><strong>同一張 Goal Issue</strong><p>目標、限制、未知事項</p></div><div class="refinement-checks"><h2>Refinement 要回答</h2><ul><li>可行性與風險</li><li>Scope 與 範圍外</li><li>相依工作與順序</li><li>AC、AT 與 Evidence</li></ul></div><div class="refinement-handoff"><span>輸出 · 教學示意</span><strong>可交接的 Parent／Child Issues</strong><p>仍在 Backlog</p></div></div>`;
         break;
       case 'R02':
-        body = `<div class="issue-tree"><article class="parent-issue"><span>Parent Goal · 教學示意</span><strong>配對體驗</strong><p>依賴與順序記回 Parent</p></article><div class="tree-stem"></div><div class="child-issues"><article><span>#1</span><strong>Like／Pass</strong></article><article class="child-primary"><span>#3</span><strong>雙向 Like → 配對紀錄</strong><small>本課主要工作票</small></article><article><span>#2</span><strong>配對清單</strong></article></div><div class="issue-dependencies" aria-label="工作票依賴關係"><svg viewBox="0 0 1000 54" preserveAspectRatio="none" aria-hidden="true"><defs><marker id="issue-dependency-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" /></marker></defs><path d="M500 0 V13 H166 V41" marker-end="url(#issue-dependency-arrow)" /><path d="M500 13 H833 V41" marker-end="url(#issue-dependency-arrow)" /></svg><div><span>#3 配對規則</span><b>→</b><span>#1 Like／Pass</span><i>及</i><span>#3 配對規則</span><b>→</b><span>#2 配對清單</span></div></div></div>`;
+        body = `<div class="issue-tree"><article class="parent-issue"><span>Goal · 教學示意</span><strong>互相按讚後，在配對清單找到對方</strong><p>三張功能票分開交付；另兩張依賴配對規則。</p></article><div class="tree-stem"></div><div class="child-issues"><article><span>Story · #1</span><strong>按讚／略過</strong></article><article class="child-primary"><span>Story · #3</span><strong>雙向按讚建立配對</strong><small>本課主要工作票</small></article><article><span>Story · #2</span><strong>配對清單</strong></article></div><div class="issue-dependencies" aria-label="配對規則票先於按讚與配對清單"><svg viewBox="0 0 1000 54" preserveAspectRatio="none" aria-hidden="true"><defs><marker id="issue-dependency-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" /></marker></defs><path d="M500 0 V13 H166 V41" marker-end="url(#issue-dependency-arrow)" /><path d="M500 13 H833 V41" marker-end="url(#issue-dependency-arrow)" /></svg><div><span>配對規則</span><b>→</b><span>按讚</span><i>及</i><span>配對規則</span><b>→</b><span>配對清單</span></div></div></div>`;
         break;
       case 'R03':
         body = renderTicketDefinition();
         break;
       case 'R04':
-        body = `<div class="issue-tree issue-tree-updated"><article class="parent-issue"><span>Parent Issue · 更新 · 示意</span><strong>配對體驗</strong><p>子票、依賴、順序與 Project 狀態</p></article><div class="tree-stem"></div><div class="child-issues"><article><span>#1</span><strong>Like／Pass</strong><small>連回 Parent</small></article><article class="child-primary"><span>#3</span><strong>配對規則</strong><small>AC／AT／DoD 已補</small></article><article><span>#2</span><strong>配對清單</strong><small>連回 Parent</small></article></div><div class="project-state"><b>Project · 示意</b><span>#3 Status · Backlog</span></div></div>`;
+        body = `<div class="issue-tree issue-tree-updated"><article class="parent-issue"><span>Goal Issue · 更新示意</span><strong>互相按讚後，在配對清單找到對方</strong><p>三張功能票與依賴都連回此 Goal。</p></article><div class="tree-stem"></div><div class="child-issues"><article><span>Story · #1</span><strong>按讚／略過</strong><small>依賴配對規則</small></article><article class="child-primary"><span>Story · #3</span><strong>配對規則</strong><small>AC／AT／DoD 已補</small></article><article><span>Story · #2</span><strong>配對清單</strong><small>依賴配對規則</small></article></div><div class="project-state"><b>Project · 示意</b><span>#3 Status · Backlog</span></div></div>`;
         break;
       case 'RD01':
         body = `<div class="ready-check"><article><b>Scope</b><span>單一規則票；範圍與排除事項清楚</span></article><article><b>AC／AT</b><span>三種情境都有明確預期與測法</span></article><article><b>依賴</b><span>必要關係與接手責任已記錄</span></article><article><b>可測性</b><span>假資料、紀錄筆數與版本可識別</span></article><div class="ready-result"><strong>Ready Check · 示意</strong><span>可交 Dev 開工；尚無測試 PASS</span></div></div>`;
@@ -831,7 +854,7 @@
         body = `<div class="git-flow"><span>Git／GitHub 關係 · 示意</span><div class="git-chain"><article class="git-ticket"><span>工作契約</span><strong>Issue #3</strong><small>Scope · AC · AT</small></article><i>→</i><article><span>隔離修改</span><strong>Branch</strong><small>同一 Repo</small></article><i>→</i><article><span>版本節點</span><strong>Commit</strong><small>記錄變更</small></article><i>→</i><article class="git-pr"><span>協作送審</span><strong>GitHub PR</strong><small>差異連回 Issue</small></article></div></div>`;
         break;
       case 'D03':
-        body = `<div class="candidate-card"><header><span>版本</span><strong>第一版</strong><em>教學示意</em></header><div><article><b>修改摘要</b><span>配對規則變更</span></article><article><b>自測紀錄</b><span>交付內容待獨立 QA 核對</span></article><article><b>未完成項</b><span>逐條 AC Evidence 交 QA 補驗</span></article></div><footer>版本 ≠ PASS　 ·　PR ≠ Ticket　 ·　Issue #3 保留工作範圍</footer></div>`;
+        body = `<div class="candidate-card"><header><span>程式修改摘要</span><strong>配對規則 · 教學示意</strong><em>未宣稱實測</em></header><div><article><b>Dev 自查步驟</b><span>重設資料 → 單向按讚 → 查配對紀錄數</span></article><article><b>交接內容</b><span>記錄輸入、預期與待 QA 核對項</span></article><article><b>未完成項</b><span>逐條 AC 交 QA 獨立驗證</span></article></div><footer>Dev 自查提供線索；QA 另行驗證，結果依證據記錄。</footer></div>`;
         break;
       case 'RV01':
       case 'RV02':
@@ -841,28 +864,19 @@
         body = `<div class="qa-evidence-shell qa-method-shell"><header><span>規則層實測步驟</span><strong>先取得可重跑的觀察，再記錄結果</strong><em>步驟示意</em></header><div class="qa-method-steps"><article><b>1 · 準備</b><span>重置假資料</span></article><i>→</i><article><b>2 · 執行</b><span>小安按讚小晴</span></article><i>→</i><article><b>3 · 看結果</b><span>查配對紀錄數</span></article><i>→</i><article><b>4 · 對照預期</b><span>預期 0 筆</span></article></div>${qaTable([['版本','AC 對應案例','規則預期','實際觀察','PASS／FAIL／未測']])}<p>本頁只說明取得規則層觀察的方法；沒有新增測試結果。</p></div>`;
         break;
       case 'Q02':
-        body = `<div class="qa-evidence-shell actual-evidence qa-failure-evidence"><header><span>規則層實測</span><strong>第一版 · 單向 Like</strong><em>FAIL</em></header>${evidenceReference('第一版', '單向 Like 測試紀錄檔')}${qaTable([['第一版','小安 Like 小晴；尚未互相 Like','0 筆配對','1 筆：M01','FAIL']])}<div class="qa-fail-detail"><article><span>Ticket #3 · AC1</span><strong>單向 Like → 預期 0 筆</strong><small>第一版實際 1 筆 M01 · FAIL</small></article><div class="qa-return-path"><b>QA</b><i>→</i><b>Dev</b><span>退回修正 · 流程示意</span></div></div><p>規則層案例失敗；退回路徑為教學示意，不代表新增的實測紀錄。</p></div>`;
+        body = `<div class="qa-evidence-shell actual-evidence qa-failure-evidence"><header><span>規則層實測</span><strong>第一版 · 單向 Like</strong><em>FAIL</em></header>${evidenceReference('第一版', '單向 Like 測試紀錄')}${qaTable([['第一版','小安 Like 小晴；尚未互相 Like','0 筆配對','1 筆配對紀錄','FAIL']])}<div class="qa-fail-detail"><article><span>工作票 AC1 · 單向按讚</span><strong>預期 0 筆；實際 1 筆</strong><small>FAIL：第一版沒有符合 AC1</small></article><div class="qa-return-path"><b>QA</b><i>→</i><b>Dev</b><span>依 AC1 退回修正</span></div></div><p>第一版規則測試失敗；退回線表示修正流程，測試紀錄只保留實際觀察。</p></div>`;
         break;
       case 'Q03':
-        body = `<div class="qa-evidence-shell actual-evidence"><header><span>規則層實測</span><strong>修正版・第一次測</strong><em>部分通過</em></header>${evidenceReference('修正版', '單向與雙向測試紀錄檔')}${qaTable([['修正版・第一次測','單向 Like','0 筆','0 筆','PASS'],['修正版・第一次測','雙向 Like','1 筆 M01','1 筆 M01','PASS'],['修正版・第一次測','重複按讚','仍 1 筆 M01','未執行','未測']])}<p>AC1／AC2 有規則證據；重複按讚尚未驗證。</p></div>`;
+        body = `<div class="qa-evidence-shell actual-evidence"><header><span>規則層實測</span><strong>修正版・第一次測</strong><em>部分通過</em></header>${evidenceReference('修正版', '單向與雙向測試紀錄')}${qaTable([['修正版・第一次測','單向 Like','0 筆','0 筆','PASS'],['修正版・第一次測','雙向 Like','1 筆','1 筆','PASS'],['修正版・第一次測','重複按讚','仍 1 筆','未執行','未測']])}<p>AC1／AC2 有規則證據；重複按讚尚未驗證。</p></div>`;
         break;
       case 'Q04':
-        body = `<div class="qa-evidence-shell reveal-evidence"><header><span>先請學員作答</span><strong>重複按讚還缺哪個輸入與預期？</strong><em>按下一步揭露</em></header><div class="duplicate-prompt"><article><b>前置狀態</b><span>同一份修正版程式已有 1 筆 M01</span></article><i>→</i><article><b>補測動作</b><span>同一對再次 Like</span></article><i>→</i><article><b>預期</b><span>仍只有 1 筆 M01</span></article></div><div class="b2-reveal fragment" data-fragment-order="1"><span>規則層實測 · 修正版・補測</span>${evidenceReference('修正版', '重複按讚測試紀錄檔')}${qaTable([['修正版・補測','重複按讚','仍 1 筆 M01','仍 1 筆 M01','PASS']])}<p>補測沿用同一份修正版程式；沒有另建版本。</p></div></div>`;
+        body = `<div class="qa-evidence-shell reveal-evidence"><header><span>先請學員作答</span><strong>重複按讚還缺哪個輸入與預期？</strong><em>按下一步揭露</em></header><div class="duplicate-prompt"><article><b>前置狀態</b><span>同一份修正版程式已有 1 筆配對紀錄</span></article><i>→</i><article><b>補測動作</b><span>同一對再次 Like</span></article><i>→</i><article><b>預期</b><span>仍只有 1 筆配對紀錄</span></article></div><div class="b2-reveal fragment" data-fragment-order="1"><span>規則層實測 · 修正版・補測</span>${evidenceReference('修正版', '重複按讚測試紀錄')}${qaTable([['修正版・補測','重複按讚','仍 1 筆','仍 1 筆','PASS']])}<p>補測沿用同一份修正版程式；沒有另建版本。</p></div></div>`;
         break;
       case 'PC01':
-        body = `<div class="product-check-grid"><article><span>Ticket #3 · 可核對</span><strong>單向 0 · 雙向 1 M01 · 重複按讚 仍 1 M01</strong><p>規則層範圍與各案例結果</p></article><i>≠</i><article class="goal-gap"><span>Parent Goal · 尚未驗證</span><strong>使用者 Like 彼此後，能在配對清單找到對方</strong><p>登入／介面／完整流程／完整串接：未測</p></article><footer>Product Check · 教學示意　｜　PO／Owner 記錄範圍與未知，不把單票結果升格成 Goal PASS。</footer></div>`;
+        body = `<div class="product-check-grid"><article><span>配對規則票 · 可核對</span><strong>單向 0 筆 · 雙向 1 筆 · 重複按讚仍 1 筆</strong><p>只證明配對規則正確；不代表使用者在配對清單看得到對方。</p></article><i>≠</i><article class="goal-gap"><span>Parent Goal · 尚未驗證</span><strong>使用者 Like 彼此後，能在配對清單找到對方</strong><p>登入／介面／完整流程／完整串接：未測</p></article><footer>Product Check · 教學示意　｜　PO／Owner 記錄範圍與未知，不把單票結果升格成 Goal PASS。</footer></div>`;
         break;
       case 'HG01':
         body = `<div class="human-gate-card"><header><span>Human Gate · 決策清單示意</span><strong>決策者：Owner／授權人</strong></header><div class="gate-evidence-list"><article><b>✓</b><span>#3 規則證據：第一版 → 修正版・第一次測 → 修正版・補測</span></article><article><b>!</b><span>介面／完整流程／產品目標：未測</span></article><article><b>!</b><span>上線檢查清單、授權紀錄：未建立</span></article></div><footer><strong>可做的決定</strong><span>補證據　·　暫停　·　退回　·　授權（需真實紀錄）</span></footer></div>`;
-        break;
-      case 'A02':
-        body = `<div class="agent-mode-flow"><header><span>同一張教學 #3 Ticket</span><em>單一 Agent 模式示意</em></header><div><article><b>人</b><span>定範圍、指定 AC 與停機條件</span></article><i>→</i><article class="agent-active"><b>單一 Agent</b><span>在核准範圍內處理工作並交付摘要</span></article><i>→</i><article><b>QA／Owner</b><span>獨立核對測試證據／作授權決定</span></article></div><footer>Ticket、版本、QA 測試證據與 Human Gate 保持原流程位置。</footer></div>`;
-        break;
-      case 'A03':
-        body = `<div class="chat-handoff"><header><span>架構示意，不是實際多 Agent 協作</span><strong>人決定每次交接與證據來源</strong></header><div><article><b>Dev Chat</b><span>Issue #3 · 範圍／AC</span><small>版本摘要</small></article><i>→</i><article class="handoff-state"><b>外部工作狀態</b><span>工作票 · Branch／Commit</span><small>最新測試證據與下一步</small></article><i>→</i><article><b>Reviewer／QA Chat</b><span>檢查差異與測試</span><small>回寫審查問題／結果</small></article></div><footer>對話、一次工作與完整流程各有不同範圍；交接記錄回到 Issue 與版本。</footer></div>`;
-        break;
-      case 'A04':
-        body = `<div class="orchestrator-flow"><header><span>架構示意，不是實際多 Agent 協作</span><strong>分派與彙整不會轉移人類放行權</strong></header><div class="orchestrator-top"><article><b>協調 Agent</b><span>讀取核准範圍 · 分派任務 · 彙整回報</span></article></div><div class="orchestrator-branches"><i></i><i></i><i></i></div><div class="subagent-row"><article>Dev Agent<span>修改版本</span></article><article>Reviewer Agent<span>審查意見</span></article><article>QA Agent<span>測試紀錄</span></article></div><footer><b>Human Owner → Human Gate</b><span>授權／暫停仍由人決定。</span></footer></div>`;
         break;
       default:
         body = `<div class="b2-generic"><strong>${esc(slide.querySelector('h1').textContent)}</strong><p>${esc(slide.dataset.docRef)}</p><span>${esc(slide.dataset.versionRef)}</span></div>`;
@@ -871,11 +885,11 @@
   }
 
   const PRINCIPLE_CASES = {
-    A06: { risk: '接手者只看到一段聊天摘要；不知道 #3 在哪個流程、哪個 AC 尚未測。', decision: '先讀共享 Issue／Project，核對核准範圍、AC、Owner、目前工作數與修正版・第一次測結果。' },
+    A06: { risk: '接手者只看到一段聊天摘要；不知道規則票在哪個流程、哪個 AC 尚未測。', decision: '先讀共享 Issue／Project，核對核准範圍、AC、Owner、目前工作數與第一次測結果。' },
     A07: { risk: '執行時有人提議順便新增聊天室，會改變本票範圍。', decision: '超出核准範圍就依停止條件停下，不自行加入新功能。' },
     A08: { risk: '實作者說完成後，自己也替變更與測試按下放行。', decision: '把 PO、Dev、Reviewer、QA、Owner 的責任分開，保留 Human Gate。' },
-    A09: { risk: '修正版・第一次測的單向和雙向都 PASS，就把所有 AC 一起當成完成。', decision: '逐條比對 AC、版本、輸入、預期與實際；重複按讚維持未測，直到補測。' },
-    A10: { risk: '子票 AC 綠燈，但 Parent Goal 或依賴方向已經改變。', decision: '回看 Parent Goal 與 #1／#2 依賴；目標問題回 Backlog／Refinement，實作問題回 Dev。' },
+    A09: { risk: '第一次測的單向和雙向都 PASS，但重複按讚仍未測；不能因此說所有 AC 都完成。', decision: '逐條比對 AC、版本、輸入、預期與實際；重複按讚維持未測，直到補測。' },
+    A10: { risk: '第一次測的 AC1／AC2 PASS，但重複按讚未測；不能把規則票或產品目標說成全部完成。', decision: '保留重複按讚未測；再核對 Parent Goal 與依賴。目標問題回 Backlog／Refinement，實作問題回 Dev。' },
   };
 
   function renderPrincipleArtifact(id) {
@@ -910,7 +924,7 @@
     const questions = [
       ['Ticket／AC', '你會把哪個範圍、AC 與停止條件寫進 Issue？', '寫清楚單向 0、雙向 1 筆、重複仍 1 筆；介面／登入／服務／資料庫排除，超範圍需求先停並交人決定。'],
       ['協作方式', '什麼時候需要協調 Agent？', '按任務邊界選方式；每站都回寫 Issue、版本與證據，角色仍分開，Human Gate 仍由人負責。'],
-      ['補測要求', '修正版・第一次測還有未測案例時，要補哪些證據？', '對同一份修正版程式重測重複按讚：已有 1 筆 M01，再 Like 後仍為 1 筆；介面／完整流程／上線／產品目標仍未測。'],
+      ['補測要求', '第一次測還有未測案例時，要補哪些證據？', '對同一份修正版程式重測重複按讚：已有 1 筆配對紀錄，再 Like 後仍為 1 筆；介面／完整流程／上線／產品目標仍未測。'],
     ];
     return `<div class="focus-compose b2-focus-compose">${locator(slide)}<section class="diagram-field b2-artifact exercise-part2"><header><strong>同一張 Ticket #3 · 修正版・第一次測 → 修正版・補測</strong><span>先寫下你的答案</span></header><ol>${questions.map(([label, question, answer], index) => `<li><b>${esc(label)}</b><span>${esc(question)}</span><p class="exercise-answer fragment" data-fragment-order="${index+1}"><strong>參考</strong>：${esc(answer)}</p></li>`).join('')}</ol><footer>參考答案依序揭露；不是新測試，也不表示 上線／產品目標完成。</footer></section></div>`;
   }
@@ -921,10 +935,9 @@
     if (key === 'mother-map') {
       const agent = slide.dataset.agent === 'true';
       art.innerHTML = `<div class="full-map-wrap">${renderMotherMap({
-        compact: false,
         agent,
-        revealAgent: slide.dataset.rev13SceneId === 'O02',
         revealFoundations: slide.dataset.rev13SceneId === 'O01',
+        page: slide.dataset.page,
       })}</div>`;
       return;
     }
@@ -942,6 +955,7 @@
     else if (key === 'exit-check') art.innerHTML = renderExitCheck(slide);
     else if (key === 'part2-map') art.innerHTML = renderPart2Map(slide);
     else if (key === 'part2-work') art.innerHTML = renderPart2Work(slide);
+    else if (key === 'agent-mode') art.innerHTML = renderAgentMode(slide);
     else if (key === 'part2-principle-overview') art.innerHTML = renderPrincipleOverview(slide);
     else if (key === 'part2-principle-case') art.innerHTML = renderPrincipleCase(slide);
     else if (key === 'part2-exercise') art.innerHTML = renderPart2Exercise(slide);

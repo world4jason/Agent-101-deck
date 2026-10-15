@@ -12,6 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 HTML_PATH = ROOT / "slides" / "rev13" / "index.html"
 JS_PATH = ROOT / "slides" / "rev13" / "rev13.js"
+CSS_PATH = ROOT / "slides" / "rev13" / "rev13.css"
 MANIFEST_PATH = ROOT / "docs" / "rev13-two-part-manifest-v5.json"
 REQUIRED_ATTRIBUTES = (
     "data-rev13-scene-id",
@@ -435,6 +436,7 @@ def main() -> int:
     try:
         manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
         renderer_source = JS_PATH.read_text(encoding="utf-8")
+        css_source = CSS_PATH.read_text(encoding="utf-8")
         html_source = HTML_PATH.read_text(encoding="utf-8")
         parser = SlideParser()
         parser.feed(html_source)
@@ -530,12 +532,19 @@ def main() -> int:
     }
     for scene_id, mode in expected_agent_modes.items():
         attrs = by_scene.get(scene_id, {})
-        if attrs.get("data-art") != "part2-map":
-            fail(errors, f"{scene_id}: agent scene must reuse the full mother-map renderer")
+        expected_art = "part2-map" if scene_id == "A01" else "agent-mode"
+        if attrs.get("data-art") != expected_art:
+            fail(errors, f"{scene_id}: expected artwork renderer {expected_art!r}")
         if attrs.get("data-agent-mode") != mode:
-            fail(errors, f"{scene_id}: expected mother-map agent route {mode!r}")
-    if renderer_source.count("架構示意，不是實際多 Agent 協作") < 2:
+            fail(errors, f"{scene_id}: expected collaboration route {mode!r}")
+    if renderer_source.count("架構示意，不代表實際多 Agent 協作") < 2:
         fail(errors, "A03/A04 must visibly mark the collaboration diagram as illustrative")
+
+    for legacy_selector in ("roles-matrix", "map-zone-badge", "map-delta", "agent-mode-pair"):
+        if legacy_selector in css_source:
+            fail(errors, f"legacy four-foundation map selector remains in CSS: {legacy_selector}")
+    if "grid-template-rows: 62px minmax(0, 1fr)" not in css_source:
+        fail(errors, "the full-width locator must remain a 62px single row")
 
     for scene_id in ("B04", "R05", "RD02", "D04", "RV03", "Q05", "PC02", "HG02", "A11"):
         slide = next((item for item in slides if item["attrs"].get("data-rev13-scene-id") == scene_id), None)
