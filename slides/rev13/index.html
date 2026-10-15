@@ -51,22 +51,22 @@
                   <p class="caption">Branch（分支）隔離修改，Commit（提交）記下變更；PR（合併請求）送審後，經授權才 Merge（合併）。</p>
                   <aside class="notes" hidden aria-label="講者筆記"><h2>講者筆記</h2><p><strong>Data：</strong>版本管理以節點和箭頭表示 Branch（分支）、Commit（提交）、PR（合併請求）與 Merge（合併）。</p><p><strong>Insight：</strong>文件說明工作與驗收；版本管理保留修改、送審與整合的歷史。</p><p><strong>Go：</strong>沿箭頭讀出每個版本物件的用途。</p><p><strong>Evidence scope：</strong>抽象教學圖，沒有表示真實 Repo、Branch 或 PR 已建立。</p><p><strong>下一站：</strong>接著把工作卡放回相同座標。</p></aside>
                 </section>
-        <section class="slide" data-page="6" id="page-6" data-rev13-scene-id="C02" data-phase="pretraining" data-focus-roles="PO, Dev, QA" data-doc-ref="工作票與驗收條件" data-version-ref="Branch 與版本節點" data-github-ref="Issue 與 PR 的工作關聯" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="mother-map" data-agent="false" data-focus-zones="process,documents" data-focus-stage="dev" data-focus-roles-map="PO, Dev, QA" data-focus-role-card="Dev" data-opening-step="6">
+        <section class="slide" data-page="6" id="page-6" data-rev13-scene-id="C02" data-phase="pretraining" data-focus-roles="PO, Dev, QA" data-doc-ref="工作票與驗收條件" data-version-ref="Branch 與版本節點" data-github-ref="Issue 與 PR 的工作關聯" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="mother-map" data-agent="false" data-focus-zones="people,process,documents" data-focus-stage="dev" data-focus-roles-map="PO, Dev, QA" data-focus-role-card="Dev" data-opening-step="6">
                   <h1>工作卡寫清楚誰在哪一站做什麼。</h1>
                   <figure class="artwork" aria-label="一張示意工作卡與下方文件、版本節點對齊"></figure>
                   <p class="caption">示意卡位於開發站；下方工作票與版本節點對齊同一欄。</p>
                   <aside class="notes" hidden aria-label="講者筆記"><h2>講者筆記</h2><p><strong>Data：</strong>示意工作卡寫出負責角色與工作內容，並對齊工作票和版本節點。</p><p><strong>Insight：</strong>卡片回答誰、在哪一站、做什麼；文件與版本在同一欄下方。</p><p><strong>Go：</strong>從開發工作向下追到工作票與版本節點。</p><p><strong>Evidence scope：</strong>這是教學示意卡，不是 Matching 實際工作或測試證據。</p><p><strong>下一站：</strong>接著加入判斷和主要退回路徑。</p></aside>
                 </section>
-        <section class="slide" data-page="7" id="page-7" data-rev13-scene-id="C07" data-phase="decision-paths" data-focus-roles="PO, Dev, Reviewer, QA, Owner" data-doc-ref="判斷紀錄與工作票條件" data-version-ref="修改與測試結果對應版本" data-github-ref="Issue、Review 與測試紀錄" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="mother-map" data-agent="false" data-focus-zones="documents,process,version" data-focus-stage="qa" data-focus-roles-map="QA, Dev, PO, Owner" data-focus-role-card="QA" data-focus-return="qa" data-opening-step="7" data-rev13-merged-scenes="C01">
+        <section class="slide" data-page="7" id="page-7" data-rev13-scene-id="C07" data-phase="decision-paths" data-focus-roles="PO, Dev, Reviewer, QA, Owner" data-doc-ref="判斷紀錄與工作票條件" data-version-ref="修改與測試結果對應版本" data-github-ref="Issue、Review 與測試紀錄" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="mother-map" data-agent="false" data-focus-zones="people,documents,process,version" data-focus-stage="qa" data-focus-roles-map="QA, Dev, PO, Owner" data-focus-role-card="QA" data-focus-return="qa" data-opening-step="7" data-rev13-merged-scenes="C01">
                   <h1>判斷會把工作送回需要處理的位置。</h1>
                   <figure class="artwork" aria-label="同一張工作圖新增三個判斷點與三條主要退回路徑"></figure>
                   <p class="caption">測試未通過或審查要求修改時回到開發；不符合產品目標時回到需求釐清。</p>
                   <aside class="notes" hidden aria-label="講者筆記"><h2>講者筆記</h2><p><strong>Data：</strong>審查、測試與產品核對若發現問題，虛線會連回要處理的工作卡。</p><p><strong>Insight：</strong>測試未通過或審查要求修改會回到開發；不符合產品目標則回到需求釐清。</p><p><strong>Go：</strong>逐條沿虛線看發現問題的工作和要回去修改的工作。</p><p><strong>Evidence scope：</strong>流程示意，不代表任何測試結果或退回紀錄已發生。</p><p><strong>下一站：</strong>接著依序閱讀各工作站的詳細卡片。</p></aside>
                 </section>
         <section class="slide" data-page="8" id="page-8" data-rev13-merged-scenes="C02" data-phase="pretraining" data-focus-roles="Owner, PM, PO, Dev, QA" data-doc-ref="Product Goal · Stage Card" data-version-ref="依階段再連到 Branch · Commit · PR" data-github-ref="Issue · Project · PR 對應不同階段" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card-anatomy" data-agent="false" data-focus-zones="process,documents" data-focus-stage="ready" data-focus-roles-map="PO, Dev, QA">
-                  <h1>Stage Card 分開說明產品目標、本站任務和接手條件。</h1>
-                  <figure class="artwork" aria-label="Stage Card 的目標、輸入、活動、產出與交接關係圖"></figure>
-                  <p class="caption">PO 是產品負責人，AC 是驗收條件；Issue 是工作票，Branch 是隔離修改的版本線，PR 是程式修改送審紀錄。Stage Card（工作階段卡）說明本站任務和接手條件。</p>
+                  <h1>工作階段卡回答本站任務與交接條件。</h1>
+                  <figure class="artwork" aria-label="工作階段卡的產品目標、本站工作與交接資訊"></figure>
+                  <p class="caption">卡片記下目前要做的工作、所需資訊、留下的紀錄，以及下一位能否接手。</p>
                   <aside class="notes" hidden aria-label="講者筆記">
                     <h2>講者筆記</h2>
                     <p><strong>Data：</strong>Stage Card 會交代 Product Goal reference、Target、Input、Activities、Output、Exit、People、Current State 與 GitHub mapping。</p>
@@ -142,7 +142,7 @@
                   </aside>
                 </section>
         <section class="slide" data-page="14" id="page-14" data-rev13-scene-id="C11" data-phase="brainstorming" data-focus-roles="Owner, PM, PO" data-doc-ref="Goal · Proposal · 未解問題" data-version-ref="尚無開發 Branch 或 PR" data-github-ref="建立／更新 Goal 或 Proposal Issue" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card" data-stage-key="brainstorming" data-agent="false" data-focus-zones="people,process,documents" data-focus-stage="brainstorming" data-focus-roles-map="Owner, PM, PO" data-state-markers="pre-backlog,backlog">
-                  <h1>Brainstorming 先把問題整理成共同方向。</h1>
+                  <h1>一起整理問題，定下產品方向。</h1>
                   <figure class="artwork" aria-label="Brainstorming 工作階段卡與流程進度圖"></figure>
                   <p class="caption">配對 App 例：先記下「兩人互按後能在清單找到對方」這個目標。方向仍由人確認。</p>
                   <aside class="notes" hidden aria-label="講者筆記">
@@ -155,7 +155,7 @@
                   </aside>
                 </section>
         <section class="slide" data-page="15" id="page-15" data-rev13-scene-id="C12" data-phase="refinement" data-focus-roles="PO, PM, Owner, Dev, QA, UI/UX" data-doc-ref="Parent／Child Tickets · 範圍 · AC · AT · 預期證據" data-version-ref="尚未開發；票與規格仍待釐清" data-github-ref="更新 Parent Issue／Sub-issues／Project 欄位" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card" data-stage-key="refinement" data-agent="false" data-focus-zones="people,process,documents" data-focus-stage="refinement" data-focus-roles-map="PO, PM, Owner, Dev, QA, UI/UX" data-state-markers="backlog">
-                  <h1>Refinement 把 Goal 拆成可估算、可驗證的工作。</h1>
+                  <h1>把產品目標拆成可交接、可驗證的工作。</h1>
                   <figure class="artwork" aria-label="Refinement 工作階段卡與流程進度圖"></figure>
                   <p class="caption">配對 App 例：把按讚、配對規則和配對清單拆成可驗證的票。票仍留在 Backlog。</p>
                   <aside class="notes" hidden aria-label="講者筆記">
@@ -168,7 +168,7 @@
                   </aside>
                 </section>
         <section class="slide" data-page="16" id="page-16" data-rev13-scene-id="C13" data-phase="ready" data-focus-roles="PO, Dev, QA" data-doc-ref="已釐清的工作票 · AC／AT · 依賴" data-version-ref="尚未開工；進行中 0／1 張 的概念定義" data-github-ref="Issue／Project：Backlog → Ready" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card" data-stage-key="ready" data-agent="false" data-focus-zones="people,process,documents" data-focus-stage="ready" data-focus-roles-map="PO, Dev, QA" data-state-markers="backlog,ready">
-                  <h1>Ready 確認工作契約可接手，仍然尚未開工。</h1>
+                  <h1>確認工作可接手，才進入開發。</h1>
                   <figure class="artwork" aria-label="Ready Check 工作階段卡與流程進度圖"></figure>
                   <p class="caption">配對 App 例：先確認單向按讚的預期，再決定規則票能否開工；同時只做 1 張票。</p>
                   <aside class="notes" hidden aria-label="講者筆記">
@@ -181,7 +181,7 @@
                   </aside>
                 </section>
         <section class="slide" data-page="17" id="page-17" data-rev13-scene-id="C14" data-phase="dev" data-focus-roles="Dev, PO, UI/UX" data-doc-ref="Ready 工作票 · 設計 · AC · 自測紀錄" data-version-ref="Branch · Commit · 版本" data-github-ref="Issue → Branch／Commit；需要時連 PR" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card" data-stage-key="dev" data-agent="false" data-focus-zones="people,process,documents,version" data-focus-stage="dev" data-focus-roles-map="Dev, PO, UI/UX" data-state-markers="dev">
-                  <h1>Dev 在核准範圍內實作並交出版本與自測紀錄。</h1>
+                  <h1>開發者依核准範圍實作並留下版本與自測紀錄。</h1>
                   <figure class="artwork" aria-label="Dev 工作階段卡與流程進度圖"></figure>
                   <p class="caption">配對 App 例：Dev 修改「互按才配對」規則並交版本與自測紀錄；自測不等於 QA 完成。</p>
                   <aside class="notes" hidden aria-label="講者筆記">
@@ -194,7 +194,7 @@
                   </aside>
                 </section>
         <section class="slide" data-page="18" id="page-18" data-rev13-scene-id="C15" data-phase="review" data-focus-roles="Reviewer, Dev, PO" data-doc-ref="PR 差異 · Ticket／AC · 審查發現" data-version-ref="PR 對應的 Branch／Commit 版本" data-github-ref="Pull Request · Review 意見 · 檢查結果" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card" data-stage-key="review" data-agent="false" data-focus-zones="people,process,documents,version" data-focus-stage="review" data-focus-roles-map="Reviewer, Dev, PO" data-state-markers="review">
-                  <h1>PR Review 檢查程式差異是否符合票與範圍。</h1>
+                  <h1>程式審查核對改動範圍與風險。</h1>
                   <figure class="artwork" aria-label="PR Review 工作階段卡與流程進度圖"></figure>
                   <p class="caption">配對 App 例：Reviewer 檢查互按規則的修改與風險；意見要有處置，PR 尚未合併。</p>
                   <aside class="notes" hidden aria-label="講者筆記">
@@ -207,7 +207,7 @@
                   </aside>
                 </section>
         <section class="slide" data-page="19" id="page-19" data-rev13-scene-id="C16" data-phase="qa" data-focus-roles="QA, Dev" data-doc-ref="AC／AT · 測試證據 · 未測項目" data-version-ref="可識別的版本與證據一致" data-github-ref="證據 · PR 測試結果 · Issue 留言" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card" data-stage-key="qa" data-agent="false" data-focus-zones="people,process,documents,version" data-focus-stage="qa" data-focus-roles-map="QA, Dev" data-state-markers="qa">
-                  <h1>QA 對照版本與 AC，留下測試紀錄。</h1>
+                  <h1>品質驗證依條件核對版本，留下測試紀錄。</h1>
                   <figure class="artwork" aria-label="QA 工作階段卡與流程進度圖"></figure>
                   <p class="caption">配對 App 例：QA 依 AC 檢查單向 Like 是否產生配對，並記錄結果、版本與未測項。</p>
                   <aside class="notes" hidden aria-label="講者筆記">
@@ -220,7 +220,7 @@
                   </aside>
                 </section>
         <section class="slide" data-page="20" id="page-20" data-rev13-scene-id="C17" data-phase="product_check" data-focus-roles="PO, Owner, Dev, QA" data-doc-ref="Ticket／AC · Review／QA 測試證據 · Parent Goal" data-version-ref="核對受審查與驗證的版本" data-github-ref="更新 Issue／Project 的產品判斷紀錄" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card" data-stage-key="product_check" data-agent="false" data-focus-zones="people,process,documents" data-focus-stage="product_check" data-focus-roles-map="PO, Owner, Dev, QA" data-state-markers="product-check">
-                  <h1>Product Check 核對這張票是否仍推進產品目標。</h1>
+                  <h1>產品負責人對照目標，決定接受或退回。</h1>
                   <figure class="artwork" aria-label="Product Check 工作階段卡與流程進度圖"></figure>
                   <p class="caption">配對 App 例：PO 確認規則票的結果是否支持配對目標；不代表使用者已能在清單看到對方。</p>
                   <aside class="notes" hidden aria-label="講者筆記">
@@ -233,7 +233,7 @@
                   </aside>
                 </section>
         <section class="slide" data-page="21" id="page-21" data-rev13-scene-id="C18" data-phase="human_gate" data-focus-roles="Owner, PO, QA, Dev" data-doc-ref="授權或不授權的決定 · 剩餘風險 · 上線檢查清單" data-version-ref="版本待授權；尚不等於 Merge" data-github-ref="PR／Issue 決策紀錄" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card" data-stage-key="human_gate" data-agent="false" data-focus-zones="people,process,documents,version" data-focus-stage="human_gate" data-focus-roles-map="Owner, PO, QA, Dev" data-state-markers="product-check,human-gate">
-                  <h1>Human Gate 是欄外的人類授權，不是第八個看板欄。</h1>
+                  <h1>授權決定在欄外，不是看板的一欄。</h1>
                   <figure class="artwork" aria-label="Human Gate 工作階段卡與欄外決策"></figure>
                   <p class="caption">配對 App 例：Owner 查看測試與剩餘工作後，決定是否授權合併、暫停或退回；Human Gate 不是看板欄。</p>
                   <aside class="notes" hidden aria-label="講者筆記">
@@ -246,7 +246,7 @@
                   </aside>
                 </section>
         <section class="slide" data-page="22" id="page-22" data-rev13-scene-id="C19" data-phase="release_done" data-focus-roles="Dev, Owner, PO, QA" data-doc-ref="DoD · 上線檢查清單 · 部署證據" data-version-ref="已合併 Commit · 上線紀錄 · 上線後檢查" data-github-ref="PR Merge · Commit · 上線 · Issue／Project Done" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card" data-stage-key="release_done" data-agent="false" data-focus-zones="people,process,documents,version" data-focus-stage="release_done" data-focus-roles-map="Dev, Owner, PO, QA" data-state-markers="product-check">
-                  <h1>完成本票與功能上線是不同決定。</h1>
+                  <h1>本票完成、合併與功能上線分開判斷。</h1>
                   <figure class="artwork" aria-label="Merge、上線、DoD 與 Done 條件的 Stage Card"></figure>
                   <p class="caption">完成條件符合後，先取得授權，再實際合併並記錄交付；本票完成不代表功能已上線。</p>
                   <aside class="notes" hidden aria-label="講者筆記">
@@ -626,7 +626,7 @@
         <section class="slide" data-page="51" id="page-51" data-rev13-scene-id="HG02" data-phase="human_gate" data-focus-roles="Owner" data-doc-ref="Human Gate 決議／合併已授權但未執行／功能先不上線" data-version-ref="已授權合併・未執行；Owner 決定先不上線；介面與完整流程仍待驗證" data-github-ref="Issue 與 PR 決策紀錄；已授權合併・未執行；功能先不上線" data-beat="updated-overview" data-mother-map-id="rev13-four-foundations" data-agent="false" data-art="part2-map" data-focus-zones="people,process,documents,version" data-focus-stage="human_gate" data-focus-roles-map="Owner" data-state-markers="product-check" data-evidence-scope="illustration" data-ticket-position="product-check" data-delta-key="HG02">
                   <h1>規則票可合併，功能就能上線嗎？</h1>
                   <figure class="artwork" aria-label="流程與紀錄更新後的狀態"></figure>
-                  <p class="caption">前：Product Check 待決 → 後：規則票「已授權合併・未執行」；Owner 要求 PO 補介面與完整流程證據，按讚與清單兩票未完成，功能先不上線。</p>
+                  <p class="caption">前：產品確認待決 → 後：教學示意的合併授權尚未執行；功能仍未上線，介面與完整流程證據待補。</p>
                   <aside class="notes" hidden aria-label="講者筆記">
                     <h2>講者筆記</h2>
                     <p><strong>Data：</strong>Human Gate 決議：已授權合併但未執行，並要求補介面與完整流程證據；共同工作角色：Owner、PO。</p>
@@ -658,19 +658,19 @@
         <section class="slide agent-capability-slide" data-page="54" id="page-54" data-rev13-merged-scenes="C10" data-phase="agent-capabilities" data-focus-roles="Dev, Agent" data-doc-ref="配對規則工作票上的開發工作" data-version-ref="Agent 修改仍需對應核准版本" data-github-ref="工作票說明範圍與驗收條件" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="part2-map" data-agent="true" data-focus-zones="people,process" data-focus-stage="dev" data-focus-roles-map="Dev,Agent" data-role-capability="delegate" data-evidence-scope="illustration">
                   <h1>開發工作可以交給 Agent 嗎？</h1>
                   <figure class="artwork" aria-label="相同流程圖在開發者與 Agent 工作列標出可交辦工作"></figure>
-                  <p class="caption capability-legend"><span class="capability-legend-item is-delegate"><b>交給 Agent</b><span>照工作票改程式</span></span><span class="capability-legend-item is-assist"><b>Agent 協助、人確認</b><span>先看程式或整理測試；人核對</span></span><span class="capability-legend-item is-human"><b>仍是人</b><span>定目標、範圍、放行與最後決定</span></span></p>
+                  <p class="caption">交給 Agent：依工作票修改；Agent 協助、人確認：程式審查與測試由人核對；仍是人：定目標、範圍與是否放行。</p>
                   <aside class="notes" hidden aria-label="講者筆記"><h2>講者筆記</h2><p><strong>Data：</strong>工作圖把開發工作對齊到 Agent 的工作列。</p><p><strong>Insight：</strong>Agent 可以依工作票修改配對規則；工作範圍仍由人設定。</p><p><strong>Go：</strong>沿開發者與 Agent 的工作列，查看工作票如何交接。</p><p><strong>Evidence scope：</strong>教學示意，不代表 Agent 已執行這項工作。</p><p><strong>下一站：</strong>接著看 Agent 如何協助程式審查和品質驗證。</p></aside>
                 </section>
         <section class="slide agent-capability-slide" data-page="55" id="page-55" data-rev13-merged-scenes="C10" data-phase="agent-capabilities" data-focus-roles="UI/UX, Reviewer, QA, Agent" data-doc-ref="工作票、程式審查意見與測試紀錄" data-version-ref="審查與測試需對上同一個候選版本" data-github-ref="Pull Request 審查與測試紀錄" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="part2-map" data-agent="true" data-focus-zones="people,process,documents,version" data-focus-stage="review" data-focus-roles-map="UI/UX,Reviewer,QA,Agent" data-role-capability="assist" data-evidence-scope="illustration">
                   <h1>Agent 能協助審查與測試嗎？</h1>
                   <figure class="artwork" aria-label="相同流程圖在介面設計、程式審查與品質驗證工作列標出協助方式"></figure>
-                  <p class="caption capability-legend"><span class="capability-legend-item is-delegate"><b>交給 Agent</b><span>照工作票改程式</span></span><span class="capability-legend-item is-assist"><b>Agent 協助、人確認</b><span>先看程式或整理測試；人核對</span></span><span class="capability-legend-item is-human"><b>仍是人</b><span>定目標、範圍、放行與最後決定</span></span></p>
+                  <p class="caption">交給 Agent：依工作票修改；Agent 協助、人確認：按下一步切換審查與測試交接；仍是人：核對結果並決定放行。</p>
                   <aside class="notes" hidden aria-label="講者筆記"><h2>講者筆記</h2><p><strong>Data：</strong>程式審查和品質驗證工作列分別對齊 Agent 的協助工作。</p><p><strong>Insight：</strong>Agent 可先看程式改動、跑測試並整理紀錄；人要核對結果。介面設計視情況協助，本課不示範。</p><p><strong>Go：</strong>比對審查與驗證工作，再指出人要確認的紀錄。</p><p><strong>Evidence scope：</strong>教學示意，不代表 Agent 已審查或執行測試。</p><p><strong>下一站：</strong>接著確認哪些角色與決定仍由人負責。</p></aside>
                 </section>
         <section class="slide agent-capability-slide" data-page="56" id="page-56" data-rev13-merged-scenes="C10,A01" data-phase="agent-capabilities" data-focus-roles="Owner, PM, PO, Agent" data-doc-ref="產品目標、工作範圍與放行決定" data-version-ref="Agent 工作仍須經人審查、驗證與授權" data-github-ref="工作票、專案狀態與人類決策紀錄" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="part2-map" data-agent="true" data-focus-zones="people,process,documents,version" data-focus-stage="human_gate" data-focus-roles-map="Owner,PM,PO,Agent" data-role-capability="human" data-evidence-scope="illustration">
                   <h1>哪些工作與決定仍由人負責？</h1>
                   <figure class="artwork" aria-label="相同流程圖標出仍由產品、專案與授權角色負責的工作"></figure>
-                  <p class="caption capability-legend"><span class="capability-legend-item is-delegate"><b>交給 Agent</b><span>照工作票改程式</span></span><span class="capability-legend-item is-assist"><b>Agent 協助、人確認</b><span>先看程式或整理測試；人核對</span></span><span class="capability-legend-item is-human"><b>仍是人</b><span>定目標、範圍、放行與最後決定</span></span></p>
+                  <p class="caption">交給 Agent：依工作票修改；Agent 協助、人確認：審查與測試由人核對；仍是人：定產品目標、範圍與正式放行。</p>
                   <aside class="notes" hidden aria-label="講者筆記"><h2>講者筆記</h2><p><strong>Data：</strong>產品負責人、專案經理與授權人的工作列標明仍由人負責。</p><p><strong>Insight：</strong>人決定要做什麼、範圍和是否放行；最後決定永遠由人做。</p><p><strong>Go：</strong>沿三種角色的工作列，指出哪些決定不能交給 Agent。</p><p><strong>Evidence scope：</strong>教學責任示意，不代表實際授權已發生。</p><p><strong>下一站：</strong>接著讓同一張配對規則票交給 Agent，再從交辦往前走。</p></aside>
                 </section>
         <section class="slide" data-page="57" id="page-57" data-rev13-scene-id="A01" data-phase="agent_collaboration" data-focus-roles="Human, Agent" data-doc-ref="#3 工作票：配對規則與 AC1–AC3，準備交辦" data-version-ref="從 Ready 開始；Agent 版本為教學示意，測試依真實紀錄核對" data-github-ref="Issue #3；配對規則工作票準備交辦" data-beat="overview" data-mother-map-id="rev13-four-foundations" data-art="part2-map" data-focus-zones="people,process,documents,version,agent" data-focus-stage="ready" data-focus-roles-map="Human,Agent" data-state-markers="ready" data-ticket-position="ready" data-evidence-scope="illustration" data-agent-mode="delegate">

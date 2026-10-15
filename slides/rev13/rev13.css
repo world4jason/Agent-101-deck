@@ -1997,6 +1997,108 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .capability-legend-item.is-assist { border-color: #e7bc75; background: #201f19; }
 .capability-legend-item.is-human { border-color: #a7bbed; background: #191f2a; }
 
+/* Keep recurring map cards short, separated and large enough to read. */
+.swimlane-node.work-card { opacity: 1; transition: opacity .18s ease; }
+.swimlane-node.work-card.is-context { opacity: .18; }
+.swimlane-node.work-card.is-focus { opacity: 1; }
+.swimlane-node.work-card .swimlane-card { stroke-width: 1.4; }
+.swimlane-node.work-card.is-focus .swimlane-card { stroke: #edca78; stroke-width: 2.4; }
+.swimlane-card-title { fill: #f3f4ed; font-size: 20px; font-weight: 850; }
+.swimlane-agent-added-band { fill: #6d3027; fill-opacity: .22; stroke: #cd7967; stroke-width: 2.4; }
+.swimlane-agent-handoff path { fill: none; stroke: #ed9a82; stroke-width: 3; stroke-dasharray: 7 5; }
+.swimlane-agent-handoff marker path { fill: #ed9a82; }
+.swimlane-capability-badge.is-human rect { fill: #222b3b; stroke: #a7bbed; }
+.swimlane-capability-badge.is-assist rect { fill: #2c2b20; stroke: #e7bc75; }
+.mother-map[data-capability="assist"][data-assist-focus="review"] .assist-qa { opacity: .16; }
+.mother-map[data-capability="assist"][data-assist-focus="review"] .work-card[data-state="qa"] { opacity: .16; }
+.mother-map[data-capability="assist"][data-assist-focus="qa"] .assist-review { opacity: .16; }
+.mother-map[data-capability="assist"][data-assist-focus="qa"] .work-card[data-state="review"] { opacity: .16; }
+.mother-map[data-capability="assist"][data-assist-focus="qa"] .work-card[data-role="QA"][data-state="qa"],
+.mother-map[data-capability="assist"][data-assist-focus="qa"] .work-card[data-role="Agent"][data-state="qa"] { opacity: 1; }
+.mother-map[data-capability="assist"][data-assist-focus="qa"] .work-card[data-role="QA"][data-state="qa"] .swimlane-card,
+.mother-map[data-capability="assist"][data-assist-focus="qa"] .work-card[data-role="Agent"][data-state="qa"] .swimlane-card { stroke: #edca78; stroke-width: 2.4; }
+.map-footer text { fill: #cbd6ce; font-size: 18px; }
+.map-footer .map-footer-track { fill: #e4cc98; font-weight: 850; }
+.map-footer-principles > g > circle { fill: #e7bc75; stroke: #fff0b5; stroke-width: 1.5; }
+.map-footer-principles .principle-number { fill: #172022; font-size: 17px; font-weight: 900; text-anchor: middle; }
+.map-footer-principles > g > text:not(.principle-number) { fill: #f0d39c; font-size: 18px; font-weight: 750; }
+.opening-skeleton-prompts .opening-prompt-name { font-size: 21px; font-weight: 900; }
+.opening-return.is-active rect { stroke: #ffd19f; stroke-width: 2; }
+.opening-return.is-active path { stroke: #ffd19f; stroke-width: 4; }
+.opening-return.is-active text { fill: #fff0c8; }
+.opening-return-routes .work-card.is-context { opacity: .18; }
+.opening-return-routes .work-card.is-focus { opacity: 1; }
+.slide[data-art="stage-card-anatomy"] .goal-target article span,
+.slide[data-art="stage-card-anatomy"] .contract-node > span,
+.slide[data-art="stage-card-anatomy"] .anatomy-bottom article > span { font-size: 19px; font-weight: 800; }
+.slide[data-art="stage-card-anatomy"] .goal-target,
+.slide[data-art="stage-card-anatomy"] .contract-flow,
+.slide[data-art="stage-card-anatomy"] .anatomy-bottom { gap: 14px; }
+.slide[data-art="stage-card-anatomy"] .contract-node { padding: 18px; }
+.slide[data-art="stage-card-anatomy"] .anatomy-bottom article { padding: 16px 18px; }
+.stage-activities ul { padding-left: 20px; }
+.stage-panel .stage-activities ul { font-size: 22px; line-height: 1.2; }
+.stage-support-strip { display: grid; grid-template-columns: 1fr 1.2fr 1fr; align-items: stretch; gap: 8px; }
+.stage-support-strip article { display: grid; min-width: 0; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 8px; padding: 9px 11px; border-left: 3px solid #6c8d82; background: #182321; }
+.stage-support-strip b { color: #b8d4ca; font-size: 17px; white-space: nowrap; }
+.stage-support-strip span { color: #ecf2ec; font-size: 18px; line-height: 1.2; }
+.slide[data-page="67"] .map-footer-principles > g > text:not(.principle-number) { font-size: 17px; }
+
+/* Two successive examples share the same map without showing both handoffs at once. */
+.mother-map[data-capability="assist"] .assist-qa { opacity: .16; }
+.mother-map[data-capability="assist"][data-assist-focus="qa"] .assist-qa { opacity: 1; }
+.mother-map[data-capability="assist"][data-assist-focus="qa"] .assist-review { opacity: .16; }
+
+/* The fifth role is the only new element on its introduction page. */
+.slide[data-phase="agent_collaboration"] .artwork { outline: none; }
+
+/* On the five-principle overview, one plain-language action leads each reveal. */
+.principle-risk-grid article {
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: start;
+  min-height: 104px;
+}
+.principle-risk-grid article div {
+  align-content: start;
+  gap: 6px;
+}
+.principle-risk-grid article div span {
+  color: #e4c6a2;
+  font-size: 18px;
+  font-weight: 700;
+}
+.principle-risk-grid article div strong {
+  color: #fff1e6;
+  font-size: 24px;
+  line-height: 1.18;
+}
+.principle-risk-grid article div small {
+  color: #baa9a2;
+  font-size: 16px;
+  line-height: 1.15;
+}
+.principle-risk-grid article.is-focus {
+  border-color: #f0b47f;
+  background: #3b2a25;
+}
+.principle-risk-grid article.is-context { opacity: .28; }
+.stage-activities > strong { color: #f0f7f3; font-size: 25px; line-height: 1.2; }
+.stage-panel { grid-template-rows: auto minmax(138px, 1fr) auto auto; }
+.stage-support-strip { min-height: 76px; }
+.stage-support-strip article { border-radius: 4px; }
+.agent-mode-axis,
+.agent-mode-lane { grid-template-columns: 18% repeat(var(--mode-columns), minmax(0, 1fr)); }
+.agent-mode-lane-name { justify-content: flex-end; padding-right: 14px; }
+.agent-mode-routes { z-index: 0; }
+.agent-mode-step.is-context,
+.agent-mode-cell.is-context,
+.agent-mode-routes path.is-context { opacity: .18; }
+.agent-mode-step.is-focus,
+.agent-mode-cell.is-focus,
+.agent-mode-routes path.is-focus { opacity: 1; }
+.agent-mode-step.is-focus { border-color: #8ed5c6; box-shadow: 0 0 0 2px #8ed5c622; }
+.agent-mode-cell.is-focus { border-color: #e7bc75; }
+
 @media (max-width: 1100px) {
   .slide.agent-capability-slide .caption.capability-legend { gap: 6px; }
   .capability-legend-item { gap: 7px; padding-inline: 8px; font-size: 16px; }
