@@ -1788,3 +1788,78 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .agent-mode-cell b { font-size: 22px; }
 .agent-mode-artifacts b { font-size: 19px; }
 .agent-mode-artifacts span { font-size: 19px; line-height: 1.2; }
+
+/* Fill the short Part 2 story cards without adding new text. */
+.slide[data-page="27"] .b2-artifact,
+.slide[data-page="31"] .b2-artifact {
+  align-self: stretch;
+  height: 100%;
+  max-height: none;
+}
+.slide[data-page="27"] .brainstorm-grid,
+.slide[data-page="31"] .refinement-board { flex: 1 1 auto; }
+.slide[data-page="27"] .brainstorm-grid strong,
+.slide[data-page="31"] .refinement-board strong { font-size: 30px; }
+.slide[data-page="27"] .brainstorm-grid p,
+.slide[data-page="31"] .refinement-board p,
+.slide[data-page="31"] .refinement-checks ul { font-size: 22px; }
+.slide[data-page="27"] .brainstorm-grid article,
+.slide[data-page="31"] .refinement-board > div { padding: 26px; }
+
+/* The goal record fills its work area, with its three existing fields enlarged. */
+.slide[data-page="29"] .b2-artifact { align-self: stretch; height: 100%; max-height: none; }
+.slide[data-page="29"] .issue-sheet { height: 100%; padding: 22px 24px; }
+.slide[data-page="29"] .issue-sections {
+  flex: 1 1 auto;
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+}
+.slide[data-page="29"] .issue-section { display: flex; min-height: 0; flex-direction: column; justify-content: center; padding: 18px 22px; }
+.slide[data-page="29"] .issue-section h2 { font-size: 24px; }
+.slide[data-page="29"] .issue-section p { font-size: 23px; line-height: 1.32; }
+
+/* Keep the document track within its fixed height while separating its two lines. */
+.slide[data-page="35"] .swimlane-doc-name { font-size: 19px; }
+.slide[data-page="35"] .swimlane-doc-status { font-size: 18px; }
+.slide[data-page="64"] .swimlane-doc-name { font-size: 20px; }
+.slide[data-page="64"] .swimlane-doc-status { font-size: 18px; }
+
+/* Expand the AC1 result and the QA-to-Dev return across the available evidence card. */
+.slide[data-page="46"] .qa-failure-evidence { grid-template-columns: minmax(0, 1fr); }
+.slide[data-page="46"] .qa-failure-evidence > :not(header) { width: 100%; align-self: stretch; }
+.slide[data-page="46"] .qa-fail-detail { min-height: 190px; }
+.slide[data-page="46"] .qa-return-path { grid-template-columns: auto 36px auto minmax(0, 1fr); padding: 22px; }
+
+/* Leave clear air between collaboration role names and their lane dividers. */
+.agent-mode-lane-name { padding-right: 18px; }
+
+/* Let the five case diagrams use the full work area with readable, plain-language headings. */
+.slide[data-page="59"] .principle-case-grid,
+.slide[data-page="60"] .principle-case-grid,
+.slide[data-page="61"] .principle-case-grid,
+.slide[data-page="62"] .principle-case-grid,
+.slide[data-page="63"] .principle-case-grid {
+  align-self: stretch;
+  width: 100%;
+  flex: 1 1 auto;
+  align-items: stretch;
+}
+.slide[data-page="59"] .principle-case-grid article,
+.slide[data-page="60"] .principle-case-grid article,
+.slide[data-page="61"] .principle-case-grid article,
+.slide[data-page="62"] .principle-case-grid article,
+.slide[data-page="63"] .principle-case-grid article {
+  justify-content: space-evenly;
+  gap: 18px;
+  padding: 24px;
+}
+.slide[data-page="59"] .principle-case-grid article > span,
+.slide[data-page="60"] .principle-case-grid article > span,
+.slide[data-page="61"] .principle-case-grid article > span,
+.slide[data-page="62"] .principle-case-grid article > span,
+.slide[data-page="63"] .principle-case-grid article > span { font-size: 30px; line-height: 1.12; }
+.slide[data-page="59"] .principle-case-grid article p,
+.slide[data-page="60"] .principle-case-grid article p,
+.slide[data-page="61"] .principle-case-grid article p,
+.slide[data-page="62"] .principle-case-grid article p,
+.slide[data-page="63"] .principle-case-grid article p { font-size: 24px; line-height: 1.3; }
