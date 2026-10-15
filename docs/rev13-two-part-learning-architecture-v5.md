@@ -9,7 +9,7 @@
 
 **Part 1 — Recognize / Pre-training**：先建立「人／流程／文件／版本管理→再加 Agent」，介紹每個 Stage 的 Target、Input、Actions、Output、Exit Criteria、職能／參與時點，以及相關 GitHub 物件。這部分是學會辨認地圖，不要在此跑完 Matching 的 QA。
 
-**Part 2 — Apply / Lead by Example**：回到同一套母圖，沿同一 Matching #3 Ticket 走過 Brainstorming → Refinement → Ready → Dev → PR Review → QA → Product Check → Human Gate，再用同一份工作契約比較 Agent 三模式及五項協作原則。這部分重點是狀態如何改變、誰做什麼、對應哪份文件與版本。
+**Part 2 — Apply / Lead by Example**：先沿同一張配對規則工作票走過 Brainstorming → Refinement → Ready → Dev → PR Review → QA → Product Check → Human Gate；人類流程結束後另開 Agent 版，從交辦開始沿同一張票往前重走，經過 Agent 實作、審查、測試、產品核對與人類判斷，再看三種協作方式及五項原則。Owner 決定（2026-10-15）：Agent 版在測試站遇到重複按讚未測，引用修正版第一次測與修正版補測的真實紀錄；Agent 版的交辦與執行都是教學示意，不是真實 Agent 執行紀錄。
 
 **嚴格避免兩次講同一套流程**：Part 1 Stage Cards 只放一行 Matching App 預告（例如「有人想做配對」），不展示 A FAIL、B-pre、B-post 結果；Part 2 再逐步揭露完整案例。Part 2 不重新講整頁名詞定義，必要時以 Stage Card 小定位器回看。
 
@@ -131,12 +131,12 @@ GitHub Issue 可以追需求／決議／工作票，Project 看狀態，PR 是�
 | qa | Q01、Q02、Q03、Q04、Q05 | A FAIL → B-pre PASS+NOT RUN → B-post duplicate PASS | 僅規則層有真實證據 |
 | product check | PC01、PC02 | Ticket 對回 Parent Goal | UI/E2E/Goal 未驗證 |
 | human gate | HG01、HG02 | 授權／暫停／退回與 Release 條件 | 欄外決策，Done 未實跑 |
-| agent collaboration | A01、A02、A03、A04、A05、A06、A07、A08、A09、A10、A11 | 同一票比較三種 Agent 控制模式＋五原則 | A05–A11 必保留 |
+| agent collaboration | A01、A02、A03、A04、A05、A06、A07、A08、A09、A10、A11 | 完整交辦範例後比較三種協作方式；同一張票由交辦往前走，五項原則依序落在工作站 | 測試站說明重複按讚未測並要求補測；Agent 版為教學示意，實測只引用規則測試紀錄 |
 | exercise | X01 | 學員寫 Ticket、補驗要求和決策 | 先答後揭露 |
 
 每一站用同一張母圖 **Overview → Spotlight（階段＋參與者）→ Work/Artifact（哪張票／哪條 AC／哪份文件）→ Updated Overview（前後狀態／版本／下一站）**。在只需局部知識的投影片使用小定位器，別讓整張灰色遮罩搶過核心內容。
 
-**原 Rev12 五項 Agent 原則在 Part 2 CORE 完整保留**：External Task State（A06／舊77）、Bounded Execution（A07／舊78）、Role Separation（A08／舊79）、Independent Verification（A09／舊80）、Goal Re-anchoring（A10／舊81）。A05 是五項總覽，A11 是回到母圖，X01 先答再揭露。不可因 Part 1 C19 已介紹 Agent 就刪除。
+**原 Rev12 五項 Agent 原則在 Part 2 CORE 完整保留**：External Task State（A06／舊77）、Bounded Execution（A07／舊78）、Role Separation（A08／舊79）、Independent Verification（A09／舊80）、Goal Re-anchoring（A10／舊81）。A05 對照五項原則所在工作站，A11 回到母圖，X01 先答再揭露。依 Owner 決定（2026-10-15），Agent 章是同一張票交給 Agent 從交辦往前重走一次；在測試站遇到重複按讚未測，並引用修正版第一次測與補測的真實紀錄。不可因 Part 1 C19 已介紹 Agent 就刪除。
 
 ## 3. 內容與實作的 Gate
 

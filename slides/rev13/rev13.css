@@ -284,7 +284,7 @@ a { color: inherit; }
 
 /* The opening reveals the shared map in place, one zone at a time. */
 .opening-map { width: 100%; height: 100%; min-width: 0; min-height: 0; }
-.opening-panel { fill: #131d20; fill-opacity: .52; stroke: #314345; stroke-width: 1.4; }
+.opening-panel { fill: #131d20; fill-opacity: .52; stroke: #314345; stroke-width: 2; }
 .opening-panel-process { stroke: #5c9488; }
 .opening-panel-people { stroke: #aa915f; }
 .opening-panel-documents { stroke: #66816d; }
@@ -737,7 +737,6 @@ a { color: inherit; }
 .locator-focus b { color: #9fcbbf; font-size: 12px; letter-spacing: .04em; }
 .locator-focus > span { overflow: hidden; color: #f0e1be; font-size: 15px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
 .locator-focus-band { display: block; width: 100%; height: 3px; border-radius: 2px; background: linear-gradient(90deg, #ddb774 0 42%, #d78d78 42% 70%, #a9cfbf 70%); opacity: .9; }
-.locator-rewind { color: #edba9e; font-size: 12px; font-weight: 750; white-space: nowrap; }
 .stage-compose .map-locator { display: grid; }
 /* Stage Cards use a compact handoff flow with the work and exit condition in focus. */
 .stage-panel {
@@ -1584,9 +1583,10 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .slide[data-page="46"] .qa-failure-evidence {
   display: grid;
   height: 100%;
-  grid-template-rows: auto auto minmax(74px, auto) minmax(145px, 1fr) auto;
+  grid-template-rows: auto auto minmax(115px, auto) minmax(170px, 1fr) auto;
   align-content: stretch;
-  gap: 12px;
+  gap: 16px;
+  padding: 24px;
 }
 .slide[data-page="46"] .qa-fail-detail { min-height: 0; }
 .slide[data-page="46"] .qa-fail-detail > article,
@@ -1764,3 +1764,27 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .principle-map-key circle { r: 15px; }
 .principle-map-key > text:first-of-type { font-size: 18px; }
 .principle-map-key > text:nth-of-type(2) { font-size: 21px; }
+
+/* Keep the Agent chapter visibly marked without changing the slide layout. */
+.slide[data-phase="agent_collaboration"] .artwork {
+  outline: 2px solid var(--agent);
+  outline-offset: -7px;
+  border-radius: 8px;
+}
+
+/* Keep principle columns as tall as their own content, with the labels readable. */
+.principle-case-grid { align-items: start; }
+.principle-case-grid > i { align-self: center; }
+.principle-case-grid article { height: auto; min-height: 0; }
+.principle-output-sheet ul li { font-size: 22px; line-height: 1.22; }
+.principle-output-sheet > header b { font-size: 22px; }
+.principle-output-records article b,
+.principle-output-records article span,
+.principle-output-timeline article strong { font-size: 22px; }
+.principle-risk-grid article div strong { font-size: 22px; }
+
+/* Let the collaboration lanes occupy more of the available vertical area. */
+.agent-mode-field { gap: 12px; }
+.agent-mode-cell b { font-size: 22px; }
+.agent-mode-artifacts b { font-size: 19px; }
+.agent-mode-artifacts span { font-size: 19px; line-height: 1.2; }

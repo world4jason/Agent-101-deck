@@ -571,6 +571,31 @@ def main() -> int:
     if renderer_source.count("架構示意，不代表實際多 Agent 協作") < 2:
         fail(errors, "A03/A04 must visibly mark the collaboration diagram as illustrative")
 
+    page_by_number = {
+        item["attrs"].get("data-page"): item
+        for item in slides
+    }
+    agent_opener = page_by_number.get("54", {})
+    if "如果這張配對規則票交給 Agent，會怎樣？" not in " ".join(agent_opener.get("visible_text", [])):
+        fail(errors, "the Agent chapter must open by handing the same ticket forward")
+    if "配對規則" not in " ".join(page_by_number.get("26", {}).get("caption_text", [])):
+        fail(errors, "the Part 2 opening must state the pairing-rule ticket scope")
+    if "回報示意：改互按才配對；單向／雙向 PASS；重複按讚未測" not in renderer_source:
+        fail(errors, "the first Agent handoff example must cite the actual rule-test status as illustrative")
+    for principle in (
+        "External Task State",
+        "Bounded Execution",
+        "Role Separation",
+        "Independent Verification",
+        "Goal Re-anchoring",
+    ):
+        if principle not in renderer_source:
+            fail(errors, f"Agent chapter is missing visible principle name {principle!r}")
+    if "回看第一次測時" in html_source or "回看第一次測時" in renderer_source or "locator-rewind" in renderer_source:
+        fail(errors, "the Agent chapter must move forward without rewind labels")
+    if "qa-return-path" not in renderer_source or "工作票 #3 · AC1" not in renderer_source:
+        fail(errors, "the first QA failure must retain its AC1 comparison and QA-to-Dev return path")
+
     for legacy_selector in ("roles-matrix", "map-zone-badge", "map-delta", "agent-mode-pair"):
         if legacy_selector in css_source:
             fail(errors, f"legacy four-foundation map selector remains in CSS: {legacy_selector}")

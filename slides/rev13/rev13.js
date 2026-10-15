@@ -288,7 +288,7 @@
     const {
       spotlightZones = [], roles = [], stage = '', states = [], agent = true,
       revealFoundations = false, page = 'map', ticketPosition = '', ticketPrevious = '',
-      delta = null, actualReturn = '',
+      delta = null, actualReturn = '', delegateDevWork = false,
     } = options;
     const uid = String(page).replace(/[^A-Za-z0-9_-]/g, '');
     const focusedRoles = new Set(roles.map(role => role === 'Human' ? 'Owner' : role));
@@ -326,6 +326,8 @@
       const roleDim = !!roles.length && !focusedRoles.has(name) && !(name === 'Agent' && focusedZones.has('agent'));
       const tasks = { ...(SWIMLANE_ROLE_TASKS[name] || {}) };
       if (name === 'Owner') tasks.backlog = { start: ['提出配對點子'] };
+      if (delegateDevWork && name === 'Dev') delete tasks.dev;
+      if (delegateDevWork && name === 'Agent') tasks.dev = { lines: ['修改配對規則'] };
       return Object.entries(tasks).map(([key, item]) => {
         const x = item.start ? 190 : SWIMLANE_X[key];
         if (!x) return '';
@@ -409,15 +411,15 @@
       <g class="principle-map-point"><circle cx="778" cy="453" r="12"/><text x="778" y="459">4</text></g>
       <g class="principle-map-point"><circle cx="1110" cy="253" r="12"/><text x="1110" y="259">5</text></g>
       <path d="M18 696 H1582" class="principle-map-rule"/>
-      <g class="principle-map-key"><circle cx="32" cy="723" r="12"/><text x="32" y="729">1</text><text x="52" y="730">工作票：記下進度與未測</text></g>
+      <g class="principle-map-key"><circle cx="32" cy="723" r="12"/><text x="32" y="729">1</text><text x="52" y="730">External Task State</text></g>
       <path d="M326 704 V741" class="principle-map-separator"/>
-      <g class="principle-map-key"><circle cx="342" cy="723" r="12"/><text x="342" y="729">2</text><text x="362" y="730">Agent：只在核准範圍內執行</text></g>
+      <g class="principle-map-key"><circle cx="342" cy="723" r="12"/><text x="342" y="729">2</text><text x="362" y="730">Bounded Execution</text></g>
       <path d="M638 704 V741" class="principle-map-separator"/>
-      <g class="principle-map-key"><circle cx="654" cy="723" r="12"/><text x="654" y="729">3</text><text x="674" y="730">角色：實作、審查、驗證分開</text></g>
+      <g class="principle-map-key"><circle cx="654" cy="723" r="12"/><text x="654" y="729">3</text><text x="674" y="730">Role Separation</text></g>
       <path d="M950 704 V741" class="principle-map-separator"/>
-      <g class="principle-map-key"><circle cx="966" cy="723" r="12"/><text x="966" y="729">4</text><text x="986" y="730">QA：獨立核對並留測試紀錄</text></g>
+      <g class="principle-map-key"><circle cx="966" cy="723" r="12"/><text x="966" y="729">4</text><text x="986" y="730">Independent Verification</text></g>
       <path d="M1262 704 V741" class="principle-map-separator"/>
-      <g class="principle-map-key"><circle cx="1278" cy="723" r="12"/><text x="1278" y="729">5</text><text x="1298" y="730">產品確認：回到目標再決定</text></g>
+      <g class="principle-map-key"><circle cx="1278" cy="723" r="12"/><text x="1278" y="729">5</text><text x="1298" y="730">Goal Re-anchoring</text></g>
     </g>` : '';
 
     return `<div class="mother-map" data-mother-map-id="rev13-four-foundations" data-stage="${esc(stage)}"><svg class="swimlane-svg" viewBox="0 0 1600 780" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="swimlane-title-${uid} swimlane-desc-${uid}"><title id="swimlane-title-${uid}">人、流程、文件與版本管理泳道圖</title><desc id="swimlane-desc-${uid}">流程沿橫向七個看板狀態前進；人依責任分泳道，下方依序記錄文件與版本管理。人類授權以欄外菱形表示，三條虛線表示主要退回方向。</desc><defs><marker id="swimlane-arrow-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#8faaa1"/></marker><marker id="swimlane-arrow-return-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#85918a"/></marker><marker id="swimlane-arrow-agent-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#d78d78"/></marker></defs><g class="swimlane-process"><text class="swimlane-axis-label" x="18" y="82">流程（X 軸）</text>${activities}${stageHeaders}${gateHeader}<g class="swimlane-axis-line">${SWIMLANE_LAYOUT.stages.filter(item => !item.outside).map(item => `<line x1="${item.x}" y1="110" x2="${item.x + item.width}" y2="110"/>`).join('')}</g></g><g class="swimlane-people${dimZone('people')}${reveal(1)}"><text class="swimlane-group-label" x="18" y="136">人（Y 軸）</text>${roleGuides}${roleContent}${returnPaths}</g><g class="swimlane-documents${dimZone('documents')}${reveal(2)}"><path class="swimlane-section-rule" d="M170 532 H1550"/><text class="swimlane-group-label" x="18" y="562">文件</text>${docNodes}</g><g class="swimlane-version${dimZone('version')}${reveal(3)}"><path class="swimlane-section-rule is-heavy" d="M170 596 H1550"/><text class="swimlane-group-label" x="18" y="632">版本管理</text>${versionLinks}${versionNodes}</g>${legend}${principleMarkers}</svg></div>`;
@@ -504,8 +506,6 @@
 
   function locator(slide) {
     const stage = slide.dataset.focusStage || '';
-    const page = Number(slide.dataset.page);
-    const rewindSegment = page >= 54 && page <= 63;
     const roleNames = (slide.dataset.focusRolesMap || slide.dataset.focusRoles || '').split(',').map(role => role.trim()).filter(Boolean).map(role => role === 'Human' ? 'Owner' : role);
     const roleSummary = roleNames.length > 4 ? '本頁角色' : (roleNames.length ? roleNames.join(' · ') : '所有泳道');
     const selected = new Set(STAGE_KANBAN[stage] || []);
@@ -517,8 +517,7 @@
       return `<span class="locator-state${active ? ' is-current' : ''}${previous ? ' is-ghost' : ''}${currentTicket ? ' has-ticket' : ''}" data-state="${item.key}"${active ? ' aria-current="step"' : ''}>${esc(LOCATOR_LABELS[item.key] || item.label)}</span>`;
     };
     const stageStates = KANBAN.map((item, index) => `${index === 6 ? `<span class="locator-gate${stage === 'human_gate' ? ' is-current' : ''}" data-state="human_gate"><i aria-hidden="true"></i><b>授權決定</b></span>` : ''}${stateMarkup(item)}`).join('');
-    const rewind = rewindSegment ? '<span class="locator-rewind">回看第一次測時</span>' : '';
-    return `<aside class="map-locator" aria-label="流程泳道定位" data-mother-map-id="rev13-four-foundations"><span class="locator-heading">流程</span><div class="locator-board" role="list" aria-label="七欄看板與欄外 Human Gate">${stageStates}</div><span class="locator-focus"><b>焦點泳道</b><span>${esc(roleSummary)}</span><i class="locator-focus-band" aria-hidden="true"></i>${rewind}</span></aside>`;
+    return `<aside class="map-locator" aria-label="流程泳道定位" data-mother-map-id="rev13-four-foundations"><span class="locator-heading">流程</span><div class="locator-board" role="list" aria-label="七欄看板與欄外 Human Gate">${stageStates}</div><span class="locator-focus"><b>焦點泳道</b><span>${esc(roleSummary)}</span><i class="locator-focus-band" aria-hidden="true"></i></span></aside>`;
   }
 
   function renderKanbanDiagram(slide) {
@@ -787,8 +786,8 @@
     Q05: { docStage: 'qa', docLabel: '測試紀錄', docStatus: '三次已記錄', versionStage: 'qa', versionLabel: 'PR', versionStatus: '結果可回查', ticket: 'qa', previous: 'dev', actualReturn: 'qa' },
     PC02: { docStage: 'product-check', docLabel: '目標對照', docStatus: '規則範圍可審', versionStage: 'qa', versionLabel: 'PR', versionStatus: '目標仍未驗' },
     HG02: { docStage: 'human_gate', docLabel: '放行決定', docStatus: '功能暫不上線', versionStage: 'human_gate', versionLabel: 'Merge', versionStatus: '已授權・未執行', ticket: 'product-check', actualReturn: 'gate' },
-    A01: { docStage: 'qa', docLabel: '第一次測', docStatus: 'AC1／2通過', versionStage: 'qa', versionLabel: 'PR', versionStatus: '沿用同一程式', ticket: 'qa' },
-    A11: { docStage: 'product-check', docLabel: '目標對照', docStatus: '目標未測', versionStage: 'qa', versionLabel: 'PR', versionStatus: '首測 → 補測' },
+    A01: { docStage: 'ready', docLabel: '工作票', docStatus: '準備交辦', versionStage: 'dev', versionLabel: 'Branch', versionStatus: '尚未修改', ticket: 'ready' },
+    A11: { docStage: 'product-check', docLabel: '目標對照', docStatus: '目標未測', versionStage: 'qa', versionLabel: 'PR', versionStatus: '第一次測 → 補測' },
   };
 
   function renderPart2Map(slide) {
@@ -809,6 +808,7 @@
       ticketPrevious: slide.dataset.ticketPrevious || '',
       delta,
       actualReturn: delta?.actualReturn || '',
+      delegateDevWork: scene === 'A01',
     });
     return `<div class="full-map-wrap b2-full-map">${map}</div>`;
   }
@@ -817,15 +817,15 @@
     const mode = slide.dataset.agentMode;
     const configurations = {
       single: {
-        title: '一個 Agent 依票工作，人另行核對',
-        note: '教學示意：不代表 Agent 曾實際修改或測試。',
-        columns: ['人交辦', 'Agent 修改', 'Agent 回報', 'QA 核對', '人檢查'],
+        title: '完整交辦範例：人交辦、Agent 回報、人核對',
+        note: '教學示意／架構示意：不代表 Agent 曾實際修改或測試。',
+        columns: ['人交辦', 'Agent 修改', 'Agent 回報', '人核對'],
         lanes: [
-          ['人（QA／授權）', 'human', [[1, 'Issue #3：只改配對規則；列 AC1–AC3 與停止條件', 'human'], [4, '獨立核對工作票、版本與測試紀錄', 'review'], [5, '核對範圍、證據對版、未測仍明列後決定放行', 'human']]],
-          ['Agent', 'agent', [[2, '依核准範圍修改配對規則，摘要改動', 'agent'], [3, '逐條 AC 列輸入、預期、實際與結果；未測另列', 'agent']]],
+          ['人', 'human', [[1, '工作票 #3；AC1–AC3；超出範圍先停', 'human'], [4, '核對範圍、改動對票、AC 證據與未測', 'human']]],
+          ['Agent', 'agent', [[2, '依交辦修改配對規則', 'agent'], [3, '回報改了什麼、測了什麼、哪些未測', 'agent']]],
         ],
-        routes: [[[1, 0], [2, 1], [3, 1], [4, 2], [5, 0]]],
-        artifacts: ['Issue：#3 配對規則 · AC1–AC3', 'PR：修改摘要與版本連結（示意）', 'Evidence：預期、實際、結果與未測項'],
+        routes: [[[1, 0], [2, 1], [3, 1], [4, 0]]],
+        artifacts: ['交辦：工作票 #3；AC1–AC3；超出範圍先停', '回報示意：改互按才配對；單向／雙向 PASS；重複按讚未測', '人核對：範圍；PR 改動對票；AC 證據與未測項'],
       },
       'multi-chat': {
         title: '多個工作對話之間，由人帶著紀錄交接',
@@ -862,8 +862,8 @@
       const firstStep = Math.min(...cells.map(([column]) => column));
       return `<div class="agent-mode-lane lane-${kind} fragment" data-fragment-order="${firstStep}"><strong class="agent-mode-lane-name">${esc(name)}</strong>${cells.map(([column, text, type]) => `<article class="agent-mode-cell mode-${type} fragment" data-fragment-order="${column}" style="grid-column:${column + 1}"><b>${esc(text)}</b></article>`).join('')}</div>`;
     }).join('');
-    const laneHeight = config.lanes.length > 3 ? 64 : 90;
-    const laneGap = config.lanes.length > 3 ? 6 : 10;
+    const laneHeight = config.lanes.length > 3 ? 72 : 112;
+    const laneGap = config.lanes.length > 3 ? 8 : 10;
     const labelWidth = 140;
     const columnGap = 6;
     const routeId = `agent-route-arrow-${slide.dataset.page}`;
@@ -1021,39 +1021,47 @@
   }
 
   const PRINCIPLE_CASES = {
-    A06: { risk: '接手者只看到一段聊天摘要；不知道規則票在哪個流程、哪個 AC 尚未測。', decision: '先讀共享 Issue／Project，核對核准範圍、AC、Owner、目前工作數與第一次測結果。' },
-    A07: { risk: '執行時有人提議順便新增聊天室，會改變本票範圍。', decision: '超出核准範圍就依停止條件停下，不自行加入新功能。' },
-    A08: { risk: '實作者說完成後，自己也替變更與測試按下放行。', decision: '把 PO、Dev、Reviewer、QA、Owner 的責任分開，保留 Human Gate。' },
-    A09: { risk: '第一次測的單向和雙向都 PASS，但重複按讚仍未測；不能因此說所有 AC 都完成。', decision: '逐條比對 AC、版本、輸入、預期與實際；重複按讚維持未測，直到補測。' },
-    A10: { risk: '第一次測的 AC1／AC2 PASS，但重複按讚未測；不能把規則票或產品目標說成全部完成。', decision: '保留重複按讚未測；再核對 Parent Goal 與依賴。目標問題回 Backlog／Refinement，實作問題回 Dev。' },
+    A06: { risk: '接手者只看到聊天摘要，不知道這張票在哪一站、重複按讚是否測過。', decision: '先讀共享工作票，確認負責人、AC、目前進度、已測與未測，再接著做。' },
+    A07: { risk: 'Agent 想順手加聊天室，超出配對規則票的核准範圍。', decision: '超出本票就依停止條件停下，記下變更請求，交給人決定是否另排工作。' },
+    A08: { risk: 'Agent 說「我做完了，可以放行」，執行者可能把實作、審查、驗證和決策混在一起。', decision: '做的人交出修改；Reviewer 審查、QA 獨立驗證，授權人最後決定是否放行。' },
+    A09: { risk: 'Agent 回報單向、雙向 PASS，但真實紀錄中重複按讚仍未測。', decision: 'QA 對照 AC、版本、輸入、預期和實際，要求補測；修正版補測才證明重複按讚 PASS。' },
+    A10: { risk: '配對規則三項測試都有結果，使用者是否能在配對清單找到對方仍未驗。', decision: '回到 Parent Goal 判斷；規則票 PASS 不等於介面、完整流程或產品目標 PASS。' },
+  };
+
+  const PRINCIPLE_NAMES = {
+    A06: 'External Task State',
+    A07: 'Bounded Execution',
+    A08: 'Role Separation',
+    A09: 'Independent Verification',
+    A10: 'Goal Re-anchoring',
   };
 
   function renderPrincipleArtifact(id) {
     const artifacts = {
-      A06: `<div class="principle-output-sheet"><header><b>Issue #3 · 配對規則</b><span>工作進度</span></header><ul><li>AC1／AC2：第一次測 PASS</li><li>重複按讚：未測</li><li>下一步：提出補測要求</li></ul></div>`,
-      A07: `<div class="principle-output-sheet"><header><b>Issue #3 · 變更請求</b><span>情境示意</span></header><ul><li>聊天室功能：範圍外</li><li>停止條件：先停止執行</li><li>由人決定是否重排</li></ul></div>`,
-      A08: `<div class="principle-output-records" aria-label="Issue、Pull Request、Review、Evidence 和授權紀錄卡"><article><b>Issue #3</b><span>核准範圍與 AC</span></article><article><b>Pull Request</b><span>程式修改摘要</span></article><article><b>Review</b><span>審查意見與處置</span></article><article><b>Evidence</b><span>QA 結果與未測項</span></article></div><small class="principle-output-note">分開保存不同紀錄；此處為格式示意。</small>`,
-      A09: `<div class="principle-output-timeline" aria-label="修正版兩個測試時點的紀錄"><article><span>修正版・第一次測</span><strong>單向／雙向 PASS<br>重複按讚未測</strong></article><i aria-hidden="true">→</i><article><span>修正版・補測，同一程式</span><strong>重複按讚 PASS</strong></article></div><small class="principle-output-note">介面、完整流程、上線與產品目標仍未測</small>`,
-      A10: `<div class="principle-output-sheet"><header><b>目標與工作票</b><span>關聯示意</span></header><ul><li>產品目標：互相按讚後找到對方</li><li>規則工作票 #3：AC1／AC2 有紀錄</li><li>介面、完整流程與整體成效：未測</li></ul></div>`,
+      A06: `<div class="principle-output-sheet"><header><b>Issue #3 · 配對規則</b><span>共享工作狀態</span></header><ul><li>修正版第一次測：AC1／AC2 PASS</li><li>重複按讚：未測</li><li>下一步：要求補測</li></ul></div>`,
+      A07: `<div class="principle-output-sheet"><header><b>Issue #3 · 變更請求</b><span>工作紀錄示意</span></header><ul><li>聊天室：超出本票範圍</li><li>停止條件：先停下</li><li>由人決定是否另排</li></ul></div>`,
+      A08: `<div class="principle-output-records" aria-label="工作票、PR、審查、驗證和授權紀錄卡"><article><b>Issue #3</b><span>核准範圍與 AC</span></article><article><b>PR</b><span>修改摘要與版本</span></article><article><b>Review</b><span>審查意見與處置</span></article><article><b>QA Evidence</b><span>結果與未測項</span></article></div><small class="principle-output-note">授權由人決定；紀錄格式為示意。</small>`,
+      A09: `<div class="principle-output-timeline" aria-label="修正版第一次測與補測的真實規則紀錄"><article><span>修正版第一次測</span><strong>單向／雙向 PASS<br>重複按讚未測</strong></article><i aria-hidden="true">→</i><article><span>修正版補測・同一程式</span><strong>重複按讚 PASS</strong></article></div><small class="principle-output-note">QA 要求補測；Agent 版本身仍是教學示意</small>`,
+      A10: `<div class="principle-output-sheet"><header><b>Parent Goal · 配對體驗</b><span>產品核對</span></header><ul><li>規則票：單向、雙向、重複按讚均有測試紀錄</li><li>目標：互相按讚後，在配對清單找到對方</li><li>配對清單、介面與完整流程：未測</li></ul></div>`,
     };
     return artifacts[id] || '';
   }
 
   function renderPrincipleOverview(slide) {
     const cards = [
-      ['聊天失去任務進度', '工作狀態記在 Issue'],
-      ['工作越過核准範圍', '只在核准範圍內工作'],
-      ['同一角色包辦所有檢查', '不同角色各負其責'],
-      ['未測被描述成通過', '另外核對測試結果'],
-      ['子票結果偏離產品目標', '回頭核對產品目標'],
+      ['交辦', 'External Task State', '先讀共享票，再接著工作'],
+      ['實作', 'Bounded Execution', '超出範圍就停下交人決定'],
+      ['審查', 'Role Separation', '做的人不替自己放行'],
+      ['測試', 'Independent Verification', '未測保留未測，要求補驗'],
+      ['產品核對', 'Goal Re-anchoring', '回到目標看整體結果'],
     ];
-    return `<div class="focus-compose b2-focus-compose">${locator(slide)}<section class="diagram-field b2-artifact principle-risk-field"><div class="principle-risk-header"><strong>工作票 #3 · 配對規則</strong><span>第一次測時：重複按讚未測</span></div><div class="principle-risk-grid">${cards.map(([risk, principle], index) => `<article class="fragment" data-fragment-order="${index + 1}"><b>${index+1}</b><div><span>風險</span><strong>${esc(risk)}</strong></div><i>→</i><div><span>做法</span><strong>${esc(principle)}</strong></div></article>`).join('')}</div></section></div>`;
+    return `<div class="focus-compose b2-focus-compose">${locator(slide)}<section class="diagram-field b2-artifact principle-risk-field"><div class="principle-risk-grid">${cards.map(([stage, principle, plain], index) => `<article class="fragment" data-fragment-order="${index + 1}"><b>${index + 1}</b><div><span>${esc(stage)}</span><strong>${esc(principle)}</strong></div><i>→</i><div><span>白話做法</span><strong>${esc(plain)}</strong></div></article>`).join('')}</div></section></div>`;
   }
 
   function renderPrincipleCase(slide) {
     const id = slide.dataset.rev13SceneId;
     const item = PRINCIPLE_CASES[id];
-    return `<div class="focus-compose b2-focus-compose">${locator(slide)}<section class="diagram-field b2-artifact principle-case-field"><div class="principle-case-grid"><article class="case-situation"><span>情境</span><p>${esc(item.risk)}</p></article><i>→</i><article class="case-decision"><span>處理方式</span><p>${esc(item.decision)}</p></article><i>→</i><article class="case-artifact"><span>產物</span>${renderPrincipleArtifact(id)}</article></div></section></div>`;
+    return `<div class="focus-compose b2-focus-compose">${locator(slide)}<section class="diagram-field b2-artifact principle-case-field"><div class="principle-case-grid"><article class="case-situation"><span>${PRINCIPLE_NAMES[id]}</span><p>${esc(item.risk)}</p></article><i>→</i><article class="case-decision"><span>白話做法</span><p>${esc(item.decision)}</p></article><i>→</i><article class="case-artifact"><span>工作紀錄</span>${renderPrincipleArtifact(id)}</article></div></section></div>`;
   }
 
   function renderPart2Exercise(slide) {
