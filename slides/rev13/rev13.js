@@ -218,16 +218,6 @@
     },
   };
 
-  const ROLE_STAGE_MAP = {
-    Owner: { primary: ['brainstorming', 'human_gate'], collaborate: ['refinement', 'product_check', 'release_done'] },
-    PM: { primary: ['brainstorming', 'refinement'], collaborate: ['ready'] },
-    PO: { primary: ['refinement', 'ready', 'product_check'], collaborate: ['brainstorming', 'review', 'human_gate'] },
-    'UI/UX': { primary: [], collaborate: ['refinement', 'dev'] },
-    Dev: { primary: ['dev', 'release_done'], collaborate: ['refinement', 'ready', 'review', 'qa', 'product_check'] },
-    Reviewer: { primary: ['review'], collaborate: [] },
-    QA: { primary: ['qa'], collaborate: ['refinement', 'ready', 'product_check', 'human_gate', 'release_done'] },
-  };
-
   const RESPONSIBILITY = {
     Owner: '定方向、作正式授權',
     PM: '促進協作、風險與節奏',
@@ -281,7 +271,7 @@
     if (agent) {
       agentMarkup = `<div class="agent-layer${revealAgent ? ' fragment' : ''}" role="group" aria-label="Agent：受委派執行／協調；範圍、責任與 Human Gate 仍連回原四區"${revealAgent ? ' data-fragment-order="1"' : ''}>
         <span class="agent-identity"><span class="agent-mark" aria-hidden="true">A</span><strong>Agent</strong></span>
-        <span>受委派執行／協調；範圍、責任與 Human Gate 仍連回原四區</span>
+        <span>受委派執行／協調；人決定範圍與放行</span>
       </div>`;
     } else {
       agentMarkup = '<div class="agent-layer is-empty" aria-hidden="true"></div>';
@@ -300,7 +290,7 @@
             <div class="kanban-row" role="list" aria-label="七個 Kanban 狀態">${statuses}</div>
             <div class="gate-rail${stage === 'human_gate' ? ' is-current' : ''}" role="group" aria-label="Human Gate：Product Check 後、Done 前的欄外人類決策">
               <span class="gate-line" aria-hidden="true"></span><strong>Human Gate</strong>
-              <span>欄外決策：Product Check 後、Done 前</span><span class="gate-line" aria-hidden="true"></span>
+              <span>Product Check 後的人類授權</span><span class="gate-line" aria-hidden="true"></span>
             </div>
           </section>
           <section class="${zoneClass('documents')} zone-documents" data-zone="documents" aria-label="Documents 文件">
@@ -481,14 +471,13 @@
     const stageLine = `<path class="matrix-timeline" d="M${left} ${topY} H${checkX} M${gateX + 22} ${topY} H${doneX}" />`;
     const rows = ROLE_DATA.map((role, r) => {
       const y = rowStart + r * rowGap;
-      const mapping = ROLE_STAGE_MAP[role.name];
       const cells = columns.map((column, i) => {
         const x = columnX(i);
-        const primary = column.stageKeys.some(stageKey => mapping.primary.includes(stageKey));
-        const co = !primary && column.stageKeys.some(stageKey => mapping.collaborate.includes(stageKey));
+        const primary = column.stageKeys.some(stageKey => STAGES[stageKey].lead.includes(role.name));
+        const co = !primary && column.stageKeys.some(stageKey => STAGES[stageKey].co.includes(role.name));
         if (!primary && !co) return '';
         const className = `matrix-role-dot ${primary ? 'is-lead' : 'is-co'}${column.outside ? ' is-outside' : ''}`;
-        const mark = column.outside
+        const mark = column.outside && primary
           ? `<rect class="${className}" x="${x - 10}" y="${y - 10}" width="20" height="20" />`
           : `<circle class="${className}" cx="${x}" cy="${y}" r="${primary ? 18 : 13}" />`;
         return `<path class="matrix-link ${primary ? 'is-lead' : 'is-co'}" d="M${x} ${topY + 17} V${y - 9}" />${mark}`;
@@ -544,7 +533,7 @@
           <article class="lifecycle-step" data-step="2"><span>Ready · 交接條件</span><strong>確認責任與可驗證性</strong><small>接手者、依賴、Exit 條件</small></article>
           <article class="lifecycle-step" data-step="3"><span>Dev · 交付候選版</span><strong>連結程式修改</strong><small>Branch、Commit、PR 差異</small></article>
           <article class="lifecycle-step" data-step="4"><span>Review · 審查更新</span><strong>保留發現與處置</strong><small>PR Review findings；未處置項回到 Dev</small></article>
-          <article class="lifecycle-step" data-step="5"><span>QA／Product Check · Evidence</span><strong>把結果對回 AC 與版本</strong><small>實際結果連到候選 Commit；未執行維持 NOT RUN</small></article>
+          <article class="lifecycle-step" data-step="5"><span>QA／Product Check · Evidence</span><strong>把結果對回 AC 與版本</strong><small>結果連到候選 Commit；未測項：NOT RUN</small></article>
           <article class="lifecycle-step" data-step="6"><span>Human Gate · 放行記錄</span><strong>留下 Go／No-Go 與理由</strong><small>只在授權後進入後續 Merge／Release</small></article>
         </div>
         <div class="lifecycle-note"><b>示意流程</b><span>Review、測試、Evidence 與放行只在實際發生時補記；本圖不代表 Matching 文件已建立。</span></div>
@@ -583,8 +572,9 @@
           <article class="pr-bridge"><b>Pull Request</b><small>版本差異、Review、Checks</small></article>
           <article><b>Review</b><small>審查意見與處置</small></article>
         </div>
-        <div class="track-intersection" aria-label="Pull Request 對照 Git 候選版本差異">
-          <span class="track-join"><b>Pull Request</b><i aria-hidden="true">↕</i><b>Commit</b></span>
+        <div class="track-intersection" aria-label="Pull Request 連到候選 Commit">
+          <span class="track-link" aria-hidden="true"></span>
+          <span class="track-link-label">PR 對照候選 Commit</span>
         </div>
         <div class="relation-lane git-version-lane">
           <span class="lane-label">Git 版本軌</span>
@@ -615,9 +605,9 @@
           <circle class="git-dot recovery-dot" cx="870" cy="290" r="13" />
           <text x="110" y="335" text-anchor="middle">Repo 主線</text><text x="250" y="335" text-anchor="middle">Branch</text>
           <text x="420" y="111" text-anchor="middle">Commit</text><text x="540" y="111" text-anchor="middle">更多修改</text>
-          <text x="650" y="111" text-anchor="middle">PR／Review</text><text x="758" y="280" text-anchor="start">Merge</text>
+          <text x="650" y="78" text-anchor="middle">PR／Review</text><text x="735" y="252" text-anchor="middle">Merge</text>
           <text class="recovery-node-label" x="870" y="255" text-anchor="middle">Revert Commit</text>
-          <text class="recovery-label" x="802" y="390" text-anchor="middle">回復以新增 Revert Commit，保留既有歷史</text>
+          <text class="recovery-label" x="870" y="402" text-anchor="middle">回復以新增 Revert Commit，保留既有歷史</text>
         </svg>
         <div class="history-legend"><span><i class="legend-main"></i>既有版本</span><span><i class="legend-branch"></i>候選分支</span><span><i class="legend-pr"></i>PR／Review</span><span><i class="legend-recovery"></i>回復路徑</span></div>
       </div>
@@ -653,10 +643,22 @@
   function renderStageCard(slide, stageKey) {
     const data = STAGES[stageKey];
     if (!data) return '<p class="render-error">Stage data unavailable.</p>';
+    const notes = slide.querySelector('.notes');
+    const detail = document.createElement('p');
+    detail.innerHTML = `<strong>Stage Card 補充：</strong>${esc([
+      `完整產出：${data.output}`, `狀態變化：${data.stateChange}`,
+      `交接：${data.handoff}`, `GitHub：${data.github}`,
+      ...(data.outputNote ? [`證據界線：${data.outputNote}`] : []),
+    ].join('；'))}`;
+    notes.append(detail);
     const activities = data.activities.map(activity => `<li>${esc(activity)}</li>`).join('');
     const leads = data.lead.map(person => `<span class="role-chip is-lead" data-role="${esc(person)}">${esc(person)}</span>`).join('');
     const collaborators = data.co.map(person => `<span class="role-chip is-co" data-role="${esc(person)}">${esc(person)}</span>`).join('');
     const nextStage = data.nextStage || 'Done';
+    const conciseOutput = {
+      refinement: 'Parent／Child Tickets、Scope、AC／AT、預期 Evidence',
+      release_done: 'Merged Commit、Release 紀錄與 DoD 證據',
+    }[stageKey] || data.output;
     return `<div class="focus-compose stage-compose">${locator(slide)}
       <div class="diagram-field stage-panel">
         <div class="stage-goal-target">
@@ -664,17 +666,18 @@
           <article class="target-card"><span>Stage Target</span><strong>${esc(data.target)}</strong></article>
         </div>
         <div class="stage-handoff-flow" aria-label="Input、本站 Activities、Output 與下一站">
-          <article class="stage-flow-card stage-input"><span>Input</span><strong>${esc(data.input)}</strong></article>
-          <span class="stage-flow-arrow" aria-hidden="true">→</span>
-          <section class="stage-activities"><h2>Activities</h2><ul>${activities}</ul><p class="stage-state-delta">狀態：${esc(data.stateChange)}</p></section>
-          <span class="stage-flow-arrow" aria-hidden="true">→</span>
-          <article class="stage-flow-card stage-output"><span>Output</span><strong>${esc(data.output)}</strong>${data.outputNote ? `<small>${esc(data.outputNote)}</small>` : ''}<p class="stage-handoff">${esc(data.handoff)}</p></article>
-          <div class="stage-next"><span aria-hidden="true">→</span><strong>${esc(nextStage)}</strong></div>
+          <article class="stage-flow-card stage-input fragment" data-fragment-order="1"><span>Input</span><strong>${esc(data.input)}</strong></article>
+          <span class="stage-flow-arrow fragment" data-fragment-order="1" aria-hidden="true">→</span>
+          <section class="stage-activities fragment" data-fragment-order="1"><h2>Activities</h2><ul>${activities}</ul></section>
+          <span class="stage-flow-arrow fragment" data-fragment-order="2" aria-hidden="true">→</span>
+          <article class="stage-flow-card stage-output fragment" data-fragment-order="2"><span>Output</span><strong>${esc(conciseOutput)}</strong></article>
+          <div class="stage-next fragment" data-fragment-order="2"><span aria-hidden="true">→</span><strong>${esc(nextStage)}</strong></div>
         </div>
+        <div class="stage-transition fragment" data-fragment-order="2"><span>狀態變化</span><strong>${esc(data.stateChange)}</strong></div>
         <div class="stage-bottom-row">
-          <section class="stage-people"><h2>People</h2><div class="role-chip-list">${leads}${collaborators}</div><p><span class="people-key lead-key">主責</span><span class="people-key co-key">協作</span></p></section>
-          <article class="stage-exit"><span>Exit Criteria</span><strong>${esc(data.exit)}</strong></article>
-          <article class="stage-github"><span class="github-heading"><svg viewBox="0 0 24 24" role="img" aria-label="GitHub"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.68c-2.78.6-3.37-1.18-3.37-1.18-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.36 1.08 2.94.83.09-.65.35-1.08.64-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 7.02c.85 0 1.7.11 2.5.34 1.9-1.29 2.74-1.02 2.74-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.33 4.68-4.56 4.93.36.31.68.92.68 1.86v2.77c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg><b>GitHub</b></span><strong>${esc(data.githubObjects || data.github)}</strong><p>${esc(data.github)}</p></article>
+          <section class="stage-people fragment" data-fragment-order="3"><h2>People</h2><div class="role-chip-list">${leads}${collaborators}</div><p><span class="people-key lead-key">主責</span><span class="people-key co-key">協作</span></p></section>
+          <article class="stage-exit fragment" data-fragment-order="3"><span>Exit Criteria</span><strong>${esc(data.exit)}</strong></article>
+          <article class="stage-github fragment" data-fragment-order="3"><span class="github-heading"><svg viewBox="0 0 24 24" role="img" aria-label="GitHub"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.68c-2.78.6-3.37-1.18-3.37-1.18-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.36 1.08 2.94.83.09-.65.35-1.08.64-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 7.02c.85 0 1.7.11 2.5.34 1.9-1.29 2.74-1.02 2.74-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.33 4.68-4.56 4.93.36.31.68.92.68 1.86v2.77c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg><b>GitHub</b></span><strong>${esc(data.githubObjects || data.github)}</strong></article>
         </div>
       </div>
     </div>`;
@@ -695,8 +698,8 @@
             <li><b>Goal</b><span>從票面能否找到它要推進的產品結果？還缺哪些連結或背景？</span><p class="exercise-answer fragment" data-fragment-order="1"><b>參考：</b>未連 Parent Goal，先補連結或確認；目前在 Backlog。</p></li>
             <li><b>Stage Target</b><span>目前有哪些工作已明確，哪些仍待界定？</span><p class="exercise-answer fragment" data-fragment-order="2"><b>參考：</b>釐清範圍、例外行為與依賴，整理成可交接工作票。</p></li>
             <li><b>AC／留言</b><span>現有 AC 可如何檢查？兩則留言帶來哪些範圍或例外問題？</span><p class="exercise-answer fragment" data-fragment-order="3"><b>參考：</b>主路徑可檢查；小螢幕呈現與缺少更新時間的結果待定。</p></li>
-            <li><b>People／Exit</b><span>下一站前要確認哪些責任與交接條件？</span><p class="exercise-answer fragment" data-fragment-order="4"><b>參考：</b>PO／Dev 主責 Ready Check、QA 協作；接手者、範圍、可測性與依賴需有結論。</p></li>
-            <li><b>GitHub／版本</b><span>哪些資訊更新在 Issue 或 Project？何時才需要連結 PR 與版本？</span><p class="exercise-answer fragment" data-fragment-order="5"><b>參考：</b>Issue 留契約、Project 記狀態；有程式修改時才連 Branch／Commit／PR，不推定票面未提供的版本。</p></li>
+            <li><b>People／Exit</b><span>下一站前要確認哪些責任與交接條件？</span><p class="exercise-answer fragment" data-fragment-order="4"><b>參考：</b>PO／Dev 主責、QA 協作；接手者、範圍、可測性與依賴先定案。</p></li>
+            <li><b>GitHub／版本</b><span>哪些資訊更新在 Issue 或 Project？何時才需要連結 PR 與版本？</span><p class="exercise-answer fragment" data-fragment-order="5"><b>參考：</b>Issue 留契約、Project 記狀態；有程式修改再連 Branch／Commit／PR，票面無候選版本。</p></li>
           </ol>
         </div>
       </div>
@@ -749,6 +752,13 @@
     notesButton.setAttribute('aria-pressed', 'false');
   }
 
+  function hasNextFragment(slide) {
+    const selector = slide.dataset.art === 'exit-check'
+      ? '.exercise-answer.fragment:not(.revealed-once)'
+      : '.fragment:not(.visible)';
+    return Boolean(slide.querySelector(selector));
+  }
+
   function syncPage(writeHash = false) {
     slides.forEach((slide, index) => {
       const active = index === pageIndex;
@@ -759,7 +769,7 @@
     progressFill.style.width = `${((pageIndex + 1) / slides.length) * 100}%`;
     progressTrack.setAttribute('aria-valuenow', String(pageIndex + 1));
     previousButton.disabled = pageIndex === 0;
-    nextButton.disabled = pageIndex === slides.length - 1;
+    nextButton.disabled = pageIndex === slides.length - 1 && !hasNextFragment(slides[pageIndex]);
     const activeChapter = chapterLinks.reduce((current, link) => {
       return Number(link.dataset.start) <= pageIndex + 1 ? link : current;
     }, chapterLinks[0]);
@@ -780,19 +790,39 @@
   }
 
   function nextFragment() {
-    const hidden = [...slides[pageIndex].querySelectorAll('.fragment:not(.visible)')];
-    const next = hidden.sort((a, b) => Number(a.dataset.fragmentOrder || 1) - Number(b.dataset.fragmentOrder || 1))[0];
-    if (!next) return false;
-    next.classList.add('visible');
+    const slide = slides[pageIndex];
+    if (slide.dataset.art === 'exit-check') {
+      const next = slide.querySelector('.exercise-answer.fragment:not(.revealed-once)');
+      if (!next) return false;
+      slide.querySelectorAll('.exercise-answer.fragment.visible').forEach(answer => answer.classList.remove('visible'));
+      next.classList.add('visible', 'revealed-once');
+      nextButton.disabled = pageIndex === slides.length - 1 && !hasNextFragment(slide);
+      return true;
+    }
+    const hidden = [...slide.querySelectorAll('.fragment:not(.visible)')];
+    if (!hidden.length) return false;
+    const order = Math.min(...hidden.map(item => Number(item.dataset.fragmentOrder || 1)));
+    hidden.filter(item => Number(item.dataset.fragmentOrder || 1) === order).forEach(item => item.classList.add('visible'));
+    nextButton.disabled = pageIndex === slides.length - 1 && !hasNextFragment(slide);
     return true;
   }
 
   function previousFragment() {
-    const visible = [...slides[pageIndex].querySelectorAll('.fragment.visible')];
+    const slide = slides[pageIndex];
+    if (slide.dataset.art === 'exit-check') {
+      const current = slide.querySelector('.exercise-answer.fragment.visible');
+      if (!current) return false;
+      current.classList.remove('visible', 'revealed-once');
+      const revealed = [...slide.querySelectorAll('.exercise-answer.fragment.revealed-once')];
+      revealed.at(-1)?.classList.add('visible');
+      nextButton.disabled = false;
+      return true;
+    }
+    const visible = [...slide.querySelectorAll('.fragment.visible')];
     if (!visible.length) return false;
-    visible.sort((a, b) => Number(a.dataset.fragmentOrder || 1) - Number(b.dataset.fragmentOrder || 1));
-    const last = visible.at(-1);
-    last.classList.remove('visible');
+    const order = Math.max(...visible.map(item => Number(item.dataset.fragmentOrder || 1)));
+    visible.filter(item => Number(item.dataset.fragmentOrder || 1) === order).forEach(item => item.classList.remove('visible'));
+    nextButton.disabled = false;
     return true;
   }
 
