@@ -13,20 +13,12 @@
     <header class="player-head">
       <a class="brand" href="#1" aria-label="Agent 101，回到第一張">Agent 101</a>
       <nav class="chapter-rail" aria-label="章節">
-        <a href="#1" data-start="1">四要素地圖</a>
-        <a href="#3" data-start="3">流程與階段</a>
-        <a href="#5" data-start="5">角色與文件</a>
-        <a href="#10" data-start="10">版本與 Agent</a>
-        <a href="#13" data-start="13">Stage Cards</a>
-        <a href="#22" data-start="22">出口練習</a>
-        <a href="#23" data-start="23">Matching 案例</a>
-        <a href="#24" data-start="24">Brainstorming</a>
-        <a href="#28" data-start="28">Refinement</a>
-        <a href="#33" data-start="33">Ready 與 Dev</a>
-        <a href="#39" data-start="39">Review</a>
-        <a href="#42" data-start="42">QA 與 Product</a>
-        <a href="#49" data-start="49">Human Gate</a>
-        <a href="#51" data-start="51">Agent 協作</a>
+        <a href="#1" data-start="1">Part 1</a>
+        <a href="#23" data-start="23">Part 2 · Brainstorming／Refinement</a>
+        <a href="#33" data-start="33">Ready／Dev</a>
+        <a href="#39" data-start="39">Review／QA</a>
+        <a href="#47" data-start="47">Product Check／Gate</a>
+        <a href="#51" data-start="51">Agent</a>
         <a href="#62" data-start="62">練習</a>
       </nav>
       <div class="counter" aria-live="polite"><span id="current-page">1</span><span class="counter-sep">/</span><span id="total-pages">62</span></div>
@@ -576,7 +568,7 @@
             <p><strong>下一站：</strong>全圖：PR 現在是什麼狀態？</p>
           </aside>
         </section>
-        <section class="slide" data-page="41" id="page-41" data-rev13-scene-id="RV03" data-phase="review" data-focus-roles="Dev, Reviewer" data-doc-ref="PR Review 意見與未處理事項" data-version-ref="Review request / changes requested / needs QA（非 merge）；顯示分支尚未合併" data-github-ref="Pull Request；Review request / changes requested / needs QA（非 merge）；顯示分支尚未合併" data-beat="updated-overview" data-mother-map-id="rev13-four-foundations" data-art="part2-map" data-focus-zones="process,documents,version" data-focus-stage="review" data-focus-roles-map="Dev,Reviewer" data-state-markers="review" data-evidence-scope="illustration" data-ticket-position="dev" data-ticket-previous="review" data-delta-key="RV03">
+        <section class="slide" data-page="41" id="page-41" data-rev13-scene-id="RV03" data-phase="review" data-focus-roles="Dev, Reviewer" data-doc-ref="PR Review 意見與未處理事項" data-version-ref="Review request / changes requested / needs QA（非 merge）；顯示分支尚未合併" data-github-ref="Pull Request；Review request / changes requested / needs QA（非 merge）；顯示分支尚未合併" data-beat="updated-overview" data-mother-map-id="rev13-four-foundations" data-art="part2-map" data-focus-zones="process,documents,version" data-focus-stage="dev" data-focus-roles-map="Dev,Reviewer" data-state-markers="dev" data-evidence-scope="illustration" data-ticket-position="dev" data-ticket-previous="review" data-delta-key="RV03">
           <h1>全圖：PR 現在是什麼狀態？</h1>
           <figure class="artwork" aria-label="同一母圖與本頁狀態差"></figure>
           <p class="caption">Review → Dev；PR Changes requested；尚未 Merge。</p>
@@ -774,7 +766,7 @@
         <section class="slide" data-page="56" id="page-56" data-rev13-scene-id="A06" data-phase="agent_collaboration" data-focus-roles="Human, Agent" data-doc-ref="共享 Issue/Ticket 的 Scope、AC、Owner、WIP、B-pre 與 duplicate NOT RUN、下一步補驗要求" data-version-ref="共用工作紀錄連到版本與 Evidence，新 Session 先核對；示意，非已執行的跨 Agent QA" data-github-ref="Issue · Test Evidence；共用工作紀錄連到版本與 Evidence，新 Session 先核對；示意，非已執行的跨 Agent QA" data-beat="work" data-mother-map-id="rev13-four-foundations" data-art="part2-principle-case" data-focus-zones="people,process,documents,version,agent" data-focus-stage="product_check" data-focus-roles-map="Human,Agent" data-state-markers="product-check" data-evidence-scope="illustration">
           <h1>External Task State：換 Session 怎樣知道做到哪？</h1>
           <figure class="artwork" aria-label="情境、原則決策與工作產物"></figure>
-          <p class="caption">External Task State：換 Session 怎樣知道做到哪？</p>
+          <p class="caption">工作狀態、未測項和下一步補驗請求都回寫 Ticket。</p>
           <aside class="notes" hidden aria-label="講者筆記">
             <h2>講者筆記</h2>
             <p><strong>Data：</strong>共享 Issue/Ticket 的 Scope、AC、Owner、WIP、B-pre 與 duplicate NOT RUN、下一步補驗要求；共同工作角色：Human, Agent。</p>
@@ -787,7 +779,7 @@
         <section class="slide" data-page="57" id="page-57" data-rev13-scene-id="A07" data-phase="agent_collaboration" data-focus-roles="Owner, PO, Dev, Agent" data-doc-ref="Ticket #3 的 Scope、Out-of-scope（聊天室）、AC、Stop Rule／WIP=1" data-version-ref="超出核准範圍就停下，在 Issue 記變更請求並退回人類 Refinement；不自行加功能" data-github-ref="Issue；超出核准範圍就停下，在 Issue 記變更請求並退回人類 Refinement；不自行加功能" data-beat="work" data-mother-map-id="rev13-four-foundations" data-art="part2-principle-case" data-focus-zones="people,process,documents,version,agent" data-focus-stage="product_check" data-focus-roles-map="Owner,PO,Dev,Agent" data-state-markers="product-check" data-evidence-scope="illustration">
           <h1>Bounded Execution：能順便新增聊天室嗎？</h1>
           <figure class="artwork" aria-label="情境、原則決策與工作產物"></figure>
-          <p class="caption">Bounded Execution：能順便新增聊天室嗎？</p>
+          <p class="caption">聊天室超出 Scope；先停止並記下變更請求。</p>
           <aside class="notes" hidden aria-label="講者筆記">
             <h2>講者筆記</h2>
             <p><strong>Data：</strong>Ticket #3 的 Scope、Out-of-scope（聊天室）、AC、Stop Rule／WIP=1；共同工作角色：Owner, PO, Dev, Agent。</p>
@@ -800,7 +792,7 @@
         <section class="slide" data-page="58" id="page-58" data-rev13-scene-id="A08" data-phase="agent_collaboration" data-focus-roles="PO, Dev, Reviewer, QA, Owner, Agent" data-doc-ref="Ticket/PR 實作摘要、Reviewer 意見、QA 接受判準與 Owner 放行責任" data-version-ref="PR／Review／Test Evidence 分開記；Human Gate 保留真人授權，不能只靠 Dev 自評" data-github-ref="Pull Request；PR／Review／Test Evidence 分開記；Human Gate 保留真人授權，不能只靠 Dev 自評" data-beat="work" data-mother-map-id="rev13-four-foundations" data-art="part2-principle-case" data-focus-zones="people,process,documents,version,agent" data-focus-stage="product_check" data-focus-roles-map="PO,Dev,Reviewer,QA,Owner,Agent" data-state-markers="product-check" data-evidence-scope="illustration">
           <h1>Role Separation：做完的人可以直接自己放行嗎？</h1>
           <figure class="artwork" aria-label="情境、原則決策與工作產物"></figure>
-          <p class="caption">Role Separation：做完的人可以直接自己放行嗎？</p>
+          <p class="caption">Dev、Reviewer、QA 與 Owner 各自留下不同記錄。</p>
           <aside class="notes" hidden aria-label="講者筆記">
             <h2>講者筆記</h2>
             <p><strong>Data：</strong>Ticket/PR 實作摘要、Reviewer 意見、QA 接受判準與 Owner 放行責任；共同工作角色：PO, Dev, Reviewer, QA, Owner, Agent。</p>
@@ -813,7 +805,7 @@
         <section class="slide" data-page="59" id="page-59" data-rev13-scene-id="A09" data-phase="agent_collaboration" data-focus-roles="QA, Owner, Agent" data-doc-ref="#3 原 AC、B-pre 單向／雙向 PASS、duplicate NOT RUN；B-post 同一 B 補驗 duplicate PASS" data-version-ref="Evidence 對上版本、輸入、預期、實際；獨立核對，不能把未知改寫 PASS" data-github-ref="Issue · Test Evidence；Evidence 對上版本、輸入、預期、實際；獨立核對，不能把未知改寫 PASS" data-beat="work" data-mother-map-id="rev13-four-foundations" data-art="part2-principle-case" data-focus-zones="people,process,documents,version,agent" data-focus-stage="product_check" data-focus-roles-map="QA,Owner,Agent" data-state-markers="product-check" data-evidence-scope="mixed">
           <h1>Independent Verification：B-pre 兩個 PASS 代表全部完成？</h1>
           <figure class="artwork" aria-label="情境、原則決策與工作產物"></figure>
-          <p class="caption">Independent Verification：B-pre 兩個 PASS 代表全部完成？</p>
+          <p class="caption">B-pre 不含 duplicate；同一 B 補驗後才有 B-post PASS。</p>
           <aside class="notes" hidden aria-label="講者筆記">
             <h2>講者筆記</h2>
             <p><strong>Data：</strong>#3 原 AC、B-pre 單向／雙向 PASS、duplicate NOT RUN；B-post 同一 B 補驗 duplicate PASS；共同工作角色：QA, Owner, Agent。</p>
@@ -826,7 +818,7 @@
         <section class="slide" data-page="60" id="page-60" data-rev13-scene-id="A10" data-phase="agent_collaboration" data-focus-roles="PO, Owner, Dev, QA, Agent" data-doc-ref="#3 子票對 Parent Goal、#1/#2 的整體依賴、風險與未驗證 UI/E2E" data-version-ref="目標問題退 Backlog／Refinement；實作問題退 Dev；Parent Goal 決定優先級，不能宣稱 Goal 完成" data-github-ref="Issue；目標問題退 Backlog／Refinement；實作問題退 Dev；Parent Goal 決定優先級，不能宣稱 Goal 完成" data-beat="work" data-mother-map-id="rev13-four-foundations" data-art="part2-principle-case" data-focus-zones="people,process,documents,version,agent" data-focus-stage="product_check" data-focus-roles-map="PO,Owner,Dev,QA,Agent" data-state-markers="product-check" data-evidence-scope="illustration">
           <h1>Goal Re-anchoring：AC 都綠燈但方向仍正確嗎？</h1>
           <figure class="artwork" aria-label="情境、原則決策與工作產物"></figure>
-          <p class="caption">Goal Re-anchoring：AC 都綠燈但方向仍正確嗎？</p>
+          <p class="caption">AC 綠燈後仍要回查 Parent Goal 與整體依賴。</p>
           <aside class="notes" hidden aria-label="講者筆記">
             <h2>講者筆記</h2>
             <p><strong>Data：</strong>#3 子票對 Parent Goal、#1/#2 的整體依賴、風險與未驗證 UI/E2E；共同工作角色：PO, Owner, Dev, QA, Agent。</p>
