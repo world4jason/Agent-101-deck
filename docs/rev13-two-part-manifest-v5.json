@@ -7,17 +7,15 @@
   "canonical_storyboard": "docs/rev13-two-part-learning-architecture-v5.md",
   "core_part1": [
     "O01",
-    "O02",
     "C01",
-    "C02",
     "C03",
-    "C04",
     "C05",
-    "C06",
-    "C07",
     "C08",
+    "C02",
+    "C07",
+    "C04",
+    "C06",
     "C09",
-    "C10",
     "C11",
     "C12",
     "C13",
@@ -58,6 +56,8 @@
     "PC02",
     "HG01",
     "HG02",
+    "O02",
+    "C10",
     "A01",
     "A02",
     "A03",
@@ -84,16 +84,6 @@
       "cue": "Overview 全貌，所有主要角色和流程同時可見"
     },
     {
-      "id": "O02",
-      "kind": "foundation-overlay",
-      "focus": "同一張母圖加入 Agent 第五要素，原四大要素不移位",
-      "rev12_pages": [
-        56,
-        84
-      ],
-      "cue": "Before/After，Human Gate 保留"
-    },
-    {
       "id": "C01",
       "kind": "map",
       "focus": "完整工作流程和七個 Kanban 狀態的區分",
@@ -102,16 +92,6 @@
         93
       ],
       "cue": "活動、欄位、欄外 Human Gate 分層顯示"
-    },
-    {
-      "id": "C02",
-      "kind": "template",
-      "focus": "Stage Card 怎樣讀：Product Goal、Stage Target、Input、Action、Output、Exit Criteria、Roles、GitHub",
-      "rev12_pages": [
-        25,
-        26
-      ],
-      "cue": "定義 Goal 與階段目的、產出、完成條件的差別"
     },
     {
       "id": "C03",
@@ -127,18 +107,6 @@
       "cue": "Role ≠ 人數 ≠ Agent 數；一人可多職能"
     },
     {
-      "id": "C04",
-      "kind": "roles-matrix",
-      "focus": "Roles × Stages 主責、協作、決策矩陣",
-      "rev12_pages": [
-        6,
-        7,
-        18,
-        91
-      ],
-      "cue": "全流程一次看懂誰在哪段 co-work；不是固定組織編制"
-    },
-    {
       "id": "C05",
       "kind": "documents",
       "focus": "文件種類：Goal／Proposal、Epic、Story、Task、Ticket、AC、AT、DoD",
@@ -150,33 +118,6 @@
         23
       ],
       "cue": "一次認識文件層次；不做完整 Matching AC 示範"
-    },
-    {
-      "id": "C06",
-      "kind": "documents-lifecycle",
-      "focus": "文件生命週期：需求→拆票→交付→Review→Evidence→放行記錄",
-      "rev12_pages": [
-        14,
-        21,
-        23,
-        45,
-        47,
-        51
-      ],
-      "cue": "同一文件可以被更新，Issue/PR 不等於 Git commit"
-    },
-    {
-      "id": "C07",
-      "kind": "documents-boundary",
-      "focus": "Goal vs Stage Objective、AC vs AT vs DoD、Exit Criteria、Evidence",
-      "rev12_pages": [
-        11,
-        21,
-        23,
-        24,
-        47
-      ],
-      "cue": "幫學生辨認各類判準的適用層級"
     },
     {
       "id": "C08",
@@ -195,6 +136,55 @@
       "cue": "版控和文件分兩軌，用連線表達交會"
     },
     {
+      "id": "C02",
+      "kind": "template",
+      "focus": "Stage Card 怎樣讀：Product Goal、Stage Target、Input、Action、Output、Exit Criteria、Roles、GitHub",
+      "rev12_pages": [
+        25,
+        26
+      ],
+      "cue": "定義 Goal 與階段目的、產出、完成條件的差別"
+    },
+    {
+      "id": "C07",
+      "kind": "documents-boundary",
+      "focus": "Goal vs Stage Objective、AC vs AT vs DoD、Exit Criteria、Evidence",
+      "rev12_pages": [
+        11,
+        21,
+        23,
+        24,
+        47
+      ],
+      "cue": "幫學生辨認各類判準的適用層級"
+    },
+    {
+      "id": "C04",
+      "kind": "roles-matrix",
+      "focus": "Roles × Stages 主責、協作、決策矩陣",
+      "rev12_pages": [
+        6,
+        7,
+        18,
+        91
+      ],
+      "cue": "全流程一次看懂誰在哪段 co-work；不是固定組織編制"
+    },
+    {
+      "id": "C06",
+      "kind": "documents-lifecycle",
+      "focus": "文件生命週期：需求→拆票→交付→Review→Evidence→放行記錄",
+      "rev12_pages": [
+        14,
+        21,
+        23,
+        45,
+        47,
+        51
+      ],
+      "cue": "同一文件可以被更新，Issue/PR 不等於 Git commit"
+    },
+    {
       "id": "C09",
       "kind": "version-history",
       "focus": "版本歷史與工作票連結：Branch→Commit→PR→Merge／回復",
@@ -207,21 +197,6 @@
         37
       ],
       "cue": "抽象版本路徑示意，Part2 才揭露 Matching Version A/B"
-    },
-    {
-      "id": "C10",
-      "kind": "agent-intro",
-      "focus": "Agent 能接什麼工作？Chat／Session／Agent／Workflow 與五項工作守則的預告",
-      "rev12_pages": [
-        56,
-        57,
-        61,
-        65,
-        66,
-        73,
-        76
-      ],
-      "cue": "可執行／協調，不授權自己放行；五原則完整示範仍在 Part2"
     },
     {
       "id": "C11",
@@ -796,8 +771,8 @@
     "G4": "not_run",
     "G5": "not_run"
   },
-  "part1_learning_sequence": "O01 four foundations skeleton → O02 add Agent → C01 workflow → C03 people → C05 documents → C08 version track → C02 card reading → C07 judgments and returns with C01 continuation → detailed C02/C04/C06/C07/C08/C09/C10 → C11–C19 nine Stage Cards → C20 Exit Check",
-  "part1_prerequisite_policy": "define roles, document types and GitHub vocabulary before nine detailed Stage Cards; Part2 Matching worked example comes after all Part1 foundations",
+  "part1_learning_sequence": "O01 four foundations → C01 workflow → C03 people → C05 documents → C08 version management → C02 card reading → C07 judgments and returns with C01 continuation → detailed C02/C04/C06/C07/C08/C09 → C11–C19 nine Stage Cards → C20 Exit Check; O02 and C10 appear after the human Matching flow ends at HG02",
+  "part1_prerequisite_policy": "Part 1 teaches the four foundations and human roles, documents, GitHub vocabulary and Stage Cards without an Agent lane or Agent concept page; the human Matching workflow reaches its Human Gate before the second part adds Agent",
   "implementation_slide_map": [
     {
       "page": 1,
@@ -806,323 +781,338 @@
     },
     {
       "page": 2,
-      "scene_id": "O02",
-      "merged_scene_ids": []
-    },
-    {
-      "page": 3,
       "scene_id": "C01",
       "merged_scene_ids": []
     },
     {
-      "page": 4,
+      "page": 3,
       "scene_id": "C03",
       "merged_scene_ids": []
     },
     {
-      "page": 5,
+      "page": 4,
       "scene_id": "C05",
       "merged_scene_ids": []
     },
     {
-      "page": 6,
+      "page": 5,
       "scene_id": "C08",
       "merged_scene_ids": []
     },
     {
-      "page": 7,
+      "page": 6,
       "scene_id": "C02",
       "merged_scene_ids": []
     },
     {
-      "page": 8,
+      "page": 7,
       "scene_id": "C07",
       "merged_scene_ids": [
         "C01"
       ]
     },
     {
-      "page": 9,
-      "scene_id": "C02",
-      "merged_scene_ids": []
+      "page": 8,
+      "scene_id": null,
+      "merged_scene_ids": ["C02"]
     },
     {
-      "page": 10,
+      "page": 9,
       "scene_id": "C04",
       "merged_scene_ids": []
     },
     {
-      "page": 11,
+      "page": 10,
       "scene_id": "C06",
       "merged_scene_ids": []
     },
     {
+      "page": 11,
+      "scene_id": null,
+      "merged_scene_ids": ["C07"]
+    },
+    {
       "page": 12,
-      "scene_id": "C07",
-      "merged_scene_ids": []
+      "scene_id": null,
+      "merged_scene_ids": ["C08"]
     },
     {
       "page": 13,
-      "scene_id": "C08",
-      "merged_scene_ids": []
-    },
-    {
-      "page": 14,
       "scene_id": "C09",
       "merged_scene_ids": []
     },
     {
-      "page": 15,
-      "scene_id": "C10",
-      "merged_scene_ids": []
-    },
-    {
-      "page": 16,
+      "page": 14,
       "scene_id": "C11",
       "merged_scene_ids": []
     },
     {
-      "page": 17,
+      "page": 15,
       "scene_id": "C12",
       "merged_scene_ids": []
     },
     {
-      "page": 18,
+      "page": 16,
       "scene_id": "C13",
       "merged_scene_ids": []
     },
     {
-      "page": 19,
+      "page": 17,
       "scene_id": "C14",
       "merged_scene_ids": []
     },
     {
-      "page": 20,
+      "page": 18,
       "scene_id": "C15",
       "merged_scene_ids": []
     },
     {
-      "page": 21,
+      "page": 19,
       "scene_id": "C16",
       "merged_scene_ids": []
     },
     {
-      "page": 22,
+      "page": 20,
       "scene_id": "C17",
       "merged_scene_ids": []
     },
     {
-      "page": 23,
+      "page": 21,
       "scene_id": "C18",
       "merged_scene_ids": []
     },
     {
-      "page": 24,
+      "page": 22,
       "scene_id": "C19",
       "merged_scene_ids": []
     },
     {
-      "page": 25,
+      "page": 23,
       "scene_id": "C20",
       "merged_scene_ids": []
     },
     {
-      "page": 26,
+      "page": 24,
       "scene_id": "O03",
       "merged_scene_ids": []
     },
     {
-      "page": 27,
+      "page": 25,
       "scene_id": "B01",
       "merged_scene_ids": []
     },
     {
-      "page": 28,
+      "page": 26,
       "scene_id": "B02",
       "merged_scene_ids": []
     },
     {
-      "page": 29,
+      "page": 27,
       "scene_id": "B03",
       "merged_scene_ids": []
     },
     {
-      "page": 30,
+      "page": 28,
       "scene_id": "B04",
       "merged_scene_ids": []
     },
     {
-      "page": 31,
+      "page": 29,
       "scene_id": "R01",
       "merged_scene_ids": []
     },
     {
-      "page": 32,
+      "page": 30,
       "scene_id": "R02",
       "merged_scene_ids": []
     },
     {
-      "page": 33,
+      "page": 31,
       "scene_id": "R03",
       "merged_scene_ids": []
     },
     {
-      "page": 34,
+      "page": 32,
       "scene_id": "R04",
       "merged_scene_ids": []
     },
     {
-      "page": 35,
+      "page": 33,
       "scene_id": "R05",
       "merged_scene_ids": []
     },
     {
-      "page": 36,
+      "page": 34,
       "scene_id": "RD01",
       "merged_scene_ids": []
     },
     {
-      "page": 37,
+      "page": 35,
       "scene_id": "RD02",
       "merged_scene_ids": []
     },
     {
-      "page": 38,
+      "page": 36,
       "scene_id": "D01",
       "merged_scene_ids": []
     },
     {
-      "page": 39,
+      "page": 37,
       "scene_id": "D02",
       "merged_scene_ids": []
     },
     {
-      "page": 40,
+      "page": 38,
       "scene_id": "D03",
       "merged_scene_ids": []
     },
     {
-      "page": 41,
+      "page": 39,
       "scene_id": "D04",
       "merged_scene_ids": []
     },
     {
-      "page": 42,
+      "page": 40,
       "scene_id": "RV01",
       "merged_scene_ids": []
     },
     {
-      "page": 43,
+      "page": 41,
       "scene_id": "RV02",
       "merged_scene_ids": []
     },
     {
-      "page": 44,
+      "page": 42,
       "scene_id": "RV03",
       "merged_scene_ids": []
     },
     {
-      "page": 45,
+      "page": 43,
       "scene_id": "Q01",
       "merged_scene_ids": []
     },
     {
-      "page": 46,
+      "page": 44,
       "scene_id": "Q02",
       "merged_scene_ids": []
     },
     {
-      "page": 47,
+      "page": 45,
       "scene_id": "Q03",
       "merged_scene_ids": []
     },
     {
-      "page": 48,
+      "page": 46,
       "scene_id": "Q04",
       "merged_scene_ids": []
     },
     {
-      "page": 49,
+      "page": 47,
       "scene_id": "Q05",
       "merged_scene_ids": []
     },
     {
-      "page": 50,
+      "page": 48,
       "scene_id": "PC01",
       "merged_scene_ids": []
     },
     {
-      "page": 51,
+      "page": 49,
       "scene_id": "PC02",
       "merged_scene_ids": []
     },
     {
-      "page": 52,
+      "page": 50,
       "scene_id": "HG01",
       "merged_scene_ids": []
     },
     {
-      "page": 53,
+      "page": 51,
       "scene_id": "HG02",
       "merged_scene_ids": []
     },
     {
+      "page": 52,
+      "scene_id": "O02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 53,
+      "scene_id": "C10",
+      "merged_scene_ids": []
+    },
+    {
       "page": 54,
+      "scene_id": null,
+      "merged_scene_ids": ["C10"]
+    },
+    {
+      "page": 55,
+      "scene_id": null,
+      "merged_scene_ids": ["C10"]
+    },
+    {
+      "page": 56,
+      "scene_id": null,
+      "merged_scene_ids": ["C10", "A01"]
+    },
+    {
+      "page": 57,
       "scene_id": "A01",
       "merged_scene_ids": []
     },
     {
-      "page": 55,
+      "page": 58,
       "scene_id": "A02",
       "merged_scene_ids": []
     },
     {
-      "page": 56,
+      "page": 59,
       "scene_id": "A03",
       "merged_scene_ids": []
     },
     {
-      "page": 57,
+      "page": 60,
       "scene_id": "A04",
       "merged_scene_ids": []
     },
     {
-      "page": 58,
+      "page": 61,
       "scene_id": "A05",
       "merged_scene_ids": []
     },
     {
-      "page": 59,
+      "page": 62,
       "scene_id": "A06",
       "merged_scene_ids": []
     },
     {
-      "page": 60,
+      "page": 63,
       "scene_id": "A07",
       "merged_scene_ids": []
     },
     {
-      "page": 61,
+      "page": 64,
       "scene_id": "A08",
       "merged_scene_ids": []
     },
     {
-      "page": 62,
+      "page": 65,
       "scene_id": "A09",
       "merged_scene_ids": []
     },
     {
-      "page": 63,
+      "page": 66,
       "scene_id": "A10",
       "merged_scene_ids": []
     },
     {
-      "page": 64,
+      "page": 67,
       "scene_id": "A11",
       "merged_scene_ids": []
     },
     {
-      "page": 65,
+      "page": 68,
       "scene_id": "X01",
       "merged_scene_ids": []
     }

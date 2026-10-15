@@ -1250,33 +1250,33 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .chapter-rail a { padding-inline: 8px; }
 
 /* Selected Part 2 artifacts size to their actual content instead of filling the frame. */
-.slide[data-page="27"] .b2-artifact,
-.slide[data-page="28"] .b2-artifact,
-.slide[data-page="31"] .b2-artifact,
-.slide[data-page="32"] .b2-artifact,
+.slide[data-page="25"] .b2-artifact,
+.slide[data-page="26"] .b2-artifact,
+.slide[data-page="29"] .b2-artifact,
+.slide[data-page="30"] .b2-artifact,
+.slide[data-page="36"] .b2-artifact,
+.slide[data-page="37"] .b2-artifact,
 .slide[data-page="38"] .b2-artifact,
-.slide[data-page="39"] .b2-artifact,
 .slide[data-page="40"] .b2-artifact,
-.slide[data-page="42"] .b2-artifact,
+.slide[data-page="41"] .b2-artifact,
 .slide[data-page="43"] .b2-artifact,
-.slide[data-page="45"] .b2-artifact,
-.slide[data-page="46"] .b2-artifact,
-.slide[data-page="47"] .b2-artifact {
+.slide[data-page="44"] .b2-artifact,
+.slide[data-page="45"] .b2-artifact {
   align-self: center;
   height: auto;
   max-height: 100%;
 }
-.slide[data-page="27"] .brainstorm-grid article { min-height: 205px; }
-.slide[data-page="28"] .goal-flow article { min-height: 205px; }
-.slide[data-page="31"] .refinement-source,
-.slide[data-page="31"] .refinement-checks,
-.slide[data-page="31"] .refinement-handoff { min-height: 230px; }
-.slide[data-page="32"] .issue-tree { height: auto; flex: 0 0 auto; }
-.slide[data-page="38"] .dev-intake article { min-height: 230px; }
-.slide[data-page="39"] .git-chain article { min-height: 220px; }
-.slide[data-page="45"] .qa-evidence-shell { min-height: 260px; }
-.slide[data-page="46"] .qa-evidence-shell { min-height: 370px; }
-.slide[data-page="47"] .qa-evidence-shell { min-height: 350px; }
+.slide[data-page="25"] .brainstorm-grid article { min-height: 205px; }
+.slide[data-page="26"] .goal-flow article { min-height: 205px; }
+.slide[data-page="29"] .refinement-source,
+.slide[data-page="29"] .refinement-checks,
+.slide[data-page="29"] .refinement-handoff { min-height: 230px; }
+.slide[data-page="30"] .issue-tree { height: auto; flex: 0 0 auto; }
+.slide[data-page="36"] .dev-intake article { min-height: 230px; }
+.slide[data-page="37"] .git-chain article { min-height: 220px; }
+.slide[data-page="43"] .qa-evidence-shell { min-height: 260px; }
+.slide[data-page="44"] .qa-evidence-shell { min-height: 370px; }
+.slide[data-page="45"] .qa-evidence-shell { min-height: 350px; }
 
 /* Q02 links the measured AC1 failure to its illustrative return path. */
 .qa-fail-detail { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: stretch; gap: 12px; }
@@ -1340,97 +1340,97 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 }
 .evidence-reference span { color: #cbd7f6; font-size: 15px; font-weight: 750; white-space: nowrap; }
 .evidence-reference strong { min-width: 0; color: #e6ebfa; font-size: 17px; line-height: 1.2; overflow-wrap: anywhere; }
-.slide[data-page="46"] .b2-artifact { align-self: stretch; height: 100%; max-height: none; }
-.slide[data-page="46"] .qa-evidence-shell { flex: 1 1 auto; justify-content: space-between; gap: 15px; min-height: 0; }
-.slide[data-page="47"] .qa-evidence-shell { gap: 11px; min-height: 400px; }
-.slide[data-page="48"] .b2-artifact { align-self: center; height: auto; }
-.slide[data-page="48"] .qa-evidence-shell { gap: 11px; min-height: 410px; }
-.slide[data-page="48"] .b2-reveal { gap: 6px; padding: 10px 12px; }
-.slide[data-page="48"] .evidence-reference { padding-block: 5px; }
+.slide[data-page="44"] .b2-artifact { align-self: stretch; height: 100%; max-height: none; }
+.slide[data-page="44"] .qa-evidence-shell { flex: 1 1 auto; justify-content: space-between; gap: 15px; min-height: 0; }
+.slide[data-page="45"] .qa-evidence-shell { gap: 11px; min-height: 400px; }
+.slide[data-page="46"] .b2-artifact { align-self: center; height: auto; }
+.slide[data-page="46"] .qa-evidence-shell { gap: 11px; min-height: 410px; }
+.slide[data-page="46"] .b2-reveal { gap: 6px; padding: 10px 12px; }
+.slide[data-page="46"] .evidence-reference { padding-block: 5px; }
 
 /* The Goal Issue's three fields fit their content and remain visually distinct. */
-.slide[data-page="29"] .b2-artifact { align-self: center; height: auto; }
-.slide[data-page="29"] .issue-sheet { height: auto; }
-.slide[data-page="29"] .issue-sections {
+.slide[data-page="27"] .b2-artifact { align-self: center; height: auto; }
+.slide[data-page="27"] .issue-sheet { height: auto; }
+.slide[data-page="27"] .issue-sections {
   flex: 0 0 auto;
   grid-template-rows: auto auto;
   grid-template-areas: "scope out" "ac ac";
 }
-.slide[data-page="29"] .issue-section { min-height: 0; }
+.slide[data-page="27"] .issue-section { min-height: 0; }
 
 /* Product Check shows only its two compared records, without an empty frame. */
-.slide[data-page="50"] .b2-artifact { align-self: center; height: auto; }
-.slide[data-page="50"] .product-check-grid { flex: 0 0 auto; }
-.slide[data-page="50"] .product-check-grid article { min-height: 230px; }
+.slide[data-page="48"] .b2-artifact { align-self: center; height: auto; }
+.slide[data-page="48"] .product-check-grid { flex: 0 0 auto; }
+.slide[data-page="48"] .product-check-grid article { min-height: 230px; }
 
 /* The Ready Check frame follows the four criteria and the existing result row. */
-.slide[data-page="36"] .b2-artifact { align-self: center; height: auto; max-height: 100%; }
-.slide[data-page="36"] .ready-check { flex: 0 0 auto; }
+.slide[data-page="34"] .b2-artifact { align-self: center; height: auto; max-height: 100%; }
+.slide[data-page="34"] .ready-check { flex: 0 0 auto; }
 
 /* The D01 handoff fills the open space between locator and caption. */
-.slide[data-page="38"] .b2-artifact { align-self: stretch; height: 100%; max-height: none; }
-.slide[data-page="38"] .dev-intake { flex: 1 1 auto; gap: 18px; }
-.slide[data-page="38"] .dev-intake article { min-height: 0; gap: 18px; padding: 30px; }
-.slide[data-page="38"] .dev-intake span { font-size: 20px; }
-.slide[data-page="38"] .dev-intake strong { font-size: 30px; line-height: 1.2; }
-.slide[data-page="38"] .dev-intake p { font-size: 23px; line-height: 1.3; }
+.slide[data-page="36"] .b2-artifact { align-self: stretch; height: 100%; max-height: none; }
+.slide[data-page="36"] .dev-intake { flex: 1 1 auto; gap: 18px; }
+.slide[data-page="36"] .dev-intake article { min-height: 0; gap: 18px; padding: 30px; }
+.slide[data-page="36"] .dev-intake span { font-size: 20px; }
+.slide[data-page="36"] .dev-intake strong { font-size: 30px; line-height: 1.2; }
+.slide[data-page="36"] .dev-intake p { font-size: 23px; line-height: 1.3; }
 
 /* A06–A10 use readable text without stretching each card beyond its content. */
-.slide[data-page="59"] .principle-case-field,
-.slide[data-page="60"] .principle-case-field,
-.slide[data-page="61"] .principle-case-field,
 .slide[data-page="62"] .principle-case-field,
-.slide[data-page="63"] .principle-case-field {
+.slide[data-page="63"] .principle-case-field,
+.slide[data-page="64"] .principle-case-field,
+.slide[data-page="65"] .principle-case-field,
+.slide[data-page="66"] .principle-case-field {
   align-self: stretch;
   height: 100%;
   max-height: none;
   gap: 12px;
   padding: 18px;
 }
-.slide[data-page="59"] .principle-case-grid,
-.slide[data-page="60"] .principle-case-grid,
-.slide[data-page="61"] .principle-case-grid,
 .slide[data-page="62"] .principle-case-grid,
-.slide[data-page="63"] .principle-case-grid { flex: 0 1 auto; min-height: 0; }
-.slide[data-page="59"] .principle-case-grid article,
-.slide[data-page="60"] .principle-case-grid article,
-.slide[data-page="61"] .principle-case-grid article,
+.slide[data-page="63"] .principle-case-grid,
+.slide[data-page="64"] .principle-case-grid,
+.slide[data-page="65"] .principle-case-grid,
+.slide[data-page="66"] .principle-case-grid { flex: 0 1 auto; min-height: 0; }
 .slide[data-page="62"] .principle-case-grid article,
-.slide[data-page="63"] .principle-case-grid article {
+.slide[data-page="63"] .principle-case-grid article,
+.slide[data-page="64"] .principle-case-grid article,
+.slide[data-page="65"] .principle-case-grid article,
+.slide[data-page="66"] .principle-case-grid article {
   min-height: 0;
   min-height: 0;
   justify-content: flex-start;
   gap: 10px;
   padding: 16px;
 }
-.slide[data-page="59"] .principle-case-grid article > span,
-.slide[data-page="60"] .principle-case-grid article > span,
-.slide[data-page="61"] .principle-case-grid article > span,
 .slide[data-page="62"] .principle-case-grid article > span,
-.slide[data-page="63"] .principle-case-grid article > span { font-size: 22px; }
-.slide[data-page="59"] .principle-case-grid article p,
-.slide[data-page="60"] .principle-case-grid article p,
-.slide[data-page="61"] .principle-case-grid article p,
+.slide[data-page="63"] .principle-case-grid article > span,
+.slide[data-page="64"] .principle-case-grid article > span,
+.slide[data-page="65"] .principle-case-grid article > span,
+.slide[data-page="66"] .principle-case-grid article > span { font-size: 22px; }
 .slide[data-page="62"] .principle-case-grid article p,
-.slide[data-page="63"] .principle-case-grid article p { font-size: 22px; line-height: 1.28; }
-.slide[data-page="59"] .principle-output-sheet > header b,
-.slide[data-page="60"] .principle-output-sheet > header b,
-.slide[data-page="63"] .principle-output-sheet > header b { font-size: 22px; }
-.slide[data-page="59"] .principle-output-sheet ul,
-.slide[data-page="60"] .principle-output-sheet ul,
-.slide[data-page="63"] .principle-output-sheet ul { font-size: 22px; line-height: 1.25; }
-.slide[data-page="59"] .principle-output-sheet > header b,
-.slide[data-page="60"] .principle-output-sheet > header b,
-.slide[data-page="63"] .principle-output-sheet > header b { font-size: 24px; }
-.slide[data-page="59"] .principle-output-sheet ul,
-.slide[data-page="60"] .principle-output-sheet ul,
-.slide[data-page="63"] .principle-output-sheet ul { font-size: 22px; line-height: 1.25; }
-.slide[data-page="61"] .principle-output-records article { min-height: 78px; }
-.slide[data-page="61"] .principle-output-records article b { font-size: 22px; }
-.slide[data-page="61"] .principle-output-records article span { font-size: 22px; line-height: 1.22; }
-.slide[data-page="62"] .principle-output-timeline span { font-size: 22px; }
-.slide[data-page="62"] .principle-output-timeline strong { font-size: 22px; }
-.slide[data-page="62"] .principle-output-note { font-size: 20px; line-height: 1.25; }
+.slide[data-page="63"] .principle-case-grid article p,
+.slide[data-page="64"] .principle-case-grid article p,
+.slide[data-page="65"] .principle-case-grid article p,
+.slide[data-page="66"] .principle-case-grid article p { font-size: 22px; line-height: 1.28; }
+.slide[data-page="62"] .principle-output-sheet > header b,
+.slide[data-page="63"] .principle-output-sheet > header b,
+.slide[data-page="66"] .principle-output-sheet > header b { font-size: 22px; }
+.slide[data-page="62"] .principle-output-sheet ul,
+.slide[data-page="63"] .principle-output-sheet ul,
+.slide[data-page="66"] .principle-output-sheet ul { font-size: 22px; line-height: 1.25; }
+.slide[data-page="62"] .principle-output-sheet > header b,
+.slide[data-page="63"] .principle-output-sheet > header b,
+.slide[data-page="66"] .principle-output-sheet > header b { font-size: 24px; }
+.slide[data-page="62"] .principle-output-sheet ul,
+.slide[data-page="63"] .principle-output-sheet ul,
+.slide[data-page="66"] .principle-output-sheet ul { font-size: 22px; line-height: 1.25; }
+.slide[data-page="64"] .principle-output-records article { min-height: 78px; }
+.slide[data-page="64"] .principle-output-records article b { font-size: 22px; }
+.slide[data-page="64"] .principle-output-records article span { font-size: 22px; line-height: 1.22; }
+.slide[data-page="65"] .principle-output-timeline span { font-size: 22px; }
+.slide[data-page="65"] .principle-output-timeline strong { font-size: 22px; }
+.slide[data-page="65"] .principle-output-note { font-size: 20px; line-height: 1.25; }
 .principle-evidence-ref {
   display: grid;
   gap: 4px;
@@ -1445,7 +1445,7 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .principle-evidence-ref span { color: #d6e0ed; font-size: 18px; line-height: 1.22; }
 
 /* Keep all five principle links clear of the control bar on the final map. */
-.slide[data-page="64"] { padding-bottom: 34px; }
+.slide[data-page="67"] { padding-bottom: 34px; }
 
 /* Part 1 role cards pair one responsibility with one everyday app example. */
 .role-card { min-height: 128px; gap: 7px; padding: 12px; }
@@ -1498,7 +1498,7 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 }
 
 /* Align the two criteria lanes and each transition on shared row centers. */
-.slide[data-page="9"] .criteria-field { padding-inline: 10px; }
+.slide[data-page="8"] .criteria-field { padding-inline: 10px; }
 .criteria-scope {
   grid-template-rows: minmax(94px, 1fr) 22px minmax(94px, 1fr) 22px minmax(94px, 1fr);
   gap: 0;
@@ -1512,75 +1512,75 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .criteria-checks article { min-height: 0; }
 
 /* Make evidence IDs and file references readable from projection distance. */
-.slide[data-page="62"] .principle-evidence-ref { gap: 5px; padding: 9px 10px; font-size: 17px; line-height: 1.22; }
-.slide[data-page="62"] .principle-evidence-ref b { font-size: 20px; }
-.slide[data-page="62"] .principle-evidence-ref span { font-size: 19px; line-height: 1.22; }
-.slide[data-page="62"] .principle-case-grid .case-artifact { justify-content: flex-start; gap: 10px; padding: 14px 16px; }
+.slide[data-page="65"] .principle-evidence-ref { gap: 5px; padding: 9px 10px; font-size: 17px; line-height: 1.22; }
+.slide[data-page="65"] .principle-evidence-ref b { font-size: 20px; }
+.slide[data-page="65"] .principle-evidence-ref span { font-size: 19px; line-height: 1.22; }
+.slide[data-page="65"] .principle-case-grid .case-artifact { justify-content: flex-start; gap: 10px; padding: 14px 16px; }
 
 /* Move selected Part 2 artifacts into the open space and let their content breathe. */
-.slide[data-page="27"] .b2-artifact,
-.slide[data-page="28"] .b2-artifact,
-.slide[data-page="31"] .b2-artifact,
-.slide[data-page="32"] .b2-artifact,
+.slide[data-page="25"] .b2-artifact,
+.slide[data-page="26"] .b2-artifact,
+.slide[data-page="29"] .b2-artifact,
+.slide[data-page="30"] .b2-artifact,
+.slide[data-page="34"] .b2-artifact,
 .slide[data-page="36"] .b2-artifact,
+.slide[data-page="37"] .b2-artifact,
 .slide[data-page="38"] .b2-artifact,
-.slide[data-page="39"] .b2-artifact,
 .slide[data-page="40"] .b2-artifact,
-.slide[data-page="42"] .b2-artifact,
-.slide[data-page="43"] .b2-artifact,
-.slide[data-page="45"] .b2-artifact {
+.slide[data-page="41"] .b2-artifact,
+.slide[data-page="43"] .b2-artifact {
   align-self: stretch;
   height: 100%;
   max-height: 100%;
 }
-.slide[data-page="27"] .brainstorm-grid,
-.slide[data-page="28"] .goal-flow,
-.slide[data-page="31"] .refinement-board,
-.slide[data-page="32"] .issue-tree,
-.slide[data-page="36"] .ready-check,
-.slide[data-page="38"] .dev-intake,
-.slide[data-page="39"] .git-flow,
-.slide[data-page="40"] .candidate-card,
-.slide[data-page="42"] .pr-sheet,
-.slide[data-page="43"] .pr-sheet,
-.slide[data-page="45"] .qa-evidence-shell {
+.slide[data-page="25"] .brainstorm-grid,
+.slide[data-page="26"] .goal-flow,
+.slide[data-page="29"] .refinement-board,
+.slide[data-page="30"] .issue-tree,
+.slide[data-page="34"] .ready-check,
+.slide[data-page="36"] .dev-intake,
+.slide[data-page="37"] .git-flow,
+.slide[data-page="38"] .candidate-card,
+.slide[data-page="40"] .pr-sheet,
+.slide[data-page="41"] .pr-sheet,
+.slide[data-page="43"] .qa-evidence-shell {
   flex: 1 1 auto;
   min-height: 0;
 }
-.slide[data-page="27"] .brainstorm-grid article,
-.slide[data-page="28"] .goal-flow article,
-.slide[data-page="31"] .refinement-board,
-.slide[data-page="38"] .dev-intake,
-.slide[data-page="39"] .git-chain { align-items: stretch; }
-.slide[data-page="27"] .brainstorm-grid article,
-.slide[data-page="28"] .goal-flow article,
-.slide[data-page="31"] .refinement-board > div,
-.slide[data-page="38"] .dev-intake article,
-.slide[data-page="39"] .git-chain article { justify-content: space-evenly; }
-.slide[data-page="27"] .brainstorm-grid strong,
-.slide[data-page="28"] .goal-flow strong,
-.slide[data-page="31"] .refinement-board strong { font-size: 27px; }
-.slide[data-page="27"] .brainstorm-grid p,
-.slide[data-page="28"] .goal-flow p,
-.slide[data-page="31"] .refinement-board p { font-size: 21px; }
-.slide[data-page="29"] .b2-artifact { align-self: start; height: auto; max-height: 100%; }
-.slide[data-page="32"] .issue-tree { justify-content: space-between; }
-.slide[data-page="32"] .child-issues { flex: 1 1 auto; align-items: stretch; }
-.slide[data-page="32"] .child-issues article { justify-content: space-evenly; }
-.slide[data-page="36"] .ready-check { grid-template-rows: repeat(2, minmax(0, 1fr)) auto; }
-.slide[data-page="38"] .dev-intake { align-items: stretch; }
-.slide[data-page="38"] .dev-intake article { justify-content: space-evenly; }
-.slide[data-page="39"] .git-chain { flex: 1 1 auto; align-items: stretch; }
-.slide[data-page="39"] .git-chain article { min-height: 0; justify-content: space-evenly; }
-.slide[data-page="40"] .candidate-card { justify-content: space-between; }
-.slide[data-page="40"] .candidate-card > div article { min-height: 0; justify-content: space-evenly; }
-.slide[data-page="42"] .pr-sheet,
-.slide[data-page="43"] .pr-sheet { justify-content: space-between; }
-.slide[data-page="42"] .pr-columns,
-.slide[data-page="43"] .pr-columns { flex: 1 1 auto; align-items: stretch; }
+.slide[data-page="25"] .brainstorm-grid article,
+.slide[data-page="26"] .goal-flow article,
+.slide[data-page="29"] .refinement-board,
+.slide[data-page="36"] .dev-intake,
+.slide[data-page="37"] .git-chain { align-items: stretch; }
+.slide[data-page="25"] .brainstorm-grid article,
+.slide[data-page="26"] .goal-flow article,
+.slide[data-page="29"] .refinement-board > div,
+.slide[data-page="36"] .dev-intake article,
+.slide[data-page="37"] .git-chain article { justify-content: space-evenly; }
+.slide[data-page="25"] .brainstorm-grid strong,
+.slide[data-page="26"] .goal-flow strong,
+.slide[data-page="29"] .refinement-board strong { font-size: 27px; }
+.slide[data-page="25"] .brainstorm-grid p,
+.slide[data-page="26"] .goal-flow p,
+.slide[data-page="29"] .refinement-board p { font-size: 21px; }
+.slide[data-page="27"] .b2-artifact { align-self: start; height: auto; max-height: 100%; }
+.slide[data-page="30"] .issue-tree { justify-content: space-between; }
+.slide[data-page="30"] .child-issues { flex: 1 1 auto; align-items: stretch; }
+.slide[data-page="30"] .child-issues article { justify-content: space-evenly; }
+.slide[data-page="34"] .ready-check { grid-template-rows: repeat(2, minmax(0, 1fr)) auto; }
+.slide[data-page="36"] .dev-intake { align-items: stretch; }
+.slide[data-page="36"] .dev-intake article { justify-content: space-evenly; }
+.slide[data-page="37"] .git-chain { flex: 1 1 auto; align-items: stretch; }
+.slide[data-page="37"] .git-chain article { min-height: 0; justify-content: space-evenly; }
+.slide[data-page="38"] .candidate-card { justify-content: space-between; }
+.slide[data-page="38"] .candidate-card > div article { min-height: 0; justify-content: space-evenly; }
+.slide[data-page="40"] .pr-sheet,
+.slide[data-page="41"] .pr-sheet { justify-content: space-between; }
+.slide[data-page="40"] .pr-columns,
+.slide[data-page="41"] .pr-columns { flex: 1 1 auto; align-items: stretch; }
 
 /* The first QA failure fills the open area with the AC1 comparison and return path. */
-.slide[data-page="46"] .qa-failure-evidence {
+.slide[data-page="44"] .qa-failure-evidence {
   display: grid;
   height: 100%;
   grid-template-rows: auto auto minmax(115px, auto) minmax(170px, 1fr) auto;
@@ -1588,54 +1588,54 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
   gap: 16px;
   padding: 24px;
 }
-.slide[data-page="46"] .qa-fail-detail { min-height: 0; }
-.slide[data-page="46"] .qa-fail-detail > article,
-.slide[data-page="46"] .qa-return-path { padding: 22px; }
-.slide[data-page="46"] .qa-fail-detail > article span { font-size: 21px; }
-.slide[data-page="46"] .qa-fail-detail > article strong { font-size: 30px; line-height: 1.2; }
-.slide[data-page="46"] .qa-fail-detail > article small,
-.slide[data-page="46"] .qa-return-path span { font-size: 22px; line-height: 1.25; }
-.slide[data-page="46"] .qa-return-path b { font-size: 28px; }
+.slide[data-page="44"] .qa-fail-detail { min-height: 0; }
+.slide[data-page="44"] .qa-fail-detail > article,
+.slide[data-page="44"] .qa-return-path { padding: 22px; }
+.slide[data-page="44"] .qa-fail-detail > article span { font-size: 21px; }
+.slide[data-page="44"] .qa-fail-detail > article strong { font-size: 30px; line-height: 1.2; }
+.slide[data-page="44"] .qa-fail-detail > article small,
+.slide[data-page="44"] .qa-return-path span { font-size: 22px; line-height: 1.25; }
+.slide[data-page="44"] .qa-return-path b { font-size: 28px; }
 
 /* Principle pages use the full locator-to-caption area and keep each column sized to its text. */
-.slide[data-page="59"] .principle-case-field,
-.slide[data-page="60"] .principle-case-field,
-.slide[data-page="61"] .principle-case-field,
 .slide[data-page="62"] .principle-case-field,
-.slide[data-page="63"] .principle-case-field {
+.slide[data-page="63"] .principle-case-field,
+.slide[data-page="64"] .principle-case-field,
+.slide[data-page="65"] .principle-case-field,
+.slide[data-page="66"] .principle-case-field {
   align-self: center;
   height: auto;
   max-height: 100%;
   justify-content: center;
 }
-.slide[data-page="59"] .principle-case-grid,
-.slide[data-page="60"] .principle-case-grid,
-.slide[data-page="61"] .principle-case-grid,
 .slide[data-page="62"] .principle-case-grid,
-.slide[data-page="63"] .principle-case-grid {
+.slide[data-page="63"] .principle-case-grid,
+.slide[data-page="64"] .principle-case-grid,
+.slide[data-page="65"] .principle-case-grid,
+.slide[data-page="66"] .principle-case-grid {
   align-self: stretch;
   width: 100%;
   flex: 0 1 auto;
   min-height: 0;
 }
-.slide[data-page="61"] .principle-output-records { gap: 9px; }
-.slide[data-page="61"] .principle-output-records article { min-height: 84px; }
-.slide[data-page="61"] .principle-output-records article b,
-.slide[data-page="61"] .principle-output-records article span { font-size: 22px; }
-.slide[data-page="62"] .principle-output-timeline article { min-height: 150px; align-content: center; padding: 16px; }
-.slide[data-page="63"] .principle-output-sheet { gap: 11px; padding: 16px; }
-.slide[data-page="63"] .principle-output-sheet li { margin-block: 5px; }
-.slide[data-page="45"] .qa-evidence-shell { justify-content: space-between; }
-.slide[data-page="45"] .qa-evidence-shell > .qa-table { flex: 1 1 auto; }
+.slide[data-page="64"] .principle-output-records { gap: 9px; }
+.slide[data-page="64"] .principle-output-records article { min-height: 84px; }
+.slide[data-page="64"] .principle-output-records article b,
+.slide[data-page="64"] .principle-output-records article span { font-size: 22px; }
+.slide[data-page="65"] .principle-output-timeline article { min-height: 150px; align-content: center; padding: 16px; }
+.slide[data-page="66"] .principle-output-sheet { gap: 11px; padding: 16px; }
+.slide[data-page="66"] .principle-output-sheet li { margin-block: 5px; }
+.slide[data-page="43"] .qa-evidence-shell { justify-content: space-between; }
+.slide[data-page="43"] .qa-evidence-shell > .qa-table { flex: 1 1 auto; }
 
 .principle-map-markers circle { fill: #e7bc75; stroke: #10191b; stroke-width: 3; }
 .principle-map-markers > g:not(.principle-map-key) > text { fill: #172022; font-size: 18px; font-weight: 900; text-anchor: middle; }
 .principle-map-rule { stroke: #58736b; stroke-width: 1.4; }
 .principle-map-key > text:first-of-type { fill: #172022; font-size: 16px; font-weight: 900; text-anchor: middle; }
 .principle-map-key > text:nth-of-type(2) { fill: #e8efe8; font-size: 16px; font-weight: 700; text-anchor: start; }
-.slide[data-page="55"] .agent-mode-step > strong,
-.slide[data-page="56"] .agent-mode-step > strong,
-.slide[data-page="57"] .agent-mode-step > strong { font-size: 30px; line-height: 1.05; }
+.slide[data-page="58"] .agent-mode-step > strong,
+.slide[data-page="59"] .agent-mode-step > strong,
+.slide[data-page="60"] .agent-mode-step > strong { font-size: 30px; line-height: 1.05; }
 
 /* Keep the one-row locator while emphasizing only the current workflow state. */
 .locator-state.is-current { font-size: 17px; }
@@ -1700,24 +1700,24 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .agent-mode-artifacts span { font-size: 19px; line-height: 1.18; }
 
 /* Keep the two relationship maps compact, with their reading order visible. */
-.slide[data-page="27"] .brainstorm-grid {
+.slide[data-page="25"] .brainstorm-grid {
   grid-template-columns: minmax(0, 1fr) 38px minmax(0, 1fr) 38px minmax(0, 1fr);
   flex: 0 1 auto;
   align-items: center;
   gap: 8px;
 }
-.slide[data-page="27"] .brainstorm-grid article { min-height: 0; justify-content: center; padding: 20px; }
-.slide[data-page="31"] .refinement-board {
+.slide[data-page="25"] .brainstorm-grid article { min-height: 0; justify-content: center; padding: 20px; }
+.slide[data-page="29"] .refinement-board {
   grid-template-columns: minmax(0, .9fr) 38px minmax(0, 1.25fr) 38px minmax(0, .9fr);
   flex: 0 1 auto;
   gap: 8px;
 }
-.slide[data-page="31"] .refinement-board > div { min-height: 0; justify-content: center; padding: 20px; }
+.slide[data-page="29"] .refinement-board > div { min-height: 0; justify-content: center; padding: 20px; }
 .brainstorm-grid > i,
 .refinement-board > i { color: var(--process); font: 800 30px/1 var(--font-data); font-style: normal; text-align: center; }
 
 /* Give the ticket's completion rules enough room to remain fully visible. */
-.slide[data-page="33"] .issue-sections {
+.slide[data-page="31"] .issue-sections {
   grid-template-rows: minmax(80px, .72fr) minmax(145px, 1.3fr) minmax(120px, 1fr);
 }
 
@@ -1726,7 +1726,7 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .opening-return text { font-size: 18px; }
 
 /* Give the evidence comparison and return path equal room on the failure page. */
-.slide[data-page="46"] .qa-fail-detail { width: 100%; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); }
+.slide[data-page="44"] .qa-fail-detail { width: 100%; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); }
 
 /* Read the compact locator states from projection distance without wrapping the rail. */
 .locator-state { font-size: 16px; }
@@ -1735,29 +1735,29 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 
 /* Keep every numbered principle attached to a readable map location. */
 .principle-map-leader { fill: none; stroke: #e7bc75; stroke-width: 2.2; }
-.slide[data-page="64"] .swimlane-doc-name { font-size: 23px; }
-.slide[data-page="64"] .swimlane-doc-status { font-size: 21px; }
-.slide[data-page="64"] .swimlane-stage-label { font-size: 22px; }
-.slide[data-page="64"] .swimlane-stage-note { font-size: 20px; }
-.slide[data-page="64"] .swimlane-version-status { font-size: 18px; }
+.slide[data-page="67"] .swimlane-doc-name { font-size: 23px; }
+.slide[data-page="67"] .swimlane-doc-status { font-size: 21px; }
+.slide[data-page="67"] .swimlane-stage-label { font-size: 22px; }
+.slide[data-page="67"] .swimlane-stage-note { font-size: 20px; }
+.slide[data-page="67"] .swimlane-version-status { font-size: 18px; }
 .principle-map-markers > g:not(.principle-map-key) > text { font-size: 20px; }
 
 /* Keep the linked tickets on the refinement map short and legible. */
-.slide[data-page="35"] .swimlane-doc-name { font-size: 25px; }
-.slide[data-page="35"] .swimlane-doc-status { font-size: 23px; }
+.slide[data-page="33"] .swimlane-doc-name { font-size: 25px; }
+.slide[data-page="33"] .swimlane-doc-status { font-size: 23px; }
 .swimlane-doc-node.is-ticket-tree .swimlane-doc-name { font-size: 23px; }
 
 /* Put the Dev handoff evidence in the available space without implying a real run. */
-.slide[data-page="40"] .candidate-card > div {
+.slide[data-page="38"] .candidate-card > div {
   flex: 1 1 auto;
   align-items: stretch;
 }
-.slide[data-page="40"] .candidate-card > div article {
+.slide[data-page="38"] .candidate-card > div article {
   justify-content: space-evenly;
   padding: 20px;
 }
-.slide[data-page="40"] .candidate-card article b { font-size: 22px; }
-.slide[data-page="40"] .candidate-card article span { font-size: 22px; line-height: 1.25; }
+.slide[data-page="38"] .candidate-card article b { font-size: 22px; }
+.slide[data-page="38"] .candidate-card article span { font-size: 22px; line-height: 1.25; }
 
 /* Reveal the five map links one at a time and make their labels readable. */
 .principle-map-markers > g:not(.principle-map-key) circle { r: 16px; }
@@ -1790,90 +1790,90 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .agent-mode-artifacts span { font-size: 19px; line-height: 1.2; }
 
 /* Fill the short Part 2 story cards without adding new text. */
-.slide[data-page="27"] .b2-artifact,
-.slide[data-page="31"] .b2-artifact {
+.slide[data-page="25"] .b2-artifact,
+.slide[data-page="29"] .b2-artifact {
   align-self: stretch;
   height: 100%;
   max-height: none;
 }
-.slide[data-page="27"] .brainstorm-grid,
-.slide[data-page="31"] .refinement-board { flex: 1 1 auto; }
-.slide[data-page="27"] .brainstorm-grid strong,
-.slide[data-page="31"] .refinement-board strong { font-size: 30px; }
-.slide[data-page="27"] .brainstorm-grid p,
-.slide[data-page="31"] .refinement-board p,
-.slide[data-page="31"] .refinement-checks ul { font-size: 22px; }
-.slide[data-page="27"] .brainstorm-grid article,
-.slide[data-page="31"] .refinement-board > div { padding: 26px; }
+.slide[data-page="25"] .brainstorm-grid,
+.slide[data-page="29"] .refinement-board { flex: 1 1 auto; }
+.slide[data-page="25"] .brainstorm-grid strong,
+.slide[data-page="29"] .refinement-board strong { font-size: 30px; }
+.slide[data-page="25"] .brainstorm-grid p,
+.slide[data-page="29"] .refinement-board p,
+.slide[data-page="29"] .refinement-checks ul { font-size: 22px; }
+.slide[data-page="25"] .brainstorm-grid article,
+.slide[data-page="29"] .refinement-board > div { padding: 26px; }
 
 /* The goal record fills its work area, with its three existing fields enlarged. */
-.slide[data-page="29"] .b2-artifact { align-self: stretch; height: 100%; max-height: none; }
-.slide[data-page="29"] .issue-sheet { height: 100%; padding: 22px 24px; }
-.slide[data-page="29"] .issue-sections {
+.slide[data-page="27"] .b2-artifact { align-self: stretch; height: 100%; max-height: none; }
+.slide[data-page="27"] .issue-sheet { height: 100%; padding: 22px 24px; }
+.slide[data-page="27"] .issue-sections {
   flex: 1 1 auto;
   grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
   gap: 12px;
 }
-.slide[data-page="29"] .issue-section { display: flex; min-height: 0; flex-direction: column; justify-content: center; padding: 18px 22px; }
-.slide[data-page="29"] .issue-section h2 { font-size: 24px; }
-.slide[data-page="29"] .issue-section p { font-size: 23px; line-height: 1.32; }
+.slide[data-page="27"] .issue-section { display: flex; min-height: 0; flex-direction: column; justify-content: center; padding: 18px 22px; }
+.slide[data-page="27"] .issue-section h2 { font-size: 24px; }
+.slide[data-page="27"] .issue-section p { font-size: 23px; line-height: 1.32; }
 
 /* Keep the document track within its fixed height while separating its two lines. */
-.slide[data-page="35"] .swimlane-doc-name { font-size: 19px; }
-.slide[data-page="35"] .swimlane-doc-status { font-size: 18px; }
-.slide[data-page="64"] .swimlane-doc-name { font-size: 20px; }
-.slide[data-page="64"] .swimlane-doc-status { font-size: 18px; }
+.slide[data-page="33"] .swimlane-doc-name { font-size: 19px; }
+.slide[data-page="33"] .swimlane-doc-status { font-size: 18px; }
+.slide[data-page="67"] .swimlane-doc-name { font-size: 20px; }
+.slide[data-page="67"] .swimlane-doc-status { font-size: 18px; }
 
 /* Expand the AC1 result and the QA-to-Dev return across the available evidence card. */
-.slide[data-page="46"] .qa-failure-evidence { grid-template-columns: minmax(0, 1fr); }
-.slide[data-page="46"] .qa-failure-evidence > :not(header) { width: 100%; align-self: stretch; }
-.slide[data-page="46"] .qa-fail-detail { min-height: 190px; }
-.slide[data-page="46"] .qa-return-path { grid-template-columns: auto 36px auto minmax(0, 1fr); padding: 22px; }
+.slide[data-page="44"] .qa-failure-evidence { grid-template-columns: minmax(0, 1fr); }
+.slide[data-page="44"] .qa-failure-evidence > :not(header) { width: 100%; align-self: stretch; }
+.slide[data-page="44"] .qa-fail-detail { min-height: 190px; }
+.slide[data-page="44"] .qa-return-path { grid-template-columns: auto 36px auto minmax(0, 1fr); padding: 22px; }
 
 /* Leave clear air between collaboration role names and their lane dividers. */
 .agent-mode-lane-name { padding-right: 18px; }
 
 /* Let the five case diagrams use the full work area with readable, plain-language headings. */
-.slide[data-page="59"] .principle-case-grid,
-.slide[data-page="60"] .principle-case-grid,
-.slide[data-page="61"] .principle-case-grid,
 .slide[data-page="62"] .principle-case-grid,
-.slide[data-page="63"] .principle-case-grid {
+.slide[data-page="63"] .principle-case-grid,
+.slide[data-page="64"] .principle-case-grid,
+.slide[data-page="65"] .principle-case-grid,
+.slide[data-page="66"] .principle-case-grid {
   align-self: start;
   width: 100%;
   flex: 0 1 auto;
   min-height: 0;
   align-items: start;
 }
-.slide[data-page="59"] .principle-case-grid article,
-.slide[data-page="60"] .principle-case-grid article,
-.slide[data-page="61"] .principle-case-grid article,
 .slide[data-page="62"] .principle-case-grid article,
-.slide[data-page="63"] .principle-case-grid article {
+.slide[data-page="63"] .principle-case-grid article,
+.slide[data-page="64"] .principle-case-grid article,
+.slide[data-page="65"] .principle-case-grid article,
+.slide[data-page="66"] .principle-case-grid article {
   align-self: start;
   height: auto;
   justify-content: flex-start;
   gap: 12px;
   padding: 18px;
 }
-.slide[data-page="59"] .principle-case-grid article > span,
-.slide[data-page="60"] .principle-case-grid article > span,
-.slide[data-page="61"] .principle-case-grid article > span,
 .slide[data-page="62"] .principle-case-grid article > span,
-.slide[data-page="63"] .principle-case-grid article > span { font-size: 30px; line-height: 1.12; }
-.slide[data-page="59"] .principle-case-grid article p,
-.slide[data-page="60"] .principle-case-grid article p,
-.slide[data-page="61"] .principle-case-grid article p,
+.slide[data-page="63"] .principle-case-grid article > span,
+.slide[data-page="64"] .principle-case-grid article > span,
+.slide[data-page="65"] .principle-case-grid article > span,
+.slide[data-page="66"] .principle-case-grid article > span { font-size: 30px; line-height: 1.12; }
 .slide[data-page="62"] .principle-case-grid article p,
-.slide[data-page="63"] .principle-case-grid article p { font-size: 24px; line-height: 1.3; }
+.slide[data-page="63"] .principle-case-grid article p,
+.slide[data-page="64"] .principle-case-grid article p,
+.slide[data-page="65"] .principle-case-grid article p,
+.slide[data-page="66"] .principle-case-grid article p { font-size: 24px; line-height: 1.3; }
 
 /* Keep the sparse updated overview legible inside its existing document card. */
-.slide[data-page="35"] .swimlane-doc-name { font-size: 30px; }
-.slide[data-page="35"] .swimlane-doc-status { font-size: 22px; }
+.slide[data-page="33"] .swimlane-doc-name { font-size: 30px; }
+.slide[data-page="33"] .swimlane-doc-status { font-size: 22px; }
 
 /* Keep the existing collaboration records readable without squeezing their columns. */
-.slide[data-page="56"] .agent-mode-artifacts b,
-.slide[data-page="56"] .agent-mode-artifacts span { font-size: 22px; line-height: 1.22; }
+.slide[data-page="59"] .agent-mode-artifacts b,
+.slide[data-page="59"] .agent-mode-artifacts span { font-size: 22px; line-height: 1.22; }
 
 
 /* Use one clear label style for every step and role, and keep cards readable. */
@@ -1955,5 +1955,50 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .map-footer-step.is-current rect { fill: #e7bc75; stroke: #ffe1a1; stroke-width: 1.6; }
 .map-footer-step.is-current .map-footer-number { fill: #1b2521; }
 
-.slide[data-page="64"] .principle-map-markers > g:not(.principle-map-key) circle { r: 10px; }
-.slide[data-page="64"] .principle-map-markers > g:not(.principle-map-key) > text { font-size: 14px; }
+.slide[data-page="67"] .principle-map-markers > g:not(.principle-map-key) circle { r: 10px; }
+.slide[data-page="67"] .principle-map-markers > g:not(.principle-map-key) > text { font-size: 14px; }
+
+.swimlane-new-badge rect { fill: #f18d76; stroke: #ffd2c4; stroke-width: 1.5; }
+.swimlane-new-badge text { fill: #201715; font-size: 18px; font-weight: 900; }
+.swimlane-capability-badge rect { fill: #172322; stroke-width: 2; }
+.swimlane-capability-badge text { fill: #f1f3ed; font-size: 18px; font-weight: 800; }
+.swimlane-capability-badge.is-delegate rect { fill: #352722; stroke: #f18d76; }
+.swimlane-capability-badge.is-assist rect { fill: #2c2b20; stroke: #e7bc75; }
+.swimlane-capability-badge.is-human rect { fill: #222b3b; stroke: #a7bbed; }
+
+.slide.agent-capability-slide { gap: 8px; padding-bottom: 14px; }
+.slide.agent-capability-slide h1 { white-space: nowrap; }
+.slide.agent-capability-slide .artwork { overflow: hidden; }
+.slide.agent-capability-slide .caption.capability-legend {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 10px;
+  min-height: 64px;
+  padding: 0;
+  text-align: left;
+}
+.capability-legend-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 8px 12px;
+  border: 1px solid #405552;
+  border-radius: 7px;
+  background: #132022;
+  font-size: 17px;
+  line-height: 1.2;
+}
+.capability-legend-item b { flex: 0 0 auto; font-size: 18px; white-space: nowrap; }
+.capability-legend-item > span { min-width: 0; color: #d0ddd6; }
+.capability-legend-item.is-delegate { border-color: #f18d76; background: #211a18; }
+.capability-legend-item.is-assist { border-color: #e7bc75; background: #201f19; }
+.capability-legend-item.is-human { border-color: #a7bbed; background: #191f2a; }
+
+@media (max-width: 1100px) {
+  .slide.agent-capability-slide .caption.capability-legend { gap: 6px; }
+  .capability-legend-item { gap: 7px; padding-inline: 8px; font-size: 16px; }
+  .capability-legend-item b { font-size: 17px; }
+}

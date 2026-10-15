@@ -1,6 +1,6 @@
 # Rev13 — Rev12 五項 Agent 協作原則保留契約
 
-> **Current v5 Part 2**：[兩部分架構](rev13-two-part-learning-architecture-v5.md) 在 Part 1 先介紹 Agent 概念，但**五項真正的工作原則仍在 Part 2 主線 A05–A11**，不得因概念頁存在而刪除或轉附錄。
+> **Current v5 Part 2**：[兩部分架構](rev13-two-part-learning-architecture-v5.md) 先讓純人類團隊走完同一張工作票，再於人類流程後加入 Agent（O02、C10）；**五項真正的工作原則仍在 Part 2 主線 A05–A11**，不得因 Agent 概念頁移動而刪除或轉附錄。
 
 > **Must-keep learning content in Rev13 CORE, not an appendix.** 依據 [rev12-demo-107](https://github.com/world4jason/Agent-101-deck/releases/tag/rev12-demo-107) 的第 76–81 頁與 [原始逐頁 Storyboard](issue48-execution-storyboard.md)。追蹤 [Issue #60](https://github.com/world4jason/Agent-101-deck/issues/60)、[Draft PR #61](https://github.com/world4jason/Agent-101-deck/pull/61)，新版主線 [v4 Storyboard](rev13-workflow-first-content-refinement-v4.md) 的 **A05–A11**。
 >

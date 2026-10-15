@@ -69,6 +69,31 @@ class TwoPartContractTests(unittest.TestCase):
             x["foundations"]=["People","Process","Git"]
         self.assertTrue(any("four foundations" in msg for msg in self.errors(mutate)))
 
+    def test_part1_is_human_only_and_moves_agent_scenes_after_human_flow(self):
+        data, _, _, _, _, _, slides_html = self.original
+        self.assertNotIn("O02", data["core_part1"])
+        self.assertNotIn("C10", data["core_part1"])
+        self.assertLess(data["core_part2"].index("HG02"), data["core_part2"].index("O02"))
+        self.assertEqual(data["core_part2"][data["core_part2"].index("O02"):][:3], ["O02", "C10", "A01"])
+        self.assertEqual(len(data["implementation_slide_map"]), 68)
+        self.assertIn('data-rev13-merged-scenes="C10,A01"', slides_html)
+
+    def test_expanded_slides_keep_scene_traceability_in_merged_metadata(self):
+        data, _, _, _, _, _, slides_html = self.original
+        expected = {8: "C02", 11: "C07", 12: "C08", 54: "C10", 55: "C10", 56: "C10,A01"}
+        for page, linked in expected.items():
+            mapping = next(item for item in data["implementation_slide_map"] if item["page"] == page)
+            self.assertIsNone(mapping["scene_id"])
+            self.assertEqual(mapping["merged_scene_ids"], linked.split(","))
+            self.assertIn(f'data-page="{page}"', slides_html)
+            self.assertIn(f'data-rev13-merged-scenes="{linked}"', slides_html)
+
+    def test_cannot_move_agent_chapter_before_human_gate(self):
+        def mutate(x):
+            x["core_part2"].remove("O02")
+            x["core_part2"].insert(0, "O02")
+        self.assertTrue(any("after HG02" in msg for msg in self.errors(mutate)))
+
     def test_cannot_teach_stage_details_before_roles_and_documents(self):
         def mutate(x):
             x["part1_scenes"][4],x["part1_scenes"][12] = x["part1_scenes"][12],x["part1_scenes"][4]

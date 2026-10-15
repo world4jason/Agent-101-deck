@@ -22,6 +22,27 @@ class BannedLearnerTextTests(unittest.TestCase):
         visible = " ".join(text for _, text in gate.javascript_visible_text(source))
         self.assertEqual(gate.banned_terms_in(visible), ["SHA-256"])
 
+    def test_agent_chapter_follows_human_flow_and_adds_roles_in_order(self):
+        parser = gate.SlideParser()
+        parser.feed(gate.HTML_PATH.read_text(encoding="utf-8"))
+        parser.close()
+        slides = parser.slides
+        self.assertEqual(
+            [slide["attrs"].get("data-rev13-scene-id") for slide in slides[:7]],
+            ["O01", "C01", "C03", "C05", "C08", "C02", "C07"],
+        )
+        self.assertTrue(all(slide["attrs"].get("data-agent") == "false" for slide in slides[:51]))
+        self.assertEqual(slides[51]["attrs"].get("data-rev13-scene-id"), "O02")
+        self.assertEqual(slides[52]["attrs"].get("data-rev13-scene-id"), "C10")
+        self.assertEqual(
+            [slides[page - 1]["attrs"].get("data-role-capability") for page in (54, 55, 56)],
+            ["delegate", "assist", "human"],
+        )
+        self.assertEqual(
+            [slides[page - 1]["attrs"].get("data-rev13-merged-scenes") for page in (54, 55, 56)],
+            ["C10", "C10", "C10,A01"],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
