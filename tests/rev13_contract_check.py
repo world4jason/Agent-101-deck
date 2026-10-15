@@ -20,6 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = "docs/rev13-scene-manifest.json"
 STORYBOARD = "docs/rev13-workflow-first-content-refinement-v4.md"
 PRESERVATION = "docs/rev13-agent-five-principles-preservation.md"
+V5_MANIFEST = "docs/rev13-two-part-manifest-v5.json"
 CONTRACT = "docs/rev13-visual-narrative-contract.md"
 
 PHASES = [
@@ -220,7 +221,14 @@ def check_contract(root: Path, data: dict, story: str, readme: str,
         if item.get("evidence_scope") != "mixed" or "release" not in item.get("unverified_scopes", []):
             add(f"{ident}: incomplete evidence scope must remain explicit")
 
-    stage = data.get("development_phase")
+    active_v5 = None
+    v5_path = root / V5_MANIFEST
+    if v5_path.exists():
+        try:
+            active_v5 = json.loads(v5_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError) as exc:
+            add(f"cannot read active v5 delivery phase: {exc}")
+    stage = (active_v5 or data).get("development_phase")
     if stage not in {"refinement","ready","implementation","review","released"}:
         add(f"unknown delivery stage {stage}")
     if stage == "refinement" and (root / "slides/rev13/index.html").exists():
@@ -234,7 +242,14 @@ def check_contract(root: Path, data: dict, story: str, readme: str,
             if gate_data.get("G1",{}).get("result") != "PASS" or not gate_data.get("G1",{}).get("reviewer"):
                 add("ready+ cannot skip independent G1 and evidence")
     if stage in {"implementation","review","released"}:
-        check_rendered(root, actual, errors)
+        if active_v5:
+            rendered_scenes = [
+                {"id": ident}
+                for ident in active_v5.get("core_part1", []) + active_v5.get("core_part2", [])
+            ]
+            check_rendered(root, rendered_scenes, errors)
+        else:
+            check_rendered(root, actual, errors)
     if stage in {"review","released"}:
         check_editable_pptx(root, errors)
         path = root / "docs/reviews/rev13-gates.json"
@@ -339,9 +354,11 @@ def main() -> int:
         for message in errors:
             print(f" - {message}", file=sys.stderr)
         return 1
+    active = json.loads(read(root, V5_MANIFEST)) if (root / V5_MANIFEST).exists() else manifest
+    scene_count = len(active.get("core_part1", [])) + len(active.get("core_part2", [])) if "core_part1" in active else len(manifest["scenes"])
     print(
-        f"PASS [Rev13 {manifest['development_phase']} contract only]: "
-        f"{len(manifest['scenes'])} traceable scenes, all five Rev12 Agent "
+        f"PASS [Rev13 {active['development_phase']} contract only]: "
+        f"{scene_count} traceable scenes, all five Rev12 Agent "
         "principles preserved in CORE, P18–P23 and state deltas checked."
     )
     print("NOTE: automated PASS is NOT G1–G5, visual QA, editable PPTX QA, "

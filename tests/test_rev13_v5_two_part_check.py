@@ -17,15 +17,27 @@ class TwoPartContractTests(unittest.TestCase):
         cls.original = gate.load(gate.ROOT)
 
     def errors(self, mutate=None, story=None):
-        data, base, source, readme, agents, preserved = self.original
+        data, base, source, readme, agents, preserved, slides_html = self.original
         broken = copy.deepcopy(data)
         if mutate:
             mutate(broken)
         return gate.violations(broken, base, source if story is None else story,
-                               readme, agents, preserved)
+                               readme, agents, preserved, slides_html)
 
-    def test_current_v5_refinement_is_structurally_valid(self):
+    def test_current_v5_phase_is_structurally_valid(self):
         self.assertEqual(self.errors(), [])
+
+    def test_implementation_accepts_complete_deck(self):
+        self.assertEqual(self.errors(lambda data: data.update(development_phase="implementation")), [])
+
+    def test_implementation_rejects_incomplete_deck(self):
+        data, base, source, readme, agents, preserved, slides_html = self.original
+        broken = copy.deepcopy(data)
+        broken["development_phase"] = "implementation"
+        slides_html = slides_html[:slides_html.index('data-rev13-scene-id="X01"')]
+        problems = gate.violations(broken, base, source, readme, agents, preserved,
+                                   slides_html)
+        self.assertTrue(any("all 62 slide sections" in message for message in problems))
 
     def test_cannot_erase_stage_output(self):
         def mutate(x):

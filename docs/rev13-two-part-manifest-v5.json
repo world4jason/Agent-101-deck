@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "revision": "rev13-v5-two-part",
-  "development_phase": "refinement",
+  "development_phase": "implementation",
   "previous_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
   "previous_manifest": "docs/rev13-scene-manifest.json",
   "canonical_storyboard": "docs/rev13-two-part-learning-architecture-v5.md",

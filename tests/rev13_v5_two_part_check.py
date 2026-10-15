@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -42,6 +43,7 @@ REQUIRED_STAGE_FIELDS = {
 
 
 def load(root: Path):
+    slide_path = root / "slides/rev13/index.html"
     return (
         json.loads((root / MANIFEST).read_text(encoding="utf-8")),
         json.loads((root / BASE).read_text(encoding="utf-8")),
@@ -49,17 +51,30 @@ def load(root: Path):
         (root / "README.md").read_text(encoding="utf-8"),
         (root / "AGENTS.md").read_text(encoding="utf-8"),
         (root / PRINCIPLES).read_text(encoding="utf-8"),
+        slide_path.read_text(encoding="utf-8") if slide_path.exists() else "",
     )
 
 
+class ImplementedSlideParser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.slides: list[dict[str, str | None]] = []
+
+    def handle_starttag(self, tag, attrs):
+        values = dict(attrs)
+        if tag == "section" and "slide" in (values.get("class") or "").split():
+            self.slides.append(values)
+
+
 def violations(doc: dict, base: dict, story: str, readme: str,
-               agents: str, preserved: str) -> list[str]:
+               agents: str, preserved: str, slides_html: str = "") -> list[str]:
     failures: list[str] = []
     fail = failures.append
     if doc.get("revision") != "rev13-v5-two-part":
         fail("v5 schema identity missing")
-    if doc.get("development_phase") != "refinement":
-        fail("two-part planning cannot declare Ready/Implementation without G1")
+    development_phase = doc.get("development_phase")
+    if development_phase not in {"refinement", "implementation"}:
+        fail("two-part delivery phase must be refinement or implementation")
     if doc.get("canonical_storyboard") != CURRENT:
         fail("wrong canonical v5 storyboard")
     if doc.get("previous_manifest") != BASE or doc.get("previous_storyboard") != base.get("content_storyboard"):
@@ -83,6 +98,26 @@ def violations(doc: dict, base: dict, story: str, readme: str,
         fail("Part 2 must preserve O03–X01 original 40-scene order from v4")
     if len(all_ids) != 62 or len(set(all_ids)) != 62:
         fail("two-part scene coverage/uniqueness 22+40 violated")
+    if development_phase == "implementation":
+        parser = ImplementedSlideParser()
+        parser.feed(slides_html)
+        parser.close()
+        rendered_ids = [item.get("data-rev13-scene-id") for item in parser.slides]
+        if rendered_ids != all_ids:
+            fail("implementation requires all 62 slide sections in exact v5 scene order")
+        required = {
+            "data-page", "data-rev13-scene-id", "data-phase", "data-focus-roles",
+            "data-doc-ref", "data-version-ref", "data-github-ref", "data-beat",
+            "data-mother-map-id",
+        }
+        for page, attrs in enumerate(parser.slides, start=1):
+            if attrs.get("data-page") != str(page) or attrs.get("id") != f"page-{page}":
+                fail(f"slide {page}: implementation page numbers/IDs must be contiguous")
+            missing = [name for name in required if not attrs.get(name)]
+            if missing:
+                fail(f"slide {page}: implementation metadata missing {', '.join(sorted(missing))}")
+            if attrs.get("data-mother-map-id") != "rev13-four-foundations":
+                fail(f"slide {page}: implementation changed the shared mother map ID")
     expected_primers = [
         "roles","roles-matrix","documents","documents-lifecycle",
         "documents-boundary","version-github","version-history","agent-intro",
@@ -176,7 +211,8 @@ def main() -> int:
         for p in problems:
             print(" - "+p,file=sys.stderr)
         return 1
-    print("PASS [Rev13 v5 refinement only]: 22 Part 1 + 40 Part 2 scenes, "
+    phase = json.loads((args.root / MANIFEST).read_text(encoding="utf-8"))["development_phase"]
+    print(f"PASS [Rev13 v5 {phase} content]: 22 Part 1 + 40 Part 2 scenes, "
           "nine Stage Contracts, People/Documents/GitHub matrix, "
           "five Rev12 Agent principles retained.")
     print("NOTE: local structural PASS is NOT visual/learning QA, Ready, "

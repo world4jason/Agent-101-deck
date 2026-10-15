@@ -8,6 +8,7 @@ from __future__ import annotations
 import copy
 import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -38,8 +39,20 @@ class Rev13GateTests(unittest.TestCase):
             self.contract, self.agents, self.old, self.preserve,
         )
 
-    def test_current_refinement_passes_structure_only(self):
-        self.assertEqual(self.errors(), [])
+    def test_current_implementation_checks_all_scenes_and_requires_g1(self):
+        problems = self.errors()
+        self.assertEqual(
+            problems,
+            ["ready+ requires traceable G1 review evidence at docs/reviews/rev13-gates.json"],
+        )
+        stale_v4 = copy.deepcopy(self.manifest)
+        stale_v4["development_phase"] = "refinement"
+        self.assertEqual(self.errors(manifest=stale_v4), problems)
+        v5 = json.loads(gate.read(self.root, gate.V5_MANIFEST))
+        scenes = [{"id": ident} for ident in v5["core_part1"] + v5["core_part2"]]
+        rendered_problems = []
+        gate.check_rendered(self.root, scenes, rendered_problems)
+        self.assertEqual(rendered_problems, [])
 
     def test_removing_one_of_the_five_principles_fails(self):
         broken = copy.deepcopy(self.manifest)
@@ -83,15 +96,14 @@ class Rev13GateTests(unittest.TestCase):
                             for text in self.errors(manifest=broken)))
 
     def test_review_without_native_powerpoint_fails(self):
-        broken = copy.deepcopy(self.manifest)
-        broken["development_phase"] = "review"
-        self.assertTrue(any("native editable" in text for text in self.errors(manifest=broken)))
+        problems = []
+        gate.check_editable_pptx(self.root, problems)
+        self.assertTrue(any("native editable" in text for text in problems))
 
-    def test_premature_implementation_without_render_fails(self):
-        broken = copy.deepcopy(self.manifest)
-        broken["development_phase"] = "implementation"
-        problems = self.errors(manifest=broken)
-        self.assertTrue(any("requires" in text and "G1" in text for text in problems))
+    def test_implementation_without_render_fails(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            problems = []
+            gate.check_rendered(Path(temp_dir), [{"id": "O01"}], problems)
         self.assertTrue(any("requires actual slides/rev13/index.html" in text for text in problems))
 
 

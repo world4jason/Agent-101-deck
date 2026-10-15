@@ -2,9 +2,9 @@
 
 
 > [!NOTE]
-> **Rev13 Reorg｜規劃分支（非正式版，尚未更動投影片）**
+> **Rev13 Reorg｜本地互動稿（非正式版，尚未通過 G1–G5）**
 >
-> 這個 branch 的最新版敘事為：開場**人／流程／文件／版本管理四要素 → 同圖加入 Agent 第五要素**，再沿同一開發流程逐站講述。下方 rev12 的 107 頁說明仍是 frozen source 的現況，不代表 Rev13 slides 已建置或通過 QA。
+> 本地 Rev13 投影片入口為 [slides/rev13/index.html](slides/rev13/index.html)；正式投影片仍是 Rev12。Rev13 敘事先呈現**人／流程／文件／版本管理四要素 → 同圖加入 Agent 第五要素**，再沿同一開發流程逐站講述。下方 Rev12 的 107 頁說明仍是 frozen source，不代表 Rev13 已通過 QA。
 >
 > - [Rev13 父 Issue #60](https://github.com/world4jason/Agent-101-deck/issues/60)
 > - **[Rev13 全域分鏡契約（所有投影片必遵守）](docs/rev13-visual-narrative-contract.md) — Mandatory / Blocking P1**
