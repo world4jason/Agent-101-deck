@@ -72,7 +72,7 @@
         <section class="slide" data-page="9" id="page-9" data-rev13-scene-id="C02" data-phase="pretraining" data-focus-roles="Owner, PM, PO, Dev, QA" data-doc-ref="Product Goal · Stage Card" data-version-ref="依階段再連到 Branch · Commit · PR" data-github-ref="Issue · Project · PR 對應不同階段" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card-anatomy" data-agent="true" data-focus-zones="process,documents" data-focus-stage="ready" data-focus-roles-map="PO, Dev, QA">
                   <h1>Stage Card 分開說明產品目標、本站任務和接手條件。</h1>
                   <figure class="artwork" aria-label="Stage Card 的目標、輸入、活動、產出與交接關係圖"></figure>
-                  <p class="caption">產品目標是要達到的結果；本站任務是這一站要完成的工作。已知什麼、要做什麼、留下什麼，以及何時交接都寫在卡上。</p>
+                  <p class="caption">PO 是產品負責人，AC 是驗收條件；Issue 是工作票，Branch 是隔離修改的版本線，PR 是程式修改送審紀錄。Stage Card（工作階段卡）說明本站任務和接手條件。</p>
                   <aside class="notes" hidden aria-label="講者筆記">
                     <h2>講者筆記</h2>
                     <p><strong>Data：</strong>Stage Card 會交代 Product Goal reference、Target、Input、Activities、Output、Exit、People、Current State 與 GitHub mapping。</p>
@@ -98,7 +98,7 @@
         <section class="slide" data-page="11" id="page-11" data-rev13-scene-id="C06" data-phase="documents" data-focus-roles="Owner, PM, PO, Dev, Reviewer, QA" data-doc-ref="同一張教學示意 Issue · Scope · AC/AT/DoD · Evidence" data-version-ref="Issue 狀態連結 PR 差異、Commit 與 Evidence" data-github-ref="Issue · Project · PR · Commit · Evidence 各有不同用途" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="document-lifecycle" data-agent="true" data-focus-zones="documents,version" data-focus-stage="review" data-focus-roles-map="PO, PM, Dev, Reviewer, QA, Owner">
                   <h1>同一張 Issue 沿流程補充工作契約，並連結其他紀錄。</h1>
                   <figure class="artwork" aria-label="文件從需求到交付證據的生命週期與版本連結"></figure>
-                  <p class="caption">例如配對規則票先寫範圍與驗收條件，再連到程式修改的 PR 和測試紀錄。</p>
+                  <p class="caption">AC 是驗收條件，AT 是檢查方法，DoD 是本票完成條件。Issue 記工作，PR（合併請求）是程式修改送審紀錄。</p>
                   <aside class="notes" hidden aria-label="講者筆記">
                     <h2>講者筆記</h2>
                     <p><strong>Data：</strong>Goal／Proposal 在 Brainstorming 開始；Parent／Child Ticket 與 AC、AT、DoD 在 Refinement 形成並在後續站點使用；Review／測試證據 連到版本；授權或不授權與上線記錄由授權流程形成。</p>
@@ -411,7 +411,7 @@
         <section class="slide" data-page="35" id="page-35" data-rev13-scene-id="R05" data-phase="refinement" data-focus-roles="Owner, PM, PO, Dev, QA" data-doc-ref="三張子票與待補的 Ready 條件" data-version-ref="Goal Issue → 3 張子票 + #3 待 Ready Check；仍 Backlog" data-github-ref="Issue · Project；Goal Issue → 3 張子票 + #3 待 Ready Check；仍 Backlog" data-beat="updated-overview" data-mother-map-id="rev13-four-foundations" data-art="part2-map" data-focus-zones="people,process,documents" data-focus-stage="refinement" data-focus-roles-map="Owner,PM,PO,Dev,QA" data-state-markers="refinement" data-evidence-scope="illustration" data-ticket-position="backlog" data-delta-key="R05">
                   <h1>全圖更新後是否就已經 Ready？</h1>
                   <figure class="artwork" aria-label="同一母圖與本頁狀態差"></figure>
-                  <p class="caption">前：只有 Parent Goal → 後：新增 #1／#3／#2 子票；#3 仍 Backlog。</p>
+                  <p class="caption">產品目標 → 三張工作票；三張都在待整理，尚未交給開發。</p>
                   <aside class="notes" hidden aria-label="講者筆記">
                     <h2>講者筆記</h2>
                     <p><strong>Data：</strong>三張子票與待補的 Ready 條件；共同工作角色：Owner, PM, PO, Dev, QA。</p>
@@ -668,20 +668,20 @@
                     <p><strong>下一站：</strong>模式一：一人＋一個 Agent 如何完成一輪？</p>
                   </aside>
                 </section>
-        <section class="slide" data-page="55" id="page-55" data-rev13-scene-id="A02" data-phase="agent_collaboration" data-focus-roles="Human, Agent" data-doc-ref="Issue、PR 與 Evidence 格式示意" data-version-ref="沒有 Agent 實際修改或測試" data-github-ref="Issue、PR 與 Evidence 格式示意；沒有實測" data-beat="work" data-mother-map-id="rev13-four-foundations" data-art="agent-mode" data-focus-zones="people,process,documents,version,agent" data-focus-stage="qa" data-focus-roles-map="Human,Agent" data-state-markers="qa" data-evidence-scope="illustration" data-agent-mode="single">
+        <section class="slide" data-page="55" id="page-55" data-rev13-scene-id="A02" data-phase="agent_collaboration" data-focus-roles="Human, Agent" data-doc-ref="Issue、PR 與 Evidence 格式示意" data-version-ref="沒有 Agent 實際修改或測試" data-github-ref="Issue、PR 與 Evidence 格式示意；沒有實測" data-beat="work" data-mother-map-id="rev13-four-foundations" data-art="agent-mode" data-focus-zones="people,process,documents,version,agent" data-focus-stage="human_gate" data-focus-roles-map="Human,Agent" data-state-markers="dev,qa" data-evidence-scope="illustration" data-agent-mode="single">
                   <h1>模式一：一人＋一個 Agent 如何完成一輪？</h1>
-                  <figure class="artwork" aria-label="人、Agent、QA 與 Owner 依流程交接工作"></figure>
-                  <p class="caption">人交辦，Agent 執行，QA 獨立核對，再由 Owner 作決定；Issue、版本與測試紀錄保留來源。</p>
+                  <figure class="artwork" aria-label="同一位人類交辦、獨立核對並決定放行，Agent 執行與回報"></figure>
+                  <p class="caption">人交辦、Agent 執行；同一位人類獨立核對，再以授權人身分決定放行。Issue、版本與測試紀錄保留來源。</p>
                   <aside class="notes" hidden aria-label="講者筆記">
                     <h2>講者筆記</h2>
-                    <p><strong>Data：</strong>工作票、驗收條件、示意回報與獨立核對；共同工作角色：人、Agent、QA。</p>
+                    <p><strong>Data：</strong>工作票、驗收條件、示意回報；同一位人類負責獨立核對與正式授權。</p>
                     <p><strong>Insight：</strong>這是交辦與回報格式示意，不代表 Agent 曾執行修改或測試。</p>
                     <p><strong>Go：</strong>請從主圖核對本頁產物、角色和流程位置，並指出尚未證實的部分。</p>
                     <p><strong>Evidence scope：</strong>教學示意；未執行：Agent 修改與測試、介面、完整流程、上線與產品目標。</p>
                     <p><strong>下一站：</strong>模式二：多個工作對話之間，誰帶著紀錄交接？</p>
                   </aside>
                 </section>
-        <section class="slide" data-page="56" id="page-56" data-rev13-scene-id="A03" data-phase="agent_collaboration" data-focus-roles="Human, Agent" data-doc-ref="跨 Chat 的 Ticket 交接 與證據摘要" data-version-ref="人決定每站交接與證據來源" data-github-ref="Issue；人決定每站交接與證據來源" data-beat="work" data-mother-map-id="rev13-four-foundations" data-art="agent-mode" data-focus-zones="people,process,documents,version,agent" data-focus-stage="qa" data-focus-roles-map="Human,Agent" data-state-markers="qa" data-evidence-scope="architecture_illustration" data-agent-mode="multi-chat">
+        <section class="slide" data-page="56" id="page-56" data-rev13-scene-id="A03" data-phase="agent_collaboration" data-focus-roles="Human, Agent" data-doc-ref="跨 Chat 的 Ticket 交接 與證據摘要" data-version-ref="人決定每站交接與證據來源" data-github-ref="Issue；人決定每站交接與證據來源" data-beat="work" data-mother-map-id="rev13-four-foundations" data-art="agent-mode" data-focus-zones="people,process,documents,version,agent" data-focus-stage="human_gate" data-focus-roles-map="Dev,Reviewer,QA,Owner,Agent" data-state-markers="dev,review,qa" data-evidence-scope="architecture_illustration" data-agent-mode="multi-chat">
                   <h1>模式二：多個 Chat 之間由誰搬運工作票？</h1>
                   <figure class="artwork" aria-label="不同工作對話由人帶著 Issue、版本和證據交接"></figure>
                   <p class="caption">Dev、Reviewer、QA 分別工作；人把同一張 Issue、版本摘要與未測項帶到下一段對話。</p>
@@ -694,7 +694,7 @@
                     <p><strong>下一站：</strong>模式三由協調 Agent 分派工作、彙整回報；它能取代人類放行嗎？</p>
                   </aside>
                 </section>
-        <section class="slide" data-page="57" id="page-57" data-rev13-scene-id="A04" data-phase="agent_collaboration" data-focus-roles="Human, 協調 Agent, 分工 Agent" data-doc-ref="協調 Agent／分工 Agent 的工作分派與回報紀錄" data-version-ref="主 Agent 在授權內分工、彙整；Human Gate 不變" data-github-ref="Issue；主 Agent 在授權內分工、彙整；Human Gate 不變" data-beat="work" data-mother-map-id="rev13-four-foundations" data-art="agent-mode" data-focus-zones="people,process,documents,version,agent" data-focus-stage="qa" data-focus-roles-map="Human,協調 Agent,分工 Agent" data-state-markers="qa" data-evidence-scope="architecture_illustration" data-agent-mode="orchestrator">
+        <section class="slide" data-page="57" id="page-57" data-rev13-scene-id="A04" data-phase="agent_collaboration" data-focus-roles="Human, 協調 Agent, 分工 Agent" data-doc-ref="協調 Agent／分工 Agent 的工作分派與回報紀錄" data-version-ref="主 Agent 在授權內分工、彙整；Human Gate 不變" data-github-ref="Issue；主 Agent 在授權內分工、彙整；Human Gate 不變" data-beat="work" data-mother-map-id="rev13-four-foundations" data-art="agent-mode" data-focus-zones="people,process,documents,version,agent" data-focus-stage="human_gate" data-focus-roles-map="Human,協調 Agent,分工 Agent" data-state-markers="dev,review,qa" data-evidence-scope="architecture_illustration" data-agent-mode="orchestrator">
                   <h1>模式三：協調 Agent 能取代人類放行嗎？</h1>
                   <figure class="artwork" aria-label="Owner 核准後，協調 Agent 分派並彙整多條工作泳道"></figure>
                   <p class="caption">協調 Agent 分派並彙整開發、審查與驗證工作；正式放行仍由人決定。</p>
@@ -733,7 +733,7 @@
                     <p><strong>下一站：</strong>只在核准範圍內工作：能順便新增聊天室嗎？</p>
                   </aside>
                 </section>
-        <section class="slide" data-page="60" id="page-60" data-rev13-scene-id="A07" data-phase="agent_collaboration" data-focus-roles="Owner, PO, Dev, Agent" data-doc-ref="Ticket #3 的核准範圍、範圍外聊天室、AC、停止條件與進行中上限 1 張" data-version-ref="超出核准範圍就停下，在 Issue 記變更請求並交人決定是否重排" data-github-ref="Issue；超出核准範圍就停下並記錄變更請求" data-beat="work" data-mother-map-id="rev13-four-foundations" data-art="part2-principle-case" data-focus-zones="people,process,documents,version,agent" data-focus-stage="qa" data-focus-roles-map="Owner,PO,Dev,Agent" data-state-markers="qa" data-evidence-scope="illustration">
+        <section class="slide" data-page="60" id="page-60" data-rev13-scene-id="A07" data-phase="agent_collaboration" data-focus-roles="Owner, PO, Dev, Agent" data-doc-ref="Ticket #3 的核准範圍、範圍外聊天室、AC、停止條件與進行中上限 1 張" data-version-ref="超出核准範圍就停下，在 Issue 記變更請求並交人決定是否重排" data-github-ref="Issue；超出核准範圍就停下並記錄變更請求" data-beat="work" data-mother-map-id="rev13-four-foundations" data-art="part2-principle-case" data-focus-zones="people,process,documents,version,agent" data-focus-stage="human_gate" data-focus-roles-map="Owner,PO,Dev,Agent" data-state-markers="dev" data-evidence-scope="illustration">
                   <h1>超出本票範圍的功能，可以順手加嗎？</h1>
                   <figure class="artwork" aria-label="情境、原則決策與工作產物"></figure>
                   <p class="caption">聊天室需求超出核准範圍，先停下再交人決定。</p>
@@ -746,7 +746,7 @@
                     <p><strong>下一站：</strong>不同角色各負其責：做完的人可以直接自己放行嗎？</p>
                   </aside>
                 </section>
-        <section class="slide" data-page="61" id="page-61" data-rev13-scene-id="A08" data-phase="agent_collaboration" data-focus-roles="PO, Dev, Reviewer, QA, Owner, Agent" data-doc-ref="Ticket／PR 實作摘要、Reviewer 意見、QA 判準與 Owner 放行責任" data-version-ref="PR、Review 與測試證據分開記；Human Gate 保留真人授權，不能只靠 Dev 自評" data-github-ref="Pull Request；PR、Review 與測試證據分開記；Human Gate 保留真人授權" data-beat="work" data-mother-map-id="rev13-four-foundations" data-art="part2-principle-case" data-focus-zones="people,process,documents,version,agent" data-focus-stage="qa" data-focus-roles-map="PO,Dev,Reviewer,QA,Owner,Agent" data-state-markers="qa" data-evidence-scope="illustration">
+        <section class="slide" data-page="61" id="page-61" data-rev13-scene-id="A08" data-phase="agent_collaboration" data-focus-roles="PO, Dev, Reviewer, QA, Owner, Agent" data-doc-ref="Ticket／PR 實作摘要、Reviewer 意見、QA 判準與 Owner 放行責任" data-version-ref="PR、Review 與測試證據分開記；Human Gate 保留真人授權，不能只靠 Dev 自評" data-github-ref="Pull Request；PR、Review 與測試證據分開記；Human Gate 保留真人授權" data-beat="work" data-mother-map-id="rev13-four-foundations" data-art="part2-principle-case" data-focus-zones="people,process,documents,version,agent" data-focus-stage="human_gate" data-focus-roles-map="PO,Dev,Reviewer,QA,Owner,Agent" data-state-markers="review,qa" data-evidence-scope="illustration">
                   <h1>做完工作的人，可以自己放行嗎？</h1>
                   <figure class="artwork" aria-label="情境、原則決策與工作產物"></figure>
                   <p class="caption">修改摘要、Review 意見、QA Evidence 與放行決定分開保存。</p>
@@ -772,7 +772,7 @@
                     <p><strong>下一站：</strong>子票完成後，怎麼確認產品目標仍正確？</p>
                   </aside>
                 </section>
-        <section class="slide" data-page="63" id="page-63" data-rev13-scene-id="A10" data-phase="agent_collaboration" data-focus-roles="PO, Owner, Dev, QA, Agent" data-doc-ref="配對規則票與 Parent Goal、按讚／清單依賴、風險及未測項" data-version-ref="第一次測 AC1／AC2 PASS；重複按讚未測，不能宣稱所有 AC 或產品目標完成" data-github-ref="Issue；第一次測 AC1／AC2 PASS；重複按讚未測，介面與完整流程仍待驗證" data-beat="work" data-mother-map-id="rev13-four-foundations" data-art="part2-principle-case" data-focus-zones="people,process,documents,version,agent" data-focus-stage="qa" data-focus-roles-map="QA,Agent" data-state-markers="qa" data-evidence-scope="illustration">
+        <section class="slide" data-page="63" id="page-63" data-rev13-scene-id="A10" data-phase="agent_collaboration" data-focus-roles="PO, Owner, Dev, QA, Agent" data-doc-ref="配對規則票與 Parent Goal、按讚／清單依賴、風險及未測項" data-version-ref="第一次測 AC1／AC2 PASS；重複按讚未測，不能宣稱所有 AC 或產品目標完成" data-github-ref="Issue；第一次測 AC1／AC2 PASS；重複按讚未測，介面與完整流程仍待驗證" data-beat="work" data-mother-map-id="rev13-four-foundations" data-art="part2-principle-case" data-focus-zones="people,process,documents,version,agent" data-focus-stage="product_check" data-focus-roles-map="QA,Agent" data-state-markers="qa" data-evidence-scope="illustration">
                   <h1>子票有結果後，產品目標已驗證了嗎？</h1>
                   <figure class="artwork" aria-label="情境、原則決策與工作產物"></figure>
                   <p class="caption">規則票結果不代表產品目標完成；介面、完整流程與整體成效仍未測。</p>
@@ -788,7 +788,7 @@
         <section class="slide" data-page="64" id="page-64" data-rev13-scene-id="A11" data-phase="agent_collaboration" data-focus-roles="Human, Agent, Owner" data-doc-ref="五項分別對到 Issue、範圍／停止條件、角色分工、QA Evidence、Parent Goal" data-version-ref="回看修正版・第一次測 → 修正版・補測的實測範圍；多 Agent 協作與上線尚未執行，標示『示意／未測』" data-github-ref="Issue · 測試證據；回看修正版・第一次測 → 修正版・補測的實測範圍；多 Agent 協作與上線尚未執行，標示『示意／未測』" data-beat="updated-overview" data-mother-map-id="rev13-four-foundations" data-art="part2-map" data-focus-zones="people,process,documents,version,agent" data-focus-stage="product_check" data-focus-roles-map="Human,Agent,Owner" data-state-markers="product-check" data-evidence-scope="mixed" data-ticket-position="product-check" data-delta-key="A11">
                   <h1>五項原則如何回到同一張母圖？</h1>
                   <figure class="artwork" aria-label="同一母圖與本頁狀態差"></figure>
-                  <p class="caption">前：五項風險未連回工作 → 後：原則釘回同一票；未測項仍未測。</p>
+                  <p class="caption">工作票、範圍、角色、驗證和產品目標各有對應位置；第一次測 → 補測，未測項仍保留。</p>
                   <aside class="notes" hidden aria-label="講者筆記">
                     <h2>講者筆記</h2>
                     <p><strong>Data：</strong>五項分別對到 Issue、範圍／停止條件、角色分工、QA Evidence、Parent Goal；共同工作角色：Human, Agent, Owner。</p>

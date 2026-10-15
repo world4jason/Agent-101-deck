@@ -1663,7 +1663,7 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 }
 .agent-mode-axis {
   display: grid;
-  grid-template-columns: 12% repeat(var(--mode-columns), minmax(0, 1fr));
+  grid-template-columns: 14% repeat(var(--mode-columns), minmax(0, 1fr));
   column-gap: .6%;
   gap: 0 .6%;
 }
@@ -1690,7 +1690,7 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .agent-mode-routes { height: var(--mode-lanes-height); }
 .agent-mode-lane {
   height: var(--mode-lane-height);
-  grid-template-columns: 12% repeat(var(--mode-columns), minmax(0, 1fr));
+  grid-template-columns: 14% repeat(var(--mode-columns), minmax(0, 1fr));
   column-gap: .6%;
   row-gap: 0;
 }
@@ -1698,6 +1698,49 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .agent-mode-cell { padding: 3px 6px; }
 .agent-mode-artifacts b { font-size: 19px; }
 .agent-mode-artifacts span { font-size: 19px; line-height: 1.18; }
+
+/* Keep the two relationship maps compact, with their reading order visible. */
+.slide[data-page="27"] .brainstorm-grid {
+  grid-template-columns: minmax(0, 1fr) 38px minmax(0, 1fr) 38px minmax(0, 1fr);
+  flex: 0 1 auto;
+  align-items: center;
+  gap: 8px;
+}
+.slide[data-page="27"] .brainstorm-grid article { min-height: 0; justify-content: center; padding: 20px; }
+.slide[data-page="31"] .refinement-board {
+  grid-template-columns: minmax(0, .9fr) 38px minmax(0, 1.25fr) 38px minmax(0, .9fr);
+  flex: 0 1 auto;
+  gap: 8px;
+}
+.slide[data-page="31"] .refinement-board > div { min-height: 0; justify-content: center; padding: 20px; }
+.brainstorm-grid > i,
+.refinement-board > i { color: var(--process); font: 800 30px/1 var(--font-data); font-style: normal; text-align: center; }
+
+/* Give the ticket's completion rules enough room to remain fully visible. */
+.slide[data-page="33"] .issue-sections {
+  grid-template-rows: minmax(80px, .72fr) minmax(145px, 1.3fr) minmax(120px, 1fr);
+}
+
+/* Keep the opening return routes separate from their reason labels. */
+.opening-return rect { fill: #111a1c; stroke-width: 1.5; }
+.opening-return text { font-size: 18px; }
+
+/* Give the evidence comparison and return path equal room on the failure page. */
+.slide[data-page="46"] .qa-fail-detail { width: 100%; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); }
+
+/* Read the compact locator states from projection distance without wrapping the rail. */
+.locator-state { font-size: 16px; }
+.locator-state.is-current { font-size: 18px; }
+.locator-gate { font-size: 15px; }
+
+/* Keep every numbered principle attached to a readable map location. */
+.principle-map-leader { fill: none; stroke: #e7bc75; stroke-width: 2.2; }
+.slide[data-page="64"] .swimlane-doc-name { font-size: 23px; }
+.slide[data-page="64"] .swimlane-doc-status { font-size: 21px; }
+.slide[data-page="64"] .swimlane-stage-label { font-size: 22px; }
+.slide[data-page="64"] .swimlane-stage-note { font-size: 20px; }
+.slide[data-page="64"] .swimlane-version-status { font-size: 18px; }
+.principle-map-markers > g:not(.principle-map-key) > text { font-size: 20px; }
 
 /* Keep the linked tickets on the refinement map short and legible. */
 .slide[data-page="35"] .swimlane-doc-name { font-size: 25px; }

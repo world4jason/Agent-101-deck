@@ -350,12 +350,12 @@
       }).join('');
     }).join('');
 
-    const showOverviewReturns = !stage && ['1', '2'].includes(String(page));
+    const showOverviewReturns = !stage && ['1', '2', '8'].includes(String(page));
     const returnPaths = [
-      ...(showOverviewReturns || actualReturn === 'review' ? [`<g class="swimlane-return${actualReturn === 'review' ? ' is-active' : ''}"><path d="M710 427 V438 H478 V371 H492" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="571" y="428" width="92" height="22" rx="3"/><text x="617" y="444" text-anchor="middle">Review 要修改</text></g>`] : []),
-      ...(showOverviewReturns || actualReturn === 'qa' ? [`<g class="swimlane-return${actualReturn === 'qa' ? ' is-active' : ''}"><path d="M860 477 V488 H642 V371 H628" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="754" y="478" width="66" height="22" rx="3"/><text x="787" y="494" text-anchor="middle">FAIL</text></g>`] : []),
-      ...(showOverviewReturns || actualReturn === 'goal' ? [`<g class="swimlane-return${actualReturn === 'goal' ? ' is-active' : ''}"><path d="M1020 277 V286 H344 V253 H328" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="610" y="275" width="92" height="22" rx="3"/><text x="656" y="291" text-anchor="middle">不符合目標</text></g>`] : []),
-      ...(actualReturn === 'gate' ? [`<g class="swimlane-return is-active is-human-return"><path d="M1233 153 H1260 V236 H1088" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="1274" y="166" width="158" height="28" rx="3"/><text x="1353" y="185" text-anchor="middle">指定補做者</text></g>`] : []),
+      ...(showOverviewReturns || actualReturn === 'review' ? [`<g class="swimlane-return${actualReturn === 'review' ? ' is-active' : ''}"><path d="M710 427 V466 H690 M490 466 H478 V371 H492" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="490" y="435" width="200" height="26" rx="3"/><text x="590" y="453" text-anchor="middle">審查要求修改 → Dev</text></g>`] : []),
+      ...(showOverviewReturns || actualReturn === 'qa' ? [`<g class="swimlane-return${actualReturn === 'qa' ? ' is-active' : ''}"><path d="M860 477 V518 H850 M640 518 H642 V371 H628" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="650" y="484" width="200" height="26" rx="3"/><text x="750" y="502" text-anchor="middle">測試 FAIL → Dev</text></g>`] : []),
+      ...(showOverviewReturns || actualReturn === 'goal' ? [`<g class="swimlane-return${actualReturn === 'goal' ? ' is-active' : ''}"><path d="M1020 277 V309 H810 M540 309 H344 V253 H328" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="540" y="278" width="270" height="26" rx="3"/><text x="675" y="296" text-anchor="middle">目標未達 → 回需求釐清</text></g>`] : []),
+      ...(actualReturn === 'gate' ? [`<g class="swimlane-return is-active is-human-return"><path d="M1233 153 H1260 V236 H1088" marker-end="url(#swimlane-arrow-return-${uid})"/><rect x="1274" y="250" width="200" height="28" rx="3"/><text x="1374" y="269" text-anchor="middle">指定補做者</text></g>`] : []),
     ].join('');
 
     const docs = [
@@ -370,11 +370,6 @@
     ];
     const docStage = delta?.docStage || '';
     const docNodes = docs.map(({ key, label, status }) => {
-      if (delta?.docTree && ['backlog', 'ready', 'dev'].includes(key)) {
-        if (key !== 'backlog') return '';
-        const left = 190, right = 685, x = (left + right) / 2;
-        return `<g class="swimlane-doc-node is-changed is-focus is-ticket-tree" data-state="backlog"><path class="swimlane-doc-card" d="M${left} 540 H${right - 14} L${right} 554 V584 H${left} Z"/><path class="swimlane-doc-fold" d="M${right - 14} 540 V554 H${right} Z"/><text class="swimlane-doc-name" x="${x}" y="559" text-anchor="middle">產品目標 → #1按讚 · #3配對 · #2清單</text><text class="swimlane-doc-status" x="${x}" y="578" text-anchor="middle">三張工作票都在待整理</text></g>`;
-      }
       const x = SWIMLANE_X[key];
       const isChanged = key === docStage;
       const currentLabel = isChanged ? (delta.docLabel || label) : label;
@@ -402,19 +397,27 @@
       const stageClass = key === stageKey ? ' is-focus' : stageKey ? ' is-dim' : '';
       return `<g class="swimlane-version-node${isChanged ? ' is-changed' : ''}${stageClass}" data-state="${key}"><circle class="swimlane-version-dot" cx="${x}" cy="624" r="9"/><text class="swimlane-version-name" x="${x}" y="654" text-anchor="middle">${esc(currentLabel)}</text><text class="swimlane-version-status" x="${x}" y="675" text-anchor="middle">${esc(currentStatus)}</text></g>`;
     }).join('');
-    const legend = `<g class="swimlane-legend"><path d="M18 696 H1582" class="swimlane-legend-rule"/><rect x="26" y="708" width="44" height="24" rx="12" class="swimlane-legend-endpoint"/><text x="80" y="727">起點／終點</text><rect x="250" y="708" width="42" height="24" rx="4" class="swimlane-legend-lead"/><text x="302" y="727">主責</text><rect x="410" y="708" width="42" height="24" rx="4" class="swimlane-legend-co"/><text x="462" y="727">協作</text><polygon points="575,708 590,720 575,732 560,720" class="swimlane-legend-decision"/><text x="602" y="727">判斷</text><path d="M700 720 H754" class="swimlane-legend-forward" marker-end="url(#swimlane-arrow-${uid})"/><text x="764" y="727">前進</text><path d="M870 720 H924" class="swimlane-legend-return" marker-end="url(#swimlane-arrow-return-${uid})"/><text x="934" y="727">退回</text></g>`;
-    const principleMarkers = String(page) === '64' ? `<g class="principle-map-markers" aria-label="五項協作原則在母圖上的對應位置">
-      <g class="fragment" data-fragment-order="1" transform="translate(410 522)"><circle r="16"/><text y="6">1</text></g>
-      <g class="fragment" data-fragment-order="2" transform="translate(560 465)"><circle r="16"/><text y="6">2</text></g>
-      <g class="fragment" data-fragment-order="3" transform="translate(140 153)"><circle r="16"/><text y="6">3</text></g>
-      <g class="fragment" data-fragment-order="4" transform="translate(860 522)"><circle r="16"/><text y="6">4</text></g>
-      <g class="fragment" data-fragment-order="5" transform="translate(260 522)"><circle r="16"/><text y="6">5</text></g>
-      <path d="M18 742 H1582" class="principle-map-rule"/>
-      <g class="principle-map-key fragment" data-fragment-order="1" transform="translate(190 764)"><circle r="15"/><text y="5">1</text><text x="21" y="7">工作狀態寫回票</text></g>
-      <g class="principle-map-key fragment" data-fragment-order="2" transform="translate(490 764)"><circle r="15"/><text y="5">2</text><text x="21" y="7">只做核准範圍</text></g>
-      <g class="principle-map-key fragment" data-fragment-order="3" transform="translate(790 764)"><circle r="15"/><text y="5">3</text><text x="21" y="7">角色各自負責</text></g>
-      <g class="principle-map-key fragment" data-fragment-order="4" transform="translate(1090 764)"><circle r="15"/><text y="5">4</text><text x="21" y="7">QA 獨立核對</text></g>
-      <g class="principle-map-key fragment" data-fragment-order="5" transform="translate(1370 764)"><circle r="15"/><text y="5">5</text><text x="21" y="7">回看產品目標</text></g>
+    const legend = String(page) === '64' ? '' : `<g class="swimlane-legend"><path d="M18 696 H1582" class="swimlane-legend-rule"/><rect x="26" y="708" width="44" height="24" rx="12" class="swimlane-legend-endpoint"/><text x="80" y="727">起點／終點</text><rect x="250" y="708" width="42" height="24" rx="4" class="swimlane-legend-lead"/><text x="302" y="727">主責</text><rect x="410" y="708" width="42" height="24" rx="4" class="swimlane-legend-co"/><text x="462" y="727">協作</text><polygon points="575,708 590,720 575,732 560,720" class="swimlane-legend-decision"/><text x="602" y="727">判斷</text><path d="M700 720 H754" class="swimlane-legend-forward" marker-end="url(#swimlane-arrow-${uid})"/><text x="764" y="727">前進</text><path d="M870 720 H924" class="swimlane-legend-return" marker-end="url(#swimlane-arrow-return-${uid})"/><text x="934" y="727">退回</text></g>`;
+    const principleMarkers = String(page) === '64' ? `<g class="principle-map-markers" aria-label="五項原則在母圖上的對應位置">
+      <path class="principle-map-leader" d="M1094 253 H1052"/>
+      <path class="principle-map-leader" d="M676 503 H635"/>
+      <path class="principle-map-leader" d="M132 378 H94"/>
+      <path class="principle-map-leader" d="M778 469 V534 H842"/>
+      <g class="principle-map-point"><circle cx="354" cy="550" r="12"/><text x="354" y="556">1</text></g>
+      <g class="principle-map-point"><circle cx="692" cy="503" r="12"/><text x="692" y="509">2</text></g>
+      <g class="principle-map-point"><circle cx="148" cy="378" r="12"/><text x="148" y="384">3</text></g>
+      <g class="principle-map-point"><circle cx="778" cy="453" r="12"/><text x="778" y="459">4</text></g>
+      <g class="principle-map-point"><circle cx="1110" cy="253" r="12"/><text x="1110" y="259">5</text></g>
+      <path d="M18 696 H1582" class="principle-map-rule"/>
+      <g class="principle-map-key"><circle cx="32" cy="723" r="12"/><text x="32" y="729">1</text><text x="52" y="730">工作票：記下進度與未測</text></g>
+      <path d="M326 704 V741" class="principle-map-separator"/>
+      <g class="principle-map-key"><circle cx="342" cy="723" r="12"/><text x="342" y="729">2</text><text x="362" y="730">Agent：只在核准範圍內執行</text></g>
+      <path d="M638 704 V741" class="principle-map-separator"/>
+      <g class="principle-map-key"><circle cx="654" cy="723" r="12"/><text x="654" y="729">3</text><text x="674" y="730">角色：實作、審查、驗證分開</text></g>
+      <path d="M950 704 V741" class="principle-map-separator"/>
+      <g class="principle-map-key"><circle cx="966" cy="723" r="12"/><text x="966" y="729">4</text><text x="986" y="730">QA：獨立核對並留測試紀錄</text></g>
+      <path d="M1262 704 V741" class="principle-map-separator"/>
+      <g class="principle-map-key"><circle cx="1278" cy="723" r="12"/><text x="1278" y="729">5</text><text x="1298" y="730">產品確認：回到目標再決定</text></g>
     </g>` : '';
 
     return `<div class="mother-map" data-mother-map-id="rev13-four-foundations" data-stage="${esc(stage)}"><svg class="swimlane-svg" viewBox="0 0 1600 780" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="swimlane-title-${uid} swimlane-desc-${uid}"><title id="swimlane-title-${uid}">人、流程、文件與版本管理泳道圖</title><desc id="swimlane-desc-${uid}">流程沿橫向七個看板狀態前進；人依責任分泳道，下方依序記錄文件與版本管理。人類授權以欄外菱形表示，三條虛線表示主要退回方向。</desc><defs><marker id="swimlane-arrow-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#8faaa1"/></marker><marker id="swimlane-arrow-return-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#85918a"/></marker><marker id="swimlane-arrow-agent-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#d78d78"/></marker></defs><g class="swimlane-process"><text class="swimlane-axis-label" x="18" y="82">流程（X 軸）</text>${activities}${stageHeaders}${gateHeader}<g class="swimlane-axis-line">${SWIMLANE_LAYOUT.stages.filter(item => !item.outside).map(item => `<line x1="${item.x}" y1="110" x2="${item.x + item.width}" y2="110"/>`).join('')}</g></g><g class="swimlane-people${dimZone('people')}${reveal(1)}"><text class="swimlane-group-label" x="18" y="136">人（Y 軸）</text>${roleGuides}${roleContent}${returnPaths}</g><g class="swimlane-documents${dimZone('documents')}${reveal(2)}"><path class="swimlane-section-rule" d="M170 532 H1550"/><text class="swimlane-group-label" x="18" y="562">文件</text>${docNodes}</g><g class="swimlane-version${dimZone('version')}${reveal(3)}"><path class="swimlane-section-rule is-heavy" d="M170 596 H1550"/><text class="swimlane-group-label" x="18" y="632">版本管理</text>${versionLinks}${versionNodes}</g>${legend}${principleMarkers}</svg></div>`;
@@ -482,9 +485,9 @@
     const decisions = showReturns ? `<g class="opening-decision"><polygon points="${SWIMLANE_X.review},383 ${SWIMLANE_X.review + 20},403 ${SWIMLANE_X.review},423 ${SWIMLANE_X.review - 20},403"/><text x="${SWIMLANE_X.review}" y="408" text-anchor="middle">修改？</text></g><g class="opening-decision"><polygon points="${SWIMLANE_X.qa},433 ${SWIMLANE_X.qa + 20},453 ${SWIMLANE_X.qa},473 ${SWIMLANE_X.qa - 20},453"/><text x="${SWIMLANE_X.qa}" y="458" text-anchor="middle">FAIL？</text></g><g class="opening-decision"><polygon points="${SWIMLANE_X['product-check']},233 ${SWIMLANE_X['product-check'] + 20},253 ${SWIMLANE_X['product-check']},273 ${SWIMLANE_X['product-check'] - 20},253"/><text x="${SWIMLANE_X['product-check']}" y="258" text-anchor="middle">Goal？</text></g>` : '';
     const workLinks = showCard && !showReturns ? `<g class="opening-work-link"><path d="M${SWIMLANE_X.dev} 363 V532" marker-end="url(#opening-arrow-${uid})"/><path d="M${SWIMLANE_X.dev} 587 V615" marker-end="url(#opening-arrow-version-${uid})"/></g>` : '';
     const returns = showReturns ? `<g class="opening-return">
-      <g class="fragment" data-fragment-order="1"><path d="M1020 233 V286 H170 V253" marker-end="url(#opening-return-arrow-${uid})"/><rect x="570" y="296" width="200" height="24" rx="3"/><text x="670" y="313" text-anchor="middle">目標未符合 → 需求釐清</text></g>
-      <g class="fragment" data-fragment-order="2"><path d="M710 423 V442 H478 V371 H492" marker-end="url(#opening-return-arrow-${uid})"/><rect x="505" y="412" width="156" height="24" rx="3"/><text x="583" y="429" text-anchor="middle">審查要求修改 → 開發</text></g>
-      <g class="fragment" data-fragment-order="3"><path d="M860 473 V505 H640 V371 H628" marker-end="url(#opening-return-arrow-${uid})"/><rect x="660" y="476" width="160" height="24" rx="3"/><text x="740" y="493" text-anchor="middle">測試未通過 → 開發</text></g>
+      <g class="fragment" data-fragment-order="1"><path d="M1020 273 V309 H812 M538 309 H344 V253 H328" marker-end="url(#opening-return-arrow-${uid})"/><rect x="538" y="278" width="274" height="26" rx="3"/><text x="675" y="296" text-anchor="middle">目標未達 → 回需求釐清</text></g>
+      <g class="fragment" data-fragment-order="2"><path d="M710 423 V463 H690 M488 463 H478 V371 H492" marker-end="url(#opening-return-arrow-${uid})"/><rect x="488" y="433" width="202" height="26" rx="3"/><text x="589" y="451" text-anchor="middle">審查要求修改 → Dev</text></g>
+      <g class="fragment" data-fragment-order="3"><path d="M860 473 V518 H852 M638 518 H642 V371 H628" marker-end="url(#opening-return-arrow-${uid})"/><rect x="638" y="484" width="214" height="26" rx="3"/><text x="745" y="502" text-anchor="middle">測試 FAIL → Dev</text></g>
     </g>` : '';
     const skeletonPrompts = step <= 2 ? `<g class="opening-skeleton-prompts" aria-label="四個區域各自回答的問題">
       <g class="opening-prompt-process"><text class="opening-prompt-name" x="220" y="84">流程</text><text class="opening-prompt-question" x="345" y="84">做到哪？</text></g>
@@ -500,12 +503,11 @@
   }
 
   function locator(slide) {
-    let stage = slide.dataset.focusStage || '';
+    const stage = slide.dataset.focusStage || '';
     const page = Number(slide.dataset.page);
-    if (page >= 54 && page <= 63) stage = 'qa';
     const rewindSegment = page >= 54 && page <= 63;
     const roleNames = (slide.dataset.focusRolesMap || slide.dataset.focusRoles || '').split(',').map(role => role.trim()).filter(Boolean).map(role => role === 'Human' ? 'Owner' : role);
-    const roleSummary = rewindSegment ? 'QA · Agent' : roleNames.length > 4 ? '全部角色' : (roleNames.length ? roleNames.join(' · ') : '所有泳道');
+    const roleSummary = roleNames.length > 4 ? '本頁角色' : (roleNames.length ? roleNames.join(' · ') : '所有泳道');
     const selected = new Set(STAGE_KANBAN[stage] || []);
     const markers = new Set((slide.dataset.stateMarkers || '').split(',').filter(Boolean));
     const stateMarkup = item => {
@@ -778,7 +780,7 @@
   const B2_MAP_STATE = {
     O03: { docStage: 'backlog', docLabel: '需求草案', docStatus: '待確認' },
     B04: { docStage: 'backlog', docLabel: '產品目標', docStatus: '已建立' },
-    R05: { docStage: 'backlog', docLabel: '目標→子票 #1／#3／#2', docStatus: '三票皆待整理', docTree: true },
+    R05: { docStage: 'backlog', docLabel: '產品目標', docStatus: '三票待整理' },
     RD02: { docStage: 'ready', docLabel: '工作票', docStatus: '已備妥', ticket: 'ready', previous: 'backlog' },
     D04: { docStage: 'dev', docLabel: '工作紀錄', docStatus: '實作摘要', versionStage: 'dev', versionLabel: 'Branch', versionStatus: '修改已提交', ticket: 'dev', previous: 'ready' },
     RV03: { docStage: 'review', docLabel: '審查意見', docStatus: '要求修改', versionStage: 'review', versionLabel: 'PR', versionStatus: '尚未合併', ticket: 'dev', previous: 'review', actualReturn: 'review' },
@@ -786,7 +788,7 @@
     PC02: { docStage: 'product-check', docLabel: '目標對照', docStatus: '規則範圍可審', versionStage: 'qa', versionLabel: 'PR', versionStatus: '目標仍未驗' },
     HG02: { docStage: 'human_gate', docLabel: '放行決定', docStatus: '功能暫不上線', versionStage: 'human_gate', versionLabel: 'Merge', versionStatus: '已授權・未執行', ticket: 'product-check', actualReturn: 'gate' },
     A01: { docStage: 'qa', docLabel: '第一次測', docStatus: 'AC1／2通過', versionStage: 'qa', versionLabel: 'PR', versionStatus: '沿用同一程式', ticket: 'qa' },
-    A11: { docStage: 'product-check', docLabel: '跨票關聯', docStatus: '未測已保留', versionStage: 'qa', versionLabel: 'PR', versionStatus: '第一次測 → 補測' },
+    A11: { docStage: 'product-check', docLabel: '目標對照', docStatus: '目標未測', versionStage: 'qa', versionLabel: 'PR', versionStatus: '首測 → 補測' },
   };
 
   function renderPart2Map(slide) {
@@ -819,9 +821,8 @@
         note: '教學示意：不代表 Agent 曾實際修改或測試。',
         columns: ['人交辦', 'Agent 修改', 'Agent 回報', 'QA 核對', '人檢查'],
         lanes: [
-          ['授權人', 'human', [[1, 'Issue #3：只改配對規則；列 AC1–AC3 與停止條件', 'human'], [5, '核對三件：範圍、證據對版、未測仍明列', 'human']]],
+          ['人（QA／授權）', 'human', [[1, 'Issue #3：只改配對規則；列 AC1–AC3 與停止條件', 'human'], [4, '獨立核對工作票、版本與測試紀錄', 'review'], [5, '核對範圍、證據對版、未測仍明列後決定放行', 'human']]],
           ['Agent', 'agent', [[2, '依核准範圍修改配對規則，摘要改動', 'agent'], [3, '逐條 AC 列輸入、預期、實際與結果；未測另列', 'agent']]],
-          ['QA', 'review', [[4, '獨立對照工作票、版本與測試紀錄', 'review']]],
         ],
         routes: [[[1, 0], [2, 1], [3, 1], [4, 2], [5, 0]]],
         artifacts: ['Issue：#3 配對規則 · AC1–AC3', 'PR：修改摘要與版本連結（示意）', 'Evidence：預期、實際、結果與未測項'],
@@ -863,7 +864,7 @@
     }).join('');
     const laneHeight = config.lanes.length > 3 ? 64 : 90;
     const laneGap = config.lanes.length > 3 ? 6 : 10;
-    const labelWidth = 120;
+    const labelWidth = 140;
     const columnGap = 6;
     const routeId = `agent-route-arrow-${slide.dataset.page}`;
     const cellWidth = (1000 - labelWidth - config.columns.length * columnGap) / config.columns.length;
@@ -936,7 +937,7 @@
         ['範圍外', '<p>UI、登入、網路服務、資料庫、完整產品串接。</p>'],
         ['Acceptance Criteria', '<ul><li>AC1：單向 Like，配對紀錄數為 0。</li><li>AC2：互相 Like，只建立一筆配對紀錄。</li><li>AC3：已有一筆配對紀錄再 Like，仍只有一筆。</li></ul>', 'ac'],
         ['Acceptance Tests', '<ul><li>單向 Like → 預期 0 筆。</li><li>雙向 Like → 預期 1 筆。</li><li>重複 Like → 預期仍為 1 筆。</li><li>每個案例用同一份假資料重置。</li></ul>'],
-        ['Definition of Done', '<p>AC／AT 全符合，並留獨立驗證紀錄。符合 DoD 才能申請合併；人授權、實際合併並完成交付後，才標本票 Done。功能上線另行判斷。</p>'],
+        ['Definition of Done', '<p>AC／AT 全符合並留獨立驗證紀錄；符合 DoD 才能申請合併。需人授權、實際合併並交付後，才能標本票 Done；功能上線另行判斷。</p>'],
       ],
     });
   }
@@ -955,7 +956,7 @@
     let body = '';
     switch (id) {
       case 'B01':
-        body = `<div class="brainstorm-grid"><article><span>使用者問題</span><strong>「配對功能正常」還不夠明確</strong><p>誰遇到什麼困難？</p></article><article><span>要釐清的假設</span><strong>哪個 Like 情境才建立配對？</strong><p>單向、雙向與重複輸入</p></article><article><span>共同決定 · 示意</span><strong>Owner · PM · PO</strong><p>記下選項、未知與方向</p></article></div>`;
+        body = `<div class="brainstorm-grid"><article><span>使用者問題</span><strong>「配對功能正常」還不夠明確</strong><p>誰遇到什麼困難？</p></article><i aria-hidden="true">→</i><article><span>要釐清的假設</span><strong>哪個 Like 情境才建立配對？</strong><p>單向、雙向與重複輸入</p></article><i aria-hidden="true">→</i><article><span>共同決定 · 示意</span><strong>Owner · PM · PO</strong><p>記下選項、未知與方向</p></article></div>`;
         break;
       case 'B02':
         body = `<div class="goal-flow"><article><span>待釐清請求</span><strong>配對功能正常</strong><p>成功條件尚未定義</p></article><i>→</i><article class="goal-result"><span>Parent Goal · 示意</span><strong>使用者 Like 彼此後，能在配對清單找到對方</strong><p>成功訊號：雙向按讚後預期建立一筆配對紀錄。</p></article><article class="goal-open"><span>仍待決定</span><strong>整體產品成效與介面路徑</strong><p>本頁沒有測量這些結果</p></article></div>`;
@@ -968,7 +969,7 @@
         ] });
         break;
       case 'R01':
-        body = `<div class="refinement-board"><div class="refinement-source"><span>輸入 · 教學示意</span><strong>同一張 Goal Issue</strong><p>目標、限制、未知事項</p></div><div class="refinement-checks"><h2>Refinement 要回答</h2><ul><li>可行性與風險</li><li>Scope 與 範圍外</li><li>相依工作與順序</li><li>AC、AT 與 Evidence</li></ul></div><div class="refinement-handoff"><span>輸出 · 教學示意</span><strong>可交接的 Parent／Child Issues</strong><p>仍在 Backlog</p></div></div>`;
+        body = `<div class="refinement-board"><div class="refinement-source"><span>輸入 · 教學示意</span><strong>同一張 Goal Issue</strong><p>目標、限制、未知事項</p></div><i aria-hidden="true">→</i><div class="refinement-checks"><h2>釐清待回答的問題</h2><ul><li>可行性與風險</li><li>範圍內外</li><li>相依工作與順序</li><li>驗收條件與測法</li></ul></div><i aria-hidden="true">→</i><div class="refinement-handoff"><span>輸出 · 教學示意</span><strong>可交接的 Parent／Child Issues</strong><p>仍在 Backlog</p></div></div>`;
         break;
       case 'R02':
         body = `<div class="issue-tree"><article class="parent-issue"><span>產品目標 · 教學示意</span><strong>互相按讚後，在配對清單找到對方</strong><p>三張工作票分開交付；按讚與清單都依賴配對規則。</p></article><div class="tree-stem"></div><div class="child-issues"><article class="child-primary"><span>工作票 · #3</span><strong>雙向按讚建立配對</strong><small>本課主要工作票</small></article><article><span>工作票 · #1</span><strong>按讚／略過</strong><small>依賴配對規則</small></article><article><span>工作票 · #2</span><strong>配對清單</strong><small>依賴配對規則</small></article></div><div class="issue-dependencies" aria-label="配對規則工作票連到按讚與配對清單工作票"><svg viewBox="0 0 1000 54" preserveAspectRatio="none" aria-hidden="true"><defs><marker id="issue-dependency-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" /></marker></defs><path d="M166 0 V13 H500 V41" marker-end="url(#issue-dependency-arrow)" /><path d="M166 13 H833 V41" marker-end="url(#issue-dependency-arrow)" /></svg><div><span>配對規則票</span><b>→</b><span>按讚票</span><i>／</i><span>配對清單票</span></div></div></div>`;
