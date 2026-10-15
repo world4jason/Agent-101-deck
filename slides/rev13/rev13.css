@@ -1874,3 +1874,86 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 /* Keep the existing collaboration records readable without squeezing their columns. */
 .slide[data-page="56"] .agent-mode-artifacts b,
 .slide[data-page="56"] .agent-mode-artifacts span { font-size: 22px; line-height: 1.22; }
+
+
+/* Use one clear label style for every step and role, and keep cards readable. */
+.swimlane-stage-label,
+.swimlane-role-label,
+.opening-stage-name,
+.opening-role-name {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+.swimlane-stage-note { font-size: 16px; }
+.swimlane-step-pill,
+.opening-step-pill { fill: #263b35; stroke: #78998e; stroke-width: 1.2; }
+.swimlane-step-number,
+.opening-step-number,
+.swimlane-gate-number-text,
+.opening-gate-number-text { fill: #e9eee8; font-size: 15px; font-weight: 900; }
+.swimlane-stage.is-focus .swimlane-step-pill,
+.opening-step-pill.is-current,
+.swimlane-outside-gate.is-focus .swimlane-gate-number,
+.opening-gate.is-current .opening-gate-number {
+  fill: #e7bc75;
+  stroke: #ffe1a1;
+  stroke-width: 1.8;
+}
+.swimlane-stage.is-focus .swimlane-step-number,
+.opening-step-pill.is-current + .opening-step-number,
+.swimlane-outside-gate.is-focus .swimlane-gate-number-text,
+.opening-gate.is-current .opening-gate-number-text { fill: #1b2521; }
+.swimlane-gate-label { font-size: 17px; }
+.swimlane-node.work-card .swimlane-card { stroke-width: 1.5; }
+.swimlane-node.work-card.is-focus .swimlane-card { stroke: #edca78; stroke-width: 2.5; }
+.swimlane-card-role { fill: #d6c99e; font-size: 14px; font-weight: 800; }
+.swimlane-card-title { fill: #f3f4ed; font-size: 18px; font-weight: 850; }
+.swimlane-card-io { fill: #cbd8d0; font-size: 15px; font-weight: 600; }
+.swimlane-handoff path,
+.opening-handoff path { fill: none; stroke: #8ba69c; stroke-width: 1.8; }
+.swimlane-handoff rect,
+.opening-handoff rect { fill: #111a1c; stroke: #425953; stroke-width: 1; }
+.swimlane-handoff text,
+.opening-handoff text { fill: #d4e0d8; font-size: 15px; font-weight: 700; }
+.swimlane-handoff.is-active path,
+.opening-handoff.is-active path { stroke: #e7bc75; stroke-width: 3; }
+.swimlane-handoff.is-active rect,
+.opening-handoff.is-active rect { stroke: #e7bc75; stroke-width: 1.5; }
+.swimlane-handoff.is-active text,
+.opening-handoff.is-active text { fill: #ffe6ad; }
+.opening-stage-name { fill: #eef2eb; }
+.opening-stage-note { font-size: 16px; }
+.opening-gate-number { fill: #263b35; stroke: #78998e; stroke-width: 1.2; }
+.opening-gate-number-text { fill: #e9eee8; }
+.opening-gate.is-current polygon { fill: #514329; stroke: #f0d782; stroke-width: 3; }
+.opening-gate text:not(.opening-gate-number-text) { fill: #f1d99a; font-size: 17px; font-weight: 800; }
+.opening-track-label { font-size: 21px; font-weight: 850; }
+.opening-doc-label { fill: #a7d59e; }
+.opening-version-label { fill: #a7bbed; }
+.opening-role-duty { font-size: 19px; }
+.opening-return rect { fill: #111a1c; stroke: #bd846d; stroke-width: 1.5; }
+.opening-return text { fill: #ffe0d4; font-size: 16px; font-weight: 850; }
+.opening-return.is-active path { stroke: #ffd19f; stroke-width: 4; }
+.opening-return.is-active rect { stroke: #ffd19f; stroke-width: 2; }
+.opening-return.is-active text { fill: #fff0c8; }
+.swimlane-return.is-active path { stroke: #ffd19f; stroke-width: 4; }
+.swimlane-return.is-active rect { stroke: #ffd19f; stroke-width: 2; }
+.swimlane-return.is-active text { fill: #fff0c8; }
+.map-footer { fill: #cbd6ce; font-size: 16px; font-weight: 600; }
+.map-footer text { fill: #cbd6ce; font-size: 16px; }
+.map-footer .map-footer-track { fill: #e4cc98; font-weight: 850; }
+.map-footer-step rect { fill: #182724; stroke: #506b60; stroke-width: 1; }
+.map-footer-step .map-footer-number { fill: #e8c87f; font-size: 14px; font-weight: 900; }
+.map-footer-rule { fill: none; stroke: #405552; stroke-width: 1; }
+.map-footer-connections path { fill: none; stroke: #8ba69c; stroke-width: 2; }
+.map-footer-connections path.is-active { stroke: #b1c0b6; stroke-width: 2.4; }
+.map-footer-connections path.is-return { stroke: #aabbb2; stroke-dasharray: 6 4; }
+.map-footer-connections text { font-size: 15px; }
+.map-footer-principles text { fill: #e7d39f; font-size: 15px; font-weight: 700; }
+
+.map-footer-step.is-current rect { fill: #e7bc75; stroke: #ffe1a1; stroke-width: 1.6; }
+.map-footer-step.is-current .map-footer-number { fill: #1b2521; }
+
+.slide[data-page="64"] .principle-map-markers > g:not(.principle-map-key) circle { r: 10px; }
+.slide[data-page="64"] .principle-map-markers > g:not(.principle-map-key) > text { font-size: 14px; }
