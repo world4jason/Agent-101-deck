@@ -194,8 +194,8 @@ def main() -> int:
             fail(errors, f"{scene_id}: agent scene must reuse the full mother-map renderer")
         if attrs.get("data-agent-mode") != mode:
             fail(errors, f"{scene_id}: expected mother-map agent route {mode!r}")
-    if renderer_source.count("架構示意</span><strong>非真實 multi-agent run") < 2:
-        fail(errors, "A03/A04 must visibly mark illustrative, non-real multi-agent runs")
+    if renderer_source.count("架構示意，不是實際多 Agent 協作") < 2:
+        fail(errors, "A03/A04 must visibly mark the collaboration diagram as illustrative")
 
     for scene_id in ("B04", "R05", "RD02", "D04", "RV03", "Q05", "PC02", "HG02", "A11"):
         slide = next((item for item in slides if item["attrs"].get("data-rev13-scene-id") == scene_id), None)

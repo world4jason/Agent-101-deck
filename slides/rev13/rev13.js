@@ -108,13 +108,13 @@
       activity: '看板工作站',
       kanban: 'Dev',
       goal: 'Parent Goal Issue（連回原始產品結果）',
-      target: '在核准範圍內實作並留下候選版本',
-      input: 'Ready Ticket 的核准 Scope／AC、設計、共同 Repo 與 Stop Rules',
+      target: '在核准範圍內實作並留下版本',
+      input: 'Ready Ticket 的核准 範圍／AC、設計、共同 Repo 與 停止條件',
       activities: ['建立 Branch', '實作並 Commit', '自測與記錄未完成項'],
-      output: '候選版本、修改摘要、自測紀錄與未驗清單',
-      stateChange: 'Ready → Dev；形成候選版本',
-      handoff: '候選版本與自測紀錄交 Reviewer',
-      exit: '候選變更與自測可供審查；自測不等於 QA 完成。',
+      output: '版本、修改摘要、自測紀錄與未驗清單',
+      stateChange: 'Ready → Dev；形成版本',
+      handoff: '版本與自測紀錄交 Reviewer',
+      exit: '待審改動與自測可供審查；自測不等於 QA 完成。',
       lead: ['Dev'],
       co: ['PO', 'UI/UX'],
       nextStage: 'PR Review',
@@ -129,11 +129,11 @@
       target: '檢查修改、風險與範圍邊界',
       input: 'PR 差異、Ticket／AC、版本與自測摘要',
       activities: ['比對差異', '提出審查意見', '處置重大問題'],
-      output: 'Review findings、approved 或 changes requested',
-      stateChange: 'Dev → Review；重大 findings 須有處置',
+      output: '審查發現、同意或要求修改',
+      stateChange: 'Dev → Review；重大審查問題須有處置',
       handoff: '重大問題已處置才交 QA；否則回 Dev',
       outputNote: '概念示意；不代表真實 PR 或 Review 紀錄',
-      exit: '重大問題已有處置，候選變更可交付 QA；PR 尚不必然 Merge。',
+      exit: '重大問題已有處置，待審改動可交付 QA；PR 尚不必然 Merge。',
       lead: ['Reviewer'],
       co: ['Dev', 'PO'],
       nextStage: 'QA / Verification',
@@ -145,13 +145,13 @@
       activity: '看板工作站',
       kanban: 'QA',
       goal: 'Parent Goal Issue（連回原始產品結果）',
-      target: '用可重跑證據檢查候選版行為',
-      input: '可識別候選版、AC／AT、測試資料與環境',
-      activities: ['實際符合預期 → PASS', '實際不符預期 → FAIL', '尚未執行 → NOT RUN'],
+      target: '用可重跑證據檢查版本行為',
+      input: '可識別版本、AC／AT、測試資料與環境',
+      activities: ['實際符合預期 → PASS', '實際不符預期 → FAIL', '尚未執行 → 未測（NOT RUN）'],
       output: '測試紀錄、發現／缺漏與補驗請求',
       stateChange: 'Review → QA；留下實際結果與未測項',
       handoff: '證據與未測項交 PO 作 Product Check',
-      outputNote: '概念示意；未執行項維持 NOT RUN',
+      outputNote: '概念示意；未執行項維持未測',
       exit: '交付明確證據與剩餘未驗項；未執行不改成 PASS。',
       lead: ['QA'],
       co: ['Dev'],
@@ -184,37 +184,37 @@
       kanban: 'Product Check（欄外決策）',
       goal: 'Parent Goal Issue（連回原始產品結果）',
       target: '由授權的人決定整合／發布或要求補驗',
-      input: '候選版、Review／QA Evidence、剩餘風險與發布計畫',
-      activities: ['檢查證據', '評估剩餘風險', '決定 Go／No-Go'],
+      input: '版本、Review／QA Evidence、剩餘風險與發布計畫',
+      activities: ['檢查證據', '評估剩餘風險', '決定是否授權'],
       output: '可回查的授權、暫停或退回紀錄',
       stateChange: 'Product Check → 欄外授權、暫停或退回',
-      handoff: '授權後才進 Merge／Release；No-Go 則暫停或補驗',
+      handoff: '授權後才進 Merge／上線；不授權則暫停或補驗',
       outputNote: '條件式輸出；沒有真實授權紀錄',
-      exit: '明確授權且後續 Release／DoD 條件可檢查；不自動 Done。',
+      exit: '明確授權且後續 上線／DoD 條件可檢查；不自動 Done。',
       lead: ['Owner'],
       co: ['PO', 'QA', 'Dev'],
-      nextStage: 'Merge / Release / Done',
+      nextStage: 'Merge / 上線 / Done',
       githubObjects: 'Pull Request · Issue decision log',
-      github: 'PR／Issue decision log；尚未直接等於 Merge',
+      github: 'PR／Issue 決策紀錄；尚未直接等於 Merge',
     },
     release_done: {
-      label: 'Merge / Release / Done',
+      label: 'Merge / 上線 / Done',
       activity: '授權後的交付工作',
       kanban: 'Product Check → Done（條件成立後）',
       goal: 'Parent Goal Issue（連回原始產品結果）',
       target: '完成整合、發布與 DoD 證據',
-      input: '已獲 Human Gate 授權的候選版與 Release／DoD Checklist',
+      input: '已獲 Human Gate 授權的版本與 上線／DoD Checklist',
       activities: ['整合變更', '發布版本', '檢查部署與 DoD'],
-      output: 'Merged Commit、Release 記錄、檢查結果與 Ticket Done（有證據時）',
-      stateChange: 'Product Check → Done（授權、Release 與 DoD 證據成立後）',
-      handoff: '僅在 Merge、Release 與 DoD 實證齊備時標記 Done',
-      outputNote: '條件式輸出；未證明 Merge、Release 或 Done 檢查',
+      output: 'Merged Commit、上線 記錄、檢查結果與 Ticket Done（有證據時）',
+      stateChange: 'Product Check → Done（授權、上線 與 DoD 證據成立後）',
+      handoff: '僅在 Merge、上線 與 DoD 實證齊備時標記 Done',
+      outputNote: '條件式輸出；未證明 Merge、上線 或 Done 檢查',
       exit: '本課 DoD 與上線檢查具備實證，才可 Done；整體 Goal 另行衡量。',
       lead: ['Dev'],
       co: ['Owner', 'PO', 'QA'],
       nextStage: 'Done · 本流程終點',
-      githubObjects: 'Pull Request · Commit · Release · Issue',
-      github: 'PR Merge、Commit、Release 與 Issue／Project Done',
+      githubObjects: 'Pull Request · Commit · 上線 · Issue',
+      github: 'PR Merge、Commit、上線 與 Issue／Project Done',
     },
   };
 
@@ -269,10 +269,10 @@
       </div>`;
 
     const agentRoutes = {
-      delegate: '<span class="agent-route"><b>executor</b><i>→</i><strong>Dev</strong></span><span class="agent-route human-route"><b>Human</b><i>→</i><strong>範圍／Gate</strong></span>',
-      single: '<article class="agent-step"><b>Human</b><span>Issue #3 · Scope／AC</span></article><i>→</i><article class="agent-step agent-executor"><b>Agent executor</b><span>Dev · 候選／交付摘要</span></article><i>→</i><article class="agent-step agent-check"><b>QA／Owner</b><span>Evidence · Human Gate</span></article>',
-      'multi-chat': '<article class="agent-step"><b>Dev Chat</b><span>Issue #3 · Scope／AC</span></article><i>→</i><article class="agent-step handoff-packet"><b>外部 handoff</b><span>Ticket state · version ID · Evidence ref</span></article><i>→</i><article class="agent-step agent-check"><b>Reviewer／QA Chat</b><span>核對來源 · 回寫結果</span></article>',
-      orchestrator: '<article class="agent-step"><b>Orchestrator</b><span>讀取 #3 核准範圍</span></article><i>→</i><article class="agent-step agent-dispatch"><b>分派工作</b><span>Dev · Reviewer · QA</span></article><i>→</i><article class="agent-step agent-check"><b>彙整至 #3</b><span>PR · Review · Evidence</span></article>',
+      delegate: '<span class="agent-route"><b>Agent</b><i>→</i><strong>Dev</strong></span><span class="agent-route human-route"><b>人</b><i>→</i><strong>範圍／Human Gate</strong></span>',
+      single: '<article class="agent-step"><b>人</b><span>Issue #3 · 範圍／AC</span></article><i>→</i><article class="agent-step agent-executor"><b>單一 Agent</b><span>Dev · 修改版本／交付摘要</span></article><i>→</i><article class="agent-step agent-check"><b>QA／Owner</b><span>測試證據 · Human Gate</span></article>',
+      'multi-chat': '<article class="agent-step"><b>Dev Chat</b><span>Issue #3 · 範圍／AC</span></article><i>→</i><article class="agent-step handoff-packet"><b>外部交接</b><span>工作票進度 · 版本編號 · 測試紀錄位置</span></article><i>→</i><article class="agent-step agent-check"><b>Reviewer／QA Chat</b><span>核對來源 · 回寫結果</span></article>',
+      orchestrator: '<article class="agent-step"><b>協調 Agent</b><span>讀取 #3 核准範圍</span></article><i>→</i><article class="agent-step agent-dispatch"><b>分派工作</b><span>Dev · Reviewer · QA</span></article><i>→</i><article class="agent-step agent-check"><b>彙整至 #3</b><span>PR · Review · 測試證據</span></article>',
     };
     let agentMarkup = '';
     if (agent) {
@@ -302,7 +302,7 @@
           </section>
           <section class="${zoneClass('documents')} zone-documents" data-zone="documents" aria-label="Documents 文件">
             <header class="zone-heading"><span class="zone-symbol">▤</span><h2><span class="zone-name-full">Documents</span><em>文件</em></h2></header>
-            <div class="doc-stack" role="group" aria-label="文件：Goal／Proposal、Epic／Story／Task、Scope／AC／AT／DoD、Review／Evidence">
+            <div class="doc-stack" role="group" aria-label="文件：Goal／Proposal、Epic／Story／Task、範圍／AC／AT／DoD、Review／Evidence">
               <div class="doc-piece"><b>Goal／Proposal</b><span>為何做</span></div>
               <div class="doc-piece"><b>Epic · Story · Task</b><span>拆分工作</span></div>
               <div class="doc-piece"><b>Scope · AC · AT · DoD</b><span>做與驗</span></div>
@@ -542,10 +542,10 @@
         <div class="lifecycle-flow" aria-label="需求拆票、交付、Review、Evidence 與放行記錄的六步生命週期">
           <article class="lifecycle-step" data-step="1"><span>Backlog · 需求／拆票</span><strong>把工作變成可交辦契約</strong><small>Parent Goal、Scope、AC／AT</small></article>
           <article class="lifecycle-step" data-step="2"><span>Ready · 交接條件</span><strong>確認責任與可驗證性</strong><small>接手者、依賴、Exit 條件</small></article>
-          <article class="lifecycle-step" data-step="3"><span>Dev · 交付候選版</span><strong>連結程式修改</strong><small>Branch、Commit、PR 差異</small></article>
-          <article class="lifecycle-step" data-step="4"><span>Review · 審查更新</span><strong>保留發現與處置</strong><small>PR Review findings；未處置項回到 Dev</small></article>
-          <article class="lifecycle-step" data-step="5"><span>QA／Product Check · Evidence</span><strong>把結果對回 AC 與版本</strong><small>結果連到候選 Commit；未測項：NOT RUN</small></article>
-          <article class="lifecycle-step" data-step="6"><span>Human Gate · 放行記錄</span><strong>留下 Go／No-Go 與理由</strong><small>只在授權後進入後續 Merge／Release</small></article>
+          <article class="lifecycle-step" data-step="3"><span>Dev · 交付版本</span><strong>連結程式修改</strong><small>Branch、Commit、PR 差異</small></article>
+          <article class="lifecycle-step" data-step="4"><span>Review · 審查更新</span><strong>保留發現與處置</strong><small>PR 審查發現；未處置項回到 Dev</small></article>
+          <article class="lifecycle-step" data-step="5"><span>QA／Product Check · Evidence</span><strong>把結果對回 AC 與版本</strong><small>結果連到Commit；未測項：未測</small></article>
+          <article class="lifecycle-step" data-step="6"><span>Human Gate · 放行記錄</span><strong>留下授權或不授權的決定與理由</strong><small>只在授權後進入後續 Merge／上線</small></article>
         </div>
         <div class="lifecycle-note"><b>示意流程</b><span>Review、測試、Evidence 與放行只在實際發生時補記；本圖不代表 Matching 文件已建立。</span></div>
       </div>
@@ -567,7 +567,7 @@
           <i class="criteria-link" aria-hidden="true">↓</i>
           <article class="criteria-card"><span>跨階段共識</span><strong>DoD</strong><small>適用各相關階段，不聚焦單一工作站</small></article>
           <i class="criteria-link" aria-hidden="true">↓</i>
-          <article class="criteria-card evidence-node"><span>實際觀察</span><strong>Evidence</strong><small>對上候選版本與測試範圍</small></article>
+          <article class="criteria-card evidence-node"><span>實際觀察</span><strong>Evidence</strong><small>對上版本與測試範圍</small></article>
         </div>
       </div>
     </div>`;
@@ -583,14 +583,14 @@
           <article class="pr-bridge"><b>Pull Request</b><small>版本差異、Review、Checks</small></article>
           <article><b>Review</b><small>審查意見與處置</small></article>
         </div>
-        <div class="track-intersection" aria-label="Pull Request 連到候選 Commit">
+        <div class="track-intersection" aria-label="Pull Request 連到Commit">
           <span class="track-link" aria-hidden="true"></span>
-          <span class="track-link-label">PR 對照候選 Commit</span>
+          <span class="track-link-label">PR 對照Commit</span>
         </div>
         <div class="relation-lane git-version-lane">
           <span class="lane-label">Git 版本軌</span>
           <article><b>Git Repo</b><small>檔案版本歷史</small></article>
-          <article><b>Branch</b><small>隔離候選修改</small></article>
+          <article><b>Branch</b><small>隔離版本修改</small></article>
           <article><b>Commit</b><small>保存修改節點</small></article>
           <article><b>Merge</b><small>整合核准變更</small></article>
         </div>
@@ -620,7 +620,7 @@
           <text class="recovery-node-label" x="870" y="255" text-anchor="middle">Revert Commit</text>
           <text class="recovery-label" x="870" y="402" text-anchor="middle">回復以新增 Revert Commit，保留既有歷史</text>
         </svg>
-        <div class="history-legend"><span><i class="legend-main"></i>既有版本</span><span><i class="legend-branch"></i>候選分支</span><span><i class="legend-pr"></i>PR／Review</span><span><i class="legend-recovery"></i>回復路徑</span></div>
+        <div class="history-legend"><span><i class="legend-main"></i>既有版本</span><span><i class="legend-branch"></i>改動分支</span><span><i class="legend-pr"></i>PR／Review</span><span><i class="legend-recovery"></i>回復路徑</span></div>
       </div>
     </div>`;
   }
@@ -634,8 +634,8 @@
     ];
     const termCards = terms.map(term => `<article class="agent-term"><strong>${term.title}</strong><span>${term.text}</span></article>`).join('');
     const principles = [
-      'External Task State', 'Bounded Execution', 'Role Separation',
-      'Independent Verification', 'Goal Re-anchoring',
+      '工作狀態記在 Issue', '只在核准範圍內工作', '不同角色各負其責',
+      '另外核對測試結果', '回頭核對產品目標',
     ].map((name, index) => `<li><b>${index + 1}</b><span>${name}</span></li>`).join('');
     return `<div class="focus-compose">${locator(slide)}
       <div class="diagram-field agent-primer-field">
@@ -658,7 +658,7 @@
     const detail = document.createElement('p');
     detail.innerHTML = `<strong>Stage Card 補充：</strong>${esc([
       `完整產出：${data.output}`, `狀態變化：${data.stateChange}`,
-      `交接：${data.handoff}`, `GitHub：${data.github}`,
+      `交接：${data.交接}`, `GitHub：${data.github}`,
       ...(data.outputNote ? [`證據界線：${data.outputNote}`] : []),
     ].join('；'))}`;
     notes.append(detail);
@@ -668,7 +668,7 @@
     const nextStage = data.nextStage || 'Done';
     const conciseOutput = {
       refinement: 'Parent／Child Tickets、Scope、AC／AT、預期 Evidence',
-      release_done: 'Merged Commit、Release 紀錄與 DoD 證據',
+      release_done: 'Merged Commit、上線 紀錄與 DoD 證據',
     }[stageKey] || data.output;
     return `<div class="focus-compose stage-compose">${locator(slide)}
       <div class="diagram-field stage-panel">
@@ -710,7 +710,7 @@
             <li><b>Stage Target</b><span>目前有哪些工作已明確，哪些仍待界定？</span><p class="exercise-answer fragment" data-fragment-order="2"><b>參考：</b>釐清範圍、例外行為與依賴，整理成可交接工作票。</p></li>
             <li><b>AC／留言</b><span>現有 AC 可如何檢查？兩則留言帶來哪些範圍或例外問題？</span><p class="exercise-answer fragment" data-fragment-order="3"><b>參考：</b>主路徑可檢查；小螢幕呈現與缺少更新時間的結果待定。</p></li>
             <li><b>People／Exit</b><span>下一站前要確認哪些責任與交接條件？</span><p class="exercise-answer fragment" data-fragment-order="4"><b>參考：</b>PO／Dev 主責、QA 協作；接手者、範圍、可測性與依賴先定案。</p></li>
-            <li><b>GitHub／版本</b><span>哪些資訊更新在 Issue 或 Project？何時才需要連結 PR 與版本？</span><p class="exercise-answer fragment" data-fragment-order="5"><b>參考：</b>Issue 留契約、Project 記狀態；有程式修改再連 Branch／Commit／PR，票面無候選版本。</p></li>
+            <li><b>GitHub／版本</b><span>哪些資訊更新在 Issue 或 Project？何時才需要連結 PR 與版本？</span><p class="exercise-answer fragment" data-fragment-order="5"><b>參考：</b>Issue 留契約、Project 記狀態；有程式修改再連 Branch／Commit／PR，票面無版本。</p></li>
           </ol>
         </div>
       </div>
@@ -720,25 +720,25 @@
   const B2_MAP_STATE = {
     O03: { footer: '<span class="delta-mark">需求草案</span><strong>「配對功能正常」</strong><span>Goal Issue 尚未建立</span>' },
     B04: { badges: [['documents', 'Goal Issue · 示意', 'documents']], footer: '<span class="delta-mark">NEW</span><strong>Goal Issue 已建立</strong><span>仍在 Brainstorming／Backlog · 示意</span>' },
-    R05: { badges: [['documents', 'Parent · 3 子票', 'documents']], ticket: 'backlog', footer: '<span class="delta-mark">NEW</span><strong>Parent → #1／#3／#2</strong><span>#3 在 Backlog · WIP 0/1 · 示意</span>' },
-    RD02: { ticket: 'ready', previous: 'backlog', footer: '<span class="delta-mark">MOVE</span><strong>Backlog (#3) → Ready (#3)</strong><span>WIP 0/1 · 教學流程示意</span>' },
-    D04: { badges: [['documents', 'Candidate A · 示意', 'version'], ['version', 'Branch → Commit · 示意', 'version']], ticket: 'dev', previous: 'ready', footer: '<span class="delta-mark">MOVE</span><strong>Ready → Dev</strong><span>WIP 0/1 → 1/1 · Candidate A 為示意</span>' },
-    RV03: { badges: [['version', 'PR · Changes requested · 示意', 'agent'], ['process', '回 Dev 修正 · 示意', 'process']], ticket: 'dev', previous: 'review', footer: '<span class="delta-mark">RETURN</span><strong>Review → Dev</strong><span>PR 未 Merge；QA 尚未開始 · 示意</span>' },
-    Q05: { badges: [['documents', 'A → B-pre → B-post', 'documents'], ['version', 'UI／E2E · NOT RUN', 'gate']], ticket: 'qa', previous: 'dev', footer: '<span class="delta-mark">EVIDENCE</span><strong>A FAIL → B-pre partial PASS → B-post duplicate PASS</strong><span>規則層實測；流程位置示意；UI／E2E／Release／Goal NOT RUN</span>' },
-    PC02: { badges: [['documents', '#3 規則 Evidence', 'documents'], ['version', 'UI／E2E／Goal · NOT RUN', 'gate']], ticket: 'product-check', footer: '<span class="delta-mark">SCOPE</span><strong>單票規則 Evidence 可審</strong><span>Product Check 流程示意；整體 Goal 未驗</span>' },
-    HG02: { badges: [['process', 'Human Gate · 暫停 · 示意', 'gate'], ['documents', 'Release · NOT RUN', 'gate']], ticket: 'product-check', footer: '<span class="delta-mark is-hold">HOLD</span><strong>Product Check → Human Gate 暫停</strong><span>教學推演；無 Merge／Release／Done 證據</span>' },
-    A01: { footer: '<span class="delta-mark">回放</span><strong>B-pre 時點 · AC1／AC2 PASS</strong><span>同一 #3 Ticket；AC3 duplicate NOT RUN</span>' },
-    A02: { footer: '<span class="delta-mark">MODE 1 · 示意</span><strong>Agent executor → Dev；QA／Owner → 驗證／授權</strong><span>同一 #3 Ticket 與 AC；Human Gate 仍由人負責</span>' },
-    A03: { footer: '<span class="delta-mark">架構示意</span><strong>非真實 multi-agent run</strong><span>Dev Chat → Ticket handoff → Reviewer／QA Chat</span>' },
-    A04: { footer: '<span class="delta-mark">架構示意</span><strong>非真實 multi-agent run</strong><span>Orchestrator → Dev／Reviewer／QA；Human Gate 仍由人負責</span>' },
-    A11: { badges: [['documents', '1／5 · Issue／Parent', 'documents'], ['process', '2 · Scope', 'process'], ['people', '3 · Roles', 'people'], ['version', '4 · Evidence', 'version']], footer: '<span class="principle-pin"><b>1</b> External Task State → Issue</span><span class="principle-pin"><b>2</b> Bounded Execution → Scope</span><span class="principle-pin"><b>3</b> Role Separation → Human Gate</span><span class="principle-pin"><b>4</b> Independent Verification → Evidence</span><span class="principle-pin"><b>5</b> Goal Re-anchoring → Parent</span>' },
+    R05: { badges: [['documents', 'Parent · 3 子票', 'documents']], ticket: 'backlog', footer: '<span class="delta-mark">NEW</span><strong>Parent → #1／#3／#2</strong><span>#3 在 Backlog · 進行中 0／1 張 · 示意</span>' },
+    RD02: { ticket: 'ready', previous: 'backlog', footer: '<span class="delta-mark">MOVE</span><strong>Backlog (#3) → Ready (#3)</strong><span>進行中 0／1 張 · 教學流程示意</span>' },
+    D04: { badges: [['documents', '第一版 · 示意', 'version'], ['version', 'Branch → Commit · 示意', 'version']], ticket: 'dev', previous: 'ready', footer: '<span class="delta-mark">MOVE</span><strong>Ready → Dev</strong><span>進行中 0／1 張 → 1/1 · 第一版 為示意</span>' },
+    RV03: { badges: [['version', 'PR · 要求修改 · 示意', 'agent'], ['process', '回 Dev 修正 · 示意', 'process']], ticket: 'dev', previous: 'review', footer: '<span class="delta-mark">RETURN</span><strong>Review → Dev</strong><span>PR 未 Merge；QA 尚未開始 · 示意</span>' },
+    Q05: { badges: [['documents', '第一版 → 修正版・第一次測 → 修正版・補測', 'documents'], ['version', '介面／完整流程 · 未測', 'gate']], ticket: 'qa', previous: 'dev', footer: '<span class="delta-mark">實測範圍</span><strong>規則層有實測紀錄</strong><span>介面、完整流程、上線與產品目標：未測</span>' },
+    PC02: { badges: [['documents', '#3 規則 Evidence', 'documents'], ['version', '介面／完整流程／產品目標 · 未測', 'gate']], ticket: 'product-check', footer: '<span class="delta-mark">SCOPE</span><strong>單票規則 Evidence 可審</strong><span>Product Check 流程示意；整體 Goal 未驗</span>' },
+    HG02: { badges: [['process', 'Human Gate · 暫停 · 示意', 'gate'], ['documents', '上線 · 未測', 'gate']], ticket: 'product-check', footer: '<span class="delta-mark is-hold">HOLD</span><strong>Product Check → Human Gate 暫停</strong><span>教學推演；無 Merge／上線／Done 證據</span>' },
+    A01: { footer: '<span class="delta-mark">回放</span><strong>修正版・第一次測的紀錄 · AC1／AC2 PASS</strong><span>同一 #3 Ticket；重複按讚未測</span>' },
+    A02: { footer: '<span class="delta-mark">方式一 · 示意</span><strong>Agent → Dev；QA／Owner → 驗證／授權</strong><span>同一 #3 Ticket 與 AC；Human Gate 仍由人負責</span>' },
+    A03: { footer: '<span class="delta-mark">架構示意</span><strong>不是實際多 Agent 協作</strong><span>Dev Chat → Ticket 交接 → Reviewer／QA Chat</span>' },
+    A04: { footer: '<span class="delta-mark">架構示意</span><strong>不是實際多 Agent 協作</strong><span>協調 Agent → Dev／Reviewer／QA；Human Gate 仍由人負責</span>' },
+    A11: { badges: [['documents', '1／5 · Issue／Parent', 'documents'], ['process', '2 · 範圍', 'process'], ['people', '3 · 角色', 'people'], ['version', '4 · 證據', 'version']], footer: '<span class="principle-pin"><b>1</b> 工作狀態記在 Issue → Issue</span><span class="principle-pin"><b>2</b> 只在核准範圍內工作 → 範圍</span><span class="principle-pin"><b>3</b> 不同角色各負其責 → Human Gate</span><span class="principle-pin"><b>4</b> 另外核對測試結果 → 證據</span><span class="principle-pin"><b>5</b> 回頭核對產品目標 → Parent</span>' },
   };
 
   function addMapMarkers(markup, delta, slide) {
     let output = markup;
     (delta?.badges || []).forEach(([zone, label, type]) => {
-      const section = new RegExp(`(<section class="[^"]*zone-${zone}"[^>]*>)`);
-      output = output.replace(section, `$1<span class="map-zone-badge badge-${type}">${esc(label)}</span>`);
+      const heading = new RegExp(`(<section class="[^"]*zone-${zone}"[^>]*>\\s*<header class="zone-heading">)([\\s\\S]*?)(<\\/header>)`);
+      output = output.replace(heading, (_match, start, content, end) => `${start}${content}<span class="map-zone-badge badge-${type}">${esc(label)}</span>${end}`);
     });
     const position = slide.dataset.ticketPosition;
     const previous = slide.dataset.ticketPrevious;
@@ -757,7 +757,7 @@
     const scene = slide.dataset.rev13SceneId;
     const delta = B2_MAP_STATE[scene];
     const footer = delta?.footer ? `<div class="map-delta${scene === 'A11' ? ' principle-pin-row' : ''}" aria-label="本頁狀態差">${delta.footer}</div>` : '';
-    const versionEvidence = scene === 'A11' ? `<div class="a11-evidence-strip" aria-label="同一 Candidate B 的補驗變化與未測範圍"><div><b>B-pre</b><span>AC1／AC2 PASS · AC3 duplicate NOT RUN</span></div><i aria-hidden="true">→</i><div><b>B-post</b><span>同一 Candidate B · AC3 duplicate PASS</span></div><strong>UI／E2E／Release／Goal · NOT RUN</strong></div>` : '';
+    const versionEvidence = scene === 'A11' ? `<div class="a11-evidence-strip" aria-label="同一份修正版程式的兩次測試與未測範圍"><div><b>修正版・第一次測</b><span>AC1／AC2 PASS · 重複按讚未測</span></div><i aria-hidden="true">→</i><div><b>修正版・補測</b><span>同一份程式 · 重複按讚 PASS</span></div><strong>介面／完整流程／上線／產品目標 · 未測</strong></div>` : '';
     const zones = (slide.dataset.focusZones || '').split(',').filter(Boolean);
     const roles = (slide.dataset.focusRolesMap || '').split(',').map(role => role.trim()).filter(Boolean);
     const map = renderMotherMap({
@@ -790,20 +790,20 @@
       title: '雙向 Like 才建立配對',
       sections: [
         ['Scope', '<p>只處理配對規則與配對紀錄。</p>'],
-        ['Out-of-scope', '<p>UI、登入、網路服務、資料庫、完整產品串接。</p>'],
+        ['範圍外', '<p>UI、登入、網路服務、資料庫、完整產品串接。</p>'],
         ['Acceptance Criteria', '<ul><li>AC1：單向 Like，配對紀錄數為 0。</li><li>AC2：互相 Like，只建立一筆 M01，成員為兩人。</li><li>AC3：已有 M01 再 Like，仍只有一筆。</li></ul>', 'ac'],
         ['Acceptance Tests', '<ul><li>單向 Like → 預期 0 筆。</li><li>雙向 Like → 預期 1 筆 M01。</li><li>重複 Like → 預期仍為 1 筆 M01。</li><li>每個案例用同一份假資料重置。</li></ul>'],
-        ['Definition of Done', '<p>每個已執行案例都記錄版本、預期、實際、筆數與 artifact SHA-256；未執行項維持 NOT RUN。</p>'],
+        ['Definition of Done', '<p>每個已執行案例都記錄版本、預期、實際、筆數與測試紀錄識別資訊；未執行項維持未測。</p>'],
       ],
     });
   }
 
   function qaTable(rows) {
-    return `<table class="qa-table"><thead><tr><th>版本</th><th>案例</th><th>預期</th><th>實際</th><th>結果</th></tr></thead><tbody>${rows.map(row => `<tr>${row.map((cell, index) => `<td${index === 4 ? ` class="result-cell result-${String(cell).toLowerCase().replaceAll(' ', '-')}"` : ''}>${esc(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+    return `<table class="qa-table"><thead><tr><th>版本</th><th>案例</th><th>預期</th><th>實際</th><th>結果</th></tr></thead><tbody>${rows.map(row => `<tr>${row.map((cell, index) => `<td${index === 4 ? ` class="result-cell result-${cell === '未測' ? 'not-run' : String(cell).toLowerCase().replaceAll(' ', '-')}"` : ''}>${esc(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
   }
 
-  function evidenceReference(candidate, source) {
-    return `<div class="evidence-reference"><span>候選版本</span><code>${esc(candidate)}</code><span>測試紀錄</span><code>${esc(source)}</code></div>`;
+  function evidenceReference(version, record) {
+    return `<div class="evidence-reference"><span>版本</span><strong>${esc(version)}</strong><span>測試紀錄</span><strong>${esc(record)}</strong></div>`;
   }
 
   function renderPart2Work(slide) {
@@ -825,7 +825,7 @@
         ] });
         break;
       case 'R01':
-        body = `<div class="refinement-board"><div class="refinement-source"><span>輸入 · 教學示意</span><strong>同一張 Goal Issue</strong><p>目標、限制、未知事項</p></div><div class="refinement-checks"><h2>Refinement 要回答</h2><ul><li>可行性與風險</li><li>Scope 與 Out-of-scope</li><li>相依工作與順序</li><li>AC、AT 與 Evidence</li></ul></div><div class="refinement-handoff"><span>輸出 · 教學示意</span><strong>可交接的 Parent／Child Issues</strong><p>仍在 Backlog</p></div></div>`;
+        body = `<div class="refinement-board"><div class="refinement-source"><span>輸入 · 教學示意</span><strong>同一張 Goal Issue</strong><p>目標、限制、未知事項</p></div><div class="refinement-checks"><h2>Refinement 要回答</h2><ul><li>可行性與風險</li><li>Scope 與 範圍外</li><li>相依工作與順序</li><li>AC、AT 與 Evidence</li></ul></div><div class="refinement-handoff"><span>輸出 · 教學示意</span><strong>可交接的 Parent／Child Issues</strong><p>仍在 Backlog</p></div></div>`;
         break;
       case 'R02':
         body = `<div class="issue-tree"><article class="parent-issue"><span>Parent Goal · 教學示意</span><strong>配對體驗</strong><p>依賴與順序記回 Parent</p></article><div class="tree-stem"></div><div class="child-issues"><article><span>#1</span><strong>Like／Pass</strong></article><article class="child-primary"><span>#3</span><strong>雙向 Like → 配對紀錄</strong><small>本課 lead example</small></article><article><span>#2</span><strong>配對清單</strong></article></div></div>`;
@@ -840,44 +840,44 @@
         body = `<div class="ready-check"><article><b>Scope</b><span>單一規則票；範圍與排除事項清楚</span></article><article><b>AC／AT</b><span>三種情境都有明確預期與測法</span></article><article><b>依賴</b><span>必要關係與接手責任已記錄</span></article><article><b>可測性</b><span>假資料、紀錄筆數與版本可識別</span></article><div class="ready-result"><strong>Ready Check · 示意</strong><span>可交 Dev 開工；尚無測試 PASS</span></div></div>`;
         break;
       case 'D01':
-        body = `<div class="dev-intake"><article><span>Input · 示意</span><strong>Ready Ticket #3</strong><p>Scope · AC1–AC3 · Stop Rule</p></article><i>→</i><article class="dev-active"><span>Dev · WIP 1/1 · 示意</span><strong>在核准範圍內實作</strong><p>開始工作不等於已有 PASS</p></article><i>→</i><article><span>接手責任</span><strong>Dev</strong><p>Ticket 記錄進度與未完成項</p></article></div>`;
+        body = `<div class="dev-intake"><article><span>Input · 示意</span><strong>Ready Ticket #3</strong><p>Scope · AC1–AC3 · 停止條件</p></article><i>→</i><article class="dev-active"><span>Dev · 進行中 1／1 張 · 示意</span><strong>在核准範圍內實作</strong><p>開始工作不等於已有 PASS</p></article><i>→</i><article><span>接手責任</span><strong>Dev</strong><p>Ticket 記錄進度與未完成項</p></article></div>`;
         break;
       case 'D02':
         body = `<div class="git-flow"><span>Git／GitHub 關係 · 示意</span><div class="git-chain"><article class="git-ticket"><span>工作契約</span><strong>Issue #3</strong><small>Scope · AC · AT</small></article><i>→</i><article><span>隔離修改</span><strong>Branch</strong><small>同一 Repo</small></article><i>→</i><article><span>版本節點</span><strong>Commit</strong><small>記錄變更</small></article><i>→</i><article class="git-pr"><span>協作送審</span><strong>GitHub PR</strong><small>差異連回 Issue</small></article></div></div>`;
         break;
       case 'D03':
-        body = `<div class="candidate-card"><header><span>候選版本</span><strong>Candidate A</strong><em>教學示意</em></header><div><article><b>修改摘要</b><span>配對規則變更</span></article><article><b>自測紀錄</b><span>交付內容待獨立 QA 核對</span></article><article><b>未完成項</b><span>逐條 AC Evidence 交 QA 補驗</span></article></div><footer>Candidate ≠ PASS　 ·　PR ≠ Ticket　 ·　Issue #3 保留工作範圍</footer></div>`;
+        body = `<div class="candidate-card"><header><span>版本</span><strong>第一版</strong><em>教學示意</em></header><div><article><b>修改摘要</b><span>配對規則變更</span></article><article><b>自測紀錄</b><span>交付內容待獨立 QA 核對</span></article><article><b>未完成項</b><span>逐條 AC Evidence 交 QA 補驗</span></article></div><footer>版本 ≠ PASS　 ·　PR ≠ Ticket　 ·　Issue #3 保留工作範圍</footer></div>`;
         break;
       case 'RV01':
       case 'RV02':
-        body = `<article class="pr-sheet"><header><div><span class="pr-symbol">⑂</span><strong>${id === 'RV01' ? '配對規則候選修改' : '範圍外聊天室變更'}</strong></div><em>教學示意</em></header><div class="pr-branch">branch/matching-rule <b>→</b> main</div><div class="pr-columns"><article><span>Linked issue</span><strong>Issue #3</strong><small>雙向 Like 才建立一筆配對</small></article><article><span>Files changed</span><strong>${id === 'RV01' ? '配對規則 · rule tests' : '聊天室 · UI'}</strong><small>${id === 'RV01' ? '修改與測試摘要' : '超出本票 Out-of-scope'}</small></article><article class="pr-review-status"><span>Review</span><strong>${id === 'RV01' ? '待審查' : 'Changes requested'}</strong><small>${id === 'RV01' ? '檢查改動、風險與範圍' : '退回 Dev，刪除越界改動'}</small></article></div><footer>${id === 'RV01' ? 'PR 關聯票與版本差異；AC 結果仍由 QA 實測。' : '模擬 Reviewer finding；PR 尚未 Merge。'}</footer></article>`;
+        body = `<article class="pr-sheet"><header><div><span class="pr-symbol">⑂</span><strong>${id === 'RV01' ? '配對規則版本修改' : '範圍外聊天室變更'}</strong></div><em>教學示意</em></header><div class="pr-branch">branch/matching-rule <b>→</b> main</div><div class="pr-columns"><article><span>Linked issue</span><strong>Issue #3</strong><small>雙向 Like 才建立一筆配對</small></article><article><span>Files changed</span><strong>${id === 'RV01' ? '配對規則 · rule tests' : '聊天室 · UI'}</strong><small>${id === 'RV01' ? '修改與測試摘要' : '超出本票 範圍外'}</small></article><article class="pr-review-status"><span>Review</span><strong>${id === 'RV01' ? '待審查' : '要求修改'}</strong><small>${id === 'RV01' ? '檢查改動、風險與範圍' : '退回 Dev，刪除越界改動'}</small></article></div><footer>${id === 'RV01' ? 'PR 關聯票與版本差異；AC 結果仍由 QA 實測。' : '模擬 Reviewer finding；PR 尚未 Merge。'}</footer></article>`;
         break;
       case 'Q01':
-        body = `<div class="qa-evidence-shell"><header><span>Test Evidence</span><strong>同一個候選版本 × Ticket #3 AC</strong><em>欄位範例</em></header>${qaTable([['候選版本','AC 對應案例','規則預期','實際觀察','PASS／FAIL／NOT RUN']])}<p>保存 artifact 識別、測試輸入與可回查輸出；尚未執行項保持 NOT RUN。</p></div>`;
+        body = `<div class="qa-evidence-shell"><header><span>測試證據</span><strong>同一版本 × Ticket #3 AC</strong><em>欄位範例</em></header>${qaTable([['版本','AC 對應案例','規則預期','實際觀察','PASS／FAIL／未測']])}<p>記錄版本、測試輸入與可回查結果；未執行項保持未測。</p></div>`;
         break;
       case 'Q02':
-        body = `<div class="qa-evidence-shell actual-evidence qa-failure-evidence"><header><span>規則層實測</span><strong>Version A · 單向 Like</strong><em>FAIL</em></header>${evidenceReference('Version A · SHA-256 ce09ee4c…91e22b', 'evidence/A/one-way.json')}${qaTable([['Version A','小安 Like 小晴；尚未互相 Like','0 筆配對','1 筆：M01','FAIL']])}<div class="qa-fail-detail"><article><span>Ticket #3 · AC1</span><strong>單向 Like → 預期 0 筆</strong><small>Version A 實際 1 筆 M01 · FAIL</small></article><div class="qa-return-path"><b>QA</b><i>→</i><b>Dev</b><span>退回修正 · 流程示意</span></div></div><p>規則層案例失敗；退回路徑為教學示意，不代表新增的實測紀錄。</p></div>`;
+        body = `<div class="qa-evidence-shell actual-evidence qa-failure-evidence"><header><span>規則層實測</span><strong>第一版 · 單向 Like</strong><em>FAIL</em></header>${evidenceReference('第一版', '單向 Like 測試紀錄檔')}${qaTable([['第一版','小安 Like 小晴；尚未互相 Like','0 筆配對','1 筆：M01','FAIL']])}<div class="qa-fail-detail"><article><span>Ticket #3 · AC1</span><strong>單向 Like → 預期 0 筆</strong><small>第一版實際 1 筆 M01 · FAIL</small></article><div class="qa-return-path"><b>QA</b><i>→</i><b>Dev</b><span>退回修正 · 流程示意</span></div></div><p>規則層案例失敗；退回路徑為教學示意，不代表新增的實測紀錄。</p></div>`;
         break;
       case 'Q03':
-        body = `<div class="qa-evidence-shell actual-evidence"><header><span>規則層實測</span><strong>Version B-pre · 修正後同一候選</strong><em>部分通過</em></header>${evidenceReference('Candidate B · SHA-256 0415bddc…fbfc682', 'B-pre-supplement/one-way.json · two-way.json')}${qaTable([['B-pre','單向 Like','0 筆','0 筆','PASS'],['B-pre','雙向 Like','1 筆 M01','1 筆 M01','PASS'],['B-pre','既有 M01 後重複 Like','仍 1 筆 M01','未執行','NOT RUN']])}<p>AC1／AC2 有規則證據；AC3 尚未驗證。</p></div>`;
+        body = `<div class="qa-evidence-shell actual-evidence"><header><span>規則層實測</span><strong>修正版・第一次測</strong><em>部分通過</em></header>${evidenceReference('修正版', '單向與雙向測試紀錄檔')}${qaTable([['修正版・第一次測','單向 Like','0 筆','0 筆','PASS'],['修正版・第一次測','雙向 Like','1 筆 M01','1 筆 M01','PASS'],['修正版・第一次測','重複按讚','仍 1 筆 M01','未執行','未測']])}<p>AC1／AC2 有規則證據；重複按讚尚未驗證。</p></div>`;
         break;
       case 'Q04':
-        body = `<div class="qa-evidence-shell reveal-evidence"><header><span>先請學員作答</span><strong>duplicate 還缺哪個輸入與預期？</strong><em>按下一步揭露</em></header><div class="duplicate-prompt"><article><b>前置狀態</b><span>同一 B artifact 已有 1 筆 M01</span></article><i>→</i><article><b>補驗動作</b><span>同一對再次 Like</span></article><i>→</i><article><b>預期</b><span>仍只有 1 筆 M01</span></article></div><div class="b2-reveal fragment" data-fragment-order="1"><span>規則層實測 · B-post</span>${evidenceReference('Candidate B · SHA-256 0415bddc…fbfc682', 'B-post-supplement/duplicate.json')}${qaTable([['B-post（同一 B）','duplicate Like','仍 1 筆 M01','仍 1 筆 M01','PASS']])}<p>補驗沿用相同 B artifact；沒有另建版本。</p></div></div>`;
+        body = `<div class="qa-evidence-shell reveal-evidence"><header><span>先請學員作答</span><strong>重複按讚還缺哪個輸入與預期？</strong><em>按下一步揭露</em></header><div class="duplicate-prompt"><article><b>前置狀態</b><span>同一份修正版程式已有 1 筆 M01</span></article><i>→</i><article><b>補測動作</b><span>同一對再次 Like</span></article><i>→</i><article><b>預期</b><span>仍只有 1 筆 M01</span></article></div><div class="b2-reveal fragment" data-fragment-order="1"><span>規則層實測 · 修正版・補測</span>${evidenceReference('修正版', '重複按讚測試紀錄檔')}${qaTable([['修正版・補測','重複按讚','仍 1 筆 M01','仍 1 筆 M01','PASS']])}<p>補測沿用同一份修正版程式；沒有另建版本。</p></div></div>`;
         break;
       case 'PC01':
-        body = `<div class="product-check-grid"><article><span>Ticket #3 · 可核對</span><strong>單向 0 · 雙向 1 M01 · duplicate 仍 1 M01</strong><p>規則層範圍與各案例結果</p></article><i>≠</i><article class="goal-gap"><span>Parent Goal · 尚未驗證</span><strong>使用者 Like 彼此後，能在配對清單找到對方</strong><p>登入／UI／E2E／完整串接：NOT RUN</p></article><footer>Product Check · 教學示意　｜　PO／Owner 記錄範圍與未知，不把單票結果升格成 Goal PASS。</footer></div>`;
+        body = `<div class="product-check-grid"><article><span>Ticket #3 · 可核對</span><strong>單向 0 · 雙向 1 M01 · 重複按讚 仍 1 M01</strong><p>規則層範圍與各案例結果</p></article><i>≠</i><article class="goal-gap"><span>Parent Goal · 尚未驗證</span><strong>使用者 Like 彼此後，能在配對清單找到對方</strong><p>登入／介面／完整流程／完整串接：未測</p></article><footer>Product Check · 教學示意　｜　PO／Owner 記錄範圍與未知，不把單票結果升格成 Goal PASS。</footer></div>`;
         break;
       case 'HG01':
-        body = `<div class="human-gate-card"><header><span>Human Gate · 決策清單示意</span><strong>決策者：Owner／授權人</strong></header><div class="gate-evidence-list"><article><b>✓</b><span>#3 規則 Evidence：A → B-pre → B-post</span></article><article><b>!</b><span>UI／E2E／整體 Goal：NOT RUN</span></article><article><b>!</b><span>Release Checklist、授權紀錄：未建立</span></article></div><footer><strong>可做的決定</strong><span>補證據　·　暫停　·　退回　·　授權（需真實紀錄）</span></footer></div>`;
+        body = `<div class="human-gate-card"><header><span>Human Gate · 決策清單示意</span><strong>決策者：Owner／授權人</strong></header><div class="gate-evidence-list"><article><b>✓</b><span>#3 規則證據：第一版 → 修正版・第一次測 → 修正版・補測</span></article><article><b>!</b><span>介面／完整流程／產品目標：未測</span></article><article><b>!</b><span>上線檢查清單、授權紀錄：未建立</span></article></div><footer><strong>可做的決定</strong><span>補證據　·　暫停　·　退回　·　授權（需真實紀錄）</span></footer></div>`;
         break;
       case 'A02':
-        body = `<div class="agent-mode-flow"><header><span>同一張教學 #3 Ticket</span><em>單 Agent 模式示意</em></header><div><article><b>Human</b><span>定範圍、指定 AC 與停機條件</span></article><i>→</i><article class="agent-active"><b>Single Agent</b><span>在核准範圍內處理工作並交付摘要</span></article><i>→</i><article><b>QA／Owner</b><span>獨立核對 Evidence／作授權決定</span></article></div><footer>Ticket、候選版本、QA Evidence 與 Human Gate 保持原流程位置。</footer></div>`;
+        body = `<div class="agent-mode-flow"><header><span>同一張教學 #3 Ticket</span><em>單一 Agent 模式示意</em></header><div><article><b>人</b><span>定範圍、指定 AC 與停機條件</span></article><i>→</i><article class="agent-active"><b>單一 Agent</b><span>在核准範圍內處理工作並交付摘要</span></article><i>→</i><article><b>QA／Owner</b><span>獨立核對測試證據／作授權決定</span></article></div><footer>Ticket、版本、QA 測試證據與 Human Gate 保持原流程位置。</footer></div>`;
         break;
       case 'A03':
-        body = `<div class="chat-handoff"><header><span>架構示意，非真實 multi-agent run</span><strong>人決定每次交接與證據來源</strong></header><div><article><b>Dev Chat</b><span>Issue #3 · Scope／AC</span><small>候選版本摘要</small></article><i>→</i><article class="handoff-state"><b>外部工作狀態</b><span>Ticket · Branch／Commit</span><small>最新 Evidence 與下一步</small></article><i>→</i><article><b>Reviewer／QA Chat</b><span>檢查差異與測試</span><small>回寫 findings／結果</small></article></div><footer>Chat ≠ Session ≠ Workflow；交接記錄回到 Issue 與版本。</footer></div>`;
+        body = `<div class="chat-handoff"><header><span>架構示意，不是實際多 Agent 協作</span><strong>人決定每次交接與證據來源</strong></header><div><article><b>Dev Chat</b><span>Issue #3 · 範圍／AC</span><small>版本摘要</small></article><i>→</i><article class="handoff-state"><b>外部工作狀態</b><span>工作票 · Branch／Commit</span><small>最新測試證據與下一步</small></article><i>→</i><article><b>Reviewer／QA Chat</b><span>檢查差異與測試</span><small>回寫審查問題／結果</small></article></div><footer>對話、一次工作與完整流程各有不同範圍；交接記錄回到 Issue 與版本。</footer></div>`;
         break;
       case 'A04':
-        body = `<div class="orchestrator-flow"><header><span>架構示意，非真實 multi-agent run</span><strong>分派與彙整不會轉移人類放行權</strong></header><div class="orchestrator-top"><article><b>Orchestrator</b><span>讀取核准範圍 · 分派任務 · 彙整回報</span></article></div><div class="orchestrator-branches"><i></i><i></i><i></i></div><div class="subagent-row"><article>Dev Sub-agent<span>Candidate</span></article><article>Reviewer Sub-agent<span>Findings</span></article><article>QA Sub-agent<span>Evidence</span></article></div><footer><b>Human Owner → Human Gate</b><span>授權／暫停仍由人決定。</span></footer></div>`;
+        body = `<div class="orchestrator-flow"><header><span>架構示意，不是實際多 Agent 協作</span><strong>分派與彙整不會轉移人類放行權</strong></header><div class="orchestrator-top"><article><b>協調 Agent</b><span>讀取核准範圍 · 分派任務 · 彙整回報</span></article></div><div class="orchestrator-branches"><i></i><i></i><i></i></div><div class="subagent-row"><article>Dev Agent<span>修改版本</span></article><article>Reviewer Agent<span>審查意見</span></article><article>QA Agent<span>測試紀錄</span></article></div><footer><b>Human Owner → Human Gate</b><span>授權／暫停仍由人決定。</span></footer></div>`;
         break;
       default:
         body = `<div class="b2-generic"><strong>${esc(slide.querySelector('h1').textContent)}</strong><p>${esc(slide.dataset.docRef)}</p><span>${esc(slide.dataset.versionRef)}</span></div>`;
@@ -886,48 +886,48 @@
   }
 
   const PRINCIPLE_CASES = {
-    A06: { risk: '接手者只看到一段聊天摘要；不知道 #3 現在在哪、哪個 AC 尚未測。', decision: '先讀共享 Issue／Project，核對 Scope、AC、Owner、WIP 與 B-pre duplicate NOT RUN。' },
-    A07: { risk: '執行時有人提議順便新增聊天室，會改變本票範圍。', decision: '依 Out-of-scope 與 Stop Rule 停下，不自行加入新功能。' },
+    A06: { risk: '接手者只看到一段聊天摘要；不知道 #3 在哪個流程、哪個 AC 尚未測。', decision: '先讀共享 Issue／Project，核對核准範圍、AC、Owner、目前工作數與修正版・第一次測結果。' },
+    A07: { risk: '執行時有人提議順便新增聊天室，會改變本票範圍。', decision: '超出核准範圍就依停止條件停下，不自行加入新功能。' },
     A08: { risk: '實作者說完成後，自己也替變更與測試按下放行。', decision: '把 PO、Dev、Reviewer、QA、Owner 的責任分開，保留 Human Gate。' },
-    A09: { risk: 'B-pre 單向和雙向都 PASS，就把所有 AC 一起當成完成。', decision: '獨立逐條比對 AC、版本、輸入、預期與實際；duplicate 留 NOT RUN，直到補測。' },
+    A09: { risk: '修正版・第一次測的單向和雙向都 PASS，就把所有 AC 一起當成完成。', decision: '逐條比對 AC、版本、輸入、預期與實際；重複按讚維持未測，直到補測。' },
     A10: { risk: '子票 AC 綠燈，但 Parent Goal 或依賴方向已經改變。', decision: '回看 Parent Goal 與 #1／#2 依賴；目標問題回 Backlog／Refinement，實作問題回 Dev。' },
   };
 
   function renderPrincipleArtifact(id) {
     const artifacts = {
-      A06: `<div class="principle-output-sheet"><header><b>Issue #3</b><span>Handoff 模板 · 示意</span></header><ul><li>B-pre：AC1／AC2 PASS</li><li>AC3 duplicate：NOT RUN</li><li>下一步：提出 duplicate 補驗</li></ul></div>`,
-      A07: `<div class="principle-output-sheet"><header><b>Issue #3</b><span>Change request · 示意</span></header><ul><li>聊天室：Out-of-scope</li><li>Stop Rule：先停止執行</li><li>交由人類 Refinement 決定</li></ul></div>`,
-      A08: `<div class="principle-output-records" aria-label="不同角色的 Issue、PR、Review 與 QA Evidence 記錄"><article><b>PR</b><span>修改摘要</span></article><article><b>Review</b><span>Reviewer findings</span></article><article><b>QA Evidence</b><span>AC 驗證結果</span></article><article><b>Owner</b><span>Human Gate 授權</span></article></div><small class="principle-output-note">責任分開；此處為記錄格式示意。</small>`,
-      A09: `<div class="principle-output-dual"><article><header><b>B-pre</b><span>規則層實測</span></header><ul><li>AC1 · PASS</li><li>AC2 · PASS</li><li>AC3 · NOT RUN</li></ul></article><article><header><b>B-post</b><span>同一 B · 補驗</span></header><ul><li>AC3 duplicate · PASS</li></ul></article></div><div class="principle-evidence-ref"><b>Candidate B · SHA-256 0415bddc…fbfc682</b><code>B-pre：B-pre-supplement/one-way.json · two-way.json</code><code>B-post：B-post-supplement/duplicate.json</code></div><small class="principle-output-note">UI／E2E／Release／Goal · NOT RUN</small>`,
-      A10: `<div class="principle-output-sheet"><header><b>Parent Goal Issue</b><span>Decision note · 示意</span></header><ul><li>回查 #1／#2 依賴與優先級</li><li>目標問題 → Backlog／Refinement</li><li>實作問題 → Dev；UI／E2E 仍 NOT RUN</li></ul></div>`,
+      A06: `<div class="principle-output-sheet"><header><b>Issue #3</b><span>交接紀錄 · 示意</span></header><ul><li>修正版・第一次測：AC1／AC2 PASS</li><li>重複按讚：未測</li><li>下一步：提出補測要求</li></ul></div>`,
+      A07: `<div class="principle-output-sheet"><header><b>Issue #3</b><span>變更請求 · 示意</span></header><ul><li>聊天室：範圍外</li><li>停止條件：先停止執行</li><li>由人決定是否重排</li></ul></div>`,
+      A08: `<div class="principle-output-records" aria-label="不同角色的 Issue、PR、Review 與 QA 測試紀錄"><article><b>PR</b><span>修改摘要</span></article><article><b>Review</b><span>審查意見</span></article><article><b>QA</b><span>AC 測試結果</span></article><article><b>Owner</b><span>Human Gate 授權</span></article></div><small class="principle-output-note">四種紀錄分開保存；此處為格式示意。</small>`,
+      A09: `<div class="principle-output-dual"><article><header><b>修正版・第一次測</b><span>規則層實測</span></header><ul><li>AC1 · PASS</li><li>AC2 · PASS</li><li>重複按讚 · 未測</li></ul></article><article><header><b>修正版・補測</b><span>同一份修正版程式</span></header><ul><li>重複按讚 · PASS</li></ul></article></div><div class="principle-evidence-ref"><b>測試紀錄檔｜同一份修正版程式</b><span>第一次測：AC1／AC2 PASS；重複按讚未測</span><span>補測：重複按讚 PASS</span></div><small class="principle-output-note">介面／完整流程／上線／產品目標仍未測</small>`,
+      A10: `<div class="principle-output-sheet"><header><b>Parent Goal Issue</b><span>決策紀錄 · 示意</span></header><ul><li>回查 #1／#2 依賴與優先級</li><li>目標問題 → Backlog／Refinement</li><li>實作問題 → Dev；介面與完整流程仍未測</li></ul></div>`,
     };
     return artifacts[id] || '';
   }
 
   function renderPrincipleOverview(slide) {
     const cards = [
-      ['聊天失去任務進度', 'External Task State'],
-      ['工作越過核准範圍', 'Bounded Execution'],
-      ['同一角色包辦所有檢查', 'Role Separation'],
-      ['未測被描述成通過', 'Independent Verification'],
-      ['子票結果偏離產品目標', 'Goal Re-anchoring'],
+      ['聊天失去任務進度', '工作狀態記在 Issue'],
+      ['工作越過核准範圍', '只在核准範圍內工作'],
+      ['同一角色包辦所有檢查', '不同角色各負其責'],
+      ['未測被描述成通過', '另外核對測試結果'],
+      ['子票結果偏離產品目標', '回頭核對產品目標'],
     ];
-    return `<div class="focus-compose b2-focus-compose">${locator(slide)}<section class="diagram-field b2-artifact principle-risk-field"><div class="principle-risk-header"><strong>同一張教學 #3 Ticket · B-pre snapshot</strong><span>五原則框架示意 · duplicate NOT RUN</span></div><div class="principle-risk-grid">${cards.map(([risk, principle], index) => `<article><b>${index+1}</b><div><span>風險</span><strong>${esc(risk)}</strong></div><i>→</i><div><span>原則</span><strong>${esc(principle)}</strong></div></article>`).join('')}</div></section></div>`;
+    return `<div class="focus-compose b2-focus-compose">${locator(slide)}<section class="diagram-field b2-artifact principle-risk-field"><div class="principle-risk-header"><strong>同一張教學 #3 Ticket · 修正版・第一次測紀錄</strong><span>五項做法示意 · 重複按讚未測</span></div><div class="principle-risk-grid">${cards.map(([risk, principle], index) => `<article><b>${index+1}</b><div><span>風險</span><strong>${esc(risk)}</strong></div><i>→</i><div><span>做法</span><strong>${esc(principle)}</strong></div></article>`).join('')}</div></section></div>`;
   }
 
   function renderPrincipleCase(slide) {
     const id = slide.dataset.rev13SceneId;
     const item = PRINCIPLE_CASES[id];
-    return `<div class="focus-compose b2-focus-compose">${locator(slide)}<section class="diagram-field b2-artifact principle-case-field"><header><strong>共同起點</strong><span>同一張教學 #3 Ticket · B-pre · duplicate NOT RUN</span></header><div class="principle-case-grid"><article class="case-situation"><span>情境</span><p>${esc(item.risk)}</p></article><i>→</i><article class="case-decision"><span>原則決策</span><p>${esc(item.decision)}</p></article><i>→</i><article class="case-artifact"><span>產物</span>${renderPrincipleArtifact(id)}</article></div></section></div>`;
+    return `<div class="focus-compose b2-focus-compose">${locator(slide)}<section class="diagram-field b2-artifact principle-case-field"><header><strong>共同起點</strong><span>同一張教學 #3 Ticket · 修正版・第一次測 · 重複按讚未測</span></header><div class="principle-case-grid"><article class="case-situation"><span>情境</span><p>${esc(item.risk)}</p></article><i>→</i><article class="case-decision"><span>處理方式</span><p>${esc(item.decision)}</p></article><i>→</i><article class="case-artifact"><span>產物</span>${renderPrincipleArtifact(id)}</article></div></section></div>`;
   }
 
   function renderPart2Exercise(slide) {
     const questions = [
-      ['Ticket／AC', '你會把哪個 Scope、AC 與 Stop Rule 寫進 Issue？', '寫清楚單向 0、雙向 1 筆、重複仍 1 筆；UI／登入／服務／資料庫排除，超範圍需求先停並交人類 Refinement。'],
-      ['協作模式', '何時可用單 Agent、多 Chat 或 Orchestrator？', '按任務邊界選模式；每站都回寫外部 Issue／版本／Evidence，角色仍分開，Human Gate 仍由人負責。'],
-      ['補驗要求', 'B-pre 還有 NOT RUN 時，什麼證據才能補齊？', '對同一 B artifact 重跑 duplicate：已有 1 筆 M01，再 Like 後仍為 1 筆；UI／E2E／Release／Goal 仍標 NOT RUN。'],
+      ['Ticket／AC', '你會把哪個範圍、AC 與停止條件寫進 Issue？', '寫清楚單向 0、雙向 1 筆、重複仍 1 筆；介面／登入／服務／資料庫排除，超範圍需求先停並交人決定。'],
+      ['協作方式', '什麼時候需要協調 Agent？', '按任務邊界選方式；每站都回寫 Issue、版本與證據，角色仍分開，Human Gate 仍由人負責。'],
+      ['補測要求', '修正版・第一次測還有未測案例時，要補哪些證據？', '對同一份修正版程式重測重複按讚：已有 1 筆 M01，再 Like 後仍為 1 筆；介面／完整流程／上線／產品目標仍未測。'],
     ];
-    return `<div class="focus-compose b2-focus-compose">${locator(slide)}<section class="diagram-field b2-artifact exercise-part2"><header><strong>同一張 Ticket #3 · B-pre → B-post</strong><span>先寫下你的答案</span></header><ol>${questions.map(([label, question, answer], index) => `<li><b>${esc(label)}</b><span>${esc(question)}</span><p class="exercise-answer fragment" data-fragment-order="${index+1}"><strong>參考</strong>：${esc(answer)}</p></li>`).join('')}</ol><footer>參考答案依序揭露；不是新測試，也不表示 Release／Goal 完成。</footer></section></div>`;
+    return `<div class="focus-compose b2-focus-compose">${locator(slide)}<section class="diagram-field b2-artifact exercise-part2"><header><strong>同一張 Ticket #3 · 修正版・第一次測 → 修正版・補測</strong><span>先寫下你的答案</span></header><ol>${questions.map(([label, question, answer], index) => `<li><b>${esc(label)}</b><span>${esc(question)}</span><p class="exercise-answer fragment" data-fragment-order="${index+1}"><strong>參考</strong>：${esc(answer)}</p></li>`).join('')}</ol><footer>參考答案依序揭露；不是新測試，也不表示 上線／產品目標完成。</footer></section></div>`;
   }
 
   function renderArtwork(slide) {
