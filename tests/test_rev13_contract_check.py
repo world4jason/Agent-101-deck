@@ -29,6 +29,11 @@ class Rev13GateTests(unittest.TestCase):
         cls.agents = gate.read(root, "AGENTS.md")
         cls.old = gate.read(root, "docs/issue48-execution-storyboard.md")
         cls.preserve = gate.read(root, gate.PRESERVATION)
+        cls.v5 = json.loads(gate.read(root, gate.V5_MANIFEST))
+        cls.v5_scenes = [
+            {"id": ident}
+            for ident in cls.v5["core_part1"] + cls.v5["core_part2"]
+        ]
 
     def errors(self, manifest=None, story=None, readme=None):
         return gate.check_contract(
@@ -48,11 +53,57 @@ class Rev13GateTests(unittest.TestCase):
         stale_v4 = copy.deepcopy(self.manifest)
         stale_v4["development_phase"] = "refinement"
         self.assertEqual(self.errors(manifest=stale_v4), problems)
-        v5 = json.loads(gate.read(self.root, gate.V5_MANIFEST))
-        scenes = [{"id": ident} for ident in v5["core_part1"] + v5["core_part2"]]
         rendered_problems = []
-        gate.check_rendered(self.root, scenes, rendered_problems)
+        gate.check_rendered(self.root, self.v5_scenes, rendered_problems)
         self.assertEqual(rendered_problems, [])
+
+    def write_rendered_fixture(self, root: Path, actual_map):
+        manifest_path = root / gate.V5_MANIFEST
+        manifest_path.parent.mkdir(parents=True, exist_ok=True)
+        manifest_path.write_text(json.dumps(self.v5), encoding="utf-8")
+        artifact = root / "slides/rev13/index.html"
+        artifact.parent.mkdir(parents=True, exist_ok=True)
+        required = {
+            "data-phase": "phase",
+            "data-focus-roles": "roles",
+            "data-doc-ref": "documents",
+            "data-version-ref": "versions",
+            "data-github-ref": "github",
+            "data-beat": "overview",
+            "data-mother-map-id": "rev13-four-foundations",
+        }
+        lines = []
+        for item in actual_map:
+            attrs = [f'class="slide"', f'data-page="{item["page"]}"']
+            if item.get("scene_id"):
+                attrs.append(f'data-rev13-scene-id="{item["scene_id"]}"')
+            merged = item.get("merged_scene_ids", [])
+            if merged:
+                attrs.append(f'data-rev13-merged-scenes="{",".join(merged)}"')
+            attrs.extend(f'{key}="{value}"' for key, value in required.items())
+            lines.append("<section " + " ".join(attrs) + "></section>")
+        artifact.write_text("\n".join(lines), encoding="utf-8")
+
+    def test_rendered_page_order_must_match_v5_implementation_map(self):
+        actual_map = copy.deepcopy(self.v5["implementation_slide_map"])
+        actual_map[0], actual_map[1] = actual_map[1], actual_map[0]
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            self.write_rendered_fixture(root, actual_map)
+            problems = []
+            gate.check_rendered(root, self.v5_scenes, problems)
+        self.assertTrue(any("match the v5 implementation_slide_map" in item for item in problems))
+
+    def test_rendered_scene_coverage_still_requires_every_v5_scene(self):
+        actual_map = copy.deepcopy(self.v5["implementation_slide_map"])
+        last = next(item for item in actual_map if item["scene_id"] == "A11")
+        last["scene_id"] = None
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            self.write_rendered_fixture(root, actual_map)
+            problems = []
+            gate.check_rendered(root, self.v5_scenes, problems)
+        self.assertTrue(any("missing A11" in item for item in problems))
 
     def test_removing_one_of_the_five_principles_fails(self):
         broken = copy.deepcopy(self.manifest)

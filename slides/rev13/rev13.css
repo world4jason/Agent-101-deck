@@ -2237,8 +2237,115 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .role-card p { display: grid; gap: 5px; font-size: 16px; line-height: 1.18; }
 .role-distinction { margin-top: 6px; }
 
+/* Put the role-separation takeaway ahead of the role reference cards. */
+.role-distinction { min-height: 54px; gap: 20px; border: 1px solid #8a7148; border-left: 6px solid var(--people); background: #2c291f; }
+.role-distinction b { font-size: 21px; }
+.role-distinction span { font-size: 18px; line-height: 1.2; }
+
 @media (max-width: 1100px) {
   .course-outline-card li { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); font-size: 16px; }
   .course-outline-card li strong { font-size: 16px; }
   .git-purpose-pair article { grid-template-columns: 72px minmax(0, 1fr); }
 }
+
+/* Keep the opening four foundations equal before the shared map unfolds. */
+.opening-skeleton-prompts .opening-prompt-name { font-size: 26px; }
+.opening-skeleton-prompts .opening-prompt-question { font-size: 22px; }
+.opening-prompt-example { font-size: 18px; font-weight: 700; }
+
+/* Make return paths and their labels distinct from the work cards they connect. */
+.swimlane-return { stroke: #e1b39b; stroke-width: 3; opacity: 1; }
+.swimlane-return rect { fill: #292722; stroke: #e1b39b; stroke-width: 1.5; }
+.swimlane-return text { fill: #fff0e6; font-size: 18px; font-weight: 850; }
+.opening-return { stroke: #f0b394; stroke-width: 3.2; }
+.opening-return rect { fill: #302720; stroke: #f0b394; stroke-width: 1.7; }
+.opening-return text { fill: #fff2e8; font-size: 18px; font-weight: 850; }
+
+/* Replace the unstyled summary shape with the same pale version track used elsewhere. */
+.swimlane-version-summary rect { fill: #202a3a; stroke: #879dc9; stroke-width: 1.6; }
+.swimlane-version-summary text { fill: #e0e8fb; font-size: 18px; font-weight: 800; }
+
+/* Let each ticket page reveal only the fields taught so far. */
+.good-ticket-grid { grid-template-rows: repeat(var(--ticket-step), minmax(0, 1fr)); }
+.good-ticket-part { opacity: .82; }
+.good-ticket-part.is-active { opacity: 1; }
+.good-ticket-part[data-ticket-key="criteria"] {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 6px;
+}
+.good-ticket-part[data-ticket-key="criteria"] > header { grid-column: 1; }
+.ticket-pair { height: 100%; gap: 14px; }
+.ticket-pair article {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-left: 4px solid var(--process);
+  background: #172927;
+}
+.ticket-pair article + article { border-left-color: var(--version); background: #1d2535; }
+.ticket-pair article b { color: #cce8dc; font-size: 19px; }
+.ticket-pair article + article b { color: #d4dfff; }
+.ticket-pair article p { margin: 0; color: #f1f4ed; font-size: 20px; line-height: 1.22; }
+
+/* Fill the introductory work station with its input, action, handoff and version state. */
+.stage-intro-card { justify-content: flex-start; gap: 18px; padding: 22px 24px; }
+.stage-intro-card > header { display: flex; align-items: baseline; gap: 14px; padding-bottom: 10px; border-bottom: 1px solid #40534d; }
+.stage-intro-card > header span { color: #a9d7ca; font-size: 18px; font-weight: 800; }
+.stage-intro-card > header h2 { margin: 0; color: #f1f4ec; font: 700 26px/1.15 var(--font-display); }
+.stage-intro-flow { display: grid; min-height: 0; flex: 1 1 auto; grid-template-columns: minmax(0, 1fr) 38px minmax(0, 1.2fr) 38px minmax(0, 1fr); align-items: stretch; gap: 10px; }
+.stage-intro-flow article { display: flex; min-width: 0; flex-direction: column; justify-content: center; gap: 12px; padding: 20px; border: 1px solid #526961; border-top: 4px solid var(--process); border-radius: 5px; background: #172927; }
+.stage-intro-flow article > span { color: #b9ddd2; font-size: 18px; font-weight: 800; }
+.stage-intro-flow article > strong { color: #f2f4ed; font-size: 23px; line-height: 1.22; }
+.stage-intro-flow .stage-intro-work { border-top-color: var(--people); background: #29261d; }
+.stage-intro-flow .stage-intro-work > span { color: #f0d49d; }
+.stage-intro-flow .stage-intro-output { border-top-color: var(--documents); background: #1c2b21; }
+.stage-intro-flow .stage-intro-output > span { color: #c8e4bf; }
+.stage-intro-flow > i { align-self: center; color: #9bcdbf; font: 800 30px/1 var(--font-data); font-style: normal; text-align: center; }
+.stage-intro-records { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.stage-intro-records article { display: grid; grid-template-columns: 125px minmax(0, 1fr); align-items: center; gap: 10px; min-height: 66px; padding: 10px 14px; border-left: 4px solid var(--documents); background: #1b2921; }
+.stage-intro-records article + article { border-left-color: var(--version); background: #1d2535; }
+.stage-intro-records b { color: #cce5c4; font-size: 18px; }
+.stage-intro-records article + article b { color: #cbd7f4; }
+.stage-intro-records span { color: #eef1e9; font-size: 18px; line-height: 1.2; }
+
+/* Keep the ticket title clear and show one question with its matching answer at a time. */
+.pairing-exercise-field { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: stretch; gap: 14px; padding: 16px; }
+.pairing-exercise-ticket { display: flex; min-width: 0; flex-direction: column; justify-content: flex-start; gap: 14px; padding: 24px 20px 18px; border: 1px solid #81734d; border-top: 4px solid var(--gate); border-radius: 6px; background: #211f18; }
+.pairing-exercise-ticket header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid #554b35; }
+.pairing-exercise-ticket header strong { color: #f4eedc; font-size: 24px; line-height: 1.2; }
+.pairing-exercise-ticket header span { color: #efd795; font-size: 18px; font-weight: 750; }
+.pairing-exercise-ticket > p { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 8px; margin: 0; padding: 11px 0; border-bottom: 1px solid #554b35; color: #eee8d8; font-size: 19px; line-height: 1.28; }
+.pairing-exercise-ticket > p b { color: #f0d49c; }
+.pairing-exercise-questions { display: flex; min-width: 0; flex-direction: column; justify-content: center; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.pairing-exercise-questions > li { display: none; min-width: 0; flex-direction: column; justify-content: center; gap: 16px; min-height: 230px; padding: 24px; border: 1px solid #665d42; border-top: 4px solid var(--gate); border-radius: 5px; background: #29261d; }
+.pairing-exercise-questions > li.is-current { display: flex; }
+.pairing-exercise-questions .exercise-prompt { display: flex; flex-direction: column; gap: 13px; }
+.pairing-exercise-questions .exercise-prompt b { color: #efd59b; font-size: 18px; }
+.pairing-exercise-questions .exercise-prompt strong { color: #f2eddf; font-size: 26px; line-height: 1.2; }
+.pairing-exercise-questions .exercise-answer { margin: 0; padding: 14px 15px; border-left: 4px solid var(--good); color: #e4f2e5; background: #1c2b22; font-size: 19px; line-height: 1.3; }
+.pairing-exercise-questions .exercise-answer strong { color: #a9dfb5; font-size: 18px; }
+.exercise-step.fragment:not(.visible) { display: none; }
+
+.exercise-part2 ol { display: block; padding: 0; }
+.exercise-part2 li { display: none; min-height: 0; height: 100%; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, auto); align-content: center; gap: 16px; padding: 24px; }
+.exercise-part2 li.is-current { display: grid; }
+.exercise-part2 .exercise-prompt { display: flex; flex-direction: column; gap: 12px; }
+.exercise-part2 .exercise-prompt b { color: #efd59b; font-size: 19px; }
+.exercise-part2 .exercise-prompt span { color: #f2eddf; font-size: 25px; line-height: 1.22; }
+.exercise-part2 .exercise-answer { grid-column: 1; font-size: 19px; line-height: 1.3; }
+.exercise-part2 .exercise-answer strong { font-size: 19px; }
+
+/* Keep the low-contrast map context readable without competing with the current step. */
+.swimlane-node.work-card.is-context { opacity: .7 !important; }
+.swimlane-lane.is-dim,
+.swimlane-process.is-dim,
+.swimlane-documents.is-dim,
+.swimlane-version.is-dim { opacity: .68 !important; }
+.swimlane-node.work-card .swimlane-card-title { font-size: 16px; }
+.slide[data-page="30"] .swimlane-doc-name { font-size: 18px; }
+.slide[data-page="30"] .swimlane-doc-status { font-size: 16px; }
+.git-history .recovery-trigger-label { fill: #f1d27e; font-size: 18px; font-weight: 800; }

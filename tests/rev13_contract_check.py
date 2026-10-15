@@ -306,7 +306,8 @@ class SlideParser(HTMLParser):
         self.slides = []
     def handle_starttag(self, tag, attrs):
         props = dict(attrs)
-        if "data-rev13-scene-id" in props:
+        classes = set((props.get("class") or "").split())
+        if tag == "section" and "slide" in classes and "data-page" in props:
             self.slides.append(props)
 
 
@@ -316,13 +317,65 @@ def check_rendered(root: Path, scenes: list[dict], errors: list[str]):
     if not artifact.exists():
         errors.append("implementation requires actual slides/rev13/index.html")
         return
+    v5_path = root / V5_MANIFEST
+    if not v5_path.exists():
+        errors.append("rendered slides require the v5 implementation_slide_map")
+        return
+    try:
+        v5 = json.loads(v5_path.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        errors.append(f"cannot read v5 implementation_slide_map: {exc}")
+        return
+    expected_map = v5.get("implementation_slide_map")
+    if not isinstance(expected_map, list) or not expected_map:
+        errors.append("v5 manifest requires a non-empty implementation_slide_map")
+        return
     parser = SlideParser()
     parser.feed(artifact.read_text(encoding="utf-8"))
-    ids = [s.get("data-rev13-scene-id") for s in parser.slides]
-    if ids != [s["id"] for s in scenes]:
-        errors.append("rendered slides must cover scenes in the storyboard order")
+    actual_map = []
     for props in parser.slides:
-        ident = props["data-rev13-scene-id"]
+        try:
+            page = int(props.get("data-page", ""))
+        except ValueError:
+            page = None
+        merged = [ident for ident in (props.get("data-rev13-merged-scenes") or "").split(",") if ident]
+        actual_map.append({
+            "page": page,
+            "scene_id": props.get("data-rev13-scene-id"),
+            "merged_scene_ids": merged,
+        })
+    canonical_map = [
+        {
+            "page": item.get("page"),
+            "scene_id": item.get("scene_id"),
+            "merged_scene_ids": item.get("merged_scene_ids", []),
+        }
+        for item in expected_map
+    ]
+    if actual_map != canonical_map:
+        errors.append("rendered slide order and scene mapping must match the v5 implementation_slide_map")
+
+    expected_ids = {item["id"] for item in scenes}
+    mapped_ids = {
+        ident
+        for item in actual_map
+        for ident in ([item["scene_id"]] if item["scene_id"] else []) + item["merged_scene_ids"]
+    }
+    missing = sorted(expected_ids - mapped_ids)
+    unexpected = sorted(mapped_ids - expected_ids)
+    if missing or unexpected:
+        details = []
+        if missing:
+            details.append(f"missing {', '.join(missing)}")
+        if unexpected:
+            details.append(f"unexpected {', '.join(unexpected)}")
+        errors.append("rendered scene coverage must match v5 core scenes: " + "; ".join(details))
+
+    for props in parser.slides:
+        identifiers = [props.get("data-rev13-scene-id")] + [
+            ident for ident in (props.get("data-rev13-merged-scenes") or "").split(",") if ident
+        ]
+        ident = ", ".join(item for item in identifiers if item) or f"page {props.get('data-page', '?')}"
         for field in ("data-phase","data-focus-roles","data-doc-ref",
                       "data-version-ref","data-github-ref","data-beat",
                       "data-mother-map-id"):
