@@ -1,5 +1,8 @@
 # AGENTS.md — Agent 101 Deck
 
+> **最高優先：先讀 [Rev13 投影片設計原則](docs/rev13-design-principles.md)。它高於本文件其他段落與所有 Rev13 規格；衝突時以它為準。禁用內部代號與自創術語（面向新手）。**
+
+
 本 Repository 是給軟體開發零基礎學員的互動教材；正式投影片目前是 Rev12，下一版 Rev13 **開場必須先呈現「人／流程／文件／版本管理」四要素，再在相同畫面新增 Agent 第五要素**；之後才沿軟體開發流程講同一個案例。
 
 ## Rev13 mandatory instructions (authoring, docs, slides, exports, PR review)
