@@ -255,11 +255,11 @@ a { color: inherit; }
 .swimlane-doc-card { fill: #18221f; stroke: #66816d; stroke-width: 1.5; }
 .swimlane-doc-fold { fill: none; stroke: #66816d; stroke-width: 1.5; }
 .swimlane-doc-name { fill: #dcead5; font-size: 20px; font-weight: 750; }
-.swimlane-doc-status { fill: #b6c9b5; font-size: 19px; font-weight: 650; }
+.swimlane-doc-status { fill: #b6c9b5; font-size: 16px; font-weight: 650; }
 .swimlane-version-link { fill: none; stroke: #92a9d4; stroke-width: 2.3; }
 .swimlane-version-dot { fill: #202b41; stroke: #9db5e2; stroke-width: 2; }
 .swimlane-version-name { fill: #dbe4fb; font-size: 20px; font-weight: 750; }
-.swimlane-version-status { fill: #b8c7e4; font-size: 19px; font-weight: 650; }
+.swimlane-version-status { fill: #b8c7e4; font-size: 16px; font-weight: 650; }
 .swimlane-doc-node.is-focus .swimlane-doc-card,
 .swimlane-version-node.is-focus .swimlane-version-dot { stroke-width: 3; }
 .swimlane-doc-node.is-changed .swimlane-doc-card,
@@ -1736,15 +1736,12 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 /* Keep every numbered principle attached to a readable map location. */
 .principle-map-leader { fill: none; stroke: #e7bc75; stroke-width: 2.2; }
 .slide[data-page="65"] .swimlane-doc-name { font-size: 23px; }
-.slide[data-page="65"] .swimlane-doc-status { font-size: 21px; }
 .slide[data-page="65"] .swimlane-stage-label { font-size: 22px; }
 .slide[data-page="65"] .swimlane-stage-note { font-size: 20px; }
-.slide[data-page="65"] .swimlane-version-status { font-size: 18px; }
 .principle-map-markers > g:not(.principle-map-key) > text { font-size: 20px; }
 
 /* Keep the linked tickets on the refinement map short and legible. */
 .slide[data-page="30"] .swimlane-doc-name { font-size: 25px; }
-.slide[data-page="30"] .swimlane-doc-status { font-size: 23px; }
 .swimlane-doc-node.is-ticket-tree .swimlane-doc-name { font-size: 23px; }
 
 /* Put the Dev handoff evidence in the available space without implying a real run. */
@@ -1820,9 +1817,7 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 
 /* Keep the document track within its fixed height while separating its two lines. */
 .slide[data-page="30"] .swimlane-doc-name { font-size: 19px; }
-.slide[data-page="30"] .swimlane-doc-status { font-size: 18px; }
 .slide[data-page="65"] .swimlane-doc-name { font-size: 20px; }
-.slide[data-page="65"] .swimlane-doc-status { font-size: 18px; }
 
 /* Expand the AC1 result and the QA-to-Dev return across the available evidence card. */
 .slide[data-page="42"] .qa-failure-evidence { grid-template-columns: minmax(0, 1fr); }
@@ -1869,7 +1864,6 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 
 /* Keep the sparse updated overview legible inside its existing document card. */
 .slide[data-page="30"] .swimlane-doc-name { font-size: 30px; }
-.slide[data-page="30"] .swimlane-doc-status { font-size: 22px; }
 
 /* Keep the existing collaboration records readable without squeezing their columns. */
 .slide[data-page="57"] .agent-mode-artifacts b,
@@ -2347,7 +2341,6 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .swimlane-version.is-dim { opacity: .68 !important; }
 .swimlane-node.work-card .swimlane-card-title { font-size: 16px; }
 .slide[data-page="30"] .swimlane-doc-name { font-size: 18px; }
-.slide[data-page="30"] .swimlane-doc-status { font-size: 16px; }
 .git-history .recovery-trigger-label { fill: #f1d27e; font-size: 18px; font-weight: 800; }
 
 /* Keep the shared map's labels clear of the document row and return paths. */

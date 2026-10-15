@@ -362,11 +362,49 @@
     return `<g class="swimlane-handoff${active ? ' is-active' : ''}" data-handoff="${from}-${to}"><path d="M${start + 5} 110 H${end - 5}" marker-end="url(#swimlane-arrow-${uid})"/><rect x="${mid - width / 2}" y="117" width="${width}" height="18" rx="4"/><text x="${mid}" y="131" text-anchor="middle">${esc(label)}</text></g>`;
   }
 
+  const SWIMLANE_CARD_STATUS_SHORTENINGS = Object.freeze({
+    '尚未建立': '未建立',
+    '尚未備妥': '未備妥',
+    '尚未開始': '未開始',
+    '尚未送審': '未送審',
+    '尚未驗證': '未驗證',
+    '尚未核對': '未核對',
+    '等待決定': '待決定',
+    '尚未完成': '未完成',
+    '尚未開分支': '未開分支',
+    '尚無修改紀錄': '無修改紀錄',
+    '已拆分・待補': '已拆待補',
+    '補測 PASS': '補測通過',
+    '已授權・未執行': '授權未做',
+    '已授權，待合併': '待合併',
+    '配對規則票已交辦': '已交辦',
+    '沿用既有目標': '沿用目標',
+    '尚未產生': '未產生',
+    '尚未決定': '未決定',
+    '整體目標仍未測': '目標未測',
+    '同一張票已交辦': '已交辦',
+    'Agent 修改為教學示意': '示意',
+    '審查流程為教學示意': '示意',
+    '三次規則實測可回查': '可回查',
+    '介面與完整流程未測': '介面流程未測',
+    '規則測試紀錄可回查': '可回查',
+    'Agent 修改：教學示意': '示意',
+    '審查：教學示意': '示意',
+    '測試對應修正版': '修正版測試',
+  });
+
+  function compactSwimlaneCardStatus(status) {
+    const fullStatus = String(status ?? '');
+    const compactStatus = SWIMLANE_CARD_STATUS_SHORTENINGS[fullStatus] || fullStatus;
+    return [...compactStatus].length <= 6 ? compactStatus : '詳見說明';
+  }
+
   function mapFooterMarkup(uid, page, options = {}) {
     const isPrinciplePage = options.principles === true;
-    const principles = isPrinciplePage ? `<g class="map-footer-principles" aria-label="五項原則"><g><circle cx="204" cy="720" r="12"/><text class="principle-number" x="204" y="726">1</text><text x="224" y="726">共用工作紀錄</text></g><g><circle cx="494" cy="720" r="12"/><text class="principle-number" x="494" y="726">2</text><text x="514" y="726">超出範圍先停</text></g><g><circle cx="784" cy="720" r="12"/><text class="principle-number" x="784" y="726">3</text><text x="804" y="726">人與 Agent 分工</text></g><g><circle cx="1074" cy="720" r="12"/><text class="principle-number" x="1074" y="726">4</text><text x="1094" y="726">獨立核對結果</text></g><g><circle cx="1364" cy="720" r="12"/><text class="principle-number" x="1364" y="726">5</text><text x="1384" y="726">回看產品目標</text></g></g>` : '';
-    const footerRule = isPrinciplePage ? 742 : 696;
-    const docY = isPrinciplePage ? 756 : 738;
+    // Keep the numbered explanation row clearly above the documents/version note.
+    const principles = isPrinciplePage ? `<g class="map-footer-principles" aria-label="五項原則"><g><circle cx="204" cy="702" r="12"/><text class="principle-number" x="204" y="708">1</text><text x="224" y="708">共用工作紀錄</text></g><g><circle cx="494" cy="702" r="12"/><text class="principle-number" x="494" y="708">2</text><text x="514" y="708">超出範圍先停</text></g><g><circle cx="784" cy="702" r="12"/><text class="principle-number" x="784" y="708">3</text><text x="804" y="708">人與 Agent 分工</text></g><g><circle cx="1074" cy="702" r="12"/><text class="principle-number" x="1074" y="708">4</text><text x="1094" y="708">獨立核對結果</text></g><g><circle cx="1364" cy="702" r="12"/><text class="principle-number" x="1364" y="708">5</text><text x="1384" y="708">回看產品目標</text></g></g>` : '';
+    const footerRule = isPrinciplePage ? 730 : 696;
+    const docY = isPrinciplePage ? 760 : 738;
     const versionSummary = options.briefVersion ? '' : '<text x="924" y="' + docY + '">版本修改與審查紀錄</text>';
     const responsibility = options.roleLegend ? `<g class="role-map-key"><rect x="24" y="701" width="20" height="16" rx="3" class="key-lead"/><text x="52" y="715">主責</text><rect x="142" y="701" width="20" height="16" rx="3" class="key-co"/><text x="170" y="715">協作</text><polygon points="288,700 298,709 288,718 278,709" class="key-decision"/><text x="306" y="715">決策</text></g>` : '';
     return `<g class="map-footer"><path d="M18 ${footerRule} H1582" class="map-footer-rule"/>${principles}${responsibility}<text class="map-footer-track" x="24" y="${docY}">文件</text><text x="78" y="${docY}">目標、工作票、驗收與結果</text><text class="map-footer-track" x="810" y="${docY}">版本管理</text>${versionSummary}</g>`;
@@ -498,7 +536,7 @@
       const isChanged = key === docStage;
       const past = delta?.docStates?.[key];
       const currentLabel = isChanged ? (delta.docLabel || label) : (past?.label || label);
-      const currentStatus = isChanged ? (delta.docStatus || status) : (past?.status || status);
+      const currentStatus = compactSwimlaneCardStatus(isChanged ? (delta.docStatus || status) : (past?.status || status));
       const stageClass = '';
       const width = key === 'human_gate' ? 122 : 136;
       const left = x - width / 2;
@@ -521,7 +559,7 @@
       const isChanged = key === versionStage;
       const currentLabel = isChanged ? (delta.versionLabel || label) : label;
       const past = delta?.versionStates?.[key];
-      const currentStatus = isChanged ? (delta.versionStatus || status) : (past?.status || status);
+      const currentStatus = compactSwimlaneCardStatus(isChanged ? (delta.versionStatus || status) : (past?.status || status));
       const stageClass = '';
       return `<g class="swimlane-version-node${isChanged ? ' is-changed' : ''}${stageClass}" data-state="${key}"><circle class="swimlane-version-dot" cx="${x}" cy="624" r="9"/><text class="swimlane-version-name" x="${x}" y="654" text-anchor="middle">${esc(currentLabel)}</text><text class="swimlane-version-status" x="${x}" y="675" text-anchor="middle">${esc(currentStatus)}</text></g>`;
     }).join('');
