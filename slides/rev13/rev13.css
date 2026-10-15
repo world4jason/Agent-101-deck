@@ -1758,6 +1758,82 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 
 /* Keep all five principle links clear of the control bar on the final map. */
 .slide[data-page="61"] { padding-bottom: 34px; }
+
+/* Part 1 role cards pair one responsibility with one everyday app example. */
+.role-card { min-height: 128px; gap: 7px; padding: 12px; }
+.role-card strong { font-size: 17px; line-height: 1.18; }
+.role-card p { display: grid; gap: 5px; font-size: 16px; line-height: 1.2; }
+.role-card p span:last-child { color: #f0d9a9; }
+
+/* Human Gate is a decision above the seven workflow statuses. */
+.roles-matrix .matrix-gate-branch { fill: none; stroke: var(--gate); stroke-width: 2; stroke-dasharray: 4 3; }
+.roles-matrix .matrix-gate-label { fill: #f1d27e; font-size: 18px; font-weight: 750; }
+
+/* Parent/Child is a tree; the type names sit beside sibling work tickets. */
+.ticket-tree { position: relative; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; padding-top: 16px; }
+.ticket-tree::before { position: absolute; top: 7px; left: 16.66%; right: 16.66%; content: ""; border-top: 1px solid #7da875; }
+.ticket-node { position: relative; min-height: 91px; }
+.ticket-node::before { position: absolute; top: -10px; left: 50%; height: 10px; content: ""; border-left: 1px solid #7da875; }
+.ticket-node strong { font-size: 20px; }
+.tree-arrow { display: none; }
+
+/* The matching example makes each acceptance term answer a separate question. */
+.criteria-example-field { --accent: var(--documents); justify-content: center; gap: 15px; padding: 20px 22px; }
+.criteria-example-title { display: flex; align-items: center; gap: 16px; padding: 13px 16px; border-left: 4px solid var(--people); background: #292419; }
+.criteria-example-title span { color: #efd49b; font-size: 18px; font-weight: 750; }
+.criteria-example-title strong { color: #f5eedc; font-size: 24px; }
+.criteria-example-grid { display: grid; flex: 1 1 auto; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(150px, 1fr)); gap: 11px; }
+.criteria-example-grid article { display: flex; min-width: 0; flex-direction: column; justify-content: center; gap: 10px; padding: 15px; border: 1px solid #4d6d63; border-top: 4px solid var(--process); border-radius: 5px; background: #172725; }
+.criteria-example-grid article b { color: #d4eadf; font-size: 20px; line-height: 1.2; }
+.criteria-example-grid article p { margin: 0; color: #eef1e9; font-size: 21px; line-height: 1.3; }
+.criteria-example-grid .dod-example { grid-column: span 2; border-top-color: var(--gate); background: #29251a; }
+
+/* Keep the walkthrough steps readable before the measured result slide. */
+.qa-method-shell { gap: 12px; }
+.qa-method-steps { display: grid; grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr) 28px minmax(0, 1fr) 28px minmax(0, 1fr); align-items: stretch; gap: 7px; }
+.qa-method-steps article { display: flex; min-width: 0; min-height: 78px; flex-direction: column; justify-content: center; gap: 7px; padding: 10px 12px; border: 1px solid #62708d; border-top: 3px solid var(--version); background: #202a39; }
+.qa-method-steps b { color: #d8e2ff; font-size: 18px; }
+.qa-method-steps span { color: #f1f3f7; font-size: 19px; line-height: 1.2; }
+.qa-method-steps > i { align-self: center; color: var(--process); font: 800 22px/1 var(--font-data); font-style: normal; text-align: center; }
+
+/* The review return path is shown as an explicit, connected sequence. */
+.review-fix-path { display: grid; grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr) 28px minmax(0, .7fr); align-items: center; gap: 8px; padding: 10px 12px; border-left: 4px solid var(--agent); background: #30221f; }
+.review-fix-path b { color: #f6e7df; font-size: 18px; line-height: 1.2; text-align: center; }
+.review-fix-path i { color: var(--agent); font: 800 22px/1 var(--font-data); font-style: normal; text-align: center; }
+
+/* Agent modes get enough room to show their distinct native diagrams. */
+.slide[data-page="52"] .mother-map,
+.slide[data-page="53"] .mother-map,
+.slide[data-page="54"] .mother-map { grid-template-rows: minmax(0, 1fr) 42px 145px 34px; }
+.agent-mode-pair { display: grid; width: 100%; grid-template-columns: minmax(0, 1fr) 38px minmax(0, 1fr); align-items: center; gap: 12px; }
+.agent-mode-pair.multi-chat-pair { grid-template-columns: minmax(0, 1fr) 32px minmax(0, 1.25fr) 32px minmax(0, 1fr); }
+.agent-mode-pair > .agent-step { display: flex; min-width: 0; min-height: 92px; flex-direction: column; justify-content: center; gap: 7px; padding: 10px 13px; border: 1px solid #806b46; border-top: 3px solid var(--people); border-radius: 4px; background: #292419; }
+.agent-mode-pair > .agent-step b { color: #f6d9a5; font-size: 20px; }
+.agent-mode-pair > .agent-step span { color: #f3eee4; font-size: 17px; line-height: 1.2; white-space: normal; }
+.agent-mode-pair > .agent-step small { color: #d3c6ae; font-size: 15px; line-height: 1.15; white-space: normal; }
+.agent-mode-pair > .agent-executor { border-color: #995f52; border-top-color: var(--agent); background: #30221f; }
+.agent-mode-pair > .agent-check { border-color: #597262; border-top-color: var(--good); background: #1c2b22; }
+.agent-mode-pair > .human-carrier { border-color: #598077; border-top-color: var(--process); background: #172927; }
+.agent-mode-pair > i { color: var(--process); font: 850 24px/1 var(--font-data); font-style: normal; text-align: center; }
+.orchestration-tree { display: grid; grid-template-rows: 35px 13px 42px 20px; gap: 4px; width: 100%; align-items: stretch; }
+.orchestration-root { justify-self: center; width: 56%; min-height: 0 !important; align-items: center; padding: 4px 10px !important; text-align: center; }
+.orchestration-branches { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); height: 13px; }
+.orchestration-branches::before { position: absolute; top: 0; left: 16.66%; right: 16.66%; content: ""; border-top: 1px solid #d0917b; }
+.orchestration-branches i { justify-self: center; width: 1px; height: 13px; background: #d0917b; }
+.orchestration-workers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.orchestration-workers .agent-step { display: flex; min-width: 0; flex-direction: column; justify-content: center; gap: 3px; padding: 4px 8px; border: 1px solid #70554e; border-top: 2px solid var(--agent); background: #2a211f; text-align: center; }
+.orchestration-workers .agent-step b { color: #f5d8ce; font-size: 17px; }
+.orchestration-workers .agent-step span { color: #d9c9c3; font-size: 15px; line-height: 1.1; }
+.orchestration-return { align-self: center; color: #f2ddcf; font-size: 16px; text-align: center; }
+
+/* Keep the compact chapter groups fully readable in narrow headers. */
+.chapter-rail { scroll-padding-inline: 8px; }
+
+@media (max-width: 760px) {
+  .agent-mode-pair > .agent-step b { font-size: 17px; }
+  .agent-mode-pair > .agent-step span { font-size: 15px; }
+  .agent-mode-pair > .agent-step small { font-size: 14px; }
+}
 .slide[data-rev13-scene-id="A11"] .b2-full-map .mother-map { grid-template-rows: minmax(0, 1fr) 46px 49px 112px; }
 .slide[data-rev13-scene-id="A11"] .principle-pin-row { gap: 6px 16px; padding: 10px 16px 14px; }
 .slide[data-rev13-scene-id="A11"] .principle-pin { font-size: 19px; line-height: 1.15; }
@@ -1824,7 +1900,7 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .slide[data-page="59"] .principle-evidence-ref { gap: 5px; padding: 9px 10px; font-size: 17px; line-height: 1.22; }
 .slide[data-page="59"] .principle-evidence-ref b { font-size: 20px; }
 .slide[data-page="59"] .principle-evidence-ref span { font-size: 19px; line-height: 1.22; }
-.slide[data-page="59"] .principle-case-grid .case-artifact { justify-content: space-evenly; padding-bottom: 18px; }
+.slide[data-page="59"] .principle-case-grid .case-artifact { justify-content: flex-start; gap: 10px; padding: 14px 16px; }
 
 /* Move selected Part 2 artifacts into the open space and let their content breathe. */
 .slide[data-page="24"] .b2-artifact,

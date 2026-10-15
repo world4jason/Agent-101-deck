@@ -35,6 +35,10 @@ MOTHER_MAP_ID = "rev13-four-foundations"
 BANNED_LEARNER_TERMS = (
     "B-pre",
     "B-post",
+    "B-pre-supplement",
+    "B-post-supplement",
+    "Version A",
+    "workshop/matching-demo/evidence/",
     "candidate",
     "supplement",
     "duplicate",
@@ -43,6 +47,11 @@ BANNED_LEARNER_TERMS = (
     "fixture",
     "SHA-256",
     "SHA256",
+)
+INTERNAL_CODE_PATTERNS = (
+    re.compile(r"(?<![A-Za-z0-9])(?:O|B|R|RD|D|RV|Q|PC|C|HG|A|X)\d{2}(?![A-Za-z0-9])"),
+    re.compile(r"(?<![A-Za-z0-9])B[1-9](?![A-Za-z0-9])"),
+    re.compile(r"(?i)\b[a-f0-9]{40,64}\b"),
 )
 
 
@@ -292,6 +301,21 @@ def javascript_visible_text(source: str) -> list[tuple[int, str]]:
     return visible
 
 
+def javascript_markup_visible_text(source: str) -> list[tuple[int, str]]:
+    """Collect text nodes from HTML fragments, excluding plain code strings."""
+    literals, _ = _scan_js_code(source)
+    visible: list[tuple[int, str]] = []
+    for offset, literal in sorted(literals):
+        if "<" not in literal:
+            continue
+        parser = LearnerTextParser()
+        parser.feed(literal)
+        parser.close()
+        line = source.count("\n", 0, offset) + 1
+        visible.extend((line, chunk[2]) for chunk in parser.text_chunks)
+    return visible
+
+
 def append_banned_text_errors(
     errors: list[str], chunks: list[tuple[str | None, int, str]], source_name: str
 ) -> None:
@@ -309,6 +333,24 @@ def append_banned_js_errors(errors: list[str], source: str, source_name: str) ->
         for line, text in javascript_visible_text(source)
         for term in banned_terms_in(text)
     }
+    errors.extend(sorted(findings))
+
+
+def append_internal_code_errors(
+    errors: list[str],
+    chunks: list[tuple[str | None, int, str]],
+    source_name: str,
+    scene_ids: list[str],
+) -> None:
+    findings: set[str] = set()
+    for page, line, text in chunks:
+        location = f"{source_name} page {page}" if page else f"{source_name} line {line}"
+        for pattern in INTERNAL_CODE_PATTERNS:
+            for code in pattern.findall(text):
+                findings.add(f"{location}: internal code {code!r} appears in learner-facing text or notes")
+        for scene_id in scene_ids:
+            if re.search(rf"(?<![A-Za-z0-9]){re.escape(scene_id)}(?![A-Za-z0-9])", text):
+                findings.add(f"{location}: internal scene ID {scene_id!r} appears in learner-facing text or notes")
     errors.extend(sorted(findings))
 
 
@@ -402,14 +444,21 @@ def main() -> int:
         print("REV13 SLIDES: FAIL (1)")
         return 1
 
+    slides = parser.slides
+    expected = manifest.get("core_part1", []) + manifest.get("core_part2", [])
     learner_html = LearnerTextParser()
     learner_html.feed(html_source)
     learner_html.close()
     append_banned_text_errors(errors, learner_html.text_chunks, "index.html")
     append_banned_js_errors(errors, renderer_source, "rev13.js")
+    append_internal_code_errors(errors, learner_html.text_chunks, "index.html", expected)
+    append_internal_code_errors(
+        errors,
+        [(None, line, text) for line, text in javascript_markup_visible_text(renderer_source)],
+        "rev13.js",
+        expected,
+    )
 
-    slides = parser.slides
-    expected = manifest.get("core_part1", []) + manifest.get("core_part2", [])
     if manifest.get("development_phase") != "implementation":
         fail(errors, "v5 manifest must declare implementation after all 62 scenes are present")
     if len(expected) != 62 or len(set(expected)) != 62:
@@ -454,14 +503,20 @@ def main() -> int:
         if slide["captions"] > 1:
             fail(errors, f"slide {number}: more than one explanatory caption")
         note_text = " ".join(slide["note_text"])
+        note_chunks = [(str(page), 0, text) for text in slide["note_text"]]
+        append_banned_text_errors(errors, note_chunks, "index.html notes")
+        append_internal_code_errors(errors, note_chunks, "index.html notes", expected)
         for field in ("Data：", "Insight：", "Go：", "Evidence scope：", "下一站："):
             if field not in note_text:
                 fail(errors, f"slide {number}: speaker notes missing {field.rstrip('：')}")
 
         visible_text = " ".join(slide["visible_text"])
-        for scene_id in manifest.get("core_part1", []) + manifest.get("core_part2", []):
-            if re.search(rf"(?<![A-Za-z0-9]){re.escape(scene_id)}(?![A-Za-z0-9])", visible_text):
-                fail(errors, f"slide {number}: scene ID {scene_id} appears in learner-facing text")
+        append_internal_code_errors(
+            errors,
+            [(str(page), 0, visible_text + " " + note_text)],
+            "index.html slide text and notes",
+            expected,
+        )
 
     by_scene = {
         slide["attrs"].get("data-rev13-scene-id"): slide["attrs"]
