@@ -2254,6 +2254,8 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .opening-return { stroke: #f0b394; stroke-width: 3.2; }
 .opening-return rect { fill: #302720; stroke: #f0b394; stroke-width: 1.7; }
 .opening-return text { fill: #fff2e8; font-size: 18px; font-weight: 850; }
+.swimlane-return text,
+.opening-return text { stroke: none; stroke-width: 0; paint-order: normal; }
 
 /* Replace the unstyled summary shape with the same pale version track used elsewhere. */
 .swimlane-version-summary rect { fill: #202a3a; stroke: #879dc9; stroke-width: 1.6; }
