@@ -48,6 +48,23 @@ BANNED_LEARNER_TERMS = (
     "fixture",
     "SHA-256",
     "SHA256",
+    "泳道",
+    "X 軸",
+    "Y 軸",
+    "母圖",
+    "骨架",
+    "定位器",
+    "Spotlight",
+    "遮罩",
+    "圖例",
+    "accent",
+    "rule tests",
+    "main",
+    "branch/matching-rule",
+    "焦點",
+    "細軌",
+    "產物軌",
+    "主幹",
 )
 INTERNAL_CODE_PATTERNS = (
     re.compile(r"(?<![A-Za-z0-9])(?:O|B|R|RD|D|RV|Q|PC|C|HG|A|X)\d{2}(?![A-Za-z0-9])"),
@@ -98,7 +115,15 @@ class LearnerTextParser(HTMLParser):
 def banned_terms_in(text: str) -> list[str]:
     """Return banned learner-facing terms found in text, ignoring case."""
     lowered = text.casefold()
-    return [term for term in BANNED_LEARNER_TERMS if term.casefold() in lowered]
+    found = []
+    for term in BANNED_LEARNER_TERMS:
+        if term.casefold() == "main":
+            matches = re.search(r"(?<![A-Za-z0-9])main(?![A-Za-z0-9])", text, re.IGNORECASE)
+        else:
+            matches = term.casefold() in lowered
+        if matches:
+            found.append(term)
+    return found
 
 
 def visible_text_from_markup(markup: str) -> str:
@@ -107,6 +132,21 @@ def visible_text_from_markup(markup: str) -> str:
     parser.feed(markup)
     parser.close()
     return " ".join(chunk[2] for chunk in parser.text_chunks)
+
+
+def banned_term_scanner_regression_check() -> bool:
+    """Check that visible jargon is rejected while markup metadata stays ignored."""
+    markup = (
+        '<div class="swimlane mother-map" data-layout="X 軸 定位器">流程</div>'
+        '<aside class="notes"><p>母圖、焦點</p></aside>'
+    )
+    visible = visible_text_from_markup(markup)
+    return (
+        banned_terms_in("人員泳道") == ["泳道"]
+        and banned_terms_in("maintain a shared workflow") == []
+        and visible == "流程"
+        and banned_terms_in(visible) == []
+    )
 
 
 def _decode_js_escapes(value: str) -> str:
@@ -433,6 +473,8 @@ def fail(errors: list[str], message: str) -> None:
 
 def main() -> int:
     errors: list[str] = []
+    if not banned_term_scanner_regression_check():
+        fail(errors, "learner-facing banned-term scanner regression check failed")
     try:
         manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
         renderer_source = JS_PATH.read_text(encoding="utf-8")

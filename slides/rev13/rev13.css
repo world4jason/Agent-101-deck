@@ -1839,19 +1839,22 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .slide[data-page="61"] .principle-case-grid,
 .slide[data-page="62"] .principle-case-grid,
 .slide[data-page="63"] .principle-case-grid {
-  align-self: stretch;
+  align-self: start;
   width: 100%;
-  flex: 1 1 auto;
-  align-items: stretch;
+  flex: 0 1 auto;
+  min-height: 0;
+  align-items: start;
 }
 .slide[data-page="59"] .principle-case-grid article,
 .slide[data-page="60"] .principle-case-grid article,
 .slide[data-page="61"] .principle-case-grid article,
 .slide[data-page="62"] .principle-case-grid article,
 .slide[data-page="63"] .principle-case-grid article {
-  justify-content: space-evenly;
-  gap: 18px;
-  padding: 24px;
+  align-self: start;
+  height: auto;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 18px;
 }
 .slide[data-page="59"] .principle-case-grid article > span,
 .slide[data-page="60"] .principle-case-grid article > span,
@@ -1863,3 +1866,11 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .slide[data-page="61"] .principle-case-grid article p,
 .slide[data-page="62"] .principle-case-grid article p,
 .slide[data-page="63"] .principle-case-grid article p { font-size: 24px; line-height: 1.3; }
+
+/* Keep the sparse updated overview legible inside its existing document card. */
+.slide[data-page="35"] .swimlane-doc-name { font-size: 30px; }
+.slide[data-page="35"] .swimlane-doc-status { font-size: 22px; }
+
+/* Keep the existing collaboration records readable without squeezing their columns. */
+.slide[data-page="56"] .agent-mode-artifacts b,
+.slide[data-page="56"] .agent-mode-artifacts span { font-size: 22px; line-height: 1.22; }

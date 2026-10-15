@@ -377,7 +377,8 @@
       const currentLabel = isChanged ? (delta.docLabel || label) : label;
       const currentStatus = isChanged ? (delta.docStatus || status) : status;
       const stageClass = key === stageKey ? ' is-focus' : stageKey ? ' is-dim' : '';
-      const width = key === 'human_gate' ? 118 : key === 'product-check' ? 152 : 132;
+      const width = String(page) === '35' && key === 'backlog' ? 152
+        : key === 'human_gate' ? 118 : key === 'product-check' ? 152 : 132;
       const left = x - width / 2;
       const right = x + width / 2;
       return `<g class="swimlane-doc-node${isChanged ? ' is-changed' : ''}${stageClass}" data-state="${key}"><path class="swimlane-doc-card" d="M${left} 540 H${right - 14} L${right} 554 V584 H${left} Z"/><path class="swimlane-doc-fold" d="M${right - 14} 540 V554 H${right}"/><text class="swimlane-doc-name" x="${x}" y="557" text-anchor="middle">${esc(currentLabel)}</text><text class="swimlane-doc-status" x="${x}" y="580" text-anchor="middle">${esc(currentStatus)}</text></g>`;
@@ -399,8 +400,8 @@
       const stageClass = key === stageKey ? ' is-focus' : stageKey ? ' is-dim' : '';
       return `<g class="swimlane-version-node${isChanged ? ' is-changed' : ''}${stageClass}" data-state="${key}"><circle class="swimlane-version-dot" cx="${x}" cy="624" r="9"/><text class="swimlane-version-name" x="${x}" y="654" text-anchor="middle">${esc(currentLabel)}</text><text class="swimlane-version-status" x="${x}" y="675" text-anchor="middle">${esc(currentStatus)}</text></g>`;
     }).join('');
-    const legend = String(page) === '64' ? '' : `<g class="swimlane-legend"><path d="M18 696 H1582" class="swimlane-legend-rule"/><rect x="26" y="708" width="44" height="24" rx="12" class="swimlane-legend-endpoint"/><text x="80" y="727">起點／終點</text><rect x="250" y="708" width="42" height="24" rx="4" class="swimlane-legend-lead"/><text x="302" y="727">主責</text><rect x="410" y="708" width="42" height="24" rx="4" class="swimlane-legend-co"/><text x="462" y="727">協作</text><polygon points="575,708 590,720 575,732 560,720" class="swimlane-legend-decision"/><text x="602" y="727">判斷</text><path d="M700 720 H754" class="swimlane-legend-forward" marker-end="url(#swimlane-arrow-${uid})"/><text x="764" y="727">前進</text><path d="M870 720 H924" class="swimlane-legend-return" marker-end="url(#swimlane-arrow-return-${uid})"/><text x="934" y="727">退回</text></g>`;
-    const principleMarkers = String(page) === '64' ? `<g class="principle-map-markers" aria-label="五項原則在母圖上的對應位置">
+    const legend = String(page) === '64' ? '' : `<g class="swimlane-legend"><path d="M18 696 H1582" class="swimlane-legend-rule"/><rect x="26" y="708" width="44" height="24" rx="12" class="swimlane-legend-endpoint"/><text x="80" y="727">起點／終點</text><rect x="250" y="708" width="42" height="24" rx="4" class="swimlane-legend-lead"/><text x="302" y="727">誰負責</text><rect x="410" y="708" width="42" height="24" rx="4" class="swimlane-legend-co"/><text x="462" y="727">一起幫忙</text><polygon points="575,708 590,720 575,732 560,720" class="swimlane-legend-decision"/><text x="602" y="727">要判斷</text><path d="M700 720 H754" class="swimlane-legend-forward" marker-end="url(#swimlane-arrow-${uid})"/><text x="764" y="727">往下一站</text><path d="M870 720 H924" class="swimlane-legend-return" marker-end="url(#swimlane-arrow-return-${uid})"/><text x="934" y="727">退回重做</text></g>`;
+    const principleMarkers = String(page) === '64' ? `<g class="principle-map-markers" aria-label="五項原則在流程中的位置">
       <g class="principle-map-point"><circle cx="477" cy="550" r="12"/><text x="477" y="556">1</text></g>
       <g class="principle-map-point"><circle cx="470" cy="503" r="12"/><text x="470" y="509">2</text></g>
       <g class="principle-map-point"><circle cx="150" cy="428" r="12"/><text x="150" y="434">3</text></g>
@@ -418,7 +419,7 @@
       <g class="principle-map-key"><circle cx="1278" cy="723" r="12"/><text x="1278" y="729">5</text><text x="1298" y="730">回看產品目標</text></g>
     </g>` : '';
 
-    return `<div class="mother-map" data-mother-map-id="rev13-four-foundations" data-stage="${esc(stage)}"><svg class="swimlane-svg" viewBox="0 0 1600 780" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="swimlane-title-${uid} swimlane-desc-${uid}"><title id="swimlane-title-${uid}">人、流程、文件與版本管理泳道圖</title><desc id="swimlane-desc-${uid}">流程沿橫向七個看板狀態前進；人依責任分泳道，下方依序記錄文件與版本管理。人類授權以欄外菱形表示，三條虛線表示主要退回方向。</desc><defs><marker id="swimlane-arrow-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#8faaa1"/></marker><marker id="swimlane-arrow-return-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#85918a"/></marker><marker id="swimlane-arrow-agent-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#d78d78"/></marker></defs><g class="swimlane-process"><text class="swimlane-axis-label" x="18" y="82">流程（X 軸）</text>${activities}${stageHeaders}${gateHeader}<g class="swimlane-axis-line">${SWIMLANE_LAYOUT.stages.filter(item => !item.outside).map(item => `<line x1="${item.x}" y1="110" x2="${item.x + item.width}" y2="110"/>`).join('')}</g></g><g class="swimlane-people${dimZone('people')}${reveal(1)}"><text class="swimlane-group-label" x="18" y="136">人（Y 軸）</text>${roleGuides}${roleContent}${returnPaths}</g><g class="swimlane-documents${dimZone('documents')}${reveal(2)}"><path class="swimlane-section-rule" d="M170 532 H1550"/><text class="swimlane-group-label" x="18" y="562">文件</text>${docNodes}</g><g class="swimlane-version${dimZone('version')}${reveal(3)}"><path class="swimlane-section-rule is-heavy" d="M170 596 H1550"/><text class="swimlane-group-label" x="18" y="632">版本管理</text>${versionLinks}${versionNodes}</g>${legend}${principleMarkers}</svg></div>`;
+    return `<div class="mother-map" data-mother-map-id="rev13-four-foundations" data-stage="${esc(stage)}"><svg class="swimlane-svg" viewBox="0 0 1600 780" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="swimlane-title-${uid} swimlane-desc-${uid}"><title id="swimlane-title-${uid}">人、流程、文件與版本管理的工作圖</title><desc id="swimlane-desc-${uid}">流程沿七個看板狀態前進；人依責任分工，下方依序記錄文件和版本管理。人類授權以欄外菱形表示，三條虛線表示主要退回方向。</desc><defs><marker id="swimlane-arrow-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#8faaa1"/></marker><marker id="swimlane-arrow-return-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#85918a"/></marker><marker id="swimlane-arrow-agent-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#d78d78"/></marker></defs><g class="swimlane-process"><text class="swimlane-axis-label" x="18" y="82">流程</text>${activities}${stageHeaders}${gateHeader}<g class="swimlane-axis-line">${SWIMLANE_LAYOUT.stages.filter(item => !item.outside).map(item => `<line x1="${item.x}" y1="110" x2="${item.x + item.width}" y2="110"/>`).join('')}</g></g><g class="swimlane-people${dimZone('people')}${reveal(1)}"><text class="swimlane-group-label" x="18" y="136">人</text>${roleGuides}${roleContent}${returnPaths}</g><g class="swimlane-documents${dimZone('documents')}${reveal(2)}"><path class="swimlane-section-rule" d="M170 532 H1550"/><text class="swimlane-group-label" x="18" y="562">文件</text>${docNodes}</g><g class="swimlane-version${dimZone('version')}${reveal(3)}"><path class="swimlane-section-rule is-heavy" d="M170 596 H1550"/><text class="swimlane-group-label" x="18" y="632">版本管理</text>${versionLinks}${versionNodes}</g>${legend}${principleMarkers}</svg></div>`;
   }
 
   function renderOpeningMap(slide) {
@@ -438,7 +439,7 @@
       return '';
     };
     const roleRows = SWIMLANE_LAYOUT.roles
-      .filter(({ name }) => step >= 2 || name !== 'Agent')
+      .filter(({ name }) => step >= 4 || (step >= 2 && name === 'Agent'))
       .map(({ name, y }) => {
       const isAgent = name === 'Agent';
       const highlightedAgent = step === 2 && isAgent;
@@ -449,7 +450,7 @@
       const dutyX = { Owner: 1175, PM: 405, PO: 405, 'UI/UX': 260, Dev: 560, Reviewer: 710, QA: 860, Agent: 560 }[name];
       const duty = showPeople && step === 4 ? `<text class="opening-role-duty" x="${dutyX}" y="${y + 6}" text-anchor="middle">${esc(label)}</text>` : '';
       const agentPurpose = highlightedAgent ? `<g class="opening-agent-purpose"><rect x="425" y="${y - 25}" width="270" height="50" rx="5"/><text x="560" y="${y + 7}" text-anchor="middle">接工作票，依交辦執行</text></g>` : '';
-      return `<g class="opening-role${highlightedAgent ? ' is-new' : ''}" data-role="${esc(name)}"><path d="M170 ${y + 25} H1550"/><text class="opening-role-name" x="18" y="${y + 6}">${showPeople ? esc(roleLabel) : (isAgent && step >= 2 ? 'Agent' : '')}</text>${duty}${agentPurpose}</g>`;
+      return `<g class="opening-role${highlightedAgent ? ' is-new' : ''}" data-role="${esc(name)}"><path d="M170 ${y + 25} H1550"/><text class="opening-role-name" x="190" y="${y + 6}">${showPeople ? esc(roleLabel) : (isAgent && step >= 2 ? 'Agent' : '')}</text>${duty}${agentPurpose}</g>`;
     }).join('');
     const processStages = SWIMLANE_LAYOUT.stages.filter(item => !item.outside);
     const stageHeaders = showProcess ? processStages.map((column, index) => {
@@ -488,22 +489,22 @@
       <g class="fragment" data-fragment-order="3"><path d="M860 477 V488 H810 V353 H628" marker-end="url(#opening-return-arrow-${uid})"/><rect x="640" y="447" width="160" height="26" rx="3"/><text x="720" y="465" text-anchor="middle">測試 FAIL → Dev</text></g>
     </g>` : '';
     const skeletonPrompts = step <= 2 ? `<g class="opening-skeleton-prompts" aria-label="四個區域各自回答的問題">
-      <g class="opening-prompt-process"><text class="opening-prompt-name" x="220" y="84">流程</text><text class="opening-prompt-question" x="345" y="84">做到哪？</text></g>
-      <g class="opening-prompt-people"><text class="opening-prompt-name" x="220" y="180">人</text><text class="opening-prompt-question" x="275" y="180">誰做？</text></g>
-      <g class="opening-prompt-documents"><text class="opening-prompt-name" x="220" y="571">文件</text><text class="opening-prompt-question" x="345" y="571">根據什麼、怎麼驗？</text></g>
-      <g class="opening-prompt-version"><text class="opening-prompt-name" x="220" y="655">版本管理</text><text class="opening-prompt-question" x="400" y="655">改的是哪一版？</text></g>
+      <g class="opening-prompt-process"><text class="opening-prompt-name" x="205" y="65">流程</text><text class="opening-prompt-question" x="330" y="65">做到哪？</text></g>
+      <g class="opening-prompt-people"><text class="opening-prompt-name" x="205" y="180">人</text><text class="opening-prompt-question" x="260" y="180">誰做？</text></g>
+      <g class="opening-prompt-documents"><text class="opening-prompt-name" x="205" y="588">文件</text><text class="opening-prompt-question" x="330" y="588">根據什麼、怎麼驗？</text></g>
+      <g class="opening-prompt-version"><text class="opening-prompt-name" x="205" y="675">版本管理</text><text class="opening-prompt-question" x="385" y="675">改的是哪一版？</text></g>
     </g>` : '';
-    const personLane = `<g class="opening-map-zone opening-people${dim('people')}"><text class="opening-zone-label" x="18" y="136">人（泳道）</text>${roleRows}${card}${workLinks}${decisions}${returns}</g>`;
-    const processLane = `<g class="opening-map-zone opening-process${dim('process')}"><text class="opening-zone-label" x="18" y="82">流程（X 軸）</text>${activity}${stageHeaders}${outsideGate}<g class="opening-axis-guides">${processStages.map(item => `<line x1="${item.x}" y1="112" x2="${item.x + item.width}" y2="112"/>`).join('')}</g></g>`;
-    const documentsLane = `<g class="opening-map-zone opening-documents${dim('documents')}"><path class="opening-divider" d="M170 532 H1550"/><text class="opening-zone-label" x="18" y="562">文件</text>${docNodes}</g>`;
-    const versionLane = `<g class="opening-map-zone opening-version${dim('version')}"><path class="opening-divider is-strong" d="M170 596 H1550"/><text class="opening-zone-label" x="18" y="632">版本管理</text>${versionLinks}${versions}</g>`;
-    return `<div class="full-map-wrap opening-map"><svg class="swimlane-svg" viewBox="0 0 1600 780" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="${uid}-title ${uid}-desc"><title id="${uid}-title">同一張泳道骨架逐步展開</title><desc id="${uid}-desc">流程、人、文件和版本管理依序加入；卡片與下方文件、版本節點對齊，判斷以欄外菱形和退回路徑表示。</desc><defs><marker id="opening-arrow-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#8ba69c"/></marker><marker id="opening-return-arrow-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#e6aa8f"/></marker><marker id="opening-arrow-version-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#92a9d4"/></marker></defs><rect class="opening-panel opening-panel-process" x="170" y="15" width="1380" height="105" rx="5"/><rect class="opening-panel opening-panel-people" x="170" y="130" width="1380" height="393" rx="5"/><rect class="opening-panel opening-panel-documents" x="170" y="540" width="1380" height="48" rx="3"/><rect class="opening-panel opening-panel-version" x="170" y="600" width="1380" height="95" rx="3"/>${processLane}${personLane}${documentsLane}${versionLane}${skeletonPrompts}</svg></div>`;
+    const personLane = `<g class="opening-map-zone opening-people${dim('people')}">${roleRows}${card}${workLinks}${decisions}${returns}</g>`;
+    const processLane = `<g class="opening-map-zone opening-process${dim('process')}">${activity}${stageHeaders}${outsideGate}<g class="opening-axis-guides">${processStages.map(item => `<line x1="${item.x}" y1="112" x2="${item.x + item.width}" y2="112"/>`).join('')}</g></g>`;
+    const documentsLane = `<g class="opening-map-zone opening-documents${dim('documents')}">${docNodes}</g>`;
+    const versionLane = `<g class="opening-map-zone opening-version${dim('version')}">${versionLinks}${versions}</g>`;
+    return `<div class="full-map-wrap opening-map"><svg class="swimlane-svg" viewBox="0 0 1600 780" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="${uid}-title ${uid}-desc"><title id="${uid}-title">同一張工作圖逐步補上角色與紀錄</title><desc id="${uid}-desc">流程、人、文件和版本管理依序加入；工作卡與下方文件、版本節點對齊，判斷以欄外菱形和退回路徑表示。</desc><defs><marker id="opening-arrow-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#8ba69c"/></marker><marker id="opening-return-arrow-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#e6aa8f"/></marker><marker id="opening-arrow-version-${uid}" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#92a9d4"/></marker></defs><rect class="opening-panel opening-panel-process" x="170" y="15" width="1380" height="105" rx="5"/><rect class="opening-panel opening-panel-people" x="170" y="130" width="1380" height="398" rx="5"/><rect class="opening-panel opening-panel-documents" x="170" y="538" width="1380" height="77" rx="3"/><rect class="opening-panel opening-panel-version" x="170" y="625" width="1380" height="77" rx="3"/>${processLane}${personLane}${documentsLane}${versionLane}${skeletonPrompts}</svg></div>`;
   }
 
   function locator(slide) {
     const stage = slide.dataset.focusStage || '';
     const roleNames = (slide.dataset.focusRolesMap || slide.dataset.focusRoles || '').split(',').map(role => role.trim()).filter(Boolean).map(role => role === 'Human' ? 'Owner' : role);
-    const roleSummary = roleNames.length > 4 ? '本頁角色' : (roleNames.length ? roleNames.join(' · ') : '所有泳道');
+    const roleSummary = roleNames.length > 4 ? '本頁角色' : (roleNames.length ? roleNames.join(' · ') : '所有角色');
     const selected = new Set(STAGE_KANBAN[stage] || []);
     const markers = new Set((slide.dataset.stateMarkers || '').split(',').filter(Boolean));
     const stateMarkup = item => {
@@ -513,7 +514,7 @@
       return `<span class="locator-state${active ? ' is-current' : ''}${previous ? ' is-ghost' : ''}${currentTicket ? ' has-ticket' : ''}" data-state="${item.key}"${active ? ' aria-current="step"' : ''}>${esc(LOCATOR_LABELS[item.key] || item.label)}</span>`;
     };
     const stageStates = KANBAN.map((item, index) => `${index === 6 ? `<span class="locator-gate${stage === 'human_gate' ? ' is-current' : ''}" data-state="human_gate"><i aria-hidden="true"></i><b>授權決定</b></span>` : ''}${stateMarkup(item)}`).join('');
-    return `<aside class="map-locator" aria-label="流程泳道定位" data-mother-map-id="rev13-four-foundations"><span class="locator-heading">流程</span><div class="locator-board" role="list" aria-label="七欄看板與欄外 Human Gate">${stageStates}</div><span class="locator-focus"><b>焦點泳道</b><span>${esc(roleSummary)}</span><i class="locator-focus-band" aria-hidden="true"></i></span></aside>`;
+    return `<aside class="map-locator" aria-label="流程進度" data-mother-map-id="rev13-four-foundations"><span class="locator-heading">流程</span><div class="locator-board" role="list" aria-label="七欄看板與欄外 Human Gate">${stageStates}</div><span class="locator-focus"><b>本頁角色</b><span>${esc(roleSummary)}</span><i class="locator-focus-band" aria-hidden="true"></i></span></aside>`;
   }
 
   function renderKanbanDiagram(slide) {
@@ -775,7 +776,7 @@
   const B2_MAP_STATE = {
     O03: { docStage: 'backlog', docLabel: '需求草案', docStatus: '待確認' },
     B04: { docStage: 'backlog', docLabel: '產品目標', docStatus: '已建立' },
-    R05: { docStage: 'backlog', docLabel: '目標→3票', docStatus: '待整理' },
+    R05: { docStage: 'backlog', docLabel: '目標／3票', docStatus: '待整理' },
     RD02: { docStage: 'ready', docLabel: '工作票', docStatus: '已備妥', ticket: 'ready', previous: 'backlog' },
     D04: { docStage: 'dev', docLabel: '工作紀錄', docStatus: '實作摘要', versionStage: 'dev', versionLabel: 'Branch', versionStatus: '修改已提交', ticket: 'dev', previous: 'ready' },
     RV03: { docStage: 'review', docLabel: '審查意見', docStatus: '要求修改', versionStage: 'review', versionLabel: 'PR', versionStatus: '尚未合併', ticket: 'dev', previous: 'review', actualReturn: 'review' },
