@@ -20,7 +20,7 @@
 7. **不寫分鐘數或總長度**；時間由 Owner 依場合控制。
 
 ### 視覺
-8. **一張母圖**：人／流程／文件／版本管理四區，全份同座標、同配色、同圖例。Agent 只是同一張圖上加的第五層，不重畫流程、不取代 Human Gate。
+8. **一張母圖＝泳道圖**（Owner 2026-10-15 定）：**X 軸＝流程**（Brainstorming／Refinement 活動、七欄看板、欄外 Human Gate 菱形）；**Y 軸上半＝人**（每個角色一條泳道）；**卡片＝事情**（主責實心、協作淡色）；**下方兩條產物泳道＝文件**（Goal Issue、票與 AC、測試紀錄、放行紀錄）與**版本管理**（Branch → Commit → PR → Merge）。全份同座標、同配色、同圖例。加入 Agent ＝在「人」區多一條 Agent 泳道，其餘不動，不取代 Human Gate。
 9. **聚焦用遮罩**，不刪除非焦點元素，學員永遠知道自己在哪。
 10. **回到全貌一定看得到變化**（開 Issue、拆票、移欄、測試結果，前後對照）；不可重貼沒變化的全貌。
 11. **關係要畫出來**：誰、在哪站、用哪份文件、對應哪個版本，用連線或位置表現。
@@ -44,6 +44,8 @@
 | **林大班**（BFA） | **Structure**：分類分段、閱聽人角度、視覺一致。**DIG**（Data → Insight → Go）決定每頁讓人看懂什麼；**FIG**（Font／Ink／Grid）安排主次。 | 每頁先定學習任務再排版。Part 1 與 Part 2 視覺目的不同，不重講同一內容。 |
 | **Ben Shneiderman** | 資訊探索七項任務（*The Eyes Have It*, 1996）：Overview、Zoom、Filter、Details-on-demand、**Relate**、**History**、Extract。Eight Golden Rules：一致性、回饋、完成感、可回頭、掌控感、**減少短期記憶負擔**。 | 同一張母圖先全貌再聚焦；畫出人↔流程↔文件↔版本關係（Relate）；回全貌看得到前後變化（History）；全份同一套符號。不要機械地每頁塞七項任務。 |
 | **Richard Mayer** | **Pre-training Principle**：學複雜系統運作前，先學會主要組件的名稱、特徵與角色。 | Part 1 的理由：先認識角色、文件、Git／GitHub、Agent，Part 2 看流程時不用邊看邊猜名詞。 |
+
+**圖法參考**：泳道、看板、樹、時間線與連線規則參考 [cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design)（MIT），維持本課深色主題，重畫不複製。
 
 **出處註記**：BFA「分鏡溝通法／半透明遮罩」文章作者為**魯蓓蓓**，不得標成林大班原創。詳細來源見 [研究筆記](rev13-presentation-research-lin-shneiderman.md)。
 
