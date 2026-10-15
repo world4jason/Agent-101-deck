@@ -14,8 +14,8 @@
       <a class="brand" href="#1" aria-label="Agent 101，回到第一張">Agent 101</a>
       <nav class="chapter-rail" aria-label="章節">
         <a href="#1" data-start="1">Part 1</a>
-        <a href="#23" data-start="23">P2 · 需求與規劃</a>
-        <a href="#33" data-start="33">P2 · 開發與檢查</a>
+        <a href="#23" data-start="23">P2 · 規劃</a>
+        <a href="#33" data-start="33">P2 · 實作</a>
         <a href="#51" data-start="51">P2 · Agent</a>
       </nav>
       <div class="counter" aria-live="polite"><span id="current-page">1</span><span class="counter-sep">/</span><span id="total-pages">62</span></div>
@@ -26,12 +26,12 @@
         <section class="slide" data-page="1" id="page-1" data-rev13-scene-id="O01" data-phase="orientation" data-focus-roles="Owner, PM, PO, UI/UX, Dev, Reviewer, QA" data-doc-ref="Goal · Ticket · AC · DoD · Evidence" data-version-ref="尚無開發版本" data-github-ref="Issues · Projects · PR 協作鏈" data-beat="overview" data-mother-map-id="rev13-four-foundations" data-art="mother-map" data-agent="false">
           <h1>一張泳道圖串起人、流程、文件與版本管理。</h1>
           <figure class="artwork" aria-label="人、流程、文件與版本管理的共用母圖"></figure>
-          <p class="caption">本課例子：做一個配對交友 App。流程沿橫軸前進，角色、文件和版本管理各有泳道，GitHub 連起 Issue 與 PR。</p>
+          <p class="caption">從一個工作想法到完成交付，角色接續處理工作，文件和版本紀錄沿流程留下。</p>
           <aside class="notes" hidden aria-label="講者筆記">
             <h2>講者筆記</h2>
-            <p><strong>Data：</strong>同一個工作會經過多種職能與階段，並留下文件和版本紀錄。</p>
-            <p><strong>Insight：</strong>文件說明做什麼、為什麼與如何驗；版本管理回答哪一版、由誰改及如何整合。</p>
-            <p><strong>Go：</strong>先依序揭露流程、人、文件、版本管理四條泳道，再看下一張新增的 Agent 泳道。</p>
+            <p><strong>Data：</strong>同一個工作會經過不同責任和階段，並留下文件與版本紀錄。</p>
+            <p><strong>Insight：</strong>文件說明要做什麼和如何檢查；版本管理記錄修改前後的差異。</p>
+            <p><strong>Go：</strong>先依序揭露流程、人、文件、版本管理四個區域，再看下一張新增的 Agent 泳道。</p>
             <p><strong>Evidence scope：</strong>課程概念圖；沒有宣稱任何票、分支或版本已建立。</p>
             <p><strong>下一站：</strong>同一張圖只增加 Agent 泳道，原有位置不移動。</p>
           </aside>
@@ -40,21 +40,21 @@
         <section class="slide" data-page="2" id="page-2" data-rev13-scene-id="O02" data-phase="orientation" data-focus-roles="Owner, PM, PO, UI/UX, Dev, Reviewer, QA, Agent" data-doc-ref="既有工作契約不變" data-version-ref="Agent 不代表另一條版本線" data-github-ref="原有 Issue · Project · PR 關係不變" data-beat="updated-overview" data-mother-map-id="rev13-four-foundations" data-art="mother-map" data-agent="true">
           <h1>同一張圖新增 Agent 泳道，人的決策責任仍在。</h1>
           <figure class="artwork" aria-label="同一張泳道圖只新增 Agent 泳道"></figure>
-          <p class="caption">Agent 可以協助執行或協調；Human Gate 仍由人決定。</p>
+          <p class="caption">Agent 接手指定工作；工作交接與最後決定仍由人負責。</p>
           <aside class="notes" hidden aria-label="講者筆記">
             <h2>講者筆記</h2>
-            <p><strong>Data：</strong>流程、人、文件、版本管理的泳道與前一張在同一位置；新增 Agent 泳道。</p>
-            <p><strong>Insight：</strong>Agent 改變執行或協調者，不取代文件、版本管理、授權邊界或 Human Gate。</p>
-            <p><strong>Go：</strong>請學員指出新增泳道、受委派角色與仍由人負責的 Human Gate。</p>
+            <p><strong>Data：</strong>原有流程、人、文件和版本管理位置不變，只增加 Agent 泳道。</p>
+            <p><strong>Insight：</strong>Agent 可以受委託執行工作，不能取代人的正式決定。</p>
+            <p><strong>Go：</strong>請指出新增的執行者、交辦工作與仍由人負責的決定。</p>
             <p><strong>Evidence scope：</strong>教學模型，不代表已執行 Agent 工作。</p>
-            <p><strong>下一站：</strong>沿流程軸區分七個看板狀態、活動與欄外決策。</p>
+            <p><strong>下一站：</strong>沿流程軸認識七個工作狀態、釐清活動與欄外決策。</p>
           </aside>
         </section>
 
         <section class="slide" data-page="3" id="page-3" data-rev13-scene-id="C01" data-phase="workflow-map" data-focus-roles="Owner, PM, PO, Dev, Reviewer, QA" data-doc-ref="工作票與狀態紀錄" data-version-ref="Branch · Commit · PR · Merge 位於相應工作站" data-github-ref="Project 狀態 · Issues · PR" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="workflow-map" data-agent="true" data-focus-zones="process" data-focus-stage="refinement" data-focus-roles-map="PO, PM, Owner, Dev, QA">
           <h1>工作流程有七個看板狀態，活動與欄外決策各有位置。</h1>
           <figure class="artwork" aria-label="七欄 Kanban、活動與 Human Gate 的流程圖"></figure>
-          <p class="caption">配對 App 的工作票沿七個看板狀態推進。Brainstorming 與 Refinement 是活動；Human Gate 是 Product Check 後由人決定。</p>
+          <p class="caption">看板是工作狀態的排列；釐清需求與拆分工作是活動，最後授權由人作決定。</p>
           <aside class="notes" hidden aria-label="講者筆記">
             <h2>講者筆記</h2>
             <p><strong>Data：</strong>看板依序是 Backlog、Ready、Dev、Review、QA、Product Check、Done。</p>
@@ -108,15 +108,15 @@
         </section>
 
         <section class="slide" data-page="7" id="page-7" data-rev13-scene-id="C05" data-phase="documents" data-focus-roles="Owner, PM, PO, Dev, QA" data-doc-ref="Goal · Proposal · Epic · Story · Task · Ticket · AC · AT · DoD" data-version-ref="文件可由 Git 追蹤，版本物件另有職責" data-github-ref="Goal Issue · Parent/Sub-issue · Project" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="document-types" data-agent="true" data-focus-zones="documents,process" data-focus-stage="refinement" data-focus-roles-map="PO, PM, Owner, Dev, QA">
-          <h1>一個 Goal 分成三張功能票，各自有驗收條件。</h1>
+          <h1>一個產品目標可以拆成幾張工作票。</h1>
           <figure class="artwork" aria-label="Goal、工作票與驗收文件的分解和關聯圖"></figure>
-          <p class="caption">按讚、配對規則、配對清單是三張功能票；Epic、Story、Task 只是分類標籤，三張都可叫 Story。</p>
+          <p class="caption">先決定產品要達到的結果，再拆成可交辦的工作票。</p>
           <aside class="notes" hidden aria-label="講者筆記">
             <h2>講者筆記</h2>
-            <p><strong>Data：</strong>配對 App 的 Goal「互相按讚後，在配對清單找到對方」連到按讚、配對規則、配對清單三張功能票；每張票各有範圍、AC、AT 和 DoD。</p>
-            <p><strong>Insight：</strong>三張是並列的功能票；Epic／Story／Task 只替工作分類，不是另一組子票。</p>
-            <p><strong>Go：</strong>從 Goal 沿三條分解線逐張讀票，再看各票的驗收條件。</p>
-            <p><strong>Evidence scope：</strong>文件概念圖，沒有建立任何 Matching Issue 或 AC。</p>
+            <p><strong>Data：</strong>配對 App 的產品目標「互相按讚後，在配對清單找到對方」拆成按讚、配對規則與配對清單三張工作票。</p>
+            <p><strong>Insight：</strong>先看產品要達到的結果，再看需要分開交付的工作。</p>
+            <p><strong>Go：</strong>從產品目標沿分解線讀三張工作票。</p>
+            <p><strong>Evidence scope：</strong>概念示意圖，未建立 Matching 工作票或驗收條件。</p>
             <p><strong>下一站：</strong>追同一份文件如何跨工作階段更新。</p>
           </aside>
         </section>
@@ -136,15 +136,15 @@
         </section>
 
         <section class="slide" data-page="9" id="page-9" data-rev13-scene-id="C07" data-phase="documents" data-focus-roles="PO, Dev, QA, Owner" data-doc-ref="Goal · Stage Target · AC · AT · Exit · DoD · Evidence" data-version-ref="Evidence 必須對應可識別版本" data-github-ref="工作票 · 測試紀錄 · 決策紀錄" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="criteria-boundaries" data-agent="true" data-focus-zones="documents,process,version" data-focus-roles-map="QA, Dev, PO, Owner">
-          <h1>Goal、Stage Target、AC、AT、DoD、Exit 與 Evidence 各答不同問題。</h1>
+          <h1>先定目標，再寫條件與檢查方法，最後交接紀錄。</h1>
           <figure class="artwork" aria-label="產品目標、階段目標、驗收條件與證據的層級圖"></figure>
-          <p class="caption">配對 App 例：小安單向按讚小晴不配對；各欄分別說目標、本站工作、行為、檢查法、完成、交接與觀察紀錄。</p>
+          <p class="caption">同一件配對工作，按順序補上目標、條件、檢查方式與紀錄。</p>
           <aside class="notes" hidden aria-label="講者筆記">
             <h2>講者筆記</h2>
-            <p><strong>Data：</strong>Goal 是產品 Outcome；Stage Target 是本站工作；AC 描述工作範圍內的行為；AT 是檢查情境；Exit 決定交棒；DoD 是共用完成條件；Evidence 記錄實際觀察。</p>
-            <p><strong>Insight：</strong>一個層級的 PASS 不會自動證明其他層級完成。</p>
-            <p><strong>Go：</strong>請學員把一個問題放到能回答它的層級。</p>
-            <p><strong>Evidence scope：</strong>術語邊界概念圖；未展示 Matching 測試結果。</p>
+            <p><strong>Data：</strong>Goal 說產品結果；Stage Target 說本站工作；AC 寫應符合的行為；AT 寫如何檢查。DoD 是本票完成條件，Exit 說何時交接，Evidence 留下實際觀察。</p>
+            <p><strong>Insight：</strong>完成條件、授權、合併與交付是不同步驟；一項測試通過不代表其他層級已完成。</p>
+            <p><strong>Go：</strong>依序辨認這件事的目標、條件、檢查與交接紀錄。</p>
+            <p><strong>Evidence scope：</strong>術語概念圖；沒有展示 Matching 測試結果。</p>
             <p><strong>下一站：</strong>辨認 Git、GitHub 與各協作物件。</p>
           </aside>
         </section>
@@ -187,7 +187,7 @@
             <p><strong>Insight：</strong>這些名詞不互相等同。Agent 可讀取指定工作契約、在授權範圍內執行並回報；範圍改變與最後放行仍由人決定。</p>
             <p><strong>Go：</strong>指出一個可能受委託的工作，並追問其工作票、驗收條件與停止點。</p>
             <p><strong>Evidence scope：</strong>只預告後續會用配對 App 走一張票；本頁不示範 Agent 執行，也不展示測試結果。</p>
-            <p><strong>下一站：</strong>使用已學的角色、文件與 GitHub 名詞讀 Brainstorming Stage Contract。</p>
+            <p><strong>下一站：</strong>沿配對 App 的工作票看一次交辦、執行與核對。</p>
           </aside>
         </section>
 
@@ -304,14 +304,14 @@
         </section>
 
         <section class="slide" data-page="21" id="page-21" data-rev13-scene-id="C19" data-phase="release_done" data-focus-roles="Dev, Owner, PO, QA" data-doc-ref="DoD · 上線檢查清單 · 部署證據" data-version-ref="已合併 Commit · 上線紀錄 · 上線後檢查" data-github-ref="PR Merge · Commit · 上線 · Issue／Project Done" data-beat="concept" data-mother-map-id="rev13-four-foundations" data-art="stage-card" data-stage-key="release_done" data-agent="true" data-focus-zones="people,process,documents,version" data-focus-stage="release_done" data-focus-roles-map="Dev, Owner, PO, QA" data-state-markers="product-check">
-          <h1>票上 DoD 可決定合併，票 Done 不等於功能上線。</h1>
+          <h1>完成本票與功能上線是不同決定。</h1>
           <figure class="artwork" aria-label="Merge、上線、DoD 與 Done 條件的 Stage Card"></figure>
-          <p class="caption">配對規則票的 DoD 滿足後可授權合併；本課未執行合併。配對功能還缺按讚與清單兩票，Owner 決定先不上線。</p>
+          <p class="caption">完成條件符合後，先取得授權，再實際合併並記錄交付；本票完成不代表功能已上線。</p>
           <aside class="notes" hidden aria-label="講者筆記">
             <h2>講者筆記</h2>
-            <p><strong>Data：</strong>配對規則票的 DoD 滿足後可授權合併；本課顯示「已授權合併・未執行」，不標 Done。功能上線仍需要按讚與配對清單兩票及 Owner 決定。</p>
+            <p><strong>Data：</strong>本票先符合已約定的完成條件，再由授權人決定是否合併；實際完成交付後才能標記 Done。功能上線仍須另行判斷並留下證據。</p>
             <p><strong>Insight：</strong>票 Done 不代表配對功能已上線；單票交付和整體產品目標分開判斷。</p>
-            <p><strong>Go：</strong>逐項核對本票 DoD 與證據；合併或上線只有在票上 DoD 要求且已授權時才做。</p>
+            <p><strong>Go：</strong>逐項核對完成條件與證據，再確認授權、實際合併和交付狀態。</p>
             <p><strong>Evidence scope：</strong>條件式 Stage 定義；本課 Matching 介面／完整流程／上線／產品目標 測試未執行時必須標示 未測。</p>
             <p><strong>下一站：</strong>以一張教學示意卡進行 Part 1 Exit Check。</p>
           </aside>
@@ -386,7 +386,7 @@
         <section class="slide" data-page="27" id="page-27" data-rev13-scene-id="B04" data-phase="brainstorming" data-focus-roles="Owner, PM, PO" data-doc-ref="Goal Issue 已建立，待 Refinement" data-version-ref="無正式票 → Goal Issue 已建立；待 Refinement" data-github-ref="Issue；無正式票 → Goal Issue 已建立；待 Refinement" data-beat="updated-overview" data-mother-map-id="rev13-four-foundations" data-art="part2-map" data-focus-zones="people,process,documents" data-focus-stage="brainstorming" data-focus-roles-map="Owner,PM,PO" data-state-markers="brainstorming" data-evidence-scope="illustration" data-delta-key="B04">
           <h1>看全圖：上一站留下什麼？</h1>
           <figure class="artwork" aria-label="同一母圖與本頁狀態差"></figure>
-          <p class="caption">無 Goal Issue → Goal Issue 已建立；仍待 Refinement。</p>
+          <p class="caption">沒有目標紀錄 → 產品目標已建立；接著仍要拆分工作。</p>
           <aside class="notes" hidden aria-label="講者筆記">
             <h2>講者筆記</h2>
             <p><strong>Data：</strong>Goal Issue 已建立，待 Refinement；共同工作角色：Owner, PM, PO。</p>
@@ -412,7 +412,7 @@
         <section class="slide" data-page="29" id="page-29" data-rev13-scene-id="R02" data-phase="refinement" data-focus-roles="Owner, PM, PO, Dev, QA" data-doc-ref="Parent Goal 與 #1/#3/#2 子票草案、相依" data-version-ref="Goal → #1 Like/Pass、#3 規則、#2 列表；標示依賴及順序" data-github-ref="Issue；Goal → #1 Like/Pass、#3 規則、#2 列表；標示依賴及順序" data-beat="work" data-mother-map-id="rev13-four-foundations" data-art="part2-work" data-focus-zones="people,process,documents" data-focus-stage="refinement" data-focus-roles-map="Owner,PM,PO,Dev,QA" data-state-markers="refinement" data-evidence-scope="illustration">
           <h1>一個 Goal 可以怎麼拆成能交付的工作？</h1>
           <figure class="artwork" aria-label="工作產物與流程定位"></figure>
-          <p class="caption">Goal 分成按讚、配對規則、配對清單三張功能票；另外兩張依賴配對規則。</p>
+          <p class="caption">產品目標拆成三張工作票；按讚與配對清單都依賴配對規則。</p>
           <aside class="notes" hidden aria-label="講者筆記">
             <h2>講者筆記</h2>
             <p><strong>Data：</strong>Parent Goal 與 #1/#3/#2 子票草案、相依；共同工作角色：Owner, PM, PO, Dev, QA。</p>
@@ -566,9 +566,9 @@
           </aside>
         </section>
         <section class="slide" data-page="41" id="page-41" data-rev13-scene-id="RV03" data-phase="review" data-focus-roles="Dev, Reviewer" data-doc-ref="PR Review 意見與未處理事項" data-version-ref="Review request / changes requested / needs QA（非 merge）；顯示分支尚未合併" data-github-ref="Pull Request；Review request / changes requested / needs QA（非 merge）；顯示分支尚未合併" data-beat="updated-overview" data-mother-map-id="rev13-four-foundations" data-art="part2-map" data-focus-zones="process,documents,version" data-focus-stage="dev" data-focus-roles-map="Dev,Reviewer" data-state-markers="dev" data-evidence-scope="illustration" data-ticket-position="dev" data-ticket-previous="review" data-delta-key="RV03">
-          <h1>全圖：PR 現在是什麼狀態？</h1>
+          <h1>修改要求送回 Dev 後，PR 狀態是什麼？</h1>
           <figure class="artwork" aria-label="同一母圖與本頁狀態差"></figure>
-          <p class="caption">前：要求修改 → 後：Dev 移除越界改動、Reviewer 再審通過，才交 QA；教學流程示意。</p>
+          <p class="caption">前：PR 要求修改 → 現在：工作票已回 Dev、版本尚未合併；修正並再審通過後才交 QA。</p>
           <aside class="notes" hidden aria-label="講者筆記">
             <h2>講者筆記</h2>
             <p><strong>Data：</strong>PR Review 意見與未處理事項；共同工作角色：Dev, Reviewer。</p>
@@ -696,13 +696,13 @@
           </aside>
         </section>
         <section class="slide" data-page="51" id="page-51" data-rev13-scene-id="A01" data-phase="agent_collaboration" data-focus-roles="Human, Agent" data-doc-ref="#3 Ticket；回放 修正版・第一次測的 AC1／AC2 PASS 與 重複按讚未測" data-version-ref="回放同一份修正版程式 版本的 修正版・第一次測 當時紀錄；只替換執行者／協調者" data-github-ref="Issue · 測試證據；回放同一份修正版程式 版本的 修正版・第一次測 當時紀錄" data-beat="overview" data-mother-map-id="rev13-four-foundations" data-art="part2-map" data-focus-zones="people,process,documents,version,agent" data-focus-stage="qa" data-focus-roles-map="Human,Agent" data-state-markers="qa" data-evidence-scope="illustration" data-agent-mode="delegate">
-          <h1>倒帶：用 Agent 重走修正版第一次測。</h1>
+          <h1>回看第一次測時點：重複按讚仍未測。</h1>
           <figure class="artwork" aria-label="同一母圖與本頁狀態差"></figure>
-          <p class="caption">回到第一次測的當下，用 Agent 重走；AC1／AC2 已 PASS，重複按讚仍未測。</p>
+          <p class="caption">接下來示範 Agent 如何接手同一張工作票；不新增測試結果。</p>
           <aside class="notes" hidden aria-label="講者筆記">
             <h2>講者筆記</h2>
-            <p><strong>Data：</strong>回放同一份修正版程式第一次測的紀錄：AC1／AC2 PASS、重複按讚未測；共同工作角色：Human, Agent。</p>
-            <p><strong>Insight：</strong>明示回到第一次測的時間點，沒有把補測結果倒退或改寫。</p>
+            <p><strong>Data：</strong>回看同一份修正版程式第一次測的紀錄：AC1／AC2 PASS、重複按讚未測；Agent 協作只作示意。</p>
+            <p><strong>Insight：</strong>這是授權前的歷史時點；後續補測結果不回填到第一次測。</p>
             <p><strong>Go：</strong>請從主圖核對本頁產物、角色和流程位置，並指出尚未證實的部分。</p>
             <p><strong>Evidence scope：</strong>教學示意</p>
             <p><strong>下一站：</strong>模式一：一人＋一個 Agent 如何完成一輪？</p>
@@ -750,7 +750,7 @@
         <section class="slide" data-page="55" id="page-55" data-rev13-scene-id="A05" data-phase="agent_collaboration" data-focus-roles="Human, Agent, 協調 Agent, Reviewer, QA" data-doc-ref="同一張教學 #3 Ticket、原 AC、修正版・第一次測時重複按讚未測；五個問題與對應做法" data-version-ref="版本仍是修正版・第一次測的狀態；未測項仍未測，不代表五項原則已通過實測" data-github-ref="Issue；版本仍是修正版・第一次測的狀態；未測項仍未測，不代表五項原則已通過實測" data-beat="overview" data-mother-map-id="rev13-four-foundations" data-art="part2-principle-overview" data-focus-zones="people,process,documents,version,agent" data-focus-stage="qa" data-focus-roles-map="Human,Agent,協調 Agent,Reviewer,QA" data-state-markers="qa" data-evidence-scope="framework">
           <h1>多 Agent 協作遇到哪五種風險？</h1>
           <figure class="artwork" aria-label="五種風險與原則卡"></figure>
-          <p class="caption">倒帶中；五種 Agent 風險都回到同一張工作契約。</p>
+          <p class="caption">五種風險都回到同一張工作票、版本與測試紀錄；按下一步逐項查看。</p>
           <aside class="notes" hidden aria-label="講者筆記">
             <h2>講者筆記</h2>
             <p><strong>Data：</strong>同一張教學 #3 Ticket、原 AC、修正版・第一次測時重複按讚未測；五個問題及對應做法；共同工作角色：Human, Agent, 協調 Agent, Reviewer, QA。</p>
