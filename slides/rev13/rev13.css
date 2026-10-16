@@ -2468,3 +2468,27 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .exercise-part2 { gap: 9px !important; }
 .exercise-part2 ol { min-height: 0; }
 .exercise-part2 li.is-current { border-color: #d8bd74; background: #302a1c; }
+
+/* Keep the Agent example visibly separate from the completed human scenario. */
+.slide:has(.agent-context-marker) {
+  box-shadow: inset 0 0 0 3px var(--agent);
+}
+.agent-context-marker {
+  position: absolute;
+  z-index: 5;
+  top: 2px;
+  left: 62px;
+  margin: 0;
+  padding: 5px 13px;
+  border: 2px solid var(--agent);
+  border-left-width: 9px;
+  border-radius: 4px;
+  color: #fff1eb;
+  background: #39231f;
+  box-shadow: 0 0 0 3px #f18d7626, 0 4px 18px #0006;
+  font-size: 20px;
+  font-weight: 850;
+  letter-spacing: .015em;
+  line-height: 1;
+  white-space: nowrap;
+}

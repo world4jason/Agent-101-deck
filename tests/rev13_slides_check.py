@@ -652,8 +652,8 @@ def main() -> int:
     chapter_opener = page_by_number.get("50", {})
     if chapter_opener.get("attrs", {}).get("data-rev13-scene-id") != "O02":
         fail(errors, "the Agent chapter must begin after the human flow with O02")
-    if "加入第五個要素：Agent" not in " ".join(chapter_opener.get("visible_text", [])):
-        fail(errors, "the Agent chapter home must name the fifth element")
+    if "另一種情境：如果這張票一開始就交給 Agent" not in " ".join(chapter_opener.get("visible_text", [])):
+        fail(errors, "the Agent chapter home must use the Owner-approved separate-scenario title")
     if chapter_opener.get("attrs", {}).get("data-agent") != "true":
         fail(errors, "the chapter home must render the added Agent row")
     if chapter_opener.get("attrs", {}).get("data-outline-part") != "2":
