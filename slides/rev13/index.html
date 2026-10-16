@@ -402,11 +402,11 @@
                     <p><strong>下一站：</strong>第一個錯在哪裡？</p>
                   </aside>
                 </section>
-<section class="slide" data-page="42" id="page-42" data-rev13-scene-id="Q02" data-phase="qa" data-focus-roles="QA, Dev" data-doc-ref="第一版 單向 LIKE 的 FAIL 測試紀錄" data-version-ref="第一版：預期 0，實際 1，FAIL；QA → Dev" data-github-ref="測試證據；第一版：預期 0，實際 1，FAIL；QA → Dev" data-beat="work" data-mother-map-id="rev13-four-foundations" data-agent="false" data-art="part2-work" data-focus-zones="process,documents,version" data-focus-stage="qa" data-focus-roles-map="QA,Dev" data-state-markers="qa" data-evidence-scope="verified_rule_level">
+<section class="slide" data-page="42" id="page-42" data-rev13-scene-id="Q02" data-phase="qa" data-focus-roles="QA, Dev" data-doc-ref="第一版：單向 FAIL、雙向 PASS、重複按讚未測" data-version-ref="第一版：單向 FAIL、雙向 PASS、重複按讚未測；QA → Dev" data-github-ref="測試證據；第一版：單向 FAIL、雙向 PASS、重複按讚未測；QA → Dev" data-beat="work" data-mother-map-id="rev13-four-foundations" data-agent="false" data-art="part2-work" data-focus-zones="process,documents,version" data-focus-stage="qa" data-focus-roles-map="QA,Dev" data-state-markers="qa" data-evidence-scope="verified_rule_level">
                   <h1>第一版單向按讚錯在哪裡？</h1>
                   <figure class="artwork" aria-label="工作產物與流程定位"></figure>
-                  <p class="caption">規則層實測：第一版單向按讚得到 1 筆配對，預期 0 筆，結果失敗。</p>
-                  <aside class="notes" hidden aria-label="講者筆記"><h2>講者筆記</h2><p><strong>重點事實：</strong>第一版單向按讚的實際結果是 1 筆，條件預期 0 筆。</p><p><strong>學員要懂：</strong>結果不符合驗收條件，因此退回修正。</p><p><strong>下一步：</strong>對照預期與實際結果，再看退回位置。</p><p><strong>證據範圍：</strong>規則層實測紀錄；Agent 工作並非真實執行。</p><p><strong>下一站：</strong>下一頁回到工作全貌。</p></aside>
+                  <p class="caption">第一版：單向 FAIL、雙向 PASS、重複按讚未測。單向按讚實際多出 1 筆配對，因此退回修正。</p>
+                  <aside class="notes" hidden aria-label="講者筆記"><h2>講者筆記</h2><p><strong>重點事實：</strong>第一版：單向 FAIL、雙向 PASS、重複按讚未測；單向預期 0 筆、實際 1 筆，雙向預期與實際都是 1 筆。</p><p><strong>學員要懂：</strong>單向結果不符合驗收條件，因此退回修正；雙向結果符合預期。</p><p><strong>下一步：</strong>對照預期與實際結果，再看退回位置。</p><p><strong>證據範圍：</strong>規則層實測紀錄；Agent 工作並非真實執行。</p><p><strong>下一站：</strong>下一頁回到工作全貌。</p></aside>
                 </section>
 <section class="slide" data-page="43" id="page-43" data-rev13-scene-id="Q03" data-phase="qa" data-focus-roles="Dev, QA" data-doc-ref="修正版・第一次測：單向／雙向 PASS；重複按讚未測" data-version-ref="修正版・第一次測；重複按讚未測；不能宣稱全部完成" data-github-ref="測試證據；修正版・第一次測結果與未測案例" data-beat="work" data-mother-map-id="rev13-four-foundations" data-agent="false" data-art="part2-work" data-focus-zones="process,documents,version" data-focus-stage="qa" data-focus-roles-map="Dev,QA" data-state-markers="qa" data-evidence-scope="verified_rule_level">
                   <h1>修正版第一次測證明了什麼？</h1>
@@ -420,14 +420,14 @@
                   <p class="caption">補測前先重置成已有一筆配對紀錄的狀態；重複按讚後仍為一筆。</p>
                   <aside class="notes" hidden aria-label="講者筆記"><h2>講者筆記</h2><p><strong>重點事實：</strong>補測前程式已有一筆配對紀錄，再對同一組使用者操作。</p><p><strong>學員要懂：</strong>第二次操作後仍為一筆，符合預期。</p><p><strong>下一步：</strong>先讀重置後狀態，再對照補測結果。</p><p><strong>證據範圍：</strong>規則層實測紀錄；Agent 工作並非真實執行。</p><p><strong>下一站：</strong>下一頁回到工作全貌。</p></aside>
                 </section>
-<section class="slide" data-page="45" id="page-45" data-rev13-scene-id="Q05" data-phase="qa" data-focus-roles="QA, Dev" data-doc-ref="第一版 → 修正版・第一次測 → 修正版・補測的證據歷史與未測清單" data-version-ref="第一版 FAIL → 修正版第一次測：單向／雙向 PASS、重複按讚未測 → 修正版補測：重複按讚 PASS；介面、完整流程、上線與產品目標仍未測" data-github-ref="測試證據；第一版 FAIL → 修正版第一次測：單向／雙向 PASS、重複按讚未測 → 修正版補測：重複按讚 PASS；介面、完整流程、上線與產品目標仍未測" data-beat="updated-overview" data-mother-map-id="rev13-four-foundations" data-agent="false" data-art="part2-map" data-focus-zones="process,documents,version" data-focus-stage="qa" data-focus-roles-map="QA,Dev" data-state-markers="qa" data-evidence-scope="mixed" data-ticket-position="qa" data-ticket-previous="dev" data-delta-key="Q05">
+<section class="slide" data-page="45" id="page-45" data-rev13-scene-id="Q05" data-phase="qa" data-focus-roles="QA, Dev" data-doc-ref="第一版：單向 FAIL、雙向 PASS、重複按讚未測；修正版・第一次測與補測的證據歷史與未測清單" data-version-ref="第一版：單向 FAIL、雙向 PASS、重複按讚未測 → 修正版第一次測：單向／雙向 PASS、重複按讚未測 → 修正版補測：重複按讚 PASS；介面、完整流程、上線與產品目標仍未測" data-github-ref="測試證據；第一版：單向 FAIL、雙向 PASS、重複按讚未測 → 修正版第一次測：單向／雙向 PASS、重複按讚未測 → 修正版補測：重複按讚 PASS；介面、完整流程、上線與產品目標仍未測" data-beat="updated-overview" data-mother-map-id="rev13-four-foundations" data-agent="false" data-art="part2-map" data-focus-zones="process,documents,version" data-focus-stage="qa" data-focus-roles-map="QA,Dev" data-state-markers="qa" data-evidence-scope="mixed" data-ticket-position="qa" data-ticket-previous="dev" data-delta-key="Q05">
                   <h1>全圖：這一步留下的證據與未測項？</h1>
                   <figure class="artwork" aria-label="流程與紀錄更新後的狀態"></figure>
-                  <p class="caption">第一版失敗 → 修正版第一次測：單向／雙向通過、重複按讚未測 → 同版補測：重複按讚通過；介面與完整流程仍未測。</p>
+                  <p class="caption">第一版：單向失敗、雙向通過、重複按讚未測 → 修正版第一次測：單向／雙向通過、重複按讚未測 → 同版補測：重複按讚通過；介面與完整流程仍未測。</p>
                   <aside class="notes" hidden aria-label="講者筆記">
                     <h2>講者筆記</h2>
                     <p><strong>重點事實：</strong>第一版 → 修正版・第一次測 → 修正版・補測的證據歷史與未測清單；共同工作角色：QA, Dev。</p>
-                    <p><strong>學員要懂：</strong>第一版 FAIL → 修正版第一次測：單向／雙向 PASS、重複按讚未測 → 修正版補測：重複按讚 PASS；介面、完整流程、上線與產品目標仍未測。</p>
+                    <p><strong>學員要懂：</strong>第一版：單向 FAIL、雙向 PASS、重複按讚未測 → 修正版第一次測：單向／雙向 PASS、重複按讚未測 → 修正版補測：重複按讚 PASS；介面、完整流程、上線與產品目標仍未測。</p>
                     <p><strong>下一步：</strong>請從主圖核對本頁產物、角色和流程位置，並指出尚未證實的部分。</p>
                     <p><strong>證據範圍：</strong>部分實測、部分未測；介面、完整流程、上線與產品目標均未測。</p>
                     <p><strong>下一站：</strong>Ticket 做對，是否等於整個 Goal 達成？</p>
@@ -590,21 +590,21 @@
                   <p class="caption">此處核對三次真實規則測試；介面與完整流程仍未測，Agent 工作為教學示意。授權尚未決定。</p>
                   <aside class="notes" hidden aria-label="講者筆記">
                     <h2>講者筆記</h2>
-                    <p><strong>重點事實：</strong>第一版單向按讚預期 0 筆、實際 1 筆而 FAIL；修正版第一次測單向／雙向 PASS、重複按讚未測；修正版補測重複按讚 PASS，並沿用同一份程式。</p>
+                    <p><strong>重點事實：</strong>第一版：單向 FAIL、雙向 PASS、重複按讚未測；修正版第一次測單向／雙向 PASS、重複按讚未測；修正版補測重複按讚 PASS，並沿用同一份程式。</p>
                     <p><strong>學員要懂：</strong>Agent 工作仍為教學示意；此處引用三次真實規則測試。QA 對照版本、輸入、預期與實際，不把未測改寫成 PASS。</p>
                     <p><strong>下一步：</strong>請從主圖核對本頁產物、角色和流程位置，並指出尚未證實的部分。</p>
                     <p><strong>證據範圍：</strong>部分實測、部分未測；介面、完整流程、上線與產品目標均未測。</p>
-                    <p><strong>下一站：</strong>子票完成後，怎麼確認產品目標仍正確？</p>
+                    <p><strong>下一站：</strong>規則票有了測試結果後（尚未合併、還不算完成），怎麼確認產品目標仍正確？</p>
                   </aside>
                 </section>
-<section class="slide" data-page="64" id="page-64" data-rev13-scene-id="A10" data-phase="agent_collaboration" data-focus-roles="PO, Owner, Dev, QA, Agent" data-doc-ref="配對規則票與 Parent Goal、按讚／清單依賴、風險及未測項" data-version-ref="規則層三次測試可回查；配對清單、介面與完整流程未測；授權尚未決定" data-github-ref="Issue 與測試紀錄；產品目標及授權仍待核對" data-beat="work" data-mother-map-id="rev13-four-foundations" data-art="part2-principle-case" data-focus-zones="people,process,documents,version,agent" data-focus-stage="product_check" data-focus-roles-map="QA,Agent" data-state-markers="qa" data-evidence-scope="illustration">
+<section class="slide" data-page="64" id="page-64" data-rev13-scene-id="A10" data-phase="agent_collaboration" data-focus-roles="PO, Agent" data-doc-ref="配對規則票與 Parent Goal、按讚／清單依賴、風險及未測項" data-version-ref="規則層三次測試可回查；配對清單、介面與完整流程未測；授權尚未決定" data-github-ref="Issue 與測試紀錄；產品目標及授權仍待核對" data-beat="work" data-mother-map-id="rev13-four-foundations" data-agent="true" data-art="part2-principle-case" data-focus-zones="people,process,documents,version,agent" data-focus-stage="product_check" data-focus-roles-map="PO" data-state-markers="product-check" data-evidence-scope="illustration">
                   <h1>子票有結果後，產品目標已驗證了嗎？</h1>
                   <figure class="artwork" aria-label="情境、原則決策與工作產物"></figure>
-                  <p class="caption">規則層三次測試都有紀錄；配對清單、介面與完整流程仍未測。授權尚未決定，本課沒有實際執行合併與上線。</p>
+                  <p class="caption">產品負責人對照規則證據與產品目標，Agent 只協助整理紀錄。配對清單、介面與完整流程仍未測；本課未實際合併或上線。</p>
                   <aside class="notes" hidden aria-label="講者筆記">
                     <h2>講者筆記</h2>
-                    <p><strong>重點事實：</strong>#3 子票對 Parent Goal、#1／#2 的依賴、風險及未測的介面／完整流程；共同工作角色：PO, Owner, Dev, QA, Agent。</p>
-                    <p><strong>學員要懂：</strong>目標問題退回 Backlog／Refinement；實作問題退回 Dev；Parent Goal 決定優先級。規則層結果不等於目標完成，也不代表已授權。</p>
+                    <p><strong>重點事實：</strong>目前在產品確認站，主責是產品負責人；Agent 只能協助整理紀錄。</p>
+                    <p><strong>學員要懂：</strong>產品負責人對照 #3 與 Parent Goal，判斷目標是否仍正確。規則層結果不等於產品目標已驗證，也不代表已授權。</p>
                     <p><strong>下一步：</strong>請從主圖核對本頁產物、角色和流程位置，並指出尚未證實的部分。</p>
                     <p><strong>證據範圍：</strong>教學示意</p>
                     <p><strong>下一站：</strong>五項原則如何對回完整工作流程？</p>

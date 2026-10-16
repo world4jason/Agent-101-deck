@@ -1111,7 +1111,7 @@
 
   const QA_STATUS = {
     Q01: { current: '尚未執行', tested: '無規則實測', untested: '單向、雙向、重複按讚' },
-    Q02: { current: '第一版', tested: '單向按讚 FAIL', untested: '雙向、重複按讚' },
+    Q02: { current: '第一版', tested: '單向 FAIL、雙向 PASS', untested: '重複按讚' },
     Q03: { current: '修正版第一次測', tested: '單向、雙向 PASS', untested: '重複按讚' },
     Q04: {
       current: '修正版補測前', tested: '單向、雙向 PASS', untested: '重複按讚',
@@ -1352,7 +1352,7 @@
         body = `<div class="qa-evidence-shell qa-method-shell"><header><span>規則層檢查步驟</span><strong>先取得可重做的觀察，再記錄結果</strong><em>步驟示意</em></header><div class="qa-method-steps"><article><b>1 · 準備</b><span>重置假資料</span></article><i>→</i><article><b>2 · 執行</b><span>小安按讚小晴</span></article><i>→</i><article><b>3 · 看結果</b><span>查配對紀錄數</span></article><i>→</i><article><b>4 · 對照預期</b><span>預期 0 筆</span></article></div>${qaTable([['待測','小安按讚小晴','0 筆配對','未執行','未測']])}<p>待測列只示意如何填寫；本頁沒有新增測試結果。</p></div>`;
         break;
       case 'Q02':
-        body = `<div class="qa-evidence-shell actual-evidence qa-failure-evidence"><header><span>規則層實測</span><strong>第一版 · 單向 Like</strong><em>FAIL</em></header>${evidenceReference('第一版', '單向 Like 測試紀錄')}${qaTable([['第一版','小安 Like 小晴；尚未互相 Like','0 筆配對','1 筆配對紀錄','FAIL']])}<div class="qa-fail-detail"><article><span>工作票 #3 · AC1 · 單向按讚</span><strong>預期 0 筆；實際 1 筆</strong><small>FAIL：第一版沒有符合 AC1</small></article><div class="qa-return-path"><b>QA</b><i>→</i><b>Dev</b><span>依 AC1 退回修正</span></div></div><p>第一版規則測試失敗；退回線表示修正流程，測試紀錄只保留實際觀察。</p></div>`;
+        body = `<div class="qa-evidence-shell actual-evidence qa-failure-evidence"><header><span>規則層實測</span><strong>第一版 · 單向 Like</strong><em>FAIL</em></header>${evidenceReference('第一版', '單向與雙向 Like 測試紀錄')}${qaTable([['第一版','小安 Like 小晴；尚未互相 Like','0 筆配對','1 筆配對紀錄','FAIL']])}<div class="qa-fail-detail"><article><span>工作票 #3 · AC1 · 單向按讚</span><strong>預期 0 筆；實際 1 筆</strong><small>FAIL：第一版沒有符合 AC1</small></article><div class="qa-return-path"><b>QA</b><i>→</i><b>Dev</b><span>依 AC1 退回修正</span></div></div><p>第一版：單向 FAIL、雙向 PASS、重複按讚未測；單向結果退回修正。</p></div>`;
         break;
       case 'Q03':
         body = `<div class="qa-evidence-shell actual-evidence"><header><span>規則層實測</span><strong>修正版・第一次測</strong><em>部分通過</em></header>${evidenceReference('修正版', '單向與雙向測試紀錄')}${qaTable([['修正版・第一次測','單向 Like','0 筆','0 筆','PASS'],['修正版・第一次測','雙向 Like','1 筆','1 筆','PASS'],['修正版・第一次測','重複按讚','仍 1 筆','未執行','未測']])}<p>AC1／AC2 有規則證據；重複按讚尚未驗證。</p></div>`;
@@ -1377,7 +1377,7 @@
     A06: { risk: '接手者只看到聊天摘要，不知道這張票的範圍、負責人、AC 和目前位置。', decision: '先讀工作票確認目標、範圍、AC 與接手位置；修改摘要為示意・已提交，測試紀錄尚未產生，授權尚未決定。' },
     A07: { risk: 'Agent 想順手加聊天室，超出配對規則票的核准範圍。', decision: '超出本票就依停止條件停下，記下變更請求，交給人決定是否另排工作。' },
     A08: { risk: 'Agent 說「我做完了，可以放行」，執行者可能把實作、審查、驗證和決策混在一起。', decision: '做的人交出修改；Reviewer 審查、QA 獨立驗證，授權人最後決定是否放行。' },
-    A09: { risk: 'Agent 回報單向、雙向 PASS；仍要逐項核對第一版與修正版的真實測試紀錄。', decision: '核對第一版單向 FAIL、修正版第一次測的單向／雙向 PASS 與重複按讚未測，再核對同一份修正版程式的補測 PASS。' },
+    A09: { risk: 'Agent 回報單向、雙向 PASS；仍要逐項核對第一版與修正版的真實測試紀錄。', decision: '第一版：單向 FAIL、雙向 PASS、重複按讚未測；再核對修正版第一次測的單向／雙向 PASS 與重複按讚未測，以及同一份修正版程式的補測 PASS。' },
     A10: { risk: '配對規則三項測試都有結果，使用者是否能在配對清單找到對方仍未驗。', decision: '回到 Parent Goal 判斷；規則票 PASS 不等於介面、完整流程或產品目標 PASS。' },
   };
 
@@ -1394,7 +1394,7 @@
       A06: `<div class="principle-output-sheet"><header><b>配對規則工作票</b><span>開發中・修改已提交（示意）</span></header><ul><li>目前位置：開發中</li><li>修改摘要：示意・已提交</li><li>測試紀錄：尚未產生</li><li>授權決定：尚未決定</li></ul></div>`,
       A07: `<div class="principle-output-sheet"><header><b>Issue #3 · 變更請求</b><span>工作紀錄示意</span></header><ul><li>聊天室：超出本票範圍</li><li>停止條件：先停下</li><li>測試紀錄與授權：尚未產生／決定</li></ul></div>`,
       A08: `<div class="principle-output-records" aria-label="工作票、PR、審查、驗證和授權紀錄卡"><article><b>Issue #3</b><span>核准範圍與 AC</span></article><article><b>PR（示意）</b><span>修改摘要與版本</span></article><article><b>Review（示意）</b><span>示意・已處置</span></article><article><b>QA Evidence</b><span>尚未產生</span></article></div><small class="principle-output-note">現在尚無測試結果；授權尚未決定。紀錄格式為示意。</small>`,
-      A09: `<div class="principle-output-timeline" aria-label="三次真實規則測試紀錄"><article><span>第一版</span><strong>單向按讚：預期 0 筆，實際 1 筆，FAIL</strong></article><i aria-hidden="true">↓</i><article><span>修正版・第一次測</span><strong>回報示意：改互按才配對；單向／雙向 PASS；重複按讚未測</strong></article><i aria-hidden="true">↓</i><article><span>修正版・補測</span><strong>重複按讚 PASS；沿用同一份程式</strong></article></div><small class="principle-output-note">規則測試有真實紀錄；Agent 工作仍為教學示意。</small>`,
+      A09: `<div class="principle-output-timeline" aria-label="三次真實規則測試紀錄"><article><span>第一版</span><strong>單向 FAIL；雙向 PASS；重複按讚未測</strong></article><i aria-hidden="true">↓</i><article><span>修正版・第一次測</span><strong>回報示意：改互按才配對；單向／雙向 PASS；重複按讚未測</strong></article><i aria-hidden="true">↓</i><article><span>修正版・補測</span><strong>重複按讚 PASS；沿用同一份程式</strong></article></div><small class="principle-output-note">規則測試有真實紀錄；Agent 工作仍為教學示意。</small>`,
       A10: `<div class="principle-output-sheet"><header><b>產品目標 · 配對體驗</b><span>產品核對</span></header><ul><li>規則票：單向、雙向、重複按讚均有測試紀錄</li><li>目標：互相按讚後，在配對清單找到對方</li><li>配對清單、介面與完整流程：未測</li></ul></div>`,
     };
     return artifacts[id] || '';
@@ -1424,10 +1424,10 @@
   function renderPart2Exercise(slide) {
     const questions = [
       ['完成條件', '現在可以把這張票標成完成嗎？', '還不可以：授權尚未決定；本課沒有實際執行合併與上線。介面、完整流程與產品目標仍未測。'],
-      ['已測範圍', '哪些規則情境已有實測？', '第一版單向按讚 FAIL；修正版第一次測的單向、雙向 PASS。修正版補測的重複按讚 PASS，三項結果都在規則層。'],
+      ['已測範圍', '哪些規則情境已有實測？', '第一版：單向 FAIL、雙向 PASS、重複按讚未測；修正版第一次測的單向、雙向 PASS、重複按讚未測；修正版補測的重複按讚 PASS。三項結果都在規則層。'],
       ['產品結果', '功能現在可以宣稱上線嗎？', '不能這樣宣稱：介面、完整配對流程與產品目標尚未測。上線還要另外檢查和決定。'],
     ];
-    const context = `<div class="exercise-state-context"><article><b>目前</b><strong>授權尚未決定；本課沒有實際執行合併與上線</strong></article><article><b>已測</b><strong>第一版單向 FAIL；修正版單向、雙向 PASS；補測重複按讚 PASS</strong></article><article><b>未測</b><strong>介面、完整流程、產品目標</strong></article></div>`;
+    const context = `<div class="exercise-state-context"><article><b>目前</b><strong>授權尚未決定；本課沒有實際執行合併與上線</strong></article><article><b>已測</b><strong>第一版：單向 FAIL、雙向 PASS；修正版單向、雙向 PASS；補測重複按讚 PASS</strong></article><article><b>未測</b><strong>第一版重複按讚；修正版第一次測的重複按讚；介面、完整流程、產品目標</strong></article></div>`;
     return `<div class="focus-compose b2-focus-compose">${locator(slide)}<section class="diagram-field b2-artifact exercise-part2"><header><strong>同一張配對規則票的目前狀態</strong><span>先作答，再看判斷</span></header>${context}<ol>${questions.map(([label, question, answer], index) => `<li data-exercise-card="${index}" class="${index === 0 ? 'is-current' : ''}"><div class="exercise-step exercise-prompt fragment${index === 0 ? ' visible revealed-once is-current' : ''}" data-exercise-order="${index * 2}"><b>${esc(label)}</b><span>${esc(question)}</span></div><p class="exercise-step exercise-answer fragment" data-exercise-order="${index * 2 + 1}"><strong>參考判斷</strong>：${esc(answer)}</p></li>`).join('')}</ol><footer>教學練習；本課沒有實際執行合併與上線。</footer></section></div>`;
   }
 
