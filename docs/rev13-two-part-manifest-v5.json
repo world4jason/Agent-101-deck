@@ -1,0 +1,1093 @@
+{
+  "schema_version": 1,
+  "revision": "rev13-v5-two-part",
+  "development_phase": "implementation",
+  "previous_storyboard": "docs/rev13-workflow-first-content-refinement-v4.md",
+  "previous_manifest": "docs/rev13-scene-manifest.json",
+  "canonical_storyboard": "docs/rev13-two-part-learning-architecture-v5.md",
+  "core_part1": [
+    "O01",
+    "C05",
+    "C02",
+    "C07",
+    "C06",
+    "C11",
+    "C12",
+    "C13",
+    "C14",
+    "C15",
+    "C16",
+    "C17",
+    "C18",
+    "C19",
+    "C01",
+    "C03",
+    "C04",
+    "C20"
+  ],
+  "core_part2": [
+    "O03",
+    "B01",
+    "B02",
+    "B03",
+    "B04",
+    "R01",
+    "R02",
+    "R03",
+    "R04",
+    "R05",
+    "RD01",
+    "RD02",
+    "D01",
+    "D02",
+    "C08",
+    "C09",
+    "D03",
+    "D04",
+    "RV01",
+    "RV02",
+    "RV03",
+    "Q01",
+    "Q02",
+    "Q03",
+    "Q04",
+    "Q05",
+    "PC01",
+    "PC02",
+    "HG01",
+    "HG02",
+    "O02",
+    "C10",
+    "A01",
+    "A02",
+    "A03",
+    "A04",
+    "A05",
+    "A06",
+    "A07",
+    "A08",
+    "A09",
+    "A10",
+    "A11",
+    "X01"
+  ],
+  "part1_scenes": [
+    {
+      "id": "O01",
+      "kind": "foundation-overview",
+      "focus": "人、流程、文件與版本管理四個問題，以及本課兩段安排",
+      "rev12_pages": [
+        5,
+        26,
+        31
+      ],
+      "cue": "先呈現四要素問題，再看課程全貌"
+    },
+    {
+      "id": "C05",
+      "kind": "documents",
+      "focus": "工作票標題、目標與理由",
+      "rev12_pages": [
+        14,
+        16,
+        21,
+        22,
+        23
+      ],
+      "cue": "先看同一張配對規則票的目標"
+    },
+    {
+      "id": "C02",
+      "kind": "template",
+      "focus": "工作票的範圍、主責與目前站點",
+      "rev12_pages": [
+        25,
+        26
+      ],
+      "cue": "一頁逐步亮一項票面內容"
+    },
+    {
+      "id": "C07",
+      "kind": "documents-boundary",
+      "focus": "驗收條件與檢查方法的對照",
+      "rev12_pages": [
+        11,
+        21,
+        23,
+        24,
+        47
+      ],
+      "cue": "用單向按讚例子設計可重做的檢查，不呈現結果"
+    },
+    {
+      "id": "C06",
+      "kind": "documents-lifecycle",
+      "focus": "驗收、審查、測試紀錄、授權、合併與 Done 的完整條件",
+      "rev12_pages": [
+        14,
+        21,
+        23,
+        45,
+        47,
+        51
+      ],
+      "cue": "功能上線另行決定；本課沒有實際合併"
+    },
+    {
+      "id": "C11",
+      "kind": "stage",
+      "stage_key": "brainstorming",
+      "focus": "Brainstorming Stage Contract",
+      "rev12_pages": [
+        10,
+        11
+      ],
+      "cue": "先介紹工作站，不提前展示 Matching 的決議結果"
+    },
+    {
+      "id": "C12",
+      "kind": "stage",
+      "stage_key": "refinement",
+      "focus": "Refinement/Planning Stage Contract",
+      "rev12_pages": [
+        12,
+        14,
+        18,
+        19,
+        21,
+        23
+      ],
+      "cue": "可以拆票且可行，不等於可直接進 Ready"
+    },
+    {
+      "id": "C13",
+      "kind": "stage",
+      "stage_key": "ready",
+      "focus": "Ready Stage Contract",
+      "rev12_pages": [
+        15,
+        24
+      ],
+      "cue": "Ready 前確認清楚可開工，不代表已開始"
+    },
+    {
+      "id": "C14",
+      "kind": "stage",
+      "stage_key": "dev",
+      "focus": "Dev Stage Contract",
+      "rev12_pages": [
+        39,
+        40
+      ],
+      "cue": "開發與自測不等於獨立 QA"
+    },
+    {
+      "id": "C15",
+      "kind": "stage",
+      "stage_key": "review",
+      "focus": "PR Review Stage Contract",
+      "rev12_pages": [
+        36,
+        37,
+        41
+      ],
+      "cue": "Concept example only, no pretend real PR history"
+    },
+    {
+      "id": "C16",
+      "kind": "stage",
+      "stage_key": "qa",
+      "focus": "QA/Verification Stage Contract",
+      "rev12_pages": [
+        42,
+        43,
+        45,
+        47
+      ],
+      "cue": "只介紹預期/實際/PASS/FAIL/NOT RUN，A/B 實測留 Part2"
+    },
+    {
+      "id": "C17",
+      "kind": "stage",
+      "stage_key": "product_check",
+      "focus": "Product Check Stage Contract",
+      "rev12_pages": [
+        48
+      ],
+      "cue": "本票符合需求與 Goal 方向，不等於已達成產品成效"
+    },
+    {
+      "id": "C18",
+      "kind": "stage",
+      "stage_key": "human_gate",
+      "focus": "Human Gate Stage Contract",
+      "rev12_pages": [
+        50,
+        51,
+        91
+      ],
+      "cue": "欄外決策，不是第八個 Kanban state"
+    },
+    {
+      "id": "C19",
+      "kind": "stage",
+      "stage_key": "release_done",
+      "focus": "Merge/Release/Done Stage Contract",
+      "rev12_pages": [
+        52,
+        53,
+        93
+      ],
+      "cue": "需核對 DoD 和 release evidence，不能用 QA PASS 自動替代"
+    },
+    {
+      "id": "C01",
+      "kind": "map",
+      "focus": "七個看板狀態、欄外授權與三種退回方向",
+      "rev12_pages": [
+        26,
+        93
+      ],
+      "cue": "三條退回線分開標示，票停在 Product Check 等人決定"
+    },
+    {
+      "id": "C03",
+      "kind": "roles",
+      "focus": "七種角色各自的責任與配對功能例子",
+      "rev12_pages": [
+        5,
+        6,
+        7,
+        25,
+        84
+      ],
+      "cue": "先講職責，再看角色所在階段"
+    },
+    {
+      "id": "C04",
+      "kind": "roles-matrix",
+      "focus": "主責、協作與決策三種參與方式",
+      "rev12_pages": [
+        6,
+        7,
+        18,
+        91
+      ],
+      "cue": "用不同卡片樣式區分，授權保持欄外"
+    },
+    {
+      "id": "C20",
+      "kind": "exit-check",
+      "focus": "依一張配對規則票回答位置、下一位與缺少條件",
+      "rev12_pages": [
+        8,
+        30,
+        38,
+        49,
+        54
+      ],
+      "cue": "三個問題逐步揭露參考答案"
+    }
+  ],
+  "stage_contracts": [
+    {
+      "key": "brainstorming",
+      "label": "Brainstorming",
+      "activity": true,
+      "kanban_state": "pre-backlog → Backlog",
+      "product_goal_reference": "尚待形成",
+      "stage_target": "決定下一個要解決的使用者問題與方向",
+      "input": "問題／觀察／機會／限制",
+      "activities": "收集問題、探索選項、定義 Outcome Goal 與成功訊號",
+      "output": "Goal／Proposal 與未決假設",
+      "exit": "人類需求方確認方向且 Goal 有共同可追溯紀錄；未通過不假設 Ready",
+      "lead_roles": [
+        "Owner",
+        "PM",
+        "PO"
+      ],
+      "co_roles": [],
+      "github": "建立／更新 Goal 或 Proposal Issue（可按組織類型配置）",
+      "rev12_pages": [
+        10,
+        11
+      ]
+    },
+    {
+      "key": "refinement",
+      "label": "Refinement / Planning",
+      "activity": true,
+      "kanban_state": "Backlog",
+      "product_goal_reference": "已決定的 Goal Issue",
+      "stage_target": "確認可行性、Divide & Conquer，把需求變成可交辦工作",
+      "input": "Goal／Proposal、限制、依賴、未決疑問",
+      "activities": "範圍與依賴討論、拆 Epic/Story/Task、Example Mapping、AC/AT、風險與 Owner",
+      "output": "Parent／Child Tickets、Scope/Out-of-scope、AC／AT、預期證據與未決清單",
+      "exit": "票可被估算／驗證，阻礙已處理或有明確處置；不等於所有票自動 Ready",
+      "lead_roles": [
+        "PO",
+        "PM"
+      ],
+      "co_roles": [
+        "Owner",
+        "Dev",
+        "QA",
+        "UI/UX"
+      ],
+      "github": "更新 Parent Issue／Sub-issues、依賴／Project 欄位",
+      "rev12_pages": [
+        12,
+        14,
+        16,
+        18,
+        19,
+        21,
+        22,
+        23
+      ]
+    },
+    {
+      "key": "ready",
+      "label": "Ready Check",
+      "activity": false,
+      "kanban_state": "Backlog → Ready",
+      "product_goal_reference": "保持 Parent Goal 不變",
+      "stage_target": "決定此票已具備開工條件",
+      "input": "已 Refinement 的票、AC／AT、相依與責任",
+      "activities": "PO／Dev／QA 依風險確認 scope、AC、可測性與依賴",
+      "output": "Ready Ticket 和明確接手者；未開工 WIP 0/1",
+      "exit": "所有本課 Required Ready 條件滿足、允許拉進 Dev",
+      "lead_roles": [
+        "PO",
+        "Dev"
+      ],
+      "co_roles": [
+        "QA"
+      ],
+      "github": "Issue／Project: Backlog → Ready",
+      "rev12_pages": [
+        15,
+        23,
+        24
+      ]
+    },
+    {
+      "key": "dev",
+      "label": "Dev",
+      "activity": false,
+      "kanban_state": "Dev",
+      "product_goal_reference": "只做核准的 Ticket / AC",
+      "stage_target": "在已核准範圍內實作並留下候選版本",
+      "input": "Ready Ticket、設計／AC、共同 Repo、既定 Stop Rules",
+      "activities": "拉票、建立分支、修改、提交 Commit、自測、記錄未完成",
+      "output": "候選版本／Commit、修改摘要、自測紀錄與未驗清單",
+      "exit": "候選變更與自測可供審查；自測不等於 QA 完成",
+      "lead_roles": [
+        "Dev"
+      ],
+      "co_roles": [
+        "PO",
+        "UI/UX"
+      ],
+      "github": "Issue→Branch／Commit（連到 PR 草稿視需要）",
+      "rev12_pages": [
+        39,
+        40
+      ]
+    },
+    {
+      "key": "review",
+      "label": "PR Review",
+      "activity": false,
+      "kanban_state": "Review",
+      "product_goal_reference": "候選變更不得偏離本票 scope",
+      "stage_target": "檢查改動、風險與邊界",
+      "input": "PR 差異、Ticket／AC、程式版本、自測摘要",
+      "activities": "Reviewer 比對 diff 與需求、提出修改、Dev 回覆修正",
+      "output": "Review findings／approved 或 changes requested",
+      "exit": "重大問題修正／處置，符合交付 QA 的前置條件；PR 尚未必然 Merge",
+      "lead_roles": [
+        "Reviewer"
+      ],
+      "co_roles": [
+        "Dev",
+        "PO"
+      ],
+      "github": "Pull Request／Review comments／checks",
+      "rev12_pages": [
+        36,
+        37,
+        40,
+        41
+      ]
+    },
+    {
+      "key": "qa",
+      "label": "QA / Verification",
+      "activity": false,
+      "kanban_state": "QA",
+      "product_goal_reference": "驗證既定 AC，不假定 Goal 完成",
+      "stage_target": "用可重跑證據檢查候選版的行為",
+      "input": "可識別候選版、AC／AT、測試資料與環境",
+      "activities": "執行案例、記錄預期 vs 實際、標 PASS／FAIL／NOT RUN；必要時退 Dev",
+      "output": "測試紀錄、發現／缺漏、補驗請求",
+      "exit": "依本課驗證條件交付明確證據與剩餘未驗項；未執行不改 PASS",
+      "lead_roles": [
+        "QA"
+      ],
+      "co_roles": [
+        "Dev"
+      ],
+      "github": "Evidence／PR test results／Issue comments",
+      "rev12_pages": [
+        42,
+        43,
+        45,
+        46,
+        47
+      ]
+    },
+    {
+      "key": "product_check",
+      "label": "Product Check",
+      "activity": false,
+      "kanban_state": "Product Check",
+      "product_goal_reference": "對回 Parent Goal、依賴和產品需求",
+      "stage_target": "判斷這張票是否符合需求及仍推進 Goal",
+      "input": "Ticket／AC、Review／QA Evidence、Parent Goal／風險",
+      "activities": "對回產品結果、辨識需求變更與實作缺口、決定退回站點",
+      "output": "接受範圍／退回理由／未完成產品路徑",
+      "exit": "產品責任方有明確接受或退回建議，保留未解風險",
+      "lead_roles": [
+        "PO"
+      ],
+      "co_roles": [
+        "Owner",
+        "Dev",
+        "QA"
+      ],
+      "github": "更新 Issue／Project 產品判斷紀錄",
+      "rev12_pages": [
+        48
+      ]
+    },
+    {
+      "key": "human_gate",
+      "label": "Human Gate",
+      "activity": true,
+      "kanban_state": "Product Check（欄外決策）",
+      "product_goal_reference": "產品與風險仍由人負責",
+      "stage_target": "由授權的人決定可否整合／發布，或要求補驗",
+      "input": "候選版、QA/Review Evidence、剩餘風險／發布計畫",
+      "activities": "Go／No-Go／退回及風險接受決議",
+      "output": "可回查的授權／暫停／退回決策",
+      "exit": "有明確授權且後續 Release／DoD 條件可檢查；不自動 Done",
+      "lead_roles": [
+        "Owner"
+      ],
+      "co_roles": [
+        "PO",
+        "QA",
+        "Dev"
+      ],
+      "github": "PR／Issue decision log，尚未直接等於 Merge",
+      "rev12_pages": [
+        50,
+        51,
+        91
+      ]
+    },
+    {
+      "key": "release_done",
+      "label": "Merge / Release / Done",
+      "activity": true,
+      "kanban_state": "Product Check → Done（條件成立後）",
+      "product_goal_reference": "單票完成與整體 Goal 成效分開衡量",
+      "stage_target": "依已核准的變更完成整合、發布與 DoD 證據",
+      "input": "已獲 Human Gate 授權的候選、Release/DoD Checklist",
+      "activities": "Merge、Release、部署／檢查與回報（本例若未實跑須標示條件推演）",
+      "output": "Merged Commit／Release 記錄／上線檢查／Ticket Done（僅有證據時）",
+      "exit": "本課共同 DoD／上線檢查具備實證才可 Done；整體 Goal 成效後續另量",
+      "lead_roles": [
+        "Dev"
+      ],
+      "co_roles": [
+        "Owner",
+        "PO",
+        "QA"
+      ],
+      "github": "PR Merge、Commit、Release、Issue/Project Done",
+      "rev12_pages": [
+        52,
+        53,
+        93
+      ]
+    }
+  ],
+  "roles": [
+    {
+      "role": "Owner",
+      "primary": [
+        "brainstorming",
+        "human_gate"
+      ],
+      "collaborate": [
+        "refinement",
+        "product_check",
+        "release_done"
+      ],
+      "note": "方向與正式授權，可兼任其他職能"
+    },
+    {
+      "role": "PM",
+      "primary": [
+        "brainstorming",
+        "refinement"
+      ],
+      "collaborate": [
+        "ready"
+      ],
+      "note": "促進協作、風險與節奏，不等於具體 Dev"
+    },
+    {
+      "role": "PO",
+      "primary": [
+        "refinement",
+        "ready",
+        "product_check"
+      ],
+      "collaborate": [
+        "brainstorming",
+        "review",
+        "human_gate"
+      ],
+      "note": "需求、AC 和對 Goal 的判斷"
+    },
+    {
+      "role": "UI/UX",
+      "primary": [],
+      "collaborate": [
+        "refinement",
+        "dev"
+      ],
+      "note": "涉及介面與互動時參與，規則層 #3 不假定 UI 已做"
+    },
+    {
+      "role": "Dev",
+      "primary": [
+        "dev",
+        "release_done"
+      ],
+      "collaborate": [
+        "refinement",
+        "ready",
+        "review",
+        "qa",
+        "product_check"
+      ],
+      "note": "實作、自測、修正、交可查版本"
+    },
+    {
+      "role": "Reviewer",
+      "primary": [
+        "review"
+      ],
+      "collaborate": [],
+      "note": "審查修改／範圍／風險，與 QA 不同"
+    },
+    {
+      "role": "QA",
+      "primary": [
+        "qa"
+      ],
+      "collaborate": [
+        "refinement",
+        "ready",
+        "product_check",
+        "human_gate",
+        "release_done"
+      ],
+      "note": "依 AC／原證據驗證，NOT RUN 不等於 PASS"
+    }
+  ],
+  "documents": [
+    {
+      "name": "Problem/Goal/Proposal",
+      "goal": "為什麼要做、想達成哪種 Outcome",
+      "created": "brainstorming",
+      "evolves": "refinement / product_check",
+      "github": "Issue／decisions"
+    },
+    {
+      "name": "Epic/Story/Task/Ticket",
+      "goal": "如何將 Goal 拆成可交辦範圍及依賴",
+      "created": "refinement",
+      "evolves": "ready / dev / review",
+      "github": "Parent / Sub-issues / Project"
+    },
+    {
+      "name": "Scope/AC/AT/DoD",
+      "goal": "要做什麼、如何驗、共用完成條件",
+      "created": "refinement",
+      "evolves": "ready / qa",
+      "github": "Issue / repo specs / tests"
+    },
+    {
+      "name": "Design & Dev Notes",
+      "goal": "如何設計、決議與執行了哪些變更",
+      "created": "refinement",
+      "evolves": "dev / review",
+      "github": "Repo docs / Issue / PR body"
+    },
+    {
+      "name": "PR Review / Test Evidence",
+      "goal": "改動審查、預期與實際結果及未驗證清單",
+      "created": "review",
+      "evolves": "qa / product_check",
+      "github": "PR review / evidence files / Issue"
+    },
+    {
+      "name": "Go/No-Go / Release / Post-Release",
+      "goal": "授權、交付、風險、版本與後續 Goal 量測",
+      "created": "human_gate",
+      "evolves": "release_done",
+      "github": "PR / Release / Issue / external record"
+    }
+  ],
+  "github_concepts": [
+    {
+      "object": "Git",
+      "role": "版本歷史工具；跟 GitHub 不是同一物件",
+      "phase": "dev → release_done",
+      "docs_version": "version"
+    },
+    {
+      "object": "Commit/Branch",
+      "role": "識別／隔離修改，可追溯、可比較",
+      "phase": "dev",
+      "docs_version": "version"
+    },
+    {
+      "object": "GitHub Issue/Sub-issue",
+      "role": "需求、決議、工作票、依賴及其狀態",
+      "phase": "brainstorming → product_check",
+      "docs_version": "documents"
+    },
+    {
+      "object": "GitHub Project",
+      "role": "跨 Issue／PR 的狀態與看板視圖",
+      "phase": "refinement → release_done",
+      "docs_version": "documents_workflow"
+    },
+    {
+      "object": "Pull Request",
+      "role": "版本差異送審、討論、Review、Checks；不是 Ticket",
+      "phase": "review → release_done",
+      "docs_version": "bridge"
+    },
+    {
+      "object": "Merge/Release",
+      "role": "整合被批准的版本及留下正式交付記錄",
+      "phase": "release_done",
+      "docs_version": "version"
+    }
+  ],
+  "foundations": [
+    "People",
+    "Process",
+    "Documents",
+    "Version Control"
+  ],
+  "agent_fifth": "Agent",
+  "preserved_agent_principles": [
+    "External Task State",
+    "Bounded Execution",
+    "Role Separation",
+    "Independent Verification",
+    "Goal Re-anchoring"
+  ],
+  "preserved_agent_scene_ids": [
+    "A05",
+    "A06",
+    "A07",
+    "A08",
+    "A09",
+    "A10",
+    "A11"
+  ],
+  "preserved_visual_principles": [
+    "P18",
+    "P19",
+    "P20",
+    "P21",
+    "P22",
+    "P23"
+  ],
+  "seven_kanban_states": [
+    "Backlog",
+    "Ready",
+    "Dev",
+    "Review",
+    "QA",
+    "Product Check",
+    "Done"
+  ],
+  "part2_verifiable_evidence_scope": "Only three rule-level runs are real: the first version failed; the revised version first passed one-way and two-way cases while duplicate Like was not run; the supplemental duplicate Like run passed. All other work, review, release, product-goal, interface and end-to-end behavior is marked teaching example or not tested.",
+  "workflow_mutation_policy": "do not edit .github/workflows while Actions is unavailable; all v5 checks run locally only",
+  "release_gates": {
+    "G1": "not_run",
+    "G2": "not_run",
+    "G3": "not_run",
+    "G4": "not_run",
+    "G5": "not_run"
+  },
+  "part1_learning_sequence": "O01 four-foundation questions and course outline → C05/C02/C07/C06 ticket fields → C11–C19 nine stage introductions → C01 full workflow and return directions → C03 role responsibilities → C04 role-by-stage matrix → C20 three-question matching exercise; teach C08/C09 and D02 with the pairing-rule ticket after D01 at Dev; O02 and C10 follow the human flow at HG02.",
+  "part1_prerequisite_policy": "Part 1 introduces the four foundations, one reusable work ticket, nine stages, role responsibilities and the role-by-stage matrix without an Agent work row. It gives one short Git/GitHub positioning sentence; Branch, Commit, PR and Merge are explained with the pairing-rule ticket after Dev takes it in Part 2. The human workflow reaches its Human Gate before the Agent section.",
+  "implementation_slide_map": [
+    {
+      "page": 1,
+      "scene_id": "O01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 2,
+      "scene_id": null,
+      "merged_scene_ids": [
+        "O01"
+      ]
+    },
+    {
+      "page": 3,
+      "scene_id": "C05",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 4,
+      "scene_id": "C02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 5,
+      "scene_id": null,
+      "merged_scene_ids": [
+        "C07"
+      ]
+    },
+    {
+      "page": 6,
+      "scene_id": "C06",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 7,
+      "scene_id": null,
+      "merged_scene_ids": [
+        "C02"
+      ]
+    },
+    {
+      "page": 8,
+      "scene_id": "C11",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 9,
+      "scene_id": "C12",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 10,
+      "scene_id": "C13",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 11,
+      "scene_id": "C14",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 12,
+      "scene_id": "C15",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 13,
+      "scene_id": "C16",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 14,
+      "scene_id": "C17",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 15,
+      "scene_id": "C18",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 16,
+      "scene_id": "C19",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 17,
+      "scene_id": "C01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 18,
+      "scene_id": "C03",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 19,
+      "scene_id": "C04",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 20,
+      "scene_id": "C20",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 21,
+      "scene_id": "O03",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 22,
+      "scene_id": "B01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 23,
+      "scene_id": "B02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 24,
+      "scene_id": "B03",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 25,
+      "scene_id": "B04",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 26,
+      "scene_id": "R01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 27,
+      "scene_id": "R02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 28,
+      "scene_id": "R03",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 29,
+      "scene_id": "R04",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 30,
+      "scene_id": "R05",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 31,
+      "scene_id": "RD01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 32,
+      "scene_id": "RD02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 33,
+      "scene_id": "D01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 34,
+      "scene_id": "D02",
+      "merged_scene_ids": [
+        "C08"
+      ]
+    },
+    {
+      "page": 35,
+      "scene_id": "C09",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 36,
+      "scene_id": "D03",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 37,
+      "scene_id": "D04",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 38,
+      "scene_id": "RV01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 39,
+      "scene_id": "RV02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 40,
+      "scene_id": "RV03",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 41,
+      "scene_id": "Q01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 42,
+      "scene_id": "Q02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 43,
+      "scene_id": "Q03",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 44,
+      "scene_id": "Q04",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 45,
+      "scene_id": "Q05",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 46,
+      "scene_id": "PC01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 47,
+      "scene_id": "PC02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 48,
+      "scene_id": "HG01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 49,
+      "scene_id": "HG02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 50,
+      "scene_id": "O02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 51,
+      "scene_id": "C10",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 52,
+      "scene_id": null,
+      "merged_scene_ids": [
+        "C10"
+      ]
+    },
+    {
+      "page": 53,
+      "scene_id": null,
+      "merged_scene_ids": [
+        "C10"
+      ]
+    },
+    {
+      "page": 54,
+      "scene_id": null,
+      "merged_scene_ids": [
+        "C10",
+        "A01"
+      ]
+    },
+    {
+      "page": 55,
+      "scene_id": "A01",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 56,
+      "scene_id": "A02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 57,
+      "scene_id": "A03",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 58,
+      "scene_id": "A04",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 59,
+      "scene_id": "A05",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 60,
+      "scene_id": "A06",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 61,
+      "scene_id": "A07",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 62,
+      "scene_id": "A08",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 63,
+      "scene_id": "A09",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 64,
+      "scene_id": "A10",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 65,
+      "scene_id": "A11",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 66,
+      "scene_id": "X01",
+      "merged_scene_ids": []
+    }
+  ]
+}
