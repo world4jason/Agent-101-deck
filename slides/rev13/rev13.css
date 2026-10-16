@@ -2436,6 +2436,9 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 .qa-status-ribbon b { color: #c5d3f1; font-size: 16px; white-space: nowrap; }
 .qa-status-ribbon strong { color: #f0f2fa; font-size: 18px; line-height: 1.18; overflow-wrap: anywhere; }
 .qa-status-ribbon > div:last-child strong { color: #f1d89b; }
+.qa-status-ribbon .status-after { display: none; }
+.slide:has(.result-fragment.visible) .qa-status-ribbon .status-before { display: none; }
+.slide:has(.result-fragment.visible) .qa-status-ribbon .status-after { display: inline; }
 .b2-artifact.has-qa-status { justify-content: flex-start; gap: 9px; padding: 14px 17px; }
 .b2-full-map.has-qa-status { grid-template-rows: auto minmax(0, 1fr); gap: 7px; }
 

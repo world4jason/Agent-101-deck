@@ -1128,19 +1128,10 @@
     const status = QA_STATUS[scene];
     if (!status) return '';
     const after = status.after || status;
-    return `<div class="qa-status-ribbon" role="group" aria-label="測試狀態" data-qa-scene="${esc(scene)}" data-qa-current-before="${esc(status.current)}" data-qa-tested-before="${esc(status.tested)}" data-qa-untested-before="${esc(status.untested)}" data-qa-current-after="${esc(after.current)}" data-qa-tested-after="${esc(after.tested)}" data-qa-untested-after="${esc(after.untested)}"><div><b>目前</b><strong data-qa-current>${esc(status.current)}</strong></div><div><b>已測</b><strong data-qa-tested>${esc(status.tested)}</strong></div><div><b>未測</b><strong data-qa-untested>${esc(status.untested)}</strong></div></div>`;
-  }
-
-  function updateQaStatus(slide, revealed) {
-    const ribbon = slide.querySelector('.qa-status-ribbon');
-    if (!ribbon) return;
-    const phase = revealed ? 'after' : 'before';
-    ribbon.dataset.qaPhase = phase;
-    for (const [key, dataKey] of [['current', 'qaCurrent'], ['tested', 'qaTested'], ['untested', 'qaUntested']]) {
-      const value = ribbon.dataset[`${dataKey}${revealed ? 'After' : 'Before'}`];
-      const target = ribbon.querySelector(`[data-qa-${key}]`);
-      if (target && value) target.textContent = value;
-    }
+    const value = (before, revealed) => status.after
+      ? `<span class="status-before">${esc(before)}</span><span class="status-after">${esc(revealed)}</span>`
+      : esc(before);
+    return `<div class="qa-status-ribbon" role="group" aria-label="測試狀態" data-qa-scene="${esc(scene)}" data-qa-current-before="${esc(status.current)}" data-qa-tested-before="${esc(status.tested)}" data-qa-untested-before="${esc(status.untested)}" data-qa-current-after="${esc(after.current)}" data-qa-tested-after="${esc(after.tested)}" data-qa-untested-after="${esc(after.untested)}"><div><b>目前</b><strong data-qa-current>${value(status.current, after.current)}</strong></div><div><b>已測</b><strong data-qa-tested>${value(status.tested, after.tested)}</strong></div><div><b>未測</b><strong data-qa-untested>${value(status.untested, after.untested)}</strong></div></div>`;
   }
 
   function renderPart2Map(slide) {
@@ -1367,7 +1358,7 @@
         body = `<div class="qa-evidence-shell actual-evidence"><header><span>規則層實測</span><strong>修正版・第一次測</strong><em>部分通過</em></header>${evidenceReference('修正版', '單向與雙向測試紀錄')}${qaTable([['修正版・第一次測','單向 Like','0 筆','0 筆','PASS'],['修正版・第一次測','雙向 Like','1 筆','1 筆','PASS'],['修正版・第一次測','重複按讚','仍 1 筆','未執行','未測']])}<p>AC1／AC2 有規則證據；重複按讚尚未驗證。</p></div>`;
         break;
       case 'Q04':
-        body = `<div class="qa-evidence-shell reveal-evidence"><header><span>先請學員作答</span><strong>重複按讚還缺哪個輸入與預期？</strong><em>按下一步揭露</em></header><div class="duplicate-prompt"><article><b>補測前重置</b><span>已有一筆配對紀錄的狀態</span></article><i>→</i><article><b>補測動作</b><span>同一對再次 Like</span></article><i>→</i><article><b>預期</b><span>仍只有 1 筆配對紀錄</span></article></div><div class="b2-reveal fragment" data-fragment-order="1"><span>規則層實測 · 修正版・補測</span>${evidenceReference('修正版', '重複按讚測試紀錄')}${qaTable([['修正版・補測','重複按讚','仍 1 筆','仍 1 筆','PASS']])}<p>補測沿用同一份修正版程式；沒有另建版本。</p></div></div>`;
+        body = `<div class="qa-evidence-shell reveal-evidence"><header><span>先請學員作答</span><strong>重複按讚還缺哪個輸入與預期？</strong><em>按下一步揭露</em></header><div class="duplicate-prompt"><article><b>補測前重置</b><span>已有一筆配對紀錄的狀態</span></article><i>→</i><article><b>補測動作</b><span>同一對再次 Like</span></article><i>→</i><article><b>預期</b><span>仍只有 1 筆配對紀錄</span></article></div><div class="b2-reveal result-fragment fragment" data-fragment-order="1"><span>規則層實測 · 修正版・補測</span>${evidenceReference('修正版', '重複按讚測試紀錄')}${qaTable([['修正版・補測','重複按讚','仍 1 筆','仍 1 筆','PASS']])}<p>補測沿用同一份修正版程式；沒有另建版本。</p></div></div>`;
         break;
       case 'PC01':
         body = `<div class="product-check-grid"><article><span>配對規則票 · 可核對</span><strong>單向 0 筆 · 雙向 1 筆 · 重複按讚仍 1 筆</strong><p>只證明配對規則正確；不代表使用者在配對清單看得到對方。</p></article><i>≠</i><article class="goal-gap"><span>產品目標 · 尚未驗證</span><strong>使用者互相按讚後，能在配對清單找到對方</strong><p>登入／介面／完整流程／完整串接：未測</p></article><footer>產品確認 · 教學示意　｜　產品負責人與授權人記錄範圍與未知，不把規則票結果說成產品目標通過。</footer></div>`;
@@ -1573,7 +1564,6 @@
     if (!hidden.length) return false;
     const order = Math.min(...hidden.map(item => Number(item.dataset.fragmentOrder || 1)));
     hidden.filter(item => Number(item.dataset.fragmentOrder || 1) === order).forEach(item => item.classList.add('visible'));
-    if (slide.dataset.rev13SceneId === 'Q04') updateQaStatus(slide, Boolean(slide.querySelector('.b2-reveal.visible')));
     if (slide.dataset.art === 'agent-mode') updateAgentModeFocus(slide, order);
     if (slide.dataset.art === 'part2-principle-overview') updatePrincipleOverviewFocus(slide, order);
     nextButton.disabled = pageIndex === slides.length - 1 && !hasNextFragment(slide);
@@ -1610,7 +1600,6 @@
     if (!visible.length) return false;
     const order = Math.max(...visible.map(item => Number(item.dataset.fragmentOrder || 1)));
     visible.filter(item => Number(item.dataset.fragmentOrder || 1) === order).forEach(item => item.classList.remove('visible'));
-    if (slide.dataset.rev13SceneId === 'Q04') updateQaStatus(slide, Boolean(slide.querySelector('.b2-reveal.visible')));
     if (slide.dataset.art === 'agent-mode') {
       const currentOrder = Math.max(0, ...[...slide.querySelectorAll('.agent-mode-step.visible')].map(item => Number(item.dataset.fragmentOrder || 0)));
       updateAgentModeFocus(slide, currentOrder);
