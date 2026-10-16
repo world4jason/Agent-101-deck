@@ -62,6 +62,7 @@ BANNED_LEARNER_TERMS = (
     "Data",
     "Insight",
     "Go",
+    "Evidence scope",
     "branch/matching-rule",
     "焦點",
     "細軌",
@@ -612,7 +613,7 @@ def main() -> int:
         note_chunks = [(str(page), 0, text) for text in slide["note_text"]]
         append_banned_text_errors(errors, note_chunks, "index.html notes")
         append_internal_code_errors(errors, note_chunks, "index.html notes", expected)
-        for field in ("重點事實：", "學員要懂：", "下一步：", "Evidence scope：", "下一站："):
+        for field in ("重點事實：", "學員要懂：", "下一步：", "證據範圍：", "下一站："):
             if field not in note_text:
                 fail(errors, f"slide {number}: speaker notes missing {field.rstrip('：')}")
 

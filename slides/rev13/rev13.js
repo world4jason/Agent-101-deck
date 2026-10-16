@@ -514,7 +514,7 @@
     const showReturns = showOverviewReturns || actualReturn;
     const returnPaths = showReturns ? [
       ...((showOverviewReturns || actualReturn === 'goal') ? [returnPath('goal', [[1020, 244], [1020, 180], [336, 180], [336, 244]], '目標不符・回到釐清', 690, 162, 210, actualReturn === 'goal')] : []),
-      ...((showOverviewReturns || actualReturn === 'review') ? [returnPath('review', [[710, 428], [710, 390], [560, 390], [560, 378]], '審查意見・回到開發', 875, 376, 190, actualReturn === 'review')] : []),
+      ...((showOverviewReturns || actualReturn === 'review') ? [returnPath('review', [[774, 411], [784, 411], [784, 390], [560, 390], [560, 378]], '審查意見・回到開發', 950, 500, 190, actualReturn === 'review')] : []),
       ...((showOverviewReturns || actualReturn === 'qa') ? [returnPath('qa', [[860, 478], [860, 520], [560, 520], [560, 378]], '測試發現・回到開發', 710, 502, 200, actualReturn === 'qa')] : []),
       ...(actualReturn === 'gate' ? [returnPath('gate', [[1243, 161], [1260, 161], [1260, 237], [1088, 237]], '指定補做者', 1374, 258, 112, true)] : []),
     ].join('') : '';
@@ -1525,7 +1525,7 @@
       if (active) link.setAttribute('aria-current', 'page');
       else link.removeAttribute('aria-current');
     });
-    document.title = `${pageIndex + 1}/${slides.length}｜${slides[pageIndex].querySelector('h1').textContent}｜Agent 101 Rev13`;
+    document.title = `Agent 101｜第 ${pageIndex + 1} 頁｜${slides[pageIndex].querySelector('h1').textContent}`;
     if (writeHash && location.hash !== `#${pageIndex + 1}`) location.hash = `#${pageIndex + 1}`;
   }
 

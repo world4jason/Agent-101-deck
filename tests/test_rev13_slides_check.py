@@ -43,6 +43,32 @@ class BannedLearnerTextTests(unittest.TestCase):
         self.assertTrue(any("banned term 'Data'" in error for error in errors))
         self.assertTrue(any("banned term 'Go'" in error for error in errors))
 
+    def test_evidence_scope_is_rejected_in_visible_text_and_notes(self):
+        self.assertEqual(gate.banned_terms_in("Evidence scope：教學示意"), ["Evidence scope"])
+        self.assertEqual(gate.banned_terms_in("data-evidence-scope"), [])
+
+        markup = (
+            '<section class="slide" data-page="40" data-label="Evidence scope">'
+            '<p>Evidence scope</p>'
+            '<aside class="notes"><p>Evidence scope：</p></aside>'
+            '</section>'
+        )
+        self.assertEqual(
+            gate.banned_terms_in(gate.visible_text_from_markup(markup)),
+            ["Evidence scope"],
+        )
+
+        parser = gate.SlideParser()
+        parser.feed(markup)
+        parser.close()
+        errors = []
+        gate.append_banned_text_errors(
+            errors,
+            [("40", 0, text) for text in parser.slides[0]["note_text"]],
+            "index.html notes",
+        )
+        self.assertTrue(any("banned term 'Evidence scope'" in error for error in errors))
+
     def test_js_template_text_is_checked_but_attributes_and_notes_are_ignored(self):
         source = r'''const html = `<div class="B-pre Data" data-label="candidate Insight Go">Ready</div>
           <aside class="notes">B-post</aside><p>SHA-256</p>`;'''
