@@ -59,6 +59,9 @@ BANNED_LEARNER_TERMS = (
     "accent",
     "rule tests",
     "main",
+    "Data",
+    "Insight",
+    "Go",
     "branch/matching-rule",
     "焦點",
     "細軌",
@@ -116,8 +119,18 @@ def banned_terms_in(text: str) -> list[str]:
     lowered = text.casefold()
     found = []
     for term in BANNED_LEARNER_TERMS:
-        if term.casefold() == "main":
-            matches = re.search(r"(?<![A-Za-z0-9])main(?![A-Za-z0-9])", text, re.IGNORECASE)
+        if term.casefold() in {"data", "insight", "go"}:
+            matches = re.search(
+                rf"(?<![A-Za-z0-9_]){re.escape(term)}(?=\s*[:：]|\s*$)",
+                text,
+                re.IGNORECASE,
+            )
+        elif term.casefold() == "main":
+            matches = re.search(
+                rf"(?<![A-Za-z0-9_]){re.escape(term)}(?![A-Za-z0-9_])",
+                text,
+                re.IGNORECASE,
+            )
         else:
             matches = term.casefold() in lowered
         if matches:
@@ -142,6 +155,11 @@ def banned_term_scanner_regression_check() -> bool:
     visible = visible_text_from_markup(markup)
     return (
         banned_terms_in("人員泳道") == ["泳道"]
+        and banned_terms_in("Data：") == ["Data"]
+        and banned_terms_in("Insight") == ["Insight"]
+        and banned_terms_in("Go:") == ["Go"]
+        and banned_terms_in("本頁重點：Data：工作狀態") == ["Data"]
+        and banned_terms_in("data-rev13-scene-id") == []
         and banned_terms_in("maintain a shared workflow") == []
         and visible == "流程"
         and banned_terms_in(visible) == []
@@ -594,7 +612,7 @@ def main() -> int:
         note_chunks = [(str(page), 0, text) for text in slide["note_text"]]
         append_banned_text_errors(errors, note_chunks, "index.html notes")
         append_internal_code_errors(errors, note_chunks, "index.html notes", expected)
-        for field in ("Data：", "Insight：", "Go：", "Evidence scope：", "下一站："):
+        for field in ("重點事實：", "學員要懂：", "下一步：", "Evidence scope：", "下一站："):
             if field not in note_text:
                 fail(errors, f"slide {number}: speaker notes missing {field.rstrip('：')}")
 

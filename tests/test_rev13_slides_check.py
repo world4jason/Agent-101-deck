@@ -11,13 +11,40 @@ class BannedLearnerTextTests(unittest.TestCase):
 
     def test_class_attributes_and_speaker_notes_are_ignored(self):
         markup = (
-            '<div class="B-pre" data-label="candidate">Ready</div>'
-            '<aside class="notes"><p>B-pre SHA-256</p></aside>'
+            '<div class="B-pre Data Insight Go" data-label="candidate Data Insight Go">Ready</div>'
+            '<aside class="notes"><p>B-pre SHA-256 Data Insight Go</p></aside>'
         )
         self.assertEqual(gate.banned_terms_in(gate.visible_text_from_markup(markup)), [])
 
+    def test_data_insight_go_fields_are_rejected_in_visible_text_and_notes(self):
+        for field in ("Data", "Data:", "Data：", "Insight", "Insight:", "Insight：", "Go", "Go:", "Go："):
+            expected = field.rstrip(":：")
+            self.assertEqual(gate.banned_terms_in(field), [expected])
+        self.assertEqual(gate.banned_terms_in("本頁重點：Data：工作狀態"), ["Data"])
+        self.assertEqual(gate.banned_terms_in("data-rev13-scene-id"), [])
+
+        markup = (
+            '<section class="slide" data-page="60">'
+            '<p>Insight</p>'
+            '<aside class="notes"><p>Data：</p><p>Go:</p></aside>'
+            '</section>'
+        )
+        self.assertEqual(gate.banned_terms_in(gate.visible_text_from_markup(markup)), ["Insight"])
+
+        parser = gate.SlideParser()
+        parser.feed(markup)
+        parser.close()
+        errors = []
+        gate.append_banned_text_errors(
+            errors,
+            [("60", 0, text) for text in parser.slides[0]["note_text"]],
+            "index.html notes",
+        )
+        self.assertTrue(any("banned term 'Data'" in error for error in errors))
+        self.assertTrue(any("banned term 'Go'" in error for error in errors))
+
     def test_js_template_text_is_checked_but_attributes_and_notes_are_ignored(self):
-        source = r'''const html = `<div class="B-pre" data-label="candidate">Ready</div>
+        source = r'''const html = `<div class="B-pre Data" data-label="candidate Insight Go">Ready</div>
           <aside class="notes">B-post</aside><p>SHA-256</p>`;'''
         visible = " ".join(text for _, text in gate.javascript_visible_text(source))
         self.assertEqual(gate.banned_terms_in(visible), ["SHA-256"])
