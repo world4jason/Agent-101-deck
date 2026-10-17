@@ -57,6 +57,18 @@ class Rev13GateTests(unittest.TestCase):
         gate.check_rendered(self.root, self.v5_scenes, rendered_problems)
         self.assertEqual(rendered_problems, [])
 
+    def test_rendered_sequence_uses_current_v5_map_after_owner_reordered_part1(self):
+        implementation_map = self.v5["implementation_slide_map"]
+        self.assertEqual(
+            [(item["page"], item["scene_id"]) for item in implementation_map[:4]],
+            [(1, "O01"), (2, None), (3, "I2T01"), (4, "I2T02")],
+        )
+        historical_ids = {item["id"] for item in self.manifest["scenes"]}
+        self.assertNotIn("I2T01", historical_ids)
+        problems = []
+        gate.check_rendered(self.root, self.v5_scenes, problems)
+        self.assertEqual(problems, [])
+
     def write_rendered_fixture(self, root: Path, actual_map):
         manifest_path = root / gate.V5_MANIFEST
         manifest_path.parent.mkdir(parents=True, exist_ok=True)

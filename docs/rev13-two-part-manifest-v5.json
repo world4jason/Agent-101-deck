@@ -7,6 +7,15 @@
   "canonical_storyboard": "docs/rev13-two-part-learning-architecture-v5.md",
   "core_part1": [
     "O01",
+    "I2T01",
+    "I2T02",
+    "I2T03",
+    "I2T04",
+    "I2T05",
+    "I2T06",
+    "I2T07",
+    "I2T08",
+    "I2T09",
     "C05",
     "C02",
     "C07",
@@ -82,6 +91,96 @@
         31
       ],
       "cue": "先呈現四要素問題，再看課程全貌"
+    },
+    {
+      "id": "I2T01",
+      "kind": "idea-roadmap",
+      "focus": "從想法與目標經 Epic、Story、規則與例子、工作票走到開發和驗收",
+      "source_refs": [
+        "docs/rev13-design-principles.md#2b",
+        "Owner decision 2026-10-17"
+      ],
+      "cue": "先看完整路線；後續頁面逐站標出目前位置"
+    },
+    {
+      "id": "I2T02",
+      "kind": "upstream-methods",
+      "focus": "發想方法有多種，本課從目標已選定之後開始",
+      "source_refs": [
+        "docs/rev13-design-principles.md#2b",
+        "Owner decision 2026-10-17"
+      ],
+      "cue": "只列發想方法名稱，不展開方法教學"
+    },
+    {
+      "id": "I2T03",
+      "kind": "idea-goal",
+      "focus": "配對產品目標、受影響的人與要完成的工作",
+      "source_refs": [
+        "docs/rev13-design-principles.md#2b",
+        "Owner decision 2026-10-17"
+      ],
+      "cue": "從配對目標連到互相有興趣的兩人和三項工作"
+    },
+    {
+      "id": "I2T04",
+      "kind": "epic-journey",
+      "focus": "以使用者旅程排列配對 Epic 並界定第一版完整範圍",
+      "source_refs": [
+        "docs/rev13-design-principles.md#2b",
+        "Owner decision 2026-10-17"
+      ],
+      "cue": "從按讚走到判斷配對，再到配對清單"
+    },
+    {
+      "id": "I2T05",
+      "kind": "story-list",
+      "focus": "列出按讚、配對規則、配對清單三個 Story",
+      "source_refs": [
+        "docs/rev13-design-principles.md#2b",
+        "Owner decision 2026-10-17"
+      ],
+      "cue": "把一段旅程切成三塊可單獨交付的使用者價值"
+    },
+    {
+      "id": "I2T06",
+      "kind": "story-quality",
+      "focus": "檢查 Story 大小、獨立交付、驗收與使用者價值，說明依賴順序",
+      "source_refs": [
+        "docs/rev13-design-principles.md#2b",
+        "Owner decision 2026-10-17"
+      ],
+      "cue": "先做配對規則，因另外兩張 Story 依賴它"
+    },
+    {
+      "id": "I2T07",
+      "kind": "rules-examples",
+      "focus": "用同一張配對規則 Story 分開呈現規則、三個例子與待答問題",
+      "source_refs": [
+        "docs/rev13-design-principles.md#2b",
+        "Owner decision 2026-10-17"
+      ],
+      "cue": "說明雙向按讚；取消按讚問題移到其他票"
+    },
+    {
+      "id": "I2T08",
+      "kind": "decision-table",
+      "focus": "依兩人各自是否按讚，列出是否建立配對的所有組合",
+      "source_refs": [
+        "docs/rev13-design-principles.md#2b",
+        "Owner decision 2026-10-17"
+      ],
+      "cue": "用四種組合核對雙向按讚規則"
+    },
+    {
+      "id": "I2T09",
+      "kind": "task-spec-bridge",
+      "focus": "說明 Task 與 Spec 如何接上已建立的規則、例子和工作票",
+      "source_refs": [
+        "docs/rev13-design-principles.md#2b",
+        "Owner decision 2026-10-17"
+      ],
+      "cue": "把上一頁的規則與例子接到既有工作票的 AC 與 AT"
     },
     {
       "id": "C05",
@@ -741,8 +840,8 @@
     "G4": "not_run",
     "G5": "not_run"
   },
-  "part1_learning_sequence": "O01 four-foundation questions and course outline → C05/C02/C07/C06 ticket fields → C11–C19 nine stage introductions → C01 full workflow and return directions → C03 role responsibilities → C04 role-by-stage matrix → C20 three-question matching exercise; teach C08/C09 and D02 with the pairing-rule ticket after D01 at Dev; O02 and C10 follow the human flow at HG02.",
-  "part1_prerequisite_policy": "Part 1 introduces the four foundations, one reusable work ticket, nine stages, role responsibilities and the role-by-stage matrix without an Agent work row. It gives one short Git/GitHub positioning sentence; Branch, Commit, PR and Merge are explained with the pairing-rule ticket after Dev takes it in Part 2. The human workflow reaches its Human Gate before the Agent section.",
+  "part1_learning_sequence": "O01 四要素與大綱 → I2T01–I2T09 一個想法如何落實（目標、Epic、Story、規則與例子、Task／Spec 與工作票） → C05/C02/C07/C06 逐步看同一張工作票 → C11–C19 九站 → C01 流程與退回方向 → C03 角色 → C04 角色×階段 → C20 練習；Part 2 沿用已拆好的 Epic／Story 和同一張配對規則票；C08/C09 與 D02 在 D01 開發站之後介紹，O02/C10 於 HG02 人類流程之後加入。",
+  "part1_prerequisite_policy": "Part 1 在課程大綱後先介紹想法到驗收的路線，再依序帶過已選定目標、Epic、Story、規則與例子、Task／Spec，然後逐步展示同一張好工作票、九站、角色和角色×階段矩陣；不顯示 Agent 工作列。第一段只說版本管理會留下每次修改的紀錄；Branch、Commit、PR、Merge 移至 Part 2 Dev 站。Part 2 回顧已拆好的 Epic／Story，不重新教拆票；人類流程到 Human Gate 後才加入 Agent。",
   "implementation_slide_map": [
     {
       "page": 1,
@@ -758,271 +857,316 @@
     },
     {
       "page": 3,
-      "scene_id": "C05",
+      "scene_id": "I2T01",
       "merged_scene_ids": []
     },
     {
       "page": 4,
-      "scene_id": "C02",
+      "scene_id": "I2T02",
       "merged_scene_ids": []
     },
     {
       "page": 5,
+      "scene_id": "I2T03",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 6,
+      "scene_id": "I2T04",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 7,
+      "scene_id": "I2T05",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 8,
+      "scene_id": "I2T06",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 9,
+      "scene_id": "I2T07",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 10,
+      "scene_id": "I2T08",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 11,
+      "scene_id": "I2T09",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 12,
+      "scene_id": "C05",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 13,
+      "scene_id": "C02",
+      "merged_scene_ids": []
+    },
+    {
+      "page": 14,
       "scene_id": null,
       "merged_scene_ids": [
         "C07"
       ]
     },
     {
-      "page": 6,
+      "page": 15,
       "scene_id": "C06",
       "merged_scene_ids": []
     },
     {
-      "page": 7,
+      "page": 16,
       "scene_id": null,
       "merged_scene_ids": [
         "C02"
       ]
     },
     {
-      "page": 8,
+      "page": 17,
       "scene_id": "C11",
       "merged_scene_ids": []
     },
     {
-      "page": 9,
+      "page": 18,
       "scene_id": "C12",
       "merged_scene_ids": []
     },
     {
-      "page": 10,
+      "page": 19,
       "scene_id": "C13",
       "merged_scene_ids": []
     },
     {
-      "page": 11,
+      "page": 20,
       "scene_id": "C14",
       "merged_scene_ids": []
     },
     {
-      "page": 12,
+      "page": 21,
       "scene_id": "C15",
       "merged_scene_ids": []
     },
     {
-      "page": 13,
+      "page": 22,
       "scene_id": "C16",
       "merged_scene_ids": []
     },
     {
-      "page": 14,
+      "page": 23,
       "scene_id": "C17",
       "merged_scene_ids": []
     },
     {
-      "page": 15,
+      "page": 24,
       "scene_id": "C18",
       "merged_scene_ids": []
     },
     {
-      "page": 16,
+      "page": 25,
       "scene_id": "C19",
       "merged_scene_ids": []
     },
     {
-      "page": 17,
+      "page": 26,
       "scene_id": "C01",
       "merged_scene_ids": []
     },
     {
-      "page": 18,
+      "page": 27,
       "scene_id": "C03",
       "merged_scene_ids": []
     },
     {
-      "page": 19,
+      "page": 28,
       "scene_id": "C04",
       "merged_scene_ids": []
     },
     {
-      "page": 20,
+      "page": 29,
       "scene_id": "C20",
       "merged_scene_ids": []
     },
     {
-      "page": 21,
+      "page": 30,
       "scene_id": "O03",
       "merged_scene_ids": []
     },
     {
-      "page": 22,
+      "page": 31,
       "scene_id": "B01",
       "merged_scene_ids": []
     },
     {
-      "page": 23,
+      "page": 32,
       "scene_id": "B02",
       "merged_scene_ids": []
     },
     {
-      "page": 24,
+      "page": 33,
       "scene_id": "B03",
       "merged_scene_ids": []
     },
     {
-      "page": 25,
+      "page": 34,
       "scene_id": "B04",
       "merged_scene_ids": []
     },
     {
-      "page": 26,
+      "page": 35,
       "scene_id": "R01",
       "merged_scene_ids": []
     },
     {
-      "page": 27,
+      "page": 36,
       "scene_id": "R02",
       "merged_scene_ids": []
     },
     {
-      "page": 28,
+      "page": 37,
       "scene_id": "R03",
       "merged_scene_ids": []
     },
     {
-      "page": 29,
+      "page": 38,
       "scene_id": "R04",
       "merged_scene_ids": []
     },
     {
-      "page": 30,
+      "page": 39,
       "scene_id": "R05",
       "merged_scene_ids": []
     },
     {
-      "page": 31,
+      "page": 40,
       "scene_id": "RD01",
       "merged_scene_ids": []
     },
     {
-      "page": 32,
+      "page": 41,
       "scene_id": "RD02",
       "merged_scene_ids": []
     },
     {
-      "page": 33,
+      "page": 42,
       "scene_id": "D01",
       "merged_scene_ids": []
     },
     {
-      "page": 34,
+      "page": 43,
       "scene_id": "D02",
       "merged_scene_ids": [
         "C08"
       ]
     },
     {
-      "page": 35,
+      "page": 44,
       "scene_id": "C09",
       "merged_scene_ids": []
     },
     {
-      "page": 36,
+      "page": 45,
       "scene_id": "D03",
       "merged_scene_ids": []
     },
     {
-      "page": 37,
+      "page": 46,
       "scene_id": "D04",
       "merged_scene_ids": []
     },
     {
-      "page": 38,
+      "page": 47,
       "scene_id": "RV01",
       "merged_scene_ids": []
     },
     {
-      "page": 39,
+      "page": 48,
       "scene_id": "RV02",
       "merged_scene_ids": []
     },
     {
-      "page": 40,
+      "page": 49,
       "scene_id": "RV03",
       "merged_scene_ids": []
     },
     {
-      "page": 41,
+      "page": 50,
       "scene_id": "Q01",
       "merged_scene_ids": []
     },
     {
-      "page": 42,
+      "page": 51,
       "scene_id": "Q02",
       "merged_scene_ids": []
     },
     {
-      "page": 43,
+      "page": 52,
       "scene_id": "Q03",
       "merged_scene_ids": []
     },
     {
-      "page": 44,
+      "page": 53,
       "scene_id": "Q04",
       "merged_scene_ids": []
     },
     {
-      "page": 45,
+      "page": 54,
       "scene_id": "Q05",
       "merged_scene_ids": []
     },
     {
-      "page": 46,
+      "page": 55,
       "scene_id": "PC01",
       "merged_scene_ids": []
     },
     {
-      "page": 47,
+      "page": 56,
       "scene_id": "PC02",
       "merged_scene_ids": []
     },
     {
-      "page": 48,
+      "page": 57,
       "scene_id": "HG01",
       "merged_scene_ids": []
     },
     {
-      "page": 49,
+      "page": 58,
       "scene_id": "HG02",
       "merged_scene_ids": []
     },
     {
-      "page": 50,
+      "page": 59,
       "scene_id": "O02",
       "merged_scene_ids": []
     },
     {
-      "page": 51,
+      "page": 60,
       "scene_id": "C10",
       "merged_scene_ids": []
     },
     {
-      "page": 52,
+      "page": 61,
       "scene_id": null,
       "merged_scene_ids": [
         "C10"
       ]
     },
     {
-      "page": 53,
+      "page": 62,
       "scene_id": null,
       "merged_scene_ids": [
         "C10"
       ]
     },
     {
-      "page": 54,
+      "page": 63,
       "scene_id": null,
       "merged_scene_ids": [
         "C10",
@@ -1030,62 +1174,62 @@
       ]
     },
     {
-      "page": 55,
+      "page": 64,
       "scene_id": "A01",
       "merged_scene_ids": []
     },
     {
-      "page": 56,
+      "page": 65,
       "scene_id": "A02",
       "merged_scene_ids": []
     },
     {
-      "page": 57,
+      "page": 66,
       "scene_id": "A03",
       "merged_scene_ids": []
     },
     {
-      "page": 58,
+      "page": 67,
       "scene_id": "A04",
       "merged_scene_ids": []
     },
     {
-      "page": 59,
+      "page": 68,
       "scene_id": "A05",
       "merged_scene_ids": []
     },
     {
-      "page": 60,
+      "page": 69,
       "scene_id": "A06",
       "merged_scene_ids": []
     },
     {
-      "page": 61,
+      "page": 70,
       "scene_id": "A07",
       "merged_scene_ids": []
     },
     {
-      "page": 62,
+      "page": 71,
       "scene_id": "A08",
       "merged_scene_ids": []
     },
     {
-      "page": 63,
+      "page": 72,
       "scene_id": "A09",
       "merged_scene_ids": []
     },
     {
-      "page": 64,
+      "page": 73,
       "scene_id": "A10",
       "merged_scene_ids": []
     },
     {
-      "page": 65,
+      "page": 74,
       "scene_id": "A11",
       "merged_scene_ids": []
     },
     {
-      "page": 66,
+      "page": 75,
       "scene_id": "X01",
       "merged_scene_ids": []
     }
