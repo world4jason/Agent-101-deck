@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check all 62 implemented Rev13 scenes against the v5 manifest."""
+"""Check all 71 implemented Rev13 scenes against the v5 manifest."""
 
 from __future__ import annotations
 
@@ -522,9 +522,9 @@ def main() -> int:
     )
 
     if manifest.get("development_phase") != "implementation":
-        fail(errors, "v5 manifest must declare implementation after all 62 scenes are present")
-    if len(expected) != 62 or len(set(expected)) != 62:
-        fail(errors, "v5 manifest must define 62 unique scenes")
+        fail(errors, "v5 manifest must declare implementation after all 71 scenes are present")
+    if len(expected) != 71 or len(set(expected)) != 71:
+        fail(errors, "v5 manifest must define 71 unique scenes")
     if not slides:
         fail(errors, "no .slide sections were found")
     expected_slide_map = manifest.get("implementation_slide_map", [])
@@ -557,26 +557,32 @@ def main() -> int:
     if set(mapped_ids) != set(expected):
         missing = sorted(set(expected) - set(mapped_ids))
         unknown = sorted(set(mapped_ids) - set(expected))
-        fail(errors, f"slide mapping must trace all 62 scenes (missing={missing}, unknown={unknown})")
-    if len(slides) != 66:
-        fail(errors, f"expected the revised 66-page sequence, found {len(slides)} slides")
+        fail(errors, f"slide mapping must trace all 71 scenes (missing={missing}, unknown={unknown})")
+    if len(slides) != 75:
+        fail(errors, f"expected the revised 75-page sequence, found {len(slides)} slides")
     if slides[0]["attrs"].get("data-rev13-scene-id") != "O01" or slides[1]["attrs"].get("data-rev13-merged-scenes") != "O01":
         fail(errors, "pages 1–2 must present the four foundations and the shared course outline")
     if slides[1]["attrs"].get("data-outline-part") != "1":
         fail(errors, "the first course outline must mark Part 1 as current")
-    if [slide["attrs"].get("data-ticket-step") for slide in slides[2:7]] != [str(step) for step in range(1, 6)]:
-        fail(errors, "pages 3–7 must progressively reveal the five parts of one ticket")
-    if [slide["attrs"].get("data-rev13-scene-id") for slide in slides[7:16]] != [f"C{number:02}" for number in range(11, 20)]:
-        fail(errors, "pages 8–16 must introduce the nine stages before the roles")
-    if [slide["attrs"].get("data-rev13-scene-id") for slide in slides[16:20]] != ["C01", "C03", "C04", "C20"]:
-        fail(errors, "pages 17–20 must show workflow, roles, role-stage map, and pairing practice in order")
-    if any(slide["attrs"].get("data-agent") != "false" for slide in slides[:49]):
-        fail(errors, "pages 1–49 must not render an Agent work row")
-    expected_learning_outcome = (
-        "上半場：一個純人類團隊把一張工作票從想法走到可以合併；下半場：Agent 加入後，看哪些工作能交給它。"
-    )
-    if expected_learning_outcome not in " ".join(slides[0]["caption_text"]):
-        fail(errors, "page 1 must state the Owner-approved learning outcome")
+    idea_scene_ids = [f"I2T{number:02}" for number in range(1, 10)]
+    if [slide["attrs"].get("data-rev13-scene-id") for slide in slides[2:11]] != idea_scene_ids:
+        fail(errors, "pages 3–11 must teach the nine-step idea-to-ticket sequence in order")
+    if [slide["attrs"].get("data-ticket-step") for slide in slides[11:16]] != [str(step) for step in range(1, 6)]:
+        fail(errors, "pages 12–16 must progressively reveal the five parts of one ticket")
+    if [slide["attrs"].get("data-rev13-scene-id") for slide in slides[16:25]] != [f"C{number:02}" for number in range(11, 20)]:
+        fail(errors, "pages 17–25 must introduce the nine stages before the roles")
+    if [slide["attrs"].get("data-rev13-scene-id") for slide in slides[25:29]] != ["C01", "C03", "C04", "C20"]:
+        fail(errors, "pages 26–29 must show workflow, roles, role-stage map, and pairing practice in order")
+    if any(slide["attrs"].get("data-agent") != "false" for slide in slides[:58]):
+        fail(errors, "pages 1–58 must not render an Agent work row")
+    for slide in slides[3:]:
+        if not slide["attrs"].get("data-learning-step"):
+            fail(errors, f"page {slide['attrs'].get('data-page')}: the idea-to-acceptance route must mark the current step")
+    page_one_caption = " ".join(slides[0]["caption_text"])
+    if not all(term in page_one_caption for term in ("上半場", "版本管理", "每次修改", "下半場")):
+        fail(errors, "page 1 must introduce the four foundations and explain version management in two short sentences")
+    if any(term.casefold() in page_one_caption.casefold() for term in ("git", "github", "branch", "commit", "pr", "merge")):
+        fail(errors, "page 1 must position version management without teaching Git/GitHub vocabulary")
 
     for number, slide in enumerate(slides, start=1):
         attrs = slide["attrs"]
@@ -649,21 +655,25 @@ def main() -> int:
         item["attrs"].get("data-page"): item
         for item in slides
     }
-    chapter_opener = page_by_number.get("50", {})
+    chapter_opener = page_by_number.get("59", {})
     if chapter_opener.get("attrs", {}).get("data-rev13-scene-id") != "O02":
         fail(errors, "the Agent chapter must begin after the human flow with O02")
-    if "另一種情境：如果這張票一開始就交給 Agent" not in " ".join(chapter_opener.get("visible_text", [])):
-        fail(errors, "the Agent chapter home must use the Owner-approved separate-scenario title")
+    chapter_opener_text = " ".join(chapter_opener.get("visible_text", []))
+    chapter_opener_caption = " ".join(chapter_opener.get("caption_text", []))
+    if "同一張票交給 Agent，再從交辦點往前走。" not in chapter_opener_text:
+        fail(errors, "the Agent chapter must continue with the same ticket from its handoff point")
+    if "同一張配對規則票" not in chapter_opener_caption or "教學示意" not in chapter_opener_caption:
+        fail(errors, "the Agent chapter must identify the reused pairing-rule ticket and illustrative work")
     if chapter_opener.get("attrs", {}).get("data-agent") != "true":
         fail(errors, "the chapter home must render the added Agent row")
     if chapter_opener.get("attrs", {}).get("data-outline-part") != "2":
         fail(errors, "the second course outline must mark Part 2 as current")
-    agent_definition = page_by_number.get("51", {})
+    agent_definition = page_by_number.get("60", {})
     if agent_definition.get("attrs", {}).get("data-rev13-scene-id") != "C10":
         fail(errors, "the Agent definition scene must follow the chapter home")
     if "Agent 是能接一張工作票、自己動手做的 AI 助手。" not in " ".join(agent_definition.get("visible_text", [])):
         fail(errors, "the Agent definition must use the Owner-approved plain-language wording")
-    capability_pages = [page_by_number.get(str(page), {}) for page in (52, 53, 54)]
+    capability_pages = [page_by_number.get(str(page), {}) for page in (61, 62, 63)]
     if [slide.get("attrs", {}).get("data-role-capability") for slide in capability_pages] != ["delegate", "assist", "human"]:
         fail(errors, "role capabilities must be revealed as delegate → assist → human")
     for slide in capability_pages:
@@ -681,19 +691,19 @@ def main() -> int:
         fail(errors, "the human-responsibility page must keep goal, scope, and authorization with people")
     if "A01" not in (capability_pages[-1].get("attrs", {}).get("data-rev13-merged-scenes") or "").split(","):
         fail(errors, "the role capability sequence must link to the same-ticket Agent scene")
-    agent_opener = page_by_number.get("55", {})
+    agent_opener = page_by_number.get("64", {})
     if agent_opener.get("attrs", {}).get("data-outline-part") != "3":
         fail(errors, "the same-ticket Agent opener must mark Part 3 as current")
     if "一人和一個 Agent 如何交辦與核對？" not in " ".join(agent_opener.get("visible_text", [])) or "同一張票交給 Agent 再走一次" not in " ".join(agent_opener.get("caption_text", [])):
         fail(errors, "the Agent chapter must open by handing the same ticket forward")
-    if "配對規則" not in " ".join(page_by_number.get("21", {}).get("caption_text", [])):
+    if "配對規則" not in " ".join(page_by_number.get("30", {}).get("caption_text", [])):
         fail(errors, "the Part 2 opening must state the pairing-rule ticket scope")
-    if page_by_number.get("59", {}).get("attrs", {}).get("data-outline-part") != "4":
+    if page_by_number.get("68", {}).get("attrs", {}).get("data-outline-part") != "4":
         fail(errors, "the Agent collaboration section must mark Part 4 as current")
-    git_intro = page_by_number.get("34", {})
+    git_intro = page_by_number.get("43", {})
     if git_intro.get("attrs", {}).get("data-rev13-scene-id") != "D02" or "C08" not in (git_intro.get("attrs", {}).get("data-rev13-merged-scenes") or "").split(","):
         fail(errors, "Git/GitHub must be introduced at the Dev handoff and retain C08 traceability")
-    version_path = page_by_number.get("35", {})
+    version_path = page_by_number.get("44", {})
     if version_path.get("attrs", {}).get("data-rev13-scene-id") != "C09":
         fail(errors, "the version path must follow the Dev handoff")
     if "回報示意：改互按才配對；單向／雙向 PASS；重複按讚未測" not in renderer_source:

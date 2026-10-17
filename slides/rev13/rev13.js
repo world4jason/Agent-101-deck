@@ -514,8 +514,8 @@
     const showReturns = showOverviewReturns || actualReturn;
     const returnPaths = showReturns ? [
       ...((showOverviewReturns || actualReturn === 'goal') ? [returnPath('goal', [[1020, 244], [1020, 180], [336, 180], [336, 244]], '目標不符・回到釐清', 690, 162, 210, actualReturn === 'goal')] : []),
-      ...((showOverviewReturns || actualReturn === 'review') ? [returnPath('review', [[774, 411], [784, 411], [784, 390], [560, 390], [560, 378]], '審查意見・回到開發', 950, 500, 190, actualReturn === 'review')] : []),
-      ...((showOverviewReturns || actualReturn === 'qa') ? [returnPath('qa', [[860, 478], [860, 520], [560, 520], [560, 378]], '測試發現・回到開發', 710, 502, 200, actualReturn === 'qa')] : []),
+      ...((showOverviewReturns || actualReturn === 'review') ? [returnPath('review', [[774, 411], [784, 411], [784, 390], [560, 390], [560, 378]], '審查意見・回到開發', 950, 400, 190, actualReturn === 'review')] : []),
+      ...((showOverviewReturns || actualReturn === 'qa') ? [returnPath('qa', [[860, 478], [860, 520], [560, 520], [560, 378]], '測試發現・回到開發', 710, 498, 200, actualReturn === 'qa')] : []),
       ...(actualReturn === 'gate' ? [returnPath('gate', [[1243, 161], [1260, 161], [1260, 237], [1088, 237]], '指定補做者', 1374, 258, 112, true)] : []),
     ].join('') : '';
 
@@ -552,7 +552,7 @@
     const versionXs = versions.map(item => item.x);
     const versionLinks = briefVersion ? '' : versionXs.slice(0, -1).map((x, index) => `<path class="swimlane-version-link" d="M${x + 10} 624 H${versionXs[index + 1] - 12}" marker-end="url(#swimlane-arrow-${uid})"/>`).join('');
     const versionNodes = briefVersion
-      ? `<g class="swimlane-version-summary"><rect x="620" y="603" width="580" height="42" rx="5"/><text x="910" y="630" text-anchor="middle">每次修改都留下紀錄（細節在開發站）</text></g>`
+      ? `<g class="swimlane-version-summary"><path d="M170 624 H590 M1230 624 H1550"/><circle cx="590" cy="624" r="5"/><circle cx="1230" cy="624" r="5"/><text x="910" y="630" text-anchor="middle">每次修改都留下紀錄（細節在開發站）</text></g>`
       : versions.map(({ key, label, status }) => {
       const x = versions.find(item => item.key === key)?.x || SWIMLANE_X[key];
       const isChanged = key === versionStage;
@@ -739,7 +739,7 @@
   }
 
   const COURSE_PARTS = [
-    { title: '軟體工程的四要素', summary: '人、流程、文件和版本管理，如何一起讓工作走到交付？' },
+    { title: '一個想法怎麼落實', summary: '從目標走到工作票、開發與驗收；人、流程、文件、版本管理一路協作。' },
     { title: '加入 Agent：五要素', summary: '同一張票交給 Agent 後，哪些工作能交給它？' },
     { title: 'Agent 進階用法', summary: '什麼時候一人合作，什麼時候拆開工作？' },
     { title: '五項協作原則', summary: '怎麼交代工作、分工、核對結果並回看目標？' },
@@ -754,6 +754,99 @@
       return `<article class="course-outline-card course-outline-part-${index + 1}${index === 0 ? ' is-current' : ''}"><header><b>${index + 1}</b><strong>${esc(part.title)}</strong></header><p>${esc(part.summary)}</p></article>`;
     }).join('');
     return `<div class="course-outline-field"><div class="course-outline-grid">${cards}</div></div>`;
+  }
+
+  function renderIdeaRoadmap() {
+    const steps = [
+      ['想法與目標', '想清楚要解決誰的問題'],
+      ['Epic', '一個大目標下的一整塊工作'],
+      ['Story', '能單獨交付的一小塊使用者價值'],
+      ['規則與例子', '說清條件，再用例子檢查'],
+      ['Task／工作票', 'Task 可直接動手；Spec 寫清要做、原因與驗法'],
+      ['開發', '依工作票完成修改'],
+      ['驗收', '按條件核對結果'],
+    ];
+    return `<div class="idea-roadmap-field"><ol class="idea-roadmap-steps" aria-label="從想法到驗收的七步路線">${steps.map(([title, detail], index) => `<li class="idea-roadmap-step step-${index + 1}"><strong>${esc(title)}</strong><span>${esc(detail)}</span></li>`).join('')}</ol></div>`;
+  }
+
+  function renderIdeaMethods() {
+    const methods = ['腦力激盪', '設計思考', '雙鑽石'];
+    return `<div class="idea-methods-field"><div class="idea-method-examples">${methods.map(method => `<article><strong>${esc(method)}</strong><span>示意</span></article>`).join('')}</div><div class="idea-method-arrow" aria-hidden="true">→</div><article class="idea-method-start"><span>本課從這裡開始</span><strong>目標已選定</strong></article></div>`;
+  }
+
+  function renderIdeaGoal() {
+    const items = [
+      ['目標', '讓使用者在配對清單找到對方'],
+      ['影響誰', '互相有興趣的兩個人'],
+      ['要完成的工作', '按讚、配對規則、配對清單'],
+    ];
+    return `<div class="idea-goal-field"><div class="idea-goal-flow">${items.map(([label, value], index) => `<article class="idea-goal-card goal-${index + 1}"><span>${esc(label)}</span><strong>${esc(value)}</strong></article>${index < items.length - 1 ? '<i aria-hidden="true">→</i>' : ''}`).join('')}</div></div>`;
+  }
+
+  function renderEpicJourney() {
+    const journey = [
+      ['使用者按讚', '按讚'],
+      ['系統判斷配對', '配對規則'],
+      ['在清單看到對方', '配對清單'],
+    ];
+    return `<div class="epic-journey-field"><div class="epic-journey-path">${journey.map(([step, story], index) => `<article class="epic-journey-step${index === 1 ? ' is-selected' : ''}"><span>${esc(step)}</span><strong>${esc(story)}</strong></article>${index < journey.length - 1 ? '<i aria-hidden="true">→</i>' : ''}`).join('')}</div><div class="epic-first-release"><b>第一版旅程・示意</b><span>按讚 → 判斷配對 → 在清單找到對方</span></div></div>`;
+  }
+
+  function renderStories() {
+    const stories = [
+      ['按讚／略過', '表達是否有興趣'],
+      ['配對規則', '互相有興趣才配成一對'],
+      ['配對清單', '找到已配對的人'],
+    ];
+    return `<div class="idea-stories-field"><div class="story-definition">Story｜站在使用者角度、能單獨交付的一小塊價值</div><div class="idea-story-cards">${stories.map(([title, value], index) => `<article class="idea-story-card${index === 1 ? ' is-selected' : ''}"><strong>${esc(title)}</strong><span>${esc(value)}</span></article>`).join('')}</div></div>`;
+  }
+
+  function renderStoryQuality() {
+    const checks = ['夠小', '能單獨做', '能驗收', '對使用者有價值'];
+    return `<div class="story-quality-field"><div class="story-quality-checks">${checks.map((check, index) => `<article><b>${index + 1}</b><strong>${esc(check)}</strong></article>`).join('')}</div><div class="story-dependency-map"><article>按讚</article><i aria-hidden="true">←</i><article class="is-selected">先做：配對規則</article><i aria-hidden="true">→</i><article>配對清單</article></div></div>`;
+  }
+
+  function renderRuleExamples() {
+    return `<div class="rule-examples-field"><article class="rule-example-card rule-card"><h2>規則</h2><strong>兩人互相按讚才配對</strong></article><article class="rule-example-card examples-card"><h2>預期例子・尚未測</h2><ul><li>單向按讚：0 筆</li><li>雙向按讚：1 筆</li><li>重複按讚：仍 1 筆</li></ul></article><article class="rule-example-card questions-card"><h2>未決問題</h2><strong>取消按讚怎麼辦？</strong><span>示意問題，移到下一張票</span></article></div>`;
+  }
+
+  function renderDecisionTable() {
+    const rows = [
+      ['沒有', '沒有', '不配對'],
+      ['有', '沒有', '不配對'],
+      ['沒有', '有', '不配對'],
+      ['有', '有', '建立 1 筆配對'],
+    ];
+    return `<div class="decision-table-field"><table><thead><tr><th>我按讚了嗎？</th><th>對方按讚了嗎？</th><th>會配對嗎？</th></tr></thead><tbody>${rows.map(row => `<tr>${row.map((cell, index) => `<td${index === 2 && cell.startsWith('建立') ? ' class="decision-result-yes"' : ''}>${esc(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  }
+
+  function renderTaskSpec() {
+    return `<div class="task-spec-field"><div class="task-spec-flow"><article><span>配對規則 Story・示意</span><strong>互相按讚才配對</strong></article><i aria-hidden="true">→</i><article class="task-step-card"><span>Task｜開發者能直接動手的步驟</span><strong>檢查兩人的按讚狀態，依規則建立配對</strong></article><i aria-hidden="true">→</i><article class="spec-ticket-card"><span>工作票｜把規格寫清楚</span><strong>要做什麼、為什麼、如何驗收</strong></article></div><div class="task-spec-bridge"><b>上一頁的規則與例子</b><span>→</span><strong>這張票的驗收條件與檢查方法</strong></div></div>`;
+  }
+
+  const LEARNING_ROUTE = [
+    { id: 'idea-goal', label: '想法與目標' },
+    { id: 'epic', label: 'Epic' },
+    { id: 'story', label: 'Story' },
+    { id: 'rules-examples', label: '規則與例子' },
+    { id: 'work-ticket', label: '工作票' },
+    { id: 'development', label: '開發' },
+    { id: 'acceptance', label: '驗收' },
+  ];
+
+  function renderLearningRoute(slide) {
+    const current = slide.dataset.learningStep;
+    if (!current) return;
+    const activeIndex = LEARNING_ROUTE.findIndex(item => item.id === current);
+    const route = `<ol class="learning-route" aria-label="從想法到驗收的課程路線">${LEARNING_ROUTE.map((item, index) => {
+      const state = index === activeIndex ? ' is-current' : index < activeIndex ? ' is-complete' : ' is-upcoming';
+      const currentAttribute = index === activeIndex ? ' aria-current="step"' : '';
+      return `<li class="learning-route-step${state}" data-route-step="${item.id}"${currentAttribute}><span aria-hidden="true"></span><b>${esc(item.label)}</b></li>`;
+    }).join('')}</ol>`;
+    const art = slide.querySelector('.artwork');
+    if (!art) return;
+    art.classList.add('has-learning-route');
+    art.insertAdjacentHTML('afterbegin', route);
   }
 
   function renderGoodTicket(slide) {
@@ -1324,10 +1417,10 @@
         ] });
         break;
       case 'R01':
-        body = `<div class="refinement-board"><div class="refinement-source"><span>輸入 · 示意</span><strong>同一份產品目標紀錄</strong><p>目標、限制、未知事項</p></div><i aria-hidden="true">→</i><div class="refinement-checks"><h2>釐清待回答的問題</h2><ul><li>可行性與風險</li><li>範圍內外</li><li>先後工作與順序</li><li>驗收條件與檢查方法</li></ul></div><i aria-hidden="true">→</i><div class="refinement-handoff"><span>輸出 · 示意</span><strong>可交接的工作票</strong><p>仍在待整理</p></div></div>`;
+        body = `<div class="epic-recap"><header><span>前面排好的 Epic · 配對旅程</span><strong>第一版從按讚走到配對清單</strong></header><div class="epic-recap-steps"><article><b>1</b><span>按讚</span></article><i aria-hidden="true">→</i><article class="is-selected"><b>2</b><span>判斷配對</span></article><i aria-hidden="true">→</i><article><b>3</b><span>清單找到對方</span></article></div></div>`;
         break;
       case 'R02':
-        body = `<div class="issue-tree"><article class="parent-issue"><span>產品目標 · 示意</span><strong>互相按讚後，在配對清單找到對方</strong><p>三張工作票分開交付；按讚與清單都要等配對規則完成。</p></article><div class="tree-stem"></div><div class="child-issues"><article class="child-primary"><span>工作票 · #3</span><strong>雙向按讚建立配對</strong><small>本課主要工作票</small></article><article><span>工作票 · #1</span><strong>按讚／略過</strong><small>等 #3 配對規則完成</small></article><article><span>工作票 · #2</span><strong>配對清單</strong><small>等 #3 配對規則完成</small></article></div><div class="issue-dependencies" aria-label="工作票間的先後依賴"><svg viewBox="0 0 1000 54" preserveAspectRatio="none" aria-hidden="true"><defs><marker id="issue-dependency-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" /></marker></defs><path d="M166 0 V13 H500 V41" marker-end="url(#issue-dependency-arrow)" /><path d="M166 13 H833 V41" marker-end="url(#issue-dependency-arrow)" /></svg><div><span>先完成配對規則票</span><b>→</b><span>再做按讚票</span><i>／</i><span>配對清單票</span></div></div><footer class="issue-tree-note">三張票分開交付；按讚與配對清單票要等 #3 完成。本課先做 #3。</footer></div>`;
+        body = `<div class="issue-tree"><article class="parent-issue"><span>前面已拆好的三個 Story</span><strong>按讚　→　配對規則　→　配對清單</strong><p>本課沿用同一組工作，不再重新拆分。</p></article><div class="tree-stem"></div><div class="child-issues"><article><span>Story · #1</span><strong>按讚／略過</strong><small>依賴配對規則</small></article><article class="child-primary"><span>Story · #3</span><strong>雙向按讚建立配對</strong><small>先完成這張</small></article><article><span>Story · #2</span><strong>配對清單</strong><small>依賴配對規則</small></article></div><div class="issue-dependencies" aria-label="既有 Story 的依賴關係"><svg viewBox="0 0 1000 54" preserveAspectRatio="none" aria-hidden="true"><defs><marker id="issue-dependency-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" /></marker></defs><path d="M500 0 V13 H166 V41" marker-end="url(#issue-dependency-arrow)" /><path d="M500 13 H833 V41" marker-end="url(#issue-dependency-arrow)" /></svg><div><span>配對規則</span><b>→</b><span>按讚</span><i>／</i><span>配對清單</span></div></div></div>`;
         break;
       case 'R03':
         body = renderScopeBoundary();
@@ -1443,6 +1536,10 @@
       art.innerHTML = `<div class="full-map-wrap">${renderMotherMap({
         agent,
         revealFoundations: slide.dataset.rev13SceneId === 'O01',
+        spotlightZones: (slide.dataset.focusZones || '').split(',').filter(Boolean),
+        stage: slide.dataset.focusStage || '',
+        roles: (slide.dataset.focusRolesMap || '').split(',').map(role => role.trim()).filter(Boolean),
+        focusRole: slide.dataset.focusRoleCard || '',
         page: slide.dataset.page,
         processOnly: slide.dataset.processOverview === 'true',
         showReturnPaths: slide.dataset.showReturnPaths === 'true',
@@ -1451,7 +1548,16 @@
       })}</div>`;
       return;
     }
-    if (key === 'course-outline') art.innerHTML = `<div class="course-outline-shell">${courseOutlineProgress(1)}${renderCourseOutline()}</div>`;
+    if (key === 'idea-roadmap') art.innerHTML = renderIdeaRoadmap();
+    else if (key === 'idea-methods') art.innerHTML = renderIdeaMethods();
+    else if (key === 'idea-goal') art.innerHTML = renderIdeaGoal();
+    else if (key === 'idea-epic') art.innerHTML = renderEpicJourney();
+    else if (key === 'idea-stories') art.innerHTML = renderStories();
+    else if (key === 'idea-story-quality') art.innerHTML = renderStoryQuality();
+    else if (key === 'idea-rules') art.innerHTML = renderRuleExamples();
+    else if (key === 'idea-decision-table') art.innerHTML = renderDecisionTable();
+    else if (key === 'idea-task-spec') art.innerHTML = renderTaskSpec();
+    else if (key === 'course-outline') art.innerHTML = `<div class="course-outline-shell">${courseOutlineProgress(1)}${renderCourseOutline()}</div>`;
     else if (key === 'good-ticket') art.innerHTML = renderGoodTicket(slide);
     else if (key === 'workflow-map') art.innerHTML = renderKanbanDiagram(slide);
     else if (key === 'stage-card-anatomy') art.innerHTML = renderStageAnatomy(slide);
@@ -1474,7 +1580,10 @@
     else art.innerHTML = '<p class="render-error">Diagram unavailable.</p>';
   }
 
-  slides.forEach(renderArtwork);
+  slides.forEach(slide => {
+    renderArtwork(slide);
+    renderLearningRoute(slide);
+  });
   totalPages.textContent = String(slides.length);
   progressTrack.setAttribute('aria-valuemax', String(slides.length));
 

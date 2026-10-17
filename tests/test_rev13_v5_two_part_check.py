@@ -37,7 +37,7 @@ class TwoPartContractTests(unittest.TestCase):
         slides_html = slides_html[:slides_html.index('data-rev13-scene-id="X01"')]
         problems = gate.violations(broken, base, source, readme, agents, preserved,
                                    slides_html)
-        self.assertTrue(any("all 62 scenes" in message for message in problems))
+        self.assertTrue(any("all 71 scenes" in message for message in problems))
 
     def test_cannot_erase_stage_output(self):
         def mutate(x):
@@ -75,17 +75,19 @@ class TwoPartContractTests(unittest.TestCase):
         self.assertNotIn("C10", data["core_part1"])
         self.assertLess(data["core_part2"].index("HG02"), data["core_part2"].index("O02"))
         self.assertEqual(data["core_part2"][data["core_part2"].index("O02"):][:3], ["O02", "C10", "A01"])
-        self.assertEqual(len(data["implementation_slide_map"]), 66)
+        self.assertEqual(data["core_part1"][1:10], [f"I2T{number:02}" for number in range(1, 10)])
+        self.assertEqual(len(data["implementation_slide_map"]), 75)
         self.assertIn('data-rev13-merged-scenes="C10,A01"', slides_html)
-        self.assertEqual(data["core_part1"][5:14], [f"C{number:02}" for number in range(11, 20)])
+        self.assertEqual(data["core_part1"][14:23], [f"C{number:02}" for number in range(11, 20)])
 
     def test_expanded_slides_keep_scene_traceability_in_merged_metadata(self):
         data, _, _, _, _, _, slides_html = self.original
         expected = {
-            2: (None, ["O01"]), 5: (None, ["C07"]), 7: (None, ["C02"]),
-            17: ("C01", []), 19: ("C04", []), 34: ("D02", ["C08"]),
-            35: ("C09", []), 52: (None, ["C10"]), 53: (None, ["C10"]),
-            54: (None, ["C10", "A01"]),
+            2: (None, ["O01"]), 3: ("I2T01", []), 11: ("I2T09", []),
+            14: (None, ["C07"]), 16: (None, ["C02"]),
+            26: ("C01", []), 28: ("C04", []), 43: ("D02", ["C08"]),
+            44: ("C09", []), 61: (None, ["C10"]), 62: (None, ["C10"]),
+            63: (None, ["C10", "A01"]),
         }
         for page, (scene_id, merged_scene_ids) in expected.items():
             mapping = next(item for item in data["implementation_slide_map"] if item["page"] == page)

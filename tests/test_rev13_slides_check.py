@@ -80,22 +80,25 @@ class BannedLearnerTextTests(unittest.TestCase):
         parser.feed(gate.HTML_PATH.read_text(encoding="utf-8"))
         parser.close()
         slides = parser.slides
+        self.assertEqual(len(slides), 75)
         self.assertEqual(slides[0]["attrs"].get("data-rev13-scene-id"), "O01")
         self.assertEqual(slides[1]["attrs"].get("data-outline-part"), "1")
-        self.assertEqual([slide["attrs"].get("data-ticket-step") for slide in slides[2:7]], ["1", "2", "3", "4", "5"])
-        self.assertEqual([slide["attrs"].get("data-rev13-scene-id") for slide in slides[7:16]], [f"C{number:02}" for number in range(11, 20)])
-        self.assertTrue(all(slide["attrs"].get("data-agent") == "false" for slide in slides[:49]))
-        self.assertEqual(slides[49]["attrs"].get("data-rev13-scene-id"), "O02")
-        self.assertEqual(slides[50]["attrs"].get("data-rev13-scene-id"), "C10")
+        self.assertEqual([slide["attrs"].get("data-rev13-scene-id") for slide in slides[2:11]], [f"I2T{number:02}" for number in range(1, 10)])
+        self.assertEqual([slide["attrs"].get("data-ticket-step") for slide in slides[11:16]], ["1", "2", "3", "4", "5"])
+        self.assertEqual([slide["attrs"].get("data-rev13-scene-id") for slide in slides[16:25]], [f"C{number:02}" for number in range(11, 20)])
+        self.assertTrue(all(slide["attrs"].get("data-agent") == "false" for slide in slides[:58]))
+        self.assertEqual(slides[58]["attrs"].get("data-rev13-scene-id"), "O02")
+        self.assertEqual(slides[59]["attrs"].get("data-rev13-scene-id"), "C10")
         self.assertEqual(
-            [slides[page - 1]["attrs"].get("data-role-capability") for page in (52, 53, 54)],
+            [slides[page - 1]["attrs"].get("data-role-capability") for page in (61, 62, 63)],
             ["delegate", "assist", "human"],
         )
         self.assertEqual(
-            [slides[page - 1]["attrs"].get("data-rev13-merged-scenes") for page in (52, 53, 54)],
+            [slides[page - 1]["attrs"].get("data-rev13-merged-scenes") for page in (61, 62, 63)],
             ["C10", "C10", "C10,A01"],
         )
-        self.assertEqual(slides[58]["attrs"].get("data-outline-part"), "4")
+        self.assertEqual(slides[67]["attrs"].get("data-outline-part"), "4")
+        self.assertTrue(all(slide["attrs"].get("data-learning-step") for slide in slides[3:]))
 
 
 if __name__ == "__main__":
