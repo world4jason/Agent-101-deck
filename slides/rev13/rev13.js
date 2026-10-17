@@ -802,8 +802,13 @@
   }
 
   function renderStoryQuality() {
-    const checks = ['夠小', '能單獨做', '能驗收', '對使用者有價值'];
-    return `<div class="story-quality-field"><div class="story-quality-checks">${checks.map((check, index) => `<article><b>${index + 1}</b><strong>${esc(check)}</strong></article>`).join('')}</div><div class="story-dependency-map"><article>按讚</article><i aria-hidden="true">←</i><article class="is-selected">先做：配對規則</article><i aria-hidden="true">→</i><article>配對清單</article></div></div>`;
+    const checks = [
+      { title: '夠小' },
+      { title: '能單獨交付、驗收', detail: '（但可以依賴其他 Story 先完成）' },
+      { title: '能驗收' },
+      { title: '對使用者有價值' },
+    ];
+    return `<div class="story-quality-field"><div class="story-quality-checks">${checks.map(({ title, detail }, index) => `<article><b>${index + 1}</b><div class="story-quality-copy"><strong>${esc(title)}</strong>${detail ? `<small>${esc(detail)}</small>` : ''}</div></article>`).join('')}</div><div class="story-dependency-map"><article>按讚</article><i aria-hidden="true">←</i><article class="is-selected">先做：配對規則</article><i aria-hidden="true">→</i><article>配對清單</article></div></div>`;
   }
 
   function renderRuleExamples() {
@@ -1427,7 +1432,7 @@
         body = `<div class="epic-recap"><header><span>前面排好的 Epic · 配對旅程</span><strong>第一版從按讚走到配對清單</strong></header><div class="epic-recap-steps"><article><b>1</b><span>按讚</span></article><i aria-hidden="true">→</i><article class="is-selected"><b>2</b><span>判斷配對</span></article><i aria-hidden="true">→</i><article><b>3</b><span>清單找到對方</span></article></div></div>`;
         break;
       case 'R02':
-        body = `<div class="issue-tree"><article class="parent-issue"><span>三個 Story｜各寫使用者想要什麼</span><strong>表達興趣、確認配對、找到對方</strong><p>按讚與配對清單的工作都依賴配對規則。</p></article><div class="tree-stem"></div><div class="child-issues"><article><span>Story · 按讚／略過</span><strong>表達對對方是否有興趣</strong><small>後續工作依賴配對規則</small></article><article class="child-primary"><span>Story · 配對規則</span><strong>知道互相按讚時配成一對</strong><small>先做這個 Story 對應的工作票</small></article><article><span>Story · 配對清單</span><strong>找到已配對的人</strong><small>後續工作依賴配對規則</small></article></div><div class="issue-dependencies" aria-label="既有 Story 的依賴關係"><svg viewBox="0 0 1000 54" preserveAspectRatio="none" aria-hidden="true"><defs><marker id="issue-dependency-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" /></marker></defs><path d="M500 0 V13 H166 V41" marker-end="url(#issue-dependency-arrow)" /><path d="M500 13 H833 V41" marker-end="url(#issue-dependency-arrow)" /></svg><div><span>配對規則</span><b>→</b><span>按讚</span><i>／</i><span>配對清單</span></div></div></div>`;
+        body = `<div class="issue-tree"><article class="parent-issue"><span>三個 Story｜各寫使用者想要什麼</span><strong>表達興趣、確認配對、找到對方</strong><p>每個 Story 都對應一張工作票；按讚票與配對清單票依賴配對規則票。</p></article><div class="tree-stem"></div><div class="child-issues"><article><span>Story · 按讚／略過</span><strong>表達對對方是否有興趣</strong><small>按讚票依賴配對規則票</small></article><article class="child-primary"><span>Story · 配對規則</span><strong>知道互相按讚時配成一對</strong><small>先做這個 Story 對應的工作票</small></article><article><span>Story · 配對清單</span><strong>找到已配對的人</strong><small>配對清單票依賴配對規則票</small></article></div><div class="issue-dependencies" aria-label="既有 Story 的依賴關係"><svg viewBox="0 0 1000 54" preserveAspectRatio="none" aria-hidden="true"><defs><marker id="issue-dependency-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" /></marker></defs><path d="M500 0 V13 H166 V41" marker-end="url(#issue-dependency-arrow)" /><path d="M500 13 H833 V41" marker-end="url(#issue-dependency-arrow)" /></svg><div><span>配對規則</span><b>→</b><span>按讚</span><i>／</i><span>配對清單</span></div></div></div>`;
         break;
       case 'R03':
         body = renderScopeBoundary();

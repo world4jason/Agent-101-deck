@@ -2474,6 +2474,8 @@ kbd { margin-left: 9px; padding: 2px 5px; border: 1px solid #546663; border-radi
 }
 .story-quality-checks b { display: grid; flex: 0 0 33px; width: 33px; height: 33px; place-items: center; border: 1px solid #91b98a; border-radius: 50%; color: #d6ebcb; font-size: 18px; }
 .story-quality-checks strong { color: #eff4e9; font-size: 21px; line-height: 1.2; }
+.story-quality-copy { display: grid; flex: 1; min-width: 0; gap: 5px; }
+.story-quality-copy small { color: #c7d1c0; font-size: 16px; line-height: 1.2; }
 .story-dependency-map { display: grid; grid-template-columns: minmax(0, 1fr) 42px minmax(0, 1.3fr) 42px minmax(0, 1fr); align-items: center; gap: 12px; }
 .story-dependency-map article { padding: 17px; border: 1px solid #506557; color: #dce8d9; background: #1a2921; font-size: 20px; font-weight: 750; text-align: center; }
 .story-dependency-map article.is-selected { border-color: #c4df9d; color: #f3f5e7; background: #2a3b27; }
